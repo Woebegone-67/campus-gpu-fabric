@@ -54,7 +54,10 @@ def main():
         try:
             with log.open("w") as stream:
                 result = subprocess.run(args, cwd=ROOT, stdout=stream,
-                                        stderr=subprocess.STDOUT, timeout=240, check=False)
+                                        stderr=subprocess.STDOUT,
+                                        # Full regression includes paced real processes and
+                                        # runs more slowly on shared Linux CI workers.
+                                        timeout=600 if name == "python" else 240, check=False)
             code = result.returncode
         except subprocess.TimeoutExpired:
             code = 124
