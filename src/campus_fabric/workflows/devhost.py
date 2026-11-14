@@ -23,6 +23,7 @@ from campus_fabric.projections.read_models import EvidenceRead
 from campus_fabric.workflows.acceptance_evidence import checkpoint_checks
 from campus_fabric.workflows.experiment_runner import ExperimentService
 from campus_fabric.workflows.orchestrator import WorkflowOrchestrator, WorkflowReadError
+from campus_fabric.workflows.policy_validation import SealedPolicyValidation
 
 ROOT = Path(__file__).resolve().parents[3]
 LOG = logging.getLogger(__name__)
@@ -127,7 +128,8 @@ def create_app(*, worker_enabled=True, **core_options):
                             runs=runs, checks=checks, build_matches=build_matches)
 
     services = make_kernel_services(kernel, app.state.identity, clock_origin=origin,
-                                    evidence_reader=evidence, experiment_runner=experiments)
+                                    evidence_reader=evidence, experiment_runner=experiments,
+                                    policy_validation_reader=SealedPolicyValidation(ROOT))
     register_queries(app, services, replace_existing=True)
     mode = core_options.get("scheduling_mode") or os.environ.get("FABRIC_SCHEDULING_MODE", "builtin")
     policy_name = os.environ.get("FABRIC_B_POLICY", "B0") if mode == "external" else None

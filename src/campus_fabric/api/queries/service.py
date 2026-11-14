@@ -36,6 +36,14 @@ EvidenceReader = Callable[[AuthenticatedActor], EvidenceRead]
 ArtifactReader = Callable[[AuthenticatedActor, str, str], ArtifactRead | None]
 
 
+class PolicyValidationReader(Protocol):
+    """Read sealed CP3 outputs; a request cannot run code or choose a local path."""
+
+    def snapshot(self) -> dict: ...
+
+    def artifact(self, artifact_id: str) -> bytes: ...
+
+
 class ExperimentRunner(Protocol):
     """Registered, isolated experiments; never a caller-supplied scenario or URL."""
 
@@ -88,6 +96,7 @@ class QueryServices:
     evidence_reader: EvidenceReader | None = None
     artifact_reader: ArtifactReader | None = None
     experiment_runner: ExperimentRunner | None = None
+    policy_validation_reader: PolicyValidationReader | None = None
     clock_origin: str | None = None
     cp1_advisory_actions: bool = False
 
@@ -97,6 +106,13 @@ class QueryServices:
         if self.experiment_runner is None:
             raise unavailable("Isolated experiment runner")
         return self.experiment_runner
+
+    def policy_validation(self, actor: AuthenticatedActor) -> PolicyValidationReader:
+        if actor.role != "administrator":
+            raise QueryFailure(403, "forbidden", "Administrator authority is required.")
+        if self.policy_validation_reader is None:
+            raise unavailable("Sealed policy validation reader")
+        return self.policy_validation_reader
 
     def actor(self, request: Request) -> AuthenticatedActor:
         if self.resolve_actor is None:

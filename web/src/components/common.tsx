@@ -7,7 +7,7 @@ const labels: Record<string, string> = {
   Preempted: '已中断', Released: '已释放', Expired: '已过期', Evicted: '已驱逐', Rejected: '已拒绝',
   Succeeded: '已完成', Failed: '失败', Cancelled: '已取消', Checkpointing: '保存中',
   stopping: '正在停止', quarantined: '隔离中', interrupted: '已中断', pending: '待处理', waiting: '等待中', running: '运行中', completed: '已完成', failed: '失败', cancelled: '已取消',
-  manual_action: '需要处理', committed: '已提交', rejected: '已拒绝', noop: '无新增效果',
+  manual_action: '需要处理', committed: '已提交', rejected: '已拒绝', noop: '无新增效果', success: '已完成', failure: '失败', stopped: '已停止', created: '已登记', starting: '正在启动',
   ready: '收到 ready 报告', verified: '已核验', unverified: '未核验', applied: '已接续', not_attempted: '未接续',
   MET: '已通过', NOT_MET: '未通过', NOT_RUN: '未运行', available: '可用', occupied: '占用', unavailable: '不可用',
   legal: '可行', infeasible: '不可行', unexamined: '未检查',
@@ -45,14 +45,14 @@ export function Panel({title, description, actions, children}: {title: string; d
   return <section className="panel"><div className="panel-heading"><div><h2>{title}</h2>{description && <p>{description}</p>}</div>{actions}</div>{children}</section>;
 }
 export function Refresh({onClick, loading = false}: {onClick: () => void; loading?: boolean}) { return <button type="button" className="button quiet" disabled={loading} onClick={onClick}>{loading?'正在刷新…':'刷新'}</button>; }
-export function ActionButton({api, path, method = 'POST', body, children, confirmation, onDone, request, disabled = false}: {api: ApiClient; path: string; method?: string; body?: unknown; children: ReactNode; confirmation?: string; onDone?: () => void; request?: () => Promise<ApiResult>; disabled?: boolean}) {
+export function ActionButton({api, path, method = 'POST', body, children, confirmation, onDone, onResult, request, disabled = false}: {api: ApiClient; path: string; method?: string; body?: unknown; children: ReactNode; confirmation?: string; onDone?: () => void; onResult?: (result:ApiResult) => void; request?: () => Promise<ApiResult>; disabled?: boolean}) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<ApiError | null>(null);
   const [result, setResult] = useState<ApiResult | null>(null);
   async function run() {
     if (confirmation && !window.confirm(confirmation)) return;
     setBusy(true); setError(null); setResult(null);
-    try { setResult(await (request ? request() : api.request(path, {method, body})));  onDone?.(); }
+    try { const response=await (request ? request() : api.request(path, {method, body}));setResult(response);onResult?.(response);onDone?.(); }
     catch (error) { setError(error instanceof ApiError ? error : new ApiError('操作失败', 0)); }
     finally { setBusy(false); }
   }
@@ -60,7 +60,8 @@ export function ActionButton({api, path, method = 'POST', body, children, confir
 }
 export function Receipt({result}: {result: ApiResult}) {
   const receipt = object(object(result.data).receipt ?? object(result.data).commit_receipt ?? result.data);
-  return <div className="feedback success" role="status"><strong>{result.status === 202 ? '服务已接受请求，最终状态以查询结果为准' : '已收到服务端回执'}</strong>{receipt.outcome !== undefined && <p><Status value={receipt.outcome}/></p>}<small>HTTP {result.status}{result.requestId ? ` · ${result.requestId}` : ''}</small><RawData data={result.data} label="查看操作回执"/></div>;
+  const rejected=receipt.outcome==='rejected',error=object(receipt.error);
+  return <div className={`feedback ${rejected?'error':result.status===202||receipt.outcome==='noop'?'warning':'success'}`} role={rejected?'alert':'status'}><strong>{rejected?'服务端拒绝了本次操作':result.status === 202 ? '服务已接受请求，最终状态以查询结果为准' : '已收到服务端回执'}</strong>{receipt.outcome !== undefined && <p><Status value={receipt.outcome}/></p>}{rejected&&<p>{text(error.code,'未提供错误码')} · {text(error.detail,'请查看操作回执。')}</p>}<small>HTTP {result.status}{result.requestId ? ` · ${result.requestId}` : ''}</small><RawData data={result.data} label="查看操作回执"/></div>;
 }
 export function Field({label, children, help}: {label: string; children: ReactNode; help?: string}) { return <label className="field"><span>{label}</span>{children}{help && <small>{help}</small>}</label>; }
 export function Table({columns, rows, rowKey}: {columns: {label: string; render: (row: JsonObject) => ReactNode}[]; rows: JsonObject[]; rowKey: (row: JsonObject, index: number) => string}) {

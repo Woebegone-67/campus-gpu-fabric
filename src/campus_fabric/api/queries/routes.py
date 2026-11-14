@@ -385,6 +385,27 @@ def create_query_router(services: QueryServices | None = None) -> APIRouter:
             ),
         }
 
+    def policy_validation(request: Request, actor: Any) -> dict:
+        reader = services.policy_validation(actor)
+        try:
+            return invoke(reader.snapshot)
+        except (ValueError, OSError, KeyError, TypeError):
+            raise QueryFailure(409, "invalid_evidence",
+                               "CP3 evidence is incomplete, corrupt or belongs to another build.")
+
+    def policy_validation_artifact(request: Request, actor: Any) -> Response:
+        reader = services.policy_validation(actor)
+        try:
+            content = invoke(reader.artifact, request.path_params["artifact_id"])
+        except KeyError:
+            raise QueryFailure(404, "not_found", "The registered CP3 artifact was not found.")
+        except (ValueError, OSError, TypeError):
+            raise QueryFailure(409, "invalid_evidence",
+                               "The CP3 artifact failed build or content validation.")
+        return Response(content, media_type="application/json",
+                        headers={"Content-Disposition": "attachment",
+                                 "X-Content-Type-Options": "nosniff"})
+
     def artifact(request: Request, actor: Any) -> Response:
         intent_id, artifact_id = request.path_params["intent_id"], request.path_params["artifact_id"]
         snapshot = services.read(actor, global_scope=actor.role == "administrator")
@@ -418,6 +439,8 @@ def create_query_router(services: QueryServices | None = None) -> APIRouter:
     endpoint("/x/v1/experiments/{run_id}", experiment)
     endpoint("/x/v1/experiments/{run_id}/artifacts/{artifact_id}", experiment_artifact)
     endpoint("/x/v1/acceptance", acceptance)
+    endpoint("/x/v1/policy-validation", policy_validation)
+    endpoint("/x/v1/policy-validation/artifacts/{artifact_id}", policy_validation_artifact)
     return router
 
 

@@ -328,3 +328,91 @@ test('CPU form retries stale registration with same identity/body and blocks nav
   assert.equal(button('查询这项工作').disabled,false);
   await interact(()=>button('查询这项工作').click());assert.equal(opened,1);
 });
+
+test('CP3 settlement puts authoritative failure and held lease guidance before history',async()=>{
+  const data=cp2Work();data.item.state='failed';data.item.result={kind:'failure',recorded_at:12,failure:{code:'timeout',detail:'Task exceeded its allowed runtime'}};
+  data.allocations[0].state='Running';data.legal_actions=[{operation:'allocation.release'}];
+  globalThis.fetch=async()=>json(data);
+  await render(service('logical_simulation',<ContinuityPage api={api()} initialId="work-cp2"/>));
+  const outcome=container.querySelector('[aria-label="结果与结算"]');
+  assert.match(outcome.textContent,/工作失败 · timeout.*Task exceeded/s);
+  assert.match(outcome.textContent,/工作已经结束，租约仍持有资源/);
+  assert.ok(outcome.compareDocumentPosition([...container.querySelectorAll('h2')].find(e=>e.textContent==='执行与保存时间线'))&dom.window.Node.DOCUMENT_POSITION_FOLLOWING);
+  assert.equal(container.querySelector('.simulation-note'),null,'terminal work must not ask the user to advance time');
+  assert.equal(button('释放租约').disabled,false);
+});
+
+test('CP3 settlement distinguishes completed work from pending stop and preserves receipt after refresh',async()=>{
+  const data=cp2Work('cpu_reference');data.item.state='completed';data.item.result={kind:'success',recorded_at:12};data.allocations[0].pending_terminal='Released';
+  data.legal_actions=[{operation:'allocation.release'}];
+  globalThis.fetch=async(path,options)=>{requests.push({path,options});return json(options.method==='POST'?{receipt:{outcome:'noop'}}:data);};
+  const originalConfirm=window.confirm;window.confirm=()=>true;
+  try{
+    await render(service('cpu_reference',<ContinuityPage api={api()} initialId="work-cp2"/>));
+    assert.match(container.querySelector('[aria-label="结果与结算"]').textContent,/停止请求正在确认中/);
+    assert.doesNotMatch(container.textContent,/关联租约已不再持有资源/);
+    await interact(()=>button('释放租约').click());
+    assert.match(container.textContent,/无新增效果/,'receipt remains available after detail refresh');
+    assert.match(container.textContent,/确认前不能视为资源已归还/);
+  }finally{window.confirm=originalConfirm;}
+});
+
+test('CP3 settlement shows released cancellation and keeps previous attempts collapsed',async()=>{
+  const data=cp2Work();data.item.state='cancelled';data.item.result={kind:'cancelled',recorded_at:12};data.allocations[0].state='Released';
+  data.item.attempts.unshift({ref:{attempt_id:'attempt-1',generation:1,job_id:'job-1'},state:'stopped'});data.item.attempts[1].state='cancelled';
+  globalThis.fetch=async()=>json(data);
+  await render(service('logical_simulation',<ContinuityPage api={api()} initialId="work-cp2"/>));
+  assert.match(container.querySelector('[aria-label="结果与结算"]').textContent,/已取消.*关联租约已不再持有资源/s);
+  const history=[...container.querySelectorAll('details')].find(e=>e.querySelector('summary')?.textContent==='查看历史执行（1 次）');
+  assert.ok(history);assert.equal(history.open,false);assert.match(history.textContent,/attempt-1.*已停止/s);
+  assert.equal(container.querySelector('.simulation-note'),null);
+});
+
+test('CP3 settlement leaves waiting recovery incomplete and exposes failed stage reason',async()=>{
+  const data=cp2Work();data.item.state='waiting';data.allocations[0].state='Pending';data.legal_actions=[];
+  data.item.stages=[{stage_id:'stage-settle',operation:'settle',state:'failed',receipt:{outcome:'rejected',error:{code:'lease_in_use',detail:'Another active task still holds this lease'}}}];
+  globalThis.fetch=async()=>json(data);
+  await render(service('logical_simulation',<ContinuityPage api={api()} initialId="work-cp2"/>));
+  const outcome=container.querySelector('[aria-label="结果与结算"]');assert.match(outcome.textContent,/尚未产生终态结果/);assert.match(outcome.textContent,/等待资源/);assert.match(outcome.textContent,/lease_in_use.*Another active task/s);
+  assert.match(container.querySelector('.checkpoint-grid').textContent,/收到 ready 报告.*未核验.*未接续/s);
+});
+
+test('CP3 settlement result preview preserves exact JSON integers and is cleared on denied read',async()=>{
+  const raw='{"state":{"step":1000000,"value":16159431991146531633}}\n';let reads=0;
+  globalThis.fetch=async(path,options)=>{requests.push({path,options});return ++reads===1?new Response(raw,{headers:{'Content-Type':'application/json'}}):json({error:'not_found',detail:'Artifact not visible'},404);};
+  await render(<ArtifactDownload api={api()} uri="fabric-cpu://epoch-0/work/result.json" previewLabel="查看真实结果 1"/>);
+  await interact(()=>button('查看真实结果 1').click());
+  assert.equal(container.querySelector('pre').textContent,raw);
+  assert.equal(requests[0].options.headers.Authorization,'Bearer synthetic-test-token');
+  await interact(()=>button('查看真实结果 1').click());
+  assert.equal(container.querySelector('pre'),null);assert.match(container.textContent,/HTTP 404/);
+});
+
+test('CP3 settlement artifact preview never leaks across identity or URI changes',async()=>{
+  let resolve;
+  const ownerApi=api(),otherApi=new ApiClient({owner:'alice',token:'synthetic-other'});
+  globalThis.fetch=async()=>new Promise(r=>{resolve=r;});
+  await render(<ArtifactDownload api={ownerApi} uri="fabric-cpu://private/result.json" previewLabel="查看结果"/>);
+  await interact(()=>button('查看结果').click());
+  await render(<ArtifactDownload api={otherApi} uri="fabric-cpu://private/result.json" previewLabel="查看结果"/>);
+  await act(async()=>resolve(new Response('{"private":"owner-secret"}',{headers:{'Content-Type':'application/json'}})));
+  assert.doesNotMatch(container.textContent,/owner-secret/);
+});
+
+test('CP3 settlement rejected business receipt is an error even with HTTP 200',async()=>{
+  const {Receipt}=await import('../src/components/common.tsx');
+  await render(<Receipt result={{status:200,data:{receipt:{outcome:'rejected',error:{code:'lease_in_use',detail:'Cannot release active lease'}}},raw:'{}',requestId:'cp3-rejected'}}/>);
+  assert.match(container.querySelector('[role=alert]').textContent,/服务端拒绝.*lease_in_use.*Cannot release active lease/s);
+  assert.equal(container.querySelector('.feedback.success'),null);
+});
+
+test('CP3 settlement completed CPU work exposes an inline result before any execution history',async()=>{
+  const data=cp2Work('cpu_reference');data.item.state='completed';data.item.result={kind:'success',recorded_at:12,artifact_uris:['fabric-cpu://epoch-0/work/result.json']};data.allocations[0].state='Released';
+  globalThis.fetch=async(path)=>path.startsWith('/x/v1/artifacts?')?new Response('{"state":{"value":16159431991146531633}}\n',{headers:{'Content-Type':'application/json'}}):json(data);
+  await render(service('cpu_reference',<ContinuityPage api={api()} initialId="work-cp2"/>));
+  const outcome=container.querySelector('[aria-label="结果与结算"]');
+  assert.ok(outcome.contains(button('查看真实结果 1')));assert.ok(outcome.contains(button('下载真实结果 1')));
+  await interact(()=>button('查看真实结果 1').click());
+  assert.equal(outcome.querySelector('.artifact-access pre').textContent,'{"state":{"value":16159431991146531633}}\n');
+  assert.match(outcome.textContent,/关联租约已不再持有资源/);
+});

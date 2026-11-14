@@ -12,7 +12,7 @@
     "generate:contracts": "json2ts -i ../contracts/generated/contracts.schema.json -o src/generated/contracts.ts",
     "preview": "vite preview --host 127.0.0.1",
     "test:client": "node --experimental-transform-types --test tests/api.test.mjs",
-    "test:ui": "tsx --tsconfig tsconfig.json --test tests/ui.test.tsx"
+    "test:ui": "tsx --tsconfig tsconfig.json --test tests/*.test.tsx"
   },
   "dependencies": {
     "react": "19.3.1",
