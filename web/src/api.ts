@@ -36,6 +36,19 @@ export class ApiError extends Error {
 }
 export class ApiClient {
   constructor(public identity: Identity, private onMutating: (amount: number) => void = () => {}) {}
+  async registerWork(registration: unknown): Promise<ApiResult> {
+    // Registration owns a stable intent ID and immutable input. Only an explicit
+    // pre-commit version rejection permits replaying this same registration.
+    this.onMutating(1);
+    try {
+      for(let attempt=0;;attempt++) {
+        try { return await this.request('/x/v1/work-intents',{method:'POST',body:registration}); }
+        catch(error) {
+          if(!(error instanceof ApiError)||error.status!==409||apiErrorCode(error)!=='stale_version'||attempt>=2)throw error;
+        }
+      }
+    } finally {this.onMutating(-1);}
+  }
   async workAction(intentId: string, action: string, version: {epoch:number;revision:number}, stageId?:string): Promise<ApiResult> {
     const path=`/x/v1/work-intents/${encodeId(intentId)}`;
     let expected=version;

@@ -111,3 +111,23 @@ test('lost response and known non-stale rejection never replay lifecycle command
     assert.equal(calls,1,response);
   }
 });
+
+test('registration retries only known stale rejection with identical stable ID/body and continuous identity guard',async()=>{
+  const calls=[],guard=[];
+  const registration={intent_id:'stable-work',owner_id:'bob',execution_mode:'cpu_reference',specification:{job:{image:'declared-only',command:['not-executed']}}};
+  globalThis.fetch=async(path,options)=>{calls.push({path,options});return calls.length<3?json({error:'stale_version',detail:'Refresh snapshot'},409):json({outcome:'committed'},202);};
+  const response=await new ApiClient({owner:'bob',token:'test-token'},delta=>guard.push(delta)).registerWork(registration);
+  assert.equal(response.status,202);assert.equal(calls.length,3);
+  assert.deepEqual(calls.map(c=>c.path),Array(3).fill('/x/v1/work-intents'));
+  assert.deepEqual(calls.map(c=>c.options.body),Array(3).fill(JSON.stringify(registration)));
+  let level=0;guard.forEach((delta,index)=>{level+=delta;if(index<guard.length-1)assert.ok(level>0,'identity remains locked between retries');});assert.equal(level,0);
+});
+
+test('registration stale rejection stops at three attempts; network/server/other conflict never replays',async()=>{
+  for(const failure of ['stale','network','server','conflict']) {
+    let calls=0;
+    globalThis.fetch=async()=>{calls++;if(failure==='network')throw new TypeError('lost response');return failure==='server'?json({error:'internal_error'},500):json({error:failure==='stale'?'stale_version':'intent_conflict'},409);};
+    await assert.rejects(new ApiClient({owner:'bob',token:''}).registerWork({intent_id:'stable-work'}));
+    assert.equal(calls,failure==='stale'?3:1,failure);
+  }
+});

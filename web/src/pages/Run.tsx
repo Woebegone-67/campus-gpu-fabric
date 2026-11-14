@@ -36,7 +36,7 @@ export function CreateWork({api, onCreated, onOpen}: {api: ApiClient; onCreated:
     }
     setBusy(true);
     try {
-      const response = await api.request('/x/v1/work-intents', {method: 'POST', body: registration.current});
+      const response = await api.registerWork(registration.current);
       setResult(response); onCreated();
     } catch (error) { setError(error instanceof ApiError ? error : new ApiError('登记失败', 0)); }
     finally { setBusy(false); }
@@ -62,7 +62,7 @@ export function CreateWork({api, onCreated, onOpen}: {api: ApiClient; onCreated:
         <Field label="任务超时（秒，可选）"><input name="timeout" type="number" min="1" max="86400" placeholder="不填使用服务默认"/></Field>
       </fieldset>
       <p className="helper simulation-note">当前实例：{modeLabel(service.mode)}。{service.mode==='cpu_reference'?'运行服务端固定 CPU 参考程序，不执行填写的镜像与命令；GPU 库存仍为模拟。程序随真实时间运行。':service.mode==='logical_simulation'?<>任务采用 10 秒固定逻辑工期，现实等待不会推进时间；请管理员在<a href="#acceptance">系统验收</a>推进模拟时钟。不实际执行镜像命令。</>:'确认服务模式后才能提交。'} 任务结束后请核对租约是否释放。</p>
-      <div className="actions"><button className="button primary" disabled={busy || Boolean(result) || !api.identity.owner || !service.mode || Boolean(error?.uncertain)}>{busy ? '正在登记…' : intentId ? '重试同一工作登记' : '提交工作'}</button>{intentId && <button type="button" className="button" onClick={() => onOpen(intentId)}>查询这项工作</button>}{intentId && <button type="button" className="button quiet" disabled={busy} onClick={() => {
+      <div className="actions"><button className="button primary" disabled={busy || Boolean(result) || !api.identity.owner || !service.mode || Boolean(error?.uncertain)}>{busy ? '正在登记…' : intentId ? '重试同一工作登记' : '提交工作'}</button>{intentId && <button type="button" className="button" disabled={busy} onClick={() => onOpen(intentId)}>查询这项工作</button>}{intentId && <button type="button" className="button quiet" disabled={busy} onClick={() => {
         if (window.confirm('新建另一项工作不会取消之前的请求。若结果不明，请先查询原工作。确定准备另一项工作？')) { registration.current = null; setIntentId(''); setError(null); setResult(null); }
       }}>准备另一项工作</button>}</div>
     </form>

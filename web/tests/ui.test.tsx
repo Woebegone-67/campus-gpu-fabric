@@ -305,3 +305,21 @@ test('CPU resources hide manual inventory registration while keeping owned GPU r
   assert.equal(button('发送收回通知').disabled,false);
   assert.equal(requests.filter(r=>r.options.method!=='GET').length,0);
 });
+
+test('CPU form retries stale registration with same identity/body and blocks navigation until response',async()=>{
+  let release,opened=0;
+  globalThis.fetch=async(path,options)=>{
+    requests.push({path,options});
+    if(requests.length===1)return json({error:'stale_version',detail:'Refresh snapshot'},409);
+    return new Promise(resolve=>{release=resolve;});
+  };
+  await render(service('cpu_reference',<CreateWork api={api()} onCreated={()=>{}} onOpen={()=>{opened++;}}/>));
+  await submit(container.querySelector('form'));
+  assert.equal(requests.length,2);assert.equal(requests[0].options.body,requests[1].options.body);
+  const payload=JSON.parse(requests[1].options.body);assert.match(payload.intent_id,/^work-/);assert.equal(payload.execution_mode,'cpu_reference');
+  assert.ok(button('查询这项工作').disabled);
+  await interact(()=>button('查询这项工作').click());assert.equal(opened,0);
+  await act(async()=>release(json({receipt:{outcome:'committed'}},202)));
+  assert.equal(button('查询这项工作').disabled,false);
+  await interact(()=>button('查询这项工作').click());assert.equal(opened,1);
+});
