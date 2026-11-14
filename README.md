@@ -2,7 +2,7 @@
 
 校园共享计算服务：申请、收回、接续与可追问的决定。
 
-**当前：CP3 本轮功能修复收尾，完整验收仍未通过；性能提升记录为后续工作，未放行 CP4。** CP2 冻结基线为 `aa63fb6`。收尾分支为 `review/cp3-closeout`；修复说明、精简复验范围和两类证据包见 [CP3 收尾交接](docs/handoff/CP3_CLOSEOUT.md)。旧 `1cc2ab6` 的125次正式实验保留原样，新版本只运行必要的开发回归，不替代完整状态重放、场景覆盖、策略目标及双人验收。操作入口见 [CP3 双人联合验收指南](docs/handoff/CP3_JOINT_ACCEPTANCE.md)，阶段分工见 [CP3 A 交付](docs/CP3_A_DELIVERY.md) 与 [CP3 B 交付](docs/CP3_B_DELIVERY.md)。
+**当前：按用户授权进入 CP4 开发与独立挑战阶段；CP3 完整验收未通过，CP4 正式验收未运行。** 当前放置评分路线冻结，性能 R=1.00 保留为未达；新工作选择机制有局部收益，也存在严重 Owner 损害反例，未推广到产品。根因与实测见 [性能瓶颈及新方向](docs/research/CP3_BOTTLENECK_AND_DIRECTION.md)，准入依据、硬质量要求和后续责任见 [CP4 准入记录](docs/handoff/CP4_ENTRY.md)。原 `review/cp3-closeout`、两版证据包及15184/15185实例保持原样，见 [CP3 历史收尾](docs/handoff/CP3_CLOSEOUT.md)。阶段准入不改正式门禁，不替代完整重放、实际覆盖或双人签收。
 
 CP1 审计补修包含身份应用、重复查询、授权决策解释、工作关联导航及验收回执读取，详见 [CP1 补修交接](docs/handoff/CP1_B_FIXES.md)。原人工验收实例保留，补修版使用独立工作树和端口。
 

@@ -1,0 +1,485 @@
+{
+  "schema": "cp3-direction-independent-review-v1",
+  "reviewer": "codex-independent-mcm-agent",
+  "created_at": "2026-11-14T14:11:36.031841+00:00",
+  "scope": "Read-only authoritative artifact recalculation; no additional experiment or production mutation.",
+  "groups": {
+    "cp3-direction-20261114-metadata-corrected": {
+      "manifest_sha256": "82319c34ddef6eefff31e74421935888503770603ef02da6d45dd23ce9e80ed1",
+      "build": {
+        "git_commit": "3b3203ef244842162ebce52781af2a37d6ab9d32",
+        "source_file_count": 261,
+        "source_sha256": "4d068b97da1b99f5bbf4d5e7373344b4f76bb22d950cd8498ebdbe3e73dcb30e"
+      },
+      "source_script_protocol_matches_committed_bytes": true,
+      "build_records_equal_start_finish": true,
+      "run_count": 11,
+      "runs": [
+        {
+          "run": "homogeneous-neutral--B2",
+          "scenario": "homogeneous-neutral",
+          "policy": "B2",
+          "area": 60.0,
+          "completed": 4,
+          "failed": 0,
+          "owner_service": {
+            "probe-owner-0": 1.0,
+            "probe-owner-1": 1.0,
+            "probe-owner-2": 1.0,
+            "probe-owner-3": 1.0
+          },
+          "completion_times": {
+            "probe-work-00": 10.0,
+            "probe-work-01": 10.0,
+            "probe-work-02": 20.0,
+            "probe-work-03": 20.0
+          },
+          "raw_sha256": "ed69817d11dbb9fc6aa007bb0ef86c601e18646eaa6c58fc656752f59fa53515",
+          "summary_sha256": "abc1445920122192251903e7e404a840a2716d832a9a537e7dc6c72502d31118",
+          "checks": "whole cohort, authoritative states/times, input binding, H, clean runner, event ledger capacity, no future observed demand/history"
+        },
+        {
+          "run": "homogeneous-neutral--coadmission",
+          "scenario": "homogeneous-neutral",
+          "policy": "coadmission",
+          "area": 60.0,
+          "completed": 4,
+          "failed": 0,
+          "owner_service": {
+            "probe-owner-0": 1.0,
+            "probe-owner-1": 1.0,
+            "probe-owner-2": 1.0,
+            "probe-owner-3": 1.0
+          },
+          "completion_times": {
+            "probe-work-00": 10.0,
+            "probe-work-01": 10.0,
+            "probe-work-02": 20.0,
+            "probe-work-03": 20.0
+          },
+          "raw_sha256": "0755dd354d5e1a50cb24a30656f162bc2925c4e205268ce5b4795095b3f02201",
+          "summary_sha256": "d0a9fac4d99b75b28a90acf26edfedd3718d824121f22155d6b7e65212d46e07",
+          "checks": "whole cohort, authoritative states/times, input binding, H, clean runner, event ledger capacity, no future observed demand/history"
+        },
+        {
+          "run": "late-narrow--B2",
+          "scenario": "late-narrow",
+          "policy": "B2",
+          "area": 65.0,
+          "completed": 4,
+          "failed": 0,
+          "owner_service": {
+            "probe-owner-0": 1.0,
+            "probe-owner-1": 1.0,
+            "probe-owner-2": 1.0,
+            "probe-owner-3": 1.0
+          },
+          "completion_times": {
+            "probe-work-00": 10.0,
+            "probe-work-01": 20.0,
+            "probe-work-02": 20.0,
+            "probe-work-03": 30.0
+          },
+          "raw_sha256": "284ff557c4ee092baa308af0c82f03f6420ac118fd53cad2e0748b62e6ad0842",
+          "summary_sha256": "82fe15c799c48511180f1294b5927b5e849afbb07d2a0513bde4871dd1a38b4d",
+          "checks": "whole cohort, authoritative states/times, input binding, H, clean runner, event ledger capacity, no future observed demand/history"
+        },
+        {
+          "run": "late-narrow--coadmission",
+          "scenario": "late-narrow",
+          "policy": "coadmission",
+          "area": 55.0,
+          "completed": 4,
+          "failed": 0,
+          "owner_service": {
+            "probe-owner-0": 1.0,
+            "probe-owner-1": 1.0,
+            "probe-owner-2": 1.0,
+            "probe-owner-3": 1.0
+          },
+          "completion_times": {
+            "probe-work-00": 20.0,
+            "probe-work-01": 10.0,
+            "probe-work-02": 10.0,
+            "probe-work-03": 30.0
+          },
+          "raw_sha256": "c2f5d751faaf2039acd8966c7b382dd47251e58f87df007dbd8058d334a407a2",
+          "summary_sha256": "461e4ef196569ab821b59d6fc6caf3c80de39626ca41b3db5c4dbfd084b6bcaf",
+          "checks": "whole cohort, authoritative states/times, input binding, H, clean runner, event ledger capacity, no future observed demand/history"
+        },
+        {
+          "run": "late-wide--B2",
+          "scenario": "late-wide",
+          "policy": "B2",
+          "area": 65.0,
+          "completed": 4,
+          "failed": 0,
+          "owner_service": {
+            "probe-owner-0": 1.0,
+            "probe-owner-1": 1.0,
+            "probe-owner-2": 1.0,
+            "probe-owner-3": 1.0
+          },
+          "completion_times": {
+            "probe-work-00": 10.0,
+            "probe-work-01": 20.0,
+            "probe-work-02": 20.0,
+            "probe-work-03": 30.0
+          },
+          "raw_sha256": "a2547b5287751aa70da22f89b546123fc199c46e31756d1443bc6844189d12cb",
+          "summary_sha256": "6dc4d9aca7f5487be22b73b6d7d1499f70c9d42bf5bff309f24adff98a31ef01",
+          "checks": "whole cohort, authoritative states/times, input binding, H, clean runner, event ledger capacity, no future observed demand/history"
+        },
+        {
+          "run": "late-wide--coadmission",
+          "scenario": "late-wide",
+          "policy": "coadmission",
+          "area": 55.0,
+          "completed": 4,
+          "failed": 0,
+          "owner_service": {
+            "probe-owner-0": 1.0,
+            "probe-owner-1": 1.0,
+            "probe-owner-2": 1.0,
+            "probe-owner-3": 1.0
+          },
+          "completion_times": {
+            "probe-work-00": 20.0,
+            "probe-work-01": 10.0,
+            "probe-work-02": 10.0,
+            "probe-work-03": 30.0
+          },
+          "raw_sha256": "32e874973387ddc503e2657f01fc6d7f979f7b6c5a0947ac21fdbad9eef152e9",
+          "summary_sha256": "5593028e24688873bbb5b634413c8fb8dfc561c6ea55bd70bfb4829a2d5b1951",
+          "checks": "whole cohort, authoritative states/times, input binding, H, clean runner, event ledger capacity, no future observed demand/history"
+        },
+        {
+          "run": "lease-counterexample--B2",
+          "scenario": "lease-counterexample",
+          "policy": "B2",
+          "area": 100.0,
+          "completed": 3,
+          "failed": 0,
+          "owner_service": {
+            "probe-owner-0": 1.0,
+            "probe-owner-1": 1.0,
+            "probe-owner-2": 1.0
+          },
+          "completion_times": {
+            "probe-work-00": 20.0,
+            "probe-work-01": 40.0,
+            "probe-work-02": 40.0
+          },
+          "raw_sha256": "d62ee824c65444f13ce5bdebdb8db5498e1f758371b8960adc7760c32f0d72af",
+          "summary_sha256": "69b785ff3bba2824163ba7087f8d613e35ff94effd6d8a3b49c18fcc1aff7f0f",
+          "checks": "whole cohort, authoritative states/times, input binding, H, clean runner, event ledger capacity, no future observed demand/history"
+        },
+        {
+          "run": "lease-counterexample--coadmission",
+          "scenario": "lease-counterexample",
+          "policy": "coadmission",
+          "area": 80.0,
+          "completed": 3,
+          "failed": 0,
+          "owner_service": {
+            "probe-owner-0": 1.0,
+            "probe-owner-1": 1.0,
+            "probe-owner-2": 1.0
+          },
+          "completion_times": {
+            "probe-work-00": 40.0,
+            "probe-work-01": 20.0,
+            "probe-work-02": 20.0
+          },
+          "raw_sha256": "72104ae5535a3a7d8b4cde6f041407699ac31eca90aecc447178616c7da32314",
+          "summary_sha256": "487a4ca23bd1f19b812b5be4751b3b25f25a258f918cfec49613a5d5a9e8009d",
+          "checks": "whole cohort, authoritative states/times, input binding, H, clean runner, event ledger capacity, no future observed demand/history"
+        },
+        {
+          "run": "packing-witness--B2",
+          "scenario": "packing-witness",
+          "policy": "B2",
+          "area": 50.0,
+          "completed": 3,
+          "failed": 0,
+          "owner_service": {
+            "probe-owner-0": 1.0,
+            "probe-owner-1": 1.0,
+            "probe-owner-2": 1.0
+          },
+          "completion_times": {
+            "probe-work-00": 10.0,
+            "probe-work-01": 20.0,
+            "probe-work-02": 20.0
+          },
+          "raw_sha256": "1d142a02f4fe9212e5b64db5cc6ee8dbea1863f21e5c13fb32e0d16d1f0c95be",
+          "summary_sha256": "dc0d14207d7cb42c102b30b5b0d10537159e81ae39441479613f1879898e2ec6",
+          "checks": "whole cohort, authoritative states/times, input binding, H, clean runner, event ledger capacity, no future observed demand/history"
+        },
+        {
+          "run": "packing-witness--P",
+          "scenario": "packing-witness",
+          "policy": "P",
+          "area": 50.0,
+          "completed": 3,
+          "failed": 0,
+          "owner_service": {
+            "probe-owner-0": 1.0,
+            "probe-owner-1": 1.0,
+            "probe-owner-2": 1.0
+          },
+          "completion_times": {
+            "probe-work-00": 10.0,
+            "probe-work-01": 20.0,
+            "probe-work-02": 20.0
+          },
+          "raw_sha256": "052281e871aff5d781207207400f71f77ecfd3a2374ee1bdb676ab33e53dcf28",
+          "summary_sha256": "c8ad8d8eee90512287888ec751fc74be72f49454fe503f795c982d804434ec66",
+          "checks": "whole cohort, authoritative states/times, input binding, H, clean runner, event ledger capacity, no future observed demand/history"
+        },
+        {
+          "run": "packing-witness--coadmission",
+          "scenario": "packing-witness",
+          "policy": "coadmission",
+          "area": 40.0,
+          "completed": 3,
+          "failed": 0,
+          "owner_service": {
+            "probe-owner-0": 1.0,
+            "probe-owner-1": 1.0,
+            "probe-owner-2": 1.0
+          },
+          "completion_times": {
+            "probe-work-00": 20.0,
+            "probe-work-01": 10.0,
+            "probe-work-02": 10.0
+          },
+          "raw_sha256": "d29f020518926bfdc45095dc7dd6a3eed7321fce9e3b4826c0f9c6efef6894bc",
+          "summary_sha256": "16f6ee9f473aa38ef9d07282a671a21e94ae60b07cd9ccb6168adef95cb98f98",
+          "checks": "whole cohort, authoritative states/times, input binding, H, clean runner, event ledger capacity, no future observed demand/history"
+        }
+      ],
+      "lease_deadline_observations": [
+        {
+          "policy": "B2",
+          "requested_at": 0.0,
+          "grant_at": 0.0,
+          "completion_at": 20.0,
+          "expires_at": 30.0,
+          "ttl": 30
+        },
+        {
+          "policy": "coadmission",
+          "requested_at": 0.0,
+          "grant_at": 20.0,
+          "completion_at": 40.0,
+          "expires_at": 50.0,
+          "ttl": 30
+        }
+      ],
+      "common_prefix_scope": "one future shape change pair before15"
+    },
+    "cp3-owner-harm-20261114-metadata-corrected": {
+      "manifest_sha256": "ef3882b0ef914474416dfedb1ace6aef698dd4c3803d3c3d155605823b9022b1",
+      "build": {
+        "git_commit": "3b3203ef244842162ebce52781af2a37d6ab9d32",
+        "source_file_count": 261,
+        "source_sha256": "4d068b97da1b99f5bbf4d5e7373344b4f76bb22d950cd8498ebdbe3e73dcb30e"
+      },
+      "source_script_protocol_matches_committed_bytes": true,
+      "build_records_equal_start_finish": true,
+      "run_count": 2,
+      "runs": [
+        {
+          "run": "B2",
+          "scenario": "recall-owner-harm",
+          "policy": "B2",
+          "area": 170.0,
+          "completed": 1,
+          "failed": 0,
+          "owner_service": {
+            "probe-owner-0": 1.0,
+            "probe-owner-1": 0.0,
+            "probe-owner-2": 0.0
+          },
+          "completion_times": {
+            "probe-work-00": 10.0,
+            "probe-work-01": null,
+            "probe-work-02": null
+          },
+          "raw_sha256": "20a8fb7e7a362a883d9985bdf76a382c67afe5f4e9007ec24a6cf887487fc9fc",
+          "summary_sha256": "a0625806576ec98976eb92e99f0f1f3a262da40f3f8d3ca5a2ca3721bf937d46",
+          "checks": "whole cohort, authoritative states/times, input binding, H, clean runner, event ledger capacity, no future observed demand/history"
+        },
+        {
+          "run": "coadmission",
+          "scenario": "recall-owner-harm",
+          "policy": "coadmission",
+          "area": 100.0,
+          "completed": 2,
+          "failed": 0,
+          "owner_service": {
+            "probe-owner-0": 0.0,
+            "probe-owner-1": 1.0,
+            "probe-owner-2": 1.0
+          },
+          "completion_times": {
+            "probe-work-00": null,
+            "probe-work-01": 10.0,
+            "probe-work-02": 10.0
+          },
+          "raw_sha256": "be4c85267ad83763c762bb2517ae81153d35c69ed230ba4061be56ac2380344b",
+          "summary_sha256": "2db98b23b57104b4c766003275fdc8c532c13e9d02c085ac018534377858773c",
+          "checks": "whole cohort, authoritative states/times, input binding, H, clean runner, event ledger capacity, no future observed demand/history"
+        }
+      ],
+      "lease_deadline_observations": [],
+      "common_prefix_scope": null
+    }
+  },
+  "caveats": [
+    "One common-prefix shape pair is not full authority-state prefix replay.",
+    "Co-admission count is pairwise, not an exact batch optimizer; no general fairness, unknown-duration or cross-workload benefit established.",
+    "Provenance checked against committed script/protocol and equal stored build identities; this review did not independently reconstruct entire historical source fingerprint.",
+    "This is a metadata-corrected repetition of the same13 runs, not13 additional independent cases. Old metadata mismatch is documented in original receipt and historical sealed material."
+  ],
+  "owner_counterexample": {
+    "baseline_area": 170,
+    "probe_area": 100,
+    "ratio": 0.5882352941176471,
+    "baseline_completed": 1,
+    "probe_completed": 2,
+    "wide_owner_service": [
+      1,
+      0
+    ],
+    "registered_80_percent_owner_guard_violated": true,
+    "all3_finish_by10_impossible_gpu_work": {
+      "needed": 40,
+      "supply": 20
+    },
+    "scope": "bounded deterministic synthetic witness; not official-suite performance or global impossibility proof"
+  },
+  "ttl_semantics": {
+    "new_allocation": "Pending allocation expiry is None; initial grant sets now+ttl",
+    "resume": "resume restores original expiry/grant, so the finding is not a blanket TTL-reset claim",
+    "source": "src/campus_fabric/domain/kernel.py:574-585,623-644",
+    "lease_failure_hypothesis": "FALSIFIED on this valid input; wide completes in both policies"
+  },
+  "status": "PASS_SCOPED_CORRECTED_ARTIFACT_RECALCULATION",
+  "metadata_correction_review": {
+    "policy_class_ast_unchanged": true,
+    "all13_old_new_per_work_rows_identical": true,
+    "new_independent_cases_added": 0,
+    "checks": [
+      {
+        "scenario": "homogeneous-neutral",
+        "horizon": 80,
+        "work_count": 4,
+        "duration_seconds": 10,
+        "metadata_consistent": true
+      },
+      {
+        "scenario": "late-narrow",
+        "horizon": 80,
+        "work_count": 4,
+        "duration_seconds": 10,
+        "metadata_consistent": true
+      },
+      {
+        "scenario": "late-wide",
+        "horizon": 80,
+        "work_count": 4,
+        "duration_seconds": 10,
+        "metadata_consistent": true
+      },
+      {
+        "scenario": "lease-counterexample",
+        "horizon": 80,
+        "work_count": 3,
+        "duration_seconds": 20,
+        "metadata_consistent": true
+      },
+      {
+        "scenario": "packing-witness",
+        "horizon": 80,
+        "work_count": 3,
+        "duration_seconds": 10,
+        "metadata_consistent": true
+      },
+      {
+        "run": "homogeneous-neutral--B2",
+        "old_new_per_work_rows_identical": true,
+        "work_rows": 4
+      },
+      {
+        "run": "homogeneous-neutral--coadmission",
+        "old_new_per_work_rows_identical": true,
+        "work_rows": 4
+      },
+      {
+        "run": "late-narrow--B2",
+        "old_new_per_work_rows_identical": true,
+        "work_rows": 4
+      },
+      {
+        "run": "late-narrow--coadmission",
+        "old_new_per_work_rows_identical": true,
+        "work_rows": 4
+      },
+      {
+        "run": "late-wide--B2",
+        "old_new_per_work_rows_identical": true,
+        "work_rows": 4
+      },
+      {
+        "run": "late-wide--coadmission",
+        "old_new_per_work_rows_identical": true,
+        "work_rows": 4
+      },
+      {
+        "run": "lease-counterexample--B2",
+        "old_new_per_work_rows_identical": true,
+        "work_rows": 3
+      },
+      {
+        "run": "lease-counterexample--coadmission",
+        "old_new_per_work_rows_identical": true,
+        "work_rows": 3
+      },
+      {
+        "run": "packing-witness--B2",
+        "old_new_per_work_rows_identical": true,
+        "work_rows": 3
+      },
+      {
+        "run": "packing-witness--P",
+        "old_new_per_work_rows_identical": true,
+        "work_rows": 3
+      },
+      {
+        "run": "packing-witness--coadmission",
+        "old_new_per_work_rows_identical": true,
+        "work_rows": 3
+      },
+      {
+        "scenario": "owner-harm",
+        "horizon": 80,
+        "work_count": 3,
+        "duration_seconds": 10,
+        "metadata_consistent": true
+      },
+      {
+        "run": "B2",
+        "old_new_per_work_rows_identical": true,
+        "work_rows": 3
+      },
+      {
+        "run": "coadmission",
+        "old_new_per_work_rows_identical": true,
+        "work_rows": 3
+      }
+    ],
+    "old_sealed_material": "preserved; corrected separate rerun verified without additional experiment by reviewer"
+  }
+}

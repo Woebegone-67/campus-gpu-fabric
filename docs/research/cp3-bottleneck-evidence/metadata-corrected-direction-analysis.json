@@ -1,0 +1,973 @@
+{
+  "build_at_finish": {
+    "git_commit": "3b3203ef244842162ebce52781af2a37d6ab9d32",
+    "source_file_count": 261,
+    "source_sha256": "4d068b97da1b99f5bbf4d5e7373344b4f76bb22d950cd8498ebdbe3e73dcb30e"
+  },
+  "build_at_start": {
+    "git_commit": "3b3203ef244842162ebce52781af2a37d6ab9d32",
+    "source_file_count": 261,
+    "source_sha256": "4d068b97da1b99f5bbf4d5e7373344b4f76bb22d950cd8498ebdbe3e73dcb30e"
+  },
+  "changed_future_common_prefix_equal": true,
+  "comparisons": {
+    "homogeneous-neutral": {
+      "baseline_area": 60.0,
+      "baseline_completed": 4,
+      "baseline_failed": 0,
+      "probe_area": 60.0,
+      "probe_completed": 4,
+      "probe_failed": 0,
+      "ratio": 1.0
+    },
+    "late-narrow": {
+      "baseline_area": 65.0,
+      "baseline_completed": 4,
+      "baseline_failed": 0,
+      "probe_area": 55.0,
+      "probe_completed": 4,
+      "probe_failed": 0,
+      "ratio": 0.8461538461538461
+    },
+    "late-wide": {
+      "baseline_area": 65.0,
+      "baseline_completed": 4,
+      "baseline_failed": 0,
+      "probe_area": 55.0,
+      "probe_completed": 4,
+      "probe_failed": 0,
+      "ratio": 0.8461538461538461
+    },
+    "lease-counterexample": {
+      "baseline_area": 100.0,
+      "baseline_completed": 3,
+      "baseline_failed": 0,
+      "probe_area": 80.0,
+      "probe_completed": 3,
+      "probe_failed": 0,
+      "ratio": 0.8
+    },
+    "packing-witness": {
+      "baseline_area": 50.0,
+      "baseline_completed": 3,
+      "baseline_failed": 0,
+      "probe_area": 40.0,
+      "probe_completed": 3,
+      "probe_failed": 0,
+      "ratio": 0.8
+    }
+  },
+  "formal_validation": false,
+  "interpretation": "A positive witness only refutes no-headroom in all action classes. Retain counterexamples; no deployment or tuning follows.",
+  "manifest_sha256": "82319c34ddef6eefff31e74421935888503770603ef02da6d45dd23ce9e80ed1",
+  "metrics": {
+    "homogeneous-neutral": {
+      "B2": {
+        "area": 60.0,
+        "completed": 4,
+        "failed": 0,
+        "works": [
+          {
+            "admission_to_first_attempt_seconds": 0.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 0.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 10.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 0.0,
+            "first_attempt_start": 0.0,
+            "intent_id": "probe-work-00",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-0",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 0.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 0.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 10.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 0.0,
+            "first_attempt_start": 0.0,
+            "intent_id": "probe-work-01",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-1",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 10.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 10.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 20.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 10.0,
+            "first_attempt_start": 10.0,
+            "intent_id": "probe-work-02",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-2",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 10.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 10.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 20.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 10.0,
+            "first_attempt_start": 10.0,
+            "intent_id": "probe-work-03",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-3",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          }
+        ]
+      },
+      "coadmission": {
+        "area": 60.0,
+        "completed": 4,
+        "failed": 0,
+        "works": [
+          {
+            "admission_to_first_attempt_seconds": 0.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 0.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 10.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 0.0,
+            "first_attempt_start": 0.0,
+            "intent_id": "probe-work-00",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-0",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 0.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 0.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 10.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 0.0,
+            "first_attempt_start": 0.0,
+            "intent_id": "probe-work-01",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-1",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 10.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 10.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 20.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 10.0,
+            "first_attempt_start": 10.0,
+            "intent_id": "probe-work-02",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-2",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 10.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 10.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 20.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 10.0,
+            "first_attempt_start": 10.0,
+            "intent_id": "probe-work-03",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-3",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          }
+        ]
+      }
+    },
+    "late-narrow": {
+      "B2": {
+        "area": 65.0,
+        "completed": 4,
+        "failed": 0,
+        "works": [
+          {
+            "admission_to_first_attempt_seconds": 0.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 0.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 10.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 0.0,
+            "first_attempt_start": 0.0,
+            "intent_id": "probe-work-00",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-0",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 10.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 10.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 20.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 10.0,
+            "first_attempt_start": 10.0,
+            "intent_id": "probe-work-01",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-1",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 10.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 10.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 20.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 10.0,
+            "first_attempt_start": 10.0,
+            "intent_id": "probe-work-02",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-2",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 5.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 5.0,
+            "arrived_at": 15.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 30.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 20.0,
+            "first_attempt_start": 20.0,
+            "intent_id": "probe-work-03",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-3",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          }
+        ]
+      },
+      "coadmission": {
+        "area": 55.0,
+        "completed": 4,
+        "failed": 0,
+        "works": [
+          {
+            "admission_to_first_attempt_seconds": 10.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 10.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 20.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 10.0,
+            "first_attempt_start": 10.0,
+            "intent_id": "probe-work-00",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-0",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 0.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 0.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 10.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 0.0,
+            "first_attempt_start": 0.0,
+            "intent_id": "probe-work-01",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-1",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 0.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 0.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 10.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 0.0,
+            "first_attempt_start": 0.0,
+            "intent_id": "probe-work-02",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-2",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 5.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 5.0,
+            "arrived_at": 15.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 30.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 20.0,
+            "first_attempt_start": 20.0,
+            "intent_id": "probe-work-03",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-3",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          }
+        ]
+      }
+    },
+    "late-wide": {
+      "B2": {
+        "area": 65.0,
+        "completed": 4,
+        "failed": 0,
+        "works": [
+          {
+            "admission_to_first_attempt_seconds": 0.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 0.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 10.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 0.0,
+            "first_attempt_start": 0.0,
+            "intent_id": "probe-work-00",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-0",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 10.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 10.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 20.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 10.0,
+            "first_attempt_start": 10.0,
+            "intent_id": "probe-work-01",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-1",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 10.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 10.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 20.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 10.0,
+            "first_attempt_start": 10.0,
+            "intent_id": "probe-work-02",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-2",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 5.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 5.0,
+            "arrived_at": 15.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 30.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 20.0,
+            "first_attempt_start": 20.0,
+            "intent_id": "probe-work-03",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-3",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          }
+        ]
+      },
+      "coadmission": {
+        "area": 55.0,
+        "completed": 4,
+        "failed": 0,
+        "works": [
+          {
+            "admission_to_first_attempt_seconds": 10.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 10.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 20.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 10.0,
+            "first_attempt_start": 10.0,
+            "intent_id": "probe-work-00",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-0",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 0.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 0.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 10.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 0.0,
+            "first_attempt_start": 0.0,
+            "intent_id": "probe-work-01",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-1",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 0.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 0.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 10.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 0.0,
+            "first_attempt_start": 0.0,
+            "intent_id": "probe-work-02",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-2",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 5.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 5.0,
+            "arrived_at": 15.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 30.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 20.0,
+            "first_attempt_start": 20.0,
+            "intent_id": "probe-work-03",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-3",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          }
+        ]
+      }
+    },
+    "lease-counterexample": {
+      "B2": {
+        "area": 100.0,
+        "completed": 3,
+        "failed": 0,
+        "works": [
+          {
+            "admission_to_first_attempt_seconds": 0.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 0.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 20.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 0.0,
+            "first_attempt_start": 0.0,
+            "intent_id": "probe-work-00",
+            "job_lifecycle_truncated_seconds": 20.0,
+            "owner_id": "probe-owner-0",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 20.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 20.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 40.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 20.0,
+            "first_attempt_start": 20.0,
+            "intent_id": "probe-work-01",
+            "job_lifecycle_truncated_seconds": 20.0,
+            "owner_id": "probe-owner-1",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 20.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 20.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 40.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 20.0,
+            "first_attempt_start": 20.0,
+            "intent_id": "probe-work-02",
+            "job_lifecycle_truncated_seconds": 20.0,
+            "owner_id": "probe-owner-2",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          }
+        ]
+      },
+      "coadmission": {
+        "area": 80.0,
+        "completed": 3,
+        "failed": 0,
+        "works": [
+          {
+            "admission_to_first_attempt_seconds": 20.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 20.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 40.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 20.0,
+            "first_attempt_start": 20.0,
+            "intent_id": "probe-work-00",
+            "job_lifecycle_truncated_seconds": 20.0,
+            "owner_id": "probe-owner-0",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 0.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 0.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 20.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 0.0,
+            "first_attempt_start": 0.0,
+            "intent_id": "probe-work-01",
+            "job_lifecycle_truncated_seconds": 20.0,
+            "owner_id": "probe-owner-1",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 0.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 0.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 20.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 0.0,
+            "first_attempt_start": 0.0,
+            "intent_id": "probe-work-02",
+            "job_lifecycle_truncated_seconds": 20.0,
+            "owner_id": "probe-owner-2",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          }
+        ]
+      }
+    },
+    "packing-witness": {
+      "B2": {
+        "area": 50.0,
+        "completed": 3,
+        "failed": 0,
+        "works": [
+          {
+            "admission_to_first_attempt_seconds": 0.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 0.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 10.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 0.0,
+            "first_attempt_start": 0.0,
+            "intent_id": "probe-work-00",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-0",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 10.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 10.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 20.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 10.0,
+            "first_attempt_start": 10.0,
+            "intent_id": "probe-work-01",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-1",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 10.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 10.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 20.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 10.0,
+            "first_attempt_start": 10.0,
+            "intent_id": "probe-work-02",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-2",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          }
+        ]
+      },
+      "P": {
+        "area": 50.0,
+        "completed": 3,
+        "failed": 0,
+        "works": [
+          {
+            "admission_to_first_attempt_seconds": 0.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 0.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 10.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 0.0,
+            "first_attempt_start": 0.0,
+            "intent_id": "probe-work-00",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-0",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 10.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 10.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 20.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 10.0,
+            "first_attempt_start": 10.0,
+            "intent_id": "probe-work-01",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-1",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 10.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 10.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 20.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 10.0,
+            "first_attempt_start": 10.0,
+            "intent_id": "probe-work-02",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-2",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          }
+        ]
+      },
+      "coadmission": {
+        "area": 40.0,
+        "completed": 3,
+        "failed": 0,
+        "works": [
+          {
+            "admission_to_first_attempt_seconds": 10.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 10.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 20.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 10.0,
+            "first_attempt_start": 10.0,
+            "intent_id": "probe-work-00",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-0",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 0.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 0.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 10.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 0.0,
+            "first_attempt_start": 0.0,
+            "intent_id": "probe-work-01",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-1",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          },
+          {
+            "admission_to_first_attempt_seconds": 0.0,
+            "allocation_states": [
+              "Released"
+            ],
+            "allocation_wait_seconds": 0.0,
+            "arrived_at": 0.0,
+            "attempt_count": 1,
+            "cancelled_at": null,
+            "completed_at": 10.0,
+            "completion_right_censored": false,
+            "effective_service": 1.0,
+            "failure": null,
+            "first_allocation_grant": 0.0,
+            "first_attempt_start": 0.0,
+            "intent_id": "probe-work-02",
+            "job_lifecycle_truncated_seconds": 10.0,
+            "owner_id": "probe-owner-2",
+            "status": "completed",
+            "wasted_attempt_seconds": 0
+          }
+        ]
+      }
+    }
+  },
+  "promotion_allowed": false,
+  "run_count": 11
+}

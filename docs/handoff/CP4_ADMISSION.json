@@ -1,0 +1,31 @@
+{
+  "schema": "phase-authorization-v1",
+  "record_type": "user_authorized_development_phase_not_acceptance_receipt",
+  "date": "2026-11-14",
+  "phase": "CP4",
+  "admission": "AUTHORIZED_WITH_OPEN_ITEMS",
+  "authority": "User explicitly allowed freezing persistent low-return performance work and entering CP4 while requiring high-quality acceptance.",
+  "condition_evidence": [
+    "125 historical runs preserve exact R=1.00; only 3 of 790 P selections change B2 actions",
+    "A larger admission action class improves a designed witness from F50 to F40",
+    "A contributor-recall counterexample improves area but drops one Owner service from 1 to 0; prototype promotion rejected"
+  ],
+  "frozen_scope": [
+    "fixed-B2-admission opportunity-placement score tuning",
+    "production promotion of the unconstrained co-admission prototype"
+  ],
+  "formal_cp3_passed": false,
+  "formal_cp4_passed": false,
+  "release_permitted_by_this_record": false,
+  "formal_gate_thresholds_changed": false,
+  "product_policy_changed": false,
+  "remaining_quality_items": [
+    "full authoritative prefix and committed-write replay",
+    "declared scenario semantics demonstrated; excluding unsupported claims does not pass the original registered coverage targets",
+    "candidate-build core HTTP, ledger, authorization, crash and CPU-equivalence verification",
+    "B actual clean deployment and human cross-operation",
+    "all seven CP4 registered validation checks with current evidence"
+  ],
+  "details": "docs/handoff/CP4_ENTRY.md",
+  "research": "docs/research/CP3_BOTTLENECK_AND_DIRECTION.md"
+}
