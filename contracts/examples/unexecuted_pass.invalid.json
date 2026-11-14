@@ -1,0 +1,74 @@
+{
+  "build": {
+    "name": "fixture-only",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "uri": null,
+    "version": "cp0-fixture-not-executed"
+  },
+  "calculator": {
+    "name": "fixture-only",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "uri": null,
+    "version": "cp0-fixture-not-executed"
+  },
+  "checks": [
+    {
+      "actual": "Claim without a run.",
+      "command_or_action": "fixture",
+      "evidence_uris": [
+        "fixture://none"
+      ],
+      "executor": "fixture",
+      "expected": "Real CPU process run.",
+      "status": "MET",
+      "target_id": "T-REAL"
+    }
+  ],
+  "environment": {
+    "cpu_count": 1,
+    "execution_mode": "logical_simulation",
+    "memory_mib": 1024,
+    "platform": "fixture-only",
+    "python_version": "3.12"
+  },
+  "inputs": [
+    {
+      "name": "fixture-only",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "uri": null,
+      "version": "cp0-fixture-not-executed"
+    }
+  ],
+  "model": {
+    "name": "fixture-only",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "uri": null,
+    "version": "cp0-fixture-not-executed"
+  },
+  "policy": {
+    "name": "fixture-only",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "uri": null,
+    "version": "cp0-fixture-not-executed"
+  },
+  "run_id": "fixture-run-not-executed",
+  "run_kind": "factual",
+  "scenario": {
+    "name": "fixture-only",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "uri": null,
+    "version": "cp0-fixture-not-executed"
+  },
+  "seed": 0,
+  "semantics": {
+    "name": "fixture-only",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "uri": null,
+    "version": "cp0-fixture-not-executed"
+  },
+  "status": "not_run",
+  "window": {
+    "end": 100.0,
+    "start": 0.0
+  }
+}

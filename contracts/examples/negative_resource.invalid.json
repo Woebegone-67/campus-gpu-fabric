@@ -1,0 +1,29 @@
+{
+  "actor": {
+    "actor_id": "actor-alice",
+    "owner_id": "owner-alice",
+    "role": "researcher"
+  },
+  "expected_version": {
+    "epoch": 1,
+    "revision": 7
+  },
+  "idempotency_key": "key-alice-1",
+  "operation": "allocation.create",
+  "parameters": {
+    "kind": "allocation.create",
+    "owner_id": "owner-alice",
+    "request": {
+      "cpu_millicores": -1,
+      "ephemeral_storage_mib": 0,
+      "gpu": {
+        "count": 1,
+        "memory_mib": 20480,
+        "model": "A100",
+        "profile": null
+      },
+      "memory_mib": 4096
+    }
+  },
+  "request_id": "request-allocate"
+}

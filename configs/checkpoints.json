@@ -1,0 +1,418 @@
+{
+  "schema_version": "1.0.0",
+  "status_policy": "This file records the initial NOT_RUN plan. Actual status is derived from validated receipts, never from test-file presence.",
+  "checkpoints": {
+    "CP0": {
+      "status": "NOT_RUN",
+      "scope": "static_design",
+      "receipt_path": "evidence/cp0/static_receipt.json",
+      "required_checks": [
+        {
+          "id": "CP0-STATIC",
+          "target_id": "DESIGN",
+          "status": "NOT_RUN",
+          "expected": "Static contracts, examples, ownership, immutable official snapshot and semantics are reviewable.",
+          "allowed_evidence_kinds": [
+            "static"
+          ]
+        }
+      ]
+    },
+    "CP1": {
+      "status": "NOT_RUN",
+      "scope": "runtime_acceptance",
+      "receipt_path": "evidence/cp1/receipt.json",
+      "required_checks": [
+        {
+          "id": "CP1-NORMAL-JOURNEY",
+          "target_id": "T-PRODUCT",
+          "status": "NOT_RUN",
+          "expected": "Two operators complete real submit, execute, cancel or settle journeys in six workspaces.",
+          "allowed_evidence_kinds": [
+            "ui_runtime"
+          ],
+          "validator_path": "tests/acceptance/cp1/cp1_normal_journey.py"
+        },
+        {
+          "id": "CP1-CAPACITY",
+          "target_id": "T-STATE",
+          "status": "NOT_RUN",
+          "expected": "CPU, memory, GPU, VRAM and profile inventory maps to real allocations.",
+          "allowed_evidence_kinds": [
+            "http_blackbox"
+          ],
+          "validator_path": "tests/acceptance/cp1/cp1_capacity.py"
+        },
+        {
+          "id": "CP1-CONCURRENCY",
+          "target_id": "T-STATE",
+          "status": "NOT_RUN",
+          "expected": "32 competing requests and idempotent repeats preserve the last available resource.",
+          "allowed_evidence_kinds": [
+            "independent_history"
+          ],
+          "validator_path": "tests/acceptance/cp1/cp1_concurrency.py"
+        },
+        {
+          "id": "CP1-OWNER-ISOLATION",
+          "target_id": "T-CONTRACT",
+          "status": "NOT_RUN",
+          "expected": "Owner isolation covers detail, lists, events and metrics.",
+          "allowed_evidence_kinds": [
+            "http_blackbox"
+          ],
+          "validator_path": "tests/acceptance/cp1/cp1_owner_isolation.py"
+        },
+        {
+          "id": "CP1-LEASES",
+          "target_id": "T-STATE",
+          "status": "NOT_RUN",
+          "expected": "Renew, release and logical-clock expiry return resources exactly once.",
+          "allowed_evidence_kinds": [
+            "http_blackbox"
+          ],
+          "validator_path": "tests/acceptance/cp1/cp1_leases.py"
+        },
+        {
+          "id": "CP1-PERSISTENCE",
+          "target_id": "T-STATE",
+          "status": "NOT_RUN",
+          "expected": "Control-plane restart and page refresh preserve the same state and receipts.",
+          "allowed_evidence_kinds": [
+            "process_restart"
+          ],
+          "validator_path": "tests/acceptance/cp1/cp1_persistence.py"
+        },
+        {
+          "id": "CP1-PARTIAL-SUCCESS",
+          "target_id": "T-PRODUCT",
+          "status": "NOT_RUN",
+          "expected": "Allocation succeeds and job fails; retry does not borrow twice and settlement remains explicit.",
+          "allowed_evidence_kinds": [
+            "ui_runtime"
+          ],
+          "validator_path": "tests/acceptance/cp1/cp1_partial_success.py"
+        }
+      ]
+    },
+    "CP2": {
+      "status": "NOT_RUN",
+      "scope": "runtime_acceptance",
+      "receipt_path": "evidence/cp2/receipt.json",
+      "required_checks": [
+        {
+          "id": "CP2-ALL-OPERATIONS",
+          "target_id": "T-CONTRACT",
+          "status": "NOT_RUN",
+          "expected": "All 21 official operations have real HTTP request/response evidence and no stub remains.",
+          "allowed_evidence_kinds": [
+            "http_blackbox"
+          ],
+          "validator_path": "tests/acceptance/cp2/cp2_all_operations.py"
+        },
+        {
+          "id": "CP2-PREEMPTION",
+          "target_id": "T-STATE",
+          "status": "NOT_RUN",
+          "expected": "Ready, failed, timeout, deadline, no replacement and continuous reclamation branches preserve budgets and truth.",
+          "allowed_evidence_kinds": [
+            "http_blackbox"
+          ],
+          "validator_path": "tests/acceptance/cp2/cp2_preemption.py"
+        },
+        {
+          "id": "CP2-CONTRIBUTOR",
+          "target_id": "T-PRODUCT",
+          "status": "NOT_RUN",
+          "expected": "Ordinary contributor uses authorized product extension without a test key and cannot reclaim another owner resource.",
+          "allowed_evidence_kinds": [
+            "ui_runtime",
+            "http_blackbox"
+          ],
+          "validator_path": "tests/acceptance/cp2/cp2_contributor.py"
+        },
+        {
+          "id": "CP2-CLOCK-BOUNDARIES",
+          "target_id": "T-STATE",
+          "status": "NOT_RUN",
+          "expected": "Large versus boundary-stepped clock advances process all due events equivalently.",
+          "allowed_evidence_kinds": [
+            "independent_history"
+          ],
+          "validator_path": "tests/acceptance/cp2/cp2_clock_boundaries.py"
+        },
+        {
+          "id": "CP2-RESET-ISOLATION",
+          "target_id": "T-REPLAY",
+          "status": "NOT_RUN",
+          "expected": "Reset epoch rejects old attempts and late callbacks.",
+          "allowed_evidence_kinds": [
+            "independent_history"
+          ],
+          "validator_path": "tests/acceptance/cp2/cp2_reset_isolation.py"
+        },
+        {
+          "id": "CP2-NODE-FAILURE",
+          "target_id": "T-STATE",
+          "status": "NOT_RUN",
+          "expected": "Draining, NotReady and generation changes maintain resource and execution consistency.",
+          "allowed_evidence_kinds": [
+            "http_blackbox"
+          ],
+          "validator_path": "tests/acceptance/cp2/cp2_node_failure.py"
+        },
+        {
+          "id": "CP2-FAULTS",
+          "target_id": "T-CONTRACT",
+          "status": "NOT_RUN",
+          "expected": "Deterministic 429, 500, 503 and latency faults are observed without unbounded retries.",
+          "allowed_evidence_kinds": [
+            "http_blackbox"
+          ],
+          "validator_path": "tests/acceptance/cp2/cp2_faults.py"
+        },
+        {
+          "id": "CP2-CPU-REFERENCE",
+          "target_id": "T-REAL",
+          "status": "NOT_RUN",
+          "expected": "A real CPU process saves, stops, resumes and produces an actual result artifact.",
+          "allowed_evidence_kinds": [
+            "real_cpu"
+          ],
+          "validator_path": "tests/acceptance/cp2/cp2_cpu_reference.py"
+        },
+        {
+          "id": "CP2-SIX-WORKSPACES",
+          "target_id": "T-PRODUCT",
+          "status": "NOT_RUN",
+          "expected": "All six workspaces consume actual server data through three-role dynamic journeys.",
+          "allowed_evidence_kinds": [
+            "ui_runtime"
+          ],
+          "validator_path": "tests/acceptance/cp2/cp2_six_workspaces.py"
+        }
+      ]
+    },
+    "CP3": {
+      "status": "NOT_RUN",
+      "scope": "runtime_acceptance",
+      "receipt_path": "evidence/cp3/receipt.json",
+      "required_checks": [
+        {
+          "id": "CP3-CRASH-RECOVERY",
+          "target_id": "T-REAL",
+          "status": "NOT_RUN",
+          "expected": "Crash windows preserve receipts and isolate or stop old CPU attempts before replacement.",
+          "allowed_evidence_kinds": [
+            "process_restart"
+          ],
+          "validator_path": "tests/acceptance/cp3/cp3_crash_recovery.py"
+        },
+        {
+          "id": "CP3-CPU-EQUIVALENCE",
+          "target_id": "T-REAL",
+          "status": "NOT_RUN",
+          "expected": "Resumed deterministic CPU output equals uninterrupted reference output.",
+          "allowed_evidence_kinds": [
+            "real_cpu"
+          ],
+          "validator_path": "tests/acceptance/cp3/cp3_cpu_equivalence.py"
+        },
+        {
+          "id": "CP3-INDEPENDENT-MODEL",
+          "target_id": "T-STATE",
+          "status": "NOT_RUN",
+          "expected": "Small independent reference model and generated interleavings audit state and resource histories.",
+          "allowed_evidence_kinds": [
+            "independent_history"
+          ],
+          "validator_path": "tests/acceptance/cp3/cp3_independent_model.py"
+        },
+        {
+          "id": "CP3-PREFIX-REPLAY",
+          "target_id": "T-REPLAY",
+          "status": "NOT_RUN",
+          "expected": "Changed future inputs preserve common prefix; committed event replay reconstructs final state.",
+          "allowed_evidence_kinds": [
+            "independent_history"
+          ],
+          "validator_path": "tests/acceptance/cp3/cp3_prefix_replay.py"
+        },
+        {
+          "id": "CP3-DECISION-COVERAGE",
+          "target_id": "T-PRODUCT",
+          "status": "NOT_RUN",
+          "expected": "Decision explanations match actual accepted plans and their declared candidate coverage.",
+          "allowed_evidence_kinds": [
+            "http_blackbox"
+          ],
+          "validator_path": "tests/acceptance/cp3/cp3_decision_coverage.py"
+        },
+        {
+          "id": "CP3-POLICY-EVIDENCE",
+          "target_id": "T-POLICY",
+          "status": "NOT_RUN",
+          "expected": "Five families times five frozen validation seeds include B0/B1/B2, candidate and applicable ablations with all outcomes.",
+          "allowed_evidence_kinds": [
+            "paired_experiment"
+          ],
+          "validator_path": "tests/acceptance/cp3/cp3_policy_evidence.py"
+        },
+        {
+          "id": "CP3-POLICY-TARGET",
+          "target_id": "T-POLICY",
+          "status": "NOT_RUN",
+          "expected": "R <= 0.85, paired completion counts do not decline, and defined individual/Owner serious harms do not increase.",
+          "allowed_evidence_kinds": [
+            "paired_experiment"
+          ],
+          "validator_path": "tests/acceptance/cp3/cp3_policy_target.py"
+        },
+        {
+          "id": "CP3-SETTLEMENT",
+          "target_id": "T-PRODUCT",
+          "status": "NOT_RUN",
+          "expected": "Reported, verified and resumed checkpoints remain distinct; results, failures and lease settlement are usable.",
+          "allowed_evidence_kinds": [
+            "ui_runtime"
+          ],
+          "validator_path": "tests/acceptance/cp3/cp3_settlement.py"
+        }
+      ]
+    },
+    "CP4": {
+      "status": "NOT_RUN",
+      "scope": "runtime_acceptance",
+      "receipt_path": "evidence/cp4/receipt.json",
+      "required_checks": [
+        {
+          "id": "CP4-CLEAN-DEPLOY",
+          "target_id": "T-DELIVERY",
+          "status": "NOT_RUN",
+          "expected": "A different operator starts the candidate from a clean directory by following README.",
+          "allowed_evidence_kinds": [
+            "clean_deployment"
+          ],
+          "validator_path": "tests/acceptance/cp4/cp4_clean_deploy.py"
+        },
+        {
+          "id": "CP4-RELIABILITY",
+          "target_id": "T-STATE",
+          "status": "NOT_RUN",
+          "expected": "Mandatory lifecycle, concurrency and unknown input attacks report no known core violations.",
+          "allowed_evidence_kinds": [
+            "independent_history"
+          ],
+          "validator_path": "tests/acceptance/cp4/cp4_reliability.py"
+        },
+        {
+          "id": "CP4-SCALE",
+          "target_id": "T-SCALE",
+          "status": "NOT_RUN",
+          "expected": "128 nodes, 1024 physical GPUs, 64 Owners, 10000 jobs, 50000 mixed commands and 32 concurrency preserve the ledger.",
+          "allowed_evidence_kinds": [
+            "load_test"
+          ],
+          "validator_path": "tests/acceptance/cp4/cp4_scale.py"
+        },
+        {
+          "id": "CP4-LATENCY",
+          "target_id": "T-LATENCY",
+          "status": "NOT_RUN",
+          "expected": "Declared 4 vCPU and 8 GiB workload has ordinary query/command p95 below 200ms, with excluded workloads reported separately.",
+          "allowed_evidence_kinds": [
+            "load_test"
+          ],
+          "validator_path": "tests/acceptance/cp4/cp4_latency.py"
+        },
+        {
+          "id": "CP4-USER-TASKS",
+          "target_id": "T-PRODUCT",
+          "status": "NOT_RUN",
+          "expected": "Six user tasks are cross-operated with real data, including errors, empty state and partial success at 1440x900.",
+          "allowed_evidence_kinds": [
+            "ui_runtime"
+          ],
+          "validator_path": "tests/acceptance/cp4/cp4_user_tasks.py"
+        },
+        {
+          "id": "CP4-EVIDENCE-INDEX",
+          "target_id": "T-POLICY",
+          "status": "NOT_RUN",
+          "expected": "Every figure resolves to immutable inputs, policy, model, run and calculation artifact.",
+          "allowed_evidence_kinds": [
+            "artifact_audit"
+          ],
+          "validator_path": "tests/acceptance/cp4/cp4_evidence_index.py"
+        },
+        {
+          "id": "CP4-VIDEO-REHEARSAL",
+          "target_id": "T-DELIVERY",
+          "status": "NOT_RUN",
+          "expected": "Video candidate and deployment use the same build, scene and model.",
+          "allowed_evidence_kinds": [
+            "artifact_audit"
+          ],
+          "validator_path": "tests/acceptance/cp4/cp4_video_rehearsal.py"
+        }
+      ]
+    },
+    "CP5": {
+      "status": "NOT_RUN",
+      "scope": "runtime_acceptance",
+      "receipt_path": "evidence/cp5/receipt.json",
+      "required_checks": [
+        {
+          "id": "CP5-REGRESSION",
+          "target_id": "T-CONTRACT",
+          "status": "NOT_RUN",
+          "expected": "Final responsibility-module fixes have runtime regression evidence for the packaged build.",
+          "allowed_evidence_kinds": [
+            "http_blackbox"
+          ],
+          "validator_path": "tests/acceptance/cp5/cp5_regression.py"
+        },
+        {
+          "id": "CP5-SEALED-PACKAGE",
+          "target_id": "T-DELIVERY",
+          "status": "NOT_RUN",
+          "expected": "Source, locks, launch package, model, raw results and all referenced commands are verified from the sealed package.",
+          "allowed_evidence_kinds": [
+            "clean_deployment"
+          ],
+          "validator_path": "tests/acceptance/cp5/cp5_sealed_package.py"
+        },
+        {
+          "id": "CP5-VIDEO",
+          "target_id": "T-DELIVERY",
+          "status": "NOT_RUN",
+          "expected": "Actual three to five minute demonstration and final package share a build identity.",
+          "allowed_evidence_kinds": [
+            "artifact_audit"
+          ],
+          "validator_path": "tests/acceptance/cp5/cp5_video.py"
+        },
+        {
+          "id": "CP5-DISCLOSURES",
+          "target_id": "T-DELIVERY",
+          "status": "NOT_RUN",
+          "expected": "Product and experiment reports expose failures, limitations, AI use, third-party sources and final reading order.",
+          "allowed_evidence_kinds": [
+            "artifact_audit"
+          ],
+          "validator_path": "tests/acceptance/cp5/cp5_disclosures.py"
+        },
+        {
+          "id": "CP5-UPLOAD",
+          "target_id": "T-DELIVERY",
+          "status": "NOT_RUN",
+          "expected": "Actual upload has an external receipt distinct from local packaging.",
+          "allowed_evidence_kinds": [
+            "external_receipt"
+          ],
+          "validator_path": "tests/acceptance/cp5/cp5_upload.py"
+        }
+      ]
+    }
+  }
+}

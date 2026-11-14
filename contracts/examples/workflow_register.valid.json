@@ -1,0 +1,58 @@
+{
+  "actor": {
+    "actor_id": "actor-alice",
+    "owner_id": "owner-alice",
+    "role": "researcher"
+  },
+  "expected_version": {
+    "epoch": 1,
+    "revision": 0
+  },
+  "idempotency_key": null,
+  "operation": "workflow.register_intent",
+  "parameters": {
+    "kind": "workflow.register_intent",
+    "registration": {
+      "execution_mode": "logical_simulation",
+      "intent_id": "intent-1",
+      "owner_id": "owner-alice",
+      "settlement_action": "release_on_terminal",
+      "specification": {
+        "allocation": {
+          "checkpoint_timeout_seconds": 15,
+          "kind": "allocation.create",
+          "max_restarts": 2,
+          "node_selector": [],
+          "owner_id": "owner-alice",
+          "preemptible": true,
+          "preemption_mode": "best_effort",
+          "priority": 0,
+          "queue": "default",
+          "request": {
+            "cpu_millicores": 2000,
+            "ephemeral_storage_mib": 0,
+            "gpu": {
+              "count": 1,
+              "memory_mib": 20480,
+              "model": "A100",
+              "profile": null
+            },
+            "memory_mib": 4096
+          },
+          "ttl_seconds": 300
+        },
+        "job": {
+          "command": [
+            "python",
+            "main.py"
+          ],
+          "env": [],
+          "image": "python:3.12",
+          "max_retries": null,
+          "timeout_seconds": null
+        }
+      }
+    }
+  },
+  "request_id": "request-intent"
+}

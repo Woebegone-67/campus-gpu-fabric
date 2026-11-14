@@ -1,0 +1,11 @@
+{
+  "artifact_uri": null,
+  "checkpoint_id": "checkpoint-1",
+  "continuation_status": "not_attempted",
+  "report_status": "ready",
+  "reported_at": 20.0,
+  "resumed_attempt_id": null,
+  "verification_status": "unverified",
+  "verified_at": null,
+  "verifier_id": null
+}

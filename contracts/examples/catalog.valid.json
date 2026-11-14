@@ -1,0 +1,745 @@
+{
+  "command_envelope": {
+    "actor": {
+      "actor_id": "actor-alice",
+      "owner_id": "owner-alice",
+      "role": "researcher"
+    },
+    "expected_version": {
+      "epoch": 1,
+      "revision": 7
+    },
+    "idempotency_key": "key-alice-1",
+    "operation": "allocation.create",
+    "parameters": {
+      "checkpoint_timeout_seconds": 15,
+      "kind": "allocation.create",
+      "max_restarts": 2,
+      "node_selector": [],
+      "owner_id": "owner-alice",
+      "preemptible": true,
+      "preemption_mode": "best_effort",
+      "priority": 0,
+      "queue": "default",
+      "request": {
+        "cpu_millicores": 2000,
+        "ephemeral_storage_mib": 0,
+        "gpu": {
+          "count": 1,
+          "memory_mib": 20480,
+          "model": "A100",
+          "profile": null
+        },
+        "memory_mib": 4096
+      },
+      "ttl_seconds": 300
+    },
+    "request_id": "request-allocate"
+  },
+  "commit_receipt": {
+    "error": null,
+    "event_ids": [
+      "event-8"
+    ],
+    "idempotency_replayed": false,
+    "logical_time": 20.0,
+    "objects": [
+      {
+        "entity_id": "allocation-1",
+        "kind": "allocation"
+      }
+    ],
+    "original_request_id": null,
+    "outcome": "committed",
+    "request_id": "request-allocate",
+    "version": {
+      "epoch": 1,
+      "revision": 8
+    }
+  },
+  "committed_event": {
+    "attempt": null,
+    "cause": {
+      "kind": "request",
+      "request_id": "request-allocate"
+    },
+    "decision_id": "decision-1",
+    "decision_snapshot_version": {
+      "epoch": 1,
+      "revision": 7
+    },
+    "entities": [
+      {
+        "entity_id": "allocation-1",
+        "kind": "allocation"
+      }
+    ],
+    "event_id": "event-8",
+    "event_type": "allocation.created",
+    "logical_time": 20.0,
+    "owner_id": "owner-alice",
+    "resource_deltas": [
+      {
+        "allocation_id": "allocation-1",
+        "cpu_millicores": 2000,
+        "device_ids_added": [
+          "gpu-1"
+        ],
+        "device_ids_removed": [],
+        "ephemeral_storage_mib": 0,
+        "memory_mib": 4096,
+        "node_id": "node-1"
+      }
+    ],
+    "sequence": 8,
+    "state_changes": [
+      {
+        "after": "Allocated",
+        "before": null,
+        "entity": {
+          "entity_id": "allocation-1",
+          "kind": "allocation"
+        }
+      }
+    ],
+    "version": {
+      "epoch": 1,
+      "revision": 8
+    }
+  },
+  "decision_plan": {
+    "asserts_pool_infeasible": false,
+    "candidates": [
+      {
+        "action": "allocate",
+        "allocation_id": null,
+        "attempt": null,
+        "candidate_id": "candidate-1",
+        "demand_id": "demand-1",
+        "feasibility": "legal",
+        "intent_id": "intent-1",
+        "owner_id": "owner-alice",
+        "placement": {
+          "slices": [
+            {
+              "device_ids": [
+                "gpu-1"
+              ],
+              "node_id": "node-1",
+              "resources": {
+                "cpu_millicores": 2000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 20480,
+                "memory_mib": 4096
+              }
+            }
+          ]
+        },
+        "preconditions": [],
+        "scores": [
+          {
+            "explanation": "Illustrative arrival order.",
+            "name": "fifo",
+            "value": 0.0
+          }
+        ],
+        "violations": []
+      }
+    ],
+    "coverage": {
+      "domain_description": "Illustrative single-node candidate domain, not a runtime proof.",
+      "domain_size": 1,
+      "examined_count": 1,
+      "scope": "complete",
+      "truncation_reason": null
+    },
+    "decision_at": 20.0,
+    "decision_id": "decision-1",
+    "model": {
+      "name": "fixture-only",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "uri": null,
+      "version": "cp0-fixture-not-executed"
+    },
+    "policy": {
+      "name": "fixture-only",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "uri": null,
+      "version": "cp0-fixture-not-executed"
+    },
+    "rationale": "Illustrative compatible placement. Kernel must recheck the current version and resources.",
+    "selected_candidate_id": "candidate-1",
+    "snapshot_version": {
+      "epoch": 1,
+      "revision": 7
+    },
+    "tie_break_rule": "arrival time, then stable demand ID, then node ID"
+  },
+  "decision_snapshot": {
+    "demands": [
+      {
+        "allocation_id": null,
+        "arrived_at": 0.0,
+        "demand_id": "demand-1",
+        "intent_id": "intent-1",
+        "known_data": [
+          {
+            "available_at": 0.0,
+            "name": "declared.work_units",
+            "observed_at": 0.0,
+            "source": "declared_profile",
+            "source_id": "profile-1",
+            "value": 100
+          }
+        ],
+        "node_selector": [],
+        "owner_id": "owner-alice",
+        "priority": 0,
+        "request": {
+          "cpu_millicores": 2000,
+          "ephemeral_storage_mib": 0,
+          "gpu": {
+            "count": 1,
+            "memory_mib": 20480,
+            "model": "A100",
+            "profile": null
+          },
+          "memory_mib": 4096
+        }
+      }
+    ],
+    "execution_mode": "logical_simulation",
+    "history": [],
+    "inventory": [
+      {
+        "available": {
+          "cpu_millicores": 8000,
+          "ephemeral_storage_mib": 0,
+          "gpu_count": 1,
+          "gpu_memory_mib": 40960,
+          "memory_mib": 32768
+        },
+        "capacity": {
+          "cpu_millicores": 8000,
+          "ephemeral_storage_mib": 0,
+          "gpu_count": 1,
+          "gpu_memory_mib": 40960,
+          "memory_mib": 32768
+        },
+        "contributor_owner_id": "owner-contributor",
+        "devices": [
+          {
+            "device_id": "gpu-1",
+            "memory_mib": 40960,
+            "model": "A100",
+            "physical_gpu_id": "gpu-1",
+            "profile": null,
+            "state": "available"
+          }
+        ],
+        "labels": [],
+        "node_id": "node-1",
+        "observed_at": 10.0,
+        "state": "Ready"
+      }
+    ],
+    "leases": [],
+    "metadata": [],
+    "notices": [
+      {
+        "contributor_owner_id": "owner-contributor",
+        "deadline": 45.0,
+        "device_ids": [
+          "gpu-1"
+        ],
+        "issued_at": 15.0,
+        "notice_id": "notice-1",
+        "unavailable_until": 75.0
+      }
+    ],
+    "now": 20.0,
+    "occupancy": [],
+    "version": {
+      "epoch": 1,
+      "revision": 7
+    }
+  },
+  "evidence_run": {
+    "build": {
+      "name": "fixture-only",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "uri": null,
+      "version": "cp0-fixture-not-executed"
+    },
+    "calculator": {
+      "name": "fixture-only",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "uri": null,
+      "version": "cp0-fixture-not-executed"
+    },
+    "checks": [
+      {
+        "actual": null,
+        "command_or_action": null,
+        "evidence_uris": [],
+        "executor": null,
+        "expected": "A future independent ledger check. This fixture contains no execution result.",
+        "status": "NOT_RUN",
+        "target_id": "T-STATE",
+        "unresolved": []
+      }
+    ],
+    "environment": {
+      "cpu_count": 1,
+      "dependencies": [],
+      "execution_mode": "logical_simulation",
+      "memory_mib": 1024,
+      "platform": "fixture-only",
+      "python_version": "3.12"
+    },
+    "exceptions": [],
+    "inputs": [
+      {
+        "name": "fixture-only",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "uri": null,
+        "version": "cp0-fixture-not-executed"
+      }
+    ],
+    "model": {
+      "name": "fixture-only",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "uri": null,
+      "version": "cp0-fixture-not-executed"
+    },
+    "outputs": [],
+    "parent_run_id": null,
+    "policy": {
+      "name": "fixture-only",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "uri": null,
+      "version": "cp0-fixture-not-executed"
+    },
+    "run_id": "fixture-run-not-executed",
+    "run_kind": "factual",
+    "scenario": {
+      "name": "fixture-only",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "uri": null,
+      "version": "cp0-fixture-not-executed"
+    },
+    "seed": 0,
+    "semantics": {
+      "name": "fixture-only",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "uri": null,
+      "version": "cp0-fixture-not-executed"
+    },
+    "status": "not_run",
+    "window": {
+      "end": 100.0,
+      "start": 0.0
+    }
+  },
+  "read_snapshot": {
+    "allocations": [
+      {
+        "allocation_id": "allocation-1",
+        "created_at": 20.0,
+        "expires_at": 320.0,
+        "owner_id": "owner-alice",
+        "placement": {
+          "slices": [
+            {
+              "device_ids": [
+                "gpu-1"
+              ],
+              "node_id": "node-1",
+              "resources": {
+                "cpu_millicores": 2000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 20480,
+                "memory_mib": 4096
+              }
+            }
+          ]
+        },
+        "request": {
+          "cpu_millicores": 2000,
+          "ephemeral_storage_mib": 0,
+          "gpu": {
+            "count": 1,
+            "memory_mib": 20480,
+            "model": "A100",
+            "profile": null
+          },
+          "memory_mib": 4096
+        },
+        "state": "Allocated"
+      }
+    ],
+    "decisions": [
+      {
+        "asserts_pool_infeasible": false,
+        "candidates": [
+          {
+            "action": "allocate",
+            "allocation_id": null,
+            "attempt": null,
+            "candidate_id": "candidate-1",
+            "demand_id": "demand-1",
+            "feasibility": "legal",
+            "intent_id": "intent-1",
+            "owner_id": "owner-alice",
+            "placement": {
+              "slices": [
+                {
+                  "device_ids": [
+                    "gpu-1"
+                  ],
+                  "node_id": "node-1",
+                  "resources": {
+                    "cpu_millicores": 2000,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 20480,
+                    "memory_mib": 4096
+                  }
+                }
+              ]
+            },
+            "preconditions": [],
+            "scores": [
+              {
+                "explanation": "Illustrative arrival order.",
+                "name": "fifo",
+                "value": 0.0
+              }
+            ],
+            "violations": []
+          }
+        ],
+        "coverage": {
+          "domain_description": "Illustrative single-node candidate domain, not a runtime proof.",
+          "domain_size": 1,
+          "examined_count": 1,
+          "scope": "complete",
+          "truncation_reason": null
+        },
+        "decision_at": 20.0,
+        "decision_id": "decision-1",
+        "model": {
+          "name": "fixture-only",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "uri": null,
+          "version": "cp0-fixture-not-executed"
+        },
+        "policy": {
+          "name": "fixture-only",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "uri": null,
+          "version": "cp0-fixture-not-executed"
+        },
+        "rationale": "Illustrative compatible placement. Kernel must recheck the current version and resources.",
+        "selected_candidate_id": "candidate-1",
+        "snapshot_version": {
+          "epoch": 1,
+          "revision": 7
+        },
+        "tie_break_rule": "arrival time, then stable demand ID, then node ID"
+      }
+    ],
+    "events": [
+      {
+        "attempt": null,
+        "cause": {
+          "kind": "request",
+          "request_id": "request-allocate"
+        },
+        "decision_id": "decision-1",
+        "decision_snapshot_version": {
+          "epoch": 1,
+          "revision": 7
+        },
+        "entities": [
+          {
+            "entity_id": "allocation-1",
+            "kind": "allocation"
+          }
+        ],
+        "event_id": "event-8",
+        "event_type": "allocation.created",
+        "logical_time": 20.0,
+        "owner_id": "owner-alice",
+        "resource_deltas": [
+          {
+            "allocation_id": "allocation-1",
+            "cpu_millicores": 2000,
+            "device_ids_added": [
+              "gpu-1"
+            ],
+            "device_ids_removed": [],
+            "ephemeral_storage_mib": 0,
+            "memory_mib": 4096,
+            "node_id": "node-1"
+          }
+        ],
+        "sequence": 8,
+        "state_changes": [
+          {
+            "after": "Allocated",
+            "before": null,
+            "entity": {
+              "entity_id": "allocation-1",
+              "kind": "allocation"
+            }
+          }
+        ],
+        "version": {
+          "epoch": 1,
+          "revision": 8
+        }
+      }
+    ],
+    "global_scope": false,
+    "intents": [
+      {
+        "allocation_ids": [
+          "allocation-1"
+        ],
+        "attempts": [],
+        "execution_mode": "logical_simulation",
+        "first_arrival_at": 0.0,
+        "intent_id": "intent-1",
+        "job_ids": [],
+        "owner_id": "owner-alice",
+        "result": null,
+        "settlement_action": "release_on_terminal",
+        "specification": {
+          "allocation": {
+            "checkpoint_timeout_seconds": 15,
+            "kind": "allocation.create",
+            "max_restarts": 2,
+            "node_selector": [],
+            "owner_id": "owner-alice",
+            "preemptible": true,
+            "preemption_mode": "best_effort",
+            "priority": 0,
+            "queue": "default",
+            "request": {
+              "cpu_millicores": 2000,
+              "ephemeral_storage_mib": 0,
+              "gpu": {
+                "count": 1,
+                "memory_mib": 20480,
+                "model": "A100",
+                "profile": null
+              },
+              "memory_mib": 4096
+            },
+            "ttl_seconds": 300
+          },
+          "job": {
+            "command": [
+              "python",
+              "main.py"
+            ],
+            "env": [],
+            "image": "python:3.12",
+            "max_retries": null,
+            "timeout_seconds": null
+          }
+        },
+        "stages": [
+          {
+            "operation": "allocate",
+            "receipt": {
+              "error": null,
+              "event_ids": [
+                "event-8"
+              ],
+              "idempotency_replayed": false,
+              "logical_time": 20.0,
+              "objects": [
+                {
+                  "entity_id": "allocation-1",
+                  "kind": "allocation"
+                }
+              ],
+              "original_request_id": null,
+              "outcome": "committed",
+              "request_id": "request-allocate",
+              "version": {
+                "epoch": 1,
+                "revision": 8
+              }
+            },
+            "stage_id": "stage-allocate",
+            "state": "committed"
+          },
+          {
+            "operation": "create_job_and_bind",
+            "receipt": {
+              "error": {
+                "code": "lease_unavailable",
+                "current_version": null,
+                "detail": "Illustrative job-stage rejection; the existing lease remains visible.",
+                "retryable": false
+              },
+              "event_ids": [],
+              "idempotency_replayed": false,
+              "logical_time": 20.0,
+              "objects": [],
+              "original_request_id": null,
+              "outcome": "rejected",
+              "request_id": "request-job",
+              "version": {
+                "epoch": 1,
+                "revision": 8
+              }
+            },
+            "stage_id": "stage-job",
+            "state": "failed"
+          }
+        ],
+        "state": "manual_action"
+      }
+    ],
+    "jobs": [],
+    "legal_actions": [
+      {
+        "entity": {
+          "entity_id": "allocation-1",
+          "kind": "allocation"
+        },
+        "explanation": "Retry the job stage against the existing lease.",
+        "operation": "job.create"
+      },
+      {
+        "entity": {
+          "entity_id": "allocation-1",
+          "kind": "allocation"
+        },
+        "explanation": "Return the lease explicitly.",
+        "operation": "allocation.release"
+      }
+    ],
+    "next_cursor": {
+      "after_sequence": 8,
+      "epoch": 1
+    },
+    "now": 20.0,
+    "version": {
+      "epoch": 1,
+      "revision": 8
+    },
+    "viewer": {
+      "actor_id": "actor-alice",
+      "owner_id": "owner-alice",
+      "role": "researcher"
+    }
+  },
+  "work_intent": {
+    "allocation_ids": [
+      "allocation-1"
+    ],
+    "attempts": [],
+    "execution_mode": "logical_simulation",
+    "first_arrival_at": 0.0,
+    "intent_id": "intent-1",
+    "job_ids": [],
+    "owner_id": "owner-alice",
+    "result": null,
+    "settlement_action": "release_on_terminal",
+    "specification": {
+      "allocation": {
+        "checkpoint_timeout_seconds": 15,
+        "kind": "allocation.create",
+        "max_restarts": 2,
+        "node_selector": [],
+        "owner_id": "owner-alice",
+        "preemptible": true,
+        "preemption_mode": "best_effort",
+        "priority": 0,
+        "queue": "default",
+        "request": {
+          "cpu_millicores": 2000,
+          "ephemeral_storage_mib": 0,
+          "gpu": {
+            "count": 1,
+            "memory_mib": 20480,
+            "model": "A100",
+            "profile": null
+          },
+          "memory_mib": 4096
+        },
+        "ttl_seconds": 300
+      },
+      "job": {
+        "command": [
+          "python",
+          "main.py"
+        ],
+        "env": [],
+        "image": "python:3.12",
+        "max_retries": null,
+        "timeout_seconds": null
+      }
+    },
+    "stages": [
+      {
+        "operation": "allocate",
+        "receipt": {
+          "error": null,
+          "event_ids": [
+            "event-8"
+          ],
+          "idempotency_replayed": false,
+          "logical_time": 20.0,
+          "objects": [
+            {
+              "entity_id": "allocation-1",
+              "kind": "allocation"
+            }
+          ],
+          "original_request_id": null,
+          "outcome": "committed",
+          "request_id": "request-allocate",
+          "version": {
+            "epoch": 1,
+            "revision": 8
+          }
+        },
+        "stage_id": "stage-allocate",
+        "state": "committed"
+      },
+      {
+        "operation": "create_job_and_bind",
+        "receipt": {
+          "error": {
+            "code": "lease_unavailable",
+            "current_version": null,
+            "detail": "Illustrative job-stage rejection; the existing lease remains visible.",
+            "retryable": false
+          },
+          "event_ids": [],
+          "idempotency_replayed": false,
+          "logical_time": 20.0,
+          "objects": [],
+          "original_request_id": null,
+          "outcome": "rejected",
+          "request_id": "request-job",
+          "version": {
+            "epoch": 1,
+            "revision": 8
+          }
+        },
+        "stage_id": "stage-job",
+        "state": "failed"
+      }
+    ],
+    "state": "manual_action"
+  }
+}

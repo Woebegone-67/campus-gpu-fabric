@@ -1,0 +1,15 @@
+# Reviews route to the actual two developers. Protection is configured separately.
+* @Woebegone-67
+/web/ @xuyangma
+/experiments/ @xuyangma
+/src/campus_fabric/policies/ @xuyangma
+/src/campus_fabric/projections/ @xuyangma
+/src/campus_fabric/workflows/ @xuyangma
+/src/campus_fabric/api/queries/ @xuyangma
+/src/campus_fabric/api/extensions/queries/ @xuyangma
+/tests/policy/ @xuyangma
+/tests/ui/ @xuyangma
+/tests/blackbox/ @xuyangma
+/contracts/ @Woebegone-67 @xuyangma
+/src/campus_fabric/contracts/ @Woebegone-67 @xuyangma
+/docs/handoff/ @Woebegone-67 @xuyangma

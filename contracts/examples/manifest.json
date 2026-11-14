@@ -1,0 +1,90 @@
+{
+  "description": "Illustrative schema and semantic boundary cases, not runtime acceptance evidence.",
+  "examples": [
+    {
+      "contract": "ContractCatalog",
+      "path": "catalog.valid.json",
+      "valid": true,
+      "validation_layer": "json_schema_and_pydantic"
+    },
+    {
+      "contract": "CheckpointFact",
+      "path": "checkpoint_report_without_uri.valid.json",
+      "valid": true,
+      "validation_layer": "json_schema_and_pydantic"
+    },
+    {
+      "contract": "CommandEnvelope",
+      "path": "job_without_idempotency.valid.json",
+      "valid": true,
+      "validation_layer": "json_schema_and_pydantic"
+    },
+    {
+      "contract": "CommandEnvelope",
+      "expected_error": "greater than or equal to 0",
+      "path": "negative_resource.invalid.json",
+      "valid": false,
+      "validation_layer": "json_schema_and_pydantic"
+    },
+    {
+      "contract": "CommandEnvelope",
+      "expected_error": "authenticated actor owner",
+      "path": "owner_mismatch.invalid.json",
+      "valid": false,
+      "validation_layer": "pydantic"
+    },
+    {
+      "contract": "DecisionSnapshot",
+      "expected_error": "causal cutoff",
+      "path": "future_data.invalid.json",
+      "valid": false,
+      "validation_layer": "pydantic"
+    },
+    {
+      "contract": "DecisionPlan",
+      "expected_error": "complete domain exclusion",
+      "path": "partial_pool_claim.invalid.json",
+      "valid": false,
+      "validation_layer": "pydantic"
+    },
+    {
+      "contract": "CommittedEvent",
+      "expected_error": "same epoch",
+      "path": "old_epoch_cause.invalid.json",
+      "valid": false,
+      "validation_layer": "pydantic"
+    },
+    {
+      "contract": "AttemptRef",
+      "expected_error": "must be distinct",
+      "path": "intent_attempt_alias.invalid.json",
+      "valid": false,
+      "validation_layer": "pydantic"
+    },
+    {
+      "contract": "EvidenceRun",
+      "expected_error": "unexecuted runs",
+      "path": "unexecuted_pass.invalid.json",
+      "valid": false,
+      "validation_layer": "pydantic"
+    },
+    {
+      "contract": "CommandEnvelope",
+      "path": "workflow_register.valid.json",
+      "valid": true,
+      "validation_layer": "json_schema_and_pydantic"
+    },
+    {
+      "contract": "CommandEnvelope",
+      "path": "workflow_allocate.valid.json",
+      "valid": true,
+      "validation_layer": "json_schema_and_pydantic"
+    },
+    {
+      "contract": "CommandEnvelope",
+      "path": "workflow_job.valid.json",
+      "valid": true,
+      "validation_layer": "json_schema_and_pydantic"
+    }
+  ]
+}

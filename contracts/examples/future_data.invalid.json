@@ -1,0 +1,79 @@
+{
+  "demands": [
+    {
+      "arrived_at": 0.0,
+      "demand_id": "demand-1",
+      "intent_id": "intent-1",
+      "known_data": [
+        {
+          "available_at": 21.0,
+          "name": "declared.work_units",
+          "observed_at": 0.0,
+          "source": "declared_profile",
+          "source_id": "profile-1",
+          "value": 100
+        }
+      ],
+      "owner_id": "owner-alice",
+      "request": {
+        "cpu_millicores": 2000,
+        "ephemeral_storage_mib": 0,
+        "gpu": {
+          "count": 1,
+          "memory_mib": 20480,
+          "model": "A100",
+          "profile": null
+        },
+        "memory_mib": 4096
+      }
+    }
+  ],
+  "execution_mode": "logical_simulation",
+  "inventory": [
+    {
+      "available": {
+        "cpu_millicores": 8000,
+        "gpu_count": 1,
+        "gpu_memory_mib": 40960,
+        "memory_mib": 32768
+      },
+      "capacity": {
+        "cpu_millicores": 8000,
+        "gpu_count": 1,
+        "gpu_memory_mib": 40960,
+        "memory_mib": 32768
+      },
+      "contributor_owner_id": "owner-contributor",
+      "devices": [
+        {
+          "device_id": "gpu-1",
+          "memory_mib": 40960,
+          "model": "A100",
+          "physical_gpu_id": "gpu-1",
+          "profile": null,
+          "state": "available"
+        }
+      ],
+      "node_id": "node-1",
+      "observed_at": 10.0,
+      "state": "Ready"
+    }
+  ],
+  "notices": [
+    {
+      "contributor_owner_id": "owner-contributor",
+      "deadline": 45.0,
+      "device_ids": [
+        "gpu-1"
+      ],
+      "issued_at": 15.0,
+      "notice_id": "notice-1",
+      "unavailable_until": 75.0
+    }
+  ],
+  "now": 20.0,
+  "version": {
+    "epoch": 1,
+    "revision": 7
+  }
+}

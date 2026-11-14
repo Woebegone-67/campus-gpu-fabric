@@ -1,0 +1,23 @@
+{
+  "actor": {
+    "actor_id": "actor-alice",
+    "owner_id": "owner-alice",
+    "role": "researcher"
+  },
+  "expected_version": null,
+  "idempotency_key": null,
+  "operation": "job.create",
+  "parameters": {
+    "allocation_id": "allocation-1",
+    "command": [
+      "python",
+      "main.py"
+    ],
+    "env": [],
+    "image": "python:3.12",
+    "kind": "job.create",
+    "max_retries": null,
+    "timeout_seconds": null
+  },
+  "request_id": "request-job"
+}

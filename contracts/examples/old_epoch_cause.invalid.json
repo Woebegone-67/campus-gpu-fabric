@@ -1,0 +1,52 @@
+{
+  "cause": {
+    "event_id": "event-7",
+    "kind": "event",
+    "sequence": 7,
+    "version": {
+      "epoch": 0,
+      "revision": 7
+    }
+  },
+  "decision_id": "decision-1",
+  "decision_snapshot_version": {
+    "epoch": 1,
+    "revision": 7
+  },
+  "entities": [
+    {
+      "entity_id": "allocation-1",
+      "kind": "allocation"
+    }
+  ],
+  "event_id": "event-8",
+  "event_type": "allocation.created",
+  "logical_time": 20.0,
+  "owner_id": "owner-alice",
+  "resource_deltas": [
+    {
+      "allocation_id": "allocation-1",
+      "cpu_millicores": 2000,
+      "device_ids_added": [
+        "gpu-1"
+      ],
+      "memory_mib": 4096,
+      "node_id": "node-1"
+    }
+  ],
+  "sequence": 8,
+  "state_changes": [
+    {
+      "after": "Allocated",
+      "before": null,
+      "entity": {
+        "entity_id": "allocation-1",
+        "kind": "allocation"
+      }
+    }
+  ],
+  "version": {
+    "epoch": 1,
+    "revision": 8
+  }
+}

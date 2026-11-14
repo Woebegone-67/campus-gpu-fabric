@@ -1,0 +1,559 @@
+{
+  "schema_version": "1.0.0",
+  "source": "spec/official/api/openapi.yaml",
+  "scope": "CP0 ownership and planned integration catalogue; not API conformance evidence",
+  "workspaces": {
+    "run": "运行工作台",
+    "resources": "资源与贡献",
+    "continuity": "任务连续性",
+    "decisions": "决策解释",
+    "events": "事件与实验",
+    "acceptance": "系统验收"
+  },
+  "operations": [
+    {
+      "operation_id": "version",
+      "method": "GET",
+      "path": "/v1/version",
+      "owner": "A",
+      "domain_objects": [
+        "BuildIdentity"
+      ],
+      "events": [],
+      "event_semantics": "read_only_no_domain_event",
+      "workspaces": [
+        "acceptance"
+      ],
+      "test_ids": [
+        "T-CONTRACT",
+        "CP0-HTTP-VERSION"
+      ],
+      "implementation_status": "IMPLEMENTED",
+      "verification_status": "NOT_RUN",
+      "audience": "public_api"
+    },
+    {
+      "operation_id": "healthz",
+      "method": "GET",
+      "path": "/healthz",
+      "owner": "A",
+      "domain_objects": [
+        "ServiceHealth"
+      ],
+      "events": [],
+      "event_semantics": "read_only_no_domain_event",
+      "workspaces": [
+        "acceptance"
+      ],
+      "test_ids": [
+        "T-CONTRACT",
+        "CP0-HTTP-HEALTH"
+      ],
+      "implementation_status": "IMPLEMENTED",
+      "verification_status": "NOT_RUN",
+      "audience": "public_api"
+    },
+    {
+      "operation_id": "capacity_list",
+      "method": "GET",
+      "path": "/v1/capacity",
+      "owner": "B",
+      "domain_objects": [
+        "ReadSnapshot",
+        "Node",
+        "GPU",
+        "ResourceLedger"
+      ],
+      "events": [],
+      "event_semantics": "read_only_no_domain_event",
+      "workspaces": [
+        "resources",
+        "decisions"
+      ],
+      "test_ids": [
+        "T-CONTRACT",
+        "CP1-CAPACITY"
+      ],
+      "implementation_status": "CP0_STUB",
+      "verification_status": "NOT_RUN",
+      "audience": "public_api"
+    },
+    {
+      "operation_id": "allocation_create",
+      "method": "POST",
+      "path": "/v1/allocations",
+      "owner": "A",
+      "domain_objects": [
+        "CommandEnvelope",
+        "Allocation",
+        "ResourceLedger"
+      ],
+      "events": [
+        "AllocationRequested",
+        "AllocationAllocated",
+        "AllocationRejected"
+      ],
+      "event_semantics": "planned_committed_events",
+      "workspaces": [
+        "run",
+        "resources",
+        "decisions"
+      ],
+      "test_ids": [
+        "T-CONTRACT",
+        "T-STATE",
+        "CP1-CONCURRENCY",
+        "CP1-PARTIAL-SUCCESS"
+      ],
+      "implementation_status": "CP0_STUB",
+      "verification_status": "NOT_RUN",
+      "audience": "public_api"
+    },
+    {
+      "operation_id": "allocation_list",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "owner": "B",
+      "domain_objects": [
+        "ReadSnapshot",
+        "Allocation"
+      ],
+      "events": [],
+      "event_semantics": "read_only_no_domain_event",
+      "workspaces": [
+        "run",
+        "resources"
+      ],
+      "test_ids": [
+        "T-CONTRACT",
+        "CP1-OWNER-ISOLATION"
+      ],
+      "implementation_status": "CP0_STUB",
+      "verification_status": "NOT_RUN",
+      "audience": "public_api"
+    },
+    {
+      "operation_id": "allocation_get",
+      "method": "GET",
+      "path": "/v1/allocations/{allocation_id}",
+      "owner": "B",
+      "domain_objects": [
+        "ReadSnapshot",
+        "Allocation"
+      ],
+      "events": [],
+      "event_semantics": "read_only_no_domain_event",
+      "workspaces": [
+        "run",
+        "continuity"
+      ],
+      "test_ids": [
+        "T-CONTRACT",
+        "CP1-OWNER-ISOLATION"
+      ],
+      "implementation_status": "CP0_STUB",
+      "verification_status": "NOT_RUN",
+      "audience": "public_api"
+    },
+    {
+      "operation_id": "allocation_release",
+      "method": "DELETE",
+      "path": "/v1/allocations/{allocation_id}",
+      "owner": "A",
+      "domain_objects": [
+        "CommandEnvelope",
+        "Allocation",
+        "ResourceLedger"
+      ],
+      "events": [
+        "AllocationReleased"
+      ],
+      "event_semantics": "planned_committed_events",
+      "workspaces": [
+        "run",
+        "resources",
+        "continuity"
+      ],
+      "test_ids": [
+        "T-CONTRACT",
+        "T-STATE",
+        "CP1-LEASES"
+      ],
+      "implementation_status": "CP0_STUB",
+      "verification_status": "NOT_RUN",
+      "audience": "public_api"
+    },
+    {
+      "operation_id": "allocation_renew",
+      "method": "POST",
+      "path": "/v1/allocations/{allocation_id}/renew",
+      "owner": "A",
+      "domain_objects": [
+        "CommandEnvelope",
+        "Allocation",
+        "Lease"
+      ],
+      "events": [
+        "AllocationRenewed"
+      ],
+      "event_semantics": "planned_committed_events",
+      "workspaces": [
+        "run",
+        "continuity"
+      ],
+      "test_ids": [
+        "T-CONTRACT",
+        "CP1-LEASES"
+      ],
+      "implementation_status": "CP0_STUB",
+      "verification_status": "NOT_RUN",
+      "audience": "public_api"
+    },
+    {
+      "operation_id": "allocation_checkpoint",
+      "method": "POST",
+      "path": "/v1/allocations/{allocation_id}/checkpoint",
+      "owner": "A",
+      "domain_objects": [
+        "CommandEnvelope",
+        "Allocation",
+        "Checkpoint",
+        "Attempt"
+      ],
+      "events": [
+        "CheckpointReported"
+      ],
+      "event_semantics": "planned_committed_events",
+      "workspaces": [
+        "continuity",
+        "events"
+      ],
+      "test_ids": [
+        "T-CONTRACT",
+        "CP2-PREEMPTION",
+        "CP2-CPU-REFERENCE"
+      ],
+      "implementation_status": "CP0_STUB",
+      "verification_status": "NOT_RUN",
+      "audience": "public_api"
+    },
+    {
+      "operation_id": "allocation_resume",
+      "method": "POST",
+      "path": "/v1/allocations/{allocation_id}/resume",
+      "owner": "A",
+      "domain_objects": [
+        "CommandEnvelope",
+        "Allocation",
+        "Attempt",
+        "ResourceLedger"
+      ],
+      "events": [
+        "ResumeRequested",
+        "AllocationResumed",
+        "ResumeWaiting"
+      ],
+      "event_semantics": "planned_committed_events",
+      "workspaces": [
+        "run",
+        "continuity",
+        "decisions"
+      ],
+      "test_ids": [
+        "T-CONTRACT",
+        "CP2-PREEMPTION"
+      ],
+      "implementation_status": "CP0_STUB",
+      "verification_status": "NOT_RUN",
+      "audience": "public_api"
+    },
+    {
+      "operation_id": "job_create",
+      "method": "POST",
+      "path": "/v1/jobs",
+      "owner": "A",
+      "domain_objects": [
+        "CommandEnvelope",
+        "Job",
+        "Allocation",
+        "Attempt"
+      ],
+      "events": [
+        "JobSubmitted"
+      ],
+      "event_semantics": "planned_committed_events",
+      "workspaces": [
+        "run",
+        "continuity"
+      ],
+      "test_ids": [
+        "T-CONTRACT",
+        "CP1-PARTIAL-SUCCESS"
+      ],
+      "implementation_status": "CP0_STUB",
+      "verification_status": "NOT_RUN",
+      "audience": "public_api"
+    },
+    {
+      "operation_id": "job_list",
+      "method": "GET",
+      "path": "/v1/jobs",
+      "owner": "B",
+      "domain_objects": [
+        "ReadSnapshot",
+        "Job"
+      ],
+      "events": [],
+      "event_semantics": "read_only_no_domain_event",
+      "workspaces": [
+        "run",
+        "continuity"
+      ],
+      "test_ids": [
+        "T-CONTRACT",
+        "CP1-OWNER-ISOLATION"
+      ],
+      "implementation_status": "CP0_STUB",
+      "verification_status": "NOT_RUN",
+      "audience": "public_api"
+    },
+    {
+      "operation_id": "job_get",
+      "method": "GET",
+      "path": "/v1/jobs/{job_id}",
+      "owner": "B",
+      "domain_objects": [
+        "ReadSnapshot",
+        "Job",
+        "Attempt"
+      ],
+      "events": [],
+      "event_semantics": "read_only_no_domain_event",
+      "workspaces": [
+        "run",
+        "continuity"
+      ],
+      "test_ids": [
+        "T-CONTRACT",
+        "CP1-OWNER-ISOLATION"
+      ],
+      "implementation_status": "CP0_STUB",
+      "verification_status": "NOT_RUN",
+      "audience": "public_api"
+    },
+    {
+      "operation_id": "job_cancel",
+      "method": "DELETE",
+      "path": "/v1/jobs/{job_id}",
+      "owner": "A",
+      "domain_objects": [
+        "CommandEnvelope",
+        "Job",
+        "Attempt",
+        "ResourceLedger"
+      ],
+      "events": [
+        "JobCancellationRequested",
+        "JobCancelled"
+      ],
+      "event_semantics": "planned_committed_events",
+      "workspaces": [
+        "run",
+        "continuity"
+      ],
+      "test_ids": [
+        "T-CONTRACT",
+        "T-STATE",
+        "CP1-NORMAL-JOURNEY"
+      ],
+      "implementation_status": "CP0_STUB",
+      "verification_status": "NOT_RUN",
+      "audience": "public_api"
+    },
+    {
+      "operation_id": "metrics_get",
+      "method": "GET",
+      "path": "/v1/metrics",
+      "owner": "B",
+      "domain_objects": [
+        "ReadSnapshot",
+        "MetricProjection"
+      ],
+      "events": [],
+      "event_semantics": "read_only_no_domain_event",
+      "workspaces": [
+        "run",
+        "events",
+        "acceptance"
+      ],
+      "test_ids": [
+        "T-CONTRACT",
+        "CP1-OWNER-ISOLATION"
+      ],
+      "implementation_status": "CP0_STUB",
+      "verification_status": "NOT_RUN",
+      "audience": "public_api"
+    },
+    {
+      "operation_id": "events_list",
+      "method": "GET",
+      "path": "/v1/events",
+      "owner": "B",
+      "domain_objects": [
+        "ReadSnapshot",
+        "CommittedEvent"
+      ],
+      "events": [],
+      "event_semantics": "read_only_no_domain_event",
+      "workspaces": [
+        "continuity",
+        "decisions",
+        "events"
+      ],
+      "test_ids": [
+        "T-CONTRACT",
+        "T-REPLAY",
+        "CP1-OWNER-ISOLATION"
+      ],
+      "implementation_status": "CP0_STUB",
+      "verification_status": "NOT_RUN",
+      "audience": "public_api"
+    },
+    {
+      "operation_id": "test_reset",
+      "method": "POST",
+      "path": "/_test/reset",
+      "owner": "A",
+      "domain_objects": [
+        "CommandEnvelope",
+        "Epoch",
+        "ResourceLedger"
+      ],
+      "events": [
+        "SystemReset"
+      ],
+      "event_semantics": "planned_committed_events",
+      "workspaces": [
+        "events",
+        "acceptance"
+      ],
+      "test_ids": [
+        "T-CONTRACT",
+        "T-REPLAY",
+        "CP2-RESET-ISOLATION"
+      ],
+      "implementation_status": "CP0_STUB",
+      "verification_status": "NOT_RUN",
+      "audience": "test_operator_only"
+    },
+    {
+      "operation_id": "test_clock",
+      "method": "POST",
+      "path": "/_test/clock",
+      "owner": "A",
+      "domain_objects": [
+        "CommandEnvelope",
+        "LogicalClock",
+        "Lease"
+      ],
+      "events": [
+        "ClockAdvanced",
+        "AllocationExpired"
+      ],
+      "event_semantics": "planned_committed_events",
+      "workspaces": [
+        "events",
+        "acceptance"
+      ],
+      "test_ids": [
+        "T-CONTRACT",
+        "CP1-LEASES",
+        "CP2-CLOCK-BOUNDARIES"
+      ],
+      "implementation_status": "CP0_STUB",
+      "verification_status": "NOT_RUN",
+      "audience": "test_operator_only"
+    },
+    {
+      "operation_id": "test_contributor_demand",
+      "method": "POST",
+      "path": "/_test/contributor-demand",
+      "owner": "A",
+      "domain_objects": [
+        "CommandEnvelope",
+        "ContributorDemand",
+        "Allocation"
+      ],
+      "events": [
+        "ContributorDemandCreated",
+        "PreemptionRequested",
+        "AllocationPreempted"
+      ],
+      "event_semantics": "planned_committed_events",
+      "workspaces": [
+        "events",
+        "acceptance"
+      ],
+      "test_ids": [
+        "T-CONTRACT",
+        "CP2-PREEMPTION"
+      ],
+      "implementation_status": "CP0_STUB",
+      "verification_status": "NOT_RUN",
+      "audience": "test_operator_only"
+    },
+    {
+      "operation_id": "test_node_state",
+      "method": "POST",
+      "path": "/_test/node-state",
+      "owner": "A",
+      "domain_objects": [
+        "CommandEnvelope",
+        "Node",
+        "Attempt",
+        "ResourceLedger"
+      ],
+      "events": [
+        "NodeStateChanged",
+        "AllocationEvicted"
+      ],
+      "event_semantics": "planned_committed_events",
+      "workspaces": [
+        "events",
+        "acceptance"
+      ],
+      "test_ids": [
+        "T-CONTRACT",
+        "CP2-NODE-FAILURE"
+      ],
+      "implementation_status": "CP0_STUB",
+      "verification_status": "NOT_RUN",
+      "audience": "test_operator_only"
+    },
+    {
+      "operation_id": "test_fault",
+      "method": "POST",
+      "path": "/_test/fault",
+      "owner": "A",
+      "domain_objects": [
+        "CommandEnvelope",
+        "FaultRule"
+      ],
+      "events": [
+        "FaultConfigured"
+      ],
+      "event_semantics": "planned_committed_events",
+      "workspaces": [
+        "events",
+        "acceptance"
+      ],
+      "test_ids": [
+        "T-CONTRACT",
+        "CP2-FAULTS"
+      ],
+      "implementation_status": "CP0_STUB",
+      "verification_status": "NOT_RUN",
+      "audience": "test_operator_only"
+    }
+  ]
+}

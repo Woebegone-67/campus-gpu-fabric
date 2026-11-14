@@ -1,0 +1,3809 @@
+{
+  "$defs": {
+    "AllocationCreateParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "checkpoint_timeout_seconds": {
+          "default": 15,
+          "maximum": 300,
+          "minimum": 1,
+          "title": "Checkpoint Timeout Seconds",
+          "type": "integer"
+        },
+        "kind": {
+          "const": "allocation.create",
+          "title": "Kind",
+          "type": "string"
+        },
+        "max_restarts": {
+          "default": 2,
+          "maximum": 20,
+          "minimum": 0,
+          "title": "Max Restarts",
+          "type": "integer"
+        },
+        "node_selector": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/KeyValue"
+          },
+          "title": "Node Selector",
+          "type": "array"
+        },
+        "owner_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Owner Id",
+          "type": "string"
+        },
+        "preemptible": {
+          "default": true,
+          "title": "Preemptible",
+          "type": "boolean"
+        },
+        "preemption_mode": {
+          "default": "best_effort",
+          "enum": [
+            "best_effort",
+            "checkpoint",
+            "restartable",
+            "non_preemptible"
+          ],
+          "title": "Preemption Mode",
+          "type": "string"
+        },
+        "priority": {
+          "default": 0,
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Priority",
+          "type": "integer"
+        },
+        "queue": {
+          "default": "default",
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Queue",
+          "type": "string"
+        },
+        "request": {
+          "$ref": "#/$defs/ResourceRequest"
+        },
+        "ttl_seconds": {
+          "default": 300,
+          "maximum": 3600,
+          "minimum": 30,
+          "title": "Ttl Seconds",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kind",
+        "owner_id",
+        "request"
+      ],
+      "title": "AllocationCreateParameters",
+      "type": "object"
+    },
+    "AllocationRenewParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "allocation_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Allocation Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "allocation.renew",
+          "title": "Kind",
+          "type": "string"
+        },
+        "ttl_seconds": {
+          "anyOf": [
+            {
+              "maximum": 3600,
+              "minimum": 30,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ttl Seconds"
+        }
+      },
+      "required": [
+        "kind",
+        "allocation_id"
+      ],
+      "title": "AllocationRenewParameters",
+      "type": "object"
+    },
+    "AllocationTargetParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "allocation_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Allocation Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "allocation.release",
+            "allocation.resume"
+          ],
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "allocation_id"
+      ],
+      "title": "AllocationTargetParameters",
+      "type": "object"
+    },
+    "AllocationView": {
+      "additionalProperties": false,
+      "properties": {
+        "allocation_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Allocation Id",
+          "type": "string"
+        },
+        "created_at": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Created At",
+          "type": "number"
+        },
+        "expires_at": {
+          "anyOf": [
+            {
+              "maximum": 9007199254740991,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expires At"
+        },
+        "owner_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Owner Id",
+          "type": "string"
+        },
+        "placement": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Placement"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "request": {
+          "$ref": "#/$defs/ResourceRequest"
+        },
+        "state": {
+          "enum": [
+            "Pending",
+            "Allocated",
+            "Running",
+            "PreemptRequested",
+            "Preempted",
+            "Released",
+            "Expired",
+            "Evicted",
+            "Rejected"
+          ],
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "allocation_id",
+        "owner_id",
+        "state",
+        "request",
+        "created_at"
+      ],
+      "title": "AllocationView",
+      "type": "object"
+    },
+    "AttemptRef": {
+      "additionalProperties": false,
+      "properties": {
+        "allocation_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Allocation Id",
+          "type": "string"
+        },
+        "attempt_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Attempt Id",
+          "type": "string"
+        },
+        "generation": {
+          "maximum": 9007199254740991,
+          "minimum": 1,
+          "title": "Generation",
+          "type": "integer"
+        },
+        "intent_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Intent Id",
+          "type": "string"
+        },
+        "job_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^\\S+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Job Id"
+        }
+      },
+      "required": [
+        "intent_id",
+        "attempt_id",
+        "generation",
+        "allocation_id"
+      ],
+      "title": "AttemptRef",
+      "type": "object"
+    },
+    "AttemptSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "checkpoint": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CheckpointFact"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "created_at": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Created At",
+          "type": "number"
+        },
+        "finished_at": {
+          "anyOf": [
+            {
+              "maximum": 9007199254740991,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Finished At"
+        },
+        "ref": {
+          "$ref": "#/$defs/AttemptRef"
+        },
+        "started_at": {
+          "anyOf": [
+            {
+              "maximum": 9007199254740991,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Started At"
+        },
+        "state": {
+          "enum": [
+            "waiting",
+            "starting",
+            "running",
+            "checkpointing",
+            "stopping",
+            "stopped",
+            "quarantined",
+            "completed",
+            "failed",
+            "cancelled"
+          ],
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ref",
+        "state",
+        "created_at"
+      ],
+      "title": "AttemptSnapshot",
+      "type": "object"
+    },
+    "AuthenticatedActor": {
+      "additionalProperties": false,
+      "description": "Constructed by a trusted authentication adapter, never trusted from a body.",
+      "properties": {
+        "actor_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Actor Id",
+          "type": "string"
+        },
+        "owner_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^\\S+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Owner Id"
+        },
+        "role": {
+          "enum": [
+            "researcher",
+            "contributor",
+            "administrator",
+            "test_driver",
+            "system"
+          ],
+          "title": "Role",
+          "type": "string"
+        }
+      },
+      "required": [
+        "actor_id",
+        "role"
+      ],
+      "title": "AuthenticatedActor",
+      "type": "object"
+    },
+    "CandidateAction": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "allocate",
+            "resume",
+            "defer",
+            "reject"
+          ],
+          "title": "Action",
+          "type": "string"
+        },
+        "allocation_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^\\S+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Allocation Id"
+        },
+        "attempt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AttemptRef"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "candidate_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Candidate Id",
+          "type": "string"
+        },
+        "demand_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Demand Id",
+          "type": "string"
+        },
+        "feasibility": {
+          "enum": [
+            "legal",
+            "infeasible",
+            "unexamined"
+          ],
+          "title": "Feasibility",
+          "type": "string"
+        },
+        "intent_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^\\S+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Intent Id"
+        },
+        "owner_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Owner Id",
+          "type": "string"
+        },
+        "placement": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Placement"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "preconditions": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Precondition"
+          },
+          "title": "Preconditions",
+          "type": "array"
+        },
+        "scores": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ScoreComponent"
+          },
+          "title": "Scores",
+          "type": "array"
+        },
+        "violations": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ConstraintViolation"
+          },
+          "title": "Violations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "candidate_id",
+        "action",
+        "owner_id",
+        "demand_id",
+        "feasibility"
+      ],
+      "title": "CandidateAction",
+      "type": "object"
+    },
+    "CheckpointFact": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact_uri": {
+          "anyOf": [
+            {
+              "maxLength": 4096,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Artifact Uri"
+        },
+        "checkpoint_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Checkpoint Id",
+          "type": "string"
+        },
+        "continuation_status": {
+          "default": "not_attempted",
+          "enum": [
+            "not_attempted",
+            "applied",
+            "failed"
+          ],
+          "title": "Continuation Status",
+          "type": "string"
+        },
+        "report_status": {
+          "enum": [
+            "ready",
+            "failed"
+          ],
+          "title": "Report Status",
+          "type": "string"
+        },
+        "reported_at": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Reported At",
+          "type": "number"
+        },
+        "resumed_attempt_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^\\S+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resumed Attempt Id"
+        },
+        "verification_status": {
+          "default": "unverified",
+          "enum": [
+            "unverified",
+            "verified",
+            "failed"
+          ],
+          "title": "Verification Status",
+          "type": "string"
+        },
+        "verified_at": {
+          "anyOf": [
+            {
+              "maximum": 9007199254740991,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Verified At"
+        },
+        "verifier_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^\\S+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Verifier Id"
+        }
+      },
+      "required": [
+        "checkpoint_id",
+        "report_status",
+        "reported_at"
+      ],
+      "title": "CheckpointFact",
+      "type": "object"
+    },
+    "CheckpointReportParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "allocation_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Allocation Id",
+          "type": "string"
+        },
+        "artifact_uri": {
+          "anyOf": [
+            {
+              "maxLength": 4096,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Artifact Uri"
+        },
+        "kind": {
+          "const": "allocation.checkpoint",
+          "title": "Kind",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "ready",
+            "failed"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "allocation_id",
+        "status"
+      ],
+      "title": "CheckpointReportParameters",
+      "type": "object"
+    },
+    "ClockAdvanceParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "advance_seconds": {
+          "maximum": 86400,
+          "minimum": 0,
+          "title": "Advance Seconds",
+          "type": "number"
+        },
+        "driver_tick_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^\\S+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Driver Tick Id"
+        },
+        "kind": {
+          "const": "clock.advance",
+          "title": "Kind",
+          "type": "string"
+        },
+        "source": {
+          "enum": [
+            "test_control",
+            "wall_clock_driver",
+            "manual"
+          ],
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "advance_seconds",
+        "source"
+      ],
+      "title": "ClockAdvanceParameters",
+      "type": "object"
+    },
+    "CommandEnvelope": {
+      "additionalProperties": false,
+      "properties": {
+        "actor": {
+          "$ref": "#/$defs/AuthenticatedActor"
+        },
+        "expected_version": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VersionStamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "idempotency_key": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^\\S+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Idempotency Key"
+        },
+        "operation": {
+          "enum": [
+            "allocation.create",
+            "allocation.release",
+            "allocation.renew",
+            "allocation.checkpoint",
+            "allocation.resume",
+            "job.create",
+            "job.cancel",
+            "clock.advance",
+            "test.reset",
+            "test.contributor_demand",
+            "test.node_state",
+            "test.fault",
+            "contribution.register",
+            "contribution.recall",
+            "decision.commit",
+            "executor.report",
+            "workflow.register_intent",
+            "workflow.create_allocation_and_bind",
+            "workflow.create_job_and_bind"
+          ],
+          "title": "Operation",
+          "type": "string"
+        },
+        "parameters": {
+          "$ref": "#/$defs/CommandParameters"
+        },
+        "request_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "request_id",
+        "actor",
+        "operation",
+        "parameters"
+      ],
+      "title": "CommandEnvelope",
+      "type": "object"
+    },
+    "CommandParameters": {
+      "discriminator": {
+        "mapping": {
+          "allocation.checkpoint": "#/$defs/CheckpointReportParameters",
+          "allocation.create": "#/$defs/AllocationCreateParameters",
+          "allocation.release": "#/$defs/AllocationTargetParameters",
+          "allocation.renew": "#/$defs/AllocationRenewParameters",
+          "allocation.resume": "#/$defs/AllocationTargetParameters",
+          "clock.advance": "#/$defs/ClockAdvanceParameters",
+          "contribution.recall": "#/$defs/RecallParameters",
+          "contribution.register": "#/$defs/ContributionRegisterParameters",
+          "decision.commit": "#/$defs/DecisionCommitParameters",
+          "executor.report": "#/$defs/ExecutorReportParameters",
+          "job.cancel": "#/$defs/JobCancelParameters",
+          "job.create": "#/$defs/JobCreateParameters",
+          "test.contributor_demand": "#/$defs/RecallParameters",
+          "test.fault": "#/$defs/FaultParameters",
+          "test.node_state": "#/$defs/NodeStateParameters",
+          "test.reset": "#/$defs/ResetParameters",
+          "workflow.create_allocation_and_bind": "#/$defs/WorkflowStageParameters",
+          "workflow.create_job_and_bind": "#/$defs/WorkflowStageParameters",
+          "workflow.register_intent": "#/$defs/WorkflowIntentParameters"
+        },
+        "propertyName": "kind"
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/AllocationCreateParameters"
+        },
+        {
+          "$ref": "#/$defs/AllocationTargetParameters"
+        },
+        {
+          "$ref": "#/$defs/AllocationRenewParameters"
+        },
+        {
+          "$ref": "#/$defs/CheckpointReportParameters"
+        },
+        {
+          "$ref": "#/$defs/JobCreateParameters"
+        },
+        {
+          "$ref": "#/$defs/JobCancelParameters"
+        },
+        {
+          "$ref": "#/$defs/ClockAdvanceParameters"
+        },
+        {
+          "$ref": "#/$defs/ResetParameters"
+        },
+        {
+          "$ref": "#/$defs/RecallParameters"
+        },
+        {
+          "$ref": "#/$defs/NodeStateParameters"
+        },
+        {
+          "$ref": "#/$defs/FaultParameters"
+        },
+        {
+          "$ref": "#/$defs/ContributionRegisterParameters"
+        },
+        {
+          "$ref": "#/$defs/DecisionCommitParameters"
+        },
+        {
+          "$ref": "#/$defs/ExecutorReportParameters"
+        },
+        {
+          "$ref": "#/$defs/WorkflowIntentParameters"
+        },
+        {
+          "$ref": "#/$defs/WorkflowStageParameters"
+        }
+      ]
+    },
+    "CommitReceipt": {
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ErrorDetail"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "event_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^\\S+$",
+            "type": "string"
+          },
+          "title": "Event Ids",
+          "type": "array"
+        },
+        "idempotency_replayed": {
+          "default": false,
+          "title": "Idempotency Replayed",
+          "type": "boolean"
+        },
+        "logical_time": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Logical Time",
+          "type": "number"
+        },
+        "objects": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/EntityRef"
+          },
+          "title": "Objects",
+          "type": "array"
+        },
+        "original_request_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^\\S+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Original Request Id"
+        },
+        "outcome": {
+          "enum": [
+            "committed",
+            "rejected",
+            "noop"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        },
+        "request_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Request Id",
+          "type": "string"
+        },
+        "version": {
+          "$ref": "#/$defs/VersionStamp"
+        }
+      },
+      "required": [
+        "request_id",
+        "outcome",
+        "version",
+        "logical_time"
+      ],
+      "title": "CommitReceipt",
+      "type": "object"
+    },
+    "CommittedEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "attempt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AttemptRef"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "cause": {
+          "discriminator": {
+            "mapping": {
+              "event": "#/$defs/EventCause",
+              "request": "#/$defs/RequestCause"
+            },
+            "propertyName": "kind"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/RequestCause"
+            },
+            {
+              "$ref": "#/$defs/EventCause"
+            }
+          ],
+          "title": "Cause"
+        },
+        "decision_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^\\S+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Decision Id"
+        },
+        "decision_snapshot_version": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VersionStamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "entities": {
+          "items": {
+            "$ref": "#/$defs/EntityRef"
+          },
+          "title": "Entities",
+          "type": "array"
+        },
+        "event_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Event Id",
+          "type": "string"
+        },
+        "event_type": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Event Type",
+          "type": "string"
+        },
+        "logical_time": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Logical Time",
+          "type": "number"
+        },
+        "owner_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^\\S+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Owner Id"
+        },
+        "resource_deltas": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ResourceDelta"
+          },
+          "title": "Resource Deltas",
+          "type": "array"
+        },
+        "sequence": {
+          "maximum": 9007199254740991,
+          "minimum": 1,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "state_changes": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/StateChange"
+          },
+          "title": "State Changes",
+          "type": "array"
+        },
+        "version": {
+          "$ref": "#/$defs/VersionStamp"
+        }
+      },
+      "required": [
+        "event_id",
+        "sequence",
+        "version",
+        "logical_time",
+        "event_type",
+        "owner_id",
+        "entities",
+        "cause"
+      ],
+      "title": "CommittedEvent",
+      "type": "object"
+    },
+    "ConstraintViolation": {
+      "additionalProperties": false,
+      "properties": {
+        "constraint": {
+          "enum": [
+            "cpu",
+            "memory",
+            "storage",
+            "gpu_count",
+            "gpu_model",
+            "gpu_memory",
+            "profile",
+            "labels",
+            "node_state",
+            "owner",
+            "lease",
+            "budget",
+            "attempt",
+            "quarantine"
+          ],
+          "title": "Constraint",
+          "type": "string"
+        },
+        "detail": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Detail",
+          "type": "string"
+        },
+        "entity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EntityRef"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "constraint",
+        "detail"
+      ],
+      "title": "ConstraintViolation",
+      "type": "object"
+    },
+    "ContributionRegisterParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "contribution.register",
+          "title": "Kind",
+          "type": "string"
+        },
+        "node": {
+          "$ref": "#/$defs/NodeInventory"
+        }
+      },
+      "required": [
+        "kind",
+        "node"
+      ],
+      "title": "ContributionRegisterParameters",
+      "type": "object"
+    },
+    "ContributorNotice": {
+      "additionalProperties": false,
+      "properties": {
+        "contributor_owner_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Contributor Owner Id",
+          "type": "string"
+        },
+        "deadline": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Deadline",
+          "type": "number"
+        },
+        "device_ids": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^\\S+$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Device Ids",
+          "type": "array"
+        },
+        "issued_at": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Issued At",
+          "type": "number"
+        },
+        "notice_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Notice Id",
+          "type": "string"
+        },
+        "unavailable_until": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Unavailable Until",
+          "type": "number"
+        }
+      },
+      "required": [
+        "notice_id",
+        "contributor_owner_id",
+        "device_ids",
+        "issued_at",
+        "deadline",
+        "unavailable_until"
+      ],
+      "title": "ContributorNotice",
+      "type": "object"
+    },
+    "DecisionCommitParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "decision.commit",
+          "title": "Kind",
+          "type": "string"
+        },
+        "plan": {
+          "$ref": "#/$defs/DecisionPlan"
+        }
+      },
+      "required": [
+        "kind",
+        "plan"
+      ],
+      "title": "DecisionCommitParameters",
+      "type": "object"
+    },
+    "DecisionPlan": {
+      "additionalProperties": false,
+      "properties": {
+        "asserts_pool_infeasible": {
+          "default": false,
+          "title": "Asserts Pool Infeasible",
+          "type": "boolean"
+        },
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/CandidateAction"
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "coverage": {
+          "$ref": "#/$defs/SearchCoverage"
+        },
+        "decision_at": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Decision At",
+          "type": "number"
+        },
+        "decision_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Decision Id",
+          "type": "string"
+        },
+        "model": {
+          "$ref": "#/$defs/VersionedArtifact"
+        },
+        "policy": {
+          "$ref": "#/$defs/VersionedArtifact"
+        },
+        "rationale": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Rationale",
+          "type": "string"
+        },
+        "selected_candidate_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^\\S+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Selected Candidate Id"
+        },
+        "snapshot_version": {
+          "$ref": "#/$defs/VersionStamp"
+        },
+        "tie_break_rule": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Tie Break Rule",
+          "type": "string"
+        }
+      },
+      "required": [
+        "decision_id",
+        "snapshot_version",
+        "decision_at",
+        "policy",
+        "model",
+        "candidates",
+        "coverage",
+        "selected_candidate_id",
+        "rationale",
+        "tie_break_rule"
+      ],
+      "title": "DecisionPlan",
+      "type": "object"
+    },
+    "DecisionSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "demands": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/DemandSnapshot"
+          },
+          "title": "Demands",
+          "type": "array"
+        },
+        "execution_mode": {
+          "enum": [
+            "logical_simulation",
+            "cpu_reference"
+          ],
+          "title": "Execution Mode",
+          "type": "string"
+        },
+        "history": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ObservedDatum"
+          },
+          "title": "History",
+          "type": "array"
+        },
+        "inventory": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/NodeInventory"
+          },
+          "title": "Inventory",
+          "type": "array"
+        },
+        "leases": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/LeaseSnapshot"
+          },
+          "title": "Leases",
+          "type": "array"
+        },
+        "metadata": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ObservedDatum"
+          },
+          "title": "Metadata",
+          "type": "array"
+        },
+        "notices": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ContributorNotice"
+          },
+          "title": "Notices",
+          "type": "array"
+        },
+        "now": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Now",
+          "type": "number"
+        },
+        "occupancy": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Occupancy"
+          },
+          "title": "Occupancy",
+          "type": "array"
+        },
+        "version": {
+          "$ref": "#/$defs/VersionStamp"
+        }
+      },
+      "required": [
+        "version",
+        "now",
+        "execution_mode"
+      ],
+      "title": "DecisionSnapshot",
+      "type": "object"
+    },
+    "DemandSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "allocation_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^\\S+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Allocation Id"
+        },
+        "arrived_at": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Arrived At",
+          "type": "number"
+        },
+        "demand_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Demand Id",
+          "type": "string"
+        },
+        "intent_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^\\S+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Intent Id"
+        },
+        "known_data": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ObservedDatum"
+          },
+          "title": "Known Data",
+          "type": "array"
+        },
+        "node_selector": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/KeyValue"
+          },
+          "title": "Node Selector",
+          "type": "array"
+        },
+        "owner_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Owner Id",
+          "type": "string"
+        },
+        "priority": {
+          "default": 0,
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Priority",
+          "type": "integer"
+        },
+        "request": {
+          "$ref": "#/$defs/ResourceRequest"
+        }
+      },
+      "required": [
+        "demand_id",
+        "owner_id",
+        "arrived_at",
+        "request"
+      ],
+      "title": "DemandSnapshot",
+      "type": "object"
+    },
+    "EntityRef": {
+      "additionalProperties": false,
+      "properties": {
+        "entity_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "intent",
+            "allocation",
+            "job",
+            "attempt",
+            "node",
+            "gpu",
+            "checkpoint",
+            "decision",
+            "run"
+          ],
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "entity_id"
+      ],
+      "title": "EntityRef",
+      "type": "object"
+    },
+    "ErrorDetail": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "enum": [
+            "invalid_command",
+            "unauthorized",
+            "forbidden",
+            "not_found",
+            "stale_version",
+            "idempotency_conflict",
+            "insufficient_resources",
+            "lease_unavailable",
+            "budget_exhausted",
+            "attempt_stale",
+            "stage_conflict",
+            "execution_unconfirmed",
+            "rate_limited",
+            "injected_fault",
+            "internal_error"
+          ],
+          "title": "Code",
+          "type": "string"
+        },
+        "current_version": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VersionStamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "detail": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Detail",
+          "type": "string"
+        },
+        "retryable": {
+          "default": false,
+          "title": "Retryable",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "code",
+        "detail"
+      ],
+      "title": "ErrorDetail",
+      "type": "object"
+    },
+    "EventCause": {
+      "additionalProperties": false,
+      "properties": {
+        "event_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Event Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "event",
+          "title": "Kind",
+          "type": "string"
+        },
+        "sequence": {
+          "maximum": 9007199254740991,
+          "minimum": 1,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "version": {
+          "$ref": "#/$defs/VersionStamp"
+        }
+      },
+      "required": [
+        "kind",
+        "event_id",
+        "sequence",
+        "version"
+      ],
+      "title": "EventCause",
+      "type": "object"
+    },
+    "EventCursor": {
+      "additionalProperties": false,
+      "properties": {
+        "after_sequence": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "After Sequence",
+          "type": "integer"
+        },
+        "epoch": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Epoch",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "epoch",
+        "after_sequence"
+      ],
+      "title": "EventCursor",
+      "type": "object"
+    },
+    "EvidenceCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "actual": {
+          "anyOf": [
+            {
+              "maxLength": 4096,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Actual"
+        },
+        "command_or_action": {
+          "anyOf": [
+            {
+              "maxLength": 4096,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Command Or Action"
+        },
+        "evidence_uris": {
+          "default": [],
+          "items": {
+            "maxLength": 4096,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Uris",
+          "type": "array"
+        },
+        "executor": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^\\S+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Executor"
+        },
+        "expected": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Expected",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "MET",
+            "NOT_MET",
+            "NOT_RUN"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "target_id": {
+          "enum": [
+            "T-CONTRACT",
+            "T-STATE",
+            "T-REPLAY",
+            "T-PRODUCT",
+            "T-POLICY",
+            "T-REAL",
+            "T-SCALE",
+            "T-LATENCY",
+            "T-DELIVERY"
+          ],
+          "title": "Target Id",
+          "type": "string"
+        },
+        "unresolved": {
+          "default": [],
+          "items": {
+            "maxLength": 4096,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Unresolved",
+          "type": "array"
+        }
+      },
+      "required": [
+        "target_id",
+        "status",
+        "expected"
+      ],
+      "title": "EvidenceCheck",
+      "type": "object"
+    },
+    "EvidenceEnvironment": {
+      "additionalProperties": false,
+      "properties": {
+        "cpu_count": {
+          "maximum": 9007199254740991,
+          "minimum": 1,
+          "title": "Cpu Count",
+          "type": "integer"
+        },
+        "dependencies": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/VersionedArtifact"
+          },
+          "title": "Dependencies",
+          "type": "array"
+        },
+        "execution_mode": {
+          "enum": [
+            "logical_simulation",
+            "cpu_reference"
+          ],
+          "title": "Execution Mode",
+          "type": "string"
+        },
+        "memory_mib": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Memory Mib",
+          "type": "integer"
+        },
+        "platform": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Platform",
+          "type": "string"
+        },
+        "python_version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Python Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "platform",
+        "python_version",
+        "cpu_count",
+        "memory_mib",
+        "execution_mode"
+      ],
+      "title": "EvidenceEnvironment",
+      "type": "object"
+    },
+    "EvidenceRun": {
+      "additionalProperties": false,
+      "properties": {
+        "build": {
+          "$ref": "#/$defs/VersionedArtifact"
+        },
+        "calculator": {
+          "$ref": "#/$defs/VersionedArtifact"
+        },
+        "checks": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/EvidenceCheck"
+          },
+          "title": "Checks",
+          "type": "array"
+        },
+        "environment": {
+          "$ref": "#/$defs/EvidenceEnvironment"
+        },
+        "exceptions": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ErrorDetail"
+          },
+          "title": "Exceptions",
+          "type": "array"
+        },
+        "inputs": {
+          "items": {
+            "$ref": "#/$defs/VersionedArtifact"
+          },
+          "title": "Inputs",
+          "type": "array"
+        },
+        "model": {
+          "$ref": "#/$defs/VersionedArtifact"
+        },
+        "outputs": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/VersionedArtifact"
+          },
+          "title": "Outputs",
+          "type": "array"
+        },
+        "parent_run_id": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^\\S+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parent Run Id"
+        },
+        "policy": {
+          "$ref": "#/$defs/VersionedArtifact"
+        },
+        "run_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Run Id",
+          "type": "string"
+        },
+        "run_kind": {
+          "enum": [
+            "factual",
+            "replay",
+            "counterfactual"
+          ],
+          "title": "Run Kind",
+          "type": "string"
+        },
+        "scenario": {
+          "$ref": "#/$defs/VersionedArtifact"
+        },
+        "seed": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Seed",
+          "type": "integer"
+        },
+        "semantics": {
+          "$ref": "#/$defs/VersionedArtifact"
+        },
+        "status": {
+          "enum": [
+            "not_run",
+            "running",
+            "completed",
+            "failed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "window": {
+          "$ref": "#/$defs/EvidenceWindow"
+        }
+      },
+      "required": [
+        "run_id",
+        "run_kind",
+        "build",
+        "semantics",
+        "model",
+        "policy",
+        "scenario",
+        "calculator",
+        "seed",
+        "inputs",
+        "window",
+        "environment",
+        "status"
+      ],
+      "title": "EvidenceRun",
+      "type": "object"
+    },
+    "EvidenceWindow": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "End",
+          "type": "number"
+        },
+        "start": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Start",
+          "type": "number"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "EvidenceWindow",
+      "type": "object"
+    },
+    "ExecutorEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "attempt": {
+          "$ref": "#/$defs/AttemptRef"
+        },
+        "callback_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Callback Id",
+          "type": "string"
+        },
+        "checkpoint": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CheckpointFact"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "error": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ErrorDetail"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "kind": {
+          "enum": [
+            "started",
+            "progress",
+            "checkpoint_reported",
+            "stopped",
+            "completed",
+            "failed",
+            "alive",
+            "unknown"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "mode": {
+          "enum": [
+            "logical_simulation",
+            "cpu_reference"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "observed_at": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Observed At",
+          "type": "number"
+        },
+        "physical_elapsed_seconds": {
+          "anyOf": [
+            {
+              "maximum": 9007199254740991,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Physical Elapsed Seconds"
+        },
+        "result_uri": {
+          "anyOf": [
+            {
+              "maxLength": 4096,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Result Uri"
+        },
+        "version": {
+          "$ref": "#/$defs/VersionStamp"
+        }
+      },
+      "required": [
+        "callback_id",
+        "version",
+        "attempt",
+        "kind",
+        "mode",
+        "observed_at"
+      ],
+      "title": "ExecutorEvent",
+      "type": "object"
+    },
+    "ExecutorReportParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "event": {
+          "$ref": "#/$defs/ExecutorEvent"
+        },
+        "kind": {
+          "const": "executor.report",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "event"
+      ],
+      "title": "ExecutorReportParameters",
+      "type": "object"
+    },
+    "FaultParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "count": {
+          "anyOf": [
+            {
+              "maximum": 20,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Count"
+        },
+        "delay_ms": {
+          "anyOf": [
+            {
+              "maximum": 30000,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Delay Ms"
+        },
+        "kind": {
+          "const": "test.fault",
+          "title": "Kind",
+          "type": "string"
+        },
+        "mode": {
+          "enum": [
+            "none",
+            "429",
+            "500",
+            "503",
+            "latency"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "target_operation": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Target Operation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "target_operation",
+        "mode"
+      ],
+      "title": "FaultParameters",
+      "type": "object"
+    },
+    "GPUDevice": {
+      "additionalProperties": false,
+      "properties": {
+        "device_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Device Id",
+          "type": "string"
+        },
+        "memory_mib": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Memory Mib",
+          "type": "integer"
+        },
+        "model": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Model",
+          "type": "string"
+        },
+        "physical_gpu_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Physical Gpu Id",
+          "type": "string"
+        },
+        "profile": {
+          "anyOf": [
+            {
+              "maxLength": 4096,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Profile"
+        },
+        "state": {
+          "enum": [
+            "available",
+            "occupied",
+            "quarantined",
+            "unavailable"
+          ],
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "device_id",
+        "physical_gpu_id",
+        "model",
+        "memory_mib",
+        "state"
+      ],
+      "title": "GPUDevice",
+      "type": "object"
+    },
+    "GPURequest": {
+      "additionalProperties": false,
+      "properties": {
+        "count": {
+          "maximum": 16,
+          "minimum": 0,
+          "title": "Count",
+          "type": "integer"
+        },
+        "memory_mib": {
+          "default": 0,
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Memory Mib",
+          "type": "integer"
+        },
+        "model": {
+          "default": "any",
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Model",
+          "type": "string"
+        },
+        "profile": {
+          "anyOf": [
+            {
+              "maxLength": 4096,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Profile"
+        }
+      },
+      "required": [
+        "count"
+      ],
+      "title": "GPURequest",
+      "type": "object"
+    },
+    "JobCancelParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "job_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Job Id",
+          "type": "string"
+        },
+        "kind": {
+          "const": "job.cancel",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "job_id"
+      ],
+      "title": "JobCancelParameters",
+      "type": "object"
+    },
+    "JobCreateParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "allocation_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Allocation Id",
+          "type": "string"
+        },
+        "command": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Command",
+          "type": "array"
+        },
+        "env": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/KeyValue"
+          },
+          "title": "Env",
+          "type": "array"
+        },
+        "image": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Image",
+          "type": "string"
+        },
+        "kind": {
+          "const": "job.create",
+          "title": "Kind",
+          "type": "string"
+        },
+        "max_retries": {
+          "anyOf": [
+            {
+              "maximum": 10,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Retries"
+        },
+        "timeout_seconds": {
+          "anyOf": [
+            {
+              "maximum": 86400,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Timeout Seconds"
+        }
+      },
+      "required": [
+        "image",
+        "command",
+        "kind",
+        "allocation_id"
+      ],
+      "title": "JobCreateParameters",
+      "type": "object"
+    },
+    "JobSpecification": {
+      "additionalProperties": false,
+      "properties": {
+        "command": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Command",
+          "type": "array"
+        },
+        "env": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/KeyValue"
+          },
+          "title": "Env",
+          "type": "array"
+        },
+        "image": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Image",
+          "type": "string"
+        },
+        "max_retries": {
+          "anyOf": [
+            {
+              "maximum": 10,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Retries"
+        },
+        "timeout_seconds": {
+          "anyOf": [
+            {
+              "maximum": 86400,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Timeout Seconds"
+        }
+      },
+      "required": [
+        "image",
+        "command"
+      ],
+      "title": "JobSpecification",
+      "type": "object"
+    },
+    "JobView": {
+      "additionalProperties": false,
+      "properties": {
+        "allocation_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Allocation Id",
+          "type": "string"
+        },
+        "attempt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AttemptRef"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "created_at": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Created At",
+          "type": "number"
+        },
+        "job_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Job Id",
+          "type": "string"
+        },
+        "owner_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Owner Id",
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "Pending",
+            "Running",
+            "Checkpointing",
+            "Preempted",
+            "Succeeded",
+            "Failed",
+            "Cancelled"
+          ],
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "job_id",
+        "allocation_id",
+        "owner_id",
+        "state",
+        "created_at"
+      ],
+      "title": "JobView",
+      "type": "object"
+    },
+    "KeyValue": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Key",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ],
+      "title": "KeyValue",
+      "type": "object"
+    },
+    "LeaseSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "allocation_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Allocation Id",
+          "type": "string"
+        },
+        "attempt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AttemptRef"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "expires_at": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Expires At",
+          "type": "number"
+        },
+        "owner_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Owner Id",
+          "type": "string"
+        },
+        "placement": {
+          "$ref": "#/$defs/Placement"
+        },
+        "starts_at": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Starts At",
+          "type": "number"
+        }
+      },
+      "required": [
+        "allocation_id",
+        "owner_id",
+        "starts_at",
+        "expires_at",
+        "placement"
+      ],
+      "title": "LeaseSnapshot",
+      "type": "object"
+    },
+    "LegalAction": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "$ref": "#/$defs/EntityRef"
+        },
+        "explanation": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Explanation",
+          "type": "string"
+        },
+        "operation": {
+          "enum": [
+            "allocation.create",
+            "allocation.release",
+            "allocation.renew",
+            "allocation.checkpoint",
+            "allocation.resume",
+            "job.create",
+            "job.cancel",
+            "clock.advance",
+            "test.reset",
+            "test.contributor_demand",
+            "test.node_state",
+            "test.fault",
+            "contribution.register",
+            "contribution.recall",
+            "decision.commit",
+            "executor.report",
+            "workflow.register_intent",
+            "workflow.create_allocation_and_bind",
+            "workflow.create_job_and_bind"
+          ],
+          "title": "Operation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "operation",
+        "entity",
+        "explanation"
+      ],
+      "title": "LegalAction",
+      "type": "object"
+    },
+    "NodeInventory": {
+      "additionalProperties": false,
+      "properties": {
+        "available": {
+          "$ref": "#/$defs/ResourceAmounts"
+        },
+        "capacity": {
+          "$ref": "#/$defs/ResourceAmounts"
+        },
+        "contributor_owner_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Contributor Owner Id",
+          "type": "string"
+        },
+        "devices": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/GPUDevice"
+          },
+          "title": "Devices",
+          "type": "array"
+        },
+        "labels": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/KeyValue"
+          },
+          "title": "Labels",
+          "type": "array"
+        },
+        "node_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Node Id",
+          "type": "string"
+        },
+        "observed_at": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Observed At",
+          "type": "number"
+        },
+        "state": {
+          "enum": [
+            "Ready",
+            "Draining",
+            "NotReady"
+          ],
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "node_id",
+        "contributor_owner_id",
+        "state",
+        "capacity",
+        "available",
+        "observed_at"
+      ],
+      "title": "NodeInventory",
+      "type": "object"
+    },
+    "NodeStateParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "test.node_state",
+          "title": "Kind",
+          "type": "string"
+        },
+        "node_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Node Id",
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "Ready",
+            "Draining",
+            "NotReady"
+          ],
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "node_id",
+        "state"
+      ],
+      "title": "NodeStateParameters",
+      "type": "object"
+    },
+    "ObservedDatum": {
+      "additionalProperties": false,
+      "description": "An explicitly available scalar; hidden evaluator inputs are not a source.",
+      "properties": {
+        "available_at": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Available At",
+          "type": "number"
+        },
+        "name": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Name",
+          "type": "string"
+        },
+        "observed_at": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Observed At",
+          "type": "number"
+        },
+        "source": {
+          "enum": [
+            "request",
+            "observed_event",
+            "declared_profile",
+            "public_metadata",
+            "history"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "source_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "maximum": 9007199254740991,
+              "minimum": -9007199254740991,
+              "type": "integer"
+            },
+            {
+              "maximum": 9007199254740991,
+              "minimum": -9007199254740991,
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        }
+      },
+      "required": [
+        "name",
+        "value",
+        "source",
+        "observed_at",
+        "available_at",
+        "source_id"
+      ],
+      "title": "ObservedDatum",
+      "type": "object"
+    },
+    "Occupancy": {
+      "additionalProperties": false,
+      "properties": {
+        "allocation_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Allocation Id",
+          "type": "string"
+        },
+        "owner_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Owner Id",
+          "type": "string"
+        },
+        "placement": {
+          "$ref": "#/$defs/Placement"
+        },
+        "since": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Since",
+          "type": "number"
+        },
+        "status": {
+          "enum": [
+            "reserved",
+            "executing",
+            "stopping",
+            "quarantined"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "allocation_id",
+        "owner_id",
+        "placement",
+        "since",
+        "status"
+      ],
+      "title": "Occupancy",
+      "type": "object"
+    },
+    "Placement": {
+      "additionalProperties": false,
+      "properties": {
+        "slices": {
+          "items": {
+            "$ref": "#/$defs/PlacementSlice"
+          },
+          "minItems": 1,
+          "title": "Slices",
+          "type": "array"
+        }
+      },
+      "required": [
+        "slices"
+      ],
+      "title": "Placement",
+      "type": "object"
+    },
+    "PlacementSlice": {
+      "additionalProperties": false,
+      "properties": {
+        "device_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^\\S+$",
+            "type": "string"
+          },
+          "title": "Device Ids",
+          "type": "array"
+        },
+        "node_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Node Id",
+          "type": "string"
+        },
+        "resources": {
+          "$ref": "#/$defs/ResourceAmounts"
+        }
+      },
+      "required": [
+        "node_id",
+        "resources"
+      ],
+      "title": "PlacementSlice",
+      "type": "object"
+    },
+    "Precondition": {
+      "additionalProperties": false,
+      "properties": {
+        "entity": {
+          "$ref": "#/$defs/EntityRef"
+        },
+        "expected_value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "maximum": 9007199254740991,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "boolean"
+            }
+          ],
+          "title": "Expected Value"
+        },
+        "kind": {
+          "enum": [
+            "owner",
+            "allocation_state",
+            "lease_valid",
+            "resource_available",
+            "attempt_generation",
+            "budget_remaining",
+            "checkpoint_verified"
+          ],
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "entity",
+        "expected_value"
+      ],
+      "title": "Precondition",
+      "type": "object"
+    },
+    "ReadSnapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "allocations": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/AllocationView"
+          },
+          "title": "Allocations",
+          "type": "array"
+        },
+        "decisions": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/DecisionPlan"
+          },
+          "title": "Decisions",
+          "type": "array"
+        },
+        "events": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/CommittedEvent"
+          },
+          "title": "Events",
+          "type": "array"
+        },
+        "global_scope": {
+          "default": false,
+          "title": "Global Scope",
+          "type": "boolean"
+        },
+        "intents": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/WorkIntent"
+          },
+          "title": "Intents",
+          "type": "array"
+        },
+        "jobs": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/JobView"
+          },
+          "title": "Jobs",
+          "type": "array"
+        },
+        "legal_actions": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/LegalAction"
+          },
+          "title": "Legal Actions",
+          "type": "array"
+        },
+        "next_cursor": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EventCursor"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "now": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Now",
+          "type": "number"
+        },
+        "version": {
+          "$ref": "#/$defs/VersionStamp"
+        },
+        "viewer": {
+          "$ref": "#/$defs/AuthenticatedActor"
+        }
+      },
+      "required": [
+        "version",
+        "now",
+        "viewer"
+      ],
+      "title": "ReadSnapshot",
+      "type": "object"
+    },
+    "RecallParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "device_ids": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^\\S+$",
+            "type": "string"
+          },
+          "title": "Device Ids",
+          "type": "array"
+        },
+        "duration_seconds": {
+          "maximum": 3600,
+          "minimum": 1,
+          "title": "Duration Seconds",
+          "type": "integer"
+        },
+        "kind": {
+          "enum": [
+            "test.contributor_demand",
+            "contribution.recall"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "notice_seconds": {
+          "maximum": 300,
+          "minimum": 1,
+          "title": "Notice Seconds",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kind",
+        "device_ids",
+        "notice_seconds",
+        "duration_seconds"
+      ],
+      "title": "RecallParameters",
+      "type": "object"
+    },
+    "RequestCause": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "request",
+          "title": "Kind",
+          "type": "string"
+        },
+        "request_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Request Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "request_id"
+      ],
+      "title": "RequestCause",
+      "type": "object"
+    },
+    "ResetParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "test.reset",
+          "title": "Kind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "ResetParameters",
+      "type": "object"
+    },
+    "ResourceAmounts": {
+      "additionalProperties": false,
+      "properties": {
+        "cpu_millicores": {
+          "default": 0,
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Cpu Millicores",
+          "type": "integer"
+        },
+        "ephemeral_storage_mib": {
+          "default": 0,
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Ephemeral Storage Mib",
+          "type": "integer"
+        },
+        "gpu_count": {
+          "default": 0,
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Gpu Count",
+          "type": "integer"
+        },
+        "gpu_memory_mib": {
+          "default": 0,
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Gpu Memory Mib",
+          "type": "integer"
+        },
+        "memory_mib": {
+          "default": 0,
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Memory Mib",
+          "type": "integer"
+        }
+      },
+      "title": "ResourceAmounts",
+      "type": "object"
+    },
+    "ResourceDelta": {
+      "additionalProperties": false,
+      "properties": {
+        "allocation_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Allocation Id",
+          "type": "string"
+        },
+        "cpu_millicores": {
+          "default": 0,
+          "maximum": 9007199254740991,
+          "minimum": -9007199254740991,
+          "title": "Cpu Millicores",
+          "type": "integer"
+        },
+        "device_ids_added": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^\\S+$",
+            "type": "string"
+          },
+          "title": "Device Ids Added",
+          "type": "array"
+        },
+        "device_ids_removed": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^\\S+$",
+            "type": "string"
+          },
+          "title": "Device Ids Removed",
+          "type": "array"
+        },
+        "ephemeral_storage_mib": {
+          "default": 0,
+          "maximum": 9007199254740991,
+          "minimum": -9007199254740991,
+          "title": "Ephemeral Storage Mib",
+          "type": "integer"
+        },
+        "memory_mib": {
+          "default": 0,
+          "maximum": 9007199254740991,
+          "minimum": -9007199254740991,
+          "title": "Memory Mib",
+          "type": "integer"
+        },
+        "node_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Node Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "node_id",
+        "allocation_id"
+      ],
+      "title": "ResourceDelta",
+      "type": "object"
+    },
+    "ResourceRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "cpu_millicores": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Cpu Millicores",
+          "type": "integer"
+        },
+        "ephemeral_storage_mib": {
+          "default": 0,
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Ephemeral Storage Mib",
+          "type": "integer"
+        },
+        "gpu": {
+          "$ref": "#/$defs/GPURequest"
+        },
+        "memory_mib": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Memory Mib",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "cpu_millicores",
+        "memory_mib",
+        "gpu"
+      ],
+      "title": "ResourceRequest",
+      "type": "object"
+    },
+    "ScoreComponent": {
+      "additionalProperties": false,
+      "properties": {
+        "explanation": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Explanation",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Name",
+          "type": "string"
+        },
+        "value": {
+          "maximum": 9007199254740991,
+          "minimum": -9007199254740991,
+          "title": "Value",
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "value",
+        "explanation"
+      ],
+      "title": "ScoreComponent",
+      "type": "object"
+    },
+    "SearchCoverage": {
+      "additionalProperties": false,
+      "properties": {
+        "domain_description": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Domain Description",
+          "type": "string"
+        },
+        "domain_size": {
+          "anyOf": [
+            {
+              "maximum": 9007199254740991,
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Domain Size"
+        },
+        "examined_count": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Examined Count",
+          "type": "integer"
+        },
+        "scope": {
+          "enum": [
+            "complete",
+            "partial"
+          ],
+          "title": "Scope",
+          "type": "string"
+        },
+        "truncation_reason": {
+          "anyOf": [
+            {
+              "maxLength": 4096,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Truncation Reason"
+        }
+      },
+      "required": [
+        "scope",
+        "domain_description",
+        "examined_count"
+      ],
+      "title": "SearchCoverage",
+      "type": "object"
+    },
+    "StageReceipt": {
+      "additionalProperties": false,
+      "properties": {
+        "operation": {
+          "enum": [
+            "allocate",
+            "create_job_and_bind",
+            "resume",
+            "settle"
+          ],
+          "title": "Operation",
+          "type": "string"
+        },
+        "receipt": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CommitReceipt"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "stage_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Stage Id",
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "waiting",
+            "committed",
+            "failed"
+          ],
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "stage_id",
+        "operation",
+        "state"
+      ],
+      "title": "StageReceipt",
+      "type": "object"
+    },
+    "StateChange": {
+      "additionalProperties": false,
+      "properties": {
+        "after": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "After",
+          "type": "string"
+        },
+        "before": {
+          "anyOf": [
+            {
+              "maxLength": 4096,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Before"
+        },
+        "entity": {
+          "$ref": "#/$defs/EntityRef"
+        }
+      },
+      "required": [
+        "entity",
+        "before",
+        "after"
+      ],
+      "title": "StateChange",
+      "type": "object"
+    },
+    "VersionStamp": {
+      "additionalProperties": false,
+      "properties": {
+        "epoch": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Epoch",
+          "type": "integer"
+        },
+        "revision": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Revision",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "epoch",
+        "revision"
+      ],
+      "title": "VersionStamp",
+      "type": "object"
+    },
+    "VersionedArtifact": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Name",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "uri": {
+          "anyOf": [
+            {
+              "maxLength": 4096,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Uri"
+        },
+        "version": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "version",
+        "sha256"
+      ],
+      "title": "VersionedArtifact",
+      "type": "object"
+    },
+    "WorkIntent": {
+      "additionalProperties": false,
+      "properties": {
+        "allocation_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^\\S+$",
+            "type": "string"
+          },
+          "title": "Allocation Ids",
+          "type": "array"
+        },
+        "attempts": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/AttemptSnapshot"
+          },
+          "title": "Attempts",
+          "type": "array"
+        },
+        "execution_mode": {
+          "enum": [
+            "logical_simulation",
+            "cpu_reference"
+          ],
+          "title": "Execution Mode",
+          "type": "string"
+        },
+        "first_arrival_at": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "First Arrival At",
+          "type": "number"
+        },
+        "intent_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Intent Id",
+          "type": "string"
+        },
+        "job_ids": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^\\S+$",
+            "type": "string"
+          },
+          "title": "Job Ids",
+          "type": "array"
+        },
+        "owner_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Owner Id",
+          "type": "string"
+        },
+        "result": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/WorkResult"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "settlement_action": {
+          "enum": [
+            "keep_lease",
+            "release_on_success",
+            "release_on_terminal"
+          ],
+          "title": "Settlement Action",
+          "type": "string"
+        },
+        "specification": {
+          "$ref": "#/$defs/WorkSpecification"
+        },
+        "stages": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/StageReceipt"
+          },
+          "title": "Stages",
+          "type": "array"
+        },
+        "state": {
+          "enum": [
+            "pending",
+            "waiting",
+            "running",
+            "completed",
+            "failed",
+            "cancelled",
+            "manual_action"
+          ],
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "intent_id",
+        "owner_id",
+        "first_arrival_at",
+        "execution_mode",
+        "settlement_action",
+        "specification",
+        "state"
+      ],
+      "title": "WorkIntent",
+      "type": "object"
+    },
+    "WorkIntentRegistration": {
+      "additionalProperties": false,
+      "description": "First-arrival time is stamped by the kernel, never supplied by the UI.",
+      "properties": {
+        "execution_mode": {
+          "enum": [
+            "logical_simulation",
+            "cpu_reference"
+          ],
+          "title": "Execution Mode",
+          "type": "string"
+        },
+        "intent_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Intent Id",
+          "type": "string"
+        },
+        "owner_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Owner Id",
+          "type": "string"
+        },
+        "settlement_action": {
+          "enum": [
+            "keep_lease",
+            "release_on_success",
+            "release_on_terminal"
+          ],
+          "title": "Settlement Action",
+          "type": "string"
+        },
+        "specification": {
+          "$ref": "#/$defs/WorkSpecification"
+        }
+      },
+      "required": [
+        "intent_id",
+        "owner_id",
+        "execution_mode",
+        "settlement_action",
+        "specification"
+      ],
+      "title": "WorkIntentRegistration",
+      "type": "object"
+    },
+    "WorkResult": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact_uris": {
+          "default": [],
+          "items": {
+            "maxLength": 4096,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Artifact Uris",
+          "type": "array"
+        },
+        "failure": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ErrorDetail"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "kind": {
+          "enum": [
+            "success",
+            "failure",
+            "cancelled"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "recorded_at": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Recorded At",
+          "type": "number"
+        }
+      },
+      "required": [
+        "kind",
+        "recorded_at"
+      ],
+      "title": "WorkResult",
+      "type": "object"
+    },
+    "WorkSpecification": {
+      "additionalProperties": false,
+      "description": "Durable inputs needed to finish the workflow after browser or server restart.",
+      "properties": {
+        "allocation": {
+          "$ref": "#/$defs/AllocationCreateParameters"
+        },
+        "job": {
+          "$ref": "#/$defs/JobSpecification"
+        }
+      },
+      "required": [
+        "allocation",
+        "job"
+      ],
+      "title": "WorkSpecification",
+      "type": "object"
+    },
+    "WorkflowIntentParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "workflow.register_intent",
+          "title": "Kind",
+          "type": "string"
+        },
+        "registration": {
+          "$ref": "#/$defs/WorkIntentRegistration"
+        }
+      },
+      "required": [
+        "kind",
+        "registration"
+      ],
+      "title": "WorkflowIntentParameters",
+      "type": "object"
+    },
+    "WorkflowStageParameters": {
+      "additionalProperties": false,
+      "properties": {
+        "intent_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Intent Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "workflow.create_allocation_and_bind",
+            "workflow.create_job_and_bind"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "stage_id": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "title": "Stage Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "intent_id",
+        "stage_id"
+      ],
+      "title": "WorkflowStageParameters",
+      "type": "object"
+    }
+  },
+  "$id": "urn:campus-fabric:internal-contracts:cp0",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "CP0 internal contracts. Illustrative fixtures are not acceptance evidence. Cross-field Pydantic validators and kernel transaction checks are additional to JSON Schema.",
+  "properties": {
+    "command_envelope": {
+      "$ref": "#/$defs/CommandEnvelope"
+    },
+    "commit_receipt": {
+      "$ref": "#/$defs/CommitReceipt"
+    },
+    "committed_event": {
+      "$ref": "#/$defs/CommittedEvent"
+    },
+    "decision_plan": {
+      "$ref": "#/$defs/DecisionPlan"
+    },
+    "decision_snapshot": {
+      "$ref": "#/$defs/DecisionSnapshot"
+    },
+    "evidence_run": {
+      "$ref": "#/$defs/EvidenceRun"
+    },
+    "read_snapshot": {
+      "$ref": "#/$defs/ReadSnapshot"
+    },
+    "work_intent": {
+      "$ref": "#/$defs/WorkIntent"
+    }
+  },
+  "required": [
+    "command_envelope",
+    "commit_receipt",
+    "work_intent",
+    "decision_snapshot",
+    "decision_plan",
+    "committed_event",
+    "read_snapshot",
+    "evidence_run"
+  ],
+  "title": "ContractCatalog",
+  "type": "object"
+}

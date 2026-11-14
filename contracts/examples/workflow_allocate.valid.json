@@ -1,0 +1,19 @@
+{
+  "actor": {
+    "actor_id": "actor-alice",
+    "owner_id": "owner-alice",
+    "role": "researcher"
+  },
+  "expected_version": {
+    "epoch": 1,
+    "revision": 1
+  },
+  "idempotency_key": null,
+  "operation": "workflow.create_allocation_and_bind",
+  "parameters": {
+    "intent_id": "intent-1",
+    "kind": "workflow.create_allocation_and_bind",
+    "stage_id": "stage-1"
+  },
+  "request_id": "request-stage"
+}

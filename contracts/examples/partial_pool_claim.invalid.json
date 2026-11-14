@@ -1,0 +1,70 @@
+{
+  "asserts_pool_infeasible": true,
+  "candidates": [
+    {
+      "action": "allocate",
+      "candidate_id": "candidate-1",
+      "demand_id": "demand-1",
+      "feasibility": "infeasible",
+      "intent_id": "intent-1",
+      "owner_id": "owner-alice",
+      "placement": {
+        "slices": [
+          {
+            "device_ids": [
+              "gpu-1"
+            ],
+            "node_id": "node-1",
+            "resources": {
+              "cpu_millicores": 2000,
+              "gpu_count": 1,
+              "gpu_memory_mib": 20480,
+              "memory_mib": 4096
+            }
+          }
+        ]
+      },
+      "scores": [
+        {
+          "explanation": "Illustrative arrival order.",
+          "name": "fifo",
+          "value": 0.0
+        }
+      ],
+      "violations": [
+        {
+          "constraint": "gpu_memory",
+          "detail": "Illustrative rejection."
+        }
+      ]
+    }
+  ],
+  "coverage": {
+    "domain_description": "Only the first candidate was inspected.",
+    "domain_size": 2,
+    "examined_count": 1,
+    "scope": "partial",
+    "truncation_reason": "candidate limit"
+  },
+  "decision_at": 20.0,
+  "decision_id": "decision-1",
+  "model": {
+    "name": "fixture-only",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "uri": null,
+    "version": "cp0-fixture-not-executed"
+  },
+  "policy": {
+    "name": "fixture-only",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "uri": null,
+    "version": "cp0-fixture-not-executed"
+  },
+  "rationale": "Illustrative compatible placement. Kernel must recheck the current version and resources.",
+  "selected_candidate_id": null,
+  "snapshot_version": {
+    "epoch": 1,
+    "revision": 7
+  },
+  "tie_break_rule": "arrival time, then stable demand ID, then node ID"
+}

@@ -1,0 +1,255 @@
+openapi: 3.0.3
+info:
+  title: Campus GPU Fabric Reference API (Participant-Implemented Server)
+  version: 2.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local placeholder; each team implements its own server
+x-competition-mode: participant-implements-server
+x-competition-core: The participant must implement the API server and resource state machine.
+x-competition-test-control: Test-only paths under /_test are mandatory for conformance and must not be exposed as public user features.
+x-competition-required-headers:
+  - X-Owner: tenant identity for public user operations
+  - Authorization: optional in local mode, required when bearer authentication is enabled
+security:
+  - bearerAuth: []
+paths:
+  /v1/version:
+    get:
+      summary: API and simulator capabilities
+      responses: {'200': {description: version and capabilities}}
+  /healthz:
+    get:
+      security: []
+      responses:
+        '200': {description: healthy}
+  /v1/capacity:
+    get:
+      summary: Visible capacity and nodes
+      responses:
+        '200':
+          description: capacity
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Capacity'}
+  /v1/allocations:
+    post:
+      summary: Request a resource lease
+      parameters:
+        - {$ref: '#/components/parameters/IdempotencyKey'}
+      requestBody:
+        required: true
+        content:
+          application/json: {schema: {$ref: '#/components/schemas/AllocationRequest'}}
+      responses:
+        '201': {description: allocated, content: {application/json: {schema: {$ref: '#/components/schemas/Allocation'}}}}
+        '202': {description: queued}
+        '409': {description: insufficient or conflicting resources}
+        '429': {description: rate limited}
+    get:
+      summary: List caller allocations
+      responses:
+        '200': {description: allocations}
+  /v1/allocations/{allocation_id}:
+    parameters: [{name: allocation_id, in: path, required: true, schema: {type: string}}]
+    get: {summary: Get allocation, responses: {'200': {description: allocation}}}
+    delete: {summary: Release allocation, responses: {'202': {description: releasing}, '404': {description: not found}}}
+  /v1/allocations/{allocation_id}/renew:
+    post:
+      parameters: [{name: allocation_id, in: path, required: true, schema: {type: string}}]
+      requestBody: {content: {application/json: {schema: {type: object, properties: {ttl_seconds: {type: integer, minimum: 30, maximum: 3600}}}}}}
+      responses: {'200': {description: renewed}, '409': {description: expired or not owner}}
+  /v1/allocations/{allocation_id}/checkpoint:
+    post:
+      parameters: [{name: allocation_id, in: path, required: true, schema: {type: string}}]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [status]
+              properties:
+                status: {type: string, enum: [ready, failed]}
+                artifact_uri: {type: string}
+      responses: {'200': {description: checkpoint recorded}, '409': {description: allocation is not awaiting preemption}}
+  /v1/allocations/{allocation_id}/resume:
+    post:
+      parameters: [{name: allocation_id, in: path, required: true, schema: {type: string}}]
+      responses: {'200': {description: resumed}, '202': {description: waiting for replacement capacity}, '409': {description: restart budget exhausted}}
+  /v1/jobs:
+    post:
+      summary: Submit a job to an allocation
+      requestBody: {required: true, content: {application/json: {schema: {$ref: '#/components/schemas/JobRequest'}}}}
+      responses: {'201': {description: submitted}, '409': {description: allocation unavailable}}
+    get: {summary: List caller jobs, responses: {'200': {description: jobs}}}
+  /v1/jobs/{job_id}:
+    parameters: [{name: job_id, in: path, required: true, schema: {type: string}}]
+    get: {summary: Get job, responses: {'200': {description: job}}}
+    delete: {summary: Cancel job, responses: {'202': {description: cancelling}}}
+  /v1/metrics:
+    get: {summary: Synthetic metrics for caller resources, responses: {'200': {description: metrics}}}
+  /v1/events:
+    get: {summary: Audit and lifecycle events for caller resources, responses: {'200': {description: events}}}
+  /_test/reset:
+    post:
+      summary: Reset the participant implementation to a deterministic empty state (test-only)
+      security: []
+      parameters:
+        - {name: X-Test-Key, in: header, required: true, schema: {type: string}}
+      responses: {'204': {description: reset complete}, '403': {description: invalid test key}}
+  /_test/clock:
+    post:
+      summary: Advance the participant implementation's logical clock (test-only)
+      security: []
+      parameters:
+        - {name: X-Test-Key, in: header, required: true, schema: {type: string}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [advance_seconds]
+              properties:
+                advance_seconds: {type: number, minimum: 0, maximum: 86400}
+      responses: {'200': {description: clock advanced}, '403': {description: invalid test key}}
+  /_test/contributor-demand:
+    post:
+      summary: Inject a contributor GPU demand for deterministic preemption testing (test-only)
+      security: []
+      parameters:
+        - {name: X-Test-Key, in: header, required: true, schema: {type: string}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [gpu_ids, notice_seconds, duration_seconds]
+              properties:
+                gpu_ids: {type: array, items: {type: string}}
+                notice_seconds: {type: integer, minimum: 1, maximum: 300}
+                duration_seconds: {type: integer, minimum: 1, maximum: 3600}
+      responses: {'201': {description: demand injected}, '403': {description: invalid test key}}
+  /_test/node-state:
+    post:
+      summary: Change a node state for failure testing (test-only)
+      security: []
+      parameters:
+        - {name: X-Test-Key, in: header, required: true, schema: {type: string}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [node_id, state]
+              properties:
+                node_id: {type: string}
+                state: {type: string, enum: [Ready, Draining, NotReady]}
+      responses: {'200': {description: node state changed}, '403': {description: invalid test key}}
+  /_test/fault:
+    post:
+      summary: Configure deterministic 429/5xx/latency injection (test-only)
+      security: []
+      parameters:
+        - {name: X-Test-Key, in: header, required: true, schema: {type: string}}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [operation, mode]
+              properties:
+                operation: {type: string}
+                mode: {type: string, enum: [none, 429, 500, 503, latency]}
+                count: {type: integer, minimum: 0, maximum: 20}
+                delay_ms: {type: integer, minimum: 0, maximum: 30000}
+      responses: {'204': {description: fault configured}, '403': {description: invalid test key}}
+components:
+  securitySchemes:
+    bearerAuth: {type: http, scheme: bearer}
+  headers:
+    RequestId:
+      description: Correlates the response with audit logs
+      schema: {type: string}
+  parameters:
+    OwnerHeader:
+      name: X-Owner
+      in: header
+      required: true
+      description: Competition tenant identity; production deployments should use a signed bearer token.
+      schema: {type: string}
+    IdempotencyKey: {name: Idempotency-Key, in: header, required: false, schema: {type: string, maxLength: 128}}
+  schemas:
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error: {type: string}
+        detail: {type: string}
+        request_id: {type: string}
+    GPURequest:
+      type: object
+      required: [count]
+      properties:
+        count: {type: integer, minimum: 0, maximum: 16}
+        model: {type: string, example: any}
+        memory_mib: {type: integer, minimum: 0}
+        profile: {type: string, nullable: true, example: mig-2g.20gb}
+    ResourceRequest:
+      type: object
+      required: [cpu_millicores, memory_mib, gpu]
+      properties:
+        cpu_millicores: {type: integer, minimum: 0}
+        memory_mib: {type: integer, minimum: 0}
+        ephemeral_storage_mib: {type: integer, minimum: 0}
+        gpu: {$ref: '#/components/schemas/GPURequest'}
+    AllocationRequest:
+      type: object
+      required: [owner, request]
+      properties:
+        owner: {type: string}
+        queue: {type: string, default: default}
+        priority: {type: integer, minimum: 0, maximum: 100}
+        ttl_seconds: {type: integer, minimum: 30, maximum: 3600, default: 300}
+        preemptible: {type: boolean, default: true}
+        preemption_policy: {$ref: '#/components/schemas/PreemptionPolicy'}
+        node_selector: {type: object, additionalProperties: {type: string}}
+        request: {$ref: '#/components/schemas/ResourceRequest'}
+    Allocation:
+      type: object
+      required: [id, state, owner, request]
+      properties:
+        id: {type: string}
+        state: {type: string, enum: [Pending, Allocated, Running, PreemptRequested, Preempted, Released, Expired, Evicted, Rejected]}
+        owner: {type: string}
+        request: {$ref: '#/components/schemas/ResourceRequest'}
+        placement: {type: object}
+        created_at: {type: string, format: date-time}
+        expires_at: {type: string, format: date-time, nullable: true}
+        preemption: {type: object, nullable: true}
+        resume_token: {type: string, nullable: true}
+    PreemptionPolicy:
+      type: object
+      properties:
+        mode: {type: string, enum: [best_effort, checkpoint, restartable, non_preemptible], default: best_effort}
+        checkpoint_timeout_seconds: {type: integer, minimum: 1, maximum: 300, default: 15}
+        max_restarts: {type: integer, minimum: 0, maximum: 20, default: 2}
+    JobRequest:
+      type: object
+      required: [allocation_id, image, command]
+      properties:
+        allocation_id: {type: string}
+        image: {type: string}
+        command: {type: array, items: {type: string}}
+        env: {type: object, additionalProperties: {type: string}}
+        timeout_seconds: {type: integer, minimum: 1, maximum: 86400}
+        max_retries: {type: integer, minimum: 0, maximum: 10}
+    Capacity:
+      type: object
+      properties:
+        observed_at: {type: string, format: date-time}
+        nodes: {type: array, items: {type: object}}
+        totals: {type: object}

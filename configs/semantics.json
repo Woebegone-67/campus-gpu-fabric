@@ -1,0 +1,463 @@
+{
+  "schema_version": 1,
+  "status": "TEAM_PROVISIONAL_CP0",
+  "official_source": "spec/official/api/openapi.yaml",
+  "official_context": "spec/official/challenge.md",
+  "rules": [
+    {
+      "id": "official_defaults",
+      "source": "official",
+      "value": {
+        "queue": "default",
+        "ttl_seconds": 300,
+        "preemptible": true,
+        "preemption_policy": {
+          "mode": "best_effort",
+          "checkpoint_timeout_seconds": 15,
+          "max_restarts": 2
+        }
+      },
+      "reason": "Individual property defaults declared in OpenAPI; whole-object omission handled by request_defaults.",
+      "operations": [
+        "POST /v1/allocations"
+      ],
+      "validation": [
+        "Within a supplied preemption_policy object, omitted declared properties use its schema defaults."
+      ],
+      "replace_at": "request normalization; nested-object application is team choice"
+    },
+    {
+      "id": "request_defaults",
+      "source": "team_provisional",
+      "value": {
+        "priority": 0,
+        "node_selector": {},
+        "ephemeral_storage_mib": 0,
+        "gpu_model": "any",
+        "gpu_memory_mib": 0,
+        "gpu_profile": null,
+        "job_env": {},
+        "job_timeout_seconds": 86400,
+        "job_max_retries": 0,
+        "omitted_preemption_policy": "materialize official per-property defaults as one object"
+      },
+      "reason": "No official defaults for these fields; timeout is a cap, never predicted duration.",
+      "operations": [
+        "POST /v1/allocations",
+        "POST /v1/jobs"
+      ],
+      "validation": [
+        "Minimal valid request needs no extension fields."
+      ],
+      "replace_at": "normalizers"
+    },
+    {
+      "id": "identity",
+      "source": "team_provisional",
+      "value": {
+        "local": "X-Owner required on tenant operations; body owner must match",
+        "bearer": "token owner must match X-Owner",
+        "foreign_object": "404; renew 409 per declared response",
+        "test_key": "server only; never browser",
+        "admin": "separate role, not test key"
+      },
+      "reason": "OpenAPI owner header wiring is incomplete; challenge requires tenant isolation.",
+      "operations": [
+        "/v1/*",
+        "/_test/*",
+        "/x/v1/*"
+      ],
+      "validation": [
+        "Owner B cannot infer A jobs from events/metrics or fetch their artifacts."
+      ],
+      "replace_at": "auth adapter"
+    },
+    {
+      "id": "reset",
+      "source": "official",
+      "value": {
+        "result": "deterministic empty state",
+        "status": 204
+      },
+      "reason": "OpenAPI reset summary.",
+      "operations": [
+        "POST /_test/reset"
+      ],
+      "validation": [
+        "No allocations/jobs/leases remain after reset."
+      ],
+      "replace_at": "reset command"
+    },
+    {
+      "id": "bootstrap_epoch",
+      "source": "team_provisional",
+      "value": {
+        "reset_inventory": "empty; do not reload demo fixture",
+        "clock_origin": "2026-01-01T00:00:00Z",
+        "reset_epoch": "increment persisted epoch; revision=0",
+        "ids": "epoch-prefixed monotonic sequence",
+        "old_callbacks": "reject",
+        "startup_inventory": "explicit file or authenticated extension"
+      },
+      "reason": "Official initialization convention not yet supplied.",
+      "operations": [
+        "POST /_test/reset",
+        "GET /v1/capacity"
+      ],
+      "validation": [
+        "Reset then old attempt callback cannot repopulate inventory."
+      ],
+      "replace_at": "bootstrap/reset adapter"
+    },
+    {
+      "id": "placement",
+      "source": "team_provisional",
+      "value": {
+        "scope": "all resources on one node",
+        "gpu_count": "whole physical GPUs or equal-profile slices; no mixing",
+        "profile_match": "exact when specified; null means whole GPU",
+        "memory_match": "per GPU or slice >= requested MiB",
+        "parent_child": "mutually exclusive; sum slices within declared physical capacity",
+        "infeasible": "202 Pending even if current topology has no match"
+      },
+      "reason": "Finite topology and complete candidate enumeration; never invent hardware.",
+      "operations": [
+        "POST /v1/allocations"
+      ],
+      "validation": [
+        "A whole GPU cannot coexist with any active slice of its parent."
+      ],
+      "replace_at": "topology feasibility adapter"
+    },
+    {
+      "id": "idempotency",
+      "source": "team_provisional",
+      "value": {
+        "scope": [
+          "epoch",
+          "owner",
+          "operation",
+          "key"
+        ],
+        "payload": "canonical normalized request",
+        "retention": "until reset",
+        "same_payload": "original status/body/receipt",
+        "different_payload": "409",
+        "missing_key": "each call is new"
+      },
+      "reason": "Challenge requires idempotency; key lifecycle is unspecified.",
+      "operations": [
+        "POST /v1/allocations"
+      ],
+      "validation": [
+        "Two owners may reuse a key; 32 same-owner identical calls create one allocation."
+      ],
+      "replace_at": "command dedup store"
+    },
+    {
+      "id": "lease_time",
+      "source": "team_provisional",
+      "value": {
+        "starts": "first successful allocation commit",
+        "expires": "start + ttl_seconds",
+        "pending_initial": "no expiry before first grant",
+        "preempted_wait": "original deadline continues",
+        "resume": "does not refresh deadline",
+        "renew": "now + supplied ttl; omitted body/field uses original normalized ttl",
+        "at_deadline": "expiry wins; renewal returns 409"
+      },
+      "reason": "Separate queue wait and holding time; keep one auditable lease deadline.",
+      "operations": [
+        "POST /v1/allocations",
+        "POST /v1/allocations/{id}/renew",
+        "POST /v1/allocations/{id}/resume"
+      ],
+      "validation": [
+        "Grant at t=20 ttl=30 expires at 50, including after preemption."
+      ],
+      "replace_at": "lease policy"
+    },
+    {
+      "id": "job_binding",
+      "source": "team_provisional",
+      "value": {
+        "active_jobs_per_allocation": 1,
+        "allowed_allocation_state": "Allocated",
+        "terminal_job": "allocation returns to Allocated and keeps lease",
+        "PreemptRequested": "new job 409",
+        "cancel": "job cancels; lease remains"
+      },
+      "reason": "Job cardinality and terminal lease behavior are not specified.",
+      "operations": [
+        "POST /v1/jobs",
+        "DELETE /v1/jobs/{id}"
+      ],
+      "validation": [
+        "A second active job is 409; completed job does not silently release its allocation."
+      ],
+      "replace_at": "job lifecycle policy"
+    },
+    {
+      "id": "work_intent_atomicity",
+      "source": "team_provisional",
+      "value": {
+        "allocation_stage": "create allocation + bind + persist stage receipt atomically",
+        "job_stage": "create_job_and_bind(intent_id,stage_id,expected_version)",
+        "commit": "create job + bind + persist stage receipt in one transaction before response",
+        "retry": "same stage and payload returns saved receipt before version check",
+        "conflict": "same stage, changed payload rejects",
+        "public_jobs": "no assumed idempotency guarantee"
+      },
+      "reason": "Close commit-before-response crash window without altering frozen JobRequest.",
+      "operations": [
+        "/x/v1/work-intents/*",
+        "internal WorkflowPort"
+      ],
+      "validation": [
+        "Kill after commit before response; retry recovers same job_id and receipt."
+      ],
+      "replace_at": "workflow command adapter and transaction"
+    },
+    {
+      "id": "recall_windows",
+      "source": "team_provisional",
+      "value": {
+        "notice": "now + notice_seconds",
+        "end": "deadline + duration_seconds",
+        "new_work": "block new placements and jobs on named GPUs immediately",
+        "overlap": "union blocked intervals; earliest active deadline governs held allocations",
+        "unknown_gpu": "reject whole command; no partial demand"
+      },
+      "reason": "Repeated contributor demand and interval overlap unspecified.",
+      "operations": [
+        "POST /_test/contributor-demand",
+        "/x/v1/contributions/*"
+      ],
+      "validation": [
+        "Overlapping recalls do not double-release or reopen a GPU before all intervals end."
+      ],
+      "replace_at": "recall policy"
+    },
+    {
+      "id": "preemption_policy",
+      "source": "team_provisional",
+      "value": {
+        "owner_recall": "overrides preemptible=false and non_preemptible",
+        "scheduler_preemption": "forbidden when either flag protects it",
+        "checkpoint_due": "min(notice deadline, now+checkpoint timeout)",
+        "ready": "request stop; release only after stop receipt",
+        "failed_or_timeout": "stop without checkpoint; checkpoint mode becomes Evicted; others Preempted",
+        "resume": "explicit request; Pending if no replacement; no busy retry loop"
+      },
+      "reason": "Contributor ownership is official; exact mode behavior is provisional.",
+      "operations": [
+        "checkpoint",
+        "resume",
+        "contributor-demand"
+      ],
+      "validation": [
+        "Failed checkpoint never becomes verified or resumed; recall deadline still applies."
+      ],
+      "replace_at": "preemption policy"
+    },
+    {
+      "id": "checkpoint_truth",
+      "source": "team_provisional",
+      "value": {
+        "layers": [
+          "reported",
+          "artifact_verified",
+          "execution_resumed"
+        ],
+        "artifact_uri": "optional; never fabricate",
+        "manual_logical": "ready may preserve declared model state; record model continuation separately, never artifact-verified or applied CPU continuation",
+        "cpu_realtime": "requires readable verified compatible artifact to continue saved state",
+        "late_report": "409 after cutoff"
+      },
+      "reason": "Separate acceptance of official ready report from evidence of actual execution.",
+      "operations": [
+        "POST /v1/allocations/{id}/checkpoint"
+      ],
+      "validation": [
+        "Ready without URI is recorded, but UI does not claim artifact verification."
+      ],
+      "replace_at": "checkpoint adapters"
+    },
+    {
+      "id": "budgets",
+      "source": "team_provisional",
+      "value": {
+        "allocation_restarts": "increment when replacement execution generation is committed after interruption",
+        "job_retries": "increment when retry generation is committed after execution failure while lease remains valid",
+        "mutually_exclusive": "one generation charges only its triggering budget",
+        "initial_attempt": 0,
+        "waiting_http_retry_stale_plan": 0,
+        "failed_started_attempt": "charged; no refund",
+        "restart_exhausted": "resume 409",
+        "retry_delay_seconds": 1
+      },
+      "reason": "Two official limits exist; their counting points are not specified.",
+      "operations": [
+        "resume",
+        "job execution",
+        "clock"
+      ],
+      "validation": [
+        "Repeated resume while waiting consumes zero; first authorized replacement consumes one."
+      ],
+      "replace_at": "attempt transition policy"
+    },
+    {
+      "id": "job_timeout",
+      "source": "team_provisional",
+      "value": {
+        "starts": "job acceptance",
+        "scope": "total elapsed logical time including retry and suspended wait",
+        "terminal": "Failed; stop current attempt; retain allocation lease unless lease ends",
+        "retry": "timeout is final; does not reset timer"
+      },
+      "reason": "Choose a finite end-to-end timeout, distinct from workload duration.",
+      "operations": [
+        "POST /v1/jobs",
+        "clock"
+      ],
+      "validation": [
+        "Repeated resume cannot reset timeout or create unlimited lifetime."
+      ],
+      "replace_at": "job timeout policy"
+    },
+    {
+      "id": "node_state",
+      "source": "team_provisional",
+      "value": {
+        "Draining": "no new placement; existing holds continue",
+        "NotReady": "evict affected allocations; stop jobs; quarantine until reconciled",
+        "Ready": "permits new placement only after reconciliation; does not revive evicted jobs"
+      },
+      "reason": "State enum official; effects on existing work unspecified.",
+      "operations": [
+        "POST /_test/node-state"
+      ],
+      "validation": [
+        "NotReady followed by Ready does not resurrect stale execution."
+      ],
+      "replace_at": "node lifecycle adapter"
+    },
+    {
+      "id": "same_time_order",
+      "source": "team_provisional",
+      "value": {
+        "key": [
+          "logical_time",
+          "priority",
+          "stable_event_sequence"
+        ],
+        "priority": [
+          "lease_expiry",
+          "recall_cutoff_or_checkpoint_timeout",
+          "job_timeout",
+          "execution_callback",
+          "recall_window_end",
+          "retry_timer",
+          "schedule"
+        ],
+        "external": "drain due events <= now before next external command; command order by committed sequence"
+      },
+      "reason": "At exact deadline reports cannot override already due release.",
+      "operations": [
+        "clock",
+        "all commands"
+      ],
+      "validation": [
+        "One advance of 30 equals 10+20 with no intervening input; ready exactly at cutoff is late."
+      ],
+      "replace_at": "event queue"
+    },
+    {
+      "id": "clock_modes",
+      "source": "team_provisional",
+      "value": {
+        "manual_logical": "only explicit advance; traverse every due boundary",
+        "cpu_realtime": "one monotonic driver advances same logical clock; no independent expiry timers",
+        "manual_cpu_advance": "serialize; settle elapsed wall delta then manual delta; reset wall anchor once",
+        "cpu_stop": "real acknowledgement required; unconfirmed resource quarantined",
+        "reset": "fence old epoch; never make uncertain live execution allocatable"
+      },
+      "reason": "Blueprint 03 separates actual execution and deterministic simulation.",
+      "operations": [
+        "POST /_test/clock",
+        "executors"
+      ],
+      "validation": [
+        "Clock +100 does not fabricate CPU completion or confirmed physical stop."
+      ],
+      "replace_at": "clock driver and executor adapter"
+    },
+    {
+      "id": "faults",
+      "source": "team_provisional",
+      "value": {
+        "operation": "METHOD + space + frozen route template, e.g. POST /v1/jobs",
+        "mode": "normalize strings and numeric 429/500/503 to canonical strings",
+        "default_count": 1,
+        "default_delay_ms": 0,
+        "count_zero": "disable",
+        "latency": "wall delay before command; executes once; does not advance logical clock",
+        "429_500_503": "before transaction; no domain effect",
+        "scope": "only matching public operation; never test control",
+        "unknown_operation": "reject"
+      },
+      "reason": "Official mode type says string but numeric YAML enums are unquoted.",
+      "operations": [
+        "POST /_test/fault"
+      ],
+      "validation": [
+        "Injected 503 creates no allocation and does not reserve an idempotency success receipt."
+      ],
+      "replace_at": "fault compatibility adapter"
+    },
+    {
+      "id": "information_boundary",
+      "source": "team_provisional",
+      "value": {
+        "policy_reads": "immutable current DecisionSnapshot only",
+        "forbidden": [
+          "future arrivals",
+          "future recalls",
+          "hidden durations",
+          "scenario seed as feature",
+          "evaluator state"
+        ],
+        "metadata": "only declared observable profiles; missing profile uses duration-free baseline",
+        "decision": "record version, candidates, coverage and committed outcome"
+      },
+      "reason": "Official forbids scripted answers; blueprint requires prefix causality.",
+      "operations": [
+        "internal PolicyPort"
+      ],
+      "validation": [
+        "Changing unseen future input leaves common-prefix decisions/events identical."
+      ],
+      "replace_at": "snapshot producer and policy sandbox"
+    },
+    {
+      "id": "serialization",
+      "source": "team_provisional",
+      "value": {
+        "commit": "one SQLite write transaction: state + ledger + events + receipt",
+        "version": "VersionStamp(epoch,revision); stale plan has no side effects",
+        "events": "monotonic sequence per epoch; tenant filtering before projection",
+        "execution": "outbox intent committed first; effect callback fenced by AttemptRef generation"
+      },
+      "reason": "One authority and durable effects; no promises of exactly-once external processes.",
+      "operations": [
+        "all writes",
+        "all queries"
+      ],
+      "validation": [
+        "Crash after commit retains receipt; old generation callback cannot mutate current allocation."
+      ],
+      "replace_at": "CommandCommit and outbox"
+    }
+  ]
+}
