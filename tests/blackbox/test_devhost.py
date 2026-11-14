@@ -41,7 +41,12 @@ def submit(client):
     return body
 
 
-def test_host_workflow_clock_settlement_authorization_and_honest_acceptance(tmp_path):
+def test_host_workflow_clock_settlement_authorization_and_honest_acceptance(tmp_path, monkeypatch):
+    # This host integration case represents an instance without evidence. Local
+    # acceptance files are tested separately and must not change this fixture.
+    monkeypatch.setattr("campus_fabric.workflows.devhost.checkpoint_checks", lambda _root: (
+        (m.EvidenceCheck(target_id="T-PRODUCT", status="NOT_RUN",
+                         expected="Run the isolated human journey"),), None))
     app = make_app(tmp_path)
     with TestClient(app) as client:
         submit(client)

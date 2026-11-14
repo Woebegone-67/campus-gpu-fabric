@@ -291,3 +291,17 @@ test('experiment input and output downloads use only registered fixed artifact I
     assert.equal(requests.at(-1).options.headers.Authorization,'Bearer synthetic-test-token');
   }finally{URL.createObjectURL=originalCreate;URL.revokeObjectURL=originalRevoke;dom.window.HTMLAnchorElement.prototype.click=originalClick;}
 });
+
+test('CPU resources hide manual inventory registration while keeping owned GPU recall usable',async()=>{
+  const {ResourcesPage}=await import('../src/pages/Resources.tsx');
+  const nodes=[{node_id:'own-node',contributor_owner_id:'bob',state:'Ready',devices:[{device_id:'owned-gpu',model:'A10'}]}];
+  globalThis.fetch=async(path,options)=>{requests.push({path,options});return json(path==='/v1/capacity'?{nodes,totals:{capacity:{gpu_count:1},available:{gpu_count:1}}}:{items:nodes});};
+  await render(service('cpu_reference',<ResourcesPage api={api()}/>));
+  assert.match(container.textContent,/此实例的库存由启动配置载入/);
+  assert.match(container.textContent,/请在逻辑模拟实例登记供给/);
+  assert.equal(container.querySelector('textarea[name=node]'),null);
+  const box=container.querySelector('input[type=checkbox]');assert.ok(box);
+  await interact(()=>box.click());
+  assert.equal(button('发送收回通知').disabled,false);
+  assert.equal(requests.filter(r=>r.options.method!=='GET').length,0);
+});

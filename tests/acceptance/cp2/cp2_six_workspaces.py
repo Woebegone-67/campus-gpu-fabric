@@ -29,11 +29,14 @@ def require(value, message):
         raise ValueError(message)
 
 
-def read_record(root, name, build):
+def read_record(root, name, build, watched=None):
     path = root / "evidence/cp2/b" / name
     if not path.is_file():
         raise FileNotFoundError(f"NOT_RUN: missing evidence/cp2/b/{name}")
-    record = json.loads(path.read_text())
+    content = path.read_bytes()
+    record = json.loads(content)
+    if watched is not None:
+        watched.append({"path": str(path.relative_to(root)), "sha256": hashlib.sha256(content).hexdigest()})
     require(isinstance(record, dict), "Evidence record must be an object")
     require(record.get("build") == build, "Evidence is not for the current build")
     when = datetime.fromisoformat(record.get("observed_at", "").replace("Z", "+00:00"))
@@ -52,19 +55,22 @@ def artifact(root, entry):
     require(hashlib.sha256(path.read_bytes()).hexdigest() == entry.get("sha256"), "Evidence artifact changed")
 
 
-def observation(root, check):
+def observation(root, check, watched=None):
     require(check.get("status") == "PASS", "Required UI observation has not passed")
     require(isinstance(check.get("actual"), str) and len(check["actual"].strip()) > 20,
             "Concrete observed outcome required")
     require(isinstance(check.get("evidence"), list) and check["evidence"], "Actual artifacts required")
     for entry in check["evidence"]:
         artifact(root, entry)
+        if watched is not None:
+            watched.append(dict(entry))
 
 
 def review(root, *, require_humans=True):
     root = Path(root).resolve()
     build = current_build(root)
-    ui = read_record(root, "ui_receipt.json", build)
+    watched = []
+    ui = read_record(root, "ui_receipt.json", build, watched)
     require(ui.get("observer_kind") in {"agent", "human"} and ui.get("observer_ids"), "Identify actual UI observer")
     require(set(ui.get("workspaces", [])) == WORKSPACES, "All six workspaces must be observed")
     require(set(ui.get("roles", [])) == {"researcher", "contributor", "administrator"}, "All three roles required")
@@ -73,9 +79,9 @@ def review(root, *, require_humans=True):
     require(len(checks) == len(JOURNEYS) and {c.get("id") for c in checks} == JOURNEYS,
             "Dynamic journeys incomplete or duplicated")
     for check in checks:
-        observation(root, check)
+        observation(root, check, watched)
     if require_humans:
-        humans = read_record(root, "human_handoff.json", build)
+        humans = read_record(root, "human_handoff.json", build, watched)
         people = humans.get("operators", [])
         require(isinstance(people, list) and len(people) == 2 and all(isinstance(p, dict) for p in people),
                 "Two distinct A/B human attestations required")
@@ -85,8 +91,12 @@ def review(root, *, require_humans=True):
         for person in people:
             require(person.get("observer_kind") == "human", "An agent cannot count as a human operator")
             require(set(person.get("workspaces", [])) == WORKSPACES, "Each operator must review all six workspaces")
-            observation(root, person)
+            observation(root, person, watched)
     require(current_build(root) == build, "Build changed during UI evidence review")
+    # Recheck the exact receipt bytes and all artifacts after the review. This
+    # detects concurrent edits; it is not an atomic filesystem snapshot.
+    for entry in watched:
+        artifact(root, entry)
     return build
 
 

@@ -198,3 +198,15 @@ def test_service_queue_is_bounded_and_directory_has_one_writer(service, source, 
         for record in records:
             service.wait(record.run_id, timeout=30)
     assert all(r.run.status == "completed" for r in service.list_runs(ADMIN))
+
+
+def test_loaded_service_rejects_new_disk_build_instead_of_mislabeling_old_code(service, source, monkeypatch):
+    called = []
+    monkeypatch.setattr(runner, "execute_scenario", lambda *a, **k: called.append(True))
+    changed = source / "experiments/compare_runs.py"
+    changed.write_text(changed.read_text() + "\n# A later on-disk implementation, not loaded by this service.\n")
+    with pytest.raises(runner.ExperimentBuildChangedError, match="restart the service"):
+        service.submit(actor=ADMIN, scenario_id="cp2-contention-v1", policy="P")
+    assert not called
+    assert service.list_runs(ADMIN) == ()
+    assert not list(service.output_root.glob("experiment-*"))

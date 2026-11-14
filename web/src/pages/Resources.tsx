@@ -1,9 +1,11 @@
 import {useState, type FormEvent} from 'react';
 import {ApiClient, ApiError, idOf, items, list, object, text, type ApiResult, type JsonObject} from '../api';
 import {useQuery} from '../hooks';
+import {useService} from '../service';
 import {ErrorNotice, Field, Metadata, Panel, QueryFeedback, RawData, Receipt, Refresh, Status, Table} from '../components/common';
 
 export function ResourcesPage({api}: {api: ApiClient}) {
+  const service=useService();
   const [refresh, setRefresh]=useState(0);
   const capacity=useQuery(api,'/v1/capacity',refresh);
   const contributions=useQuery(api,'/x/v1/contributions?limit=50',refresh);
@@ -24,7 +26,7 @@ export function ResourcesPage({api}: {api: ApiClient}) {
       <Metadata data={contributions.data}/><QueryFeedback query={contributions} empty={!items(contributions.data).length}><div className="record-list">{items(contributions.data).map(row=><div className="record" key={idOf(row)}><div className="record-title"><code>{idOf(row)}</code><Status value={row.state}/></div><p>贡献者：{text(row.contributor_owner_id)}</p><RawData data={row}/></div>)}</div></QueryFeedback>
     </Panel>
     <RecallForm api={api} nodes={items(contributions.data)} onDone={()=>setRefresh(n=>n+1)}/>
-    <ContributionForm api={api} onDone={()=>setRefresh(n=>n+1)}/>
+    {service.mode==='cpu_reference'?<Panel title="CPU 参考实例供给" description="此实例的库存由启动配置载入。"><p>在线登记供给需要准确的逻辑时刻；CPU 参考实例的时钟持续前进，因此这里不提供手工登记。请在逻辑模拟实例登记供给。</p><p className="helper">已有自有 GPU 的收回通知仍可在上方提交。</p></Panel> :service.mode==='logical_simulation'?<ContributionForm api={api} onDone={()=>setRefresh(n=>n+1)}/>:<Panel title="登记模拟供给"><p>正在确认服务执行模式，确认后再开放供给登记。</p></Panel>}
   </>;
 }
 function ContributionForm({api,onDone}:{api:ApiClient;onDone:()=>void}) {

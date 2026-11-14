@@ -23,6 +23,7 @@ from campus_fabric.projections.read_models import (
     resource_totals,
     timestamp,
 )
+from campus_fabric.workflows.experiment_runner import ExperimentBuildChangedError
 
 from .service import QueryFailure, QueryServices, invoke, unavailable
 
@@ -354,6 +355,9 @@ def create_query_router(services: QueryServices | None = None) -> APIRouter:
                     policy=body["policy"], seed=body.get("seed", 0)))
             except KeyError:
                 raise QueryFailure(404, "not_found", "The registered scenario was not found.")
+            except ExperimentBuildChangedError:
+                raise QueryFailure(409, "stale_version",
+                                   "Source build changed since service startup; restart the service before submitting experiments.")
             except ValueError:
                 raise QueryFailure(400, "invalid_request", "Experiment parameters or run capacity were rejected.")
             try:

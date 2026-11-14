@@ -15,7 +15,6 @@ import hashlib
 import itertools
 import json
 from collections import defaultdict
-from functools import lru_cache
 from pathlib import Path
 from typing import Literal
 
@@ -40,6 +39,7 @@ from campus_fabric.contracts.models import (
 
 PolicyName = Literal["B0", "B1", "B2", "P"]
 _RESOURCE_FIELDS = ("cpu_millicores", "memory_mib", "ephemeral_storage_mib")
+_LOADED_SOURCE_SHA256 = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
 
 
 def _digest(value: object) -> str:
@@ -48,9 +48,9 @@ def _digest(value: object) -> str:
     ).hexdigest()
 
 
-@lru_cache(maxsize=1)
 def _source_hash() -> str:
-    return hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+    # Provenance belongs to the imported implementation, not a later disk edit.
+    return _LOADED_SOURCE_SHA256
 
 
 def _matches(device: GPUDevice, demand: DemandSnapshot) -> bool:

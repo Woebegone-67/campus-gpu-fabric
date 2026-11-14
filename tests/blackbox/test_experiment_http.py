@@ -75,3 +75,19 @@ def test_experiment_submit_authenticates_first_and_rejects_arbitrary_scenarios(t
             response = client.post("/x/v1/experiments", headers=ADMIN, json=body)
             assert response.status_code in {400, 404}, response.text
         assert client.get("/x/v1/experiments", headers=ADMIN).json()["items"] == []
+
+
+def test_experiment_source_change_requires_restart_and_does_not_register_a_run(tmp_path, monkeypatch):
+    app = create_app(data_dir=tmp_path, auth_tokens=TOKENS, worker_enabled=False)
+    with TestClient(app) as client:
+        service = app.state.experiment_service
+        monkeypatch.setattr(service, "_startup_build",
+                            {**service._startup_build, "source_sha256": "f" * 64})
+        response = client.post("/x/v1/experiments", headers=ADMIN, json={
+            "scenario_id": "cp2-contention-v1", "policy": "P", "seed": 0,
+        })
+        assert response.status_code == 409, response.text
+        assert response.json()["error"] == "stale_version"
+        assert "restart the service" in response.json()["detail"]
+        assert client.get("/x/v1/experiments", headers=ADMIN).json()["items"] == []
+        assert not list(service.output_root.glob("experiment-*"))

@@ -20,6 +20,8 @@ from campus_fabric.contracts.models import (
 )
 from campus_fabric.policies.baselines import BaselinePolicy, _digest, _shape
 
+_LOADED_SOURCE_SHA256 = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+
 
 def _can_coexist(left, right, snapshot):
     """Resource compatibility of two recorded single-node legal placements."""
@@ -85,8 +87,7 @@ class CandidatePolicy:
                         s["remaining_cpu_millicores"], s["remaining_memory_mib"],
                         c.placement.slices[0].node_id, c.placement.slices[0].device_ids)
             selected = min(admitted, key=key)
-        source = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
-        fingerprint = _digest({"source": source, "baseline": baseline.policy.sha256,
+        fingerprint = _digest({"source": _LOADED_SOURCE_SHA256, "baseline": baseline.policy.sha256,
                                "opportunity_enabled": self.opportunity_enabled})
         return baseline.model_copy(update={
             "decision_id": f"decision-{_digest([fingerprint, snapshot.model_dump(mode='json')])[:32]}",

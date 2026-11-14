@@ -234,3 +234,25 @@ def test_p_opportunity_disabled_is_exact_b2_placement_under_same_search_budget()
         assert disabled.selected_candidate_id == baseline.selected_candidate_id
         assert disabled.coverage == baseline.coverage
         assert len(disabled.candidates) <= budget
+
+
+def test_imported_policy_fingerprints_do_not_claim_later_disk_contents():
+    # A fresh interpreter guarantees this includes each policy's first plan,
+    # not only a later plan after a lazy source-hash cache was populated.
+    import subprocess
+    import sys
+    script = '''
+from pathlib import Path
+from unittest.mock import patch
+from campus_fabric.policies import make_policy
+from campus_fabric.policies.candidate import CandidatePolicy
+from campus_fabric.contracts.models import DecisionSnapshot, VersionStamp
+snapshot = DecisionSnapshot(version=VersionStamp(epoch=0, revision=0), now=0., execution_mode="logical_simulation")
+policies = [make_policy(name) for name in ("B0", "B1", "B2", "P")]
+with patch.object(Path, "read_bytes", side_effect=AssertionError("Source changed after import")):
+    loaded = [policy.plan(snapshot) for policy in policies]
+with patch.object(Path, "read_bytes", return_value=b"different on-disk implementation"):
+    assert [policy.plan(snapshot) for policy in policies] == loaded
+'''
+    completed = subprocess.run([sys.executable, "-c", script], capture_output=True, text=True)
+    assert completed.returncode == 0, completed.stderr

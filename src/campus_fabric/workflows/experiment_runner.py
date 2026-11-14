@@ -40,6 +40,10 @@ _SCENARIOS = (
 )
 
 
+class ExperimentBuildChangedError(ValueError):
+    """Loaded service code no longer matches the checkout; restart is required."""
+
+
 def _json(value):
     return (json.dumps(value, ensure_ascii=False, sort_keys=True, indent=2, allow_nan=False) + "\n").encode()
 
@@ -230,6 +234,9 @@ class ExperimentService:
     """One bounded worker, persistent private run records, administrator-only reads."""
     def __init__(self, root: Path, output_root: Path):
         self.root, self.output_root = Path(root).resolve(), Path(output_root).resolve()
+        # The process has already imported its implementation. A later disk edit
+        # cannot turn those loaded functions into a new runtime build.
+        self._startup_build = _gate_module(self.root).current_build(self.root)
         self.output_root.mkdir(parents=True, exist_ok=True)
         self._file_lock = (self.output_root / ".service.lock").open("a+")
         try:
@@ -277,6 +284,8 @@ class ExperimentService:
         with self._lock:
             if self._closed:
                 raise ValueError("Experiment service is closed")
+            if _gate_module(self.root).current_build(self.root) != self._startup_build:
+                raise ExperimentBuildChangedError("Source build changed since service startup; restart the service before submitting experiments")
             if sum(r.status == "running" for r in self._records.values()) >= 4:
                 raise ValueError("At most four experiment runs may be queued or running")
             if len(self._records) >= 128:
@@ -284,7 +293,7 @@ class ExperimentService:
             run_id = f"experiment-{uuid4().hex}"
             directory = self.output_root / run_id
             directory.mkdir()
-            build = _gate_module(self.root).current_build(self.root)
+            build = dict(self._startup_build)
             def artifact(name, data):
                 return m.VersionedArtifact(name=name, version="0.2.0", sha256=_digest(data))
             policy_fact = make_policy(policy, max_candidates=MAX_CANDIDATES).plan(m.DecisionSnapshot(

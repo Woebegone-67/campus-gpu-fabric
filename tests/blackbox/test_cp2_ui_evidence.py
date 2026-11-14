@@ -79,6 +79,24 @@ def test_complete_parser_fixture_is_valid(evidence):
     assert gate.review(root) == gate.current_build(root)
 
 
+@pytest.mark.parametrize("changed", ["observed.txt", "ui_receipt.json", "human_handoff.json"])
+def test_evidence_changed_during_review_is_rejected(evidence, monkeypatch, changed):
+    root, base, _, _ = evidence
+    original_build = gate.current_build(root)
+    calls = 0
+
+    def check_build(_):
+        nonlocal calls
+        calls += 1
+        if calls == 2:
+            (base / changed).write_text("Changed after first integrity check")
+        return original_build
+
+    monkeypatch.setattr(gate, "current_build", check_build)
+    with pytest.raises(ValueError, match="changed"):
+        gate.review(root)
+
+
 def test_experiment_code_changes_invalidate_build(tmp_path):
     directory = tmp_path / "experiments"
     directory.mkdir()
