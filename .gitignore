@@ -23,3 +23,8 @@ evidence/cp0/receipt.json
 evidence/cp0/web_proxy_receipt.json
 
 evidence/cp0/clean_clone_receipt.json
+evidence/cp1/a_core_receipt.json
+evidence/cp1/a_core_http_history.json
+evidence/cp1/unit_tests.txt
+evidence/cp1/source_checks.txt
+evidence/cp1/joint_gate.json

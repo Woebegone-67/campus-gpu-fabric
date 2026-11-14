@@ -1,0 +1,139 @@
+{
+  "nodes": [
+    {
+      "node_id": "sim-a10",
+      "contributor_owner_id": "supplier",
+      "state": "Ready",
+      "capacity": {
+        "cpu_millicores": 16000,
+        "memory_mib": 65536,
+        "ephemeral_storage_mib": 131072,
+        "gpu_count": 2,
+        "gpu_memory_mib": 49152
+      },
+      "available": {
+        "cpu_millicores": 16000,
+        "memory_mib": 65536,
+        "ephemeral_storage_mib": 131072,
+        "gpu_count": 2,
+        "gpu_memory_mib": 49152
+      },
+      "observed_at": 0.0,
+      "devices": [
+        {
+          "device_id": "sim-a10-gpu0",
+          "physical_gpu_id": "sim-a10-gpu0",
+          "model": "A10",
+          "memory_mib": 24576,
+          "profile": null,
+          "state": "available"
+        },
+        {
+          "device_id": "sim-a10-gpu1",
+          "physical_gpu_id": "sim-a10-gpu1",
+          "model": "A10",
+          "memory_mib": 24576,
+          "profile": null,
+          "state": "available"
+        }
+      ],
+      "labels": [
+        {
+          "key": "site",
+          "value": "campus"
+        },
+        {
+          "key": "evidence",
+          "value": "logical-simulation"
+        }
+      ]
+    },
+    {
+      "node_id": "sim-a100",
+      "contributor_owner_id": "supplier",
+      "state": "Ready",
+      "capacity": {
+        "cpu_millicores": 32000,
+        "memory_mib": 131072,
+        "ephemeral_storage_mib": 131072,
+        "gpu_count": 1,
+        "gpu_memory_mib": 40960
+      },
+      "available": {
+        "cpu_millicores": 32000,
+        "memory_mib": 131072,
+        "ephemeral_storage_mib": 131072,
+        "gpu_count": 1,
+        "gpu_memory_mib": 40960
+      },
+      "observed_at": 0.0,
+      "devices": [
+        {
+          "device_id": "sim-a100-gpu0",
+          "physical_gpu_id": "sim-a100-gpu0",
+          "model": "A100",
+          "memory_mib": 40960,
+          "profile": null,
+          "state": "available"
+        },
+        {
+          "device_id": "sim-a100-gpu0-slice0",
+          "physical_gpu_id": "sim-a100-gpu0",
+          "model": "A100",
+          "memory_mib": 20480,
+          "profile": "mig-2g.20gb",
+          "state": "available"
+        },
+        {
+          "device_id": "sim-a100-gpu0-slice1",
+          "physical_gpu_id": "sim-a100-gpu0",
+          "model": "A100",
+          "memory_mib": 20480,
+          "profile": "mig-2g.20gb",
+          "state": "available"
+        }
+      ],
+      "labels": [
+        {
+          "key": "site",
+          "value": "campus"
+        },
+        {
+          "key": "evidence",
+          "value": "logical-simulation"
+        }
+      ]
+    },
+    {
+      "node_id": "sim-cpu",
+      "contributor_owner_id": "supplier",
+      "state": "Ready",
+      "capacity": {
+        "cpu_millicores": 8000,
+        "memory_mib": 32768,
+        "ephemeral_storage_mib": 131072,
+        "gpu_count": 0,
+        "gpu_memory_mib": 0
+      },
+      "available": {
+        "cpu_millicores": 8000,
+        "memory_mib": 32768,
+        "ephemeral_storage_mib": 131072,
+        "gpu_count": 0,
+        "gpu_memory_mib": 0
+      },
+      "observed_at": 0.0,
+      "devices": [],
+      "labels": [
+        {
+          "key": "site",
+          "value": "campus"
+        },
+        {
+          "key": "evidence",
+          "value": "logical-simulation"
+        }
+      ]
+    }
+  ]
+}

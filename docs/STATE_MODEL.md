@@ -1,6 +1,6 @@
 # 权威状态、资源占用与执行代次
 
-本页是待实现设计。A 写唯一账本；B 只消费带 `VersionStamp(epoch,revision)` 的不可变快照。状态、占用差量、事件与幂等/阶段回执同一 SQLite 事务提交；外部执行通过持久 outbox 驱动，回调核对 epoch、attempt_id、generation。
+本页描述完整状态设计。CP1 已实现正常分配、执行、租约和事务；PreemptRequested/Preempted/Evicted、真实执行隔离与恢复仍属 CP2 待实现范围。A 写唯一账本；B 只消费带 `VersionStamp(epoch,revision)` 的不可变快照。状态、占用差量、事件与幂等/阶段回执同一 SQLite 事务提交；外部执行通过持久 outbox 驱动，回调核对 epoch、attempt_id、generation。
 
 | allocation 状态 | 占用 | 合法后续/触发 |
 |---|---|---|
@@ -13,7 +13,7 @@
 
 通知可针对 Allocated 或 Running；deadline 前也可提前归还。公开枚举不新增 `Releasing`；停止未确认是内部执行/资源状态，通过回执显示。模拟停止可以在同事务确认；真实CPU必须收到实际停止证据。非法转移拒绝并记录原因，不改占用。
 
-job保持同一ID，契约状态为 Pending→Running→Succeeded/Failed/Cancelled；保存进入 Checkpointing，中断进入 Preempted，再以新 attempt/generation 接续。一个allocation最多一个非终态job；job终态后租约仍存在。WorkIntent串联首次到达、allocation、job、attempt和结算，job不能替换整体等待的计时起点。
+job保持同一ID，契约状态为 Pending→Running→Succeeded/Failed/Cancelled；保存进入 Checkpointing，中断进入 Preempted，再以新 attempt/generation 接续。一个allocation最多一个非终态job；绑定WorkIntent的allocation只允许其原子job阶段创建工作，防止旁路逃逸结算；job终态后租约仍存在。WorkIntent串联首次到达、allocation、job、attempt和结算，job不能替换整体等待的计时起点。
 
 必须维护的不变量：
 
@@ -25,4 +25,4 @@ job保持同一ID，契约状态为 Pending→Running→Succeeded/Failed/Cancell
 - I6 时间/预算：按所有到期边界推进；通知、expiry及两种预算均遵守语义表；ready报告、工件核验、实际恢复是三个事实。
 - I7 信息：策略输入只到当前逻辑时刻；修改未出现输入不能改变共同前缀；读投影不能反向改权威状态。
 
-A用独立小参考模型和并发历史验证 I1–I6；B用跨Owner查询、前缀对照和实际decision解释验证 I3/I7。`make checkpoint CP=CP1` 起各项必须附实际历史；目前均无运行结论。
+A用独立小参考模型和并发历史验证 I1–I6；B用跨Owner查询、前缀对照和实际decision解释验证 I3/I7。`make checkpoint CP=CP1` 起各项必须附实际历史；CP1 A 已有独立内核和 HTTP 验证，见 docs/handoff/CP1_A_TO_B.md；联合 UI、故障与真实执行不可沿用此结论。

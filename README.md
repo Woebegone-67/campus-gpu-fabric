@@ -2,7 +2,7 @@
 
 校园共享计算服务：申请、收回、接续与可追问的决定。
 
-**当前版本：CP0。** 已建立统一契约、工程边界、任务书和验收入口。开发host实际提供health/version；其余19个官方操作明确返回501，尚不是可参赛验收的Server。界面是六个工作区的开发骨架，没有预填任务或虚构运行数字。
+**当前：CP1，A + B 本地联调版。** 六工作区已接入持久后端，服务端工作流可完成登记—分配—模拟执行—结算。B0/B1/B2 策略已通过真实内核端口测试；默认演示仍使用 A 的 builtin 基线。CP2 的回收/恢复/故障与真实 CPU 执行尚未实现。先读 [B 第一版交接](docs/handoff/B_V1_DELIVERY.md) 和 [A 接线说明](docs/handoff/CP1_A_TO_B.md)。双人联合 CP1 尚未通过，不自动进入 CP2。
 
 协作仓库：https://github.com/Woebegone-67/campus-gpu-fabric
 
@@ -11,11 +11,11 @@
 | 负责人 | 主线 | 开发分支 | 先读 |
 |---|---|---|---|
 | A · Xiuzhu Du / `Woebegone-67` | 可信资源与执行 | `work/a-core` | [A开发任务书](docs/handoff/OWNER_A.md) |
-| B · `xuyangma` | 服务决策与操作体验 | `work/b-product` | [B开发任务书](docs/handoff/OWNER_B.md) |
+| B · `xuyangma` | 服务决策与操作体验 | `feat/route-b` | [B开发任务书](docs/handoff/OWNER_B.md) |
 
 ## 启动与验收
 
-需要Git、uv、Python 3.12、Node 22.12+（22.x）、npm和make。依赖固定在`uv.lock`与`web/package-lock.json`；无需GPU或Kubernetes即可执行CP0检查。
+需要Git、uv、Python 3.12、Node 22.12+（22.x）、npm和make。依赖固定在`uv.lock`与`web/package-lock.json`；无需 GPU 或 Kubernetes 即可运行 CP1 逻辑模拟。
 
 ```bash
 git clone https://github.com/Woebegone-67/campus-gpu-fabric.git
@@ -26,23 +26,24 @@ make cp0
 make checkpoint CP=CP0
 ```
 
-`make cp0`检查生成契约是否过时，运行Python静态检查与测试，构建Web，执行静态CP0验收，并启动真实HTTP子进程进行骨架冒烟。回执在`evidence/cp0/`，属于本地生成物。`make checkpoint CP=CP0`检查这些回执是否对应当前构建。
+`make cp0`检查生成契约是否过时，运行Python静态检查与测试，构建Web，执行静态CP0验收，并启动真实HTTP子进程进行运行主机冒烟。回执在`evidence/cp0/`，属于本地生成物。`make checkpoint CP=CP0`检查这些回执是否对应当前构建。
 
 运行两个终端：
 
 ```bash
 # 终端1，仓库根目录
-make api
+bash web/dev-local.sh api
 # 终端2，仓库根目录
-make web
+bash web/dev-local.sh web
 ```
 
-访问`http://127.0.0.1:5173`；API为`http://127.0.0.1:8080`。开发host仅绑定本机。Web代理不包含`/_test`，不得向浏览器下发测试密钥。CP0提供页面导航与health连接代码，其余产品操作留待后续实现；实际核验范围见交付记录。
+访问`http://127.0.0.1:5174`；API为`http://127.0.0.1:8081`。首次启动在 `runtime/owner-b-v1/` 创建本地演示凭据。在页面右上角“当前身份”导入该目录的 `client-identities.json`，再选择 alice、bob、supplier 或 admin。凭据只保留在浏览器内存；刷新后需重新导入。开发host仅绑定本机，Web代理不包含`/_test`。
 
-每人使用自己的clone、端口与`runtime/<owner>`。A使用默认端口；B可运行`make api PORT=8081`和`make web PORT=8081 WEB_PORT=5174`，代理会一起切换。不要把实验reset指向另一人的实例。`.env.example`说明预留运行参数；CP0只使用Makefile的HOST/PORT/WEB_PORT，持久实例配置由A在CP1接入。
+每人使用自己的clone、端口与`runtime/<owner>`。上面的 B 入口会组装查询与工作流；A 的原始 `make api` 仍在8080提供内核接口，不会自动推进 B 工作流。端口可通过 `PORT`、`WEB_PORT` 调整。不要把实验reset指向另一人的实例。环境变量需由启动 shell 显式设置，程序不会自动加载 `.env`。
 
 ## 从哪里开始读
 
+0. [CP1 当前交付与接线](docs/handoff/CP1_A_TO_B.md)。
 1. 自己的任务书：[A](docs/handoff/OWNER_A.md) / [B](docs/handoff/OWNER_B.md)。
 2. [共同checkpoint](docs/handoff/CHECKPOINTS.md)、[交接模板](docs/handoff/HANDOFF_TEMPLATE.md)。
 3. [共享契约](docs/CONTRACTS.md)、[产品扩展接口](docs/EXTENSIONS.md)、[状态与占用](docs/STATE_MODEL.md)、[暂定语义及来源](docs/SEMANTICS.md)。
@@ -95,8 +96,27 @@ CI会在push/PR运行CP0检查。代码审阅责任写在`.github/CODEOWNERS`；
 
 ## 来源与边界
 
-- 当前任务是CP0开工与协作准备，没有调度收益或真实GPU成绩。
+- 当前停在 CP1 本地联调。正常任务采用公开的固定 10 秒逻辑执行模型，不运行 image/command，不代表 CPU/GPU 实测或调度收益。
 - 团队暂定语义集中在`configs/semantics.json`。正式答疑到达时局部调整，不改官方原件。
 - 内部契约与产品扩展不增加基础客户端必填字段。WorkIntent计时从意图到达开始，不从获配后创建job开始。
-- 仓库用于竞赛协作，尚未添加开源许可证。第三方库保留其许可；AI协助生成CP0代码/文档，记录见[CP0交付记录](docs/CP0_DELIVERY.md)。
+- 仓库用于竞赛协作，尚未添加开源许可证。第三方库保留其许可；AI协助生成及测试 CP0/CP1 代码和文档，记录见[CP0交付记录](docs/CP0_DELIVERY.md)。
 - 此仓库不含旧MCM原始数据、历史实验、论文或凭据。
+
+## CP1 真实后端
+
+```bash
+make cp1-a
+# 使用明确模拟库存；默认本地 X-Owner 身份，不开放公网
+FABRIC_INSTANCE=owner-a FABRIC_INVENTORY_FILE=configs/cp1_inventory.json make api
+```
+
+`make cp1-a` 在隔离目录启动真实 HTTP 进程，检查并发、租约、响应丢失和重启，写入 `evidence/cp1/a_core_receipt.json`。它不替代 `make checkpoint CP=CP1` 的双人 UI 与联合门槛。没有联合证据时，该门槛应继续失败。库存仅首次创建数据库时载入；reset 后保持空库存，重启不会偷偷补回。
+
+配置三角色本地演示：
+
+```bash
+uv run python scripts/init_cp1_demo.py runtime/demo
+FABRIC_DATA_DIR=runtime/demo FABRIC_AUTH_FILE=runtime/demo/auth.json FABRIC_INVENTORY_FILE=configs/cp1_inventory.json make api
+```
+
+`runtime/demo/client-identities.json` 是本机调用所需的请求头，只交给本地开发界面，不加入源码、构建或录像。测试密钥另行在服务端设置；普通用户和贡献者路径不需要测试后门。

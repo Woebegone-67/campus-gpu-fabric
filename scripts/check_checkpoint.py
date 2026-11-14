@@ -83,7 +83,7 @@ def evaluate_checkpoint(root: Path, checkpoint: str, receipt_path: Path | None =
         report['current_build'] = build
         required_ids = {
             'static_receipt.json': {'CP0-OFFICIAL-INTEGRITY', 'CP0-API-MAPPING', 'CP0-SEMANTICS', 'CP0-CONTRACT-FIXTURES', 'CP0-DOCUMENTATION', 'CP0-EVIDENCE-POLICY'},
-            'runtime_receipt.json': {'host-health', 'version-capability-disclosure', 'honest-stub:POST /v1/allocations', 'honest-stub:POST /_test/clock'},
+            'runtime_receipt.json': {'host-health', 'version-capability-disclosure', 'unauthenticated-command-rejected', 'disabled-test-control-rejected', 'honest-cp2-stub'},
         }
         for filename, expected_ids in required_ids.items():
             try:
