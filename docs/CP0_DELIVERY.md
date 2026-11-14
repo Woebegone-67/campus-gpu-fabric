@@ -27,7 +27,7 @@
 
 本地测试环境为macOS/Apple Silicon、Python 3.12.13、Node 22.23.2。测试出现一条Starlette对httpx TestClient的弃用提示，没有测试失败；实际子进程HTTP冒烟使用独立httpx客户端。后续升级适配由A维护，不以隐藏告警替代处理。
 
-运行回执由`make cp0`生成到`evidence/cp0/`；不把某次机器上的绝对路径提交为通用运行配置。GitHub Actions配置运行同一命令，具体远端运行状态与日志在仓库Actions查看。干净克隆验证结果会在本节后补充。
+运行回执由`make cp0`生成到`evidence/cp0/`；不把某次机器上的绝对路径提交为通用运行配置。GitHub Actions配置运行同一命令，具体远端运行状态与日志在仓库Actions查看。已从本地Git进行独立干净克隆，创建新的虚拟环境和node_modules，依次执行make setup、make cp0、make checkpoint CP=CP0通过；CP1按预期返回NOT_RUN及退出1。
 
 ## 当前边界和下一步
 
@@ -40,3 +40,9 @@ A沿`work/a-core`推进唯一事务内核与正常资源/任务链；B沿`work/b
 CP0由Codex协助建立工程、契约、文档和验证工具，包含三个并行分工及主任务集成复核。团队仍需理解并验证后续实现。FastAPI、Pydantic、React、Vite、TypeScript、uv、pytest、Ruff及其依赖按锁文件使用，保留各自许可证；未复制成熟平台整套实现。
 
 工程入口参考：[FastAPI测试文档](https://fastapi.tiangolo.com/tutorial/testing/)、[Vite入门与运行环境](https://vite.dev/guide/)。业务依据来自仓库原题和团队已审蓝图；既有MCM源码、数据与论文没有导入或改动。
+
+## GitHub协作状态
+
+私有仓库已创建并推送，xuyangma的write权限已通过GitHub API确认。初次推送的GitHub Actions在Ubuntu环境通过同一CP0检查（运行43551800310）；后续运行以Actions页面记录为准。
+
+已尝试启用main强制PR/CI分支保护，GitHub因当前账号套餐不支持私有仓库该功能返回403。仓库保持私有，不升级付费或改公开；CODEOWNERS、PR模板与自动CI已配置，但不能声称平台已强制阻止直接推送。双方约定经PR审阅后合入main，不force-push。

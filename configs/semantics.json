@@ -270,8 +270,8 @@
           "execution_resumed"
         ],
         "artifact_uri": "optional; never fabricate",
-        "manual_logical": "ready may preserve declared model state; record model continuation separately, never artifact-verified or applied CPU continuation",
-        "cpu_realtime": "requires readable verified compatible artifact to continue saved state",
+        "logical_simulation": "ready may preserve declared model state; record model continuation separately, never artifact-verified or applied CPU continuation",
+        "cpu_reference": "requires readable verified compatible artifact to continue saved state",
         "late_report": "409 after cutoff"
       },
       "reason": "Separate acceptance of official ready report from evidence of actual execution.",
@@ -377,8 +377,8 @@
       "id": "clock_modes",
       "source": "team_provisional",
       "value": {
-        "manual_logical": "only explicit advance; traverse every due boundary",
-        "cpu_realtime": "one monotonic driver advances same logical clock; no independent expiry timers",
+        "logical_simulation": "only explicit advance; traverse every due boundary",
+        "cpu_reference": "one monotonic driver advances same logical clock; no independent expiry timers",
         "manual_cpu_advance": "serialize; settle elapsed wall delta then manual delta; reset wall anchor once",
         "cpu_stop": "real acknowledgement required; unconfirmed resource quarantined",
         "reset": "fence old epoch; never make uncertain live execution allocatable"

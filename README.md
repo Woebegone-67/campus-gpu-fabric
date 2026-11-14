@@ -45,7 +45,7 @@ make web
 
 1. 自己的任务书：[A](docs/handoff/OWNER_A.md) / [B](docs/handoff/OWNER_B.md)。
 2. [共同checkpoint](docs/handoff/CHECKPOINTS.md)、[交接模板](docs/handoff/HANDOFF_TEMPLATE.md)。
-3. [共享契约](docs/CONTRACTS.md)、[状态与占用](docs/STATE_MODEL.md)、[暂定语义及来源](docs/SEMANTICS.md)。
+3. [共享契约](docs/CONTRACTS.md)、[产品扩展接口](docs/EXTENSIONS.md)、[状态与占用](docs/STATE_MODEL.md)、[暂定语义及来源](docs/SEMANTICS.md)。
 4. [终态产品](docs/PRODUCT.md)、[验收与证据](docs/ACCEPTANCE.md)。
 
 `docs/blueprint/`保存本轮已选择的完整蓝图，按需查阅。正式依据是[challenge](spec/official/challenge.md)和[原始OpenAPI](spec/official/api/openapi.yaml)；[补充说明](spec/official/participant_supplement.pdf)解释题意。`spec/official/manifest.json`核对原字节，绝不静默修订官方文件。

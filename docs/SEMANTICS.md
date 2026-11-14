@@ -13,7 +13,7 @@
 | recall_windows / preemption_policy | 主人收回优先；重复通知取阻断区间并集；failed/timeout 不假装保存成功 |
 | budgets | 新执行代次真正提交时计数；等待、HTTP 重试、旧计划均不扣预算；两种预算分账 |
 | same_time_order | 到期→回收/保存截止→job超时→执行回调→收回结束→重试→调度；序号同分 |
-| clock_modes | manual_logical 与 cpu_realtime 使用独立实例和同一逻辑内核；CPU 停止未确认先隔离 |
+| clock_modes | logical_simulation 与 cpu_reference 使用独立实例和同一逻辑内核；CPU 停止未确认先隔离 |
 | work_intent_atomicity | allocation/job 创建、绑定、阶段回执在同一事务；已保存阶段回执先于版本冲突检查 |
 | information_boundary | 策略只读当时快照；未来到达/通知、隐藏工期、评估器状态不能进入策略 |
 

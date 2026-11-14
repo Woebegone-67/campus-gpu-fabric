@@ -4,6 +4,8 @@
 
 先读 `docs/blueprint/00_START_HERE.md`，再读 `docs/SEMANTICS.md`、`docs/STATE_MODEL.md` 与 `src/campus_fabric/contracts/`。共享契约和 `contracts/generated/` 由集成负责人维护；修改需给精确diff和兼容说明，不直接并行改生成物。
 
+产品扩展路径按 `docs/EXTENSIONS.md` 接线；内部类型与准确签名以 `contracts/ports.py` 为准。
+
 你唯一写：`src/campus_fabric/{domain,storage,clock,auth,executors,api/mutations,api/test_control,api/extensions/mutations}/`、`tests/{domain,concurrency}/`、`deploy/`、后端依赖/锁、启动和路由装配。B唯一写读投影、查询、策略、workflow、web和experiments；A提供所有持久写命令，B不能另建业务账本。
 
 执行顺序：
@@ -16,7 +18,7 @@
 
 只向B交三类东西：已授权不可变快照/事件；CommandCommit回执；执行与工件证据。B交DecisionPlan后你复查epoch/revision、全部硬约束、权限和预算再原子提交；拒绝计划不能显示已执行。
 
-必须先做 WorkIntent 事务口：`create_job_and_bind(intent_id,stage_id,expected_version)` 将创建job、绑定、阶段回执同事务落地再响应；相同阶段重试先返回原回执，参数冲突拒绝。allocation阶段同样处理。不能靠“先创建再补关联”，必须测试提交后响应丢失窗口；冻结 `POST /v1/jobs` 不因此获得假定幂等。
+必须先做 WorkIntent 事务口：`WorkflowPort.create_job_and_bind`（完整参数含actor、request_id，见ports.py） 将创建job、绑定、阶段回执同事务落地再响应；相同阶段重试先返回原回执，参数冲突拒绝。allocation阶段同样处理。不能靠“先创建再补关联”，必须测试提交后响应丢失窗口；冻结 `POST /v1/jobs` 不因此获得假定幂等。
 
 交接前勾选：
 

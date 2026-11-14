@@ -1,6 +1,8 @@
 # B 开工单：服务决策与操作体验
 
-负责人 **xuyangma**；分支 `work/b-product`；私有目标仓库 `Woebegone-67/campus-gpu-fabric`。先读蓝图01–03、`docs/PRODUCT.md`、`docs/SEMANTICS.md` 与共享contracts；契约变更交集成负责人，不直接编辑 `contracts/generated/`。
+负责人 **xuyangma**；分支 `work/b-product`；私有目标仓库 `Woebegone-67/campus-gpu-fabric`。先读README、本任务书与`docs/PRODUCT.md`、`docs/SEMANTICS.md` 与共享contracts；契约变更交集成负责人，不直接编辑 `contracts/generated/`。
+
+产品扩展路径按 `docs/EXTENSIONS.md` 接线；蓝图01–03按需查阅，内部类型以contracts为准。
 
 你唯一写：`src/campus_fabric/{projections,api/queries,api/extensions/queries,policies,workflows}/`、`web/`、`experiments/`、`tests/{policy,ui,blackbox}/`，前端依赖锁、产品/实验/视频材料。A写领域、账本、时钟、权限、执行与所有持久命令。workflow由你编排，持久状态通过A事务口保存；页面不维护第二份业务真相。
 

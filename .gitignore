@@ -22,3 +22,4 @@ evidence/cp0/runtime_receipt.json
 evidence/cp0/receipt.json
 evidence/cp0/web_proxy_receipt.json
 
+evidence/cp0/clean_clone_receipt.json
