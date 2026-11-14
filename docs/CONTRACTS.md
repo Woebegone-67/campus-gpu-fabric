@@ -1,10 +1,11 @@
-# CP0 internal contracts
+# Internal contracts and implementation boundaries
 
 `src/campus_fabric/contracts` contains Pydantic v2 data transfer objects and Python
 `Protocol` boundaries. These are internal contracts, not additional public API
 requirements. The copied `spec/official/api/openapi.yaml` remains authoritative and
-unchanged. CP0 includes no scheduler, ledger, workflow persistence, executor, or
-implementation of the protocols.
+unchanged. CP2 A now implements the persistent command kernel, workflow ports,
+interruption lifecycle and CPU reference adapter; contract validation remains
+separate from runtime and joint product acceptance.
 
 The schema source is `ContractCatalog`; all eight top-level fields are required.
 Supporting contracts are exported as JSON Schema `$defs` and TypeScript types.
@@ -98,7 +99,8 @@ payload for the same identity returns a recognizable conflict. Look up an existi
 stage receipt before treating its retry's now-stale version as a fresh command.
 Deliberate new business attempts use a new stage identity; transport retries retain
 the identity. Restart recovery must retain all of these records. The DTOs express
-this contract; CP0 has not implemented or executed those transactions.
+this contract; the kernel implements the transactions and their crash/replay
+checks are recorded separately from schema tests.
 
 The public `POST /v1/jobs` has no required idempotency key. Product workflow retries
 must use the internal atomic stage operation, rather than assuming a public job POST
@@ -173,3 +175,16 @@ cross-field semantics. A semantic-negative fixture can therefore satisfy JSON
 Schema and must still fail Pydantic validation. Tests deliberately verify that
 distinction. Passing these tests is a CP0 contract result, not `T-CONTRACT`,
 `T-STATE`, `T-POLICY`, or `T-REAL` runtime acceptance.
+
+## CP2 additive read fields
+
+`AllocationView` now exposes `preemption`, `checkpoint`, `restart_count` and
+`pending_terminal`. `JobView` adds `execution_mode`, `retry_count`, `checkpoint`,
+`result_uri`, `failure` and `finished_at`. Schema and TypeScript are regenerated
+together. These fields describe server facts; they do not prove that B UI has
+rendered or accepted them. `FaultParameters.target_operation` is text because
+its value is an exact `METHOD /route-template` pair containing a space.
+
+The concrete CPU adapter takes authoritative owner and logical-time arguments;
+`CpuDriver` bridges its durable `poll`/`acknowledge` interface to the command kernel.
+Do not assume the generic `ExecutorPort` sketch alone implements that wiring.

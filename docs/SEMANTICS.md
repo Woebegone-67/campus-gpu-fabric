@@ -1,6 +1,6 @@
-# CP0 语义冻结
+# 语义与实现边界
 
-当前状态：**已作为CP0团队开发约定；非官方补充规则，CP1 正常链已实现，回收/恢复/真实 CPU 等后续规则仍待实现与验收。** 机器可读唯一表为 [semantics.json](../configs/semantics.json)，按 `id` 引用，不在各模块复制默认值。
+当前状态：**CP0 冻结的团队约定已扩展至 CP2 A 实现；回收、恢复、两预算和真实 CPU reference 已接入，联合 CP2 仍待验收。** 机器可读唯一表为 [semantics.json](../configs/semantics.json)，按 `id` 引用，不在各模块复制默认值。
 
 `source=official` 仅表示原规范已写明；`team_provisional` 是本团队为可执行开发作出的暂定选择。官方文件保持原样。每条含 `value / reason / operations / validation / replace_at`；收到正式答疑时由集成负责人改配置、适配器与对应回归，记录语义版本并重新跑受影响验收。
 
@@ -21,4 +21,6 @@
 
 验收至少覆盖每条 `validation`，保存输入与实际回执。配置能解析、文档存在、schema能生成，只说明 CP0 材料可用，不说明 HTTP、并发、执行恢复或产品通过。
 
-CP1 的显式逻辑执行模型见 `cp1_execution_model`。首次初始化的库存及调度模式都是实例配置；reset 不恢复演示库存。CP1 配置保留了 CP2 的预算字段，但普通成功模拟不会触发重试或证明其实现。
+CP1 的显式逻辑执行模型见 `cp1_execution_model`。首次初始化的库存及调度模式都是实例配置；reset 不恢复演示库存。CP2 已实际区分回收后的 restart 与执行失败的 retry；计数由内核新代次提交产生，不能从一次正常成功运行推断预算边界通过。
+
+CP2 准确实现与验证入口见 [交付记录](CP2_A_DELIVERY.md) 和 [接线说明](handoff/CP2_A_TO_B.md)。逻辑模式的保存只保留模型状态；CPU reference 使用真实进程与本地核验工件。公开 ready、verified 工件、applied 接续分别记录。CPU 单调时间锚点与逻辑推进同事务保存，同一 boot 内计入服务停机时间并先处理到期；boot identity 改变时拒绝自动继续，跨主机重启恢复留待 CP3。

@@ -1,0 +1,946 @@
+{
+  "schema_version": "1.0.0",
+  "scope": "A_CP2_CPU_DOWNTIME_HTTP_ONLY",
+  "status": "FAIL",
+  "created_at": "2026-11-14T05:59:12.173997+00:00",
+  "build": {
+    "git_commit": "355ad556d7d56460ad7002cb6dff9280ddbacaf8",
+    "source_sha256": "34d84779c9210660071cb6ffd1a80207a93d388e8263960827c04ebd0a8832b6",
+    "source_file_count": 166
+  },
+  "build_at_finish": {
+    "git_commit": "355ad556d7d56460ad7002cb6dff9280ddbacaf8",
+    "source_sha256": "34d84779c9210660071cb6ffd1a80207a93d388e8263960827c04ebd0a8832b6",
+    "source_file_count": 166
+  },
+  "source_changed_during_run": false,
+  "command": "uv run python tests/acceptance/cp2/cp2_cpu_reference.py --only-downtime",
+  "checks": [],
+  "history": [
+    {
+      "kind": "process_started",
+      "health": {
+        "status": "ok",
+        "checkpoint": "CP2",
+        "control_plane_ready": true,
+        "checkpoint_passed": false
+      }
+    },
+    {
+      "kind": "http",
+      "request_id": "accept-1",
+      "method": "GET",
+      "path": "/v1/version",
+      "actor_alias": "a",
+      "idempotency_key": null,
+      "request_body": null,
+      "status": 200,
+      "response_body": {
+        "api_version": "2.0.0",
+        "implementation_version": "0.2.0",
+        "checkpoint": "CP2",
+        "checkpoint_passed": false,
+        "execution_mode": "cpu_reference",
+        "scheduling_mode": "builtin",
+        "capabilities": {
+          "contracts": true,
+          "resource_ledger": true,
+          "scheduler": true,
+          "checkpoint_recovery": true,
+          "real_gpu_execution": false,
+          "real_cpu_execution": true
+        }
+      }
+    },
+    {
+      "kind": "http",
+      "request_id": "accept-2",
+      "method": "POST",
+      "path": "/x/v1/work-intents",
+      "actor_alias": "a",
+      "idempotency_key": null,
+      "request_body": {
+        "intent_id": "cpu-timeout-downtime",
+        "owner_id": "alice",
+        "execution_mode": "cpu_reference",
+        "settlement_action": "keep_lease",
+        "specification": {
+          "allocation": {
+            "request": {
+              "cpu_millicores": 1000,
+              "memory_mib": 1024,
+              "ephemeral_storage_mib": 32,
+              "gpu": {
+                "count": 1,
+                "model": "A10",
+                "memory_mib": 4096
+              }
+            },
+            "ttl_seconds": 300,
+            "owner_id": "alice",
+            "kind": "allocation.create",
+            "preemption_mode": "checkpoint"
+          },
+          "job": {
+            "image": "acceptance-logical-work",
+            "command": [
+              "work"
+            ],
+            "timeout_seconds": 1,
+            "max_retries": 0
+          }
+        }
+      },
+      "status": 202,
+      "response_body": {
+        "request_id": "accept-2",
+        "outcome": "committed",
+        "version": {
+          "epoch": 0,
+          "revision": 2
+        },
+        "logical_time": 0.00010766700142994523,
+        "objects": [
+          {
+            "kind": "intent",
+            "entity_id": "cpu-timeout-downtime"
+          }
+        ],
+        "event_ids": [
+          "e0-ev2"
+        ],
+        "error": null,
+        "idempotency_replayed": false,
+        "original_request_id": null
+      }
+    },
+    {
+      "kind": "http",
+      "request_id": "accept-3",
+      "method": "POST",
+      "path": "/x/v1/work-intents/cpu-timeout-downtime/actions",
+      "actor_alias": "a",
+      "idempotency_key": null,
+      "request_body": {
+        "action": "allocate",
+        "stage_id": "allocate",
+        "expected_version": {
+          "epoch": 0,
+          "revision": 2
+        }
+      },
+      "status": 200,
+      "response_body": {
+        "request_id": "accept-3",
+        "outcome": "committed",
+        "version": {
+          "epoch": 0,
+          "revision": 3
+        },
+        "logical_time": 0.00010766700142994523,
+        "objects": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a1"
+          },
+          {
+            "kind": "intent",
+            "entity_id": "cpu-timeout-downtime"
+          }
+        ],
+        "event_ids": [
+          "e0-ev3",
+          "e0-ev4",
+          "e0-ev5"
+        ],
+        "error": null,
+        "idempotency_replayed": false,
+        "original_request_id": null
+      }
+    },
+    {
+      "kind": "http",
+      "request_id": "accept-4",
+      "method": "POST",
+      "path": "/x/v1/work-intents/cpu-timeout-downtime/actions",
+      "actor_alias": "a",
+      "idempotency_key": null,
+      "request_body": {
+        "action": "create_job",
+        "stage_id": "job",
+        "expected_version": {
+          "epoch": 0,
+          "revision": 3
+        }
+      },
+      "status": 200,
+      "response_body": {
+        "request_id": "accept-4",
+        "outcome": "committed",
+        "version": {
+          "epoch": 0,
+          "revision": 4
+        },
+        "logical_time": 0.00010766700142994523,
+        "objects": [
+          {
+            "kind": "job",
+            "entity_id": "e0-j2"
+          },
+          {
+            "kind": "intent",
+            "entity_id": "cpu-timeout-downtime"
+          }
+        ],
+        "event_ids": [
+          "e0-ev6",
+          "e0-ev7"
+        ],
+        "error": null,
+        "idempotency_replayed": false,
+        "original_request_id": null
+      }
+    },
+    {
+      "kind": "http",
+      "request_id": "accept-5",
+      "method": "GET",
+      "path": "/x/v1/work-intents/cpu-timeout-downtime",
+      "actor_alias": "a",
+      "idempotency_key": null,
+      "request_body": null,
+      "status": 200,
+      "response_body": {
+        "intent": {
+          "intent_id": "cpu-timeout-downtime",
+          "owner_id": "alice",
+          "first_arrival_at": 0.00010766700142994523,
+          "execution_mode": "cpu_reference",
+          "settlement_action": "keep_lease",
+          "specification": {
+            "allocation": {
+              "kind": "allocation.create",
+              "owner_id": "alice",
+              "request": {
+                "cpu_millicores": 1000,
+                "memory_mib": 1024,
+                "gpu": {
+                  "count": 1,
+                  "model": "A10",
+                  "memory_mib": 4096,
+                  "profile": null
+                },
+                "ephemeral_storage_mib": 32
+              },
+              "queue": "default",
+              "priority": 0,
+              "ttl_seconds": 300,
+              "preemptible": true,
+              "preemption_mode": "checkpoint",
+              "checkpoint_timeout_seconds": 15,
+              "max_restarts": 2,
+              "node_selector": []
+            },
+            "job": {
+              "image": "acceptance-logical-work",
+              "command": [
+                "work"
+              ],
+              "env": [],
+              "timeout_seconds": 1,
+              "max_retries": 0
+            }
+          },
+          "state": "running",
+          "allocation_ids": [
+            "e0-a1"
+          ],
+          "job_ids": [
+            "e0-j2"
+          ],
+          "attempts": [
+            {
+              "ref": {
+                "intent_id": "cpu-timeout-downtime",
+                "attempt_id": "e0-attempt3",
+                "generation": 1,
+                "allocation_id": "e0-a1",
+                "job_id": "e0-j2"
+              },
+              "state": "starting",
+              "created_at": 0.00010766700142994523,
+              "started_at": null,
+              "finished_at": null,
+              "checkpoint": null
+            }
+          ],
+          "stages": [
+            {
+              "stage_id": "allocate",
+              "operation": "allocate",
+              "state": "committed",
+              "receipt": {
+                "request_id": "accept-3",
+                "outcome": "committed",
+                "version": {
+                  "epoch": 0,
+                  "revision": 3
+                },
+                "logical_time": 0.00010766700142994523,
+                "objects": [
+                  {
+                    "kind": "allocation",
+                    "entity_id": "e0-a1"
+                  },
+                  {
+                    "kind": "intent",
+                    "entity_id": "cpu-timeout-downtime"
+                  }
+                ],
+                "event_ids": [
+                  "e0-ev3",
+                  "e0-ev4",
+                  "e0-ev5"
+                ],
+                "error": null,
+                "idempotency_replayed": false,
+                "original_request_id": null
+              }
+            },
+            {
+              "stage_id": "job",
+              "operation": "create_job_and_bind",
+              "state": "committed",
+              "receipt": {
+                "request_id": "accept-4",
+                "outcome": "committed",
+                "version": {
+                  "epoch": 0,
+                  "revision": 4
+                },
+                "logical_time": 0.00010766700142994523,
+                "objects": [
+                  {
+                    "kind": "job",
+                    "entity_id": "e0-j2"
+                  },
+                  {
+                    "kind": "intent",
+                    "entity_id": "cpu-timeout-downtime"
+                  }
+                ],
+                "event_ids": [
+                  "e0-ev6",
+                  "e0-ev7"
+                ],
+                "error": null,
+                "idempotency_replayed": false,
+                "original_request_id": null
+              }
+            }
+          ],
+          "result": null
+        },
+        "version": {
+          "epoch": 0,
+          "revision": 4
+        }
+      }
+    },
+    {
+      "kind": "http",
+      "request_id": "accept-6",
+      "method": "GET",
+      "path": "/x/v1/work-intents/cpu-timeout-downtime",
+      "actor_alias": "a",
+      "idempotency_key": null,
+      "request_body": null,
+      "status": 200,
+      "response_body": {
+        "intent": {
+          "intent_id": "cpu-timeout-downtime",
+          "owner_id": "alice",
+          "first_arrival_at": 0.00010766700142994523,
+          "execution_mode": "cpu_reference",
+          "settlement_action": "keep_lease",
+          "specification": {
+            "allocation": {
+              "kind": "allocation.create",
+              "owner_id": "alice",
+              "request": {
+                "cpu_millicores": 1000,
+                "memory_mib": 1024,
+                "gpu": {
+                  "count": 1,
+                  "model": "A10",
+                  "memory_mib": 4096,
+                  "profile": null
+                },
+                "ephemeral_storage_mib": 32
+              },
+              "queue": "default",
+              "priority": 0,
+              "ttl_seconds": 300,
+              "preemptible": true,
+              "preemption_mode": "checkpoint",
+              "checkpoint_timeout_seconds": 15,
+              "max_restarts": 2,
+              "node_selector": []
+            },
+            "job": {
+              "image": "acceptance-logical-work",
+              "command": [
+                "work"
+              ],
+              "env": [],
+              "timeout_seconds": 1,
+              "max_retries": 0
+            }
+          },
+          "state": "running",
+          "allocation_ids": [
+            "e0-a1"
+          ],
+          "job_ids": [
+            "e0-j2"
+          ],
+          "attempts": [
+            {
+              "ref": {
+                "intent_id": "cpu-timeout-downtime",
+                "attempt_id": "e0-attempt3",
+                "generation": 1,
+                "allocation_id": "e0-a1",
+                "job_id": "e0-j2"
+              },
+              "state": "starting",
+              "created_at": 0.00010766700142994523,
+              "started_at": null,
+              "finished_at": null,
+              "checkpoint": null
+            }
+          ],
+          "stages": [
+            {
+              "stage_id": "allocate",
+              "operation": "allocate",
+              "state": "committed",
+              "receipt": {
+                "request_id": "accept-3",
+                "outcome": "committed",
+                "version": {
+                  "epoch": 0,
+                  "revision": 3
+                },
+                "logical_time": 0.00010766700142994523,
+                "objects": [
+                  {
+                    "kind": "allocation",
+                    "entity_id": "e0-a1"
+                  },
+                  {
+                    "kind": "intent",
+                    "entity_id": "cpu-timeout-downtime"
+                  }
+                ],
+                "event_ids": [
+                  "e0-ev3",
+                  "e0-ev4",
+                  "e0-ev5"
+                ],
+                "error": null,
+                "idempotency_replayed": false,
+                "original_request_id": null
+              }
+            },
+            {
+              "stage_id": "job",
+              "operation": "create_job_and_bind",
+              "state": "committed",
+              "receipt": {
+                "request_id": "accept-4",
+                "outcome": "committed",
+                "version": {
+                  "epoch": 0,
+                  "revision": 4
+                },
+                "logical_time": 0.00010766700142994523,
+                "objects": [
+                  {
+                    "kind": "job",
+                    "entity_id": "e0-j2"
+                  },
+                  {
+                    "kind": "intent",
+                    "entity_id": "cpu-timeout-downtime"
+                  }
+                ],
+                "event_ids": [
+                  "e0-ev6",
+                  "e0-ev7"
+                ],
+                "error": null,
+                "idempotency_replayed": false,
+                "original_request_id": null
+              }
+            }
+          ],
+          "result": null
+        },
+        "version": {
+          "epoch": 0,
+          "revision": 5
+        }
+      }
+    },
+    {
+      "kind": "http",
+      "request_id": "accept-7",
+      "method": "GET",
+      "path": "/x/v1/work-intents/cpu-timeout-downtime",
+      "actor_alias": "a",
+      "idempotency_key": null,
+      "request_body": null,
+      "status": 200,
+      "response_body": {
+        "intent": {
+          "intent_id": "cpu-timeout-downtime",
+          "owner_id": "alice",
+          "first_arrival_at": 0.00010766700142994523,
+          "execution_mode": "cpu_reference",
+          "settlement_action": "keep_lease",
+          "specification": {
+            "allocation": {
+              "kind": "allocation.create",
+              "owner_id": "alice",
+              "request": {
+                "cpu_millicores": 1000,
+                "memory_mib": 1024,
+                "gpu": {
+                  "count": 1,
+                  "model": "A10",
+                  "memory_mib": 4096,
+                  "profile": null
+                },
+                "ephemeral_storage_mib": 32
+              },
+              "queue": "default",
+              "priority": 0,
+              "ttl_seconds": 300,
+              "preemptible": true,
+              "preemption_mode": "checkpoint",
+              "checkpoint_timeout_seconds": 15,
+              "max_restarts": 2,
+              "node_selector": []
+            },
+            "job": {
+              "image": "acceptance-logical-work",
+              "command": [
+                "work"
+              ],
+              "env": [],
+              "timeout_seconds": 1,
+              "max_retries": 0
+            }
+          },
+          "state": "running",
+          "allocation_ids": [
+            "e0-a1"
+          ],
+          "job_ids": [
+            "e0-j2"
+          ],
+          "attempts": [
+            {
+              "ref": {
+                "intent_id": "cpu-timeout-downtime",
+                "attempt_id": "e0-attempt3",
+                "generation": 1,
+                "allocation_id": "e0-a1",
+                "job_id": "e0-j2"
+              },
+              "state": "running",
+              "created_at": 0.00010766700142994523,
+              "started_at": 0.11328358395257965,
+              "finished_at": null,
+              "checkpoint": null
+            }
+          ],
+          "stages": [
+            {
+              "stage_id": "allocate",
+              "operation": "allocate",
+              "state": "committed",
+              "receipt": {
+                "request_id": "accept-3",
+                "outcome": "committed",
+                "version": {
+                  "epoch": 0,
+                  "revision": 3
+                },
+                "logical_time": 0.00010766700142994523,
+                "objects": [
+                  {
+                    "kind": "allocation",
+                    "entity_id": "e0-a1"
+                  },
+                  {
+                    "kind": "intent",
+                    "entity_id": "cpu-timeout-downtime"
+                  }
+                ],
+                "event_ids": [
+                  "e0-ev3",
+                  "e0-ev4",
+                  "e0-ev5"
+                ],
+                "error": null,
+                "idempotency_replayed": false,
+                "original_request_id": null
+              }
+            },
+            {
+              "stage_id": "job",
+              "operation": "create_job_and_bind",
+              "state": "committed",
+              "receipt": {
+                "request_id": "accept-4",
+                "outcome": "committed",
+                "version": {
+                  "epoch": 0,
+                  "revision": 4
+                },
+                "logical_time": 0.00010766700142994523,
+                "objects": [
+                  {
+                    "kind": "job",
+                    "entity_id": "e0-j2"
+                  },
+                  {
+                    "kind": "intent",
+                    "entity_id": "cpu-timeout-downtime"
+                  }
+                ],
+                "event_ids": [
+                  "e0-ev6",
+                  "e0-ev7"
+                ],
+                "error": null,
+                "idempotency_replayed": false,
+                "original_request_id": null
+              }
+            }
+          ],
+          "result": null
+        },
+        "version": {
+          "epoch": 0,
+          "revision": 7
+        }
+      }
+    },
+    {
+      "kind": "http",
+      "request_id": "accept-8",
+      "method": "GET",
+      "path": "/v1/metrics",
+      "actor_alias": "a",
+      "idempotency_key": null,
+      "request_body": null,
+      "status": 200,
+      "response_body": {
+        "version": {
+          "epoch": 0,
+          "revision": 7
+        },
+        "logical_time": 0.11328358395257965,
+        "scope": "owner",
+        "allocations": 1,
+        "jobs": 1,
+        "running_jobs": 1,
+        "succeeded_jobs": 0,
+        "failed_jobs": 0,
+        "execution_mode": "cpu_reference"
+      }
+    },
+    {
+      "kind": "process_stopped",
+      "signal": "SIGKILL",
+      "returncode": -9
+    },
+    {
+      "kind": "process_started",
+      "health": {
+        "status": "ok",
+        "checkpoint": "CP2",
+        "control_plane_ready": true,
+        "checkpoint_passed": false
+      }
+    },
+    {
+      "kind": "http",
+      "request_id": "accept-9",
+      "method": "GET",
+      "path": "/v1/jobs/e0-j2",
+      "actor_alias": "a",
+      "idempotency_key": null,
+      "request_body": null,
+      "status": 200,
+      "response_body": {
+        "job_id": "e0-j2",
+        "allocation_id": "e0-a1",
+        "owner_id": "alice",
+        "state": "Running",
+        "created_at": "2026-01-01T00:00:00.000108Z",
+        "attempt": {
+          "intent_id": "cpu-timeout-downtime",
+          "attempt_id": "e0-attempt3",
+          "generation": 1,
+          "allocation_id": "e0-a1",
+          "job_id": "e0-j2"
+        },
+        "execution_mode": "cpu_reference",
+        "retry_count": 0,
+        "checkpoint": null,
+        "result_uri": null,
+        "failure": null,
+        "finished_at": null,
+        "id": "e0-j2",
+        "owner": "alice"
+      }
+    },
+    {
+      "kind": "http",
+      "request_id": "accept-10",
+      "method": "GET",
+      "path": "/v1/jobs/e0-j2",
+      "actor_alias": "a",
+      "idempotency_key": null,
+      "request_body": null,
+      "status": 200,
+      "response_body": {
+        "job_id": "e0-j2",
+        "allocation_id": "e0-a1",
+        "owner_id": "alice",
+        "state": "Running",
+        "created_at": "2026-01-01T00:00:00.000108Z",
+        "attempt": {
+          "intent_id": "cpu-timeout-downtime",
+          "attempt_id": "e0-attempt3",
+          "generation": 1,
+          "allocation_id": "e0-a1",
+          "job_id": "e0-j2"
+        },
+        "execution_mode": "cpu_reference",
+        "retry_count": 0,
+        "checkpoint": null,
+        "result_uri": null,
+        "failure": null,
+        "finished_at": null,
+        "id": "e0-j2",
+        "owner": "alice"
+      }
+    },
+    {
+      "kind": "http",
+      "request_id": "accept-11",
+      "method": "GET",
+      "path": "/v1/jobs/e0-j2",
+      "actor_alias": "a",
+      "idempotency_key": null,
+      "request_body": null,
+      "status": 200,
+      "response_body": {
+        "job_id": "e0-j2",
+        "allocation_id": "e0-a1",
+        "owner_id": "alice",
+        "state": "Succeeded",
+        "created_at": "2026-01-01T00:00:00.000108Z",
+        "attempt": {
+          "intent_id": "cpu-timeout-downtime",
+          "attempt_id": "e0-attempt3",
+          "generation": 1,
+          "allocation_id": "e0-a1",
+          "job_id": "e0-j2"
+        },
+        "execution_mode": "cpu_reference",
+        "retry_count": 0,
+        "checkpoint": null,
+        "result_uri": "fabric-cpu://a294014794e3494e4c574568/cbbc139b84dae4dc112ded05b2e1c29720fb621c006c0c1d32a6cab95edfa7ed",
+        "failure": null,
+        "finished_at": 0.2328640419873409,
+        "id": "e0-j2",
+        "owner": "alice"
+      }
+    },
+    {
+      "kind": "http",
+      "request_id": "accept-12",
+      "method": "GET",
+      "path": "/v1/metrics",
+      "actor_alias": "a",
+      "idempotency_key": null,
+      "request_body": null,
+      "status": 200,
+      "response_body": {
+        "version": {
+          "epoch": 0,
+          "revision": 11
+        },
+        "logical_time": 0.2328640419873409,
+        "scope": "owner",
+        "allocations": 1,
+        "jobs": 1,
+        "running_jobs": 0,
+        "succeeded_jobs": 1,
+        "failed_jobs": 0,
+        "execution_mode": "cpu_reference"
+      }
+    },
+    {
+      "kind": "downtime_timeout_observation",
+      "timeout_seconds": 1,
+      "server_downtime_sleep_seconds": 3.5,
+      "elapsed_with_restart_seconds": 3.8860464160097763,
+      "logical_before": 0.11328358395257965,
+      "logical_after": 0.2328640419873409,
+      "worker_pid": 78338,
+      "terminal_state": "Succeeded"
+    },
+    {
+      "kind": "http",
+      "request_id": "accept-13",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "actor_alias": "a",
+      "idempotency_key": null,
+      "request_body": null,
+      "status": 200,
+      "response_body": {
+        "allocations": [
+          {
+            "allocation_id": "e0-a1",
+            "owner_id": "alice",
+            "state": "Allocated",
+            "request": {
+              "cpu_millicores": 1000,
+              "memory_mib": 1024,
+              "gpu": {
+                "count": 1,
+                "model": "A10",
+                "memory_mib": 4096,
+                "profile": null
+              },
+              "ephemeral_storage_mib": 32
+            },
+            "created_at": "2026-01-01T00:00:00.000108Z",
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "acceptance-node",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 32,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 8192
+                  },
+                  "device_ids": [
+                    "acceptance-gpu"
+                  ]
+                }
+              ]
+            },
+            "expires_at": "2026-01-01T00:05:00.000108Z",
+            "preemption": null,
+            "checkpoint": null,
+            "restart_count": 0,
+            "pending_terminal": null,
+            "id": "e0-a1",
+            "owner": "alice"
+          }
+        ],
+        "version": {
+          "epoch": 0,
+          "revision": 11
+        },
+        "next_cursor": null
+      }
+    },
+    {
+      "kind": "http",
+      "request_id": "accept-14",
+      "method": "DELETE",
+      "path": "/v1/allocations/e0-a1",
+      "actor_alias": "a",
+      "idempotency_key": null,
+      "request_body": null,
+      "status": 202,
+      "response_body": {
+        "receipt": {
+          "request_id": "accept-14",
+          "outcome": "committed",
+          "version": {
+            "epoch": 0,
+            "revision": 12
+          },
+          "logical_time": 0.2328640419873409,
+          "objects": [
+            {
+              "kind": "allocation",
+              "entity_id": "e0-a1"
+            }
+          ],
+          "event_ids": [
+            "e0-ev17"
+          ],
+          "error": null,
+          "idempotency_replayed": false,
+          "original_request_id": null
+        }
+      }
+    },
+    {
+      "kind": "http",
+      "request_id": "accept-15",
+      "method": "GET",
+      "path": "/v1/metrics",
+      "actor_alias": "a",
+      "idempotency_key": null,
+      "request_body": null,
+      "status": 200,
+      "response_body": {
+        "version": {
+          "epoch": 0,
+          "revision": 12
+        },
+        "logical_time": 0.2328640419873409,
+        "scope": "owner",
+        "allocations": 1,
+        "jobs": 1,
+        "running_jobs": 0,
+        "succeeded_jobs": 1,
+        "failed_jobs": 0,
+        "execution_mode": "cpu_reference"
+      }
+    },
+    {
+      "kind": "process_stopped",
+      "signal": "SIGTERM",
+      "returncode": -15
+    }
+  ],
+  "failure": "Traceback (most recent call last):\n  File \"/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp2-a/tests/acceptance/cp2/cp2_cpu_reference.py\", line 341, in main\n    downtime_timeout(h)\n  File \"/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp2-a/tests/acceptance/cp2/cp2_cpu_reference.py\", line 317, in downtime_timeout\n    assert logical_after - logical_before >= 3.5, observed\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: {'timeout_seconds': 1, 'server_downtime_sleep_seconds': 3.5, 'elapsed_with_restart_seconds': 3.8860464160097763, 'logical_before': 0.11328358395257965, 'logical_after': 0.2328640419873409, 'worker_pid': 78338, 'terminal_state': 'Succeeded'}\n",
+  "reference_configuration": {
+    "total_steps": 100000,
+    "seed": 17,
+    "batch_steps": 1000,
+    "batch_pause_seconds": 0.03
+  },
+  "not_tested": [
+    "B UI and two-human acceptance",
+    "GPU or arbitrary image execution",
+    "full CP2 acceptance",
+    "cross-host or cross-reboot recovery"
+  ]
+}

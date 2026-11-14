@@ -118,8 +118,8 @@ def test_strict_http_input(client, allocation, patch):
 
 
 def test_explicit_configuration_failures(tmp_path, monkeypatch):
-    monkeypatch.setenv("FABRIC_MODE", "cpu_reference")
-    with pytest.raises(ValueError, match="logical_simulation"):
+    monkeypatch.setenv("FABRIC_MODE", "unknown_execution")
+    with pytest.raises(ValueError, match="Unknown execution mode"):
         create_app(data_dir=tmp_path)
     monkeypatch.setenv("FABRIC_MODE", "logical_simulation")
     with pytest.raises(ValueError, match="Internal roles"):
