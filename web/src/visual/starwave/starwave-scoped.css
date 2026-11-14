@@ -1,0 +1,46 @@
+/* Opt-in CP4 starter styles. Never import demo/*.css into CP4 globally.
+   Retain CP4's layout, type, widths, breakpoints and semantic business colors. */
+.sw-stage {
+  --sw-glass-alpha: .20;
+  --sw-glass-fill: rgb(92 92 92 / var(--sw-glass-alpha));
+  --sw-glass-border: rgb(215 215 215 / .17);
+  position: relative;
+  isolation: isolate;
+  background: #000;
+  color: #f1f1f1;
+}
+/* No overflow:hidden on the host: preserve menus, sticky elements and focus rings.
+   Clip only the decorative canvas. A sidebar must remain outside this host. */
+.sw-stage > .fabric-starwave-canvas { pointer-events: none; clip-path: inset(0); }
+.sw-stage > .sw-content { position: relative; z-index: 1; }
+.sw-stage .sw-glass {
+  background: var(--sw-glass-fill);
+  border: 1px solid var(--sw-glass-border);
+  backdrop-filter: blur(14px) saturate(0%);
+  -webkit-backdrop-filter: blur(14px) saturate(0%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .065),
+    inset 0 -1px 0 rgb(185 185 185 / .025), 0 8px 24px rgb(0 0 0 / .10);
+}
+.sw-stage .sw-glass-primary {
+  background: rgb(158 158 158 / var(--sw-glass-alpha));
+  border-color: rgb(195 195 195 / .37);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .13), 0 4px 22px rgb(127 127 127 / .09);
+}
+/* Add only to native CP4 text inputs that should receive this visual skin. */
+.sw-stage .sw-glass-input {
+  background: var(--sw-glass-fill); color: #f1f1f1;
+  border: 1px solid var(--sw-glass-border);
+  box-shadow: inset 0 1px 4px rgb(0 0 0 / .08);
+}
+/* Nested filters caused rectangular compositing artefacts in the demo. */
+.sw-stage .sw-glass .sw-glass,
+.sw-stage .sw-glass .sw-glass-input { backdrop-filter: none; -webkit-backdrop-filter: none; }
+.sw-stage .sw-glass:focus-visible,
+.sw-stage .sw-glass-input:focus-visible { outline: 2px solid #d0d0d0; outline-offset: 4px; }
+.sw-stage .sw-glass[disabled],
+.sw-stage .sw-glass[aria-disabled="true"] { color: #838383; cursor: not-allowed; }
+@supports not ((backdrop-filter: blur(3px)) or (-webkit-backdrop-filter: blur(3px))) {
+  .sw-stage .sw-glass, .sw-stage .sw-glass-input { background: rgb(43 43 43 / .92); }
+}
+/* Intentionally no global element resets, no global filter, no business status colors,
+   no global reduced-motion override. The engine handles its own system preference. */

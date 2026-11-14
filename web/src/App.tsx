@@ -10,6 +10,7 @@ import {EventsPage} from './pages/Events';
 import {AcceptancePage} from './pages/Acceptance';
 import {decisionHref,workHref} from './navigation';
 import {ServiceContext,serviceInfo,modeLabel} from './service';
+import {StarwaveSurface,StarwaveMotionControl} from './visual/starwave/StarwaveSurface';
 
 const workspaces=[
   {id:'run',name:'运行工作台',description:'提交工作，处理等待与运行，核对任务和租约。'},
@@ -21,6 +22,7 @@ const workspaces=[
 ];
 function readLocation(){const [section,search='']=location.hash.slice(1).split('?');const params=new URLSearchParams(search);return {section:workspaces.some(w=>w.id===section)?section:'run',intent:params.get('intent')||'',decision:params.get('decision')||''};}
 export default function App(){
+  const [starwaveEnabled]=useState(()=>new URLSearchParams(location.search).get('visual')!=='classic');
   const [identity,setIdentity]=useState<Identity>({owner:'alice',token:''});
   const [identityOpen,setIdentityOpen]=useState(false),[mutations,setMutations]=useState(0);
   const onMutating=useCallback((amount:number)=>setMutations(value=>Math.max(0,value+amount)),[]);
@@ -33,9 +35,9 @@ export default function App(){
   const selected=workspaces.find(w=>w.id===route.section)!;
   const openIntent=(id:string)=>{location.hash=workHref(id);};
   const isOnline=health.data!==null&&!health.error;
-  return <div className="app">
+  return <div className={`app${starwaveEnabled?' cp4-starwave':''}`}>
     <aside className="sidebar"><a className="wordmark" href="#run"><span>织算</span><small>CAMPUS FABRIC</small></a><nav aria-label="工作区">{workspaces.map((workspace,index)=><a key={workspace.id} href={`#${workspace.id}`} aria-current={route.section===workspace.id?'page':undefined}><span className="number">0{index+1}</span>{workspace.name}</a>)}</nav><footer>临时共享 · 持续接续<br/>B · 服务决策与体验</footer></aside>
-    <main><header className="topbar"><div><span className={`connection-dot ${isOnline?'online':''}`}/><span role="status">{health.loading?'正在连接服务':isOnline?'服务在线':'服务未连接'}</span><button className="link-button" onClick={()=>{health.refresh();version.refresh();}} disabled={health.loading}>重新检查</button></div><button className="button quiet" onClick={()=>setIdentityOpen(!identityOpen)}>当前身份：{identity.profile || identity.owner || '未设置'}</button></header>
+    <StarwaveSurface enabled={starwaveEnabled}><header className="topbar"><div><span className={`connection-dot ${isOnline?'online':''}`}/><span role="status">{health.loading?'正在连接服务':isOnline?'服务在线':'服务未连接'}</span><button className="link-button" onClick={()=>{health.refresh();version.refresh();}} disabled={health.loading}>重新检查</button></div><div className="topbar-controls"><StarwaveMotionControl/><button className="button quiet" onClick={()=>setIdentityOpen(!identityOpen)}>当前身份：{identity.profile || identity.owner || '未设置'}</button></div></header>
       <div hidden={!identityOpen}><IdentityPicker identity={identity} onApply={setIdentity} busy={mutations>0}/></div>
       <section className="intro"><p className="eyebrow">CAMPUS COMPUTE / {selected.id.toUpperCase()}</p><h1>{selected.name}</h1><p>{selected.description}</p></section>
       {isOnline&&object(health.data).control_plane_ready===false&&<div className="service-banner" role="status"><strong>业务内核待接入</strong><span>当前服务已启动，资源账本与执行尚未就绪。界面会显示真实接口回执，不预填运行结果。</span></div>}
@@ -49,6 +51,6 @@ export default function App(){
         {route.section==='events'&&<EventsPage key={route.intent} api={api} intentId={route.intent}/>}
         {route.section==='acceptance'&&<AcceptancePage api={api} showAdminClock={identity.profile==='admin' && Boolean(identity.token)}/>}
       </div></ServiceContext.Provider><footer className="page-footer">{modeLabel(service.mode)} · 所有业务状态以服务端为准</footer>
-    </main>
+    </StarwaveSurface>
   </div>;
 }
