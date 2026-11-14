@@ -9,12 +9,14 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import re
 import struct
 import subprocess
 import sys
 import zlib
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -272,6 +274,228 @@ def partial_success(trace, requests):
             "Partial success needs the actual later rejection, including persisted asynchronous stage receipts")
 
 
+def contributor_recall(requests):
+    """Bind the authorized UI action and borrower HTTP refusal to one known GPU."""
+    endpoint = "/x/v1/contributions/recall"
+
+    def actor(row):
+        value = row.get("actor", {})
+        return value if isinstance(value, dict) else {}
+
+    def gpu_ids(row):
+        body = row.get("request_body", {})
+        if not isinstance(body, dict):
+            return set()
+        ids = body.get("gpu_ids")
+        if (not isinstance(ids, list) or not ids or not all(isinstance(x, str) and x for x in ids)
+                or type(body.get("notice_seconds")) is not int or not 1 <= body["notice_seconds"] <= 300
+                or type(body.get("duration_seconds")) is not int or not 1 <= body["duration_seconds"] <= 3600):
+            return set()
+        return set(ids)
+
+    for own in requests:
+        owner = actor(own)
+        receipt = own.get("response", {})
+        if not (own.get("method") == "POST" and own.get("path") == endpoint
+                and own.get("status_code") == 201 and own.get("origin") == "browser"
+                and owner.get("role") == "contributor" and owner.get("owner_id")
+                and owner.get("actor_id") and isinstance(receipt, dict)
+                and receipt.get("outcome") == "committed" and not receipt.get("error")):
+            continue
+        selected = gpu_ids(own)
+        owned = set()
+        for row in requests:
+            if (row.get("method") == "GET" and urlsplit(row.get("path", "")).path == "/x/v1/contributions"
+                    and row.get("status_code") == 200 and actor(row) == owner):
+                for node in row.get("response", {}).get("items", []):
+                    if node.get("contributor_owner_id") == owner["owner_id"]:
+                        owned.update(d.get("physical_gpu_id", d.get("device_id")) for d in node.get("devices", []))
+        committed = {x.get("entity_id") for x in receipt.get("objects", []) if x.get("kind") == "gpu"}
+        if not (selected and selected <= owned and committed == selected):
+            continue
+        for denied in requests:
+            borrower = actor(denied)
+            body = denied.get("response", {})
+            if not (denied.get("method") == "POST" and denied.get("path") == endpoint
+                    and denied.get("status_code") == 403 and gpu_ids(denied) == selected
+                    and borrower.get("actor_id") and borrower.get("owner_id")
+                    and borrower.get("owner_id") != owner["owner_id"]
+                    and borrower.get("role") in {"researcher", "contributor"}
+                    and isinstance(body, dict)):
+                continue
+            authenticated = any(
+                row.get("method") == "GET" and urlsplit(row.get("path", "")).path == "/x/v1/work-intents"
+                and row.get("status_code") == 200 and actor(row) == borrower
+                and row.get("response", {}).get("scope") == "owner"
+                and row["response"].get("owner_id") == borrower["owner_id"]
+                and isinstance(row["response"].get("items"), list) for row in requests)
+            role_refusal = (borrower["role"] == "researcher"
+                            and body.get("detail") == "Contributor authority is required")
+            rejection = body.get("receipt", {})
+            owner_refusal = (borrower["role"] == "contributor" and body.get("error") == "forbidden"
+                             and rejection.get("outcome") == "rejected"
+                             and rejection.get("error", {}).get("code") == "forbidden"
+                             and rejection.get("error", {}).get("detail") == "Contributor may recall only owned GPUs"
+                             and rejection.get("event_ids") == [])
+            if authenticated and (role_refusal or owner_refusal):
+                return
+    require(False, "Recall needs a contributor browser success and an authenticated other-owner refusal for the same known GPU and recall endpoint")
+
+
+def user_task_evidence(audit, task_id, trace):
+    requests = trace.get("requests", [])
+    successful = [(i, r) for i, r in enumerate(requests) if 200 <= r.get("status_code", 0) < 300]
+
+    def path(row):
+        return urlsplit(row.get("path", "")).path
+
+    def work_detail(row):
+        match = re.fullmatch(r"/x/v1/work-intents/([^/]+)", path(row))
+        data = row.get("response", {})
+        work = data.get("intent", {}) if isinstance(data, dict) else {}
+        return (unquote(match[1]), data, work) if (row.get("method") == "GET" and match
+                and work.get("intent_id") == unquote(match[1])) else None
+
+    def committed(row, kind, identity):
+        data = row.get("response", {})
+        return (isinstance(data, dict) and data.get("outcome") == "committed" and not data.get("error")
+                and any(obj.get("kind") == kind and obj.get("entity_id") == identity
+                        for obj in data.get("objects", [])))
+
+    if task_id == "submit-and-follow":
+        valid = any(
+            row.get("method") == "POST" and path(row) == "/x/v1/work-intents"
+            and (work := (row.get("request_body") or {}).get("intent_id"))
+            and committed(row, "intent", work)
+            and any(j > i and (detail := work_detail(other)) and detail[0] == work for j, other in successful)
+            for i, row in successful)
+        require(valid, "Submission and later work detail must bind the same created intent")
+    elif task_id == "contributor-recall":
+        contributor_recall(requests)
+    elif task_id == "checkpoint-and-recover":
+        valid = False
+        for i, resume in successful:
+            match = re.fullmatch(r"/x/v1/work-intents/([^/]+)/actions", path(resume))
+            if not (resume.get("method") == "POST" and match
+                    and (resume.get("request_body") or {}).get("action") == "resume"):
+                continue
+            work_id = unquote(match[1])
+            for j, before_row in successful:
+                before = work_detail(before_row)
+                if not (j < i and before and before[0] == work_id and before[2].get("execution_mode") == "cpu_reference"):
+                    continue
+                for k, after_row in successful:
+                    after = work_detail(after_row)
+                    if not (k > i and after and after[0] == work_id and after[2].get("execution_mode") == "cpu_reference"):
+                        continue
+                    for allocation in after[1].get("allocations", []):
+                        aid, checkpoint = allocation.get("allocation_id", allocation.get("id")), allocation.get("checkpoint") or {}
+                        if not (aid in before[2].get("allocation_ids", []) and aid in after[2].get("allocation_ids", [])
+                                and committed(resume, "allocation", aid) and checkpoint.get("verification_status") == "verified"
+                                and checkpoint.get("continuation_status") == "applied" and checkpoint.get("resumed_attempt_id")):
+                            continue
+                        for job in after[1].get("jobs", []):
+                            attempt = job.get("attempt") or {}
+                            jid = job.get("job_id", job.get("id"))
+                            old = [x.get("attempt", {}) for x in before[1].get("jobs", []) if x.get("job_id", x.get("id")) == jid]
+                            if (jid in after[2].get("job_ids", []) and attempt.get("intent_id") == work_id
+                                    and attempt.get("allocation_id") == aid and attempt.get("job_id") == jid
+                                    and attempt.get("attempt_id") == checkpoint["resumed_attempt_id"]
+                                    and any(x.get("ref") == attempt for x in after[2].get("attempts", []))
+                                    and type(attempt.get("generation")) is int
+                                    and any(type(x.get("generation")) is int and x["generation"] < attempt["generation"] for x in old)):
+                                valid = True
+        require(valid, "Recovery needs a real resume between same-CPU-work details and the verified applied new attempt")
+    elif task_id == "explain-decision":
+        valid = False
+        for _, row in successful:
+            match = re.fullmatch(r"/x/v1/decisions/([^/]+)", path(row))
+            body = row.get("response", {})
+            if row.get("method") != "GET" or not match or not isinstance(body, dict):
+                continue
+            identity = unquote(match[1])
+            events = body.get("actual_events", [])
+            valid |= (body.get("item", {}).get("decision_id") == identity and body.get("commit_status") == "committed"
+                      and bool(events) and all(e.get("event_id") and e.get("decision_id") == identity for e in events))
+        require(valid, "Decision GET, plan identity and actual committed events must refer to the same decision")
+    elif task_id == "events-report-and-download":
+        require(any(row.get("method") == "GET" and path(row) == "/v1/events"
+                    and isinstance(row.get("response", {}).get("events"), list) for _, row in successful),
+                "Events task needs the actual GET events response")
+        reports = [(i, row["response"]) for i, row in successful if row.get("method") == "GET"
+                   and path(row) == "/x/v1/policy-validation" and isinstance(row.get("response"), dict)]
+        require(reports and trace.get("downloads"), "Policy report and actual browser download are required")
+        for download in trace["downloads"]:
+            index = download.get("request_index")
+            require(type(index) is int and 0 <= index < len(requests), "Download needs its exact HTTP request index")
+            request = requests[index]
+            match = re.fullmatch(r"/x/v1/policy-validation/artifacts/([^/]+)", path(request))
+            require(request.get("method") == "GET" and request.get("status_code") == 200 and match,
+                    "Download must come from the policy artifact GET endpoint")
+            artifact_id = unquote(match[1])
+            require(any(i < index and artifact_id in [*report.get("artifact_ids", []),
+                        *(ident for run in report.get("runs", []) for ident in run.get("artifact_ids", []))]
+                        for i, report in reports), "Downloaded artifact is not registered by the observed report")
+            file, server = download.get("file", {}), download.get("server_artifact", {})
+            require(file.get("path") != server.get("path"), "Browser and server evidence cannot reference the same file")
+            raw = request.get("raw_response")
+            require(isinstance(raw, str) and raw, "Retain the downloaded HTTP response bytes as raw_response")
+            require(audit.artifact(file) == audit.artifact(server) == raw.encode("utf-8"),
+                    "Browser file must match this actual artifact HTTP response byte-for-byte")
+    elif task_id == "administrator-acceptance":
+        require(any(row.get("method") == "GET" and path(row) == "/x/v1/acceptance"
+                    and isinstance(row.get("response", {}).get("items"), list)
+                    and row["response"].get("status") in {"NOT_RUN", "NOT_MET", "MET"}
+                    and "build_matches" in row["response"] and row["response"]["build_matches"] in (True, False, None)
+                    for _, row in successful), "Acceptance needs its actual GET response schema")
+        overviews = [row for row in requests if path(row) == "/x/v1/admin/overview"]
+        require(len(overviews) >= 10, "Ten consecutive administrator overview responses are required")
+        for row in overviews:
+            body = row.get("response", {})
+            require(row.get("method") == "GET" and row.get("status_code") == 200 and isinstance(body, dict)
+                    and body.get("scope") == "global" and body.get("measurement_kind") == "authorized_record_counts",
+                    "Every administrator overview must be a successful GET of the actual overview schema")
+            counts = body.get("counts", {})
+            for label, field in (("allocations", "allocations_by_state"), ("jobs", "jobs_by_state"), ("work_intents", "work_by_state")):
+                states = body.get(field)
+                require(type(counts.get(label)) is int and counts[label] >= 0 and isinstance(states, dict)
+                        and all(type(n) is int and n >= 0 for n in states.values()) and sum(states.values()) == counts[label],
+                        "Overview state counts are missing or inconsistent")
+            capacity = body.get("capacity", {})
+            require(isinstance(capacity.get("nodes"), list) and isinstance(capacity.get("totals"), dict)
+                    and all(isinstance(capacity["totals"].get(key), dict) for key in ("capacity", "available")),
+                    "Overview capacity response missing")
+
+
+def task_condition_evidence(task_id, trace, condition):
+    routes = {
+        "submit-and-follow": r"/x/v1/work-intents(?:/[^/]+(?:/actions)?)?",
+        "contributor-recall": r"/x/v1/contributions(?:/recall)?",
+        "checkpoint-and-recover": r"/x/v1/work-intents/[^/]+(?:/actions)?",
+        "explain-decision": r"/x/v1/decisions/[^/]+",
+        "events-report-and-download": r"(?:/v1/events|/x/v1/policy-validation(?:/artifacts/[^/]+)?)",
+        "administrator-acceptance": r"/x/v1/(?:acceptance|admin/overview)",
+    }
+    empty_routes = {
+        "submit-and-follow": {"/x/v1/work-intents": ("items", "intents")},
+        "contributor-recall": {"/x/v1/contributions": ("items",)},
+        "events-report-and-download": {"/v1/events": ("events",), "/x/v1/policy-validation": ("runs",)},
+    }
+    for row in trace.get("requests", []):
+        path = urlsplit(row.get("path", "")).path
+        body = row.get("response")
+        if not isinstance(body, dict) or not re.fullmatch(routes[task_id], path):
+            continue
+        if condition == "error" and 400 <= row.get("status_code", 0) < 600:
+            receipt = body.get("receipt") or {}
+            if body.get("error") or body.get("detail") or (receipt.get("outcome") == "rejected" and receipt.get("error")):
+                return
+        if condition == "empty" and row.get("method") == "GET" and row.get("status_code") == 200:
+            if any(body.get(key) == [] for key in empty_routes.get(task_id, {}).get(path, ())):
+                return
+    require(False, f"{condition} condition needs an actual response from this task's relevant product route")
+
+
 def user_tasks(audit, source):
     operators = source.get("operators", [])
     require(isinstance(operators, list) and len(operators) == 2, "Two cross-operating humans required")
@@ -305,52 +529,10 @@ def user_tasks(audit, source):
                     and all(r.get("method") and r.get("path", "").startswith("/")
                             and isinstance(r.get("status_code"), int) and "response" in r for r in requests),
                     "Retain actual service responses for the UI task")
-            successful = [r for r in requests if 200 <= r["status_code"] < 300]
-            task_id = task["id"]
-            if task_id == "submit-and-follow":
-                require(any(r["method"] == "POST" and r["path"] == "/x/v1/work-intents" for r in successful)
-                        and any(r["method"] == "GET" and r["path"].startswith("/x/v1/work-intents/")
-                                and r["response"].get("intent", {}).get("intent_id") for r in successful),
-                        "Submit/follow task needs actual creation and retained work detail")
-            elif task_id == "contributor-recall":
-                require(any(r["method"] == "POST" and r["path"] == "/x/v1/contributions/recall"
-                            for r in successful), "Contributor task needs a real authorized recall")
-                require(any(r["status_code"] in (403, 404) for r in requests),
-                        "Contributor task must retain a rejected other-owner operation")
-            elif task_id == "checkpoint-and-recover":
-                facts = [a.get("checkpoint") or {} for r in successful if isinstance(r["response"], dict)
-                         for a in r["response"].get("allocations", [])]
-                require(any(f.get("verification_status") == "verified"
-                            and f.get("continuation_status") == "applied" and f.get("resumed_attempt_id") for f in facts),
-                        "Recovery task requires verified and applied checkpoint evidence, not logical ready")
-            elif task_id == "explain-decision":
-                require(any(r["path"].startswith("/x/v1/decisions/")
-                            and r["response"].get("commit_status") == "committed"
-                            and r["response"].get("actual_events") for r in successful),
-                        "Decision task needs actual committed events for the displayed plan")
-            elif task_id == "events-report-and-download":
-                require(any(r["path"].startswith("/v1/events") for r in successful)
-                        and any(r["path"].startswith("/x/v1/policy-validation") for r in successful),
-                        "Events and policy report need actual service responses")
-                downloads = trace.get("downloads", [])
-                require(downloads, "Browser download must be retained, not inferred from a link")
-                for download in downloads:
-                    require(audit.artifact(download.get("file")) == audit.artifact(download.get("server_artifact")),
-                            "Browser download differs from the actual server artifact")
-            elif task_id == "administrator-acceptance":
-                require(any(r["path"] == "/x/v1/acceptance" for r in successful),
-                        "Acceptance task needs actual current evidence status")
-                overviews = [r for r in requests if r["path"] == "/x/v1/admin/overview"]
-                require(len(overviews) >= 10 and all(r["status_code"] == 200 for r in overviews),
-                        "Ten consecutive administrator overviews must succeed; no hidden 409 allowed")
+            user_task_evidence(audit, task["id"], trace)
             states = set(task.get("conditions", []))
-            if "error" in states:
-                require(any(r["status_code"] >= 400 for r in requests), "Error-state claim needs an actual rejection")
-            if "empty" in states:
-                require(any(r["status_code"] == 200 and (r["response"] == []
-                            or isinstance(r["response"], dict) and any(r["response"].get(k) == []
-                                for k in ("items", "intents", "events", "allocations", "jobs"))) for r in requests),
-                        "Empty-state claim needs an actual empty service response")
+            for condition in states & {"error", "empty"}:
+                task_condition_evidence(task["id"], trace, condition)
             if "partial-success" in states:
                 partial_success(trace, requests)
             conditions |= states
@@ -376,6 +558,10 @@ def video_rehearsal(audit, source):
             "Scene and candidate must have identical build identity")
     deployment = audit.json(source.get("deployment_observation"))
     require(deployment.get("build") == audit.build, "Video and deployment builds differ")
+    require(deployment.get("schema") == "cp4-clean-deploy-v1" and deployment.get("unresolved_issues") == [],
+            "Video must reference an actual clean-deployment observation, not a build/model stub")
+    timestamp(deployment.get("observed_at", ""))
+    clean_deploy(audit, deployment)
     require(scene.get("model") == deployment.get("model") == source.get("model"),
             "Video, scene and deployment models differ")
     require(scene.get("model") in {"logical_simulation", "cpu_reference"}, "Explicit execution mode required")

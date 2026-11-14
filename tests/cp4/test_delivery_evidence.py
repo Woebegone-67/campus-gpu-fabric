@@ -142,6 +142,55 @@ def test_partial_task_list_cannot_satisfy_six_tasks(root):
     assert task_review(root)["status"] == "NOT_MET"
 
 
+def contributor_requests():
+    supplier = {"actor_id": "supplier", "owner_id": "supplier", "role": "contributor"}
+    borrower = {"actor_id": "bob", "owner_id": "bob", "role": "researcher"}
+    body = {"gpu_ids": ["gpu-1"], "notice_seconds": 30, "duration_seconds": 60}
+    return [
+        {"method": "GET", "path": "/x/v1/contributions?limit=50", "status_code": 200,
+         "actor": supplier, "response": {"items": [{"contributor_owner_id": "supplier", "devices": [
+             {"device_id": "gpu-1", "physical_gpu_id": "gpu-1"}]}]}},
+        {"method": "POST", "path": "/x/v1/contributions/recall", "status_code": 201,
+         "actor": supplier, "origin": "browser", "request_body": copy.deepcopy(body),
+         "response": {"outcome": "committed", "error": None, "objects": [{"kind": "gpu", "entity_id": "gpu-1"}]}},
+        {"method": "GET", "path": "/x/v1/work-intents", "status_code": 200, "actor": borrower,
+         "response": {"scope": "owner", "owner_id": "bob", "items": []}},
+        {"method": "POST", "path": "/x/v1/contributions/recall", "status_code": 403,
+         "actor": borrower, "origin": "explicit_http", "request_body": copy.deepcopy(body),
+         "response": {"detail": "Contributor authority is required"}},
+    ]
+
+
+def test_borrower_refusal_on_known_foreign_gpu_is_valid_original_boundary():
+    delivery.contributor_recall(contributor_requests())
+
+
+@pytest.mark.parametrize("attack", ["unrelated403", "different-gpu", "unknown-owner", "own-resource",
+                                    "anonymous", "wrong-success-card", "no-browser-success", "unrelated-error", "no-body"])
+def test_recall_rejects_unbound_or_wrong_authorization_evidence(attack):
+    rows = contributor_requests()
+    if attack == "unrelated403":
+        rows[3]["path"] = "/x/v1/policy-validation"
+    elif attack == "different-gpu":
+        rows[3]["request_body"]["gpu_ids"] = ["other-gpu"]
+    elif attack == "unknown-owner":
+        rows[0]["response"]["items"][0]["contributor_owner_id"] = "unrelated-owner"
+    elif attack == "own-resource":
+        rows[3]["actor"]["owner_id"] = "supplier"
+    elif attack == "anonymous":
+        rows.pop(2)
+    elif attack == "wrong-success-card":
+        rows[1]["response"]["objects"][0]["entity_id"] = "other-gpu"
+    elif attack == "no-browser-success":
+        rows[1]["origin"] = "agent_http"
+    elif attack == "unrelated-error":
+        rows[3]["response"] = {"detail": "Artifact unavailable"}
+    else:
+        rows[3].pop("request_body")
+    with pytest.raises(ValueError, match="same known GPU"):
+        delivery.contributor_recall(rows)
+
+
 def test_asynchronous_partial_success_uses_persisted_receipts_and_same_lease():
     trace = {"retained_allocation_id": "lease-1", "duplicate_allocation_created": False}
     detail = {"intent": {"intent_id": "work-1", "allocation_ids": ["lease-1"], "job_ids": [], "stages": [
@@ -274,6 +323,22 @@ def test_video_build_mismatch_rejected_after_media_probe(root, monkeypatch):
     source["deployment_observation"] = put(root, "deployment.json", {"build": {**BUILD, "git_commit": "d" * 40}})
     put(root, "video_rehearsal_observer.json", source)
     assert video_review(root)["status"] == "NOT_MET"
+
+
+def test_video_same_build_model_stub_cannot_replace_clean_deployment(root, monkeypatch):
+    monkeypatch.setattr(delivery.subprocess, "check_output", lambda *a, **k: json.dumps({
+        "streams": [{"codec_type": "video"}], "format": {"duration": "60"}}))
+    source = base("cp4-video-rehearsal-v1")
+    source.update(operator=human(), video=put(root, "fixture.mp4", b"Synthetic media fixture"),
+                  model="logical_simulation", scene_id="fixture-scene", credentials_visible=False)
+    source["scene"] = put(root, "scene.json", {"schema": "cp4-rehearsal-scene-v1", "build": BUILD,
+                                            "model": "logical_simulation"})
+    source["deployment_observation"] = put(root, "deployment.json", {"build": BUILD,
+                                                                   "model": "logical_simulation"})
+    put(root, "video_rehearsal_observer.json", source)
+    result = video_review(root)
+    assert result["status"] == "NOT_MET"
+    assert "build/model stub" in result["unresolved_issues"][0]
 
 
 def test_area_recalculation_preserves_failed_and_unfinished_cohort():
