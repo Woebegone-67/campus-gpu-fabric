@@ -21,7 +21,8 @@ FiniteNumber = Annotated[
     float, Field(ge=-MAX_SAFE_INTEGER, le=MAX_SAFE_INTEGER, allow_inf_nan=False)
 ]
 SignedInt = Annotated[int, Field(ge=-MAX_SAFE_INTEGER, le=MAX_SAFE_INTEGER)]
-Role = Literal["researcher", "contributor", "administrator", "test_driver", "system"]
+Role = Literal["member", "researcher", "contributor", "administrator", "test_driver", "system"]
+Capability = Literal["use_compute", "contribute_resources"]
 ExecutionMode = Literal["logical_simulation", "cpu_reference"]
 Operation = Literal[
     "allocation.create",
@@ -72,9 +73,36 @@ class AuthenticatedActor(ContractModel):
 
     @model_validator(mode="after")
     def owner_for_user(self) -> AuthenticatedActor:
-        if self.role in ("researcher", "contributor") and self.owner_id is None:
+        if self.role in ("member", "researcher", "contributor") and self.owner_id is None:
             raise ValueError("user actors require an authenticated owner_id")
         return self
+
+    @property
+    def capabilities(self) -> tuple[Capability, ...]:
+        if self.role in ("member", "administrator"):
+            return ("use_compute", "contribute_resources")
+        if self.role == "researcher":
+            return ("use_compute",)
+        if self.role == "contributor":
+            return ("contribute_resources",)
+        return ()
+
+    @property
+    def can_use_compute(self) -> bool:
+        return "use_compute" in self.capabilities
+
+    @property
+    def can_contribute_resources(self) -> bool:
+        return "contribute_resources" in self.capabilities
+
+
+class AccountSession(ContractModel):
+    """Public account capabilities derived from the authenticated server identity."""
+
+    actor_id: Identifier
+    owner_id: Identifier | None
+    capabilities: tuple[Capability, ...]
+    is_administrator: bool
 
 
 class KeyValue(ContractModel):
@@ -952,11 +980,8 @@ class CommandEnvelope(ContractModel):
             raise ValueError("registered resource owner must match the authenticated actor owner")
         if self.operation.startswith("test.") and self.actor.role != "test_driver":
             raise ValueError("test operations require the isolated test driver role")
-        if self.operation.startswith("contribution.") and self.actor.role not in (
-            "contributor",
-            "administrator",
-        ):
-            raise ValueError("contribution commands require contributor or administrator authority")
+        if self.operation.startswith("contribution.") and not self.actor.can_contribute_resources:
+            raise ValueError("contribution commands require resource contribution authority")
         if self.operation == "clock.advance" and self.actor.role not in (
             "test_driver",
             "system",

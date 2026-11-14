@@ -1,0 +1,742 @@
+{
+  "age_guard_seconds": 20,
+  "build": {
+    "git_commit": "3b3203ef244842162ebce52781af2a37d6ab9d32",
+    "source_file_count": 261,
+    "source_sha256": "4d068b97da1b99f5bbf4d5e7373344b4f76bb22d950cd8498ebdbe3e73dcb30e"
+  },
+  "created_at": "2026-11-14T14:10:31.750488+00:00",
+  "execution_budget": 11,
+  "inputs": {
+    "homogeneous-neutral": {
+      "cancellation_policy": "count_until_horizon",
+      "events": [],
+      "horizon": 80,
+      "inventory": [
+        {
+          "available": {
+            "cpu_millicores": 16000,
+            "ephemeral_storage_mib": 131072,
+            "gpu_count": 2,
+            "gpu_memory_mib": 49152,
+            "memory_mib": 65536
+          },
+          "capacity": {
+            "cpu_millicores": 16000,
+            "ephemeral_storage_mib": 131072,
+            "gpu_count": 2,
+            "gpu_memory_mib": 49152,
+            "memory_mib": 65536
+          },
+          "contributor_owner_id": "supplier",
+          "devices": [
+            {
+              "device_id": "sim-a10-gpu0",
+              "memory_mib": 24576,
+              "model": "A10",
+              "physical_gpu_id": "sim-a10-gpu0",
+              "profile": null,
+              "state": "available"
+            },
+            {
+              "device_id": "sim-a10-gpu1",
+              "memory_mib": 24576,
+              "model": "A10",
+              "physical_gpu_id": "sim-a10-gpu1",
+              "profile": null,
+              "state": "available"
+            }
+          ],
+          "labels": [
+            {
+              "key": "site",
+              "value": "campus"
+            },
+            {
+              "key": "evidence",
+              "value": "logical-simulation"
+            }
+          ],
+          "node_id": "sim-a10",
+          "observed_at": 0.0,
+          "state": "Ready"
+        }
+      ],
+      "limitations": [
+        "Uniform duration within each case, two GPUs, synthetic micro-inputs.",
+        "Co-admission proxy has no general fairness guarantee."
+      ],
+      "model": {
+        "dispatcher_quantum_seconds": 5,
+        "duration_limit": "Uniform 10-second work in this micro-input; no duration supplied to policy.",
+        "duration_seconds": 10,
+        "execution_mode": "logical_simulation",
+        "horizon_seconds": 80,
+        "max_candidates": 512,
+        "name": "research-uniform-work-v1",
+        "recovery_cost_component": "inactive: snapshot has no verified recovery-cost model",
+        "scale_limit": "Three or four designed jobs, not a representative workload benchmark.",
+        "service_unit": "completed_work_equivalents",
+        "works_per_run": 4
+      },
+      "partition": "mechanism_probe",
+      "scenario_family": "homogeneous-neutral",
+      "schema": "research-direction-input-v1",
+      "scope": "Designed mechanism witness; no formal CP3 validation claim.",
+      "seed": null,
+      "service_unit": "completed_work_equivalents",
+      "works": [
+        {
+          "arrived_at": 0.0,
+          "checkpoint_behavior": "ready",
+          "checkpoint_timeout_seconds": 3,
+          "cpu_millicores": 1000,
+          "gpu_count": 1,
+          "gpu_memory_mib": 1024,
+          "gpu_model": "A10",
+          "intent_id": "probe-work-00",
+          "max_restarts": 0,
+          "max_retries": 0,
+          "memory_mib": 1024,
+          "owner_id": "probe-owner-0",
+          "priority": 0,
+          "profile": null,
+          "timeout_seconds": 60,
+          "ttl_seconds": 300
+        },
+        {
+          "arrived_at": 0.0,
+          "checkpoint_behavior": "ready",
+          "checkpoint_timeout_seconds": 3,
+          "cpu_millicores": 1000,
+          "gpu_count": 1,
+          "gpu_memory_mib": 1024,
+          "gpu_model": "A10",
+          "intent_id": "probe-work-01",
+          "max_restarts": 0,
+          "max_retries": 0,
+          "memory_mib": 1024,
+          "owner_id": "probe-owner-1",
+          "priority": 0,
+          "profile": null,
+          "timeout_seconds": 60,
+          "ttl_seconds": 300
+        },
+        {
+          "arrived_at": 0.0,
+          "checkpoint_behavior": "ready",
+          "checkpoint_timeout_seconds": 3,
+          "cpu_millicores": 1000,
+          "gpu_count": 1,
+          "gpu_memory_mib": 1024,
+          "gpu_model": "A10",
+          "intent_id": "probe-work-02",
+          "max_restarts": 0,
+          "max_retries": 0,
+          "memory_mib": 1024,
+          "owner_id": "probe-owner-2",
+          "priority": 0,
+          "profile": null,
+          "timeout_seconds": 60,
+          "ttl_seconds": 300
+        },
+        {
+          "arrived_at": 0.0,
+          "checkpoint_behavior": "ready",
+          "checkpoint_timeout_seconds": 3,
+          "cpu_millicores": 1000,
+          "gpu_count": 1,
+          "gpu_memory_mib": 1024,
+          "gpu_model": "A10",
+          "intent_id": "probe-work-03",
+          "max_restarts": 0,
+          "max_retries": 0,
+          "memory_mib": 1024,
+          "owner_id": "probe-owner-3",
+          "priority": 0,
+          "profile": null,
+          "timeout_seconds": 60,
+          "ttl_seconds": 300
+        }
+      ]
+    },
+    "late-narrow": {
+      "cancellation_policy": "count_until_horizon",
+      "events": [],
+      "horizon": 80,
+      "inventory": [
+        {
+          "available": {
+            "cpu_millicores": 16000,
+            "ephemeral_storage_mib": 131072,
+            "gpu_count": 2,
+            "gpu_memory_mib": 49152,
+            "memory_mib": 65536
+          },
+          "capacity": {
+            "cpu_millicores": 16000,
+            "ephemeral_storage_mib": 131072,
+            "gpu_count": 2,
+            "gpu_memory_mib": 49152,
+            "memory_mib": 65536
+          },
+          "contributor_owner_id": "supplier",
+          "devices": [
+            {
+              "device_id": "sim-a10-gpu0",
+              "memory_mib": 24576,
+              "model": "A10",
+              "physical_gpu_id": "sim-a10-gpu0",
+              "profile": null,
+              "state": "available"
+            },
+            {
+              "device_id": "sim-a10-gpu1",
+              "memory_mib": 24576,
+              "model": "A10",
+              "physical_gpu_id": "sim-a10-gpu1",
+              "profile": null,
+              "state": "available"
+            }
+          ],
+          "labels": [
+            {
+              "key": "site",
+              "value": "campus"
+            },
+            {
+              "key": "evidence",
+              "value": "logical-simulation"
+            }
+          ],
+          "node_id": "sim-a10",
+          "observed_at": 0.0,
+          "state": "Ready"
+        }
+      ],
+      "limitations": [
+        "Uniform duration within each case, two GPUs, synthetic micro-inputs.",
+        "Co-admission proxy has no general fairness guarantee."
+      ],
+      "model": {
+        "dispatcher_quantum_seconds": 5,
+        "duration_limit": "Uniform 10-second work in this micro-input; no duration supplied to policy.",
+        "duration_seconds": 10,
+        "execution_mode": "logical_simulation",
+        "horizon_seconds": 80,
+        "max_candidates": 512,
+        "name": "research-uniform-work-v1",
+        "recovery_cost_component": "inactive: snapshot has no verified recovery-cost model",
+        "scale_limit": "Three or four designed jobs, not a representative workload benchmark.",
+        "service_unit": "completed_work_equivalents",
+        "works_per_run": 4
+      },
+      "partition": "mechanism_probe",
+      "scenario_family": "late-narrow",
+      "schema": "research-direction-input-v1",
+      "scope": "Designed mechanism witness; no formal CP3 validation claim.",
+      "seed": null,
+      "service_unit": "completed_work_equivalents",
+      "works": [
+        {
+          "arrived_at": 0.0,
+          "checkpoint_behavior": "ready",
+          "checkpoint_timeout_seconds": 3,
+          "cpu_millicores": 1000,
+          "gpu_count": 2,
+          "gpu_memory_mib": 1024,
+          "gpu_model": "A10",
+          "intent_id": "probe-work-00",
+          "max_restarts": 0,
+          "max_retries": 0,
+          "memory_mib": 1024,
+          "owner_id": "probe-owner-0",
+          "priority": 0,
+          "profile": null,
+          "timeout_seconds": 60,
+          "ttl_seconds": 300
+        },
+        {
+          "arrived_at": 0.0,
+          "checkpoint_behavior": "ready",
+          "checkpoint_timeout_seconds": 3,
+          "cpu_millicores": 1000,
+          "gpu_count": 1,
+          "gpu_memory_mib": 1024,
+          "gpu_model": "A10",
+          "intent_id": "probe-work-01",
+          "max_restarts": 0,
+          "max_retries": 0,
+          "memory_mib": 1024,
+          "owner_id": "probe-owner-1",
+          "priority": 0,
+          "profile": null,
+          "timeout_seconds": 60,
+          "ttl_seconds": 300
+        },
+        {
+          "arrived_at": 0.0,
+          "checkpoint_behavior": "ready",
+          "checkpoint_timeout_seconds": 3,
+          "cpu_millicores": 1000,
+          "gpu_count": 1,
+          "gpu_memory_mib": 1024,
+          "gpu_model": "A10",
+          "intent_id": "probe-work-02",
+          "max_restarts": 0,
+          "max_retries": 0,
+          "memory_mib": 1024,
+          "owner_id": "probe-owner-2",
+          "priority": 0,
+          "profile": null,
+          "timeout_seconds": 60,
+          "ttl_seconds": 300
+        },
+        {
+          "arrived_at": 15.0,
+          "checkpoint_behavior": "ready",
+          "checkpoint_timeout_seconds": 3,
+          "cpu_millicores": 1000,
+          "gpu_count": 1,
+          "gpu_memory_mib": 1024,
+          "gpu_model": "A10",
+          "intent_id": "probe-work-03",
+          "max_restarts": 0,
+          "max_retries": 0,
+          "memory_mib": 1024,
+          "owner_id": "probe-owner-3",
+          "priority": 0,
+          "profile": null,
+          "timeout_seconds": 60,
+          "ttl_seconds": 300
+        }
+      ]
+    },
+    "late-wide": {
+      "cancellation_policy": "count_until_horizon",
+      "events": [],
+      "horizon": 80,
+      "inventory": [
+        {
+          "available": {
+            "cpu_millicores": 16000,
+            "ephemeral_storage_mib": 131072,
+            "gpu_count": 2,
+            "gpu_memory_mib": 49152,
+            "memory_mib": 65536
+          },
+          "capacity": {
+            "cpu_millicores": 16000,
+            "ephemeral_storage_mib": 131072,
+            "gpu_count": 2,
+            "gpu_memory_mib": 49152,
+            "memory_mib": 65536
+          },
+          "contributor_owner_id": "supplier",
+          "devices": [
+            {
+              "device_id": "sim-a10-gpu0",
+              "memory_mib": 24576,
+              "model": "A10",
+              "physical_gpu_id": "sim-a10-gpu0",
+              "profile": null,
+              "state": "available"
+            },
+            {
+              "device_id": "sim-a10-gpu1",
+              "memory_mib": 24576,
+              "model": "A10",
+              "physical_gpu_id": "sim-a10-gpu1",
+              "profile": null,
+              "state": "available"
+            }
+          ],
+          "labels": [
+            {
+              "key": "site",
+              "value": "campus"
+            },
+            {
+              "key": "evidence",
+              "value": "logical-simulation"
+            }
+          ],
+          "node_id": "sim-a10",
+          "observed_at": 0.0,
+          "state": "Ready"
+        }
+      ],
+      "limitations": [
+        "Uniform duration within each case, two GPUs, synthetic micro-inputs.",
+        "Co-admission proxy has no general fairness guarantee."
+      ],
+      "model": {
+        "dispatcher_quantum_seconds": 5,
+        "duration_limit": "Uniform 10-second work in this micro-input; no duration supplied to policy.",
+        "duration_seconds": 10,
+        "execution_mode": "logical_simulation",
+        "horizon_seconds": 80,
+        "max_candidates": 512,
+        "name": "research-uniform-work-v1",
+        "recovery_cost_component": "inactive: snapshot has no verified recovery-cost model",
+        "scale_limit": "Three or four designed jobs, not a representative workload benchmark.",
+        "service_unit": "completed_work_equivalents",
+        "works_per_run": 4
+      },
+      "partition": "mechanism_probe",
+      "scenario_family": "late-wide",
+      "schema": "research-direction-input-v1",
+      "scope": "Designed mechanism witness; no formal CP3 validation claim.",
+      "seed": null,
+      "service_unit": "completed_work_equivalents",
+      "works": [
+        {
+          "arrived_at": 0.0,
+          "checkpoint_behavior": "ready",
+          "checkpoint_timeout_seconds": 3,
+          "cpu_millicores": 1000,
+          "gpu_count": 2,
+          "gpu_memory_mib": 1024,
+          "gpu_model": "A10",
+          "intent_id": "probe-work-00",
+          "max_restarts": 0,
+          "max_retries": 0,
+          "memory_mib": 1024,
+          "owner_id": "probe-owner-0",
+          "priority": 0,
+          "profile": null,
+          "timeout_seconds": 60,
+          "ttl_seconds": 300
+        },
+        {
+          "arrived_at": 0.0,
+          "checkpoint_behavior": "ready",
+          "checkpoint_timeout_seconds": 3,
+          "cpu_millicores": 1000,
+          "gpu_count": 1,
+          "gpu_memory_mib": 1024,
+          "gpu_model": "A10",
+          "intent_id": "probe-work-01",
+          "max_restarts": 0,
+          "max_retries": 0,
+          "memory_mib": 1024,
+          "owner_id": "probe-owner-1",
+          "priority": 0,
+          "profile": null,
+          "timeout_seconds": 60,
+          "ttl_seconds": 300
+        },
+        {
+          "arrived_at": 0.0,
+          "checkpoint_behavior": "ready",
+          "checkpoint_timeout_seconds": 3,
+          "cpu_millicores": 1000,
+          "gpu_count": 1,
+          "gpu_memory_mib": 1024,
+          "gpu_model": "A10",
+          "intent_id": "probe-work-02",
+          "max_restarts": 0,
+          "max_retries": 0,
+          "memory_mib": 1024,
+          "owner_id": "probe-owner-2",
+          "priority": 0,
+          "profile": null,
+          "timeout_seconds": 60,
+          "ttl_seconds": 300
+        },
+        {
+          "arrived_at": 15.0,
+          "checkpoint_behavior": "ready",
+          "checkpoint_timeout_seconds": 3,
+          "cpu_millicores": 1000,
+          "gpu_count": 2,
+          "gpu_memory_mib": 1024,
+          "gpu_model": "A10",
+          "intent_id": "probe-work-03",
+          "max_restarts": 0,
+          "max_retries": 0,
+          "memory_mib": 1024,
+          "owner_id": "probe-owner-3",
+          "priority": 0,
+          "profile": null,
+          "timeout_seconds": 60,
+          "ttl_seconds": 300
+        }
+      ]
+    },
+    "lease-counterexample": {
+      "cancellation_policy": "count_until_horizon",
+      "events": [],
+      "horizon": 80,
+      "inventory": [
+        {
+          "available": {
+            "cpu_millicores": 16000,
+            "ephemeral_storage_mib": 131072,
+            "gpu_count": 2,
+            "gpu_memory_mib": 49152,
+            "memory_mib": 65536
+          },
+          "capacity": {
+            "cpu_millicores": 16000,
+            "ephemeral_storage_mib": 131072,
+            "gpu_count": 2,
+            "gpu_memory_mib": 49152,
+            "memory_mib": 65536
+          },
+          "contributor_owner_id": "supplier",
+          "devices": [
+            {
+              "device_id": "sim-a10-gpu0",
+              "memory_mib": 24576,
+              "model": "A10",
+              "physical_gpu_id": "sim-a10-gpu0",
+              "profile": null,
+              "state": "available"
+            },
+            {
+              "device_id": "sim-a10-gpu1",
+              "memory_mib": 24576,
+              "model": "A10",
+              "physical_gpu_id": "sim-a10-gpu1",
+              "profile": null,
+              "state": "available"
+            }
+          ],
+          "labels": [
+            {
+              "key": "site",
+              "value": "campus"
+            },
+            {
+              "key": "evidence",
+              "value": "logical-simulation"
+            }
+          ],
+          "node_id": "sim-a10",
+          "observed_at": 0.0,
+          "state": "Ready"
+        }
+      ],
+      "limitations": [
+        "Uniform duration within each case, two GPUs, synthetic micro-inputs.",
+        "Co-admission proxy has no general fairness guarantee."
+      ],
+      "model": {
+        "dispatcher_quantum_seconds": 5,
+        "duration_limit": "Uniform 20-second work in this micro-input; no duration supplied to policy.",
+        "duration_seconds": 20,
+        "execution_mode": "logical_simulation",
+        "horizon_seconds": 80,
+        "max_candidates": 512,
+        "name": "research-uniform-work-v1",
+        "recovery_cost_component": "inactive: snapshot has no verified recovery-cost model",
+        "scale_limit": "Three or four designed jobs, not a representative workload benchmark.",
+        "service_unit": "completed_work_equivalents",
+        "works_per_run": 3
+      },
+      "partition": "mechanism_probe",
+      "scenario_family": "lease-counterexample",
+      "schema": "research-direction-input-v1",
+      "scope": "Designed mechanism witness; no formal CP3 validation claim.",
+      "seed": null,
+      "service_unit": "completed_work_equivalents",
+      "works": [
+        {
+          "arrived_at": 0.0,
+          "checkpoint_behavior": "ready",
+          "checkpoint_timeout_seconds": 3,
+          "cpu_millicores": 1000,
+          "gpu_count": 2,
+          "gpu_memory_mib": 1024,
+          "gpu_model": "A10",
+          "intent_id": "probe-work-00",
+          "max_restarts": 0,
+          "max_retries": 0,
+          "memory_mib": 1024,
+          "owner_id": "probe-owner-0",
+          "priority": 0,
+          "profile": null,
+          "timeout_seconds": 60,
+          "ttl_seconds": 30
+        },
+        {
+          "arrived_at": 0.0,
+          "checkpoint_behavior": "ready",
+          "checkpoint_timeout_seconds": 3,
+          "cpu_millicores": 1000,
+          "gpu_count": 1,
+          "gpu_memory_mib": 1024,
+          "gpu_model": "A10",
+          "intent_id": "probe-work-01",
+          "max_restarts": 0,
+          "max_retries": 0,
+          "memory_mib": 1024,
+          "owner_id": "probe-owner-1",
+          "priority": 0,
+          "profile": null,
+          "timeout_seconds": 60,
+          "ttl_seconds": 300
+        },
+        {
+          "arrived_at": 0.0,
+          "checkpoint_behavior": "ready",
+          "checkpoint_timeout_seconds": 3,
+          "cpu_millicores": 1000,
+          "gpu_count": 1,
+          "gpu_memory_mib": 1024,
+          "gpu_model": "A10",
+          "intent_id": "probe-work-02",
+          "max_restarts": 0,
+          "max_retries": 0,
+          "memory_mib": 1024,
+          "owner_id": "probe-owner-2",
+          "priority": 0,
+          "profile": null,
+          "timeout_seconds": 60,
+          "ttl_seconds": 300
+        }
+      ]
+    },
+    "packing-witness": {
+      "cancellation_policy": "count_until_horizon",
+      "events": [],
+      "horizon": 80,
+      "inventory": [
+        {
+          "available": {
+            "cpu_millicores": 16000,
+            "ephemeral_storage_mib": 131072,
+            "gpu_count": 2,
+            "gpu_memory_mib": 49152,
+            "memory_mib": 65536
+          },
+          "capacity": {
+            "cpu_millicores": 16000,
+            "ephemeral_storage_mib": 131072,
+            "gpu_count": 2,
+            "gpu_memory_mib": 49152,
+            "memory_mib": 65536
+          },
+          "contributor_owner_id": "supplier",
+          "devices": [
+            {
+              "device_id": "sim-a10-gpu0",
+              "memory_mib": 24576,
+              "model": "A10",
+              "physical_gpu_id": "sim-a10-gpu0",
+              "profile": null,
+              "state": "available"
+            },
+            {
+              "device_id": "sim-a10-gpu1",
+              "memory_mib": 24576,
+              "model": "A10",
+              "physical_gpu_id": "sim-a10-gpu1",
+              "profile": null,
+              "state": "available"
+            }
+          ],
+          "labels": [
+            {
+              "key": "site",
+              "value": "campus"
+            },
+            {
+              "key": "evidence",
+              "value": "logical-simulation"
+            }
+          ],
+          "node_id": "sim-a10",
+          "observed_at": 0.0,
+          "state": "Ready"
+        }
+      ],
+      "limitations": [
+        "Uniform duration within each case, two GPUs, synthetic micro-inputs.",
+        "Co-admission proxy has no general fairness guarantee."
+      ],
+      "model": {
+        "dispatcher_quantum_seconds": 5,
+        "duration_limit": "Uniform 10-second work in this micro-input; no duration supplied to policy.",
+        "duration_seconds": 10,
+        "execution_mode": "logical_simulation",
+        "horizon_seconds": 80,
+        "max_candidates": 512,
+        "name": "research-uniform-work-v1",
+        "recovery_cost_component": "inactive: snapshot has no verified recovery-cost model",
+        "scale_limit": "Three or four designed jobs, not a representative workload benchmark.",
+        "service_unit": "completed_work_equivalents",
+        "works_per_run": 3
+      },
+      "partition": "mechanism_probe",
+      "scenario_family": "packing-witness",
+      "schema": "research-direction-input-v1",
+      "scope": "Designed mechanism witness; no formal CP3 validation claim.",
+      "seed": null,
+      "service_unit": "completed_work_equivalents",
+      "works": [
+        {
+          "arrived_at": 0.0,
+          "checkpoint_behavior": "ready",
+          "checkpoint_timeout_seconds": 3,
+          "cpu_millicores": 1000,
+          "gpu_count": 2,
+          "gpu_memory_mib": 1024,
+          "gpu_model": "A10",
+          "intent_id": "probe-work-00",
+          "max_restarts": 0,
+          "max_retries": 0,
+          "memory_mib": 1024,
+          "owner_id": "probe-owner-0",
+          "priority": 0,
+          "profile": null,
+          "timeout_seconds": 60,
+          "ttl_seconds": 300
+        },
+        {
+          "arrived_at": 0.0,
+          "checkpoint_behavior": "ready",
+          "checkpoint_timeout_seconds": 3,
+          "cpu_millicores": 1000,
+          "gpu_count": 1,
+          "gpu_memory_mib": 1024,
+          "gpu_model": "A10",
+          "intent_id": "probe-work-01",
+          "max_restarts": 0,
+          "max_retries": 0,
+          "memory_mib": 1024,
+          "owner_id": "probe-owner-1",
+          "priority": 0,
+          "profile": null,
+          "timeout_seconds": 60,
+          "ttl_seconds": 300
+        },
+        {
+          "arrived_at": 0.0,
+          "checkpoint_behavior": "ready",
+          "checkpoint_timeout_seconds": 3,
+          "cpu_millicores": 1000,
+          "gpu_count": 1,
+          "gpu_memory_mib": 1024,
+          "gpu_model": "A10",
+          "intent_id": "probe-work-02",
+          "max_restarts": 0,
+          "max_retries": 0,
+          "memory_mib": 1024,
+          "owner_id": "probe-owner-2",
+          "priority": 0,
+          "profile": null,
+          "timeout_seconds": 60,
+          "ttl_seconds": 300
+        }
+      ]
+    }
+  },
+  "protocol_sha256": "04309b7cadab00ca4ec245e44bc625dd3d4d4c6712b6f0d1731fa0b2c13eb7db",
+  "schema": "cp3-direction-probe-v1",
+  "scope": "One-pass mechanism diagnosis, not validation or product policy promotion.",
+  "script_sha256": "d1c1b84597416178d5cf4eba6526806ccdc2ecb70237c3f81fbe077567690661",
+  "source_commit": "3b3203ef244842162ebce52781af2a37d6ab9d32",
+  "source_status": ""
+}

@@ -5,7 +5,6 @@ can remove a live CPU claim. Logical execution acknowledges within the model.
 """
 from __future__ import annotations
 
-import copy
 import json
 
 from campus_fabric.contracts import models as m
@@ -27,6 +26,8 @@ def parse(cls, value):
 class LifecycleMixin:
     @staticmethod
     def _retired_node_ids(s):
+        if not s.get("retired"):
+            return set()
         retired_nodes = {p["node_id"] for record in s.get("retired", {}).values()
                          for p in (record["placement"] or {}).get("slices", [])}
         retired_devices = {d for record in s.get("retired", {}).values()
@@ -36,10 +37,14 @@ class LifecycleMixin:
         return retired_nodes
 
     def _inventory(self, s):
-        nodes = copy.deepcopy(s["nodes"])
-        for ident in self._retired_node_ids(s):
-            if ident in nodes:
-                nodes[ident]["state"] = "NotReady"
+        # inventory() derives immutable views without mutating raw nodes/devices.
+        # Only quarantined node rows need an overlay; copying all physical devices
+        # on every read/commit scales with pool size for no semantic benefit.
+        retired = self._retired_node_ids(s)
+        nodes = s["nodes"] if not retired else {
+            ident: {**node, "state": "NotReady"} if ident in retired else node
+            for ident, node in s["nodes"].items()
+        }
         return inventory(nodes, s["allocations"], s["now"])
 
     def acknowledge_dispatch(self, dispatch_id, epoch):

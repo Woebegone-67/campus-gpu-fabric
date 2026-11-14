@@ -1,0 +1,4 @@
+{"case": "n4_h0", "baseline_bytes": 13534, "unprofiled_write_median_ms": 4.66460402822122, "read_median_ms": 2.5669580209068954}
+{"case": "n128_h0", "baseline_bytes": 191102, "unprofiled_write_median_ms": 34.28606200031936, "read_median_ms": 4.161624994594604}
+{"case": "n128_h32", "baseline_bytes": 431475, "unprofiled_write_median_ms": 54.6764169994276, "read_median_ms": 7.049000007100403}
+{"case": "n128_h256", "baseline_bytes": 2099515, "unprofiled_write_median_ms": 276.43737551989034, "read_median_ms": 25.310416996944696}

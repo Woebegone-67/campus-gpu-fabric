@@ -1,0 +1,304 @@
+{
+  "build": {
+    "git_commit": "059f477b9ea24578dda9426a3385e6ec97ba1cc1",
+    "source_file_count": 301,
+    "source_sha256": "5507286afa92d576c4da404209592fe8311c26925847c5168829986a83e04141"
+  },
+  "files": [
+    {
+      "path": "evidence/cp4-next/20261115/performance/CONCLUSION.txt",
+      "sha256": "ee4dc3cf19d945bc4bd41917805051a15f0a59b65dab292274bd304278e258a3",
+      "bytes": 8083
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/actual_owner_detail_snapshot.pstats",
+      "sha256": "da4311a7086b1dcef9f39577e2ed76b4a7a74e51b025fd81db5a0d7f681d29e3",
+      "bytes": 8933
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/diagnose.log",
+      "sha256": "7aebfbd97609ed3e16d6d96d0028bd832e4bce11861ba1718534d8655c4a1eac",
+      "bytes": 530
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/diagnose.py",
+      "sha256": "fd32769c503fdebbc79fc6776db748beaea701307b4e36f034490a8b1f5d30d7",
+      "bytes": 11083
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/kernel_probe_results.json",
+      "sha256": "53363e2648366b5c616bf5406996e7615845ef0681f22d5d24cc27cb44f9119f",
+      "bytes": 507028
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h0-allocate-profile.json",
+      "sha256": "b7bbe95e4da83a0a320b514fe49492f44a88aa37a428a335442a5c28c69ab438",
+      "bytes": 15666
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h0-allocate.pstats",
+      "sha256": "8e20cda71f7a409fd41a696c49086364a80ef2d6398634b52a451a866d963405",
+      "bytes": 22578
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h0-cancel-profile.json",
+      "sha256": "24709f2901f96df0eab4d52c0fb48a93110b83a05ab09fe50fbf4d782af0bfba",
+      "bytes": 15590
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h0-cancel.pstats",
+      "sha256": "613fffe68d5b372238a54281ec147d9414c5a479ee5ccd1ec74e18a24ecb02fe",
+      "bytes": 19325
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h0-create_job-profile.json",
+      "sha256": "320623fc20c69dd78b6e1b866fb56610f224189114497d1375e9428436c6a30f",
+      "bytes": 15473
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h0-create_job.pstats",
+      "sha256": "b41c2dd051b025014dbadab96612744341976c418e11b1d52b02ea046e1a4221",
+      "bytes": 19891
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h0-inactive_worker_tick-profile.json",
+      "sha256": "9d982b965e19d163466e858154e18c1f7b1a56bf744791fd6bbe871a090e01dc",
+      "bytes": 14857
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h0-inactive_worker_tick.pstats",
+      "sha256": "bb5b3988b41ae6a707104cb7277377187b1cfb326bd830829b75fb811f5f36fc",
+      "bytes": 8648
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h0-release-profile.json",
+      "sha256": "cd2fb21b14b92220ea0c94ef7ec25fd650c39050026e7d36d47ca87b6f5590fe",
+      "bytes": 15611
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h0-release.pstats",
+      "sha256": "19ff179165b5eecf15b419c9fe703b121df4604db8fd6a3fc8385f2d1db5e795",
+      "bytes": 18846
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h0-renew-profile.json",
+      "sha256": "d9aaae8c7cb568a53fb78db40f9383fc0154e810e66cc7691b934f412c1b642b",
+      "bytes": 15571
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h0-renew.pstats",
+      "sha256": "07975de6caed2e429ab199dd8160a08e1d0804948b2c33ba3c63da8fd6005af1",
+      "bytes": 19084
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h256-allocate-profile.json",
+      "sha256": "d061d705010ede89b452378f5e772c0d957c9b48cbf9710a6854425d529bea68",
+      "bytes": 15393
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h256-allocate.pstats",
+      "sha256": "471e9098c2333fc1e6b414ec0eaef00b62124610ab00d8d9643c557893c2a057",
+      "bytes": 22578
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h256-cancel-profile.json",
+      "sha256": "28460877a8eb16740fdf74c2f2ee47833b7b64a55b57224eb8b8d7620fc4bc4d",
+      "bytes": 15225
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h256-cancel.pstats",
+      "sha256": "80c4e4c892cf8e7840de2592c60b3262af7e1b4634588db482d4a49e2845138d",
+      "bytes": 19325
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h256-create_job-profile.json",
+      "sha256": "36b8653d60a319a70d638f18e3013c8456c87fd1518b36d64eb10c2a4530afb0",
+      "bytes": 15233
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h256-create_job.pstats",
+      "sha256": "953f29fdc30fe99c4a7791065ba4c2c33bf52438c2e7e55cd1839a08f2233bea",
+      "bytes": 19891
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h256-inactive_worker_tick-profile.json",
+      "sha256": "202e3c3f5e24d1ecb4a0f9aa977ee2932df5a22ad06a0e49b4fc32251ff3dfaf",
+      "bytes": 15255
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h256-inactive_worker_tick.pstats",
+      "sha256": "4a19b752a2a1f736d3223ac372e072cd1e49a3b88077f139d1f5c41ff119f0e9",
+      "bytes": 8648
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h256-release-profile.json",
+      "sha256": "dc42c00b29a50df9b7c5d16cd2be1f86390a1f21d3045364ac7f94d91d707ae9",
+      "bytes": 15168
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h256-release.pstats",
+      "sha256": "1becfc8df299116e6fac37c8e8dbbbeea342fb766183866f934021c0ff78a697",
+      "bytes": 18846
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h256-renew-profile.json",
+      "sha256": "56d6c4ef6f95324dc42e2c5bcd3c6b896988f59ecd7bbda7af9d1c098f3b10a2",
+      "bytes": 15149
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h256-renew.pstats",
+      "sha256": "cd203f36b1e55dd8b8298d42985f02e37214afa66ffaf37272587adffd1c1893",
+      "bytes": 19084
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h32-allocate-profile.json",
+      "sha256": "a5f52101959f6522b1dbd565ba69eec7738a54e7917f81a8a09f339b4633cd65",
+      "bytes": 15666
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h32-allocate.pstats",
+      "sha256": "e2134521eedf94cdff56c266a639dc030f57f257520323659bbb63f0326bedc3",
+      "bytes": 22578
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h32-cancel-profile.json",
+      "sha256": "1abadb7050e8ae09831f6f858b6e48dcee4b31b2e40e08d4d477ae72b349d7ae",
+      "bytes": 15438
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h32-cancel.pstats",
+      "sha256": "14ccee2777d023533755b68500a6ab3e54c89a856a272747b7293aedcd51b41c",
+      "bytes": 19325
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h32-create_job-profile.json",
+      "sha256": "3c4e4ce7b0d82d85f8ed29662efa63ff046f606ecbb78445057d10b11e3c752e",
+      "bytes": 15290
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h32-create_job.pstats",
+      "sha256": "995e1af0d9dc8679f5a75babc16bccc8818753c1813b4d9621a2f35cd7621c21",
+      "bytes": 19891
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h32-inactive_worker_tick-profile.json",
+      "sha256": "e5f7769a3841ceb55a776cbda9ad6a2b4f28afd9666487a20973197695fb5c63",
+      "bytes": 15000
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h32-inactive_worker_tick.pstats",
+      "sha256": "5e13bb1dbee93cf2e1d64fd39a84123fd04b26ed4ecaa4e4b5274d6ede2cc5f5",
+      "bytes": 8648
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h32-release-profile.json",
+      "sha256": "d5f08b85522546b7fad05d85415b7696e0d2a462c4a384f7ae8deb23f4bfda39",
+      "bytes": 15447
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h32-release.pstats",
+      "sha256": "bd46ccbffec6547acee3fc99e09310428712007fcdf46783299903a79e521bd8",
+      "bytes": 18846
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h32-renew-profile.json",
+      "sha256": "24fa3c629a484ded3a897c0c4dd3839160877fa3f59ab93042c9b3eafafc66ac",
+      "bytes": 15563
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n128_h32-renew.pstats",
+      "sha256": "74cabb73399a743564e24e685d127bf6ec6e4e98fa2b655d58b1314cb89ffda7",
+      "bytes": 19084
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n4_h0-allocate-profile.json",
+      "sha256": "d01849e39658a5bbd542e4009bf62e183b982bf9da491bbf81ce807b880291d9",
+      "bytes": 15406
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n4_h0-allocate.pstats",
+      "sha256": "0a8f36d70fe84dd9b50eb368685ce7b50431e5797481e35dab7a9577f05d7e48",
+      "bytes": 22578
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n4_h0-cancel-profile.json",
+      "sha256": "63cd65f85d0e43aa329865758693b8c5f08756009af4c40c3c61bdf8ce039315",
+      "bytes": 15284
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n4_h0-cancel.pstats",
+      "sha256": "6315028becd797f41019a54d07ca688103b4f770249ccec186285da8b2342dca",
+      "bytes": 19325
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n4_h0-create_job-profile.json",
+      "sha256": "3f13ab65f4a5bfafddfdda254231d3bddfa0905088ed4c6cea303245ceb10c92",
+      "bytes": 15198
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n4_h0-create_job.pstats",
+      "sha256": "2cdae6deb269efdbe3af0299b468954b7eebf9699449fce2834334c319c07a66",
+      "bytes": 19891
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n4_h0-inactive_worker_tick-profile.json",
+      "sha256": "11905c31a466756c64e4b4f6c133d372508c7db0f085222fcb512b75bdd5da0a",
+      "bytes": 14848
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n4_h0-inactive_worker_tick.pstats",
+      "sha256": "a5088589970c696e46dc0e067de2f3e6bfaf5b130b146da466da9cc529bfc8bd",
+      "bytes": 8648
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n4_h0-release-profile.json",
+      "sha256": "99ffa6c31ea06375603e57772fb8f39895eb679aea1c4b9456cf427054aac490",
+      "bytes": 15110
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n4_h0-release.pstats",
+      "sha256": "7e5eec84222c5178ac88cd9f6932974baaf82a13b2e94640de9cc7615ce1b1c3",
+      "bytes": 18846
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n4_h0-renew-profile.json",
+      "sha256": "473aceaba130f366b972a0462f1a3f2e1ffc7c9072fdb1578a589b5ccb9d6820",
+      "bytes": 15286
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/n4_h0-renew.pstats",
+      "sha256": "a535ae8b2efb98ef4728f49009434840c338f15d452a9a747f02d99e6785e82b",
+      "bytes": 19084
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/observed_http_waves.json",
+      "sha256": "de72f9f5f675d5ba2432c1cba11de15c1c46b90c66cb97f445f946a12343dc19",
+      "bytes": 8761
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/protocol.json",
+      "sha256": "c4f4c646033f60a578fbff79db6e3f0494f65be343b75a80d5f6dab37ad4390f",
+      "bytes": 1868
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/query_followup.py",
+      "sha256": "ae9f76f6a440946f89cc500475a7676d15e1bbec1252d1f369228cea0944f762",
+      "bytes": 2068
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/query_followup_protocol.json",
+      "sha256": "e99aa5c6e9580c5037646c4d42530a010173dafc5d7703c2d688607c6d9ce133",
+      "bytes": 674
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/query_followup_results.json",
+      "sha256": "8b2e98f04ed15f6358926f650c756446dd00b15a391abbb4f06ac829de7be274",
+      "bytes": 6331
+    },
+    {
+      "path": "evidence/cp4-next/20261115/performance/summary.json",
+      "sha256": "2950064aa36a0d742871b8dff3427f00b0cf20d2cfc7ef550f0d52dc99c538ab",
+      "bytes": 22721
+    }
+  ]
+}

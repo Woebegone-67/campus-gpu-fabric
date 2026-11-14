@@ -164,7 +164,7 @@ def legal_actions_json(
     ]
     if not include_cp1:
         return actions
-    if snapshot.viewer.role not in ("researcher", "administrator"):
+    if not snapshot.viewer.can_use_compute:
         return []
     # Lifecycle hints are derived only from the authorized causal snapshot. They are
     # advisory: a concurrent commit can invalidate them before A checks a write.

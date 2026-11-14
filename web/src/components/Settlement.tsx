@@ -20,8 +20,10 @@ export function SettlementSummary({api,work,jobs,allocations,legal}:{api:ApiClie
   else if(terminal&&holding)guidance='工作已经结束，租约仍持有资源。请刷新并核对阶段回执；当前快照未提供释放操作。';
   else if(terminal&&released)guidance='工作已经结束，关联租约已不再持有资源。可在这里查看结果，或打开关联事件核对过程。';
   else if(canResume)guidance='当前快照允许恢复。点击下方“恢复这项工作”后，核对新执行代次与实际接续状态。';
-  else if(work.state==='waiting')guidance='工作正在等待资源。保留当前工作 ID，刷新查看分配结果，无需重新提交工作。';
   else if(failedStage)guidance='工作流程有阶段失败。请查看下方失败回执，并使用当前工作可用的重试或释放操作。';
+  else if(jobs.length===0&&allocations.some(a=>a.state==='PreemptRequested'))guidance='租约已收到收回通知，当前不能创建任务。请核对下方通知期限，并使用可用的释放操作归还原租约。';
+  else if(work.state==='waiting'&&holding&&jobs.length===0)guidance='租约已取得资源，任务尚未创建。请刷新查看进度，或使用下方可用的“重试任务创建”；无需重新申请资源。';
+  else if(work.state==='waiting')guidance='工作正在等待资源。保留当前工作 ID，刷新查看分配结果，无需重新提交工作。';
   return <section className="work-outcome" aria-label="结果与结算">
     <h3>结果与结算</h3>
     {work.result?<><p><Status value={result.kind}/> · 记录于 {text(result.recorded_at)} 逻辑秒</p>{result.kind==='failure'&&<div className="feedback error" role="alert"><strong>工作失败 · {text(failure.code,'原因未提供')}</strong><p>{text(failure.detail,'请查看服务端结果记录。')}</p></div>}<RawData data={result} label="查看结果记录"/></>:<p>{terminal?'工作状态已结束，尚未取得终态结果记录，请刷新核对。':'尚未产生终态结果。'}</p>}

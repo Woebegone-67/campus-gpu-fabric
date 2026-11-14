@@ -170,8 +170,9 @@ def node(name, owner):
     )
 
 
-def test_inventory_uses_authorized_provider_and_contributions_filter_again():
-    contributor = AuthenticatedActor(actor_id="contributor", role="contributor", owner_id="fixture-alice")
+@pytest.mark.parametrize("role", ["contributor", "member"])
+def test_inventory_uses_authorized_provider_and_contributions_filter_again(role):
+    contributor = AuthenticatedActor(actor_id="contributor", role=role, owner_id="fixture-alice")
     def reader(actor):
         return InventoryRead(
             actor, VERSION, 10.0, (node("n1", "fixture-alice"), node("n2", "fixture-bob"))
@@ -184,6 +185,35 @@ def test_inventory_uses_authorized_provider_and_contributions_filter_again():
     own = app.get("/x/v1/contributions").json()["items"]
     assert len(own) == 1 and own[0]["node_id"] == "n1"
     assert client(replace(services, resolve_actor=lambda request: ACTOR)).get("/x/v1/contributions").status_code == 403
+
+
+@pytest.mark.parametrize("role", ["researcher", "contributor", "member"])
+def test_legal_action_hints_follow_compute_capability_with_owner_scope(role):
+    actor = AuthenticatedActor(actor_id="fixture-user", role=role, owner_id="fixture-alice")
+    snapshot = ReadSnapshot(
+        version=VERSION, now=10.0, viewer=actor,
+        allocations=(AllocationView(
+            allocation_id="fixture-a1", owner_id="fixture-alice", state="Allocated",
+            request=REQUEST, created_at=1.0, expires_at=30.0,
+        ),),
+    )
+    services = replace(configured(snapshot, actor), cp1_advisory_actions=True)
+    response = client(services).get("/v1/allocations/fixture-a1")
+    assert response.status_code == 200
+    operations = {action["operation"] for action in response.json()["legal_actions"]}
+    assert ("allocation.renew" in operations) == (role in {"researcher", "member"})
+    assert client(services).get("/v1/allocations/foreign-id").status_code == 404
+
+
+@pytest.mark.parametrize("path", [
+    "/x/v1/admin/overview", "/x/v1/acceptance", "/x/v1/experiments", "/x/v1/policy-validation",
+])
+def test_member_capabilities_do_not_grant_administrator_queries(path):
+    member = AuthenticatedActor(actor_id="member", role="member", owner_id="fixture-alice")
+    response = client(configured(actor=member)).get(
+        path + "?global_scope=true", headers={"X-Role": "administrator"},
+    )
+    assert response.status_code == 403
 
 
 def test_admin_overview_requires_same_revision_across_providers():

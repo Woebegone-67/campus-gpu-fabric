@@ -1,0 +1,15 @@
+{
+  "base_commit": "42aea0010e528a99298be53b267e56d35777ebaa",
+  "tested_source": {
+    "source_sha256": "0d8d770bc7d0cedb942a30985967266a42351a01dcc827e2a4532c1318048b59",
+    "source_file_count": 311
+  },
+  "scope": "targeted account capability regression; not CP4 acceptance",
+  "result": "PASS",
+  "pytest_passed": 252,
+  "pytest_seconds": 13.02,
+  "tests": "targeted-tests.xml",
+  "ui_implemented": false,
+  "existing_instances_migrated": false,
+  "post_test_change": "Removed one blank line at test-file EOF; no runtime or test behavior changed."
+}

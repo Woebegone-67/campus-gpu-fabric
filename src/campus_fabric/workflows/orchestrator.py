@@ -64,7 +64,7 @@ class WorkflowOrchestrator:
         self.reads = reads
 
     def _read(self, intent_id: str, actor: AuthenticatedActor) -> tuple[ReadSnapshot, WorkIntent]:
-        if actor.owner_id is None or actor.role not in ("researcher", "administrator"):
+        if actor.owner_id is None or not actor.can_use_compute:
             raise PermissionError("Work orchestration requires an authenticated work owner")
         snapshot = self.reads.read_snapshot(ReadQuery(actor=actor))
         if snapshot.viewer != actor or snapshot.global_scope:
@@ -99,9 +99,7 @@ class WorkflowOrchestrator:
         actor: AuthenticatedActor,
         request_id: str,
     ) -> WorkflowProgress:
-        if actor.owner_id != registration.owner_id or actor.role not in (
-            "researcher", "administrator"
-        ):
+        if actor.owner_id != registration.owner_id or not actor.can_use_compute:
             raise PermissionError("Registration owner must match the authenticated work owner")
         try:
             receipt = self.workflow.register_intent(

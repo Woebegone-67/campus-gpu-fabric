@@ -1,10 +1,12 @@
 """CP3 presentation isolation and exact artifact bytes; no formal suite claims."""
 
+import json
 import shutil
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from threading import Event
 
+import pytest
 from fastapi.testclient import TestClient
 
 from campus_fabric.contracts import models as m
@@ -167,3 +169,80 @@ def test_real_frozen_reader_download_and_hash_or_build_damage_fail_closed(tmp_pa
         (root / "scripts/source-change.py").write_text("# changed build\n")
         assert client.get("/x/v1/policy-validation", headers=ADMIN).status_code == 409
         assert client.get("/x/v1/policy-validation/artifacts/manifest", headers=ADMIN).status_code == 409
+
+
+def test_explicit_historical_reader_pins_original_index_and_checks_download_bytes(tmp_path, monkeypatch):
+    from experiments.cp3_suite import analyze_suite, digest, freeze_suite, write_json
+
+    checkout = Path(__file__).resolve().parents[2]
+    original = tmp_path / "original"
+    for name in ("configs/cp1_inventory.json", "scripts/check_checkpoint.py"):
+        destination = original / name
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(checkout / name, destination)
+    suite = tmp_path / "archive"
+    freeze_suite(original, suite, "development")
+    analyze_suite(original, suite)
+    index = json.loads((suite / "suite-index.json").read_bytes())
+    row = index["runs"][0]
+    relative = f"runs/{row['run_id']}/summary.json"
+    raw = b'{ "large":18446744073709551615, "fixture":true }\n'
+    (suite / relative).parent.mkdir(parents=True, exist_ok=True)
+    (suite / relative).write_bytes(raw)
+    row["artifacts"]["summary"] = {"path": relative, "sha256": digest(raw)}
+    write_json(suite / "suite-index.json", index)
+    seal = digest((suite / "manifest.json").read_bytes())
+    index_seal = digest((suite / "suite-index.json").read_bytes())
+    with pytest.raises(ValueError, match="build differs"):
+        SealedPolicyValidation(checkout, suite).snapshot()
+    with pytest.raises(ValueError, match="manifest and index"):
+        SealedPolicyValidation(checkout, suite, historical_manifest_sha256=seal)
+    with pytest.raises(ValueError, match="manifest SHA256"):
+        SealedPolicyValidation(checkout, suite, historical_manifest_sha256="0" * 64,
+                               historical_index_sha256=index_seal).snapshot()
+    with pytest.raises(ValueError, match="configured SHA256"):
+        SealedPolicyValidation(checkout, suite, historical_manifest_sha256=seal,
+                               historical_index_sha256="0" * 64).snapshot()
+    reader = SealedPolicyValidation(checkout, suite, historical_manifest_sha256=seal,
+                                    historical_index_sha256=index_seal)
+    monkeypatch.setattr(devhost, "SealedPolicyValidation", lambda root: reader)
+    app = devhost.create_app(data_dir=tmp_path / "instance", auth_tokens=TOKENS, worker_enabled=False)
+    with TestClient(app) as client:
+        response = client.get("/x/v1/policy-validation", headers=ADMIN)
+        assert response.status_code == 200, response.text
+        result = response.json()
+        assert result["historical"] is True
+        assert result["build"] == index["build"] != result["serving_build"]
+        assert result["current_build_acceptance_eligible"] is False
+        assert result["integrity_scope"] == "manifest_index_analysis; artifacts_verified_on_download"
+        path = f"/x/v1/policy-validation/artifacts/{row['run_id']}:summary"
+        assert client.get(path, headers=ADMIN).content == raw
+        assert client.get(path, headers=OWNER).status_code == 403
+        assert client.get("/x/v1/policy-validation", headers=OWNER).status_code == 403
+        (suite / relative).write_bytes(b"damaged")
+        # Historical display does not pretend to rescan every large artifact.
+        assert client.get("/x/v1/policy-validation", headers=ADMIN).status_code == 200
+        assert client.get(path, headers=ADMIN).status_code == 409
+        # Even changing both the analysis and its digest cannot replace the old report.
+        analysis = json.loads((suite / "analysis.json").read_bytes())
+        analysis["target_met"] = True
+        write_json(suite / "analysis.json", analysis)
+        index["analysis"]["sha256"] = digest((suite / "analysis.json").read_bytes())
+        write_json(suite / "suite-index.json", index)
+        assert client.get("/x/v1/policy-validation", headers=ADMIN).status_code == 409
+        assert client.get("/x/v1/policy-validation/artifacts/analysis", headers=ADMIN).status_code == 409
+
+
+@pytest.mark.parametrize("configured", [
+    {"FABRIC_CP3_ARCHIVE_SUITE": "/missing"},
+    {"FABRIC_CP3_ARCHIVE_MANIFEST_SHA256": "a" * 64},
+    {"FABRIC_CP3_ARCHIVE_INDEX_SHA256": "b" * 64},
+])
+def test_historical_config_requires_directory_and_both_digests(monkeypatch, configured):
+    for key in ("FABRIC_CP3_ARCHIVE_SUITE", "FABRIC_CP3_ARCHIVE_MANIFEST_SHA256",
+                "FABRIC_CP3_ARCHIVE_INDEX_SHA256"):
+        monkeypatch.delenv(key, raising=False)
+    for key, value in configured.items():
+        monkeypatch.setenv(key, value)
+    with pytest.raises(ValueError, match="archive directory, manifest and index"):
+        devhost.policy_validation_reader()

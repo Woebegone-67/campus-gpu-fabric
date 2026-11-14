@@ -4,8 +4,11 @@
 
 ## 已挂接路径
 
+后续账户改造：普通 `member` 同时拥有 `use_compute` 与 `contribute_resources`；旧 researcher/contributor 保留原范围。下表的个人动作也接受具备对应能力的 member，仍检查 owner。实际新契约、兼容和UI接线见 [同账户能力交接](handoff/ACCOUNT_CAPABILITIES.md)。
+
 | 方法与路径 | 允许身份 | 当前契约与边界 | 负责人 |
 |---|---|---|---|
+| GET `/x/v1/session` | 当前已认证账户 | 可信 actor/owner、业务能力、独立管理员标记；不读取账本、不缓存、不返回凭据 | A |
 | POST `/x/v1/work-intents` | researcher owner | 直接 `WorkIntentRegistration`；可选 `If-Match: epoch:revision`；202 `CommitReceipt` 只表示登记 | A 写＋B 编排 |
 | GET `/x/v1/work-intents` | researcher/admin | caller 范围分页，版本化意图列表 | B |
 | GET `/x/v1/work-intents/{intent_id}` | owner/admin | 已授权工作与版本 | B |

@@ -7,7 +7,7 @@
 
 export type ActorId = string;
 export type OwnerId = string | null;
-export type Role = "researcher" | "contributor" | "administrator" | "test_driver" | "system";
+export type Role = "member" | "researcher" | "contributor" | "administrator" | "test_driver" | "system";
 export type Epoch = number;
 export type Revision = number;
 export type IdempotencyKey = string | null;

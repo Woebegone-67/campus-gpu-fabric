@@ -236,6 +236,30 @@ def test_refuses_protected_ports_and_foreign_process_identity(tmp_path, monkeypa
     assert not stopped["stopped"] and "another process" in stopped["unresolved"][0]
 
 
+def test_historical_report_configuration_survives_environment_cleanup(tmp_path, monkeypatch):
+    import uvicorn
+
+    archive = {"suite": "/original/read-only-suite", "manifest_sha256": "a" * 64,
+               "index_sha256": "b" * 64}
+    record = session.initialize(tmp_path, session.DEFAULT_PORTS, archive)
+    with pytest.raises(RuntimeError, match="historical-report settings"):
+        session.initialize(tmp_path, session.DEFAULT_PORTS)
+    for key in ("FABRIC_CP3_ARCHIVE_SUITE", "FABRIC_CP3_ARCHIVE_MANIFEST_SHA256",
+                "FABRIC_CP3_ARCHIVE_INDEX_SHA256", "FABRIC_DATA_DIR", "FABRIC_AUTH_FILE",
+                "FABRIC_INVENTORY_FILE", "FABRIC_MODE", "FABRIC_SCHEDULING_MODE", "FABRIC_B_POLICY"):
+        monkeypatch.setenv(key, "untrusted-inherited-value")
+    def run(*args, **kwargs):
+        assert os.environ["FABRIC_CP3_ARCHIVE_SUITE"] == archive["suite"]
+        assert os.environ["FABRIC_CP3_ARCHIVE_MANIFEST_SHA256"] == archive["manifest_sha256"]
+        assert os.environ["FABRIC_CP3_ARCHIVE_INDEX_SHA256"] == archive["index_sha256"]
+        assert kwargs["port"] == session.DEFAULT_PORTS["logical-api"]
+    monkeypatch.setattr(uvicorn, "run", run)
+    session.serve(tmp_path, "logical-api", record["session_id"], "unused-node")
+    assert session.policy_archive_configuration(None, None, None) is None
+    with pytest.raises(ValueError, match="both pinned"):
+        session.policy_archive_configuration(tmp_path, "a" * 64, None)
+
+
 def test_redaction_removes_headers_and_nested_known_tokens():
     value = {
         "Authorization": "Bearer test-only-key",

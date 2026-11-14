@@ -2,7 +2,9 @@
 
 校园共享计算服务：申请、收回、接续与可追问的决定。
 
-**当前：CP3 本轮功能修复收尾，完整验收仍未通过；性能提升记录为后续工作，未放行 CP4。** CP2 冻结基线为 `aa63fb6`。收尾分支为 `review/cp3-closeout`；修复说明、精简复验范围和两类证据包见 [CP3 收尾交接](docs/handoff/CP3_CLOSEOUT.md)。旧 `1cc2ab6` 的125次正式实验保留原样，新版本只运行必要的开发回归，不替代完整状态重放、场景覆盖、策略目标及双人验收。操作入口见 [CP3 双人联合验收指南](docs/handoff/CP3_JOINT_ACCEPTANCE.md)，阶段分工见 [CP3 A 交付](docs/CP3_A_DELIVERY.md) 与 [CP3 B 交付](docs/CP3_B_DELIVERY.md)。
+**当前：进入双页UI设计交接；CP4完整验收仍未通过。** 059f477b候选的可靠性与图表来源检查已有证据，规模/延迟未达，真人干净部署、交叉操作及同构建实录尚缺。当前放置评分路线冻结，R=1.00保留为未达；新工作选择机制有局部收益，也存在严重Owner损害反例，未推广到产品。参见 [CP4后续诊断与评审](evidence/cp4-next/README.md)、[策略瓶颈](docs/research/CP3_BOTTLENECK_AND_DIRECTION.md) 和 [CP4准入记录](docs/handoff/CP4_ENTRY.md)。原CP3分支与证据仍保留，见 [CP3历史收尾](docs/handoff/CP3_CLOSEOUT.md)。阶段准入、设计交接与正式通过分别记录。
+
+**B接手UI：** 先读 [双页界面设计说明](docs/design/UI_DESIGN_SPEC.md) 与 [UI接管步骤](docs/handoff/UI_B_HANDOFF.md)，再按需读 [双指滑动与转场](docs/design/UI_GESTURE_AND_MOTION.md)、[实际数据与组件映射](docs/design/UI_DATA_AND_COMPONENT_MAP.md)。`work/ui-handoff-20261115` 的交接版本已推送；后续 `work/account-capabilities` 在此基础上实现普通账户同时使用与贡献，以及可信账户能力接口，见 [后端接线与兼容说明](docs/handoff/ACCOUNT_CAPABILITIES.md)。新双页、手势和账户接口的UI接线仍待B完成；现有验收实例未被改权或重启。
 
 CP1 审计补修包含身份应用、重复查询、授权决策解释、工作关联导航及验收回执读取，详见 [CP1 补修交接](docs/handoff/CP1_B_FIXES.md)。原人工验收实例保留，补修版使用独立工作树和端口。
 
@@ -16,6 +18,11 @@ CP1 审计补修包含身份应用、重复查询、授权决策解释、工作�
 | B · `xuyangma` | 服务决策与操作体验 | `feat/b-cp3` | [B开发任务书](docs/handoff/OWNER_B.md) |
 
 ## 启动与验收
+
+CP4 新候选的独立启动、完整重放、规模负载及正式核验入口见
+[CP4 候选实施](docs/handoff/CP4_CANDIDATE.md)。`make cp4` 实际运行可靠性检查并汇集七项证据；
+`make cp4-collect` 只读复核现有材料。缺少真人、实录或未达到规模/延迟目标时仍返回非零，不能据此宣称 CP4 通过。
+旧 CP3 报告可按候选说明显式配置只读归档及两个固定摘要；页面保留原实验构建与审核范围，历史报告不能替代当前构建验收。
 
 需要Git、uv、Python 3.12、Node 22.12+（22.x）、npm和make。依赖固定在`uv.lock`与`web/package-lock.json`；无需 GPU 或 Kubernetes 即可运行逻辑模拟与固定参考 CPU 进程；CPU 进程控制要求 macOS/Linux。
 

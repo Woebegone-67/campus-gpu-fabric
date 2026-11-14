@@ -1,0 +1,17 @@
+{
+  "scope": "product structure sketch, not production UI acceptance",
+  "interaction_checks": [
+    "borrower overview opens same W4 detail",
+    "role switch to supplier shows own device and restricted file access text",
+    "role switch to admin shows resource wait diagnosis",
+    "return to borrower overview"
+  ],
+  "visual_inspection": "desktop preview inspected",
+  "not_tested": [
+    "B actual UI",
+    "mobile rendering",
+    "actual API permissions through sketch"
+  ],
+  "performance_manifest_files_checked": 59,
+  "performance_manifest_hash_failures": []
+}

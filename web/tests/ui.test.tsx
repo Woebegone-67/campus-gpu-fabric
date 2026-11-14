@@ -434,8 +434,21 @@ test('CP3 settlement leaves waiting recovery incomplete and exposes failed stage
   data.item.stages=[{stage_id:'stage-settle',operation:'settle',state:'failed',receipt:{outcome:'rejected',error:{code:'lease_in_use',detail:'Another active task still holds this lease'}}}];
   globalThis.fetch=async()=>json(data);
   await render(service('logical_simulation',<ContinuityPage api={api()} initialId="work-cp2"/>));
-  const outcome=container.querySelector('[aria-label="结果与结算"]');assert.match(outcome.textContent,/尚未产生终态结果/);assert.match(outcome.textContent,/等待资源/);assert.match(outcome.textContent,/lease_in_use.*Another active task/s);
+  const outcome=container.querySelector('[aria-label="结果与结算"]');assert.match(outcome.textContent,/尚未产生终态结果/);assert.match(outcome.textContent,/工作流程有阶段失败/);assert.match(outcome.textContent,/lease_in_use.*Another active task/s);
   assert.match(container.querySelector('.checkpoint-grid').textContent,/收到 ready 报告.*未核验.*未接续/s);
+});
+
+test('allocated work without a job distinguishes task creation from waiting for resources',async()=>{
+  const data=cp2Work();data.item.state='waiting';data.item.stages=[];data.jobs=[];data.allocations[0].state='Allocated';data.legal_actions=[];
+  globalThis.fetch=async()=>json(data);
+  await render(service('logical_simulation',<ContinuityPage api={api()} initialId="work-cp2"/>));
+  let outcome=container.querySelector('[aria-label="结果与结算"]');assert.match(outcome.textContent,/租约已取得资源，任务尚未创建/);assert.doesNotMatch(outcome.textContent,/工作正在等待资源/);
+  data.allocations[0].state='PreemptRequested';
+  await interact(()=>button('刷新').click());
+  outcome=container.querySelector('[aria-label="结果与结算"]');assert.match(outcome.textContent,/租约已收到收回通知，当前不能创建任务/);assert.doesNotMatch(outcome.textContent,/重试任务创建/);
+  data.allocations[0].state='Pending';
+  await interact(()=>button('刷新').click());
+  outcome=container.querySelector('[aria-label="结果与结算"]');assert.match(outcome.textContent,/工作正在等待资源/);assert.doesNotMatch(outcome.textContent,/租约已取得资源/);
 });
 
 test('CP3 settlement result preview preserves exact JSON integers and is cleared on denied read',async()=>{

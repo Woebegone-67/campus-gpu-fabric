@@ -1,0 +1,43 @@
+{
+  "review_date": "2026-11-15",
+  "official_scoring_for_this_review": "User confirmed repository challenge.md 55/45; PDF 30/35/35 retained as version difference only",
+  "source_files": [
+    {
+      "path": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/spec/official/challenge.md",
+      "bytes": 14558,
+      "sha256": "b726e34282166939958284fbc001e1e5c6f8c3f27b90a33d69c7d316759c49e6"
+    },
+    {
+      "path": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/spec/official/participant_supplement.pdf",
+      "bytes": 579281,
+      "sha256": "1374726e13c575bcc09a97a4b71b8ae0a9e76ce871b2da4c3a6afdcbd328a072"
+    },
+    {
+      "path": "/Users/xz/Downloads/2026_MCM_Senior_GPU_Scheduling/C_POOL_PREANALYSIS_20261114/source/C_模拟算力池.pdf",
+      "bytes": 886393,
+      "sha256": "7686e60707001f7c24ae82777614ef4a6f1289a46f6eef724b02aa6bfaf69203"
+    },
+    {
+      "path": "/var/folders/p3/pm9d9q091hv7q2c2nx37gmhh0000gn/T/codex-clipboard-737d16ff-0aca-411b-a8e6-ced61fbf41e3.png",
+      "bytes": 1112050,
+      "sha256": "2aba348c3e93dcc82c7888ac5ee063c0c48deec549a49c673a91b523953319a8"
+    },
+    {
+      "path": "/var/folders/p3/pm9d9q091hv7q2c2nx37gmhh0000gn/T/codex-clipboard-df788fbf-199e-4306-95a1-8a8e83953b34.png",
+      "bytes": 870553,
+      "sha256": "b029c3b59e9284016cdae23908b7e2f7aab116278295f9fabab75949b19bb5b2"
+    }
+  ],
+  "web_primary_sources": [
+    {
+      "url": "https://htcondor.readthedocs.io/en/25.x/admin-manual/ep-policy-configuration.html",
+      "used_for": "Existing resource-owner policy and preemption baseline; not a benchmark comparison"
+    },
+    {
+      "url": "https://kueue.sigs.k8s.io/docs/concepts/preemption/",
+      "used_for": "Existing borrowing/reclaim and fairness; no novelty claim for basic preemption"
+    }
+  ],
+  "evidence_build": "059f477b9ea24578dda9426a3385e6ec97ba1cc1",
+  "new_B_design_scope": "Two supplied screenshots only; source not yet available; no live performance or accessibility testing claimed"
+}

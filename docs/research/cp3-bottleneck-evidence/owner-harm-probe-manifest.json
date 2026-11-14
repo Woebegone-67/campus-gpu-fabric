@@ -1,0 +1,156 @@
+{
+  "build": {
+    "git_commit": "cc2ffdebe6ba2712e3cdbcfa9045908436e17f66",
+    "source_file_count": 253,
+    "source_sha256": "1d749ed617851d7bdfc8098a0a3d4fd54c7851c16f20d45c91c4db2e50c90316"
+  },
+  "input": {
+    "cancellation_policy": "count_until_horizon",
+    "events": [
+      {
+        "at": 10,
+        "device_ids": [
+          "sim-a10-gpu0",
+          "sim-a10-gpu1"
+        ],
+        "duration_seconds": 120,
+        "kind": "recall",
+        "notice_seconds": 1
+      }
+    ],
+    "horizon": 80,
+    "inventory": [
+      {
+        "available": {
+          "cpu_millicores": 16000,
+          "ephemeral_storage_mib": 131072,
+          "gpu_count": 2,
+          "gpu_memory_mib": 49152,
+          "memory_mib": 65536
+        },
+        "capacity": {
+          "cpu_millicores": 16000,
+          "ephemeral_storage_mib": 131072,
+          "gpu_count": 2,
+          "gpu_memory_mib": 49152,
+          "memory_mib": 65536
+        },
+        "contributor_owner_id": "supplier",
+        "devices": [
+          {
+            "device_id": "sim-a10-gpu0",
+            "memory_mib": 24576,
+            "model": "A10",
+            "physical_gpu_id": "sim-a10-gpu0",
+            "profile": null,
+            "state": "available"
+          },
+          {
+            "device_id": "sim-a10-gpu1",
+            "memory_mib": 24576,
+            "model": "A10",
+            "physical_gpu_id": "sim-a10-gpu1",
+            "profile": null,
+            "state": "available"
+          }
+        ],
+        "labels": [
+          {
+            "key": "site",
+            "value": "campus"
+          },
+          {
+            "key": "evidence",
+            "value": "logical-simulation"
+          }
+        ],
+        "node_id": "sim-a10",
+        "observed_at": 0.0,
+        "state": "Ready"
+      }
+    ],
+    "limitations": [
+      "Uniform duration within each case, two GPUs, synthetic micro-inputs.",
+      "Co-admission proxy has no general fairness guarantee."
+    ],
+    "model": {
+      "dispatcher_quantum_seconds": 5,
+      "duration_limit": "All jobs use the same declared 10 second duration. Resource-size mixtures are not duration mixtures; timeout is a failure deadline, never a duration estimate.",
+      "duration_seconds": 10,
+      "execution_mode": "logical_simulation",
+      "horizon_seconds": 400,
+      "max_candidates": 512,
+      "name": "cp3-constant-work-v1",
+      "recovery_cost_component": "inactive: snapshot has no verified recovery-cost model",
+      "scale_limit": "32 work inputs per run, below the blueprint suggested 256-512; bounded integration evidence, not a large-scale performance claim.",
+      "service_unit": "completed_work_equivalents",
+      "works_per_run": 32
+    },
+    "partition": "mechanism_probe",
+    "scenario_family": "recall-owner-harm",
+    "schema": "research-direction-input-v1",
+    "scope": "Designed mechanism witness; no formal CP3 validation claim.",
+    "seed": null,
+    "service_unit": "completed_work_equivalents",
+    "works": [
+      {
+        "arrived_at": 0.0,
+        "checkpoint_behavior": "ready",
+        "checkpoint_timeout_seconds": 3,
+        "cpu_millicores": 1000,
+        "gpu_count": 2,
+        "gpu_memory_mib": 1024,
+        "gpu_model": "A10",
+        "intent_id": "probe-work-00",
+        "max_restarts": 0,
+        "max_retries": 0,
+        "memory_mib": 1024,
+        "owner_id": "probe-owner-0",
+        "priority": 0,
+        "profile": null,
+        "timeout_seconds": 60,
+        "ttl_seconds": 300
+      },
+      {
+        "arrived_at": 0.0,
+        "checkpoint_behavior": "ready",
+        "checkpoint_timeout_seconds": 3,
+        "cpu_millicores": 1000,
+        "gpu_count": 1,
+        "gpu_memory_mib": 1024,
+        "gpu_model": "A10",
+        "intent_id": "probe-work-01",
+        "max_restarts": 0,
+        "max_retries": 0,
+        "memory_mib": 1024,
+        "owner_id": "probe-owner-1",
+        "priority": 0,
+        "profile": null,
+        "timeout_seconds": 60,
+        "ttl_seconds": 300
+      },
+      {
+        "arrived_at": 0.0,
+        "checkpoint_behavior": "ready",
+        "checkpoint_timeout_seconds": 3,
+        "cpu_millicores": 1000,
+        "gpu_count": 1,
+        "gpu_memory_mib": 1024,
+        "gpu_model": "A10",
+        "intent_id": "probe-work-02",
+        "max_restarts": 0,
+        "max_retries": 0,
+        "memory_mib": 1024,
+        "owner_id": "probe-owner-2",
+        "priority": 0,
+        "profile": null,
+        "timeout_seconds": 60,
+        "ttl_seconds": 300
+      }
+    ]
+  },
+  "protocol_sha256": "6e0244810b251399842c0e0ead37a9d754ada05e765918765be6af3df8e1202c",
+  "run_budget": 2,
+  "scope": "One predeclared Owner-harm counterexample; not a new formal benchmark.",
+  "script_sha256": "a1a6da4b98d2da953ce5a3ccda1206a8c4692db7c9bb636d9aebe9f03450b5a9"
+}

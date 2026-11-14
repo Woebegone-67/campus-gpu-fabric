@@ -17,14 +17,15 @@ export function PolicyValidation({api}:{api:ApiClient}) {
     {!enabled&&<button className="button" onClick={()=>setEnabled(true)}>管理员 · 读取 CP3 报告</button>}
     <QueryFeedback query={query}>
       {data.partition==='development'&&<p className="helper">开发回归结果，仅用于功能检查；不构成正式策略效果验证。未运行项保留，不计为通过。</p>}
-      {data.partition==='validation'&&<p className="helper">正式验证集结果。是否完整执行、达到目标和满足场景覆盖分别核验。</p>}
-      {data.build!=null&&<RawData data={{build:data.build,partition:data.partition,manifest_sha256:data.manifest_sha256}} label="证据版本与用途"/>}
+      {data.historical===true&&<p className="helper">历史实验报告：保留原实验构建，仅供查阅与下载，不能作为当前构建验收证据。本次读取核验封存协议、索引与分析报告；每个工件在下载时核验原始字节，未在本次请求中重新审核全部工件。</p>}
+      {data.partition==='validation'&&<p className="helper">{data.historical===true?'原实验的正式验证集结果。':'正式验证集结果。'}是否完整执行、达到目标和满足场景覆盖分别核验。</p>}
+      {data.build!=null&&<RawData data={{build:data.build,serving_build:data.serving_build,historical:data.historical,current_build_acceptance_eligible:data.current_build_acceptance_eligible,integrity_scope:data.integrity_scope,partition:data.partition,manifest_sha256:data.manifest_sha256}} label="证据版本与用途"/>}
       {data.status==='NOT_RUN'&&<p className="helper">尚无完整分析。先在独立实验目录执行冻结、运行与分析；研发样例不会自动成为 CP3 证据。</p>}
       {data.analysis!=null&&<>
         <dl className="facts">
           <div><dt>{data.partition==='development'?'已运行子集 · P / B2 面积比 R':'P / B2 · 族等权需求面积比 R'}</dt><dd>{ratio(aggregate.macro_area_ratio)}{data.partition==='development'?' · 仅作诊断':' · 目标 ≤ 0.85'}</dd></div>
-          <div><dt>当前模型的效果目标</dt><dd>{data.partition==='development'?'开发回归不作正式目标判定':<Status value={analysis.target_met===true?'MET':'NOT_MET'}/>}</dd></div>
-          <div><dt>实验工件完整性</dt><dd>{analysis.evidence_complete===true?'全部工件已核验':'未齐全'}</dd></div>
+          <div><dt>{data.historical===true?'原实验模型的效果目标':'当前模型的效果目标'}</dt><dd>{data.partition==='development'?'开发回归不作正式目标判定':<Status value={analysis.target_met===true?'MET':'NOT_MET'}/>}</dd></div>
+          <div><dt>{data.historical===true?'原运行审核结果':'实验工件完整性'}</dt><dd>{analysis.evidence_complete===true?(data.historical===true?'原审核记录完整':'全部工件已核验'):'未齐全'}</dd></div>
           <div><dt>蓝图场景覆盖</dt><dd>{analysis.coverage_complete===true?'已覆盖':'存在未覆盖项'}</dd></div>
         </dl>
         <p className="helper">效果目标同时检查每组完成数和个体、Owner 损害。工件完整、效果达标、联合 CP3 验收是分别核验的结论。模拟结果不代表真实 GPU 性能。</p>

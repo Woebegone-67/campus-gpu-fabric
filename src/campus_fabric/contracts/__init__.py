@@ -2,6 +2,7 @@
 
 from .models import (
     MAX_SAFE_INTEGER,
+    AccountSession,
     AllocationCreateParameters,
     AllocationRenewParameters,
     AllocationTargetParameters,
@@ -10,6 +11,7 @@ from .models import (
     AttemptSnapshot,
     AuthenticatedActor,
     CandidateAction,
+    Capability,
     CheckpointFact,
     CheckpointReportParameters,
     ClockAdvanceParameters,
@@ -83,6 +85,7 @@ from .ports import CommandPort, ExecutorPort, PolicyPort, ReadPort, SnapshotPort
 
 __all__ = [
     "MAX_SAFE_INTEGER",
+    "AccountSession",
     "AllocationCreateParameters",
     "AllocationRenewParameters",
     "AllocationTargetParameters",
@@ -91,6 +94,7 @@ __all__ = [
     "AttemptSnapshot",
     "AuthenticatedActor",
     "CandidateAction",
+    "Capability",
     "CheckpointFact",
     "CheckpointReportParameters",
     "ClockAdvanceParameters",

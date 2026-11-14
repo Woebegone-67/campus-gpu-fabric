@@ -17,12 +17,18 @@ from cp3_prefix_replay import exercise as prefix_exercise  # noqa: E402
 
 
 @pytest.mark.parametrize("policy", POLICIES)
-def test_all_online_policies_preserve_future_input_prefixes_and_scoped_replay(tmp_path, policy):
+def test_all_online_policies_preserve_future_input_prefixes_and_complete_state_replay(tmp_path, policy):
     checks, artifacts = prefix_exercise(tmp_path, policies=(policy,))
     assert len(artifacts) == 7
-    assert next(c for c in checks if c["id"] == "full-final-state-replay")["status"] == "NOT_MET"
-    assert REPLAY_GAPS
-    assert all(c["status"] == "PASS" for c in checks if c["id"] != "full-final-state-replay")
+    assert next(c for c in checks if c["id"] == "full-final-state-replay")["status"] == "PASS"
+    assert not REPLAY_GAPS
+    assert all(c["status"] == "PASS" for c in checks)
+    for record in list(artifacts.values())[:6]:
+        audit = record["state_replay"]
+        assert len(audit["observed_commit_prefixes"]) == audit["journal"]["head_sequence"]
+        assert audit["final_persisted_state"]["intents"]
+        assert audit["final_persisted_state"]["dedup"]
+        assert audit["final_persisted_state"]["payloads"]
 
 
 @pytest.mark.parametrize("policy", POLICIES)

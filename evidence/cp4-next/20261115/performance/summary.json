@@ -1,0 +1,555 @@
+{
+  "actual_owner_detail_read_median_ms": 19.48829198954627,
+  "budget_actual": {
+    "actual_owner_service_read_calls": 4,
+    "inactive_worker_profiles": 4,
+    "new_HTTP_requests": 0,
+    "new_full_loads": 0,
+    "probe_writes": 80,
+    "seed_writes": 160,
+    "selected_read_calls": 12,
+    "total_real_kernel_writes": 240
+  },
+  "build": {
+    "git_commit": "059f477b9ea24578dda9426a3385e6ec97ba1cc1",
+    "source_file_count": 301,
+    "source_sha256": "5507286afa92d576c4da404209592fe8311c26925847c5168829986a83e04141"
+  },
+  "build_at_finish": {
+    "git_commit": "059f477b9ea24578dda9426a3385e6ec97ba1cc1",
+    "source_file_count": 301,
+    "source_sha256": "5507286afa92d576c4da404209592fe8311c26925847c5168829986a83e04141"
+  },
+  "cases": [
+    {
+      "baseline_jobs": 1,
+      "baseline_json_bytes": 13534,
+      "history_preserved": true,
+      "name": "n4_h0",
+      "nodes": 4,
+      "operations": {
+        "allocate": {
+          "count": 2,
+          "cpu_median_ms": 4.654999999999632,
+          "inclusive_phase_medians_ms": {
+            "choose_placement": 0.04116649506613612,
+            "kernel._apply": 0.6013335078023374,
+            "kernel._inventory": 0.6065829948056489,
+            "kernel._schedule": 0.497541535878554,
+            "store._append_journal": 1.151812495663762,
+            "store.load": 0.3424790338613093,
+            "store.save": 1.62852049106732,
+            "transaction.enter_connect_begin": 0.4703335289377719,
+            "transaction.exit_commit_close": 0.8758335025049746
+          },
+          "wall_median_ms": 4.737395996926352
+        },
+        "cancel": {
+          "count": 2,
+          "cpu_median_ms": 4.78199999999962,
+          "inclusive_phase_medians_ms": {
+            "kernel._apply": 0.06147951353341341,
+            "kernel._inventory": 0.3791874914895743,
+            "kernel._schedule": 0.0028545327950268984,
+            "store._append_journal": 1.7472709878347814,
+            "store.load": 0.40649899165146053,
+            "store.save": 2.4066045007202774,
+            "transaction.enter_connect_begin": 0.4413124988786876,
+            "transaction.exit_commit_close": 0.9344374993816018
+          },
+          "wall_median_ms": 5.074541521025822
+        },
+        "create_job": {
+          "count": 2,
+          "cpu_median_ms": 4.405999999999466,
+          "inclusive_phase_medians_ms": {
+            "kernel._apply": 0.09787449380382895,
+            "kernel._inventory": 0.3388540353626013,
+            "kernel._schedule": 0.003249995643272996,
+            "store._append_journal": 1.3477294996846467,
+            "store.load": 0.4402295162435621,
+            "store.save": 1.9407084910199046,
+            "transaction.enter_connect_begin": 0.440875010099262,
+            "transaction.exit_commit_close": 0.8605835027992725
+          },
+          "wall_median_ms": 4.545958508970216
+        },
+        "release": {
+          "count": 2,
+          "cpu_median_ms": 5.359999999999587,
+          "inclusive_phase_medians_ms": {
+            "kernel._apply": 0.13874948490411043,
+            "kernel._inventory": 0.34212449099868536,
+            "kernel._schedule": 0.004125526174902916,
+            "store._append_journal": 1.5210834972094744,
+            "store.load": 0.5013959889765829,
+            "store.save": 2.2171250311657786,
+            "transaction.enter_connect_begin": 0.605791516136378,
+            "transaction.exit_commit_close": 1.0300204739905894
+          },
+          "wall_median_ms": 5.533666495466605
+        },
+        "renew": {
+          "count": 2,
+          "cpu_median_ms": 4.298000000000357,
+          "inclusive_phase_medians_ms": {
+            "kernel._apply": 0.10341600864194334,
+            "kernel._inventory": 0.442312506493181,
+            "kernel._schedule": 0.009395502274855971,
+            "store._append_journal": 1.1827500129584223,
+            "store.load": 0.39891700726002455,
+            "store.save": 1.7814165039453655,
+            "transaction.enter_connect_begin": 0.4597915103659034,
+            "transaction.exit_commit_close": 0.7145415002014488
+          },
+          "wall_median_ms": 4.403125494718552
+        }
+      },
+      "pragmas": {
+        "journal_mode": "wal",
+        "synchronous": 2
+      },
+      "write_cpu_median_ms": 4.498999999999143,
+      "write_median_ms": 4.66460402822122
+    },
+    {
+      "baseline_jobs": 1,
+      "baseline_json_bytes": 191102,
+      "history_preserved": true,
+      "name": "n128_h0",
+      "nodes": 128,
+      "operations": {
+        "allocate": {
+          "count": 2,
+          "cpu_median_ms": 38.16050000000004,
+          "inclusive_phase_medians_ms": {
+            "choose_placement": 0.12727099237963557,
+            "kernel._apply": 8.307958516525105,
+            "kernel._inventory": 15.280791005352512,
+            "kernel._schedule": 8.180374978110194,
+            "store._append_journal": 9.401771036209539,
+            "store.load": 2.9608539771288633,
+            "store.save": 13.01904150750488,
+            "transaction.enter_connect_begin": 0.653291994240135,
+            "transaction.exit_commit_close": 2.035312500083819
+          },
+          "wall_median_ms": 38.75150001840666
+        },
+        "cancel": {
+          "count": 2,
+          "cpu_median_ms": 30.22949999999902,
+          "inclusive_phase_medians_ms": {
+            "kernel._apply": 0.26783350040204823,
+            "kernel._inventory": 7.871604029787704,
+            "kernel._schedule": 0.010000017937272787,
+            "store._append_journal": 8.5077294788789,
+            "store.load": 3.5240415309090167,
+            "store.save": 12.099937506718561,
+            "transaction.enter_connect_begin": 0.6536874861922115,
+            "transaction.exit_commit_close": 1.6710834752302617
+          },
+          "wall_median_ms": 31.44618749502115
+        },
+        "create_job": {
+          "count": 2,
+          "cpu_median_ms": 31.975499999999712,
+          "inclusive_phase_medians_ms": {
+            "kernel._apply": 0.22054152213968337,
+            "kernel._inventory": 9.19214598252438,
+            "kernel._schedule": 0.007250026101246476,
+            "store._append_journal": 8.72062548296526,
+            "store.load": 3.3948954369407147,
+            "store.save": 12.951166514540091,
+            "transaction.enter_connect_begin": 0.9161040361505002,
+            "transaction.exit_commit_close": 2.4343124823644757
+          },
+          "wall_median_ms": 33.5735619883053
+        },
+        "release": {
+          "count": 2,
+          "cpu_median_ms": 30.126000000000097,
+          "inclusive_phase_medians_ms": {
+            "kernel._apply": 0.12672902084887028,
+            "kernel._inventory": 8.13020850182511,
+            "kernel._schedule": 0.004666479071602225,
+            "store._append_journal": 8.88268748531118,
+            "store.load": 2.9820209892932326,
+            "store.save": 12.680041982093826,
+            "transaction.enter_connect_begin": 0.5141455039847642,
+            "transaction.exit_commit_close": 2.5756039831321687
+          },
+          "wall_median_ms": 30.723437492270023
+        },
+        "renew": {
+          "count": 2,
+          "cpu_median_ms": 55.75550000000096,
+          "inclusive_phase_medians_ms": {
+            "kernel._apply": 0.14549997285939753,
+            "kernel._inventory": 34.173229010775685,
+            "kernel._schedule": 0.006208516424521804,
+            "store._append_journal": 9.781812521396205,
+            "store.load": 2.635666518472135,
+            "store.save": 13.574979471741244,
+            "transaction.enter_connect_begin": 0.6060414889361709,
+            "transaction.exit_commit_close": 1.7771040147636086
+          },
+          "wall_median_ms": 57.847666495945305
+        }
+      },
+      "pragmas": {
+        "journal_mode": "wal",
+        "synchronous": 2
+      },
+      "write_cpu_median_ms": 32.3159999999989,
+      "write_median_ms": 34.28606200031936
+    },
+    {
+      "baseline_jobs": 33,
+      "baseline_json_bytes": 431475,
+      "history_preserved": true,
+      "name": "n128_h32",
+      "nodes": 128,
+      "operations": {
+        "allocate": {
+          "count": 2,
+          "cpu_median_ms": 76.17799999999963,
+          "inclusive_phase_medians_ms": {
+            "choose_placement": 0.06354201468639076,
+            "kernel._apply": 8.600770990597084,
+            "kernel._inventory": 32.044165971456096,
+            "kernel._schedule": 8.451207977486774,
+            "store._append_journal": 18.189249996794388,
+            "store.load": 6.422708014724776,
+            "store.save": 25.705812528030947,
+            "transaction.enter_connect_begin": 0.6310415046755224,
+            "transaction.exit_commit_close": 2.511875005438924
+          },
+          "wall_median_ms": 77.63931251247413
+        },
+        "cancel": {
+          "count": 2,
+          "cpu_median_ms": 68.79949999999991,
+          "inclusive_phase_medians_ms": {
+            "kernel._apply": 0.11647900100797415,
+            "kernel._inventory": 22.436521016061306,
+            "kernel._schedule": 0.009416515240445733,
+            "store._append_journal": 17.905270506162196,
+            "store.load": 6.2046454986557364,
+            "store.save": 25.430395471630618,
+            "transaction.enter_connect_begin": 0.45793750905431807,
+            "transaction.exit_commit_close": 2.6995624939445406
+          },
+          "wall_median_ms": 69.69508298789151
+        },
+        "create_job": {
+          "count": 2,
+          "cpu_median_ms": 54.58250000000042,
+          "inclusive_phase_medians_ms": {
+            "kernel._apply": 0.1853540015872568,
+            "kernel._inventory": 8.065770496614277,
+            "kernel._schedule": 0.011770491255447268,
+            "store._append_journal": 19.226396514568478,
+            "store.load": 7.024229009402916,
+            "store.save": 26.668667036574334,
+            "transaction.enter_connect_begin": 0.503854505950585,
+            "transaction.exit_commit_close": 2.7066665061283857
+          },
+          "wall_median_ms": 56.7561044881586
+        },
+        "release": {
+          "count": 2,
+          "cpu_median_ms": 50.599499999999686,
+          "inclusive_phase_medians_ms": {
+            "kernel._apply": 0.12972948024980724,
+            "kernel._inventory": 7.545999978901818,
+            "kernel._schedule": 0.011166499461978674,
+            "store._append_journal": 17.203353490913287,
+            "store.load": 6.396895449142903,
+            "store.save": 24.40960399690084,
+            "transaction.enter_connect_begin": 0.5274584982544184,
+            "transaction.exit_commit_close": 2.253437472973019
+          },
+          "wall_median_ms": 51.089624990709126
+        },
+        "renew": {
+          "count": 2,
+          "cpu_median_ms": 52.035999999999305,
+          "inclusive_phase_medians_ms": {
+            "kernel._apply": 0.13889602269046009,
+            "kernel._inventory": 7.283687504241243,
+            "kernel._schedule": 0.015416997484862804,
+            "store._append_journal": 18.191146024037153,
+            "store.load": 6.3255419954657555,
+            "store.save": 26.0879794950597,
+            "transaction.enter_connect_begin": 0.5600414879154414,
+            "transaction.exit_commit_close": 2.396061987383291
+          },
+          "wall_median_ms": 52.986750000854954
+        }
+      },
+      "pragmas": {
+        "journal_mode": "wal",
+        "synchronous": 2
+      },
+      "write_cpu_median_ms": 53.997500000000365,
+      "write_median_ms": 54.6764169994276
+    },
+    {
+      "baseline_jobs": 257,
+      "baseline_json_bytes": 2099515,
+      "history_preserved": true,
+      "name": "n128_h256",
+      "nodes": 128,
+      "operations": {
+        "allocate": {
+          "count": 2,
+          "cpu_median_ms": 264.7204999999992,
+          "inclusive_phase_medians_ms": {
+            "choose_placement": 0.12402096763253212,
+            "kernel._apply": 9.743895992869511,
+            "kernel._inventory": 17.080228979466483,
+            "kernel._schedule": 9.681395487859845,
+            "store._append_journal": 95.54964600829408,
+            "store.load": 41.19899950455874,
+            "store.save": 143.3495414967183,
+            "transaction.enter_connect_begin": 0.5397289933171123,
+            "transaction.exit_commit_close": 8.535708504496142
+          },
+          "wall_median_ms": 273.78818750730716
+        },
+        "cancel": {
+          "count": 2,
+          "cpu_median_ms": 247.25999999999982,
+          "inclusive_phase_medians_ms": {
+            "kernel._apply": 0.1886670070234686,
+            "kernel._inventory": 7.166083523770794,
+            "kernel._schedule": 0.0736044894438237,
+            "store._append_journal": 103.10102099901997,
+            "store.load": 38.74266697675921,
+            "store.save": 148.27775000594556,
+            "transaction.enter_connect_begin": 0.7045624952297658,
+            "transaction.exit_commit_close": 10.333333484595641
+          },
+          "wall_median_ms": 255.68677100818604
+        },
+        "create_job": {
+          "count": 2,
+          "cpu_median_ms": 247.81249999999932,
+          "inclusive_phase_medians_ms": {
+            "kernel._apply": 0.22133297170512378,
+            "kernel._inventory": 8.649041497847065,
+            "kernel._schedule": 0.08370849536731839,
+            "store._append_journal": 95.8634789858479,
+            "store.load": 40.08799948496744,
+            "store.save": 137.77664600638673,
+            "transaction.enter_connect_begin": 1.1053334746975452,
+            "transaction.exit_commit_close": 9.626458515413105
+          },
+          "wall_median_ms": 254.4026249961462
+        },
+        "release": {
+          "count": 2,
+          "cpu_median_ms": 303.41899999999987,
+          "inclusive_phase_medians_ms": {
+            "kernel._apply": 0.3672915045171976,
+            "kernel._inventory": 9.153437480563298,
+            "kernel._schedule": 0.1259580021724105,
+            "store._append_journal": 91.51479200227186,
+            "store.load": 36.90189550979994,
+            "store.save": 137.22200051415712,
+            "transaction.enter_connect_begin": 0.5325209931470454,
+            "transaction.exit_commit_close": 9.704479482024908
+          },
+          "wall_median_ms": 310.2513954800088
+        },
+        "renew": {
+          "count": 2,
+          "cpu_median_ms": 314.87350000000004,
+          "inclusive_phase_medians_ms": {
+            "kernel._apply": 0.15304150292649865,
+            "kernel._inventory": 7.425332994898781,
+            "kernel._schedule": 0.058270496083423495,
+            "store._append_journal": 93.85760352597572,
+            "store.load": 41.768500494072214,
+            "store.save": 141.28652101499029,
+            "transaction.enter_connect_begin": 0.6757914961781353,
+            "transaction.exit_commit_close": 7.066438003676012
+          },
+          "wall_median_ms": 319.67804199666716
+        }
+      },
+      "pragmas": {
+        "journal_mode": "wal",
+        "synchronous": 2
+      },
+      "write_cpu_median_ms": 264.7204999999992,
+      "write_median_ms": 276.43737551989034
+    }
+  ],
+  "classification": {
+    "environment": "Prior 1312-request negative evidence used actual cgroup 4CPU/8GiB native disk. New component probes use an unconstrained Apple M4 host, Python3.12.13; not acceptance or direct speedup comparisons.",
+    "not_supported": "No evidence of a fundamental unoptimizable lower bound; no basis to conditionally pass current scale/latency gates.",
+    "primary": "Whole-state/history processing and persistence architecture (Python copying/traversal/JSON), then serialization/queueing of writes.",
+    "scheduling_policy": "The measured builtin first-fit selection is tiny; CP3 P/R=1.00 policy efficacy is a separate problem and cannot explain this controller latency failure."
+  },
+  "evidence_classes": {
+    "inferred_not_directly_measured": [
+      "Exact original HTTP time split between event-loop queue, SQLite lock queue, CPU and transport.",
+      "Expected magnitude of benefit from entity-level storage or asynchronous dispatch.",
+      "Attainability of original 200ms p95 after a future redesign."
+    ],
+    "measured": [
+      "Original 1312-request latency and eight-wave slowdown.",
+      "Fixed-topology history-size contrast through real unmodified product Kernel/SQLite transaction.",
+      "Inclusive transaction phases and exclusive function profiles.",
+      "Full-history preservation and WAL/synchronous FULL in temporary diagnostic databases."
+    ]
+  },
+  "exclusive_profile_groups": {
+    "allocate": {
+      "exclusive_time_percent": {
+        "copy_python": 34.31561476525925,
+        "journal_python": 21.34367808847675,
+        "json_python_and_C_encoder": 15.485812122559519,
+        "other_including_helper_builtins": 25.08415120071705,
+        "placement_python": 0.9630680756442992,
+        "pydantic_validation": 0.7149764194870042,
+        "sqlite_C_calls": 2.0926993278561437
+      },
+      "method": "Non-overlapping exclusive cProfile time grouped by filename/function. Profile overhead means percentages describe this instrumented probe, not the original TCP run.",
+      "profile_total_ms": 680.6480419999999
+    },
+    "cancel": {
+      "exclusive_time_percent": {
+        "copy_python": 32.671447465860226,
+        "journal_python": 23.98476706067796,
+        "json_python_and_C_encoder": 15.362958270398567,
+        "other_including_helper_builtins": 24.708204833353477,
+        "placement_python": 0.5566550379815068,
+        "pydantic_validation": 0.42726615757205744,
+        "sqlite_C_calls": 2.2887011741562002
+      },
+      "method": "Non-overlapping exclusive cProfile time grouped by filename/function. Profile overhead means percentages describe this instrumented probe, not the original TCP run.",
+      "profile_total_ms": 685.481625
+    },
+    "create_job": {
+      "exclusive_time_percent": {
+        "copy_python": 34.850990639615986,
+        "journal_python": 18.362319745202544,
+        "json_python_and_C_encoder": 12.428995276102398,
+        "other_including_helper_builtins": 32.05496353968532,
+        "placement_python": 0.4339718043515998,
+        "pydantic_validation": 0.36083917203137444,
+        "sqlite_C_calls": 1.507919823010811
+      },
+      "method": "Non-overlapping exclusive cProfile time grouped by filename/function. Profile overhead means percentages describe this instrumented probe, not the original TCP run.",
+      "profile_total_ms": 812.253
+    },
+    "release": {
+      "exclusive_time_percent": {
+        "copy_python": 42.729190388779045,
+        "journal_python": 19.93002088703614,
+        "json_python_and_C_encoder": 13.325711418182443,
+        "other_including_helper_builtins": 21.249998346922915,
+        "placement_python": 0.4081805298930834,
+        "pydantic_validation": 0.3121132732276241,
+        "sqlite_C_calls": 2.044785155958711
+      },
+      "method": "Non-overlapping exclusive cProfile time grouped by filename/function. Profile overhead means percentages describe this instrumented probe, not the original TCP run.",
+      "profile_total_ms": 730.4559580000002
+    },
+    "renew": {
+      "exclusive_time_percent": {
+        "copy_python": 33.816537863134435,
+        "journal_python": 23.654750361262636,
+        "json_python_and_C_encoder": 14.715988841995467,
+        "other_including_helper_builtins": 24.54788324877132,
+        "placement_python": 0.5629174990335731,
+        "pydantic_validation": 0.406410634465488,
+        "sqlite_C_calls": 2.2955115513370448
+      },
+      "method": "Non-overlapping exclusive cProfile time grouped by filename/function. Profile overhead means percentages describe this instrumented probe, not the original TCP run.",
+      "profile_total_ms": 683.5387080000003
+    }
+  },
+  "host_probe_environment": {
+    "cpu": "Apple M4",
+    "logical_cpus": 10,
+    "memory_bytes": 25769803776,
+    "reference_limit_applied": false
+  },
+  "release_position": "NOT_MET remains. Do not relax targets or equate partial consistency with full acceptance.",
+  "source_refs": [
+    {
+      "finding": "Every mutation acquires a BEGIN IMMEDIATE writer transaction before reading/transforming state.",
+      "line": 91,
+      "path": "src/campus_fabric/storage/sqlite.py"
+    },
+    {
+      "finding": "load parses the complete singleton JSON state.",
+      "line": 117,
+      "path": "src/campus_fabric/storage/sqlite.py"
+    },
+    {
+      "finding": "save encodes all state, loads all previous state again and replaces the full singleton payload.",
+      "line": 126,
+      "path": "src/campus_fabric/storage/sqlite.py"
+    },
+    {
+      "finding": "Journal hashes complete before/after states and generates changes in the same transaction.",
+      "line": 138,
+      "path": "src/campus_fabric/storage/sqlite.py"
+    },
+    {
+      "finding": "Recursive diff descends through all dictionary fields and compares complete list prefixes.",
+      "line": 37,
+      "path": "src/campus_fabric/storage/journal.py"
+    },
+    {
+      "finding": "Deep-copy complete loaded state for every non-deduplicated command.",
+      "line": 275,
+      "path": "src/campus_fabric/domain/kernel.py"
+    },
+    {
+      "finding": "Validate all intents and reconstruct inventory before every save.",
+      "line": 304,
+      "path": "src/campus_fabric/domain/kernel.py"
+    },
+    {
+      "finding": "Builtin scheduling scans pending allocations and first-fit placement; CP3 external P policy is not used in this workload.",
+      "line": 650,
+      "path": "src/campus_fabric/domain/kernel.py"
+    },
+    {
+      "finding": "Deterministic first-fit choice, measured separately from inventory derivation.",
+      "line": 160,
+      "path": "src/campus_fabric/domain/placement.py"
+    },
+    {
+      "finding": "Even selected snapshots first load the complete global state, then filter objects/events.",
+      "line": 979,
+      "path": "src/campus_fabric/domain/kernel.py"
+    },
+    {
+      "finding": "Async allocation route calls synchronous Kernel commit directly; renew/create_job do likewise.",
+      "line": 184,
+      "path": "src/campus_fabric/api/mutations/http.py"
+    },
+    {
+      "finding": "Detail route asks for a whole Owner snapshot without passing an entity filter.",
+      "line": 169,
+      "path": "src/campus_fabric/api/queries/routes.py"
+    },
+    {
+      "finding": "Every workflow tick constructs a global snapshot even when there are no intents.",
+      "line": 65,
+      "path": "src/campus_fabric/workflows/devhost.py"
+    },
+    {
+      "finding": "Worker runs in a background thread and repeats after 0.5 seconds.",
+      "line": 164,
+      "path": "src/campus_fabric/workflows/devhost.py"
+    }
+  ],
+  "source_unchanged": true
+}

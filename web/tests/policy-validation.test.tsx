@@ -26,6 +26,22 @@ test('negative target and incomplete semantic coverage remain visible despite co
   assert.match(container.textContent,/当前显示 1 次运行/);
   assert.match(container.textContent,/failed/);
 });
+test('historical reports disclose original audit scope and never claim current acceptance',async()=>{
+  globalThis.fetch=async()=>json({...report,partition:'validation',historical:true,
+    build:{git_commit:'original-run'},serving_build:{git_commit:'current-ui'},
+    current_build_acceptance_eligible:false,
+    integrity_scope:'manifest_index_analysis; artifacts_verified_on_download'});
+  await act(async()=>root.render(<PolicyValidation api={api()}/>));
+  assert.match(container.textContent,/历史实验报告/);
+  assert.match(container.textContent,/不能作为当前构建验收证据/);
+  assert.match(container.textContent,/原运行审核结果/);
+  assert.match(container.textContent,/原审核记录完整/);
+  assert.match(container.textContent,/每个工件在下载时核验原始字节/);
+  assert.match(container.textContent,/original-run/);
+  assert.match(container.textContent,/current-ui/);
+  assert.doesNotMatch(container.textContent,/全部工件已核验/);
+  assert.match(container.textContent,/原实验模型的效果目标未通过/);
+});
 test('a stale report refresh clears the prior score and downloads',async()=>{
   let reads=0;globalThis.fetch=async()=>++reads===1?json(report):json({error:'invalid_evidence',detail:'Build mismatch'},409);
   await act(async()=>root.render(<PolicyValidation api={api()}/>));

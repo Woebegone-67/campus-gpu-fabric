@@ -1,0 +1,350 @@
+{
+  "scope": "Read-only hashes and arithmetic on retained evidence; no service, load or policy experiment executed",
+  "reviewed_commit": "059f477b9ea24578dda9426a3385e6ec97ba1cc1",
+  "official_frozen_hashes": [
+    {
+      "path": "spec/official/challenge.md",
+      "expected": "b726e34282166939958284fbc001e1e5c6f8c3f27b90a33d69c7d316759c49e6",
+      "sha256": "b726e34282166939958284fbc001e1e5c6f8c3f27b90a33d69c7d316759c49e6",
+      "matches": true
+    },
+    {
+      "path": "spec/official/api/openapi.yaml",
+      "expected": "d512293b137020c5886a4ec326c097ad4dc339f509d37d97cf4da9dc9adcafc3",
+      "sha256": "d512293b137020c5886a4ec326c097ad4dc339f509d37d97cf4da9dc9adcafc3",
+      "matches": true
+    },
+    {
+      "path": "spec/official/participant_supplement.pdf",
+      "expected": "1374726e13c575bcc09a97a4b71b8ae0a9e76ce871b2da4c3a6afdcbd328a072",
+      "sha256": "1374726e13c575bcc09a97a4b71b8ae0a9e76ce871b2da4c3a6afdcbd328a072",
+      "matches": true
+    }
+  ],
+  "policy": {
+    "historical_build": {
+      "git_commit": "1cc2ab678570b0097e98875ad8a4d63fe296a832",
+      "source_file_count": 247,
+      "source_sha256": "8b39b38ce918d125822f252292200b9bd113ac20600e6c5a3a4b01919a53de11"
+    },
+    "summaries_read": 125,
+    "all_summary_hashes_match_current_index": true,
+    "all_input_bytes_match_summary": true,
+    "pairs": [
+      {
+        "family": "compatibility-fragmentation",
+        "seed": 101,
+        "P_F": "2930",
+        "B2_F": "2930",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "compatibility-fragmentation",
+        "seed": 211,
+        "P_F": "2930",
+        "B2_F": "2930",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "compatibility-fragmentation",
+        "seed": 307,
+        "P_F": "2930",
+        "B2_F": "2930",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "compatibility-fragmentation",
+        "seed": 401,
+        "P_F": "2930",
+        "B2_F": "2930",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "compatibility-fragmentation",
+        "seed": 503,
+        "P_F": "2930",
+        "B2_F": "2930",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "waves-multi-owner",
+        "seed": 101,
+        "P_F": "1710",
+        "B2_F": "1710",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "waves-multi-owner",
+        "seed": 211,
+        "P_F": "1400",
+        "B2_F": "1400",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "waves-multi-owner",
+        "seed": 307,
+        "P_F": "1590",
+        "B2_F": "1590",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "waves-multi-owner",
+        "seed": 401,
+        "P_F": "1620",
+        "B2_F": "1620",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "waves-multi-owner",
+        "seed": 503,
+        "P_F": "1380",
+        "B2_F": "1380",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "recall-save",
+        "seed": 101,
+        "P_F": "4646",
+        "B2_F": "4646",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "recall-save",
+        "seed": 211,
+        "P_F": "5127",
+        "B2_F": "5127",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "recall-save",
+        "seed": 307,
+        "P_F": "5127",
+        "B2_F": "5127",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "recall-save",
+        "seed": 401,
+        "P_F": "4646",
+        "B2_F": "4646",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "recall-save",
+        "seed": 503,
+        "P_F": "4646",
+        "B2_F": "4646",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "node-interleavings",
+        "seed": 101,
+        "P_F": "6173",
+        "B2_F": "6173",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "node-interleavings",
+        "seed": 211,
+        "P_F": "6169",
+        "B2_F": "6169",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "node-interleavings",
+        "seed": 307,
+        "P_F": "6135",
+        "B2_F": "6135",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "node-interleavings",
+        "seed": 401,
+        "P_F": "6045",
+        "B2_F": "6045",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "node-interleavings",
+        "seed": 503,
+        "P_F": "6264",
+        "B2_F": "6264",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "neutral-reverse",
+        "seed": 101,
+        "P_F": "320",
+        "B2_F": "320",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "neutral-reverse",
+        "seed": 211,
+        "P_F": "2620",
+        "B2_F": "2620",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "neutral-reverse",
+        "seed": 307,
+        "P_F": "2720",
+        "B2_F": "2720",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "neutral-reverse",
+        "seed": 401,
+        "P_F": "320",
+        "B2_F": "320",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      },
+      {
+        "family": "neutral-reverse",
+        "seed": 503,
+        "P_F": "2620",
+        "B2_F": "2620",
+        "ratio": "1",
+        "same_completed": true,
+        "same_input_all_policies": true
+      }
+    ],
+    "all_25_ratios_exactly_1": true,
+    "all_25_P_B2_completion_counts_equal": true,
+    "all_25_inputs_paired_across_5_policies": true
+  },
+  "reliability_child_artifact_hashes": [
+    {
+      "id": "official-http",
+      "matches": true
+    },
+    {
+      "id": "preemption",
+      "matches": true
+    },
+    {
+      "id": "node-failure",
+      "matches": true
+    },
+    {
+      "id": "clock-boundaries",
+      "matches": true
+    },
+    {
+      "id": "reset-isolation",
+      "matches": true
+    },
+    {
+      "id": "crash-recovery",
+      "matches": true
+    },
+    {
+      "id": "cpu-equivalence",
+      "matches": true
+    },
+    {
+      "id": "independent-model",
+      "matches": true
+    },
+    {
+      "id": "prefix-replay",
+      "matches": true
+    },
+    {
+      "id": "decision-coverage",
+      "matches": true
+    },
+    {
+      "id": "overview",
+      "matches": true
+    }
+  ],
+  "cpu_saved_and_result_arithmetic": [
+    {
+      "case": "ordinary",
+      "saved_steps": [
+        5982,
+        11964
+      ],
+      "total_steps": 100003,
+      "all_retained_states_match_recurrence": true,
+      "resumed_equals_uninterrupted": true,
+      "final_value": 2104361490963807693
+    },
+    {
+      "case": "uint64-edge",
+      "saved_steps": [
+        3054,
+        7126
+      ],
+      "total_steps": 65537,
+      "all_retained_states_match_recurrence": true,
+      "resumed_equals_uninterrupted": true,
+      "final_value": 7788785874855857490
+    },
+    {
+      "case": "zero-seed",
+      "saved_steps": [
+        9896,
+        17318
+      ],
+      "total_steps": 131071,
+      "all_retained_states_match_recurrence": true,
+      "resumed_equals_uninterrupted": true,
+      "final_value": 14771465026381899946
+    }
+  ],
+  "limits": [
+    "Historical policy summaries are not new independent experiments or full raw-event policy replay.",
+    "CPU process stop observations are retained evidence, not newly re-observed live processes.",
+    "This arithmetic does not measure recovery speedup or prove arbitrary workloads resumable."
+  ]
+}

@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "tsc --noEmit && vite build",
-    "generate:contracts": "json2ts -i ../contracts/generated/contracts.schema.json -o src/generated/contracts.ts",
+    "generate:contracts": "json2ts -i ../contracts/generated/contracts.schema.json -o src/generated/contracts.ts && json2ts -i ../contracts/generated/account-session.schema.json -o src/generated/account-session.ts",
     "preview": "vite preview --host 127.0.0.1",
     "test:client": "node --experimental-transform-types --test tests/api.test.mjs",
     "test:ui": "tsx --tsconfig tsconfig.json --test tests/*.test.tsx"
