@@ -1,0 +1,178 @@
+{
+  "joint-ui-01": {
+    "session_id": "7244e45f663242ed8e880630b8a0f84f",
+    "created_at": "2026-11-14T18:56:21.766006+00:00",
+    "ports": {
+      "logical-api": 18230,
+      "logical-web": 15230,
+      "cpu-api": 18231,
+      "cpu-web": 15231
+    },
+    "services": {
+      "logical-api": {
+        "started_at": "2026-11-14T18:56:22.413061+00:00",
+        "build": {
+          "git_commit": "370459904a5f80419b0703fabe4860a73976bc21",
+          "source_sha256": "ea7230b842baae5072d74774d15cbe7f1250c3693b627e73ffce28d7253a7584",
+          "source_file_count": 376
+        }
+      },
+      "logical-web": {
+        "started_at": "2026-11-14T18:56:24.661328+00:00",
+        "build": {
+          "git_commit": "370459904a5f80419b0703fabe4860a73976bc21",
+          "source_sha256": "ea7230b842baae5072d74774d15cbe7f1250c3693b627e73ffce28d7253a7584",
+          "source_file_count": 376
+        }
+      },
+      "cpu-api": {
+        "started_at": "2026-11-14T18:56:25.925366+00:00",
+        "build": {
+          "git_commit": "370459904a5f80419b0703fabe4860a73976bc21",
+          "source_sha256": "ea7230b842baae5072d74774d15cbe7f1250c3693b627e73ffce28d7253a7584",
+          "source_file_count": 376
+        }
+      },
+      "cpu-web": {
+        "started_at": "2026-11-14T18:56:27.113237+00:00",
+        "build": {
+          "git_commit": "370459904a5f80419b0703fabe4860a73976bc21",
+          "source_sha256": "ea7230b842baae5072d74774d15cbe7f1250c3693b627e73ffce28d7253a7584",
+          "source_file_count": 376
+        }
+      }
+    }
+  },
+  "joint-ui-test": {
+    "session_id": "76f96dcf590b45e5be6a265e9b1070a4",
+    "created_at": "2026-11-14T19:01:33.571436+00:00",
+    "ports": {
+      "logical-api": 18232,
+      "logical-web": 15232,
+      "cpu-api": 18233,
+      "cpu-web": 15233
+    },
+    "services": {
+      "logical-api": {
+        "started_at": "2026-11-14T19:01:34.407739+00:00",
+        "build": {
+          "git_commit": "370459904a5f80419b0703fabe4860a73976bc21",
+          "source_sha256": "89808121c9d1f7e55021a427b9587a170f6200158703868e777dad68f7e3707a",
+          "source_file_count": 376
+        }
+      },
+      "logical-web": {
+        "started_at": "2026-11-14T19:01:35.763710+00:00",
+        "build": {
+          "git_commit": "370459904a5f80419b0703fabe4860a73976bc21",
+          "source_sha256": "89808121c9d1f7e55021a427b9587a170f6200158703868e777dad68f7e3707a",
+          "source_file_count": 376
+        }
+      },
+      "cpu-api": {
+        "started_at": "2026-11-14T19:01:36.305597+00:00",
+        "build": {
+          "git_commit": "370459904a5f80419b0703fabe4860a73976bc21",
+          "source_sha256": "89808121c9d1f7e55021a427b9587a170f6200158703868e777dad68f7e3707a",
+          "source_file_count": 376
+        }
+      },
+      "cpu-web": {
+        "started_at": "2026-11-14T19:01:37.662807+00:00",
+        "build": {
+          "git_commit": "370459904a5f80419b0703fabe4860a73976bc21",
+          "source_sha256": "89808121c9d1f7e55021a427b9587a170f6200158703868e777dad68f7e3707a",
+          "source_file_count": 376
+        }
+      }
+    }
+  },
+  "joint-ui-test2": {
+    "session_id": "6e684cc1edb34925ad3b40d6af025230",
+    "created_at": "2026-11-14T19:05:12.906714+00:00",
+    "ports": {
+      "logical-api": 18232,
+      "logical-web": 15232,
+      "cpu-api": 18233,
+      "cpu-web": 15233
+    },
+    "services": {
+      "logical-api": {
+        "started_at": "2026-11-14T19:05:13.958810+00:00",
+        "build": {
+          "git_commit": "72adcbe12ce051f83b5742b087811c10ca4a344d",
+          "source_sha256": "74b7ee09753396cd818cdf30efafda832496e53b9b69d40a97a0158c0e18d25a",
+          "source_file_count": 377
+        }
+      },
+      "logical-web": {
+        "started_at": "2026-11-14T19:05:16.375496+00:00",
+        "build": {
+          "git_commit": "72adcbe12ce051f83b5742b087811c10ca4a344d",
+          "source_sha256": "74b7ee09753396cd818cdf30efafda832496e53b9b69d40a97a0158c0e18d25a",
+          "source_file_count": 377
+        }
+      },
+      "cpu-api": {
+        "started_at": "2026-11-14T19:05:17.517198+00:00",
+        "build": {
+          "git_commit": "72adcbe12ce051f83b5742b087811c10ca4a344d",
+          "source_sha256": "74b7ee09753396cd818cdf30efafda832496e53b9b69d40a97a0158c0e18d25a",
+          "source_file_count": 377
+        }
+      },
+      "cpu-web": {
+        "started_at": "2026-11-14T19:05:19.114665+00:00",
+        "build": {
+          "git_commit": "72adcbe12ce051f83b5742b087811c10ca4a344d",
+          "source_sha256": "74b7ee09753396cd818cdf30efafda832496e53b9b69d40a97a0158c0e18d25a",
+          "source_file_count": 377
+        }
+      }
+    }
+  },
+  "joint-ui-report": {
+    "session_id": "c3f5f529ae424fab8976309c59cb492e",
+    "created_at": "2026-11-14T19:06:37.215153+00:00",
+    "ports": {
+      "logical-api": 18234,
+      "logical-web": 15234,
+      "cpu-api": 18235,
+      "cpu-web": 15235
+    },
+    "services": {
+      "logical-api": {
+        "started_at": "2026-11-14T19:06:38.168531+00:00",
+        "build": {
+          "git_commit": "f4cd22bfefa1b78debc0c33d80a5ea075777aa88",
+          "source_sha256": "74b7ee09753396cd818cdf30efafda832496e53b9b69d40a97a0158c0e18d25a",
+          "source_file_count": 377
+        }
+      },
+      "logical-web": {
+        "started_at": "2026-11-14T19:06:39.763509+00:00",
+        "build": {
+          "git_commit": "f4cd22bfefa1b78debc0c33d80a5ea075777aa88",
+          "source_sha256": "74b7ee09753396cd818cdf30efafda832496e53b9b69d40a97a0158c0e18d25a",
+          "source_file_count": 377
+        }
+      },
+      "cpu-api": {
+        "started_at": "2026-11-14T19:06:40.459576+00:00",
+        "build": {
+          "git_commit": "f4cd22bfefa1b78debc0c33d80a5ea075777aa88",
+          "source_sha256": "74b7ee09753396cd818cdf30efafda832496e53b9b69d40a97a0158c0e18d25a",
+          "source_file_count": 377
+        }
+      },
+      "cpu-web": {
+        "started_at": "2026-11-14T19:06:42.108553+00:00",
+        "build": {
+          "git_commit": "f4cd22bfefa1b78debc0c33d80a5ea075777aa88",
+          "source_sha256": "74b7ee09753396cd818cdf30efafda832496e53b9b69d40a97a0158c0e18d25a",
+          "source_file_count": 377
+        }
+      }
+    }
+  }
+}

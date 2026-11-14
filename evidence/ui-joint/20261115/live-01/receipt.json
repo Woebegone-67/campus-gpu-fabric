@@ -1,0 +1,171 @@
+{
+  "started_at": "2026-11-14T19:04:18.893Z",
+  "base": "http://127.0.0.1:15233",
+  "commit": "72adcbe12ce051f83b5742b087811c10ca4a344d",
+  "dirty": "",
+  "scope": "Live local CPU reference execution, real Chrome UI and downloads; GPU inventory is simulated.",
+  "checks": [
+    {
+      "name": "imported accounts accepted by real session endpoint",
+      "status": "PASS",
+      "details": {
+        "account": {
+          "actor_id": "alice",
+          "owner_id": "alice",
+          "capabilities": [
+            "use_compute",
+            "contribute_resources"
+          ],
+          "is_administrator": false
+        },
+        "supplierAccount": {
+          "actor_id": "supplier",
+          "owner_id": "supplier",
+          "capabilities": [
+            "use_compute",
+            "contribute_resources"
+          ],
+          "is_administrator": false
+        }
+      }
+    }
+  ],
+  "responses": [
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/session",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/session",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/jobs",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "POST",
+      "path": "/x/v1/work-intents",
+      "status": 202
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-df1364f9-6d02-46ec-8ba1-7aa0f4cb059d",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-df1364f9-6d02-46ec-8ba1-7aa0f4cb059d",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/capacity",
+      "status": 200
+    }
+  ],
+  "errors": [],
+  "snapshots": [
+    "overview-empty",
+    "running"
+  ],
+  "unverified": [
+    "Independent human deployment and A/B cross-operation",
+    "Physical trackpad, Safari, VoiceOver",
+    "Formal CP4 load and performance targets",
+    "Configured CP3 full-report rendering"
+  ],
+  "browser": "157.0.8103.51",
+  "recovery_work": "work-df1364f9-6d02-46ec-8ba1-7aa0f4cb059d",
+  "status": "FAIL",
+  "failure": "locator.check: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('checkbox', { name: 'sim-a10-gpu0', exact: true })\u001b[22m\n\n    at /Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/joint-live.browser.mjs:123:118",
+  "finished_at": "2026-11-14T19:04:40.664Z"
+}

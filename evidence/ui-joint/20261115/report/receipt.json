@@ -1,0 +1,86 @@
+{
+  "base": "http://127.0.0.1:15235",
+  "started_at": "2026-11-14T19:07:36.245Z",
+  "browser": "157.0.8103.51",
+  "commit": "83e1f136d8cfff7cafbd8f53c1e814644125dbb0",
+  "scope": "Read existing pinned historical report and browser download. No new strategy run or current-build effect claim.",
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/v1/version"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/version"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/version"
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/session"
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/work-intents"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/allocations"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs"
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/policy-validation"
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/experiments/catalog"
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/experiments"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/events"
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/policy-validation"
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/experiments/catalog"
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/experiments"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/events"
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/policy-validation/artifacts/analysis"
+    }
+  ],
+  "page_errors": [],
+  "status": "PASS",
+  "report": {
+    "historical": true,
+    "eligible": false,
+    "macro_area_ratio": 1,
+    "manifest_sha256": "305a4dc7fa3dd1ebc797315367eaa19b883b45a86b0a93b7771bd150250c51ee",
+    "runs": 125,
+    "artifact_id": "analysis",
+    "bytes": 1415227,
+    "download_sha256": "fc7152ec290508cae801603bee2329e52625f7e95c34d374f5c6099dae08b5c1"
+  },
+  "finished_at": "2026-11-14T19:07:40.742Z"
+}

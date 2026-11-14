@@ -2,9 +2,11 @@
 
 校园共享计算服务：申请、收回、接续与可追问的决定。
 
-**本轮接管总入口：** [B 接管与最终展示准备](docs/handoff/FINAL_PREPARATION.md)。汇总分支 `work/roadshow-preparation` 包含 UI 规范、同账户使用与贡献、实体存储改造和路演准备；B 先保存自己的 UI 提交再正常合并。当前仍是候选，最终 CP4、B 新 UI 真人与同构建实录未完成。路演以 [主张与评分策略](docs/presentation/STRATEGY.md)、[逐页讲述](docs/presentation/STORYBOARD.md) 和 [现场执行手册](docs/presentation/DEMO_RUNBOOK.md) 为准，不把设计稿或计划写成已完成演示。
+**B 下一步：** 按用户试用后的 [交互终稿修改清单](docs/handoff/B_UI_FINAL_REVISION.md) 逐屏审查与修改。全站删除重复解释和低价值入口，重做首页信息层级与操作主路径，接通持久化工作名称；不只修清单中的几个例子。此分支完成联合接入，尚未完成这轮交互终稿。
 
-**当前：进入双页UI设计交接；CP4完整验收仍未通过。** 059f477b候选的可靠性与图表来源检查已有证据，规模/延迟未达，真人干净部署、交叉操作及同构建实录尚缺。当前放置评分路线冻结，R=1.00保留为未达；新工作选择机制有局部收益，也存在严重Owner损害反例，未推广到产品。参见 [CP4后续诊断与评审](evidence/cp4-next/README.md)、[策略瓶颈](docs/research/CP3_BOTTLENECK_AND_DIRECTION.md) 和 [CP4准入记录](docs/handoff/CP4_ENTRY.md)。原CP3分支与证据仍保留，见 [CP3历史收尾](docs/handoff/CP3_CLOSEOUT.md)。阶段准入、设计交接与正式通过分别记录。
+**本轮接管总入口：** [新 UI 快速上手](docs/handoff/UI_JOINT_QUICKSTART.md) 与 [联合对齐记录](docs/handoff/UI_JOINT_ALIGNMENT.md)。分支 `integration/ui-backend-20261115` 已合并 B 的双空间界面与 A 的最新后端。此前架构与展示准备见 [B 接管与最终展示准备](docs/handoff/FINAL_PREPARATION.md)。当前仍是候选，最终 CP4、B 新 UI 真人与同构建实录未完成。路演以 [主张与评分策略](docs/presentation/STRATEGY.md)、[逐页讲述](docs/presentation/STORYBOARD.md) 和 [现场执行手册](docs/presentation/DEMO_RUNBOOK.md) 为准，不把设计稿或计划写成已完成演示。
+
+**当前：B 新 UI 已完成联合接入，可本地试用；CP4 完整验收仍未通过。** 新界面上的真实 CPU 接续、失败、归还、下载和权限隔离已有本轮记录；规模/延迟、真人干净部署、交叉操作及最终实录仍单独核验。当前放置评分路线冻结，R=1.00保留为未达；新工作选择机制有局部收益，也存在严重Owner损害反例，未推广到产品。参见 [CP4后续诊断与评审](evidence/cp4-next/README.md)、[策略瓶颈](docs/research/CP3_BOTTLENECK_AND_DIRECTION.md) 和 [CP4准入记录](docs/handoff/CP4_ENTRY.md)。原CP3分支与证据仍保留，见 [CP3历史收尾](docs/handoff/CP3_CLOSEOUT.md)。阶段准入、设计交接与正式通过分别记录。
 
 **B双空间UI：** 已接入 `7c71b3e` 的可信账户能力接口，实现总览、工作台及同账户使用/贡献入口。总览保留黑色 Starwave 与中性毛玻璃，工作台采用不透明业务表面；旧业务链接保持可达。交付、截图与验证范围见 [B 双空间交付记录](docs/handoff/B_UI_V2_DELIVERY.md)。页头横向手势默认关闭，物理触控板与 Safari 尚待真人验证；本轮界面检查不代表完整 CP4 通过，原验收实例未被改权或重启。设计来源见 [双页界面设计说明](docs/design/UI_DESIGN_SPEC.md)、[UI接管步骤](docs/handoff/UI_B_HANDOFF.md) 和 [后端接线说明](docs/handoff/ACCOUNT_CAPABILITIES.md)。
 

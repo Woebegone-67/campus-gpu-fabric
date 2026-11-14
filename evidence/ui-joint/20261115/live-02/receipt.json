@@ -1,0 +1,629 @@
+{
+  "started_at": "2026-11-14T19:05:32.425Z",
+  "base": "http://127.0.0.1:15233",
+  "commit": "f4cd22bfefa1b78debc0c33d80a5ea075777aa88",
+  "dirty": "",
+  "scope": "Live local CPU reference execution, real Chrome UI and downloads; GPU inventory is simulated.",
+  "checks": [
+    {
+      "name": "imported accounts accepted by real session endpoint",
+      "status": "PASS",
+      "details": {
+        "account": {
+          "actor_id": "alice",
+          "owner_id": "alice",
+          "capabilities": [
+            "use_compute",
+            "contribute_resources"
+          ],
+          "is_administrator": false
+        },
+        "supplierAccount": {
+          "actor_id": "supplier",
+          "owner_id": "supplier",
+          "capabilities": [
+            "use_compute",
+            "contribute_resources"
+          ],
+          "is_administrator": false
+        }
+      }
+    },
+    {
+      "name": "real CPU recall, verified checkpoint, pending resume and applied generation 2",
+      "status": "PASS",
+      "details": {
+        "id": "work-57359847-0fc7-4849-99af-b9dc6a74821e"
+      }
+    },
+    {
+      "name": "browser result preview/download preserves bytes and independent integer result",
+      "status": "PASS",
+      "details": {
+        "id": "work-57359847-0fc7-4849-99af-b9dc6a74821e",
+        "sha256": "91eac853b829901313a1a1bafb35ca59bc22737eb26438b56388258c676c9c12",
+        "bytes": 476,
+        "oracle": "integer oracle matched"
+      }
+    },
+    {
+      "name": "decision navigation and reimport after refresh retain server work",
+      "status": "PASS",
+      "details": {
+        "id": "work-57359847-0fc7-4849-99af-b9dc6a74821e"
+      }
+    },
+    {
+      "name": "Bob denied foreign work in UI, foreign download and recall over HTTP",
+      "status": "PASS",
+      "details": {
+        "work_status": 404,
+        "artifact_status": 404,
+        "recall_status": 403
+      }
+    },
+    {
+      "name": "W2 actual CPU timeout fails and releases without a success artifact",
+      "status": "PASS",
+      "details": {
+        "id": "work-45844a9b-8e5d-4058-9110-7d8c57874116",
+        "result": {
+          "kind": "failure",
+          "recorded_at": 106.57664029199995,
+          "artifact_uris": [],
+          "failure": {
+            "code": "execution_unconfirmed",
+            "detail": "Job timeout",
+            "retryable": false,
+            "current_version": null
+          }
+        }
+      }
+    },
+    {
+      "name": "same supplier account both recalls owned supply and submits compute",
+      "status": "PASS",
+      "details": {
+        "id": "work-d4fecded-6fa6-4324-b89f-d2fa761268fa"
+      }
+    },
+    {
+      "name": "admin overview ten UI refreshes without 409",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "name": "no browser page errors during live flow",
+      "status": "PASS",
+      "details": {}
+    }
+  ],
+  "responses": [
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/session",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/session",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/jobs",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "POST",
+      "path": "/x/v1/work-intents",
+      "status": 202
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/jobs",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-57359847-0fc7-4849-99af-b9dc6a74821e",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-57359847-0fc7-4849-99af-b9dc6a74821e",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/jobs",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/capacity",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "POST",
+      "path": "/x/v1/contributions/recall",
+      "status": 201
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/capacity",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-57359847-0fc7-4849-99af-b9dc6a74821e",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "POST",
+      "path": "/x/v1/work-intents/work-57359847-0fc7-4849-99af-b9dc6a74821e/actions",
+      "status": 409
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-57359847-0fc7-4849-99af-b9dc6a74821e",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "POST",
+      "path": "/x/v1/work-intents/work-57359847-0fc7-4849-99af-b9dc6a74821e/actions",
+      "status": 409
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-57359847-0fc7-4849-99af-b9dc6a74821e",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "POST",
+      "path": "/x/v1/work-intents/work-57359847-0fc7-4849-99af-b9dc6a74821e/actions",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-57359847-0fc7-4849-99af-b9dc6a74821e",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-57359847-0fc7-4849-99af-b9dc6a74821e",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-57359847-0fc7-4849-99af-b9dc6a74821e",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-57359847-0fc7-4849-99af-b9dc6a74821e",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/artifacts",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/artifacts",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/session",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/session",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-57359847-0fc7-4849-99af-b9dc6a74821e",
+      "status": 200
+    },
+    {
+      "actor": "bob",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "bob",
+      "method": "GET",
+      "path": "/x/v1/session",
+      "status": 200
+    },
+    {
+      "actor": "bob",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "bob",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "bob",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "bob",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "bob",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-57359847-0fc7-4849-99af-b9dc6a74821e",
+      "status": 404
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/jobs",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "POST",
+      "path": "/x/v1/work-intents",
+      "status": 202
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-45844a9b-8e5d-4058-9110-7d8c57874116",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-45844a9b-8e5d-4058-9110-7d8c57874116",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/jobs",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "POST",
+      "path": "/x/v1/work-intents",
+      "status": 202
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-d4fecded-6fa6-4324-b89f-d2fa761268fa",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/session",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/acceptance",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/admin/overview",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/v1/metrics",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/admin/overview",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/admin/overview",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/admin/overview",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/admin/overview",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/admin/overview",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/admin/overview",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/admin/overview",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/admin/overview",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/admin/overview",
+      "status": 200
+    }
+  ],
+  "errors": [],
+  "snapshots": [
+    "overview-empty",
+    "running",
+    "checkpoint-verified",
+    "resume-waiting",
+    "resumed",
+    "completed-released",
+    "related-decision",
+    "bob-foreign-work",
+    "w2-timeout-failed-released"
+  ],
+  "unverified": [
+    "Independent human deployment and A/B cross-operation",
+    "Physical trackpad, Safari, VoiceOver",
+    "Formal CP4 load and performance targets",
+    "Configured CP3 full-report rendering"
+  ],
+  "browser": "157.0.8103.51",
+  "recovery_work": "work-57359847-0fc7-4849-99af-b9dc6a74821e",
+  "status": "PASS",
+  "finished_at": "2026-11-14T19:07:14.525Z"
+}

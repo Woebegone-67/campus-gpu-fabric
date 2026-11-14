@@ -1,0 +1,865 @@
+{
+  "started_at": "2026-11-14T19:04:49.073Z",
+  "baseUrl": "http://127.0.0.1:15233",
+  "preview": false,
+  "checkFilter": null,
+  "browser": "157.0.8103.51",
+  "scope": "Real Chrome rendering and interaction with synthetic API fixtures only; no live Fabric backend or business writes.",
+  "checks": [
+    {
+      "name": "default overview loads scoped work and real session capabilities without mutations",
+      "status": "PASS",
+      "details": {
+        "scope": "Alice loaded objects; synthetic use_compute and contribute_resources projection",
+        "readRequests": 10
+      }
+    },
+    {
+      "name": "overview joins authorized lease records and prioritizes dismissible factual reminders",
+      "status": "PASS",
+      "details": {
+        "source": "/v1/allocations?limit=50",
+        "firstThree": [
+          "fixture-alice-stopping",
+          "fixture-alice-recall-notice",
+          "fixture-alice-attention"
+        ],
+        "recent": [
+          "fixture-alice-completed",
+          "fixture-alice-retained"
+        ],
+        "ordinaryWaitingExcluded": true
+      }
+    },
+    {
+      "name": "failed lease reads preserve work facts without inventing resource reminders",
+      "status": "PASS",
+      "details": {
+        "independentWorkReminderRetained": true,
+        "leaseDependentReminders": 0
+      }
+    },
+    {
+      "name": "overview opens the same work in workbench and browser history returns",
+      "status": "PASS"
+    },
+    {
+      "name": "same-session drafts, current-page filters and workbench scroll survive space switching",
+      "status": "PASS",
+      "details": {
+        "scrollBefore": 1667,
+        "scrollAfter": 1667,
+        "status": "waiting"
+      }
+    },
+    {
+      "name": "workbench subpage and overview scroll are independent and recover on return",
+      "status": "PASS",
+      "details": {
+        "overviewScrollBefore": 500,
+        "overviewScrollAfter": 500
+      }
+    },
+    {
+      "name": "old six workspace hashes and work deep link remain direct and read-only",
+      "status": "FAIL",
+      "error": "page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:15233/#run\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:15233/#run\", waiting until \"networkidle\"\u001b[22m\n\n    at goto (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:127:14)\n    at /Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:234:13\n    at check (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:114:27)\n    at async file:///Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:232:3"
+    },
+    {
+      "name": "identity switch and clear remove old objects, drafts, filters and late responses",
+      "status": "FAIL",
+      "error": "page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:15233/#run\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:15233/#run\", waiting until \"networkidle\"\u001b[22m\n\n    at goto (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:127:14)\n    at /Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:243:11\n    at check (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:114:27)\n    at async file:///Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:242:3"
+    },
+    {
+      "name": "unconfirmed session fails closed without protected overview or workbench reads",
+      "status": "FAIL",
+      "error": "page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:15233/#overview\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:15233/#overview\", waiting until \"networkidle\"\u001b[22m\n\n    at goto (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:127:14)\n    at /Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:263:11\n    at check (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:114:27)\n    at async file:///Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:261:3"
+    },
+    {
+      "name": "compute-only session does not request contributor or administrator data",
+      "status": "FAIL",
+      "error": "page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:15233/#overview\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:15233/#overview\", waiting until \"networkidle\"\u001b[22m\n\n    at goto (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:127:14)\n    at /Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:271:11\n    at check (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:114:27)\n    at async file:///Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:268:3"
+    },
+    {
+      "name": "new observed epoch clears previous drafts and discards a late old snapshot",
+      "status": "FAIL",
+      "error": "page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:15233/#run\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:15233/#run\", waiting until \"networkidle\"\u001b[22m\n\n    at goto (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:127:14)\n    at /Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:279:11\n    at check (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:114:27)\n    at async file:///Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:278:3"
+    },
+    {
+      "name": "empty current-owner overview does not invent work or global success",
+      "status": "FAIL",
+      "error": "page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:15233/#overview\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:15233/#overview\", waiting until \"networkidle\"\u001b[22m\n\n    at goto (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:127:14)\n    at /Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:296:45\n    at check (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:114:27)\n    at async file:///Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:295:3"
+    },
+    {
+      "name": "same-identity refresh failure retains previously loaded list with failure notice",
+      "status": "FAIL",
+      "error": "page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:15233/#run\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:15233/#run\", waiting until \"networkidle\"\u001b[22m\n\n    at goto (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:127:14)\n    at /Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:303:11\n    at check (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:114:27)\n    at async file:///Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:302:3"
+    },
+    {
+      "name": "art exists only in overview and reduced motion stops continuous drawing",
+      "status": "FAIL",
+      "error": "page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:15233/#overview\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:15233/#overview\", waiting until \"networkidle\"\u001b[22m\n\n    at goto (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:127:14)\n    at /Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:314:11\n    at check (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:114:27)\n    at async file:///Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:313:3"
+    },
+    {
+      "name": "keyboard switching leaves focus in a visible active surface",
+      "status": "FAIL",
+      "error": "page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:15233/#overview\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:15233/#overview\", waiting until \"networkidle\"\u001b[22m\n\n    at goto (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:127:14)\n    at /Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:331:11\n    at check (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:114:27)\n    at async file:///Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:330:3"
+    },
+    {
+      "name": "optional header gesture is off by default and respects inertia and controls",
+      "status": "FAIL",
+      "error": "page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:15233/#overview\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:15233/#overview\", waiting until \"networkidle\"\u001b[22m\n\n    at goto (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:127:14)\n    at /Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:341:11\n    at check (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:114:27)\n    at async file:///Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:340:3"
+    },
+    {
+      "name": "desktop and narrow layouts preserve visible switcher and reachable forms",
+      "status": "FAIL",
+      "error": "page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:15233/#overview\nCall log:\n\u001b[2m  - navigating to \"http://127.0.0.1:15233/#overview\", waiting until \"networkidle\"\u001b[22m\n\n    at goto (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:127:14)\n    at /Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:365:47\n    at async check (/Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:114:21)\n    at async file:///Users/xz/Projects/campus-gpu-fabric-integration-20261115/web/tests/dual-space.browser.mjs:362:3"
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "overview-1440x900",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-integration-20261115/evidence/ui-joint/20261115/fixtures/overview-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "overview-linked-reminders-1440x900",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-integration-20261115/evidence/ui-joint/20261115/fixtures/overview-linked-reminders-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "overview-lease-unavailable-1440x900",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-integration-20261115/evidence/ui-joint/20261115/fixtures/overview-lease-unavailable-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-detail-1440x900",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-integration-20261115/evidence/ui-joint/20261115/fixtures/work-detail-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "restored-workbench-draft-1440x900",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-integration-20261115/evidence/ui-joint/20261115/fixtures/restored-workbench-draft-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "failure-7",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-integration-20261115/evidence/ui-joint/20261115/fixtures/failure-7.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "failure-8",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-integration-20261115/evidence/ui-joint/20261115/fixtures/failure-8.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "failure-9",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-integration-20261115/evidence/ui-joint/20261115/fixtures/failure-9.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "failure-10",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-integration-20261115/evidence/ui-joint/20261115/fixtures/failure-10.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "failure-11",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-integration-20261115/evidence/ui-joint/20261115/fixtures/failure-11.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "failure-12",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-integration-20261115/evidence/ui-joint/20261115/fixtures/failure-12.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "failure-13",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-integration-20261115/evidence/ui-joint/20261115/fixtures/failure-13.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "failure-14",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-integration-20261115/evidence/ui-joint/20261115/fixtures/failure-14.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "failure-15",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-integration-20261115/evidence/ui-joint/20261115/fixtures/failure-15.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "failure-16",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-integration-20261115/evidence/ui-joint/20261115/fixtures/failure-16.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "failure-17",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-integration-20261115/evidence/ui-joint/20261115/fixtures/failure-17.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    }
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/capacity",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/capacity",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/capacity",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    }
+  ],
+  "denied": [],
+  "unverified": [
+    "Native two-finger gestures and system history conflicts on physical Chrome/Safari trackpads.",
+    "Native OS reduced-motion setting; this harness uses Chromium media emulation.",
+    "VoiceOver, complete accessibility conformance, real API authorization, server business correctness, and file-download integrity."
+  ],
+  "browserClosed": true,
+  "finished_at": "2026-11-14T19:05:17.564Z",
+  "status": "FAIL"
+}
