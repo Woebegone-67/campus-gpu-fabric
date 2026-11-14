@@ -18,7 +18,7 @@ from campus_fabric import __version__
 from campus_fabric.api.mutations.http import assign_request_id, mount_cp1
 from campus_fabric.api.test_control.faults import fault_targets, intercept_fault
 from campus_fabric.auth.http import HTTPIdentity
-from campus_fabric.contracts.models import NodeInventory
+from campus_fabric.contracts.models import AccountSession, NodeInventory
 from campus_fabric.domain.kernel import Kernel
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -110,6 +110,9 @@ def create_app(data_dir=None, inventory=(), test_key=None, auth_tokens=None,
             })
         if hasattr(request.state, "request_id"):
             response.headers["X-Request-Id"] = request.state.request_id
+        if request.url.path == "/x/v1/session":
+            response.headers["Cache-Control"] = "no-store"
+            response.headers["Vary"] = "Authorization, X-Owner"
         return response
 
     @app.exception_handler(HTTPException)
@@ -144,6 +147,15 @@ def create_app(data_dir=None, inventory=(), test_key=None, auth_tokens=None,
                     "scheduler": True, "checkpoint_recovery": True,
                     "real_gpu_execution": False, "real_cpu_execution": mode == "cpu_reference",
                 }}
+
+    @app.get("/x/v1/session", response_model=AccountSession)
+    def account_session(request: Request):
+        actor = identity.actor(request)
+        return AccountSession(
+            actor_id=actor.actor_id, owner_id=actor.owner_id,
+            capabilities=actor.capabilities,
+            is_administrator=actor.role == "administrator",
+        )
 
     @app.get("/x/v1/artifacts")
     def artifact(request: Request, uri: str):

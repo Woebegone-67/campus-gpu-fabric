@@ -1,0 +1,52 @@
+{
+  "$id": "urn:campus-fabric:account-session:v1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Public account capabilities derived from the authenticated server identity.",
+  "properties": {
+    "actor_id": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^\\S+$",
+      "title": "Actor Id",
+      "type": "string"
+    },
+    "capabilities": {
+      "items": {
+        "enum": [
+          "use_compute",
+          "contribute_resources"
+        ],
+        "type": "string"
+      },
+      "title": "Capabilities",
+      "type": "array"
+    },
+    "is_administrator": {
+      "title": "Is Administrator",
+      "type": "boolean"
+    },
+    "owner_id": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Owner Id"
+    }
+  },
+  "required": [
+    "actor_id",
+    "owner_id",
+    "capabilities",
+    "is_administrator"
+  ],
+  "title": "AccountSession",
+  "type": "object"
+}

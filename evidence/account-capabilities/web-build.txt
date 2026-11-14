@@ -1,0 +1,14 @@
+
+> campus-fabric-web@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.8 building client environment for production...
+transforming...
+✓ 32 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.37 kB │ gzip:  0.29 kB
+dist/assets/index-FwHBbFln.css   10.34 kB │ gzip:  3.16 kB
+dist/assets/index-B1IqlwQI.js   298.49 kB │ gzip: 92.29 kB
+
+✓ built in 275ms

@@ -1,0 +1,8 @@
+uv run python scripts/check_generated.py
+Exported contracts/generated/contracts.schema.json
+Exported contracts/generated/account-session.schema.json
+
+> campus-fabric-web@0.1.0 generate:contracts
+> json2ts -i ../contracts/generated/contracts.schema.json -o src/generated/contracts.ts && json2ts -i ../contracts/generated/account-session.schema.json -o src/generated/account-session.ts
+
+Generated Python schema / TypeScript contract parity verified.

@@ -161,7 +161,7 @@ class QueryServices:
                 raise QueryFailure(401, "unauthorized", "An authenticated identity is required.")
         if not isinstance(value, AuthenticatedActor):
             raise QueryFailure(502, "provider_contract_error", "Invalid authenticated actor.")
-        if value.role not in ("researcher", "contributor", "administrator"):
+        if value.role not in ("researcher", "contributor", "member", "administrator"):
             raise QueryFailure(403, "forbidden", "Internal authorities cannot use user queries.")
         return value
 

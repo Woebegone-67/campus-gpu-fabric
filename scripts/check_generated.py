@@ -8,6 +8,8 @@ ROOT = Path(__file__).resolve().parents[1]
 OUTPUTS = [
     ROOT / "contracts/generated/contracts.schema.json",
     ROOT / "web/src/generated/contracts.ts",
+    ROOT / "contracts/generated/account-session.schema.json",
+    ROOT / "web/src/generated/account-session.ts",
 ]
 
 

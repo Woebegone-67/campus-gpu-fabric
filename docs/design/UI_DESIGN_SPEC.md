@@ -6,6 +6,8 @@
 
 配套文档：
 
+后续实现注记：`work/account-capabilities` 已完成普通 member 双能力与可信账户查询，见 [后端接线说明](../handoff/ACCOUNT_CAPABILITIES.md)。本文描述的页面和手势仍待实现；涉及“尚缺双能力/session”的内容是原代码基线的差距记录。
+
 - [B 接管步骤](../handoff/UI_B_HANDOFF.md)：从哪个版本开始、先做什么、怎样交付。
 - [手势与转场详规](UI_GESTURE_AND_MOTION.md)：浏览器约束、输入仲裁、状态机与实机测试。
 - [现有数据与组件映射](UI_DATA_AND_COMPONENT_MAP.md)：真实接口、字段、能力缺口和改造边界。

@@ -16,8 +16,8 @@ def main():
     if auth_path.exists() or client_path.exists():
         raise SystemExit("Existing identities preserved. Use another directory to create new ones.")
     tokens, clients = {}, {}
-    for role, owner in (("researcher", "alice"), ("researcher", "bob"),
-                        ("contributor", "supplier"), ("administrator", None)):
+    for role, owner in (("member", "alice"), ("member", "bob"),
+                        ("member", "supplier"), ("administrator", None)):
         name = owner or "admin"
         token = secrets.token_urlsafe(32)
         tokens[token] = {"actor_id": name, "role": role, "owner_id": owner}

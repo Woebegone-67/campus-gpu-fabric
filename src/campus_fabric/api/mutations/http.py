@@ -276,7 +276,7 @@ def mount_cp1(app, kernel, identity):
     @app.post("/x/v1/contributions")
     async def register_contribution(request: Request):
         actor = identity.actor(request)
-        if actor.role not in {"contributor", "administrator"}:
+        if not actor.can_contribute_resources:
             raise HTTPException(403, "Contributor authority is required")
         node = NodeInventory.model_validate_json(json.dumps(await object_body(request)))
         if node.contributor_owner_id != actor.owner_id:
@@ -288,7 +288,7 @@ def mount_cp1(app, kernel, identity):
     @app.post("/x/v1/contributions/recall")
     async def recall_contribution(request: Request):
         actor = identity.actor(request)
-        if actor.role not in {"contributor", "administrator"}:
+        if not actor.can_contribute_resources:
             raise HTTPException(403, "Contributor authority is required")
         parameters = recall_parameters(await object_body(request), "contribution.recall")
         envelope = command(request, actor, parameters)

@@ -327,11 +327,11 @@ class Kernel(LifecycleMixin):
 
     @staticmethod
     def _authorize(c):
-        if c.operation.startswith(("allocation.", "job.", "workflow.")) and c.actor.role not in (
-            "researcher",
-            "administrator",
-        ):
-            raise Rejected("forbidden", "This role cannot submit tenant work")
+        if (c.operation.startswith(("allocation.", "job.", "workflow."))
+                and not c.actor.can_use_compute):
+            raise Rejected("forbidden", "Compute-use authority is required")
+        if c.operation.startswith("contribution.") and not c.actor.can_contribute_resources:
+            raise Rejected("forbidden", "Resource-contribution authority is required")
 
     def _apply(self, s, c):
         p = c.parameters
@@ -1028,7 +1028,7 @@ class Kernel(LifecycleMixin):
                 explanation="Return this lease explicitly",
             )
             for a in allocations
-            if a.state in ACTIVE | {"Pending"}
+            if a.state in ACTIVE | {"Pending"} and query.actor.can_use_compute
         )
         return m.ReadSnapshot(
             version=self._version(s),

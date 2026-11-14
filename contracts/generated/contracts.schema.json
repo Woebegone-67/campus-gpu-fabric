@@ -431,6 +431,7 @@
         },
         "role": {
           "enum": [
+            "member",
             "researcher",
             "contributor",
             "administrator",

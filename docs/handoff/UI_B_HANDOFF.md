@@ -4,6 +4,8 @@
 
 ## 先读什么
 
+后续后端已在 `work/account-capabilities` 完成第一批双能力账户与可信账户接口。接新UI时正常合入该分支，并阅读 [账户能力接线说明](ACCOUNT_CAPABILITIES.md)；本页其余启动和UI交付步骤仍适用。原交接提交 `42aea00` 保持不变。
+
 1. [界面设计主说明](../design/UI_DESIGN_SPEC.md)：24节，覆盖产品、页面、内容优先级、视觉、状态、转场、交付。
 2. [手势与动效](../design/UI_GESTURE_AND_MOTION.md)：按实际浏览器约束实现双指横向切换，参数待校准。
 3. [接口和组件映射](../design/UI_DATA_AND_COMPONENT_MAP.md)：真实接口与字段、权限差距、旧路由与组件改造。

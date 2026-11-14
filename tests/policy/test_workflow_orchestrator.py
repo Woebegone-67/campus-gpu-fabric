@@ -127,16 +127,19 @@ def start(kernel):
         REGISTRATION, kernel.version, actor=ACTOR, request_id="register-a")
 
 
-def test_normal_flow_binds_once_and_does_not_claim_pending_job_is_running():
+@pytest.mark.parametrize("role", ["researcher", "member"])
+def test_normal_flow_binds_once_and_does_not_claim_pending_job_is_running(role):
     kernel = PortDouble()
-    result = start(kernel)
+    actor = AuthenticatedActor(actor_id="caller", role=role, owner_id="owner-a")
+    result = WorkflowOrchestrator(kernel, kernel).start(
+        REGISTRATION, kernel.version, actor=actor, request_id="register-a")
     assert kernel.calls == [("register", "work-a"), ("allocate", "allocate"), ("job", "create-job")]
     assert result.state == "waiting"
     assert result.intent.job_ids == ("job-a",)
     assert result.allocation_id == "lease-a"
     assert len(result.receipts) == 3
     assert result.to_dict()["intent"]["first_arrival_at"] == 10.0
-    WorkflowOrchestrator(kernel, kernel).advance("work-a", actor=ACTOR)
+    WorkflowOrchestrator(kernel, kernel).advance("work-a", actor=actor)
     assert len(kernel.calls) == 3
 
 
@@ -213,11 +216,12 @@ def test_exact_expiry_blocks_job_creation():
     assert not kernel.jobs
 
 
-def test_owner_mismatch_and_missing_linked_objects_fail_closed():
+@pytest.mark.parametrize("role", ["researcher", "member"])
+def test_owner_mismatch_and_missing_linked_objects_fail_closed(role):
     kernel = PortDouble()
     with pytest.raises(PermissionError):
         WorkflowOrchestrator(kernel, kernel).start(REGISTRATION, kernel.version,
-            actor=AuthenticatedActor(actor_id="other", owner_id="owner-b", role="researcher"),
+            actor=AuthenticatedActor(actor_id="other", owner_id="owner-b", role=role),
             request_id="forbidden")
     assert not kernel.calls
     kernel.queued = True
@@ -225,6 +229,17 @@ def test_owner_mismatch_and_missing_linked_objects_fail_closed():
     kernel.allocations = ()
     with pytest.raises(WorkflowReadError, match="omitted"):
         WorkflowOrchestrator(kernel, kernel).advance("work-a", actor=ACTOR)
+
+
+def test_contribution_only_identity_cannot_start_or_advance_work():
+    kernel = PortDouble()
+    actor = AuthenticatedActor(actor_id="supplier", role="contributor", owner_id="owner-a")
+    workflow = WorkflowOrchestrator(kernel, kernel)
+    with pytest.raises(PermissionError):
+        workflow.start(REGISTRATION, kernel.version, actor=actor, request_id="forbidden")
+    with pytest.raises(PermissionError):
+        workflow.advance("work-a", actor=actor)
+    assert not kernel.calls
 
 
 def test_auto_settlement_is_explicitly_not_faked_without_a_durable_port():

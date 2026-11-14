@@ -270,8 +270,8 @@ def create_query_router(services: QueryServices | None = None) -> APIRouter:
         }
 
     def contributions(request: Request, actor: Any) -> dict:
-        if actor.role not in ("contributor", "administrator"):
-            raise QueryFailure(403, "forbidden", "Contributor or administrator authority is required.")
+        if not actor.can_contribute_resources:
+            raise QueryFailure(403, "forbidden", "Resource contribution authority is required.")
         inventory = services.inventory(actor)
         nodes = [
             x.model_dump(mode="json") for x in inventory.nodes
