@@ -27,7 +27,7 @@ const panel=()=>container.querySelector('.overview-attention');
 const alerts=()=>[...container.querySelectorAll('.attention-row')];
 const alertIds=()=>alerts().map(row=>new URL(row.querySelector('a').href).hash.match(/intent=([^&]+)/)[1]);
 function button(label,scope=panel()){const node=[...scope.querySelectorAll('button')].find(node=>node.textContent===label);assert.ok(node,`button ${label}`);return node;}
-async function refresh(){await interact(()=>button('刷新').click());}
+async function refresh(){await interact(()=>button('刷新',container).click());}
 beforeEach(()=>{
   document.body.innerHTML='<div id="overview-tests"></div>';container=document.getElementById('overview-tests');root=createRoot(container);requests=[];api=client();
   workResponse={...base,items:[],legal_actions:[]};leaseResponse={...base,items:[],legal_actions:[]};contributionResponse={...base,items:[]};
@@ -42,7 +42,9 @@ test('real WorkIntent allocation_ids join separate authorized leases for all thr
   await render();
   assert.deepEqual(alertIds(),['work-stop','work-notice','work-retained']);
   assert.match(panel().textContent,/资源停止仍待确认/);assert.match(panel().textContent,/收到资源收回通知/);assert.match(panel().textContent,/工作已结束，资源尚未归还/);
-  assert.match(panel().textContent,/最多 25 项工作与 50 项授权租约/);
+  assert.match(container.querySelector('.overview-scope').textContent,/最近 25 项工作/);
+  assert.equal(container.querySelectorAll('.overview-work-row').length,0,'attention items are not duplicated in ongoing work');
+  assert.equal(container.querySelectorAll('.overview-result').length,1,'held-resource results appear only under attention');
   assert.deepEqual(requests.map(request=>request.path),['/x/v1/work-intents?limit=25','/v1/allocations?limit=50']);
   assert.ok(requests.every(({options})=>options.method==='GET'&&options.headers['X-Owner']==='alice'&&options.headers.Authorization==='Bearer synthetic-overview-alice'));
 });
@@ -65,7 +67,7 @@ test('reminders order by severity then real logical deadline, occurrence and sta
     lease('a-old','PreemptRequested',{preemption:{deadline:20,requested_at:2}}),
     lease('a-urgent','PreemptRequested',{pending_terminal:'Released',preemption:{deadline:99,requested_at:10}}),
   ];
-  await render();assert.deepEqual(alertIds(),['work-urgent','work-old','work-same-a']);assert.match(panel().textContent,/还有 2 项提示/);
+  await render();assert.deepEqual(alertIds(),['work-urgent','work-old','work-same-a']);assert.match(panel().textContent,/查看全部 5 项/);
   await interact(()=>alerts()[0].querySelector('.attention-dismiss').click());
   assert.deepEqual(alertIds(),['work-old','work-same-a','work-same-b']);
   assert.match(alerts()[0].textContent,/截止 20 逻辑秒/);
@@ -75,7 +77,7 @@ test('dismissed reminders stay explicit, can be restored, and a changed deadline
   workResponse.items=[work('work-one','running',['a-one'])];
   leaseResponse.items=[lease('a-one','PreemptRequested',{preemption:{deadline:20,requested_at:2}})];
   await render();await interact(()=>button('本次收起').click());
-  assert.equal(alerts().length,0);assert.match(panel().querySelector('h2').textContent,/本次已收起 1 项提示/);assert.doesNotMatch(panel().textContent,/暂无待处理/);
+  assert.equal(alerts().length,0);assert.match(panel().querySelector('h2').textContent,/已收起 1 项提示/);assert.doesNotMatch(panel().textContent,/暂无待处理/);
   await interact(()=>button('展开已收起提示').click());assert.equal(alerts().length,1);
   await interact(()=>button('本次收起').click());
   leaseResponse.items[0].preemption.deadline=21;await refresh();assert.equal(alerts().length,1);assert.match(alerts()[0].textContent,/截止 21 逻辑秒/);
@@ -86,16 +88,16 @@ test('unread or truncated lease pages cannot be presented as no reminders and em
   workResponse.items=[work('work-one','completed',['a-one'],{allocations:[lease('fake','Running')]})];
   let resolveLeases;
   globalThis.fetch=async(path,options)=>{requests.push({path,options});return path.startsWith('/v1/allocations')?new Promise(resolve=>{resolveLeases=resolve;}):json(workResponse);};
-  await render();assert.equal(alerts().length,0);assert.match(panel().querySelector('h2').textContent,/仍需核对/);assert.doesNotMatch(panel().textContent,/暂无待处理/);
+  await render();assert.equal(alerts().length,0);assert.match(panel().querySelector('h2').textContent,/状态待更新/);assert.doesNotMatch(panel().textContent,/暂无待处理/);
   await act(async()=>resolveLeases(json({...base,items:[lease('unrelated','Released')],has_more:true})));
-  assert.match(panel().textContent,/部分关联租约不在当前已加载范围/);assert.equal(alerts().length,0);assert.doesNotMatch(panel().textContent,/暂无待处理/);
+  assert.match(panel().textContent,/部分资源状态未载入/);assert.equal(alerts().length,0);assert.doesNotMatch(panel().textContent,/暂无待处理/);
 });
 
 test('different epochs never join; same-epoch different revisions show provisional independently read reminders',async()=>{
   workResponse.items=[work('work-one','completed',['a-one'])];leaseResponse.items=[lease('a-one')];leaseResponse.version={epoch:1,revision:5};
-  await render();assert.equal(alerts().length,0);assert.match(panel().textContent,/不同实例代次，已停止关联/);assert.doesNotMatch(panel().textContent,/暂无待处理/);
-  leaseResponse.version={epoch:0,revision:6};await refresh();assert.equal(alerts().length,1);assert.match(panel().textContent,/不代表同一快照/);
-  workResponse.items[0].state='running';await refresh();assert.equal(alerts().length,0);assert.match(panel().querySelector('h2').textContent,/仍需核对/);
+  await render();assert.equal(alerts().length,0);assert.match(panel().textContent,/实例已更新/);assert.doesNotMatch(panel().textContent,/暂无待处理/);
+  leaseResponse.version={epoch:0,revision:6};await refresh();assert.equal(alerts().length,1);assert.match(panel().textContent,/状态正在同步/);
+  workResponse.items[0].state='running';await refresh();assert.equal(alerts().length,0);assert.match(panel().querySelector('h2').textContent,/状态待更新/);
   assert.equal(requests.length,6,'refresh reads each endpoint once, without consistency retry loops');
 });
 
@@ -103,8 +105,8 @@ test('failed lease refresh retains prior reminders as stale while authorization 
   workResponse.items=[work('work-one','completed',['a-one'])];leaseResponse.items=[lease('a-one')];await render();
   let status=503;
   globalThis.fetch=async(path,options)=>{requests.push({path,options});return path.startsWith('/v1/allocations')?json({detail:'synthetic temporary error'},status):json(workResponse);};
-  await refresh();assert.equal(alerts().length,1);assert.match(panel().textContent,/本次更新未完成/);assert.match(panel().textContent,/未取得的租约不能视为已释放/);
-  status=403;await refresh();assert.equal(alerts().length,0);assert.match(panel().textContent,/当前身份无权访问/);assert.doesNotMatch(panel().textContent,/暂无待处理/);
+  await refresh();assert.equal(alerts().length,1);assert.match(panel().textContent,/未能更新/);assert.match(panel().textContent,/部分状态未更新/);
+  status=403;await refresh();assert.equal(alerts().length,0);assert.match(panel().textContent,/当前账户不能执行此操作/);assert.doesNotMatch(panel().textContent,/暂无待处理/);
 });
 
 test('identity changes abort late reads and never reuse previous leases or dismissal state',async()=>{
@@ -130,5 +132,24 @@ test('no compute capability means no work or lease reads, and own device cards s
 test('results use actual recorded_at descending within the loaded page, with missing times last',async()=>{
   workResponse.items=[work('work-no-time','completed'),work('work-old','completed',[],{result:{recorded_at:1}}),work('work-new','completed',[],{result:{recorded_at:30}}),work('work-middle','failed',[],{result:{recorded_at:20}})];
   await render();assert.deepEqual([...container.querySelectorAll('.overview-result')].map(row=>new URL(row.href).hash.match(/intent=([^&]+)/)[1]),['work-new','work-middle','work-old']);
-  assert.match(container.querySelector('.overview-results').textContent,/已加载的最多 25 项工作中的结果记录时间倒序/);assert.match(panel().querySelector('h2').textContent,/当前加载范围暂无待处理提示/);
+  assert.match(container.querySelector('.overview-scope').textContent,/最近 25 项工作/);assert.equal(panel(),null);assert.match(container.textContent,/暂无待处理事项/);
+});
+
+
+test('empty personal overview has one create entry and no empty device or result cards',async()=>{
+  await render('alice',['use_compute','contribute_resources']);
+  assert.equal(container.querySelectorAll('a[href="#run?new=1"]').length,1);
+  assert.equal(container.querySelector('.overview-devices'),null);
+  assert.equal(container.querySelector('.overview-results'),null);
+  assert.equal(container.querySelector('.overview-work'),null);
+  assert.match(container.textContent,/还没有工作/);
+});
+
+test('administrator home reads authorized global counts without inventing private work',async()=>{
+  globalThis.fetch=async(path,options)=>{requests.push({path,options});return json({...base,counts:{work_intents:14},running_jobs:3,work_by_state:{waiting:2,manual_action:1},capacity:{totals:{available:{gpu_count:4}}}});};
+  await act(async()=>root.render(<AccountContext.Provider value={{actor_id:'admin',owner_id:null,capabilities:[],is_administrator:true}}><OverviewPage api={api}/></AccountContext.Provider>));
+  assert.deepEqual(requests.map(request=>request.path),['/x/v1/admin/overview']);
+  assert.deepEqual([...container.querySelectorAll('.overview-metrics dd')].map(item=>item.textContent),['3','2','4','14']);
+  assert.match(container.textContent,/1 项工作需要处理/);
+  assert.equal(container.querySelector('.overview-work'),null);
 });

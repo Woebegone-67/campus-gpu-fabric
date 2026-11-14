@@ -27,6 +27,7 @@ function button(label){const found=[...container.querySelectorAll('button')].fin
 function disclosure(label){const found=[...container.querySelectorAll('summary')].find(node=>node.textContent===label)?.parentElement;assert.ok(found,`disclosure ${label}`);return found;}
 beforeEach(()=>{
   document.body.innerHTML='<div id="resource-tests"></div>';container=document.getElementById('resource-tests');root=createRoot(container);requests=[];
+  dom.window.confirm=()=>true;
   globalThis.fetch=async(path,options)=>{requests.push({path,options});return json({...base,items:[],nodes:[]});};
 });
 afterEach(async()=>{await act(async()=>root.unmount());globalThis.fetch=originalFetch;});
@@ -36,17 +37,16 @@ test('compute-only view does not query contributions or mount write forms despit
   await render(service(<ResourcesPage api={api()} canContribute={false}/>));
   assert.deepEqual(requests.map(request=>request.path),['/v1/capacity']);
   assert.equal(container.querySelector('form'),null);
-  assert.match(container.textContent,/当前账户未启用贡献设备能力/);
-  assert.equal(disclosure('查看可见资源池').open,false);
-  assert.match(container.textContent,/并非你的自有设备清单/);
+  assert.equal(container.querySelector('h2').textContent,'资源池');
+  assert.doesNotMatch(container.textContent,/我的设备|收回|登记/);
 });
 
 test('owned devices precede the shared pool and recall deduplicates physical cards without exposing another owner',async()=>{
   globalThis.fetch=async(path,options)=>{requests.push({path,options});return json(options.method==='POST'?{receipt:{outcome:'committed'}}:path.startsWith('/x/v1/contributions')?{...base,items:[ownNode,otherNode]}:{...base,nodes:[]});};
   await render(service(<ResourcesPage api={api()}/>));
   assert.equal(container.querySelector('h2').textContent,'我的设备');
-  assert.equal(disclosure('高级 · 登记模拟供给').open,false);
-  assert.match(container.textContent,/1 个物理 GPU/);
+  assert.equal(disclosure('登记模拟设备').open,false);
+  assert.match(container.textContent,/1 张 GPU/);
   assert.doesNotMatch(container.textContent,/other-node|other-card/);
   const checkboxes=container.querySelectorAll('input[type=checkbox]');assert.equal(checkboxes.length,1);
   await interact(()=>checkboxes[0].click());
@@ -74,17 +74,17 @@ test('unknown recall response blocks both button retry and a repeated form submi
   await interact(()=>form.dispatchEvent(new dom.window.Event('submit',{bubbles:true,cancelable:true})));
   assert.equal(button('发送收回通知').disabled,true);
   await interact(()=>form.dispatchEvent(new dom.window.Event('submit',{bubbles:true,cancelable:true})));
-  assert.equal(requests.length,1);assert.match(container.textContent,/结果尚不确定/);
+  assert.equal(requests.length,1);assert.match(container.textContent,/请刷新设备状态确认收回结果/);
 });
 
 test('unknown contribution registration blocks resubmission while its configuration remains available',async()=>{
   globalThis.fetch=async(path,options)=>{requests.push({path,options});if(options.method==='POST')throw new TypeError('synthetic dropped response');return json({...base,items:[],nodes:[]});};
   await render(service(<ResourcesPage api={api()}/>));
-  const advanced=disclosure('高级 · 登记模拟供给');const textarea=advanced.querySelector('textarea');
+  const advanced=disclosure('登记模拟设备');const textarea=advanced.querySelector('textarea');
   await interact(()=>{textarea.value=JSON.stringify(ownNode);});
   const form=advanced.querySelector('form');
   await interact(()=>form.dispatchEvent(new dom.window.Event('submit',{bubbles:true,cancelable:true})));
-  assert.equal(button('登记供给').disabled,true);
+  assert.equal(button('登记设备').disabled,true);
   await interact(()=>form.dispatchEvent(new dom.window.Event('submit',{bubbles:true,cancelable:true})));
   assert.equal(requests.filter(request=>request.options.method==='POST').length,1);
   assert.equal(JSON.parse(textarea.value).node_id,'own-node');
@@ -94,12 +94,12 @@ test('ordinary work events never mount experiments when showExperiments is false
   globalThis.fetch=async(path,options)=>{requests.push({path,options});return json({...base,events:[{event_id:'event-1',event_type:'job.started',logical_time:0,sequence:1}],items:[]});};
   await render(<EventsPage api={api()} intentId="work-one" showExperiments={false}/>);
   assert.deepEqual(requests.map(request=>request.path),['/x/v1/work-intents/work-one']);
-  assert.match(container.textContent,/这项工作的事件.*任务开始运行/s);
+  assert.match(container.textContent,/活动记录.*任务开始运行/s);
   assert.doesNotMatch(container.textContent,/隔离实验记录|运行已登记场景|管理员 · 加载实验目录/);
-  assert.ok(button('导出这项工作的事件'));
+  assert.ok(button('导出记录'));
 });
 
-test('event refresh preserves pagination and the default still provides the legacy experiment entry',async()=>{
+test('event refresh preserves pagination and no longer mounts administrative experiments',async()=>{
   globalThis.fetch=async(path,options)=>{requests.push({path,options});return json({...base,items:path.startsWith('/v1/events')?[{event_id:'event-1',event_type:'job.started',logical_time:0,sequence:1}]:[],has_more:!path.includes('after='),next_after:'next-page'});};
   const client=new ApiClient({owner:'alice',token:'synthetic-events'});
   await render(<EventsPage api={client} showExperiments={false}/>);
@@ -108,5 +108,6 @@ test('event refresh preserves pagination and the default still provides the lega
   assert.equal(requests.at(-1).path,'/v1/events?limit=50&after=next-page');
   assert.match(container.textContent,/第 2 页/);
   await render(<EventsPage api={client}/>);
-  assert.match(container.textContent,/隔离实验记录/);
+  assert.doesNotMatch(container.textContent,/实验|策略评估报告/);
+  assert.ok(requests.every(request=>request.path.startsWith('/v1/events')));
 });

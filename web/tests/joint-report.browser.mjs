@@ -26,22 +26,23 @@ page.on('request', r => {if (/^\/(v1|x\/v1)\//.test(new URL(r.url()).pathname)) 
 page.on('pageerror', e => record.page_errors.push(e.message));
 try {
   await page.goto(base);
-  await page.locator('button.account-trigger').click();
+  await page.getByText('从身份文件连接',{exact:true}).click();
   await page.getByLabel('导入本地身份文件', {exact: true}).setInputFiles(identityPath);
   const account = page.waitForResponse(r => new URL(r.url()).pathname === '/x/v1/session' && r.status() === 200);
   await page.locator('.identity-panel select').selectOption('admin'); await account;
-  await page.getByRole('button', {name: '关闭账户面板', exact: true}).click();
+
   await page.getByRole('button', {name: '工作台', exact: true}).click();
+  await page.getByRole('link',{name:'系统管理',exact:true}).click();
   const reportResponse = page.waitForResponse(r => new URL(r.url()).pathname === '/x/v1/policy-validation');
-  await page.getByRole('link', {name: '实验与报告', exact: true}).click();
+  await page.getByText('策略评估报告',{exact:true}).click();
   const response = await reportResponse; assert.equal(response.status(), 200);
   const report = await response.json();
   assert.equal(report.historical, true);
   assert.equal(report.current_build_acceptance_eligible, false);
-  const panel = page.locator('.panel').filter({has: page.getByRole('heading', {name: 'CP3 策略配对验证', exact: true})});
-  await panel.getByText(/历史实验报告/).waitFor();
+  const panel = page.getByRole('heading',{name:'策略评估报告',exact:true}).locator('xpath=ancestor::section[1]');
+  await panel.getByText(/历史报告/).waitFor();
   const text = await panel.innerText();
-  assert.ok(text.includes('不能作为当前构建验收证据'));
+  assert.ok(text.includes('不用于当前验收'));
   assert.ok(text.includes(Number(report.analysis.comparisons.B2.aggregate.macro_area_ratio).toFixed(4)));
   const artifactId = report.artifact_ids.find(id => id.split(':').at(-1) === 'analysis');
   assert.ok(artifactId);

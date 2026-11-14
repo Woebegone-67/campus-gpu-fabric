@@ -92,12 +92,12 @@ test('the same persisted name appears in details, associated events and decision
   assert.equal(container.querySelector('a[href^="#events"]').getAttribute('href'),`#events?intent=${id}`);
   await render(<EventsPage api={api} intentId={id} showExperiments={false}/>);
   assert.equal(container.querySelector('.event-context strong').textContent,name);
-  assert.match(container.querySelector('.timeline').textContent,/遥感样本验证/);
+  assert.match(container.querySelector('.timeline').textContent,/工作已创建/);
   await input(container.querySelector('.search'),name);
   assert.equal(container.querySelectorAll('.timeline>li').length,1);
   assert.equal(container.querySelector('a[href^="#decisions"]').getAttribute('href'),`#decisions?decision=decision-1&intent=${id}`);
   await render(<DecisionsPage api={api} initialId="decision-1" workId={id}/>);
-  assert.equal(container.querySelector('.event-context strong').textContent,name);
+  assert.equal(container.querySelector('.event-context a').textContent,name);
   assert.equal(container.querySelector('a').getAttribute('href'),`#continuity?intent=${id}`);
   assert.ok(requests.every(({options})=>options.method==='GET'&&options.headers['X-Owner']==='alice'));
 });

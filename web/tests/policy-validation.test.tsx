@@ -18,13 +18,13 @@ afterEach(async()=>{await act(async()=>root.unmount());globalThis.fetch=original
 test('negative target and incomplete semantic coverage remain visible despite complete artifacts',async()=>{
   globalThis.fetch=async()=>json(report);
   await act(async()=>root.render(<PolicyValidation api={api()}/>));
-  assert.match(container.textContent,/1.0500/);assert.match(container.textContent,/当前模型的效果目标未通过/);
-  assert.match(container.textContent,/全部工件已核验/);assert.match(container.textContent,/存在未覆盖项/);
-  assert.match(container.textContent,/当前显示 2 次运行/);
+  assert.match(container.textContent,/1.0500/);assert.match(container.textContent,/效果目标 · ≤ 0.85未通过/);
+  assert.match(container.textContent,/运行记录完整/);assert.match(container.textContent,/存在缺口/);
+  assert.match(container.textContent,/2 条记录/);
   const checkbox=container.querySelector('input[type=checkbox]');
   await act(async()=>checkbox.click());
-  assert.match(container.textContent,/当前显示 1 次运行/);
-  assert.match(container.textContent,/failed/);
+  assert.match(container.textContent,/1 条记录/);
+  assert.match(container.textContent,/失败/);
 });
 test('historical reports disclose original audit scope and never claim current acceptance',async()=>{
   globalThis.fetch=async()=>json({...report,partition:'validation',historical:true,
@@ -32,15 +32,15 @@ test('historical reports disclose original audit scope and never claim current a
     current_build_acceptance_eligible:false,
     integrity_scope:'manifest_index_analysis; artifacts_verified_on_download'});
   await act(async()=>root.render(<PolicyValidation api={api()}/>));
-  assert.match(container.textContent,/历史实验报告/);
-  assert.match(container.textContent,/不能作为当前构建验收证据/);
-  assert.match(container.textContent,/原运行审核结果/);
-  assert.match(container.textContent,/原审核记录完整/);
-  assert.match(container.textContent,/每个工件在下载时核验原始字节/);
+  assert.match(container.textContent,/历史报告/);
+  assert.match(container.textContent,/不用于当前验收/);
+  assert.match(container.textContent,/原运行记录/);
+  assert.match(container.textContent,/原运行记录完整/);
+  assert.match(container.textContent,/manifest_index_analysis; artifacts_verified_on_download/);
   assert.match(container.textContent,/original-run/);
   assert.match(container.textContent,/current-ui/);
   assert.doesNotMatch(container.textContent,/全部工件已核验/);
-  assert.match(container.textContent,/原实验模型的效果目标未通过/);
+  assert.match(container.textContent,/原实验目标 · ≤ 0.85未通过/);
 });
 test('a stale report refresh clears the prior score and downloads',async()=>{
   let reads=0;globalThis.fetch=async()=>++reads===1?json(report):json({error:'invalid_evidence',detail:'Build mismatch'},409);
@@ -53,7 +53,7 @@ test('a stale report refresh clears the prior score and downloads',async()=>{
 test('unexecuted suite displays no numerical target or fabricated success',async()=>{
   globalThis.fetch=async()=>json({status:'NOT_RUN',analysis:null,runs:[]});
   await act(async()=>root.render(<PolicyValidation api={api()}/>));
-  assert.match(container.textContent,/尚无完整分析/);assert.doesNotMatch(container.textContent,/全部工件已核验/);
+  assert.match(container.textContent,/暂无分析报告/);assert.doesNotMatch(container.textContent,/运行记录完整/);
 });
 
 test('partial development runs cannot be presented as a formal target pass',async()=>{
@@ -63,14 +63,14 @@ test('partial development runs cannot be presented as a formal target pass',asyn
     build:{git_commit:'development-build'},analysis:{...report.analysis,target_met:true,evidence_complete:false},
     runs});
   await act(async()=>root.render(<PolicyValidation api={api()}/>));
-  assert.match(container.textContent,/开发回归结果，仅用于功能检查/);
-  assert.match(container.textContent,/开发回归不作正式目标判定/);
-  assert.match(container.textContent,/登记 50 \/ 50 次运行；完成 5 次/);
+  assert.match(container.textContent,/开发回归/);
+  assert.match(container.textContent,/不作正式判定/);
+  assert.match(container.textContent,/已完成 5 \/ 50 次运行/);
   assert.match(container.textContent,/未齐全/);
   assert.match(container.textContent,/not_run/);
   assert.doesNotMatch(container.textContent,/当前模型的效果目标通过/);
   await act(async()=>container.querySelector('input[type=checkbox]').click());
-  assert.match(container.textContent,/当前显示 45 次运行/);
+  assert.match(container.textContent,/45 条记录/);
 });
 
 test('switching identity aborts a pending admin download and ignores its late response',async()=>{
@@ -87,7 +87,7 @@ test('switching identity aborts a pending admin download and ignores its late re
         // Deliberately ignore abort, as a response/body may already be arriving.
         return new Promise(resolve=>{resolveDownload=resolve;});
       }
-      return json(report);
+      return options.headers.Authorization==='Bearer synthetic-bob'?json({error:'not_found',detail:'Report not found'},404):json(report);
     };
     await act(async()=>root.render(<div key="admin"><PolicyValidation api={api()}/></div>));
     await act(async()=>[...container.querySelectorAll('button')].find(b=>b.textContent==='下载配对分析报告').click());
@@ -99,7 +99,7 @@ test('switching identity aborts a pending admin download and ignores its late re
     assert.doesNotMatch(container.textContent,/1.0500|下载配对分析报告/);
     await act(async()=>resolveDownload(new Response('{"admin_only_record":18446744073709551615}\n',{status:200})));
     assert.equal(downloads.length,0,'the old identity must not create any download blob');
-    assert.doesNotMatch(container.textContent,/admin_only_record|工件读取失败|HTTP/);
+    assert.doesNotMatch(container.textContent,/admin_only_record|文件读取失败/);
   }finally{
     URL.createObjectURL=create;URL.revokeObjectURL=revoke;
     dom.window.HTMLAnchorElement.prototype.click=click;

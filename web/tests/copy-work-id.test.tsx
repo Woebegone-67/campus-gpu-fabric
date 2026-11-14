@@ -100,21 +100,25 @@ test('clipboard completion after unmount is ignored',async()=>{
   await act(async()=>finish());assert.equal(container.textContent,'');
 });
 
-test('work lists copy without opening a work and the detail header exposes copy outside disclosures',async()=>{
+test('work lists copy without opening a work and the detail keeps its full ID copy in technical details',async()=>{
   const api=new ApiClient({owner:'alice',token:'synthetic-copy-test'});let opened=0;
   await render(<RunPage api={api} onOpen={()=>opened++}/>);
   await click(copyButton());assert.equal(opened,0);assert.deepEqual(copied,[fullId]);
   await render(<ContinuityPage api={api} initialId={fullId}/>);
-  const button=copyButton();assert.ok(button);assert.equal(button.closest('details'),null);assert.ok(button.closest('.panel-heading'));
+  const button=copyButton();assert.ok(button);
+  const details=button.closest('details');assert.ok(details);
+  assert.equal(details.querySelector('summary').textContent,'技术详情');assert.equal(details.open,false);
+  assert.equal(Boolean(button.closest('.panel-heading')),false);
+  await click(details.querySelector('summary'));assert.equal(details.open,true);
   await click(button);assert.deepEqual(copied,[fullId,fullId]);
   assert.ok(requests.every(({options})=>options.method==='GET'));
 });
 
-test('overview copy controls are siblings of navigation links and keep their destinations',async()=>{
+test('overview shows the work name and correct destination without an inline ID copy control',async()=>{
   const api=new ApiClient({owner:'alice',token:'synthetic-copy-overview'});
   await render(<AccountContext.Provider value={{actor_id:'alice',owner_id:'alice',capabilities:['use_compute'],is_administrator:false}}><OverviewPage api={api}/></AccountContext.Provider>);
-  const button=copyButton();assert.ok(button);assert.equal(button.closest('a'),null);
+  assert.equal(Boolean(copyButton()),false);
   const link=container.querySelector('.overview-work-row');assert.match(link.getAttribute('href'),new RegExp(fullId));
-  await click(button);assert.deepEqual(copied,[fullId]);assert.equal(window.location.hash,'');
+  assert.match(link.textContent,/可命名工作/);assert.deepEqual(copied,[]);assert.equal(window.location.hash,'');
   assert.ok(requests.every(({options})=>options.method==='GET'));
 });

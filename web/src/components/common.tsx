@@ -1,4 +1,4 @@
-import {useState, type ReactNode} from 'react';
+import {useRef,useState, type ReactNode} from 'react';
 import {ApiError, ApiClient, object, text, versionOf, type ApiResult, type JsonObject} from '../api';
 import type {QueryState} from '../hooks';
 import {MotionReveal} from '../motion';
@@ -11,6 +11,7 @@ const labels: Record<string, string> = {
   manual_action: '需要处理', committed: '已提交', rejected: '已拒绝', noop: '无新增效果', success: '已完成', failure: '失败', stopped: '已停止', created: '已登记', starting: '正在启动',
   ready: '收到 ready 报告', verified: '已核验', unverified: '未核验', applied: '已接续', not_attempted: '未接续',
   MET: '已通过', NOT_MET: '未通过', NOT_RUN: '未运行', available: '可用', occupied: '占用', unavailable: '不可用',
+  Ready:'在线', NotReady:'离线', Down:'离线', Draining:'收回中',
   legal: '可行', infeasible: '不可行', unexamined: '未检查',
 };
 export function Status({value}: {value: unknown}) {
@@ -18,19 +19,19 @@ export function Status({value}: {value: unknown}) {
   return <span className={`status status-${key.toLowerCase()}`}>{labels[key] || key}</span>;
 }
 export function ErrorNotice({error}: {error: ApiError}) {
-  const pending = error.status === 501;
-  const unavailable = error.status === 503;
-  const title = pending ? '此能力等待后端接入' : unavailable ? '服务暂时不可用' : error.status === 403 || error.status === 401 ? '当前身份无权访问' : '请求未完成';
-  return <div className={`feedback ${pending || unavailable ? 'warning' : 'error'}`} role="alert"><strong>{title}</strong><p>{error.message}</p><small>{error.status ? `HTTP ${error.status}` : '连接或响应中断'}{error.requestId ? ` · 请求 ${error.requestId}` : ''}</small></div>;
+  const code=text(object(error.data).error,text(object(object(error.data).error).code,''));
+  const messages:Record<string,string>={restart_budget_exhausted:'可恢复次数已用完。',lease_expired:'租约已到期。',lease_unavailable:'当前资源暂不可用。',stale_version:'状态已更新，请刷新后再操作。',epoch_changed:'实例已更新，请重新打开这项工作。'};
+  const message=messages[code]??({401:'请重新连接账户。',403:'当前账户不能执行此操作。',404:'找不到这条记录。',501:'此操作暂不可用。',503:'服务暂时不可用，请稍后重试。'} as Record<number,string>)[error.status]??error.message;
+  return <div className={`feedback ${error.status===503?'warning':'error'}`} role="alert"><strong>{error.uncertain?'暂未确认结果':'操作未完成'}</strong><p>{message}</p><details className="raw"><summary>错误详情</summary><p>{error.message}</p><small>{error.status?`HTTP ${error.status}`:'连接中断'}{error.requestId?` · ${error.requestId}`:''}</small></details></div>;
 }
 export function QueryFeedback({query, empty, children}: {query: QueryState; empty?: boolean; children: ReactNode}) {
-  if (query.loading && query.data === null) return <div className="empty" role="status">正在读取服务端状态…</div>;
+  if (query.loading && query.data === null) return <div className="empty" role="status">加载中…</div>;
   if (query.error && query.data === null) return <ErrorNotice error={query.error}/>;
   if (query.data === null) return null;
-  return <><p className="helper query-refreshing" role="status">{query.loading?'正在更新，当前显示上次读取的结果。':''}</p>{query.error&&<div className="feedback warning" role="status"><strong>本次更新未完成</strong><p>保留上次读取的结果{query.receivedAt?`（${new Date(query.receivedAt).toLocaleTimeString()}）`:''}。这不代表工作失败。</p><details><summary>连接详情</summary><ErrorNotice error={query.error}/></details></div>}<MotionReveal trigger={query.data}>{empty?<div className="empty">当前授权范围内没有记录。新记录会在服务端接受后显示。</div>:children}</MotionReveal></>;
+  return <>{query.loading&&<p className="helper query-refreshing" role="status">更新中…</p>}{query.error&&<div className="feedback warning" role="status"><strong>未能更新</strong><p>显示 {query.receivedAt?new Date(query.receivedAt).toLocaleTimeString():'上次'} 的记录。</p><details><summary>错误详情</summary><ErrorNotice error={query.error}/></details></div>}<MotionReveal trigger={query.data}>{empty?<div className="empty">暂无记录</div>:children}</MotionReveal></>;
 }
 export function LookupStatus({query}: {query: QueryState}) {
-  return <p className="helper lookup-status" role="status" aria-live="polite">{query.loading ? '正在查询…' : query.receivedAt ? `已读取服务端状态 · 本机 ${new Date(query.receivedAt).toLocaleTimeString()}` : ''}</p>;
+  return query.loading||query.receivedAt?<p className="helper lookup-status" role="status" aria-live="polite">{query.loading?'更新中…':`更新于 ${new Date(query.receivedAt!).toLocaleTimeString()}`}</p>:null;
 }
 export function Metadata({data}: {data: unknown}) {
   const version = versionOf(data);
@@ -38,7 +39,7 @@ export function Metadata({data}: {data: unknown}) {
   if (!version && now === undefined) return null;
   return <div className="metadata">{version && <span>版本 {version.epoch}:{version.revision}</span>}{now !== undefined && <span>逻辑时间 {text(now)} s</span>}</div>;
 }
-export function RawData({data, label = '查看服务端原始记录'}: {data: unknown; label?: string}) {
+export function RawData({data, label = '技术详情'}: {data: unknown; label?: string}) {
   return <details className="raw"><summary>{label}</summary><pre>{JSON.stringify(data, null, 2)}</pre></details>;
 }
 export function Panel({title, description, actions, children}: {title: string; description?: string; actions?: ReactNode; children: ReactNode}) {
@@ -49,19 +50,21 @@ export function ActionButton({api, path, method = 'POST', body, children, confir
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<ApiError | null>(null);
   const [result, setResult] = useState<ApiResult | null>(null);
+  const inFlight=useRef(false);
   async function run() {
+    if(disabled||inFlight.current||error?.uncertain)return;
     if (confirmation && !window.confirm(confirmation)) return;
-    setBusy(true); setError(null); setResult(null);
+    inFlight.current=true;setBusy(true); setError(null); setResult(null);
     try { const response=await (request ? request() : api.request(path, {method, body}));setResult(response);onResult?.(response);onDone?.(); }
     catch (error) { setError(error instanceof ApiError ? error : new ApiError('操作失败', 0)); }
-    finally { setBusy(false); }
+    finally { inFlight.current=false;setBusy(false); }
   }
-  return <div className="action-unit"><button className="button" disabled={disabled || busy || Boolean(error?.uncertain)} onClick={run}>{busy ? '处理中…' : children}</button>{error && <ErrorNotice error={error}/>} {error?.uncertain&&<p className="helper">结果尚不确定，已阻止重复提交。请先刷新当前状态，再决定下一步。</p>}{result && <Receipt result={result}/>}</div>;
+  return <div className="action-unit"><button className="button" disabled={disabled || busy || Boolean(error?.uncertain)} onClick={run}>{busy ? '处理中…' : children}</button>{error && <ErrorNotice error={error}/>} {error?.uncertain&&<p className="helper">请先刷新确认结果。</p>}{result && <Receipt result={result}/>}</div>;
 }
 export function Receipt({result}: {result: ApiResult}) {
   const receipt = object(object(result.data).receipt ?? object(result.data).commit_receipt ?? result.data);
   const rejected=receipt.outcome==='rejected',error=object(receipt.error);
-  return <div className={`feedback ${rejected?'error':result.status===202||receipt.outcome==='noop'?'warning':'success'}`} role={rejected?'alert':'status'}><strong>{rejected?'服务端拒绝了本次操作':result.status === 202 ? '服务已接受请求，最终状态以查询结果为准' : '已收到服务端回执'}</strong>{receipt.outcome !== undefined && <p><Status value={receipt.outcome}/></p>}{rejected&&<p>{text(error.code,'未提供错误码')} · {text(error.detail,'请查看操作回执。')}</p>}<small>HTTP {result.status}{result.requestId ? ` · ${result.requestId}` : ''}</small><RawData data={result.data} label="查看操作回执"/></div>;
+  return <div className={`feedback ${rejected?'error':'success'} receipt-compact`} role={rejected?'alert':'status'}><strong>{rejected?'操作未完成':receipt.outcome==='noop'?'无需更改':'已提交'}</strong>{rejected&&<p>{text(error.detail,'请查看错误详情。')}</p>}<details className="raw"><summary>操作记录</summary><small>HTTP {result.status}{result.requestId?` · ${result.requestId}`:''}</small><pre>{JSON.stringify(result.data,null,2)}</pre></details></div>;
 }
 export function Field({label, children, help}: {label: string; children: ReactNode; help?: string}) { return <label className="field"><span>{label}</span>{children}{help && <small>{help}</small>}</label>; }
 export function Table({columns, rows, rowKey}: {columns: {label: string; render: (row: JsonObject) => ReactNode}[]; rows: JsonObject[]; rowKey: (row: JsonObject, index: number) => string}) {

@@ -13,6 +13,7 @@ for (const name of ['window', 'document', 'navigator', 'location', 'Element', 'H
 }
 globalThis.requestAnimationFrame = dom.window.requestAnimationFrame.bind(dom.window);
 globalThis.cancelAnimationFrame = dom.window.cancelAnimationFrame.bind(dom.window);
+dom.window.HTMLElement.prototype.scrollIntoView = function() {};
 globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 const React = await import('react');
 const {act} = React;
@@ -112,27 +113,27 @@ test('a local admin label grants no workspace before a trusted session and no ad
   const pending = deferred();
   intercept = request => request.path === '/x/v1/session' ? pending.promise : undefined;
   await mount(); await connect();
-  assert.match(container.textContent, /正在确认账户能力/);
+  assert.match(container.textContent, /正在连接/);
   assert.equal(container.querySelector('.space-body'), null);
   assert.deepEqual(requests.filter(request => request.path.startsWith('/x/v1/')).map(request => request.path), ['/x/v1/session']);
   await act(async () => pending.resolve(json(account('alice'))));
   const navigation = container.querySelector('nav[aria-label="工作台导航"]');
   assert.match(navigation.textContent, /我的工作/);
-  assert.doesNotMatch(navigation.textContent, /系统与验收|实验与报告|我的设备/);
-  assert.match(container.textContent, /alice-private-image/);
+  assert.doesNotMatch(navigation.textContent, /系统管理|实验与报告|我的设备/);
+  assert.match(container.textContent, /alice-private-work/);
   assert.equal(dom.window.localStorage.length, 0); assert.equal(dom.window.sessionStorage.length, 0);
 });
 
 test('a pure administrator opening #run sees the capability notice and receives no compute workspace', async () => {
   sessions.set('alice', {actor_id: 'pure-administrator', owner_id: null,
     capabilities: [], is_administrator: true});
-  await mount('#run'); await connect();
+  await mount('#run?new=1'); await connect();
   assert.match(workbench().textContent, /此账户未获得该能力/);
   assert.equal(workbench().querySelector('input[name=cpu]'), null);
   assert.doesNotMatch(workbench().textContent, /提交一项工作/);
   assert.equal(requests.some(request => /work-intents|\/v1\/jobs|\/v1\/allocations/.test(request.path)), false);
   const navigation = container.querySelector('nav[aria-label="工作台导航"]');
-  assert.match(navigation.textContent, /系统与验收/);
+  assert.match(navigation.textContent, /系统管理/);
   assert.doesNotMatch(navigation.textContent, /我的工作/);
 });
 
@@ -142,7 +143,7 @@ test('changing identity clears prior data immediately, aborts hidden reads, and 
     if (request.owner === 'alice' && request.path.startsWith('/x/v1/work-intents?')) {oldRequest = request; return old.promise;}
     if (request.owner === 'bob' && request.path === '/x/v1/session') return newSession.promise;
   };
-  await mount('#run'); await connect();
+  await mount('#run?new=1'); await connect();
   const draft = workbench().querySelector('input[name=cpu]'); await enter(draft, '2048');
   await choose('bob');
   assert.equal(oldRequest.signal.aborted, true);
@@ -150,7 +151,7 @@ test('changing identity clears prior data immediately, aborts hidden reads, and 
   await act(async () => old.resolve(json({...snapshot, items: [work('alice')]})));
   assert.doesNotMatch(container.textContent, /alice-private-work|alice-private-image/);
   await act(async () => newSession.resolve(json(account('bob'))));
-  assert.match(workbench().textContent, /bob-private-image/);
+  assert.match(workbench().textContent, /bob-private-work/);
   assert.doesNotMatch(workbench().textContent, /alice-private-work|alice-private-image/);
   assert.equal(workbench().querySelector('input[name=cpu]').value, '1000', 'drafts do not cross identities');
 });
@@ -159,7 +160,8 @@ test('temporary session failure retains drafts but disables submission, includin
   let unhealthy = true, failSession = false;
   intercept = request => request.path === '/healthz' && unhealthy ? json({error: 'unavailable'}, 503)
     : request.path === '/x/v1/session' && failSession ? json({error: 'temporarily_unavailable'}, 503) : undefined;
-  await mount('#run'); await connect();
+  await mount('#run?new=1'); await connect();
+  await interact(()=>{workbench().querySelector('.work-supporting-records').open=true;});
   const originalWorkspace = workbench(), draft = originalWorkspace.querySelector('input[name=cpu]');
   await enter(draft, '2048');
   const filter = originalWorkspace.querySelector('[aria-label="筛选当前页工作"]'); await enter(filter, 'private-image');
@@ -183,8 +185,8 @@ test('session authorization rejection clears the prior workspace instead of pres
   let unhealthy = true, revoked = false;
   intercept = request => request.path === '/healthz' && unhealthy ? json({error: 'unavailable'}, 503)
     : request.path === '/x/v1/session' && revoked ? json({error: 'forbidden'}, 403) : undefined;
-  await mount('#run'); await connect();
-  assert.match(workbench().textContent, /alice-private-image/);
+  await mount('#run?new=1'); await connect();
+  assert.match(workbench().textContent, /alice-private-work/);
   revoked = true; unhealthy = false;
   await interact(() => button('重新连接').click());
   assert.equal(container.querySelector('.space-body'), null);
@@ -196,7 +198,7 @@ for (const entry of ['space button', 'sidebar link']) {
   test(`a contribution-only account enters its devices through the ${entry}`, async () => {
     await mount(); await connect('contributor');
     if (entry === 'space button') await space('工作台');
-    else await interact(() => container.querySelector('nav[aria-label="空间"] a:last-child').click());
+    else await interact(() => container.querySelector('nav[aria-label="工作台导航"] a[href="#resources"]').click());
     assert.equal(location.hash, '#resources');
     assert.equal(workbench().hidden, false); assert.match(workbench().textContent, /contributor-node/);
     assert.doesNotMatch(workbench().textContent, /此账户未获得该能力|提交一项工作/);
@@ -222,7 +224,8 @@ test('hidden workbench reads abort while the form and filters remain available o
   intercept = request => {
     if (request.path.startsWith('/v1/allocations?') && !allocationRequest) {allocationRequest = request; return pending.promise;}
   };
-  await mount('#run'); await connect();
+  await mount('#run?new=1'); await connect();
+  await interact(()=>{workbench().querySelector('.work-supporting-records').open=true;});
   const draft = workbench().querySelector('input[name=cpu]'); await enter(draft, '3072');
   const filter = workbench().querySelector('[aria-label="筛选当前页工作"]'); await enter(filter, 'private-image');
   await space('总览'); assert.equal(allocationRequest.signal.aborted, true);
@@ -247,16 +250,20 @@ test('a new epoch resets workspace context and rejects both late and newly retur
     }
     if (request.path.startsWith('/v1/jobs?')) return json({version: {epoch: currentEpoch, revision: 7}, now: 10, items: []});
   };
-  await mount('#run'); await connect();
+  await mount('#run?new=1'); await connect();
+  await interact(()=>{workbench().querySelector('.work-supporting-records').open=true;});
   const previousWorkspace = workbench(), draft = previousWorkspace.querySelector('input[name=cpu]');
   await enter(draft, '6144');
-  assert.match(previousWorkspace.textContent, /epoch-0-image/);
+  assert.match(previousWorkspace.textContent, /epoch-0-work/);
   currentEpoch = 1;
   await interact(() => button('刷新', previousWorkspace.querySelector('.panel')).click());
   assert.notEqual(workbench(), previousWorkspace, 'a reset does not retain the previous instance context');
   assert.equal(workbench().querySelector('input[name=cpu]').value, '1000');
-  assert.match(workbench().textContent, /epoch-1-image/);
+  assert.match(workbench().textContent, /epoch-1-work/);
+  await interact(()=>{workbench().querySelector('.work-supporting-records').open=true;});
+  await space('总览');
   assert.equal(pendingRequest.signal.aborted, true);
+  await space('工作台');
   await act(async () => oldAllocation.resolve(json({...snapshot, items: [{allocation_id: 'epoch-zero-late-lease', state: 'Running'}]})));
   assert.doesNotMatch(container.textContent, /epoch-zero-late-lease|epoch-0-image/);
   staleWork = true;
@@ -277,4 +284,33 @@ test('the account write guard blocks direct mutations and composite actions befo
   }
   assert.equal(requests.length, 0);
   await api.request('/healthz'); assert.equal(requests.length, 1);
+});
+
+
+test('one primary connection flow and account menu keep preferences out of the header',async()=>{
+  await mount();
+  assert.equal(container.querySelector('.identity-manual').closest('[hidden]'),null);
+  assert.equal(container.querySelector('.identity-import').open,false);
+  await enter(container.querySelector('input[name=account]'),'alice');
+  await enter(container.querySelector('input[name=credential]'),'synthetic-alice');
+  await interact(()=>button('连接账户',container.querySelector('.identity-manual')).click());
+  assert.ok(container.querySelector('.space-body'));
+  const menu=container.querySelector('#account-panel');assert.equal(menu.hidden,true);
+  assert.equal(container.querySelector('.topbar').querySelector('.sw-motion-control'),null);
+  assert.doesNotMatch(container.querySelector('.topbar').textContent,/显示设置|显示偏好/);
+  assert.doesNotMatch(container.querySelector('.sidebar').textContent,/临时共享|持续接续/);
+  await interact(()=>container.querySelector('.account-trigger').click());
+  assert.equal(menu.hidden,false);assert.equal(menu.querySelector('.account-preferences').open,false);
+  assert.match(menu.textContent,/逻辑模拟/);
+  await interact(()=>document.dispatchEvent(new dom.window.KeyboardEvent('keydown',{key:'Escape',bubbles:true})));
+  assert.equal(menu.hidden,true);assert.equal(document.activeElement,container.querySelector('.account-trigger'));
+  await interact(()=>container.querySelector('.account-trigger').click());
+  await interact(()=>button('切换账户',menu).click());
+  assert.equal(container.querySelector('.identity-manual').closest('[hidden]'),null);
+  await interact(()=>container.querySelector('.account-trigger').click());
+  await interact(()=>container.querySelector('.account-trigger').click());
+  await interact(()=>button('断开连接',menu).click());
+  assert.equal(container.querySelector('.space-body'),null);
+  assert.equal(container.querySelector('input[name=credential]').value,'');
+  assert.equal(dom.window.localStorage.length,0);assert.equal(dom.window.sessionStorage.length,0);
 });

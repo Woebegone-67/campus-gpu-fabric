@@ -31,12 +31,12 @@ await persist();
 
 async function settle(page,ms=400){await page.waitForTimeout(ms);}
 async function applyIdentity(page){
-  if(!await page.getByLabel('Owner（管理员可留空）',{exact:true}).isVisible())await page.locator('.account-trigger').click();
-  await page.getByLabel('Owner（管理员可留空）',{exact:true}).fill('alice');
-  await page.getByLabel('Bearer token（启用认证时）',{exact:true}).fill('fixture-alice');
-  await page.getByRole('button',{name:'应用身份',exact:true}).click();
+  if(!await page.getByLabel('账户',{exact:true}).isVisible())await page.locator('.account-trigger').click();
+  await page.getByLabel('账户',{exact:true}).fill('alice');
+  await page.getByLabel('访问凭证',{exact:true}).fill('fixture-alice');
+  await page.locator('.identity-manual').getByRole('button',{name:'连接账户',exact:true}).click();
   await page.locator('[data-space-scroll]:visible').waitFor();
-  if(await page.getByLabel('Owner（管理员可留空）',{exact:true}).isVisible())await page.getByRole('button',{name:'关闭账户面板',exact:true}).click();
+  if(await page.getByLabel('账户',{exact:true}).isVisible())await page.getByRole('button',{name:'关闭账户菜单',exact:true}).click();
   await settle(page);
 }
 async function goto(page,hash='#overview'){
@@ -108,7 +108,7 @@ async function check(name,run,options={}){
 
 await check('button-press-release-and-keyboard',async({page})=>{
   await goto(page);
-  const button=page.getByRole('button',{name:'显示设置',exact:true});
+  const button=page.locator('.account-trigger');
   const before=await transformScale(button),box=await button.boundingBox();
   await page.mouse.move(box.x+box.width/2,box.y+box.height/2);await page.mouse.down();
   const pressed=await settledPress(button);
@@ -120,12 +120,12 @@ await check('button-press-release-and-keyboard',async({page})=>{
   await page.mouse.up();const samples=await samplesPromise;
   assert.ok(samples.some(sample=>sample.scale>1.001),'Release should produce a slight overshoot');
   const after=await transformScale(button);assert.ok(Math.abs(after.scale-1)<.003,'Release returns to rest');
-  if(await page.getByRole('button',{name:'关闭显示设置',exact:true}).isVisible())await page.getByRole('button',{name:'关闭显示设置',exact:true}).click();
+  if(await page.getByRole('button',{name:'关闭账户菜单',exact:true}).isVisible())await page.getByRole('button',{name:'关闭账户菜单',exact:true}).click();
   await button.focus();await page.keyboard.down('Space');
   const keyboardPressed=await settledPress(button);assert.ok(keyboardPressed.scale>=.945&&keyboardPressed.scale<=.975,'Keyboard Space has matching press feedback');
   await page.keyboard.up('Space');await settle(page,650);assert.equal(await button.getAttribute('aria-expanded'),'true','Native keyboard activation is preserved');
   await screenshot(page,'1440-button-and-popover');
-  await page.getByRole('button',{name:'关闭显示设置',exact:true}).click();
+  await page.getByRole('button',{name:'关闭账户菜单',exact:true}).click();
   await section(page,'run');
   const search=page.getByRole('textbox',{name:'筛选当前页工作',exact:true});
   await search.focus();
@@ -149,7 +149,7 @@ await check('navigation-slides-and-preserves-draft',async({page})=>{
   const samples=await samplesPromise,after=await selection.boundingBox();
   assert.ok(Math.abs(after.y-before.y)>10,'Selection moves between navigation rows');
   assert.ok(samples.some(s=>s.y>Math.min(before.y,after.y)+2&&s.y<Math.max(before.y,after.y)-2),'Navigation includes intermediate positions');
-  await openDetails(page,'新建工作');await page.locator('input[name=cpu]').fill('1234');
+  await page.getByRole('button',{name:'新建工作',exact:true}).click();await page.locator('input[name=cpu]').fill('1234');
   await page.getByRole('textbox',{name:'筛选当前页工作',exact:true}).fill('校园');
   const switchIndicator=page.locator('.space-switch-selection');
   const switchBefore=await switchIndicator.boundingBox();
@@ -188,7 +188,7 @@ await check('copy-full-id-success-and-failure',async({context,page,fixture})=>{
   await context.addInitScript(()=>{window.__clipboardWrites=[];window.__clipboardFails=false;Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async value=>{window.__clipboardWrites.push(value);if(window.__clipboardFails)throw new DOMException('Synthetic clipboard denial','NotAllowedError');}}});});
   const id='work-4c4b4f5e-b951-4b70-8aac-2dd706cd0f82';
   const work=structuredClone(fixture.works.get(ids.active));work.intent_id=id;work.allocation_ids=[`${id}-lease`];work.job_ids=[`${id}-job`];fixture.works.set(id,work);
-  await goto(page,`#continuity?intent=${id}`);
+  await goto(page,`#continuity?intent=${id}`);await openDetails(page,'技术详情');
   const copy=page.getByRole('button',{name:`复制工作 ID ${id}`,exact:true}).first();await copy.click();
   await page.getByText('已复制完整工作 ID',{exact:true}).first().waitFor();
   assert.equal((await page.evaluate(()=>window.__clipboardWrites)).at(-1),id,'Copy must use the complete ID');
@@ -209,7 +209,7 @@ await check('copy-pending-keyboard-focus-and-reentry',async({context,page})=>{
       return new Promise((resolve,reject)=>window.__clipboardPending.push({resolve,reject}));
     }}});
   });
-  await goto(page,`#continuity?intent=${ids.active}`);
+  await goto(page,`#continuity?intent=${ids.active}`);await openDetails(page,'技术详情');
   const copy=page.getByRole('button',{name:`复制工作 ID ${ids.active}`,exact:true}).first();
   await copy.focus();await page.keyboard.press('Enter');
   await page.waitForFunction(()=>document.querySelector('.work-copy-actions .copy-work-id-button')?.getAttribute('aria-busy')==='true');
@@ -237,27 +237,27 @@ await check('copy-pending-keyboard-focus-and-reentry',async({context,page})=>{
 
 await check('disclosures-button-affordance-keyboard',async({page})=>{
   await goto(page,'#resources');
-  const summary=page.locator('summary').filter({hasText:'高级 · 登记模拟供给'}).first();
+  const summary=page.locator('summary').filter({hasText:'登记模拟设备'}).first();
   await summary.scrollIntoViewIfNeeded();await summary.focus();
   const before=await summary.evaluate(el=>{const style=getComputedStyle(el),after=getComputedStyle(el,'::after');return {height:el.getBoundingClientRect().height,border:style.borderTopWidth,bg:style.backgroundColor,cursor:style.cursor,after:after.content,open:el.parentElement.open};});
   assert.ok(before.height>=40,'Disclosure has a usable button target');assert.ok(Number.parseFloat(before.border)>0,'Disclosure has visible boundary');assert.equal(before.cursor,'pointer');
   await page.keyboard.press('Enter');await settle(page,500);assert.equal(await summary.evaluate(el=>el.parentElement.open),true,'Native Enter opens disclosure');
   await page.keyboard.press('Space');await settle(page,500);assert.equal(await summary.evaluate(el=>el.parentElement.open),false,'Native Space closes disclosure');
-  await page.locator('summary').filter({hasText:'查看可见资源池'}).first().click();await settle(page,500);
+  await page.locator('summary').filter({hasText:'资源池'}).first().click();await settle(page,500);
   await screenshot(page,'1440-disclosure-buttons');
   return {computed:before,native_enter_and_space:true};
 });
 
 await check('reduced-motion',async({page})=>{
   await goto(page);
-  const button=page.getByRole('button',{name:'显示设置',exact:true});const box=await button.boundingBox();
+  const button=page.locator('.account-trigger');const box=await button.boundingBox();
   await page.mouse.move(box.x+box.width/2,box.y+box.height/2);await page.mouse.down();await settle(page,160);
   const pressed=await transformScale(button);assert.ok(Math.abs(pressed.scale-1)<.001,'Reduced motion disables compression');
   await page.mouse.up();await settle(page,40);
   assert.equal(await button.evaluate(el=>el.getAnimations().filter(a=>a.playState==='running').length),0,'Reduced motion disables JS release animations');
   const CSS=await button.evaluate(el=>({transition:getComputedStyle(el).transitionDuration,animation:getComputedStyle(el).animationName}));
   assert.equal(CSS.transition,'0s');assert.equal(CSS.animation,'none');
-  await page.getByRole('button',{name:'关闭显示设置',exact:true}).click();
+  await page.getByRole('button',{name:'关闭账户菜单',exact:true}).click();
   await page.getByRole('button',{name:'工作台',exact:true}).click();await settle(page,40);
   assert.equal(await page.locator('.space-switch-selection').evaluate(el=>el.getAnimations().filter(a=>a.playState==='running').length),0);
   return {pressed,css:CSS};
@@ -265,8 +265,8 @@ await check('reduced-motion',async({page})=>{
 
 for(const width of [1440,390])await check(`responsive-${width}`,async({page})=>{
   await goto(page,'#resources');
-  await openDetails(page,'查看可见资源池');
-  await page.locator('summary').filter({hasText:'高级 · 登记模拟供给'}).first().scrollIntoViewIfNeeded();await settle(page);
+  await openDetails(page,'资源池');
+  await page.locator('summary').filter({hasText:'登记模拟设备'}).first().scrollIntoViewIfNeeded();await settle(page);
   const widths=await page.evaluate(()=>({window:innerWidth,document:document.documentElement.scrollWidth,body:document.body.scrollWidth,main:document.querySelector('main')?.getBoundingClientRect().width,canvas:document.querySelectorAll('canvas').length}));
   assert.ok(widths.document<=width+1&&widths.body<=width+1,`No horizontal viewport overflow: ${JSON.stringify(widths)}`);
   await screenshot(page,`${width}-resources-disclosures`);

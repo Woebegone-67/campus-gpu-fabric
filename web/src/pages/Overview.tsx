@@ -1,9 +1,7 @@
-import {CopyWorkId} from '../components/CopyWorkId';
 import {useState} from 'react';
 import {ApiClient,idOf,items,list,object,text,versionOf,type JsonObject} from '../api';
 import {useQuery} from '../hooks';
 import {useAccount} from '../session';
-import {modeLabel,useService} from '../service';
 import {QueryFeedback,Refresh,Status} from '../components/common';
 import {workHref} from '../navigation';
 import {workName} from '../workName';
@@ -37,9 +35,10 @@ function workAttention(work:JsonObject,allocations:JsonObject[],legal:JsonObject
 }
 function ReadStamp({time}:{time:number|null}){return <small>{time?`上次读取 ${new Date(time).toLocaleTimeString()}`:'尚未读取'}</small>;}
 export function OverviewPage({api}:{api:ApiClient}) {
-  const account=useAccount(),service=useService();
+  const account=useAccount();
   const canUse=account?.capabilities.includes('use_compute')&&Boolean(account.owner_id);
   const canContribute=account?.capabilities.includes('contribute_resources')&&Boolean(account.owner_id);
+  const admin=useQuery(api,account?.is_administrator?'/x/v1/admin/overview':null);
   const works=useQuery(api,canUse?'/x/v1/work-intents?limit=25':null);
   const allocations=useQuery(api,canUse?'/v1/allocations?limit=50':null);
   const contributions=useQuery(api,canContribute?'/x/v1/contributions?limit=50':null);
@@ -56,26 +55,32 @@ export function OverviewPage({api}:{api:ApiClient}) {
   const allAttention=rows.map(row=>workAttention(row,allocationIds(row).flatMap(id=>leaseById.has(id)?[leaseById.get(id)!]:[]),list(object(allocations.data).legal_actions))).filter((entry):entry is Attention=>entry!==null).sort(compareAttention);
   const attention=allAttention.filter(entry=>!dismissedKeys.includes(entry.signature));
   const hiddenCount=allAttention.length-attention.length;
-  const attentionTitle=attention.length?'从这几件事继续':hiddenCount?`本次已收起 ${hiddenCount} 项提示`:scopeIncomplete?'提醒仍需核对':'当前加载范围暂无待处理提示';
-  const refreshAttention=()=>{works.refresh();allocations.refresh();};
-  const current=rows.filter(row=>!terminal.has(text(row.state))).slice(0,5);
-  const results=rows.filter(row=>terminal.has(text(row.state))).sort((a,b)=>(logicalTime(object(b.result).recorded_at)??-Infinity)-(logicalTime(object(a.result).recorded_at)??-Infinity)||idOf(a).localeCompare(idOf(b))).slice(0,3);
+  const [showAll,setShowAll]=useState(false);
+  const attentionIds=new Set(attention.map(entry=>idOf(entry.row)));
+  const current=rows.filter(row=>!terminal.has(text(row.state))&&!attentionIds.has(idOf(row))).slice(0,5);
+  const results=rows.filter(row=>terminal.has(text(row.state))&&!attentionIds.has(idOf(row))).sort((a,b)=>(logicalTime(object(b.result).recorded_at)??-Infinity)-(logicalTime(object(a.result).recorded_at)??-Infinity)||idOf(a).localeCompare(idOf(b))).slice(0,3);
+  const refresh=()=>{works.refresh();allocations.refresh();contributions.refresh();admin.refresh();};
+  const loading=works.loading||allocations.loading||contributions.loading||admin.loading;
+  const adminData=object(admin.data),adminStates=object(adminData.work_by_state),totals=object(object(adminData.capacity).totals);
+  const attentionVisible=attention.length>0||hiddenCount>0||scopeIncomplete;
+  const scopeMessage=!sameEpoch&&workVersion&&allocationVersion?'实例已更新，请刷新。':differentRevision?'状态正在同步，请刷新。':missingLeases?'部分资源状态未载入。':'部分状态未更新。';
   return <div className="overview-layout">
-    <section className="overview-hero"><p className="eyebrow">CAMPUS FABRIC / OVERVIEW</p><h1 tabIndex={-1}>让计算，继续发生。</h1><p>从这里看见进展，回到工作台继续。</p><div className="hero-actions">{canUse&&<a className="button primary" href="#run">进入我的工作 <span aria-hidden>↗</span></a>}{canContribute&&<a className="button" href="#resources">管理我的设备</a>}</div><span className="overview-mode">{modeLabel(service.mode)}{service.mode==='cpu_reference'?' · 固定程序，模拟 GPU 库存':''}</span></section>
-    {!account?.owner_id&&<section className="panel overview-admin"><h2>管理空间已就绪</h2><p>当前账户未绑定个人 Owner。可进入管理工具查看受权的系统数据。</p>{account?.is_administrator&&<a className="button primary" href="#acceptance">打开系统与验收</a>}</section>}
+    <header className="overview-heading"><h1 tabIndex={-1}>{account?.is_administrator?'系统概览':'总览'}</h1><div className="actions"><Refresh onClick={refresh} loading={loading}/>{canUse&&<a className="button primary" href="#run?new=1">新建工作</a>}</div></header>
+    {account?.is_administrator&&<section className="panel overview-admin"><div className="panel-heading"><h2>资源池</h2><a href="#acceptance">系统管理 →</a></div><QueryFeedback query={admin}><dl className="overview-metrics"><div><dt>运行中任务</dt><dd>{text(adminData.running_jobs)}</dd></div><div><dt>等待中的工作</dt><dd>{text(adminStates.waiting,admin.data?'0':'—')}</dd></div><div><dt>可用 GPU</dt><dd>{text(object(totals.available).gpu_count)}</dd></div><div><dt>全部工作</dt><dd>{text(object(adminData.counts).work_intents)}</dd></div></dl>{typeof adminStates.manual_action==='number'&&adminStates.manual_action>0&&<a className="admin-attention" href="#acceptance">{adminStates.manual_action} 项工作需要处理 →</a>}</QueryFeedback></section>}
     {canUse&&<>
-      <section className="panel overview-attention"><div className="panel-heading"><div><p className="eyebrow">需要关注</p><h2>{attentionTitle}</h2></div><Refresh onClick={refreshAttention} loading={works.loading||allocations.loading}/></div><QueryFeedback query={works}>
-        {attention.slice(0,3).map(({row,reason,deadline,signature})=><div className="attention-row" key={signature}><span className="attention-mark" aria-hidden>!</span><div><a href={workHref(idOf(row))}>{reason}</a><p>{workName(row)}<CopyWorkId id={idOf(row)} scope={api} compact/>{deadline!==null?` · 截止 ${deadline} 逻辑秒`:''}</p></div><a className="button quiet" href={workHref(idOf(row))}>查看详情 →</a><button className="link-button attention-dismiss" onClick={()=>setDismissed({scope:scopeKey,keys:[...dismissedKeys,signature]})}>本次收起</button></div>)}
-        {attention.length>3&&<p className="helper">当前显示前 3 项，还有 {attention.length-3} 项提示。按停止待确认、收回通知、需处理、可恢复、未归还排序；同类按截止、发生时间与 ID 排序。</p>}
-        {hiddenCount>0&&<p className="helper">已收起 {hiddenCount} 项提示。<button className="link-button" onClick={()=>setDismissed({scope:scopeKey,keys:[]})}>展开已收起提示</button></p>}
-        {!attention.length&&!hiddenCount&&!scopeIncomplete&&<p className="helper">正常等待无需重复提交；进入工作详情查看已有信息。</p>}
-      </QueryFeedback>
-      <QueryFeedback query={allocations}><></></QueryFeedback>
-      {scopeIncomplete&&<p className="helper" role="status">{!sameEpoch&&workVersion&&allocationVersion?'工作与租约属于不同实例代次，已停止关联。':differentRevision?'工作与租约读取时点不一致，当前提示不代表同一快照。':missingLeases?'部分关联租约不在当前已加载范围内。':'工作或租约尚未完成读取或更新。'} 请进入工作详情核对；未取得的租约不能视为已释放或无需处理。</p>}
-      <div className="overview-scope"><span>仅依据已加载的最多 25 项工作与 50 项授权租约；不是全部待办。两份记录独立读取。</span><span>工作：<ReadStamp time={works.receivedAt}/></span><span>租约：<ReadStamp time={allocations.receivedAt}/></span></div></section>
-      <section className="panel overview-work"><div className="panel-heading"><div><p className="eyebrow">继续工作</p><h2>正在进行</h2></div><a href="#run">打开工作列表 ↗</a></div><QueryFeedback query={works}>{current.length?<div className="overview-work-list">{current.map(row=><div className="overview-work-item" key={idOf(row)}><a className="overview-work-row" href={workHref(idOf(row))}><span className="work-icon" aria-hidden>⌘</span><span className="work-row-copy"><strong>{workName(row)}</strong><small>{text(object(object(row.specification).job).image,'未提供镜像登记信息')}</small></span><Status value={row.state}/><span aria-hidden>↗</span></a><CopyWorkId id={idOf(row)} scope={api} compact/></div>)}</div>:<div className="empty"><p>当前加载的工作没有进行中的项目。</p><a className="button" href="#run">查看或新建工作</a></div>}</QueryFeedback></section>
+      {attentionVisible&&<section className="panel overview-attention"><div className="panel-heading"><h2>{attention.length?`需要处理 · ${attention.length}`:hiddenCount?`已收起 ${hiddenCount} 项提示`:'状态待更新'}</h2>{hiddenCount>0&&<button className="link-button" onClick={()=>setDismissed({scope:scopeKey,keys:[]})}>展开已收起提示</button>}</div>
+        <QueryFeedback query={works}>{(showAll?attention:attention.slice(0,3)).map(({row,reason,deadline,signature})=><div className="attention-row" key={signature}><span className="attention-mark" aria-hidden>!</span><div><a href={workHref(idOf(row))}><strong>{workName(row)}</strong><span className="attention-reason">{reason}</span></a>{deadline!==null&&<p>截止 {deadline} 逻辑秒</p>}</div><button className="link-button attention-dismiss" aria-label={`收起 ${workName(row)} 的提示`} onClick={()=>setDismissed({scope:scopeKey,keys:[...dismissedKeys,signature]})}>本次收起</button></div>)}</QueryFeedback>
+        {attention.length>3&&<button className="link-button attention-more" onClick={()=>setShowAll(value=>!value)}>{showAll?'收起列表':`查看全部 ${attention.length} 项`}</button>}
+        <QueryFeedback query={allocations}><></></QueryFeedback>
+        {scopeIncomplete&&<p className="overview-sync" role="status">{scopeMessage}</p>}
+      </section>}
+      {current.length>0&&<section className="panel overview-work"><div className="panel-heading"><h2>进行中</h2><a href="#run">我的工作 →</a></div><div className="overview-work-list">{current.map(row=><a className="overview-work-row" href={workHref(idOf(row))} key={idOf(row)}><span className="work-row-copy"><strong>{workName(row)}</strong></span><Status value={row.state}/><span aria-hidden>→</span></a>)}</div></section>}
+      {results.length>0&&<section className="panel overview-results"><div className="panel-heading"><h2>最近结束</h2><a href="#run">全部工作 →</a></div>{results.map(row=><a className="overview-result" href={workHref(idOf(row))} key={idOf(row)}><strong>{workName(row)}</strong><Status value={row.state}/><span aria-hidden>→</span></a>)}</section>}
+      {Boolean(works.data)&&!works.error&&rows.length===0&&<section className="overview-empty"><h2>还没有工作</h2></section>}
+      <div className="overview-scope"><span>最近 25 项工作</span>{!attentionVisible&&rows.length>0&&<span>暂无待处理事项</span>}<ReadStamp time={works.receivedAt}/></div>
     </>}
-    {canContribute&&<section className="panel overview-devices"><div className="panel-heading"><div><p className="eyebrow">共享供给</p><h2>我的设备</h2></div><Refresh onClick={contributions.refresh} loading={contributions.loading}/></div><QueryFeedback query={contributions}>{nodes.length?<div className="overview-device-list">{nodes.slice(0,3).map(node=><a href="#resources" className="overview-device" key={idOf(node)}><span className="work-icon" aria-hidden>▦</span><div><strong>{text(node.node_id)}</strong><Status value={node.state}/><p>可用 GPU {text(object(node.available).gpu_count)} / {text(object(node.capacity).gpu_count)}</p>{list(node.devices).filter(d=>!d.profile).map(device=><p key={text(device.device_id)}>{text(device.model)} · {text(device.device_id)} <Status value={device.state}/></p>)}<small>库存记录 · 非实时性能监测</small></div><span aria-hidden>↗</span></a>)}</div>:<div className="empty"><p>当前加载范围内暂无自己的设备。</p><a href="#resources">了解供给接入 →</a></div>}</QueryFeedback><div className="overview-scope"><span>当前已加载的自有节点，最多 50 项。</span><ReadStamp time={contributions.receivedAt}/></div></section>}
-    {canUse&&<section className="panel overview-results"><div className="panel-heading"><div><p className="eyebrow">当前范围内最近记录</p><h2>已结束的工作</h2></div><a href="#run">查看列表 ↗</a></div><QueryFeedback query={works}>{results.length?results.map(row=><div className="overview-result-item" key={idOf(row)}><a className="overview-result" href={workHref(idOf(row))}><span>{workName(row)}</span><Status value={row.state}/><span>核对结果与归还 →</span></a><CopyWorkId id={idOf(row)} scope={api} compact/></div>):<p className="helper">当前加载范围内暂无已结束工作。</p>}</QueryFeedback><p className="helper">按已加载的最多 25 项工作中的结果记录时间倒序，展示最多 3 项；未记录时间的排在最后。工作结束和租约归还是独立状态；工件入口以详情中的真实记录为准。</p></section>}
+    {canContribute&&nodes.length>0&&<section className="panel overview-devices"><div className="panel-heading"><h2>我的设备</h2><a href="#resources">管理设备 →</a></div><div className="overview-device-list">{nodes.slice(0,3).map(node=><a href="#resources" className="overview-device" key={idOf(node)}><div><strong>{text(node.node_id)}</strong><Status value={node.state}/><p>可用 GPU {text(object(node.available).gpu_count)} / {text(object(node.capacity).gpu_count)}</p>{list(node.devices).filter(device=>!device.profile).map(device=><small className="overview-device-state" key={text(device.device_id)}>{text(device.model)} · {text(device.device_id)} <Status value={device.state}/></small>)}</div><span aria-hidden>→</span></a>)}</div></section>}
+    {canContribute&&(contributions.error||contributions.loading)&&<div className="overview-device-feedback"><QueryFeedback query={contributions}><></></QueryFeedback></div>}
+    {canContribute&&!canUse&&!account?.is_administrator&&Boolean(contributions.data)&&!contributions.error&&!nodes.length&&<section className="overview-empty"><h2>尚未共享设备</h2><a href="#resources">我的设备 →</a></section>}
   </div>;
 }

@@ -6,6 +6,8 @@ import {JSDOM} from 'jsdom';
 const dom=new JSDOM('<!doctype html><html><body></body></html>',{url:'http://localhost/'});
 for(const name of ['window','document','navigator','HTMLElement','HTMLInputElement','Event','MouseEvent','FormData'])Object.defineProperty(globalThis,name,{value:dom.window[name],configurable:true,writable:true});
 globalThis.IS_REACT_ACT_ENVIRONMENT=true;
+globalThis.requestAnimationFrame=callback=>setTimeout(()=>callback(0),0);
+dom.window.HTMLElement.prototype.scrollIntoView=function(){};
 const React=await import('react');
 const {act}=React;
 const {createRoot}=await import('react-dom/client');
@@ -34,14 +36,16 @@ beforeEach(()=>{
 afterEach(async()=>{await act(async()=>root.unmount());globalThis.fetch=originalFetch;});
 after(()=>dom.window.close());
 
-test('my work precedes creation, defaults to unfinished and retains current-page filters on refresh',async()=>{
+test('my work precedes creation, defaults to all states and retains current-page filters on refresh',async()=>{
   globalThis.fetch=async(path,options)=>{requests.push({path,options});return json({...base,items:path.startsWith('/x/v1/work-intents')?[work('work-running','running'),work('work-finished','completed'),work('work-waiting','waiting')]:[]});};
   await render(service(<RunPage api={api()} onOpen={()=>{}}/>));
   assert.equal(container.querySelector('h2').textContent,'我的工作');
-  const create=disclosure('新建工作');assert.equal(create.open,false);assert.ok(create.querySelector('form'));
-  assert.equal(container.querySelector('[aria-label="工作状态筛选"]').value,'unfinished');
+  assert.equal(container.querySelector('.work-create').hidden,true);
+  assert.equal(container.querySelector('[aria-label="工作状态筛选"]').value,'all');
+  assert.ok(container.querySelector('[aria-label="查看工作 work-finished"]'));
+  await select(container.querySelector('[aria-label="工作状态筛选"]'),'unfinished');
   assert.equal(container.querySelector('[aria-label="查看工作 work-finished"]'),null);
-  assert.match(container.textContent,/仅筛选当前已加载页：显示 2 \/ 3 项/);
+  assert.equal(container.querySelectorAll('.work-list-identity').length,2);
   await select(container.querySelector('[aria-label="工作状态筛选"]'),'all');
   await input(container.querySelector('[aria-label="筛选当前页工作"]'),'finished');
   assert.ok(container.querySelector('[aria-label="查看工作 work-finished"]'));
@@ -55,6 +59,7 @@ test('my work precedes creation, defaults to unfinished and retains current-page
 test('refresh keeps the selected page and an empty filtered page can show all loaded work',async()=>{
   globalThis.fetch=async(path,options)=>{requests.push({path,options});return json({...base,items:path.startsWith('/x/v1/work-intents')?[work(path.includes('after=')?'work-second':'work-first','completed')]:[],...(path.startsWith('/x/v1/work-intents')&&!path.includes('after=')?{next_cursor:'cursor two'}:{})});};
   await render(service(<RunPage api={api()} onOpen={()=>{}}/>));
+  await select(container.querySelector('[aria-label="工作状态筛选"]'),'unfinished');
   assert.match(container.textContent,/当前页没有符合筛选条件的工作/);
   await interact(()=>button('清除当前页筛选').click());
   assert.ok(container.querySelector('[aria-label="查看工作 work-first"]'));
@@ -66,39 +71,92 @@ test('refresh keeps the selected page and an empty filtered page can show all lo
   assert.ok(container.querySelector('[aria-label="查看工作 work-second"]'));
 });
 
-test('collapsed creation and advanced sections preserve draft inputs and registration metadata',async()=>{
+test('closed creation and advanced sections preserve draft inputs and use fixed execution metadata',async()=>{
   globalThis.fetch=async(path,options)=>{requests.push({path,options});return json(options.method==='POST'?{...base,receipt:{outcome:'committed'}}:{...base,items:[]},options.method==='POST'?201:200);};
   await render(service(<RunPage api={api()} onOpen={()=>{}}/>));
-  const create=disclosure('新建工作');await interact(()=>create.querySelector('summary').click());
+  await interact(()=>button('新建工作').click());
+  const create=container.querySelector('.work-create');
   await input(container.querySelector('input[name=display_name]'),'实验一');
   const cpu=container.querySelector('input[name=cpu]');await input(cpu,'2500');
   await interact(()=>disclosure('高级设置').querySelector('summary').click());
-  await input(container.querySelector('input[name=image]'),'metadata/example:1');
-  await input(container.querySelector('input[name=command]'),'["recorded", "only"]');
+  assert.equal(container.querySelector('input[name=image]').type,'hidden');
+  assert.equal(container.querySelector('input[name=command]').type,'hidden');
   await interact(()=>disclosure('高级设置').querySelector('summary').click());
-  await interact(()=>create.querySelector('summary').click());
+  await interact(()=>button('关闭新建工作').click());
+  assert.equal(create.hidden,true);
   assert.equal(cpu.isConnected,true);assert.equal(cpu.value,'2500');
-  await interact(()=>create.querySelector('summary').click());
+  await interact(()=>button('新建工作').click());
+  assert.equal(create.hidden,false);
   await interact(()=>create.querySelector('form').dispatchEvent(new dom.window.Event('submit',{bubbles:true,cancelable:true})));
   const writes=requests.filter(request=>request.options.method==='POST');assert.equal(writes.length,1);
   const body=JSON.parse(writes[0].options.body);
   assert.equal(body.specification.allocation.request.cpu_millicores,2500);
-  assert.equal(body.specification.job.image,'metadata/example:1');
-  assert.deepEqual(body.specification.job.command,['recorded','only']);
+  assert.equal(body.specification.job.image,'python:3.12-slim');
+  assert.deepEqual(body.specification.job.command,['python','-V']);
+  assert.equal(body.specification.allocation.preemption_mode,'checkpoint');
+  assert.equal(body.settlement_action,'release_on_terminal');
   assert.equal(body.specification.allocation.max_restarts,2);assert.equal(body.specification.job.max_retries,0);
-  assert.match(container.textContent,/当前服务不会执行这些内容/);
+  assert.doesNotMatch(container.textContent,/任务镜像|启动命令|不执行填写/);
 });
 
-test('invalid command opens advanced settings, marks its input and keeps the resource draft',async()=>{
+test('an invalid advanced field opens its section and preserves the resource draft',async()=>{
   await render(service(<CreateWork api={api()} onCreated={()=>{}} onOpen={()=>{}}/>));
-  await input(container.querySelector('input[name=display_name]'),'命令验证');
+  await input(container.querySelector('input[name=display_name]'),'参数验证');
   await input(container.querySelector('input[name=cpu]'),'3500');
-  await input(container.querySelector('input[name=command]'),'invalid JSON');
-  await interact(()=>container.querySelector('form').dispatchEvent(new dom.window.Event('submit',{bubbles:true,cancelable:true})));
+  const retries=container.querySelector('input[name=max_retries]');
+  await input(retries,'-1');
+  await interact(()=>retries.dispatchEvent(new dom.window.Event('invalid',{cancelable:true})));
   assert.equal(disclosure('高级设置').open,true);
-  assert.equal(container.querySelector('input[name=command]').getAttribute('aria-invalid'),'true');
   assert.equal(container.querySelector('input[name=cpu]').value,'3500');
   assert.equal(requests.length,0);
+});
+
+test('creation waits for service capabilities so its first interruption choice defaults to checkpoint recovery',async()=>{
+  const client=api();const page=<RunPage api={client} onOpen={()=>{}}/>;
+  await render(<ServiceContext.Provider value={{mode:null,checkpoint:null,capabilities:{}}}>{page}</ServiceContext.Provider>);
+  await interact(()=>button('新建工作').click());
+  assert.equal(container.querySelector('select[name=preemption]'),null,'unknown capabilities must not freeze a fallback default');
+  await render(service(page));
+  assert.equal(container.querySelector('select[name=preemption]').value,'checkpoint');
+  assert.equal(container.querySelector('select[name=settlement]').value,'release_on_terminal');
+});
+
+test('creation blocks synchronous duplicate submissions and does not reopen or register after an accepted response',async()=>{
+  let resolveWrite;const pending=new Promise(resolve=>{resolveWrite=resolve;});const opened=[];let created=0;
+  globalThis.fetch=async(path,options)=>{requests.push({path,options});return pending;};
+  await render(service(<CreateWork api={api()} onCreated={()=>{created++;}} onOpen={id=>opened.push(id)}/>));
+  await input(container.querySelector('input[name=display_name]'),'单次提交');
+  const form=container.querySelector('form');
+  const submit=()=>form.dispatchEvent(new dom.window.Event('submit',{bubbles:true,cancelable:true}));
+  await interact(()=>{submit();submit();});
+  assert.equal(requests.length,1);
+  const registered=JSON.parse(requests[0].options.body);
+  assert.equal(button('正在登记…').disabled,true);
+  await act(async()=>{resolveWrite(json({...base,receipt:{outcome:'committed'}},201));});
+  assert.equal(created,1);assert.deepEqual(opened,[registered.intent_id]);
+  await interact(submit);
+  assert.equal(requests.length,1);assert.equal(created,1);assert.deepEqual(opened,[registered.intent_id]);
+});
+
+test('unknown registration results keep the original ID and input and block a programmatic resubmission',async()=>{
+  const opened=[];
+  globalThis.fetch=async(path,options)=>{requests.push({path,options});return json({detail:'The response was interrupted.'},503);};
+  await render(service(<CreateWork api={api()} onCreated={()=>assert.fail('unknown results are not success')} onOpen={id=>opened.push(id)}/>));
+  await input(container.querySelector('input[name=display_name]'),'保留此项');
+  await input(container.querySelector('input[name=cpu]'),'2500');
+  const form=container.querySelector('form');
+  const submit=()=>form.dispatchEvent(new dom.window.Event('submit',{bubbles:true,cancelable:true}));
+  await interact(submit);
+  assert.equal(requests.length,1);assert.equal(opened.length,0);
+  const registered=JSON.parse(requests[0].options.body);
+  assert.match(container.textContent,/暂未确认结果/);
+  assert.equal(button('重试同一工作登记').disabled,true);
+  assert.equal(container.querySelector('input[name=display_name]').value,'保留此项');
+  assert.equal(container.querySelector('input[name=cpu]').value,'2500');
+  await interact(submit);
+  assert.equal(requests.length,1,'unknown results require an explicit query, never a blind replay');
+  await interact(()=>button('查询这项工作').click());
+  assert.deepEqual(opened,[registered.intent_id]);
 });
 
 test('finished work promotes only its legal release while keeping the same versioned command',async()=>{
@@ -108,9 +166,10 @@ test('finished work promotes only its legal release while keeping the same versi
   try{
     await render(service(<ContinuityPage api={api()} initialId="work-complete"/>));
     assert.equal(container.querySelector('.work-primary-action button').textContent,'释放租约');
-    assert.equal(disclosure('更多操作').open,false);assert.equal(button('恢复这项工作').disabled,true);
-    assert.equal(disclosure('工作信息与技术详情').open,false);
-    assert.match(container.querySelector('[aria-label="结果与结算"]').textContent,/工作已经结束，租约仍持有资源/);
+    assert.equal([...container.querySelectorAll('button')].some(b=>b.textContent==='恢复这项工作'),false);
+    assert.equal([...container.querySelectorAll('summary')].some(e=>e.textContent==='更多操作'),false);
+    assert.equal(disclosure('技术详情').open,false);
+    assert.match(container.querySelector('[aria-label="结果与结算"]').textContent,/资源尚未归还/);
     await interact(()=>button('释放租约').click());
     const writes=requests.filter(request=>request.options.method==='POST');assert.equal(writes.length,1);
     assert.equal(writes[0].path,'/x/v1/work-intents/work-complete/actions');
@@ -121,15 +180,15 @@ test('finished work promotes only its legal release while keeping the same versi
 test('concise checkpoint summary does not equate a ready report or verified artifact with continuation',async()=>{
   const client=api();
   await render(<CheckpointFacts api={client} checkpoint={{report_status:'ready',verification_status:'unverified',continuation_status:'not_attempted'}}/>);
-  assert.equal(container.querySelector('.checkpoint-summary').textContent,'已收到保存报告，尚未核验保存点。');
+  assert.equal(container.querySelector('.checkpoint-summary').textContent,'正在检查保存点');
   assert.equal(disclosure('保存点记录').open,false);
   await render(<CheckpointFacts api={client} checkpoint={{report_status:'ready',verification_status:'verified',continuation_status:'not_attempted'}}/>);
-  assert.equal(container.querySelector('.checkpoint-summary').textContent,'保存点已核验，尚未确认应用到后续执行。');
+  assert.equal(container.querySelector('.checkpoint-summary').textContent,'进度已保存');
   await render(<CheckpointFacts api={client} checkpoint={{report_status:'ready',verification_status:'verified',continuation_status:'applied'}}/>);
-  assert.equal(container.querySelector('.checkpoint-summary').textContent,'已从保存点继续执行。');
+  assert.equal(container.querySelector('.checkpoint-summary').textContent,'已从保存点继续');
   await render(<CheckpointFacts api={client} checkpoint={{report_status:'ready',verification_status:'failed',continuation_status:'not_attempted'}}/>);
-  assert.match(container.querySelector('.checkpoint-summary').textContent,/核验失败/);
+  assert.match(container.querySelector('.checkpoint-summary').textContent,/保存点无法使用/);
   await render(<CheckpointFacts api={client} checkpoint={{report_status:'ready',verification_status:'verified',continuation_status:'failed'}}/>);
-  assert.match(container.querySelector('.checkpoint-summary').textContent,/接续失败/);
+  assert.match(container.querySelector('.checkpoint-summary').textContent,/恢复失败/);
   assert.equal(requests.length,0);
 });

@@ -16,13 +16,14 @@ assert.ok(base && ['127.0.0.1', 'localhost'].includes(new URL(base).hostname));
 assert.ok(process.env.JOINT_IDENTITIES && process.env.JOINT_EVIDENCE);
 const identitiesPath = resolve(root, process.env.JOINT_IDENTITIES);
 const identities = JSON.parse(await readFile(identitiesPath, 'utf8'));
+const previous = process.env.JOINT_RESUME_RECEIPT ? JSON.parse(await readFile(resolve(root, process.env.JOINT_RESUME_RECEIPT), 'utf8')) : null;
 const out = resolve(root, process.env.JOINT_EVIDENCE);
 await mkdir(out); // Refuse to overwrite earlier evidence.
 const result = {started_at: new Date().toISOString(), base,
   commit: execFileSync('git', ['rev-parse', 'HEAD'], {cwd: root, encoding: 'utf8'}).trim(),
   dirty: execFileSync('git', ['status', '--porcelain', '--untracked-files=no'], {cwd: root, encoding: 'utf8'}).trim(),
   scope: 'Live local CPU reference execution, real Chrome UI and downloads; GPU inventory is simulated.',
-  checks: [], responses: [], errors: [], snapshots: [], unverified: [
+  resumed_from: process.env.JOINT_RESUME_RECEIPT || null, checks: [], responses: [], errors: [], snapshots: [], unverified: [
     'Independent human deployment and A/B cross-operation', 'Physical trackpad, Safari, VoiceOver',
     'Formal CP4 load and performance targets', 'Configured CP3 full-report rendering']};
 const {chromium} = await import(pathToFileURL(resolve(root, 'runtime/starwave-browser/node_modules/playwright-core/index.mjs')));
@@ -54,14 +55,19 @@ async function snapshot(page, name, detail) {
   if (detail) await writeFile(resolve(out, `${name}.json`), JSON.stringify(detail, null, 2));
   result.snapshots.push(name); await save();
 }
-async function login(page, actor) {
+async function login(page, actor, fromFile = false) {
   await page.goto(base);
-  await page.locator('button.account-trigger').click();
-  await page.getByLabel('导入本地身份文件', {exact: true}).setInputFiles(identitiesPath);
   const session = page.waitForResponse(r => new URL(r.url()).pathname === '/x/v1/session' && r.status() === 200);
-  await page.locator('.identity-panel select').selectOption(actor);
+  if (fromFile) {
+    await openDetails(page, '从身份文件连接');
+    await page.getByLabel('导入本地身份文件', {exact: true}).setInputFiles(identitiesPath);
+    await page.locator('.identity-panel select').selectOption(actor);
+  } else {
+    await page.getByLabel('账户', {exact: true}).fill(identities[actor]['X-Owner'] || '');
+    await page.getByLabel('访问凭证', {exact: true}).fill(identities[actor].Authorization.replace(/^Bearer /, ''));
+    await page.locator('.identity-manual').getByRole('button', {name: '连接账户', exact: true}).click();
+  }
   const account = await (await session).json();
-  await control(page, '关闭账户面板').click();
   await page.locator('[data-space-scroll="overview"]').waitFor({state: 'visible'});
   return account;
 }
@@ -100,7 +106,6 @@ async function createWork(page, {checkpoint = false, timeout, model = 'A10', nam
   const response = await submitted;
   const registration = response.request().postDataJSON();
   assert.equal(registration.display_name, name.trim());
-  await control(page, '查询这项工作').click();
   await page.waitForURL(url => url.hash.includes(registration.intent_id));
   return registration.intent_id;
 }
@@ -113,19 +118,23 @@ try {
   const version = await read('alice', '/v1/version');
   assert.equal(version.data.execution_mode, 'cpu_reference');
   const initial = await read('admin', '/x/v1/work-intents?limit=25');
-  assert.equal(initial.data.items.length, 0, 'Use an empty isolated instance, never a human trial instance');
+  if (!previous) assert.equal(initial.data.items.length, 0, 'Use an empty isolated instance, never a human trial instance');
+  else {assert.equal(previous.base, base); assert.ok(previous.recovery_work); assert.ok(previous.checks.some(check => check.name === 'real CPU recall, verified checkpoint, pending resume and applied generation 2' && check.status === 'PASS'));}
   const {page: alice, account} = await newPage('alice');
   const {page: supplier, account: supplierAccount} = await newPage('supplier');
-  await pass('imported accounts accepted by real session endpoint', {account, supplierAccount});
+  await pass('primary account connection accepted by real session endpoint', {account, supplierAccount});
   await snapshot(alice, 'overview-empty');
   const workName = '联合验收 · 中断后继续';
-  const id = await createWork(alice, {checkpoint: true, name: workName}); result.recovery_work = id;
+  let id = previous?.recovery_work;
+  if (!previous) {
+  id = await createWork(alice, {checkpoint: true, name: workName}); result.recovery_work = id;
   const first = await until('alice', id, d => d.item.state === 'running' && d.item.attempts[0]?.started_at != null);
   assert.equal(first.item.display_name, workName);
   await alice.getByRole('heading', {name: workName, exact: true}).waitFor();
   await refresh(alice, id); await snapshot(alice, 'running', first);
   await section(supplier, 'resources');
-  for (const gpu of ['sim-a10-gpu0', 'sim-a10-gpu1']) await supplier.getByRole('checkbox', {name: new RegExp(`^${gpu} `)}).check();
+  await openDetails(supplier, '收回设备');
+  for (const gpu of ['sim-a10-gpu0', 'sim-a10-gpu1']) await supplier.getByRole('checkbox', {name: new RegExp(gpu)}).check();
   await supplier.locator('input[name=notice]').fill('3');
   await supplier.locator('input[name=duration]').fill('15');
   const recalled = supplier.waitForResponse(r => new URL(r.url()).pathname === '/x/v1/contributions/recall' && r.request().method() === 'POST');
@@ -144,12 +153,17 @@ try {
   assert.equal(resumed.item.display_name, workName);
   await refresh(alice, id); await snapshot(alice, 'resumed', resumed);
   await pass('real CPU recall, verified checkpoint, pending resume and applied generation 2', {id});
+  } else {
+    result.recovery_work = id;
+    await alice.evaluate(value => {location.hash = value;}, `#continuity?intent=${id}`);
+    await alice.getByRole('heading', {name: workName, exact: true}).waitFor();
+  }
   const completed = await until('alice', id, d => d.item.state === 'completed' && d.allocations[0].state === 'Released');
   await refresh(alice, id);
-  await control(alice, '查看真实结果 1').click();
-  await alice.getByLabel('查看真实结果 1', {exact: true}).waitFor();
+  await control(alice, '查看结果 1').click();
+  await alice.getByLabel('查看结果 1', {exact: true}).waitFor();
   const downloadPromise = alice.waitForEvent('download');
-  await control(alice, '下载真实结果 1').click(); const download = await downloadPromise;
+  await control(alice, '下载结果 1').click(); const download = await downloadPromise;
   const downloadedPath = resolve(out, download.suggestedFilename()); await download.saveAs(downloadedPath);
   const downloaded = await readFile(downloadedPath);
   const uri = completed.jobs[0].result_uri;
@@ -160,18 +174,17 @@ try {
     'import json,runpy,sys; oracle=runpy.run_path("tests/acceptance/cp3/cp3_cpu_equivalence.py")["oracle"]; x=json.load(open(sys.argv[1])); assert x["state"]==oracle(17,1000000); print("independent 3x3 matrix oracle matched")', downloadedPath], {cwd: root, encoding: 'utf8'}).trim();
   await snapshot(alice, 'completed-released', completed);
   await pass('browser result preview/download preserves bytes and independent integer result', {id, sha256: digest(downloaded), bytes: downloaded.length, oracle});
-  await openDetails(alice, '相关事件与决策');
-  await alice.getByRole('link', {name: /查看关联决策/}).first().click();
+  await pane(alice).getByRole('link', {name: /^分配说明/}).first().click();
   await alice.waitForURL(url => url.hash.startsWith('#decisions?'));
-  await pane(alice).locator('.event-context strong').filter({hasText: workName}).waitFor();
+  await pane(alice).locator('.event-context a').filter({hasText: workName}).waitFor();
   assert.ok(!(await pane(alice).innerText()).includes('请求未完成'));
   await snapshot(alice, 'related-decision');
   await login(alice, 'alice');
   await alice.goto(`${base}/#continuity?intent=${id}`);
   // A full navigation discards credentials by design. Reimport without losing the deep link.
-  await login(alice, 'alice');
+  await login(alice, 'alice', true);
   await alice.evaluate(value => {location.hash = value;}, `#continuity?intent=${id}`);
-  await control(alice, '下载真实结果 1').waitFor();
+  await control(alice, '下载结果 1').waitFor();
   await alice.getByRole('heading', {name: workName, exact: true}).waitFor();
   await pass('named work survives recovery, decision navigation and reimport after refresh', {id, display_name: workName});
   const {page: bob} = await newPage('bob');
@@ -183,17 +196,25 @@ try {
   assert.equal(recallDenied.status, 403);
   await snapshot(bob, 'bob-foreign-work');
   await pass('Bob denied foreign work in UI, foreign download and recall over HTTP', {work_status: 404, artifact_status: 404, recall_status: 403});
-  const failedId = await createWork(alice, {timeout: 2, name: '联合验收 · 超时失败'});
+  const failedId = process.env.JOINT_FAILED_WORK || await createWork(alice, {timeout: 2, name: '联合验收 · 超时失败'});
+  result.failed_work = failedId;
+  if (process.env.JOINT_FAILED_WORK) {
+    assert.ok(previous, 'Existing failed work requires explicit prior-session evidence');
+    await alice.evaluate(value => {location.hash = value;}, `#continuity?intent=${failedId}`);
+    await alice.getByRole('heading', {name: '联合验收 · 超时失败', exact: true}).waitFor();
+  }
   const failed = await until('alice', failedId, d => d.item.state === 'failed' && d.allocations[0].state === 'Released');
-  await refresh(alice, failedId); assert.ok((await pane(alice).innerText()).includes('工作失败'));
-  assert.equal(await control(alice, '下载真实结果 1').count(), 0);
+  assert.equal(failed.item.display_name, '联合验收 · 超时失败');
+  assert.equal(failed.item.specification.job.timeout_seconds, 2);
+  await refresh(alice, failedId); assert.ok((await pane(alice).innerText()).includes('运行超时'));
+  assert.equal(await control(alice, '下载结果 1').count(), 0);
   await snapshot(alice, 'w2-timeout-failed-released', failed);
   await pass('W2 actual CPU timeout fails and releases without a success artifact', {id: failedId, result: failed.item.result});
   const supplierId = await createWork(supplier, {timeout: 2, name: '贡献者也能提交工作'});
   await until('supplier', supplierId, d => d.item.state === 'failed' && d.allocations[0].state === 'Released');
   await pass('same supplier account both recalls owned supply and submits compute', {id: supplierId});
   const {page: admin} = await newPage('admin'); await section(admin, 'acceptance');
-  const overviewPanel = admin.locator('.panel').filter({has: admin.getByRole('heading', {name: '管理员总览', exact: true})});
+  const overviewPanel = admin.locator('.panel').filter({has: admin.getByRole('heading', {name: '系统状态', exact: true})});
   for (let i = 0; i < 10; i++) {
     const response = admin.waitForResponse(r => new URL(r.url()).pathname === '/x/v1/admin/overview');
     await overviewPanel.getByRole('button', {name: '刷新', exact: true}).click(); assert.equal((await response).status(), 200);

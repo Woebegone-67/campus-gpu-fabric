@@ -35,7 +35,7 @@ async function submit(form){await interact(()=>form.dispatchEvent(new dom.window
 async function uploadProfiles(){const input=container.querySelector('input[type=file]');const data=JSON.stringify({admin:{Authorization:'Bearer synthetic-admin'},bob:{Authorization:'Bearer synthetic-bob','X-Owner':'bob'}});Object.defineProperty(input,'files',{value:[{size:data.length,text:async()=>data}],configurable:true});await interact(()=>input.dispatchEvent(new dom.window.Event('change',{bubbles:true})));}
 beforeEach(()=>{
   document.body.innerHTML='<div id="test-root"></div>';
-  container=document.getElementById('test-root');root=createRoot(container);requests=[];
+  container=document.getElementById('test-root');root=createRoot(container);requests=[];window.confirm=()=>true;
   globalThis.fetch=async(path,options)=>{requests.push({path,options});return json({...base,items:[]});};
 });
 afterEach(async()=>{await act(async()=>root.unmount());globalThis.fetch=originalFetch;});
@@ -45,14 +45,14 @@ test('imported admin remains selected after Apply, changed manual credentials lo
   let applied;
   function Harness(){const [identity,setIdentity]=useState({owner:'',token:''});applied=identity;return <><IdentityPicker identity={identity} busy={false} onApply={setIdentity}/>{identity.profile==='admin'&&identity.token&&<span data-testid="clock">模拟时钟入口</span>}</>;}
   await render(<Harness/>);await uploadProfiles();
-  assert.match(container.textContent,/已读取 本地身份文件，共 2 个身份/);
+  assert.match(container.textContent,/已读取 2 个账户/);
   assert.equal(applied.token,'','import does not silently change the active identity');
   await interact(()=>{const select=container.querySelector('select');select.value='admin';select.dispatchEvent(new dom.window.Event('change',{bubbles:true}));});
   assert.ok(container.querySelector('[data-testid=clock]'));
   await submit(container.querySelector('form'));
   assert.equal(applied.profile,'admin');assert.ok(container.querySelector('[data-testid=clock]'));
-  assert.match(container.textContent,/已应用身份 admin/);
-  await enter(field('Bearer token（启用认证时）'),'different-synthetic-token');
+  assert.equal(container.querySelector('select').value,'admin');
+  await enter(field('访问凭证'),'different-synthetic-token');
   await submit(container.querySelector('form'));
   assert.equal(applied.profile,undefined);assert.equal(container.querySelector('[data-testid=clock]'),null);
   assert.equal(requests.length,0,'identity file and tokens are not uploaded');
@@ -64,7 +64,7 @@ test('same work ID submit re-reads once, updates state, and Refresh is not a for
   await render(<ContinuityPage api={api()} initialId="work-1"/>);
   assert.equal(reads,1);assert.match(container.textContent,/运行中/);
   await submit(container.querySelector('form'));
-  assert.equal(reads,2);assert.match(container.textContent,/已完成/);assert.match(container.textContent,/已读取服务端状态/);
+  assert.equal(reads,2);assert.match(container.textContent,/已完成/);assert.match(container.textContent,/更新于/);
   const refresh=button('刷新');assert.equal(refresh.type,'button');
   await interact(()=>refresh.click());assert.equal(reads,3);
 });
@@ -73,7 +73,7 @@ test('work lookup shows loading and failure without retaining a previous result'
   let release;
   globalThis.fetch=async()=>new Promise(resolve=>{release=resolve;});
   await render(<ContinuityPage api={api()} initialId="missing-work"/>);
-  assert.ok(button('正在查询…').disabled);assert.match(container.textContent,/正在读取服务端状态/);
+  assert.ok(button('正在查询…').disabled);assert.match(container.textContent,/加载中/);
   await act(async()=>release(json({error:'not_found',detail:'Work is not visible'},404)));
   assert.match(container.textContent,/HTTP 404/);assert.doesNotMatch(container.textContent,/租约与资源占用/);
 });
@@ -91,26 +91,27 @@ test('work details link to their decisions and events and disclose held lease af
   globalThis.fetch=async()=>json(work('work-1','completed'));
   await render(<ContinuityPage api={api()} initialId="work-1"/>);
   const links=[...container.querySelectorAll('a')];
-  assert.equal(links.find(a=>a.textContent==='查看关联决策').getAttribute('href'),'#decisions?decision=decision-1&intent=work-1');
-  assert.equal(links.find(a=>a.textContent==='查看关联事件').getAttribute('href'),'#events?intent=work-1');
-  assert.match(container.querySelector('[aria-label="租约与资源占用"]').textContent,/已获资源.*任务完成或取消后仍会占用资源/s);
+  assert.equal(links.find(a=>a.textContent==='分配说明').getAttribute('href'),'#decisions?decision=decision-1&intent=work-1');
+  assert.equal(links.find(a=>a.textContent==='活动记录').getAttribute('href'),'#events?intent=work-1');
+  assert.match(container.querySelector('[aria-label="结果与结算"]').textContent,/资源尚未归还/);
 });
 
 test('work event view uses authorized work events, exposes decision links and top export',async()=>{
   globalThis.fetch=async(path)=>{requests.push({path});return json(work('work-1'));};
   await render(<EventsPage api={api()} intentId="work-1"/>);
   assert.deepEqual(requests.map(r=>r.path),['/x/v1/work-intents/work-1']);
-  const exportButton=button('导出这项工作的事件');
+  const exportButton=button('导出记录');
   assert.ok(exportButton.closest('.panel-heading'));
   assert.equal(container.querySelector('a[href^="#decisions"]').getAttribute('href'),'#decisions?decision=decision-1&intent=work-1');
-  assert.match(container.textContent,/筛选只改变页面显示，不改变导出范围/);
+  assert.equal(container.querySelector('details.raw').open,false);
+  assert.equal(container.querySelector('details.raw summary').textContent,'技术详情');
 });
 
 test('same experiment ID submit fetches fresh results',async()=>{
   globalThis.fetch=async(path)=>{requests.push({path});return json(path.startsWith('/v1/events')?{...base,items:[]}:{...base,item:{run_id:'run-1',status:'NOT_RUN',checks:[]}});};
-  await render(<EventsPage api={api()}/>);
-  await enter(field('Run ID'),'run-1');await submit(container.querySelector('form'));
-  await submit(container.querySelector('form'));
+  await render(<Experiments api={api()}/>);
+  await enter(field('Run ID'),'run-1');await submit(field('Run ID').closest('form'));
+  await submit(field('Run ID').closest('form'));
   assert.equal(requests.filter(r=>r.path==='/x/v1/experiments/run-1').length,2);
 });
 
@@ -129,7 +130,6 @@ test('hash navigation opens a decision and changing its parameter loads the othe
   };
   try{
     await render(<App/>);
-    await interact(()=>button('导入或切换账户').click());
     await uploadProfiles();
     await interact(()=>{const select=container.querySelector('.identity-panel select');select.value='bob';select.dispatchEvent(new dom.window.Event('change',{bubbles:true}));});
     assert.equal(field('决策 ID').value,'decision-one');
@@ -148,9 +148,9 @@ test('hash navigation opens a decision and changing its parameter loads the othe
 test('owner-scoped decision explains limited visibility without claiming global rejection',async()=>{
   globalThis.fetch=async()=>json({...base,scope:'owner',item:{decision_id:'decision-own',selected_candidate_id:null,policy:{name:'B0'},coverage:{scope:'partial',examined_count:1},candidates:[{candidate_id:'own-candidate',action:'allocate',feasibility:'legal',scores:[],violations:[]}]},actual_events:[],commit_receipts:[]});
   await render(<DecisionsPage api={api()} initialId="decision-own"/>);
-  assert.match(container.textContent,/仅展示你的候选/);
-  assert.match(container.textContent,/当前授权视图未显示你的需求被选中，这不代表你的需求不可行/);
-  assert.match(container.textContent,/比较分值未公开/);
+  assert.match(container.textContent,/我的候选/);
+  assert.match(container.textContent,/暂无选中方案/);
+  assert.equal([...container.querySelectorAll('th')].some(th=>th.textContent==='比较分值'),false);
   assert.doesNotMatch(container.textContent,/声明覆盖完整候选域/);
 });
 
@@ -178,11 +178,14 @@ test('CPU registration follows declared service mode and sends separate recovery
   globalThis.fetch=async(path,options)=>{requests.push({path,options});return json({receipt:{outcome:'committed'}},202);};
   await render(service('cpu_reference',<CreateWork api={api()} onCreated={()=>{}} onOpen={()=>{}}/>));
   await enter(field('工作名称'),'CPU 参考计算');
-  assert.match(container.textContent,/固定 CPU 参考程序，不执行填写的镜像与命令/);
+  assert.equal(container.querySelector('input[name=image]').type,'hidden');
+  assert.equal(container.querySelector('input[name=command]').type,'hidden');
   await submit(container.querySelector('form'));
   assert.equal(requests.length,1);
   const payload=JSON.parse(requests[0].options.body);
   assert.equal(payload.execution_mode,'cpu_reference');
+  assert.equal(payload.specification.allocation.preemption_mode,'checkpoint');
+  assert.equal(payload.settlement_action,'release_on_terminal');
   assert.equal(payload.specification.allocation.max_restarts,2);
   assert.equal(payload.specification.job.max_retries,0);
   assert.equal(payload.specification.allocation.checkpoint_timeout_seconds,15);
@@ -211,8 +214,8 @@ test('checkpoint facts stay separate; logical report writes only status and refr
   globalThis.fetch=async(path,options)=>{requests.push({path,options});return json(options.method==='POST'?{allocation_id:'lease-1'}:cp2Work());};
   await render(service('logical_simulation',<ContinuityPage api={api()} initialId="work-cp2"/>));
   const facts=container.querySelector('.checkpoint-grid');assert.match(facts.textContent,/收到 ready 报告.*未核验.*未接续/s);
-  assert.equal([...container.querySelectorAll('button')].some(b=>b.textContent==='下载已核验保存点'),false);
-  await interact(()=>button('报告保存 ready').click());
+  assert.equal([...container.querySelectorAll('button')].some(b=>b.textContent==='下载保存点'),false);
+  await interact(()=>button('报告保存成功').click());
   const post=requests.find(r=>r.options.method==='POST');
   assert.equal(post.path,'/v1/allocations/lease-1/checkpoint');assert.deepEqual(JSON.parse(post.options.body),{status:'ready'});
   assert.equal(requests.filter(r=>r.path==='/x/v1/work-intents/work-cp2').length,2);
@@ -222,11 +225,11 @@ test('CPU continuity cannot manually mark checkpoint verified and keeps stopping
   const data=cp2Work('cpu_reference');data.allocations[0].pending_terminal='Released';data.item.attempts[0].state='stopping';
   globalThis.fetch=async()=>json(data);
   await render(service('cpu_reference',<ContinuityPage api={api()} initialId="work-cp2"/>));
-  assert.match(container.textContent,/停止确认前，资源仍由此租约持有/);
-  assert.match(container.textContent,/新代次已登记不代表保存点已应用/);
-  assert.doesNotMatch(container.textContent,/这项工作当前没有持有资源/);
-  assert.equal([...container.querySelectorAll('button')].some(b=>b.textContent==='报告保存 ready'),false);
-  assert.match(container.textContent,/收回恢复预算1 \/ 2/);assert.match(container.textContent,/任务失败重试预算0 \/ 0/);
+  assert.match(container.textContent,/资源将在停止确认后归还/);
+  assert.equal(container.querySelectorAll('.checkpoint-facts .status-applied').length,0);
+  assert.doesNotMatch(container.textContent,/资源已归还/);
+  assert.equal([...container.querySelectorAll('button')].some(b=>b.textContent==='报告保存成功'),false);
+  assert.match(container.textContent,/收回恢复次数1 \/ 2/);assert.match(container.textContent,/失败重试次数0 \/ 0/);
 });
 
 test('resume action uses current work ID and version without creating another job or stage',async()=>{
@@ -246,7 +249,7 @@ test('artifact download uses authenticated registered URI endpoint, rejecting ar
     globalThis.fetch=async(path,options)=>{requests.push({path,options});return new Response(raw,{headers:{'Content-Type':'application/json'}});};
     await render(<><ArtifactDownload api={api()} uri="fabric-cpu://epoch-0/work/result.json"/><ArtifactDownload api={api()} uri="file:///private/arbitrary"/></>);
     assert.equal(container.querySelectorAll('button').length,1);
-    await interact(()=>button('下载真实工件').click());
+    await interact(()=>button('下载文件').click());
     assert.equal(requests[0].path,'/x/v1/artifacts?uri=fabric-cpu%3A%2F%2Fepoch-0%2Fwork%2Fresult.json');
     assert.equal(requests[0].options.headers['X-Owner'],'bob');assert.equal(urls.length,2);assert.equal(await blobs[0].text(),raw);
   }finally{URL.createObjectURL=originalCreate;URL.revokeObjectURL=originalRevoke;dom.window.HTMLAnchorElement.prototype.click=originalClick;}
@@ -262,7 +265,7 @@ for(const change of ['identity','uri','navigation'])test(`pending CPU artifact d
     globalThis.fetch=async(_path,options)=>{signal=options.signal;return new Promise(resolve=>{resolveDownload=resolve;});};
     const ownerApi=api();
     await render(<ArtifactDownload api={ownerApi} uri="fabric-cpu://private/result.json"/>);
-    await interact(()=>button('下载真实工件').click());
+    await interact(()=>button('下载文件').click());
     if(change==='identity')await render(<ArtifactDownload api={new ApiClient({owner:'alice',token:'other-token'})} uri="fabric-cpu://private/result.json"/>);
     else if(change==='uri')await render(<ArtifactDownload api={ownerApi} uri="fabric-cpu://other/result.json"/>);
     else await render(<p>Another workspace</p>);
@@ -293,13 +296,34 @@ test('unknown lifecycle write result cannot be replayed from the same button',as
   await render(<ActionButton api={api()} path="/x/v1/work-intents/work/actions" body={{action:'release'}}>释放</ActionButton>);
   await interact(()=>button('释放').click());assert.ok(button('释放').disabled);
   await interact(()=>button('释放').click());assert.equal(requests.length,1);
-  assert.match(container.textContent,/先刷新当前状态/);
+  assert.match(container.textContent,/请先刷新确认结果/);
+});
+
+test('a failed work refresh cannot unlock a lifecycle action whose result is still unknown',async()=>{
+  const data=cp2Work();data.legal_actions=[{operation:'allocation.release',entity:{entity_id:'lease-1'}}];
+  let reads=0,writes=0,confirmRead=false;
+  globalThis.fetch=async(path,options)=>{
+    requests.push({path,options});
+    if(options.method==='POST'){writes++;throw new TypeError('lost write response');}
+    reads++;
+    return reads===1||confirmRead?json(data):json({detail:'State is temporarily unavailable'},503);
+  };
+  await render(service('logical_simulation',<ContinuityPage api={api()} initialId="work-cp2"/>));
+  await interact(()=>button('释放租约').click());
+  assert.equal(writes,1);assert.equal(button('释放租约').disabled,true);
+  await interact(()=>button('刷新').click());
+  assert.equal(reads,2);assert.match(container.textContent,/未能更新/);
+  assert.equal(button('释放租约').disabled,true,'a failed read cannot confirm the prior write outcome');
+  await interact(()=>button('释放租约').click());
+  assert.equal(writes,1);
+  confirmRead=true;await interact(()=>button('刷新').click());
+  assert.equal(reads,3);assert.equal(button('释放租约').disabled,false,'a successful authoritative read can restore legal actions');
 });
 
 test('CPU system acceptance hides manual logical clock even with admin profile',async()=>{
   globalThis.fetch=async(path)=>json(path==='/v1/version'?{execution_mode:'cpu_reference',checkpoint:'CP2',capabilities:{real_cpu_execution:true}}:{items:[]});
   await render(<AcceptancePage api={api()} showAdminClock/>);
-  assert.doesNotMatch(container.textContent,/推进模拟时间/);assert.match(container.textContent,/cpu_reference/);
+  assert.doesNotMatch(container.textContent,/推进模拟时间/);assert.doesNotMatch(container.textContent,/模拟时钟/);
 });
 
 test('admin experiment uses real catalog input and queries accepted run, preserving pending status',async()=>{
@@ -312,11 +336,11 @@ test('admin experiment uses real catalog input and queries accepted run, preserv
     return json({items:[]});
   };
   await render(<Experiments api={admin}/>);
-  await submit(button('运行隔离实验').closest('form'));
+  await submit(button('运行实验').closest('form'));
   const post=requests.find(r=>r.options.method==='POST');assert.equal(post.path,'/x/v1/experiments');
   assert.deepEqual(JSON.parse(post.options.body),{scenario_id:'small-development',policy:'B0',seed:0});
   assert.ok(requests.some(r=>r.path==='/x/v1/experiments/run-accepted'));
-  assert.match(container.textContent,/运行中/);assert.match(container.textContent,/不构成 CP3 正式效果/);
+  assert.match(container.textContent,/运行中/);assert.match(container.textContent,/逻辑模拟/);
   assert.equal([...container.querySelectorAll('button')].some(b=>b.textContent==='下载汇总'),false,'pending run does not invent artifacts');
 });
 
@@ -324,7 +348,7 @@ test('failed checkpoint report sends failed without adding verification or artif
   const data=cp2Work();data.allocations[0].checkpoint=null;
   globalThis.fetch=async(path,options)=>{requests.push({path,options});return json(options.method==='POST'?{allocation_id:'lease-1'}:data);};
   await render(service('logical_simulation',<ContinuityPage api={api()} initialId="work-cp2"/>));
-  await interact(()=>button('报告保存 failed').click());
+  await interact(()=>button('报告保存失败').click());
   assert.deepEqual(JSON.parse(requests.find(r=>r.options.method==='POST').options.body),{status:'failed'});
 });
 
@@ -333,7 +357,7 @@ test('forbidden artifact response stays 404 and never produces a download',async
   try{
     globalThis.fetch=async()=>json({error:'not_found',detail:'Artifact is not visible'},404);
     await render(<ArtifactDownload api={api()} uri="fabric-cpu://other-owner/result.json"/>);
-    await interact(()=>button('下载真实工件').click());
+    await interact(()=>button('下载文件').click());
     assert.equal(downloads,0);assert.match(container.textContent,/HTTP 404/);
   }finally{URL.createObjectURL=originalCreate;}
 });
@@ -344,9 +368,9 @@ test('experiment input and output downloads use only registered fixed artifact I
   try{
     const raw='{"seed":0,"checksum":16159431991146531633}\n';
     globalThis.fetch=async(path,options)=>{requests.push({path,options});if(path.endsWith('/artifacts/input'))return new Response(raw,{headers:{'Content-Type':'application/json'}});return json({item:{run_id:'run-evidence',status:'completed',inputs:[{name:'input',uri:'experiment://run-evidence/input'}],outputs:[{name:'summary',uri:'experiment://run-evidence/summary'},{name:'../../private',uri:'file:///private'}]}});};
-    await render(<Experiments api={api()}/>);await enter(field('Run ID'),'run-evidence');await submit(container.querySelector('form'));
-    assert.ok(button('下载固定输入'));assert.ok(button('下载汇总'));assert.equal([...container.querySelectorAll('button')].some(b=>b.textContent?.includes('../../private')),false);
-    await interact(()=>button('下载固定输入').click());
+    await render(<Experiments api={api()}/>);await enter(field('Run ID'),'run-evidence');await submit(field('Run ID').closest('form'));
+    assert.ok(button('下载输入'));assert.ok(button('下载汇总'));assert.equal([...container.querySelectorAll('button')].some(b=>b.textContent?.includes('../../private')),false);
+    await interact(()=>button('下载输入').click());
     assert.equal(requests.at(-1).path,'/x/v1/experiments/run-evidence/artifacts/input');
     assert.equal(requests.at(-1).options.headers.Authorization,'Bearer synthetic-test-token');
     assert.equal(await blobs[0].text(),raw,'experiment artifact must retain exact HTTP JSON');
@@ -366,10 +390,10 @@ for(const change of ['identity','run','navigation'])test(`pending experiment art
     };
     const ownerApi=api();
     await render(<Experiments api={ownerApi}/>);
-    await enter(field('Run ID'),'old-run');await submit(container.querySelector('form'));
+    await enter(field('Run ID'),'old-run');await submit(field('Run ID').closest('form'));
     await interact(()=>button('下载汇总').click());
     if(change==='identity')await render(<div key="alice"><Experiments api={new ApiClient({owner:'alice',token:'other-token'})}/></div>);
-    else if(change==='run'){await enter(field('Run ID'),'new-run');await submit(container.querySelector('form'));}
+    else if(change==='run'){await enter(field('Run ID'),'new-run');await submit(field('Run ID').closest('form'));}
     else await render(<p>Another workspace</p>);
     await act(async()=>resolveDownload(json({admin_only:'old private evidence'})));
     assert.equal(downloads.length,0,'a late admin artifact must not download after leaving its context');
@@ -383,8 +407,7 @@ test('CPU resources hide manual inventory registration while keeping owned GPU r
   const nodes=[{node_id:'own-node',contributor_owner_id:'bob',state:'Ready',devices:[{device_id:'owned-gpu',model:'A10'}]}];
   globalThis.fetch=async(path,options)=>{requests.push({path,options});return json(path==='/v1/capacity'?{nodes,totals:{capacity:{gpu_count:1},available:{gpu_count:1}}}:{items:nodes});};
   await render(service('cpu_reference',<ResourcesPage api={api()}/>));
-  assert.match(container.textContent,/此实例的库存由启动配置载入/);
-  assert.match(container.textContent,/请在逻辑模拟实例登记供给/);
+  assert.doesNotMatch(container.textContent,/CPU 参考实例供给|登记模拟设备|逻辑时刻/);
   assert.equal(container.querySelector('textarea[name=node]'),null);
   const box=container.querySelector('input[type=checkbox]');assert.ok(box);
   await interact(()=>box.click());
@@ -407,8 +430,9 @@ test('CPU form retries stale registration with same identity/body and blocks nav
   assert.ok(button('查询这项工作').disabled);
   await interact(()=>button('查询这项工作').click());assert.equal(opened,0);
   await act(async()=>release(json({receipt:{outcome:'committed'}},202)));
+  assert.equal(opened,1,'accepted registration opens its work automatically');
   assert.equal(button('查询这项工作').disabled,false);
-  await interact(()=>button('查询这项工作').click());assert.equal(opened,1);
+  await interact(()=>button('查询这项工作').click());assert.equal(opened,2);
 });
 
 test('CP3 settlement puts authoritative failure and held lease guidance before history',async()=>{
@@ -417,9 +441,9 @@ test('CP3 settlement puts authoritative failure and held lease guidance before h
   globalThis.fetch=async()=>json(data);
   await render(service('logical_simulation',<ContinuityPage api={api()} initialId="work-cp2"/>));
   const outcome=container.querySelector('[aria-label="结果与结算"]');
-  assert.match(outcome.textContent,/工作失败 · timeout.*Task exceeded/s);
-  assert.match(outcome.textContent,/工作已经结束，租约仍持有资源/);
-  assert.ok(outcome.compareDocumentPosition([...container.querySelectorAll('h2')].find(e=>e.textContent==='执行与保存时间线'))&dom.window.Node.DOCUMENT_POSITION_FOLLOWING);
+  assert.match(outcome.textContent,/工作失败.*Task exceeded/s);
+  assert.match(outcome.textContent,/资源尚未归还/);
+  assert.ok(outcome.compareDocumentPosition(container.querySelector('.work-execution'))&dom.window.Node.DOCUMENT_POSITION_FOLLOWING);
   assert.equal(container.querySelector('.simulation-note'),null,'terminal work must not ask the user to advance time');
   assert.equal(button('释放租约').disabled,false);
 });
@@ -431,12 +455,29 @@ test('CP3 settlement distinguishes completed work from pending stop and preserve
   const originalConfirm=window.confirm;window.confirm=()=>true;
   try{
     await render(service('cpu_reference',<ContinuityPage api={api()} initialId="work-cp2"/>));
-    assert.match(container.querySelector('[aria-label="结果与结算"]').textContent,/停止请求正在确认中/);
-    assert.doesNotMatch(container.textContent,/关联租约已不再持有资源/);
+    assert.match(container.querySelector('[aria-label="结果与结算"]').textContent,/正在停止执行/);
+    assert.doesNotMatch(container.textContent,/资源已归还/);
     await interact(()=>button('释放租约').click());
-    assert.match(container.textContent,/无新增效果/,'receipt remains available after detail refresh');
-    assert.match(container.textContent,/确认前不能视为资源已归还/);
+    const receipt=[...container.querySelectorAll('details')].find(node=>node.querySelector('summary')?.textContent==='最近操作');
+    assert.ok(receipt,'receipt remains available after detail refresh');
+    assert.equal(receipt.open,false);
+    assert.equal(JSON.parse(receipt.querySelector('pre').textContent).data.receipt.outcome,'noop');
+    assert.match(container.textContent,/资源将在停止确认后归还/);
   }finally{window.confirm=originalConfirm;}
+});
+
+test('the actual W2 timeout payload remains a failure with returned resources and retained technical evidence',async()=>{
+  const data=cp2Work('cpu_reference');data.item.state='failed';data.item.result={kind:'failure',recorded_at:12,failure:{detail:'Job timeout'}};
+  data.allocations[0].state='Released';data.legal_actions=[];
+  globalThis.fetch=async()=>json(data);
+  await render(service('cpu_reference',<ContinuityPage api={api()} initialId="work-cp2"/>));
+  const outcome=container.querySelector('[aria-label="结果与结算"]');
+  assert.match(outcome.textContent,/运行超时/);assert.match(outcome.textContent,/资源已归还/);
+  assert.doesNotMatch(outcome.textContent,/Job timeout|已完成/);
+  assert.ok(container.querySelector('.panel-heading .status-failed'));
+  const record=[...container.querySelectorAll('details')].find(node=>node.querySelector('summary')?.textContent==='完整工作记录');
+  assert.equal(JSON.parse(record.querySelector('pre').textContent).item.result.failure.detail,'Job timeout');
+  assert.equal(record.open,false);
 });
 
 test('CP3 settlement shows released cancellation and keeps previous attempts collapsed',async()=>{
@@ -444,9 +485,10 @@ test('CP3 settlement shows released cancellation and keeps previous attempts col
   data.item.attempts.unshift({ref:{attempt_id:'attempt-1',generation:1,job_id:'job-1'},state:'stopped'});data.item.attempts[1].state='cancelled';
   globalThis.fetch=async()=>json(data);
   await render(service('logical_simulation',<ContinuityPage api={api()} initialId="work-cp2"/>));
-  assert.match(container.querySelector('[aria-label="结果与结算"]').textContent,/已取消.*关联租约已不再持有资源/s);
-  const history=[...container.querySelectorAll('details')].find(e=>e.querySelector('summary')?.textContent==='查看历史执行（1 次）');
-  assert.ok(history);assert.equal(history.open,false);assert.match(history.textContent,/attempt-1.*已停止/s);
+  assert.ok(container.querySelector('.panel-heading .status-cancelled'));
+  assert.match(container.querySelector('[aria-label="结果与结算"]').textContent,/资源已归还/);
+  const history=[...container.querySelectorAll('details')].find(e=>e.querySelector('summary')?.textContent==='之前的执行（1 次）');
+  assert.ok(history);assert.equal(history.open,false);assert.match(history.textContent,/第 1 次执行.*已停止/s);
   assert.equal(container.querySelector('.simulation-note'),null);
 });
 
@@ -455,7 +497,7 @@ test('CP3 settlement leaves waiting recovery incomplete and exposes failed stage
   data.item.stages=[{stage_id:'stage-settle',operation:'settle',state:'failed',receipt:{outcome:'rejected',error:{code:'lease_in_use',detail:'Another active task still holds this lease'}}}];
   globalThis.fetch=async()=>json(data);
   await render(service('logical_simulation',<ContinuityPage api={api()} initialId="work-cp2"/>));
-  const outcome=container.querySelector('[aria-label="结果与结算"]');assert.match(outcome.textContent,/尚未产生终态结果/);assert.match(outcome.textContent,/工作流程有阶段失败/);assert.match(outcome.textContent,/lease_in_use.*Another active task/s);
+  const outcome=container.querySelector('[aria-label="结果与结算"]');assert.match(outcome.textContent,/等待可用资源/);assert.match(outcome.textContent,/操作未完成/);assert.match(outcome.textContent,/lease_in_use.*Another active task/s);
   assert.match(container.querySelector('.checkpoint-grid').textContent,/收到 ready 报告.*未核验.*未接续/s);
 });
 
@@ -463,23 +505,23 @@ test('allocated work without a job distinguishes task creation from waiting for 
   const data=cp2Work();data.item.state='waiting';data.item.stages=[];data.jobs=[];data.allocations[0].state='Allocated';data.legal_actions=[];
   globalThis.fetch=async()=>json(data);
   await render(service('logical_simulation',<ContinuityPage api={api()} initialId="work-cp2"/>));
-  let outcome=container.querySelector('[aria-label="结果与结算"]');assert.match(outcome.textContent,/租约已取得资源，任务尚未创建/);assert.doesNotMatch(outcome.textContent,/工作正在等待资源/);
+  let outcome=container.querySelector('[aria-label="结果与结算"]');assert.match(outcome.textContent,/资源已就绪，准备启动/);assert.doesNotMatch(outcome.textContent,/等待可用资源/);
   data.allocations[0].state='PreemptRequested';
   await interact(()=>button('刷新').click());
-  outcome=container.querySelector('[aria-label="结果与结算"]');assert.match(outcome.textContent,/租约已收到收回通知，当前不能创建任务/);assert.doesNotMatch(outcome.textContent,/重试任务创建/);
+  outcome=container.querySelector('[aria-label="结果与结算"]');assert.match(outcome.textContent,/资源正在收回/);assert.doesNotMatch(outcome.textContent,/准备启动|重试任务创建/);
   data.allocations[0].state='Pending';
   await interact(()=>button('刷新').click());
-  outcome=container.querySelector('[aria-label="结果与结算"]');assert.match(outcome.textContent,/工作正在等待资源/);assert.doesNotMatch(outcome.textContent,/租约已取得资源/);
+  outcome=container.querySelector('[aria-label="结果与结算"]');assert.match(outcome.textContent,/等待可用资源/);assert.doesNotMatch(outcome.textContent,/资源已就绪/);
 });
 
 test('CP3 settlement result preview preserves exact JSON integers and is cleared on denied read',async()=>{
   const raw='{"state":{"step":1000000,"value":16159431991146531633}}\n';let reads=0;
   globalThis.fetch=async(path,options)=>{requests.push({path,options});return ++reads===1?new Response(raw,{headers:{'Content-Type':'application/json'}}):json({error:'not_found',detail:'Artifact not visible'},404);};
-  await render(<ArtifactDownload api={api()} uri="fabric-cpu://epoch-0/work/result.json" previewLabel="查看真实结果 1"/>);
-  await interact(()=>button('查看真实结果 1').click());
+  await render(<ArtifactDownload api={api()} uri="fabric-cpu://epoch-0/work/result.json" previewLabel="查看结果 1"/>);
+  await interact(()=>button('查看结果 1').click());
   assert.equal(container.querySelector('pre').textContent,raw);
   assert.equal(requests[0].options.headers.Authorization,'Bearer synthetic-test-token');
-  await interact(()=>button('查看真实结果 1').click());
+  await interact(()=>button('查看结果 1').click());
   assert.equal(container.querySelector('pre'),null);assert.match(container.textContent,/HTTP 404/);
 });
 
@@ -497,7 +539,8 @@ test('CP3 settlement artifact preview never leaks across identity or URI changes
 test('CP3 settlement rejected business receipt is an error even with HTTP 200',async()=>{
   const {Receipt}=await import('../src/components/common.tsx');
   await render(<Receipt result={{status:200,data:{receipt:{outcome:'rejected',error:{code:'lease_in_use',detail:'Cannot release active lease'}}},raw:'{}',requestId:'cp3-rejected'}}/>);
-  assert.match(container.querySelector('[role=alert]').textContent,/服务端拒绝.*lease_in_use.*Cannot release active lease/s);
+  assert.match(container.querySelector('[role=alert]').textContent,/操作未完成.*Cannot release active lease/s);
+  assert.match(container.querySelector('[role=alert] pre').textContent,/lease_in_use/);
   assert.equal(container.querySelector('.feedback.success'),null);
 });
 
@@ -506,8 +549,8 @@ test('CP3 settlement completed CPU work exposes an inline result before any exec
   globalThis.fetch=async(path)=>path.startsWith('/x/v1/artifacts?')?new Response('{"state":{"value":16159431991146531633}}\n',{headers:{'Content-Type':'application/json'}}):json(data);
   await render(service('cpu_reference',<ContinuityPage api={api()} initialId="work-cp2"/>));
   const outcome=container.querySelector('[aria-label="结果与结算"]');
-  assert.ok(outcome.contains(button('查看真实结果 1')));assert.ok(outcome.contains(button('下载真实结果 1')));
-  await interact(()=>button('查看真实结果 1').click());
+  assert.ok(outcome.contains(button('查看结果 1')));assert.ok(outcome.contains(button('下载结果 1')));
+  await interact(()=>button('查看结果 1').click());
   assert.equal(outcome.querySelector('.artifact-access pre').textContent,'{"state":{"value":16159431991146531633}}\n');
-  assert.match(outcome.textContent,/关联租约已不再持有资源/);
+  assert.match(outcome.textContent,/资源已归还/);
 });

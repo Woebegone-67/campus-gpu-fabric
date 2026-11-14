@@ -48,26 +48,27 @@ async function openDetails(page, summary) {
   if (await heading.count() && !await heading.evaluate(el => el.parentElement.open)) await heading.click();
 }
 async function openNewWork(page) {
-  await openDetails(page, '新建工作');
+  if (!await page.locator('input[name=cpu]').isVisible()) await control(page, '新建工作').click();
   await page.locator('input[name=cpu]').waitFor({state: 'visible'});
 }
 async function openAdvanced(page) {
   await openNewWork(page); await openDetails(page, '高级设置');
-  await page.locator('input[name=image]').waitFor({state: 'visible'});
+  await page.locator('input[name=timeout]').waitFor({state: 'visible'});
 }
 async function openIdentity(page) {
-  if (!await page.getByLabel('Owner（管理员可留空）', {exact: true}).isVisible()) {
+  if (!await page.getByLabel('账户', {exact: true}).isVisible()) {
     await page.locator('button.account-trigger').click();
+    await control(page, '切换账户').click();
   }
 }
 async function applyIdentity(page, owner, token = `fixture-${owner}`) {
   await openIdentity(page);
-  await page.getByLabel('Owner（管理员可留空）', {exact: true}).fill(owner);
-  await page.getByLabel('Bearer token（启用认证时）', {exact: true}).fill(token);
-  await page.getByRole('button', {name: '应用身份', exact: true}).click();
+  await page.getByLabel('账户', {exact: true}).fill(owner);
+  await page.getByLabel('访问凭证', {exact: true}).fill(token);
+  await page.locator('.identity-manual').getByRole('button', {name: '连接账户', exact: true}).click();
   await sleep(page, 400);
-  if (await page.getByLabel('Owner（管理员可留空）', {exact: true}).isVisible()) {
-    await page.getByRole('button', {name: '关闭账户面板', exact: true}).click();
+  if (await page.getByLabel('账户', {exact: true}).isVisible()) {
+    await page.getByRole('button', {name: '关闭账户菜单', exact: true}).click();
   }
 }
 async function snap(page, name) {
@@ -316,9 +317,10 @@ try {
     await page.emulateMedia({reducedMotion: 'reduce'}); await sleep(page, 350);
     const before = await frames(page); await sleep(page, 400); const after = await frames(page);
     if (!preview) {assert.ok(before && after, 'Dev frame instrumentation required'); assert.equal(before.renderedFrames, after.renderedFrames);}
-    await page.getByRole('button', {name: '显示设置', exact: true}).click();
-    await page.getByRole('checkbox', {name: '试用页头横向手势', exact: true}).check();
-    await page.getByRole('button', {name: '关闭显示设置', exact: true}).click();
+    await page.locator('.account-trigger').click();
+    await openDetails(page, '显示偏好');
+    await page.getByRole('checkbox', {name: '页头横向手势', exact: true}).check();
+    await page.getByRole('button', {name: '关闭账户菜单', exact: true}).click();
     await hoverGestureBlank(page); await page.mouse.wheel(30, 0); await sleep(page, 60);
     const reducedTransform = await page.locator('.space-body').evaluate(el => getComputedStyle(el).transform);
     assert.ok(['none', 'matrix(1, 0, 0, 1, 0, 0)'].includes(reducedTransform), `Reduced motion still translates content: ${reducedTransform}`);
@@ -343,9 +345,10 @@ try {
     assert.equal(await region.getAttribute('data-space-gesture-enabled'), 'false');
     await hoverGestureBlank(page); await page.mouse.wheel(60, 0); await page.mouse.wheel(60, 0); await sleep(page, 220);
     assert.equal(await page.locator('[data-space]').getAttribute('data-space'), 'overview');
-    await page.getByRole('button', {name: '显示设置', exact: true}).click();
-    await page.getByRole('checkbox', {name: '试用页头横向手势', exact: true}).check();
-    await page.getByRole('button', {name: '关闭显示设置', exact: true}).click();
+    await page.locator('.account-trigger').click();
+    await openDetails(page, '显示偏好');
+    await page.getByRole('checkbox', {name: '页头横向手势', exact: true}).check();
+    await page.getByRole('button', {name: '关闭账户菜单', exact: true}).click();
     assert.equal(await region.getAttribute('data-space-gesture-enabled'), 'true');
     const point = await hoverGestureBlank(page);
     await page.mouse.wheel(55, 0); await page.mouse.wheel(55, 0);
@@ -382,9 +385,9 @@ try {
     for (const size of [{width: 1440, height: 900}, {width: 1280, height: 800}, {width: 1024, height: 768}, {width: 390, height: 844}, {width: 320, height: 700}]) {
       await page.setViewportSize(size); await goto(page); await expectSpace(page, 'overview');
       await scrollPaneToTop(page, 'overview');
-      await measureName('.attention-row p', 'attention', 'overview');
+      await measureName('.attention-row strong', 'attention', 'overview');
       await measureName('.overview-work-row strong', 'current', 'overview');
-      await measureName('.overview-result>span:first-child', 'result', 'overview');
+      await measureName('.overview-result>strong', 'result', 'overview');
       assert.equal(await control(page, '工作台').isVisible(), true);
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
       if ([1440, 390].includes(size.width)) await snap(page, `overview-${size.width}x${size.height}`);
