@@ -1,0 +1,3189 @@
+{
+  "schema": "cp3-r1-readonly-diagnostics-v1",
+  "build": {
+    "git_commit": "1cc2ab678570b0097e98875ad8a4d63fe296a832",
+    "source_file_count": 247,
+    "source_sha256": "8b39b38ce918d125822f252292200b9bd113ac20600e6c5a3a4b01919a53de11"
+  },
+  "source_suite": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp3-acceptance/evidence/cp3/policy-suite",
+  "global": {
+    "plans": 1564,
+    "candidate_budget_truncations": 0,
+    "any_nonzero_opportunity": 668,
+    "history_or_metadata_present": 0,
+    "selected": 790,
+    "admitted_multi_candidate": 323,
+    "admitted_multiple_current_effect_classes": 34,
+    "admitted_score_varies": 26,
+    "admitted_score_all_zero": 122,
+    "admitted_score_nonzero_equal": 642,
+    "changed_action": 3,
+    "no_selection": 774,
+    "two_one_gpu_instead_of_selected_two_gpu_witnesses": 38
+  },
+  "by_family": {
+    "compatibility-fragmentation": {
+      "plans": 265,
+      "candidate_budget_truncations": 0,
+      "any_nonzero_opportunity": 115,
+      "history_or_metadata_present": 0,
+      "selected": 140,
+      "admitted_multi_candidate": 25,
+      "admitted_multiple_current_effect_classes": 15,
+      "admitted_score_varies": 10,
+      "admitted_score_all_zero": 25,
+      "admitted_score_nonzero_equal": 105,
+      "changed_action": 0,
+      "no_selection": 125,
+      "two_one_gpu_instead_of_selected_two_gpu_witnesses": 25
+    },
+    "waves-multi-owner": {
+      "plans": 300,
+      "candidate_budget_truncations": 0,
+      "any_nonzero_opportunity": 132,
+      "history_or_metadata_present": 0,
+      "selected": 152,
+      "admitted_multi_candidate": 52,
+      "admitted_multiple_current_effect_classes": 19,
+      "admitted_score_varies": 16,
+      "admitted_score_all_zero": 20,
+      "admitted_score_nonzero_equal": 116,
+      "changed_action": 3,
+      "no_selection": 148,
+      "two_one_gpu_instead_of_selected_two_gpu_witnesses": 5
+    },
+    "recall-save": {
+      "plans": 383,
+      "candidate_budget_truncations": 0,
+      "any_nonzero_opportunity": 163,
+      "history_or_metadata_present": 0,
+      "selected": 168,
+      "admitted_multi_candidate": 83,
+      "admitted_multiple_current_effect_classes": 0,
+      "admitted_score_varies": 0,
+      "admitted_score_all_zero": 5,
+      "admitted_score_nonzero_equal": 163,
+      "changed_action": 0,
+      "no_selection": 215
+    },
+    "node-interleavings": {
+      "plans": 358,
+      "candidate_budget_truncations": 0,
+      "any_nonzero_opportunity": 165,
+      "history_or_metadata_present": 0,
+      "selected": 170,
+      "admitted_multi_candidate": 55,
+      "admitted_multiple_current_effect_classes": 0,
+      "admitted_score_varies": 0,
+      "admitted_score_all_zero": 5,
+      "admitted_score_nonzero_equal": 165,
+      "changed_action": 0,
+      "no_selection": 188
+    },
+    "neutral-reverse": {
+      "plans": 258,
+      "candidate_budget_truncations": 0,
+      "any_nonzero_opportunity": 93,
+      "history_or_metadata_present": 0,
+      "selected": 160,
+      "admitted_multi_candidate": 108,
+      "admitted_multiple_current_effect_classes": 0,
+      "admitted_score_varies": 0,
+      "admitted_score_all_zero": 67,
+      "admitted_score_nonzero_equal": 93,
+      "changed_action": 0,
+      "two_one_gpu_instead_of_selected_two_gpu_witnesses": 8,
+      "no_selection": 98
+    }
+  },
+  "pairs": [
+    {
+      "family": "compatibility-fragmentation",
+      "seed": 101,
+      "P_area": 2930.0,
+      "B2_area": 2930.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 312262786,
+      "B2_plan_elapsed_ns": 205585041
+    },
+    {
+      "family": "compatibility-fragmentation",
+      "seed": 211,
+      "P_area": 2930.0,
+      "B2_area": 2930.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 320078711,
+      "B2_plan_elapsed_ns": 217691958
+    },
+    {
+      "family": "compatibility-fragmentation",
+      "seed": 307,
+      "P_area": 2930.0,
+      "B2_area": 2930.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 278164003,
+      "B2_plan_elapsed_ns": 258082879
+    },
+    {
+      "family": "compatibility-fragmentation",
+      "seed": 401,
+      "P_area": 2930.0,
+      "B2_area": 2930.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 335945960,
+      "B2_plan_elapsed_ns": 404338879
+    },
+    {
+      "family": "compatibility-fragmentation",
+      "seed": 503,
+      "P_area": 2930.0,
+      "B2_area": 2930.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 415338998,
+      "B2_plan_elapsed_ns": 372010162
+    },
+    {
+      "family": "waves-multi-owner",
+      "seed": 101,
+      "P_area": 1710.0,
+      "B2_area": 1710.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 228283416,
+      "B2_plan_elapsed_ns": 184922464
+    },
+    {
+      "family": "waves-multi-owner",
+      "seed": 211,
+      "P_area": 1400.0,
+      "B2_area": 1400.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 234734999,
+      "B2_plan_elapsed_ns": 156787795
+    },
+    {
+      "family": "waves-multi-owner",
+      "seed": 307,
+      "P_area": 1590.0,
+      "B2_area": 1590.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": false,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 213967419,
+      "B2_plan_elapsed_ns": 201249287
+    },
+    {
+      "family": "waves-multi-owner",
+      "seed": 401,
+      "P_area": 1620.0,
+      "B2_area": 1620.0,
+      "R": 1.0,
+      "work_records_equal": false,
+      "work_differences": [
+        {
+          "work": "cp3-work-02",
+          "fields": {
+            "admission_to_first_attempt_seconds": {
+              "P": 10.0,
+              "B2": 0.0
+            },
+            "allocation_wait_seconds": {
+              "P": 10.0,
+              "B2": 0.0
+            },
+            "completed_at": {
+              "P": 20.0,
+              "B2": 10.0
+            },
+            "first_allocation_grant": {
+              "P": 10.0,
+              "B2": 0.0
+            },
+            "first_attempt_start": {
+              "P": 10.0,
+              "B2": 0.0
+            }
+          }
+        },
+        {
+          "work": "cp3-work-04",
+          "fields": {
+            "admission_to_first_attempt_seconds": {
+              "P": 0.0,
+              "B2": 10.0
+            },
+            "allocation_wait_seconds": {
+              "P": 0.0,
+              "B2": 10.0
+            },
+            "completed_at": {
+              "P": 10.0,
+              "B2": 20.0
+            },
+            "first_allocation_grant": {
+              "P": 0.0,
+              "B2": 10.0
+            },
+            "first_attempt_start": {
+              "P": 0.0,
+              "B2": 10.0
+            }
+          }
+        }
+      ],
+      "full_actions_equal": false,
+      "admission_time_order_equal": false,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 185170797,
+      "B2_plan_elapsed_ns": 195495086
+    },
+    {
+      "family": "waves-multi-owner",
+      "seed": 503,
+      "P_area": 1380.0,
+      "B2_area": 1380.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 213601044,
+      "B2_plan_elapsed_ns": 156949454
+    },
+    {
+      "family": "recall-save",
+      "seed": 101,
+      "P_area": 4646.0,
+      "B2_area": 4646.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 795220948,
+      "B2_plan_elapsed_ns": 723013254
+    },
+    {
+      "family": "recall-save",
+      "seed": 211,
+      "P_area": 5127.0,
+      "B2_area": 5127.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 858006376,
+      "B2_plan_elapsed_ns": 662305415
+    },
+    {
+      "family": "recall-save",
+      "seed": 307,
+      "P_area": 5127.0,
+      "B2_area": 5127.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 1068241415,
+      "B2_plan_elapsed_ns": 636952456
+    },
+    {
+      "family": "recall-save",
+      "seed": 401,
+      "P_area": 4646.0,
+      "B2_area": 4646.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 873574160,
+      "B2_plan_elapsed_ns": 667668036
+    },
+    {
+      "family": "recall-save",
+      "seed": 503,
+      "P_area": 4646.0,
+      "B2_area": 4646.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 945156082,
+      "B2_plan_elapsed_ns": 649538041
+    },
+    {
+      "family": "node-interleavings",
+      "seed": 101,
+      "P_area": 6173.0,
+      "B2_area": 6173.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 729498913,
+      "B2_plan_elapsed_ns": 733824921
+    },
+    {
+      "family": "node-interleavings",
+      "seed": 211,
+      "P_area": 6169.0,
+      "B2_area": 6169.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 902544622,
+      "B2_plan_elapsed_ns": 746627416
+    },
+    {
+      "family": "node-interleavings",
+      "seed": 307,
+      "P_area": 6135.0,
+      "B2_area": 6135.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 692939592,
+      "B2_plan_elapsed_ns": 662852090
+    },
+    {
+      "family": "node-interleavings",
+      "seed": 401,
+      "P_area": 6045.0,
+      "B2_area": 6045.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 787210002,
+      "B2_plan_elapsed_ns": 598084376
+    },
+    {
+      "family": "node-interleavings",
+      "seed": 503,
+      "P_area": 6264.0,
+      "B2_area": 6264.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 831600961,
+      "B2_plan_elapsed_ns": 842861260
+    },
+    {
+      "family": "neutral-reverse",
+      "seed": 101,
+      "P_area": 320.0,
+      "B2_area": 320.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 18493627,
+      "B2_plan_elapsed_ns": 13952459
+    },
+    {
+      "family": "neutral-reverse",
+      "seed": 211,
+      "P_area": 2620.0,
+      "B2_area": 2620.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 538726587,
+      "B2_plan_elapsed_ns": 366682125
+    },
+    {
+      "family": "neutral-reverse",
+      "seed": 307,
+      "P_area": 2720.0,
+      "B2_area": 2720.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 602451914,
+      "B2_plan_elapsed_ns": 485178041
+    },
+    {
+      "family": "neutral-reverse",
+      "seed": 401,
+      "P_area": 320.0,
+      "B2_area": 320.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 22426077,
+      "B2_plan_elapsed_ns": 14458876
+    },
+    {
+      "family": "neutral-reverse",
+      "seed": 503,
+      "P_area": 2620.0,
+      "B2_area": 2620.0,
+      "R": 1.0,
+      "work_records_equal": true,
+      "work_differences": [],
+      "full_actions_equal": true,
+      "admission_time_order_equal": true,
+      "off_works_equal_B2": true,
+      "event_counts_equal": true,
+      "occupancy_integrals_equal": true,
+      "P_plan_elapsed_ns": 470541999,
+      "B2_plan_elapsed_ns": 498205584
+    }
+  ],
+  "changed_actions": [
+    {
+      "run_id": "waves-multi-owner--307--P",
+      "row": 30,
+      "time": 60.0,
+      "work": "cp3-work-18",
+      "P": {
+        "demand_id": "e0-a52",
+        "action": "allocate",
+        "placement": {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a100-gpu0"
+              ],
+              "node_id": "sim-a100",
+              "resources": {
+                "cpu_millicores": 4000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 40960,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      },
+      "same_state_B2": {
+        "demand_id": "e0-a52",
+        "action": "allocate",
+        "placement": {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 4000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "run_id": "waves-multi-owner--401--P",
+      "row": 0,
+      "time": 0.0,
+      "work": "cp3-work-01",
+      "P": {
+        "demand_id": "e0-a2",
+        "action": "allocate",
+        "placement": {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a100-gpu0"
+              ],
+              "node_id": "sim-a100",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 40960,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      },
+      "same_state_B2": {
+        "demand_id": "e0-a2",
+        "action": "allocate",
+        "placement": {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "run_id": "waves-multi-owner--401--P",
+      "row": 25,
+      "time": 50.0,
+      "work": "cp3-work-15",
+      "P": {
+        "demand_id": "e0-a34",
+        "action": "allocate",
+        "placement": {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a100-gpu0"
+              ],
+              "node_id": "sim-a100",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 40960,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      },
+      "same_state_B2": {
+        "demand_id": "e0-a34",
+        "action": "allocate",
+        "placement": {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "pack_witnesses": [
+    {
+      "run_id": "compatibility-fragmentation--101--P",
+      "row": 4,
+      "time": 10.0,
+      "chosen_work": "cp3-work-04",
+      "alternative_works": [
+        "cp3-work-06",
+        "cp3-work-09"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 4000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 4000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--101--P",
+      "row": 14,
+      "time": 30.0,
+      "chosen_work": "cp3-work-08",
+      "alternative_works": [
+        "cp3-work-14",
+        "cp3-work-17"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--101--P",
+      "row": 18,
+      "time": 40.0,
+      "chosen_work": "cp3-work-12",
+      "alternative_works": [
+        "cp3-work-14",
+        "cp3-work-17"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--101--P",
+      "row": 26,
+      "time": 60.0,
+      "chosen_work": "cp3-work-16",
+      "alternative_works": [
+        "cp3-work-22",
+        "cp3-work-25"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--101--P",
+      "row": 31,
+      "time": 70.0,
+      "chosen_work": "cp3-work-20",
+      "alternative_works": [
+        "cp3-work-22",
+        "cp3-work-25"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--211--P",
+      "row": 4,
+      "time": 10.0,
+      "chosen_work": "cp3-work-04",
+      "alternative_works": [
+        "cp3-work-06",
+        "cp3-work-09"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 4000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--211--P",
+      "row": 14,
+      "time": 30.0,
+      "chosen_work": "cp3-work-08",
+      "alternative_works": [
+        "cp3-work-14",
+        "cp3-work-17"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--211--P",
+      "row": 18,
+      "time": 40.0,
+      "chosen_work": "cp3-work-12",
+      "alternative_works": [
+        "cp3-work-14",
+        "cp3-work-17"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--211--P",
+      "row": 26,
+      "time": 60.0,
+      "chosen_work": "cp3-work-16",
+      "alternative_works": [
+        "cp3-work-22",
+        "cp3-work-25"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--211--P",
+      "row": 31,
+      "time": 70.0,
+      "chosen_work": "cp3-work-20",
+      "alternative_works": [
+        "cp3-work-22",
+        "cp3-work-25"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--307--P",
+      "row": 4,
+      "time": 10.0,
+      "chosen_work": "cp3-work-04",
+      "alternative_works": [
+        "cp3-work-06",
+        "cp3-work-09"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 4000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--307--P",
+      "row": 14,
+      "time": 30.0,
+      "chosen_work": "cp3-work-08",
+      "alternative_works": [
+        "cp3-work-14",
+        "cp3-work-17"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--307--P",
+      "row": 18,
+      "time": 40.0,
+      "chosen_work": "cp3-work-12",
+      "alternative_works": [
+        "cp3-work-14",
+        "cp3-work-17"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--307--P",
+      "row": 26,
+      "time": 60.0,
+      "chosen_work": "cp3-work-16",
+      "alternative_works": [
+        "cp3-work-22",
+        "cp3-work-25"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 4000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--307--P",
+      "row": 31,
+      "time": 70.0,
+      "chosen_work": "cp3-work-20",
+      "alternative_works": [
+        "cp3-work-22",
+        "cp3-work-25"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 4000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--401--P",
+      "row": 4,
+      "time": 10.0,
+      "chosen_work": "cp3-work-04",
+      "alternative_works": [
+        "cp3-work-06",
+        "cp3-work-09"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 4000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--401--P",
+      "row": 14,
+      "time": 30.0,
+      "chosen_work": "cp3-work-08",
+      "alternative_works": [
+        "cp3-work-14",
+        "cp3-work-17"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--401--P",
+      "row": 18,
+      "time": 40.0,
+      "chosen_work": "cp3-work-12",
+      "alternative_works": [
+        "cp3-work-14",
+        "cp3-work-17"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--401--P",
+      "row": 26,
+      "time": 60.0,
+      "chosen_work": "cp3-work-16",
+      "alternative_works": [
+        "cp3-work-22",
+        "cp3-work-25"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 4000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--401--P",
+      "row": 31,
+      "time": 70.0,
+      "chosen_work": "cp3-work-20",
+      "alternative_works": [
+        "cp3-work-22",
+        "cp3-work-25"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 4000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--503--P",
+      "row": 4,
+      "time": 10.0,
+      "chosen_work": "cp3-work-04",
+      "alternative_works": [
+        "cp3-work-06",
+        "cp3-work-09"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--503--P",
+      "row": 14,
+      "time": 30.0,
+      "chosen_work": "cp3-work-08",
+      "alternative_works": [
+        "cp3-work-14",
+        "cp3-work-17"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 4000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--503--P",
+      "row": 18,
+      "time": 40.0,
+      "chosen_work": "cp3-work-12",
+      "alternative_works": [
+        "cp3-work-14",
+        "cp3-work-17"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 4000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--503--P",
+      "row": 26,
+      "time": 60.0,
+      "chosen_work": "cp3-work-16",
+      "alternative_works": [
+        "cp3-work-22",
+        "cp3-work-25"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "compatibility-fragmentation--503--P",
+      "row": 31,
+      "time": 70.0,
+      "chosen_work": "cp3-work-20",
+      "alternative_works": [
+        "cp3-work-22",
+        "cp3-work-25"
+      ],
+      "alternative_owners": [
+        "owner-6",
+        "owner-1"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 8000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "waves-multi-owner--211--P",
+      "row": 0,
+      "time": 0.0,
+      "chosen_work": "cp3-work-00",
+      "alternative_works": [
+        "cp3-work-01",
+        "cp3-work-02"
+      ],
+      "alternative_owners": [
+        "owner-1",
+        "owner-2"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "waves-multi-owner--211--P",
+      "row": 35,
+      "time": 70.0,
+      "chosen_work": "cp3-work-21",
+      "alternative_works": [
+        "cp3-work-27",
+        "cp3-work-31"
+      ],
+      "alternative_owners": [
+        "owner-late",
+        "owner-late"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 4000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "waves-multi-owner--307--P",
+      "row": 0,
+      "time": 0.0,
+      "chosen_work": "cp3-work-00",
+      "alternative_works": [
+        "cp3-work-01",
+        "cp3-work-02"
+      ],
+      "alternative_owners": [
+        "owner-1",
+        "owner-2"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "waves-multi-owner--401--P",
+      "row": 35,
+      "time": 70.0,
+      "chosen_work": "cp3-work-21",
+      "alternative_works": [
+        "cp3-work-23",
+        "cp3-work-25"
+      ],
+      "alternative_owners": [
+        "owner-7",
+        "owner-late"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "waves-multi-owner--503--P",
+      "row": 31,
+      "time": 60.0,
+      "chosen_work": "cp3-work-21",
+      "alternative_works": [
+        "cp3-work-25",
+        "cp3-work-31"
+      ],
+      "alternative_owners": [
+        "owner-late",
+        "owner-late"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "neutral-reverse--211--P",
+      "row": 0,
+      "time": 0.0,
+      "chosen_work": "cp3-work-00",
+      "alternative_works": [
+        "cp3-work-01",
+        "cp3-work-02"
+      ],
+      "alternative_owners": [
+        "owner-small-1",
+        "owner-small-2"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 2048
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "neutral-reverse--211--P",
+      "row": 19,
+      "time": 50.0,
+      "chosen_work": "cp3-work-08",
+      "alternative_works": [
+        "cp3-work-10",
+        "cp3-work-11"
+      ],
+      "alternative_owners": [
+        "owner-small-2",
+        "owner-small-3"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 2048
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "neutral-reverse--211--P",
+      "row": 34,
+      "time": 90.0,
+      "chosen_work": "cp3-work-16",
+      "alternative_works": [
+        "cp3-work-17",
+        "cp3-work-18"
+      ],
+      "alternative_owners": [
+        "owner-small-1",
+        "owner-small-2"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 2048
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "neutral-reverse--211--P",
+      "row": 53,
+      "time": 140.0,
+      "chosen_work": "cp3-work-24",
+      "alternative_works": [
+        "cp3-work-26",
+        "cp3-work-27"
+      ],
+      "alternative_owners": [
+        "owner-small-2",
+        "owner-small-3"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 2048
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 2048
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "neutral-reverse--503--P",
+      "row": 0,
+      "time": 0.0,
+      "chosen_work": "cp3-work-00",
+      "alternative_works": [
+        "cp3-work-01",
+        "cp3-work-02"
+      ],
+      "alternative_owners": [
+        "owner-small-1",
+        "owner-small-2"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 2048
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "neutral-reverse--503--P",
+      "row": 19,
+      "time": 50.0,
+      "chosen_work": "cp3-work-08",
+      "alternative_works": [
+        "cp3-work-10",
+        "cp3-work-11"
+      ],
+      "alternative_owners": [
+        "owner-small-2",
+        "owner-small-3"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 2048
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "neutral-reverse--503--P",
+      "row": 34,
+      "time": 90.0,
+      "chosen_work": "cp3-work-16",
+      "alternative_works": [
+        "cp3-work-17",
+        "cp3-work-18"
+      ],
+      "alternative_owners": [
+        "owner-small-1",
+        "owner-small-2"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "run_id": "neutral-reverse--503--P",
+      "row": 53,
+      "time": 140.0,
+      "chosen_work": "cp3-work-24",
+      "alternative_works": [
+        "cp3-work-26",
+        "cp3-work-27"
+      ],
+      "alternative_owners": [
+        "owner-small-2",
+        "owner-small-3"
+      ],
+      "alternative_placements": [
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu0"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 1024
+              }
+            }
+          ]
+        },
+        {
+          "slices": [
+            {
+              "device_ids": [
+                "sim-a10-gpu1"
+              ],
+              "node_id": "sim-a10",
+              "resources": {
+                "cpu_millicores": 1000,
+                "ephemeral_storage_mib": 0,
+                "gpu_count": 1,
+                "gpu_memory_mib": 24576,
+                "memory_mib": 2048
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "B2_F_by_family": {
+    "compatibility-fragmentation": {
+      "runs": 5,
+      "total_F": 14650.0,
+      "works": 160,
+      "completed_count": 140,
+      "completed_fixed_10s_service_base": 1400,
+      "completed_queueing_interruption_other_elapsed": 5500.0,
+      "completed_first_grant_wait": 5500.0,
+      "unfinished_count": 20,
+      "unfinished_H_minus_arrival": 7750.0,
+      "failed_F_fraction": 0.0,
+      "unfinished_F_fraction": 0.5290102389078498,
+      "cancelled_F_fraction": 0.0
+    },
+    "waves-multi-owner": {
+      "runs": 5,
+      "total_F": 7700.0,
+      "works": 160,
+      "unfinished_count": 8,
+      "unfinished_H_minus_arrival": 2920.0,
+      "completed_count": 152,
+      "completed_fixed_10s_service_base": 1520,
+      "completed_queueing_interruption_other_elapsed": 3260.0,
+      "completed_first_grant_wait": 3260.0,
+      "failed_F_fraction": 0.0,
+      "unfinished_F_fraction": 0.37922077922077924,
+      "cancelled_F_fraction": 0.0
+    },
+    "recall-save": {
+      "runs": 5,
+      "total_F": 24192.0,
+      "works": 160,
+      "failed_count": 17,
+      "failed_H_minus_arrival": 6800.0,
+      "completed_count": 143,
+      "completed_fixed_10s_service_base": 1430,
+      "completed_queueing_interruption_other_elapsed": 15962.0,
+      "completed_first_grant_wait": 15926.0,
+      "failed_F_fraction": 0.2810846560846561,
+      "unfinished_F_fraction": 0.0,
+      "cancelled_F_fraction": 0.0
+    },
+    "node-interleavings": {
+      "runs": 5,
+      "total_F": 30786.0,
+      "works": 160,
+      "failed_count": 45,
+      "failed_H_minus_arrival": 17700.0,
+      "completed_count": 115,
+      "completed_fixed_10s_service_base": 1150,
+      "completed_queueing_interruption_other_elapsed": 11936.0,
+      "completed_first_grant_wait": 11786.0,
+      "failed_F_fraction": 0.5749366595205613,
+      "unfinished_F_fraction": 0.0,
+      "cancelled_F_fraction": 0.0
+    },
+    "neutral-reverse": {
+      "runs": 5,
+      "total_F": 8600.0,
+      "works": 160,
+      "completed_count": 160,
+      "completed_fixed_10s_service_base": 1600,
+      "completed_queueing_interruption_other_elapsed": 7000.0,
+      "completed_first_grant_wait": 7000.0,
+      "failed_F_fraction": 0.0,
+      "unfinished_F_fraction": 0.0,
+      "cancelled_F_fraction": 0.0
+    }
+  },
+  "artifacts_read": [
+    {
+      "path": "runs/compatibility-fragmentation--101--P/decisions.json",
+      "sha256": "ea8dce8693a9b5dc38b438514ebad7bd81f4f890ca5f19b7d4b7471b28f5ff58"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--101--B2/decisions.json",
+      "sha256": "7efa520c9956cc52efb4e07ec1c25a5fda72461bec11d7cb0ecfbe1eb397e4d9"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--101--P/summary.json",
+      "sha256": "0f08d9fb9544740371ab6d487d2e807fa1efdb9b0759bbe0a46c90a6b30e1ff4"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--101--B2/summary.json",
+      "sha256": "c3ae01311f1a97df7c64b38d5f3cdcf245c86d230dc30d0f94cb1e033c6ef2ac"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--101--P-no-opportunity/summary.json",
+      "sha256": "fb070d79833ba7588091ccb21fed5a942c1f831a2be465fc1867414e7d97e890"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--211--P/decisions.json",
+      "sha256": "1361af404c07dc2a7d37b98246e848cb6b0266b1dbc32067d96b8131e0c5c14e"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--211--B2/decisions.json",
+      "sha256": "6313c6e76a20de3f7e8c5ba4135a206ebd956e019f8b4d660c74384048b65c03"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--211--P/summary.json",
+      "sha256": "4e61e1a460d459da075c018d3be35fcdb5cdb94a7db3381beb93e55481bb2c69"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--211--B2/summary.json",
+      "sha256": "750a843a1d051fd8462ed38d4afdf77c29cad44e5f81bded4e246d25b3ab7b81"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--211--P-no-opportunity/summary.json",
+      "sha256": "d72457311680876481d44818ff143df19592fe0f2aef82f9c0fce07c1f575190"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--307--P/decisions.json",
+      "sha256": "cf7821164448335c77165da31e40a1eaa06bc4f0aef98cd0574612d01cc2e4b5"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--307--B2/decisions.json",
+      "sha256": "11eeb8727de1baf64d592071f6ec436d83e9188880c89741bb231f38b650a0f2"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--307--P/summary.json",
+      "sha256": "e6a679195d3fcd7154c7a828717fbf2c5fa43766a3c017204d86b7e8ebb38559"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--307--B2/summary.json",
+      "sha256": "99698916b89e6a1dc5720bd88cf798eee0f09c21485d74759f24c3186a634a51"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--307--P-no-opportunity/summary.json",
+      "sha256": "01f7cf8aca9125a776c0d5242664b7c31e797cfd5470533379c1451d06ddc0b6"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--401--P/decisions.json",
+      "sha256": "3b86cf977e484a65749df6d1575fba7834d678e7289ae1dc63405de354670d37"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--401--B2/decisions.json",
+      "sha256": "65a2db1d8285532d19dc3a74c3fca2f7e761c20c24168427f6953c89921eaf18"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--401--P/summary.json",
+      "sha256": "a64fc1caef17a3450e1b85b107715b5444fc1cf4afbbb8fd53bc82e010590379"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--401--B2/summary.json",
+      "sha256": "3b57b62d9bad7857a88cfab9fc093014a2c683dcb50e4617bac863fa652320a5"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--401--P-no-opportunity/summary.json",
+      "sha256": "5277acc06e162442db6b2411ecddad20de67618925c3214730f317983ff70e57"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--503--P/decisions.json",
+      "sha256": "e5e209f8bf6d52a1db95c3c79ba0fb587912ac629ee96ca3510e86eb547e6984"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--503--B2/decisions.json",
+      "sha256": "b1e3da2feeda15a97b7003799d1c045605e1860bb220b35c4d69df0f63622d2b"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--503--P/summary.json",
+      "sha256": "5c43db6421399f03e22c92a3577558a1ece8fb59b916dfe570f65d015d24f961"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--503--B2/summary.json",
+      "sha256": "a1a1765f1bd4f8a590de1bdcb86895af4b0ee613de293e7c2f42ae7337027687"
+    },
+    {
+      "path": "runs/compatibility-fragmentation--503--P-no-opportunity/summary.json",
+      "sha256": "5960e9d18c9da1a572983fc8b5b7974ed538cbc65afa4fbe9e2953ad4c10113f"
+    },
+    {
+      "path": "runs/waves-multi-owner--101--P/decisions.json",
+      "sha256": "de34f6bbb452d59a6742bcd3bd6241680ee0e117acd483abf3ccaa425a5769bb"
+    },
+    {
+      "path": "runs/waves-multi-owner--101--B2/decisions.json",
+      "sha256": "47d0eeb5b101da88728d5a7d7c4a3d4a5a6d2565dd06d1a97391d4bd5bf07064"
+    },
+    {
+      "path": "runs/waves-multi-owner--101--P/summary.json",
+      "sha256": "6d69d3b935ca6a71045ed7218928719e274d222187bfe45220721af06982afda"
+    },
+    {
+      "path": "runs/waves-multi-owner--101--B2/summary.json",
+      "sha256": "c509e69cb9f020bb752315fe49a0cceec0050370fe2219c399b18301ce56cadd"
+    },
+    {
+      "path": "runs/waves-multi-owner--101--P-no-opportunity/summary.json",
+      "sha256": "696035e4d4d801debb75ffa97ad6b3ab94bdc2574e09bcc7d2b168e695902400"
+    },
+    {
+      "path": "runs/waves-multi-owner--211--P/decisions.json",
+      "sha256": "4c1b74531c9c381574207f0a5d64748e1bc8cfcfad535b1876742ae753294b04"
+    },
+    {
+      "path": "runs/waves-multi-owner--211--B2/decisions.json",
+      "sha256": "b23decafd31459c798fce612140b2390dbf6f6fd7fa3722f1bf575f765bbd938"
+    },
+    {
+      "path": "runs/waves-multi-owner--211--P/summary.json",
+      "sha256": "d1a1edf870048f92007744a74559d7349946286e5fe6f5f626639c052a746e90"
+    },
+    {
+      "path": "runs/waves-multi-owner--211--B2/summary.json",
+      "sha256": "ea2d80acc5e930ad6f62cbe997d349662ce3dfb0e214b70cb486489dfbdc8cf9"
+    },
+    {
+      "path": "runs/waves-multi-owner--211--P-no-opportunity/summary.json",
+      "sha256": "810181b20d3b98a747899669fcc9ccb86a5f92a716c57497405c8cb025e1dcd6"
+    },
+    {
+      "path": "runs/waves-multi-owner--307--P/decisions.json",
+      "sha256": "8e8129ef1c86af6038a63c7d51f33a8f971f3ee81b7e9743baa937b382c1c9c2"
+    },
+    {
+      "path": "runs/waves-multi-owner--307--B2/decisions.json",
+      "sha256": "49be1447787a6fd9e32036111b6c56dc694a37cd45ae199f6e8e24e93ecba760"
+    },
+    {
+      "path": "runs/waves-multi-owner--307--P/summary.json",
+      "sha256": "c5b726bec70d2f5510dbf01f8041c12446ebe14c0e11ea1fc12077900acc3328"
+    },
+    {
+      "path": "runs/waves-multi-owner--307--B2/summary.json",
+      "sha256": "f42f4ece27476a6d2cd795bcb6537cb9b4f1df91764acbcac9f870f5ea63ba14"
+    },
+    {
+      "path": "runs/waves-multi-owner--307--P-no-opportunity/summary.json",
+      "sha256": "0813bb1b3ff6e62fb96a87c122201248589972dd6418720d1d7d4986ee94d11a"
+    },
+    {
+      "path": "runs/waves-multi-owner--401--P/decisions.json",
+      "sha256": "6a7c6b9baaacb676f0e4d049757ca819939ab5821d4240f93f606179347806b8"
+    },
+    {
+      "path": "runs/waves-multi-owner--401--B2/decisions.json",
+      "sha256": "453a644a4de3c2da49d4585ccaff13014d32cff1c9595f28552948c3ad3a41a3"
+    },
+    {
+      "path": "runs/waves-multi-owner--401--P/summary.json",
+      "sha256": "76a1581b2463b5a0245d2fc309212a09feca3e11e67aaa5fb148677595ee845d"
+    },
+    {
+      "path": "runs/waves-multi-owner--401--B2/summary.json",
+      "sha256": "a0aba5429d67c77d23821a944f3fef12b4be485443ecb80ddb49ed031b34b533"
+    },
+    {
+      "path": "runs/waves-multi-owner--401--P-no-opportunity/summary.json",
+      "sha256": "160814e25d797c4873269da38554f15f3621ac8bc88a4ee8749cc787f0f1e721"
+    },
+    {
+      "path": "runs/waves-multi-owner--503--P/decisions.json",
+      "sha256": "17065bf8827269523b089bfa10d649a6994504c7d2aeb7b23137e80c451438f2"
+    },
+    {
+      "path": "runs/waves-multi-owner--503--B2/decisions.json",
+      "sha256": "1715f40bf46245bc86aa308e48c4c7fd0aa94383abf6c7a07881ddc7dd74a5a4"
+    },
+    {
+      "path": "runs/waves-multi-owner--503--P/summary.json",
+      "sha256": "b635afca8959289654f2ddc7881401280d9a8e10511cf0f394e7a174e41f6f19"
+    },
+    {
+      "path": "runs/waves-multi-owner--503--B2/summary.json",
+      "sha256": "fcab1d7b31059d453ec34d20491e9eeafb31efb0dc9eacab2f49a629f2f67d6e"
+    },
+    {
+      "path": "runs/waves-multi-owner--503--P-no-opportunity/summary.json",
+      "sha256": "983337a3ac6833f6beec33aa6e5f304e6adb34ccaa7b603f7d383177bd528d5d"
+    },
+    {
+      "path": "runs/recall-save--101--P/decisions.json",
+      "sha256": "a69069b1f930845a624c6fb1fd8ea39bbb1fdc3170ba25cd3be9ae0317e4832c"
+    },
+    {
+      "path": "runs/recall-save--101--B2/decisions.json",
+      "sha256": "3f2ccd44d0e2479badfb689375d2f565da1de85f3d13c02207800956dc373112"
+    },
+    {
+      "path": "runs/recall-save--101--P/summary.json",
+      "sha256": "23b44ba5a67eaa58116ec7362d47e41af0b76d3df42a646ac581bef580344af4"
+    },
+    {
+      "path": "runs/recall-save--101--B2/summary.json",
+      "sha256": "86b584eed60128ef7e97ede5653e9cc3c980934a78279b4c59b0a75ca8d0b7c4"
+    },
+    {
+      "path": "runs/recall-save--101--P-no-opportunity/summary.json",
+      "sha256": "7793a03cf644242eab809ddcb7b8e7f4bd9ae82e6e12ae10d5977389cbdb937b"
+    },
+    {
+      "path": "runs/recall-save--211--P/decisions.json",
+      "sha256": "c8aa45dca2461ed990477fa241f61474e73b1d02a89e1d681e5d5d3c7685a3ca"
+    },
+    {
+      "path": "runs/recall-save--211--B2/decisions.json",
+      "sha256": "18950467e3945e58902cdaf6d37d7d76645d6a3a1fcaf5f4a1077ee4523331c6"
+    },
+    {
+      "path": "runs/recall-save--211--P/summary.json",
+      "sha256": "4fac40ef29a79e8600c406fa37795bfc0f342efb5003bd2b4b7375dce41d5b00"
+    },
+    {
+      "path": "runs/recall-save--211--B2/summary.json",
+      "sha256": "0204753d8d0db2aa35a9fc9589325f7a0ae971335fb1923502bf7e882b2fecdb"
+    },
+    {
+      "path": "runs/recall-save--211--P-no-opportunity/summary.json",
+      "sha256": "71e43cafe3030ae4b6b738564e069ed36838fcea2fc5bce482ab71c853d6705f"
+    },
+    {
+      "path": "runs/recall-save--307--P/decisions.json",
+      "sha256": "8da7933729ae298a3f5aaba609cbdef448fa1921a09190c77e781a84f46c45d1"
+    },
+    {
+      "path": "runs/recall-save--307--B2/decisions.json",
+      "sha256": "6bfb285ad17231db16cfdd0b9c8ed8575abb9e25d14c6f425a2a0dd16dab15d0"
+    },
+    {
+      "path": "runs/recall-save--307--P/summary.json",
+      "sha256": "313cebe322db5b61f316bbefc8eb4ceb24648b986571348d611d94e52a0dc9f6"
+    },
+    {
+      "path": "runs/recall-save--307--B2/summary.json",
+      "sha256": "90886a83e34e4541ebb18fd77824b29a85397da6a8de8225bcb49499f2b064fa"
+    },
+    {
+      "path": "runs/recall-save--307--P-no-opportunity/summary.json",
+      "sha256": "48e9633684f8ba194569d76f92ca611f9bbd85fd7230d777ccda2ea881a458f4"
+    },
+    {
+      "path": "runs/recall-save--401--P/decisions.json",
+      "sha256": "b59f28925a43ce80fed69d26bc28a4126f6f2f868e28df3ea2d13fa745d6a7c4"
+    },
+    {
+      "path": "runs/recall-save--401--B2/decisions.json",
+      "sha256": "5a32f6940cf994b45b465ee60d535233f8fc6ef4da22fe413b36f6ce36a2868d"
+    },
+    {
+      "path": "runs/recall-save--401--P/summary.json",
+      "sha256": "a33a5f66d1d72fe6c5edb1e69e8313c6f40aaa8cd488640403a017d63a518b85"
+    },
+    {
+      "path": "runs/recall-save--401--B2/summary.json",
+      "sha256": "c2b7a4691955a966c603eea616acd56f6a6bcebf53a7cc979d32d5dd990789a1"
+    },
+    {
+      "path": "runs/recall-save--401--P-no-opportunity/summary.json",
+      "sha256": "1fc8392dece1995f7f70ff3982504d13a51bc66a7d6981f75b22ca3d35d58bb0"
+    },
+    {
+      "path": "runs/recall-save--503--P/decisions.json",
+      "sha256": "f11ef1200c82c6fe9260fc1d5319e58d6b9e892d38067f1f38c3fbe0e02be5cd"
+    },
+    {
+      "path": "runs/recall-save--503--B2/decisions.json",
+      "sha256": "501918260bab0fd73678aa5fcb6edb18db43d29fddfba0c5704b919c3992e087"
+    },
+    {
+      "path": "runs/recall-save--503--P/summary.json",
+      "sha256": "fa72434039a9c2648e5627b2771509129de0cb239e7654141f4a65ebc407ab4e"
+    },
+    {
+      "path": "runs/recall-save--503--B2/summary.json",
+      "sha256": "0dcc7996a248905b370c5da8b73b7ac364cb8a98d6a29d88659f2ff08eff3aa2"
+    },
+    {
+      "path": "runs/recall-save--503--P-no-opportunity/summary.json",
+      "sha256": "a274d704063a57ae8df3bbbf5b5ea49e95053a1a1fa61818e86ce8b374e9f99a"
+    },
+    {
+      "path": "runs/node-interleavings--101--P/decisions.json",
+      "sha256": "0ca6a8560f5715a349b885c494d57b0dc6198e613867a6b63432f07ab82c5938"
+    },
+    {
+      "path": "runs/node-interleavings--101--B2/decisions.json",
+      "sha256": "ac9695976ab5ca7cbd71f7327054bf8b77322ea8352fb2fe345d7420fdd63ab9"
+    },
+    {
+      "path": "runs/node-interleavings--101--P/summary.json",
+      "sha256": "e51ade30361dd8c0134ef11fce261c98b2b683231aceed6c2e4db2c5db2c48a4"
+    },
+    {
+      "path": "runs/node-interleavings--101--B2/summary.json",
+      "sha256": "d495f4e63d1a7936810fa5b23aa72575d3c0ff91dccfda592e2d471fe54da9a8"
+    },
+    {
+      "path": "runs/node-interleavings--101--P-no-opportunity/summary.json",
+      "sha256": "e7b105fad6288b39d459d26f86b4ac3d79d1a3dc7b31cab40d39431fae49f1ea"
+    },
+    {
+      "path": "runs/node-interleavings--211--P/decisions.json",
+      "sha256": "2baef948db3cfd5a457b71e8a8c87433c9362f7fa31e2292607fa4949616856f"
+    },
+    {
+      "path": "runs/node-interleavings--211--B2/decisions.json",
+      "sha256": "a6a88423f2f135bacf237b341c022e61d0ce173cc4aaa253df28a5347c94320d"
+    },
+    {
+      "path": "runs/node-interleavings--211--P/summary.json",
+      "sha256": "226e597e87fcfe92895dd133e2a9b08aa679b0689ce0397d210851eb3ea14b13"
+    },
+    {
+      "path": "runs/node-interleavings--211--B2/summary.json",
+      "sha256": "1ac583a16dc785e7a2e3a76730d220f879ce964e31e9e2cf59ebe1952ed4a5c8"
+    },
+    {
+      "path": "runs/node-interleavings--211--P-no-opportunity/summary.json",
+      "sha256": "e2e1a8c82508402b1efb572319e9fca6e8eacec1459fed26edaf20b4067b979e"
+    },
+    {
+      "path": "runs/node-interleavings--307--P/decisions.json",
+      "sha256": "3560b57e73e2535e33cad75ed8bc1f92cc7c4b8fb7b40c55dbdfede2cc59f52b"
+    },
+    {
+      "path": "runs/node-interleavings--307--B2/decisions.json",
+      "sha256": "c970a1e78c449a8185d14933825c03d57c5ef745a6389e17c785f107b2fc498b"
+    },
+    {
+      "path": "runs/node-interleavings--307--P/summary.json",
+      "sha256": "70410bab122b0df5cadffbc180d29dcc998b92bd6ac87f3508e9912e2e2a1226"
+    },
+    {
+      "path": "runs/node-interleavings--307--B2/summary.json",
+      "sha256": "33fb25c9cc505e72fe29ed4f1f72f68916441bd82b6f5a20e9b616fff0c32a40"
+    },
+    {
+      "path": "runs/node-interleavings--307--P-no-opportunity/summary.json",
+      "sha256": "a83a01821196b94807ebe2c8873dfcb1e58bca7a22a4699c8f17b60bad350dfa"
+    },
+    {
+      "path": "runs/node-interleavings--401--P/decisions.json",
+      "sha256": "b490a9aa5f13a912814b1bc5a9a6672448f237edceee3c56132d5d5ce6f819f5"
+    },
+    {
+      "path": "runs/node-interleavings--401--B2/decisions.json",
+      "sha256": "56ab941353c1ea6523be7db118a4264554dc26b4b65881f2f7e179576dce4f25"
+    },
+    {
+      "path": "runs/node-interleavings--401--P/summary.json",
+      "sha256": "187bfcc3899a41e642d8b626a2a2e61094c6eec0781896f337fbd46e435cd90b"
+    },
+    {
+      "path": "runs/node-interleavings--401--B2/summary.json",
+      "sha256": "0cc4fd2e3c9268aeebd9cbec513fcfa788105d1fcfc3b541eec6a0f4e9b39dde"
+    },
+    {
+      "path": "runs/node-interleavings--401--P-no-opportunity/summary.json",
+      "sha256": "637c3c5a7784ff8d0c7c36697823ce7d49e10009269a3a63061eca86c5de0d32"
+    },
+    {
+      "path": "runs/node-interleavings--503--P/decisions.json",
+      "sha256": "1ee4d103c07babe41f4cf7231b4d0c543ed0cfc2b07c27267ae0933872d9fb51"
+    },
+    {
+      "path": "runs/node-interleavings--503--B2/decisions.json",
+      "sha256": "533393815ad4bf296cbc92a7a3bc78ea5d6fde8072d5f4682b0497d4ac241378"
+    },
+    {
+      "path": "runs/node-interleavings--503--P/summary.json",
+      "sha256": "26c90de2d01a2fcd36ee911860270195a4d50f0fa28df4ea204bec956ffa08f8"
+    },
+    {
+      "path": "runs/node-interleavings--503--B2/summary.json",
+      "sha256": "41dfe0feaddb35bfd22fc1bdf8e9078b6c921d54aee84c60192a5a2c6905d61c"
+    },
+    {
+      "path": "runs/node-interleavings--503--P-no-opportunity/summary.json",
+      "sha256": "16f30e44c4e74cb8827e09785cf64252a2a1b5f55b4f99ac9a94559c16030691"
+    },
+    {
+      "path": "runs/neutral-reverse--101--P/decisions.json",
+      "sha256": "de7b464d8d4006b7abaa397fd38085578177990104c070057c77f45ca4c8fbdb"
+    },
+    {
+      "path": "runs/neutral-reverse--101--B2/decisions.json",
+      "sha256": "79a85a39564503ca8329450c3a3ed12ca189332adcfcd51cb71d38aee1c45272"
+    },
+    {
+      "path": "runs/neutral-reverse--101--P/summary.json",
+      "sha256": "a1362f26ab03e21e7092d24cf905c4a03cf9caaef6815726d755531a15157372"
+    },
+    {
+      "path": "runs/neutral-reverse--101--B2/summary.json",
+      "sha256": "e2d0200eecb5f39ef25799627a038989bd985a6538a97a6fc56aed3d46e71a20"
+    },
+    {
+      "path": "runs/neutral-reverse--101--P-no-opportunity/summary.json",
+      "sha256": "de1b93ef034f00c05ea00d15646a586ef28f207b950d3a5eb99ba60e53b51bbb"
+    },
+    {
+      "path": "runs/neutral-reverse--211--P/decisions.json",
+      "sha256": "b7483ffe38c8afd19f1fcde3e600d91b21c4112cc22fb2e5ad53eef0a0caf20b"
+    },
+    {
+      "path": "runs/neutral-reverse--211--B2/decisions.json",
+      "sha256": "88783ed7c9eba30f0eee60b3ccd98a1fcddc77f23f577a803c108c3286e69330"
+    },
+    {
+      "path": "runs/neutral-reverse--211--P/summary.json",
+      "sha256": "3844c60fcf666b685f7d53aa592ec67e730bd4b4dad81bb2f2a62763bf4b89ed"
+    },
+    {
+      "path": "runs/neutral-reverse--211--B2/summary.json",
+      "sha256": "94535e9a4e1f690304be0173742c4cfef1009dc0381f50a6c53b59799639c000"
+    },
+    {
+      "path": "runs/neutral-reverse--211--P-no-opportunity/summary.json",
+      "sha256": "8e18ed5e54a29fcc32d65d9489528a90d4197b25486a8c67912c46597ab1a7cf"
+    },
+    {
+      "path": "runs/neutral-reverse--307--P/decisions.json",
+      "sha256": "92fcb1910e63ce59f5def35968072579e939f231c719a9658451aa2d8ffbe12e"
+    },
+    {
+      "path": "runs/neutral-reverse--307--B2/decisions.json",
+      "sha256": "fe89b92b4455515e66f86c04d947fae1d973d8913febddfa1469d8f9d0d1fbe0"
+    },
+    {
+      "path": "runs/neutral-reverse--307--P/summary.json",
+      "sha256": "a2e835c0b7940ded24581e350f5dc852696f5b45f72190fd98d44e8f4fb722a3"
+    },
+    {
+      "path": "runs/neutral-reverse--307--B2/summary.json",
+      "sha256": "66b7de526a874e9a2315314d24c3dfef82fc16f517caba94b10e562691fce289"
+    },
+    {
+      "path": "runs/neutral-reverse--307--P-no-opportunity/summary.json",
+      "sha256": "28008f663b7a221f46ce9b72692d5d61f88950b5589810d07d1b82c0f555f1e1"
+    },
+    {
+      "path": "runs/neutral-reverse--401--P/decisions.json",
+      "sha256": "f28dcc0f6135081dfdfcc98af916c66493c6500d8594bd9c7541b2797fcd6a74"
+    },
+    {
+      "path": "runs/neutral-reverse--401--B2/decisions.json",
+      "sha256": "940013fec72fefe32f2008f08276654d72cbddba816bb0c471a36159f614485a"
+    },
+    {
+      "path": "runs/neutral-reverse--401--P/summary.json",
+      "sha256": "f23df0d140b2f80a1d5fc939ab648ea7e66e559915383e7f5b77d66d957d7056"
+    },
+    {
+      "path": "runs/neutral-reverse--401--B2/summary.json",
+      "sha256": "afd4f0d5aa22d542bff0993d18d7a82ece3f18df34c67a72dbd4ed0d81eed50f"
+    },
+    {
+      "path": "runs/neutral-reverse--401--P-no-opportunity/summary.json",
+      "sha256": "7936b4b0fb0564799d1dc07c415ce37310a2f89675ec28e0c840a484f0a99e3b"
+    },
+    {
+      "path": "runs/neutral-reverse--503--P/decisions.json",
+      "sha256": "916c159c2e53b621d2a1be2cd5e68eeecd508db730a3389bb092fcd238b4c648"
+    },
+    {
+      "path": "runs/neutral-reverse--503--B2/decisions.json",
+      "sha256": "1e5c7d8d8b4f58aa3519280821dabcda3580877e72c87cbc508e1e1fa831ac71"
+    },
+    {
+      "path": "runs/neutral-reverse--503--P/summary.json",
+      "sha256": "07d0d5dcf29b898041678a2b78295a6b92cb903c659978d409b816831a345782"
+    },
+    {
+      "path": "runs/neutral-reverse--503--B2/summary.json",
+      "sha256": "05a1ad2c6ae2c7adef844da0bdb73aa0d6c30cee8f04649346bdb165f48a2b3d"
+    },
+    {
+      "path": "runs/neutral-reverse--503--P-no-opportunity/summary.json",
+      "sha256": "ecda7a7cc554d5d928d0d646e01d229c20e75880e356aee4ad7d10019587d9fa"
+    }
+  ],
+  "limitations": [
+    "No scenario rerun; outcome differences are from sealed paired runs.",
+    "Current effect classes ignore interchangeable current device IDs; unknown future recalls may distinguish them.",
+    "Packing witnesses establish legal coexistence, not end-to-end gain or fairness.",
+    "Completed F minus 10 per completed work includes queueing, interruption and other elapsed time; it is not pure waiting.",
+    "Failed/unfinished horizon-minus-arrival contributions are metric shares, not automatically irreducible lower bounds.",
+    "A freeze of the current placement approach does not prove all scheduling approaches lack headroom."
+  ],
+  "pair_summary": {
+    "pairs": 25,
+    "work_records_equal_pairs": 24,
+    "work_records_different": 2,
+    "full_action_sequences_equal_pairs": 23,
+    "admission_time_sequences_equal_pairs": 24,
+    "all_R_exactly_1": true
+  },
+  "registered_digests_all_match": true
+}

@@ -97,6 +97,14 @@ def inputs():
                                     "Co-admission proxy has no general fairness guarantee."])
             for name, works in cases.items()}
     scenarios["lease-counterexample"]["model"]["duration_seconds"] = 20
+    for inp in scenarios.values():
+        duration = inp["model"]["duration_seconds"]
+        inp["model"].update(
+            name="research-uniform-work-v1", horizon_seconds=inp["horizon"],
+            works_per_run=len(inp["works"]),
+            duration_limit=f"Uniform {duration}-second work in this micro-input; no duration supplied to policy.",
+            scale_limit="Three or four designed jobs, not a representative workload benchmark.",
+        )
     return scenarios
 
 

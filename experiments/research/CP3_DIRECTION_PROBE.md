@@ -45,3 +45,11 @@ the real allocation contract rejects (minimum30). Preserve that failed manifest
 and partial outputs. Replace that invalid case with legal TTL30/uniform-duration20,
 without changing the policy or other four inputs. This is an input-validity repair,
 not a result-based policy search. Retain both attempts separately.
+
+Metadata correction after independent review: the first valid inputs retained
+unused inherited MODEL prose/counts (H400/32 works/ten-second duration prose).
+The runner actually consumed top-level H80, 3/4 works and duration10 or20.
+Do not rewrite those sealed inputs. Normalize all descriptive model fields and
+repeat these tiny runs once, checking all per-work metrics against the preserved
+outputs. This is a provenance correction, not another policy/parameter choice;
+repetitions do not increase the number of independent cases.
