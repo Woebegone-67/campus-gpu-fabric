@@ -4,9 +4,9 @@
 
 **当前版本：CP0。** 已建立统一契约、工程边界、任务书和验收入口。开发host实际提供health/version；其余19个官方操作明确返回501，尚不是可参赛验收的Server。界面是六个工作区的开发骨架，没有预填任务或虚构运行数字。
 
-公开协作仓库：https://github.com/Woebegone-67/campus-gpu-fabric
+协作仓库：https://github.com/Woebegone-67/campus-gpu-fabric
 
-仓库可匿名读取与克隆。A和B提交代码时使用各自GitHub账号；xuyangma的write权限已生效，切勿共享凭据。
+仓库可见性以GitHub实时设置为准。当前私有访问需使用各自GitHub身份；xuyangma的write权限已生效。Codex桌面本地开发只需克隆后打开项目文件夹，不要求在GitHub应用安装列表选中仓库。切勿共享凭据。
 
 | 负责人 | 主线 | 开发分支 | 先读 |
 |---|---|---|---|
@@ -98,5 +98,5 @@ CI会在push/PR运行CP0检查。代码审阅责任写在`.github/CODEOWNERS`；
 - 当前任务是CP0开工与协作准备，没有调度收益或真实GPU成绩。
 - 团队暂定语义集中在`configs/semantics.json`。正式答疑到达时局部调整，不改官方原件。
 - 内部契约与产品扩展不增加基础客户端必填字段。WorkIntent计时从意图到达开始，不从获配后创建job开始。
-- 仓库已公开用于竞赛协作，尚未添加开源许可证。第三方库保留其许可；AI协助生成CP0代码/文档，记录见[CP0交付记录](docs/CP0_DELIVERY.md)。
+- 仓库用于竞赛协作，尚未添加开源许可证。第三方库保留其许可；AI协助生成CP0代码/文档，记录见[CP0交付记录](docs/CP0_DELIVERY.md)。
 - 此仓库不含旧MCM原始数据、历史实验、论文或凭据。

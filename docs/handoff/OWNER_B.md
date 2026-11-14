@@ -6,6 +6,8 @@
 
 你唯一写：`src/campus_fabric/{projections,api/queries,api/extensions/queries,policies,workflows}/`、`web/`、`experiments/`、`tests/{policy,ui,blackbox}/`，前端依赖锁、产品/实验/视频材料。A写领域、账本、时钟、权限、执行与所有持久命令。workflow由你编排，持久状态通过A事务口保存；页面不维护第二份业务真相。
 
+桌面版接入：在自己的电脑上用xuyangma的GitHub身份克隆 `Woebegone-67/campus-gpu-fabric`，切换 `work/b-product`，然后在Codex中打开这个本地文件夹并使用Local/This computer。无需在GitHub应用安装设置中勾选A名下仓库；该列表不作为本地开工条件。若Git需要认证，可先用自己的账号运行 `gh auth login`。
+
 执行顺序：
 
 1. `make setup && make cp0`；使用自己的端口、库和run目录。`make web` 开发入口；Node22/React/TypeScript/Vite。合同样例只用于组件/纯函数，不能出现在运行验收里冒充服务。
