@@ -118,6 +118,22 @@ def main():
     execute("cp2-a-regression", [py, "scripts/accept_cp2_a.py"], timeout=1200)
     execute("web-ui-regression", ["npm", "--prefix", "web", "run", "test:ui"])
     execute("cp2-b-regression", [py, "scripts/accept_cp2_b.py"], timeout=600)
+    # B's CPU-mode 409 report is a regression, not a ninth joint CP3 gate.
+    overview_path = OUT / "overview_snapshot_receipt.json"
+    overview_path.unlink(missing_ok=True)
+    overview_run = execute("overview-snapshot-regression", [py,
+        "tests/acceptance/cp3/cp3_overview_snapshot.py", "--output", str(overview_path)])
+    try:
+        overview_valid = valid_receipt(overview_run, json.loads(overview_path.read_text()),
+                                       build, current_build(ROOT), "CP3-OVERVIEW-SNAPSHOT")
+    except (OSError, KeyError, ValueError, TypeError, AttributeError):
+        overview_valid = False
+    if overview_path.is_file():
+        overview_run["receipt"] = artifact(overview_path)
+    if not overview_valid:
+        overview_run["status"] = "FAIL"
+        overview_run["validation_error"] = "Overview regression receipt is missing, failed or stale."
+        print("FAIL overview-snapshot-regression receipt validation", flush=True)
     for requirement in requirements:
         cid = requirement["id"]
         check = {"id": cid, "target_id": requirement["target_id"], "build": build,

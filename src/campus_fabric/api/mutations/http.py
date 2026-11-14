@@ -300,16 +300,18 @@ def mount_cp1(app, kernel, identity):
         registration = WorkIntentRegistration.model_validate_json(json.dumps(await object_body(request)))
         if registration.owner_id != actor.owner_id:
             raise HTTPException(403, "Intent owner must match the authenticated owner")
-        version = kernel.decision_snapshot().version
         match = request.headers.get("if-match")
-        if match:
+        if match is None:
+            receipt = kernel.register_current_intent(
+                registration, actor=actor, request_id=request_id(request))
+        else:
             try:
                 epoch, revision = match.split(":")
                 version = VersionStamp(epoch=int(epoch), revision=int(revision))
             except (ValueError, ValidationError) as exc:
                 raise HTTPException(400, "If-Match must be epoch:revision") from exc
-        receipt = kernel.register_intent(registration, version, actor=actor,
-                                         request_id=request_id(request))
+            receipt = kernel.register_intent(registration, version, actor=actor,
+                                             request_id=request_id(request))
         return receipt_response(kernel, receipt, internal=True, status=202)
 
     @app.post("/x/v1/work-intents/{intent_id}/actions")

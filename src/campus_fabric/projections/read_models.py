@@ -35,6 +35,14 @@ class InventoryRead:
 
 
 @dataclass(frozen=True)
+class OverviewRead:
+    """Business counts and capacity from one authorized database snapshot."""
+
+    snapshot: ReadSnapshot
+    inventory: InventoryRead
+
+
+@dataclass(frozen=True)
 class OwnedEvidence:
     owner_id: str
     run: EvidenceRun

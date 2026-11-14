@@ -282,10 +282,8 @@ def create_query_router(services: QueryServices | None = None) -> APIRouter:
     def overview(request: Request, actor: Any) -> dict:
         if actor.role != "administrator":
             raise QueryFailure(403, "forbidden", "Administrator authority is required.")
-        snapshot = services.read(actor, global_scope=True)
-        inventory = services.inventory(actor)
-        if snapshot.version != inventory.version or snapshot.now != inventory.now:
-            raise QueryFailure(409, "stale_version", "Overview providers returned different snapshots.")
+        view = services.overview(actor)
+        snapshot, inventory = view.snapshot, view.inventory
         return {
             **metadata(snapshot), **metrics_json(snapshot),
             "capacity": {"nodes": [x.model_dump(mode="json") for x in inventory.nodes],

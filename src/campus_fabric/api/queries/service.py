@@ -27,11 +27,13 @@ from campus_fabric.projections.read_models import (
     ArtifactRead,
     EvidenceRead,
     InventoryRead,
+    OverviewRead,
     OwnedEvidence,
 )
 
 ActorResolver = Callable[[Request], AuthenticatedActor]
 InventoryReader = Callable[[AuthenticatedActor], InventoryRead]
+OverviewReader = Callable[[AuthenticatedActor], OverviewRead]
 EvidenceReader = Callable[[AuthenticatedActor], EvidenceRead]
 ArtifactReader = Callable[[AuthenticatedActor, str, str], ArtifactRead | None]
 
@@ -73,6 +75,39 @@ def invoke(function: Callable[..., Any], *args: Any) -> Any:
         raise unavailable("Read provider")
 
 
+def validated_snapshot(value: Any, actor: AuthenticatedActor, global_scope: bool) -> ReadSnapshot:
+    if not isinstance(value, ReadSnapshot):
+        raise QueryFailure(502, "provider_contract_error", "Invalid authoritative snapshot.")
+    try:
+        snapshot = ReadSnapshot.model_validate_json(value.model_dump_json())
+        for items, key in ((snapshot.allocations, "allocation_id"),
+                           (snapshot.jobs, "job_id"), (snapshot.intents, "intent_id")):
+            if len({getattr(item, key) for item in items}) != len(items):
+                raise ValueError("duplicate record")
+    except (ValueError, TypeError, AttributeError):
+        raise QueryFailure(502, "provider_contract_error", "Invalid authoritative snapshot.")
+    if snapshot.viewer != actor or snapshot.global_scope != global_scope:
+        raise QueryFailure(502, "provider_contract_error", "Snapshot authorization mismatch.")
+    return snapshot
+
+
+def validated_inventory(value: Any, actor: AuthenticatedActor) -> InventoryRead:
+    if not isinstance(value, InventoryRead) or value.viewer != actor:
+        raise QueryFailure(502, "provider_contract_error", "Invalid inventory authorization.")
+    try:
+        version = VersionStamp.model_validate_json(value.version.model_dump_json())
+        nodes = tuple(NodeInventory.model_validate_json(x.model_dump_json()) for x in value.nodes)
+        if isinstance(value.now, bool) or not math.isfinite(value.now) or value.now < 0:
+            raise ValueError("invalid time")
+        if any(x.observed_at > value.now for x in nodes):
+            raise ValueError("future inventory")
+        if len({x.node_id for x in nodes}) != len(nodes):
+            raise ValueError("duplicate inventory")
+    except (ValueError, TypeError, AttributeError):
+        raise QueryFailure(502, "provider_contract_error", "Invalid inventory snapshot.")
+    return InventoryRead(viewer=actor, version=version, now=value.now, nodes=nodes)
+
+
 @dataclass(frozen=True)
 class QueryServices:
     """Register A's trusted providers explicitly; no fallback business fixture.
@@ -90,6 +125,7 @@ class QueryServices:
     experiment_runner: ExperimentRunner | None = None
     clock_origin: str | None = None
     cp1_advisory_actions: bool = False
+    overview_reader: OverviewReader | None = None
 
     def experiments(self, actor: AuthenticatedActor) -> ExperimentRunner:
         if actor.role != "administrator":
@@ -156,14 +192,7 @@ class QueryServices:
             ):
                 raise QueryFailure(409, "stale_epoch", "The resource epoch changed; restart event reading.") from error
             raise QueryFailure(502, "provider_contract_error", "Invalid authoritative snapshot.") from error
-        if not isinstance(value, ReadSnapshot):
-            raise QueryFailure(502, "provider_contract_error", "Invalid authoritative snapshot.")
-        try:
-            snapshot = ReadSnapshot.model_validate_json(value.model_dump_json())
-        except ValidationError:
-            raise QueryFailure(502, "provider_contract_error", "Invalid authoritative snapshot.")
-        if snapshot.viewer != actor or snapshot.global_scope != global_scope:
-            raise QueryFailure(502, "provider_contract_error", "Snapshot authorization mismatch.")
+        snapshot = validated_snapshot(value, actor, global_scope)
         if after is not None and after.epoch != snapshot.version.epoch:
             raise QueryFailure(409, "stale_epoch", "The resource epoch changed; restart event reading.")
         return snapshot
@@ -171,21 +200,25 @@ class QueryServices:
     def inventory(self, actor: AuthenticatedActor) -> InventoryRead:
         if self.inventory_reader is None:
             raise unavailable("Authorized inventory provider")
-        value = invoke(self.inventory_reader, actor)
-        if not isinstance(value, InventoryRead) or value.viewer != actor:
-            raise QueryFailure(502, "provider_contract_error", "Invalid inventory authorization.")
-        try:
-            version = VersionStamp.model_validate_json(value.version.model_dump_json())
-            nodes = tuple(NodeInventory.model_validate_json(x.model_dump_json()) for x in value.nodes)
-            if not math.isfinite(value.now) or value.now < 0:
-                raise ValueError("invalid time")
-            if any(x.observed_at > value.now for x in nodes):
-                raise ValueError("future inventory")
-            if len({x.node_id for x in nodes}) != len(nodes):
-                raise ValueError("duplicate inventory")
-        except (ValidationError, ValueError, TypeError, AttributeError):
-            raise QueryFailure(502, "provider_contract_error", "Invalid inventory snapshot.")
-        return InventoryRead(viewer=actor, version=version, now=value.now, nodes=nodes)
+        return validated_inventory(invoke(self.inventory_reader, actor), actor)
+
+    def overview(self, actor: AuthenticatedActor) -> OverviewRead:
+        if actor.role != "administrator":
+            raise QueryFailure(403, "forbidden", "Administrator authority is required.")
+        if self.overview_reader is None:
+            # Legacy injected providers remain supported only when their stamps
+            # agree. The application binds a single-read provider below this seam.
+            snapshot = self.read(actor, global_scope=True)
+            inventory = self.inventory(actor)
+        else:
+            value = invoke(self.overview_reader, actor)
+            if not isinstance(value, OverviewRead):
+                raise QueryFailure(502, "provider_contract_error", "Invalid overview snapshot.")
+            snapshot = validated_snapshot(value.snapshot, actor, True)
+            inventory = validated_inventory(value.inventory, actor)
+        if snapshot.version != inventory.version or snapshot.now != inventory.now:
+            raise QueryFailure(409, "stale_version", "Overview providers returned different snapshots.")
+        return OverviewRead(snapshot=snapshot, inventory=inventory)
 
     def evidence(self, actor: AuthenticatedActor) -> EvidenceRead:
         if self.evidence_reader is None:

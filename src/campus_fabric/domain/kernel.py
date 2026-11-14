@@ -246,80 +246,84 @@ class Kernel(LifecycleMixin):
         """Return the HTTP response snapshot from the same transaction as its effect."""
         with self.store.transaction() as conn:
             base = self.store.load(conn)
-            key = self._dedup_key(command)
-            fingerprint = self._fingerprint(command)
-            try:
-                self._authorize(command)
-                if key is not None and key in base["dedup"]:
-                    old = base["dedup"][key]
-                    if old["fingerprint"] != fingerprint:
-                        raise Rejected(
-                            "stage_conflict"
-                            if command.operation.startswith("workflow.")
-                            else "idempotency_conflict",
-                            "This key already committed different parameters",
-                        )
-                    receipt = parse(m.CommitReceipt, old["receipt"])
-                    return receipt, copy.deepcopy(base["payloads"][self._payload_key(receipt)])
-                if (
-                    command.expected_version is not None
-                    and command.expected_version != self._version(base)
-                ):
-                    raise Rejected(
-                        "stale_version", "Refresh the snapshot and construct a new command"
-                    )
-                s = copy.deepcopy(base)
-                s["revision"] += 1
-                first_event = len(s["events"])
-                objects, status, body, stage = self._apply(s, command)
-                if command.operation != "test.reset":
-                    self._schedule(s, command)
-                event_ids = tuple(e["event_id"] for e in s["events"][first_event:])
-                if command.operation == "test.reset":
-                    event_ids = tuple(e["event_id"] for e in s["events"])
-                receipt = m.CommitReceipt(
-                    request_id=command.request_id,
-                    outcome="committed" if event_ids else "noop",
-                    version=self._version(s),
-                    logical_time=s["now"],
-                    objects=tuple(objects),
-                    event_ids=event_ids,
-                )
-                if stage is not None:
-                    intent_id, stage_id, operation = stage
-                    s["intents"][intent_id]["stages"].append(
-                        plain(
-                            m.StageReceipt(
-                                stage_id=stage_id,
-                                operation=operation,
-                                state="committed",
-                                receipt=receipt,
-                            )
-                        )
-                    )
-                # Validate mutable aggregate against the immutable boundary before saving.
-                for intent in s["intents"].values():
-                    parse(m.WorkIntent, intent)
-                self._inventory(s)
-                if key is not None:
-                    s["dedup"][key] = {"fingerprint": fingerprint, "receipt": plain(receipt)}
-                if body is None:
-                    body = {"receipt": plain(receipt)}
-                s["payloads"][self._payload_key(receipt)] = {"status_code": status, "body": body}
-                self.store.save(conn, s)
-                return receipt, copy.deepcopy(s["payloads"][self._payload_key(receipt)])
-            except Rejected as exc:
-                receipt = m.CommitReceipt(
-                    request_id=command.request_id,
-                    outcome="rejected",
-                    version=self._version(base),
-                    logical_time=base["now"],
-                    error=m.ErrorDetail(
-                        code=exc.code, detail=exc.detail, current_version=self._version(base)
-                    ),
-                )
+            return self._commit_in_transaction(conn, base, command)
 
-                return receipt, self.receipt_payload(receipt)
+    def _commit_in_transaction(self, conn, base, command: m.CommandEnvelope):
+        """Apply one validated command while the caller holds the writer transaction."""
+        key = self._dedup_key(command)
+        fingerprint = self._fingerprint(command)
+        try:
+            self._authorize(command)
+            if key is not None and key in base["dedup"]:
+                old = base["dedup"][key]
+                if old["fingerprint"] != fingerprint:
+                    raise Rejected(
+                        "stage_conflict"
+                        if command.operation.startswith("workflow.")
+                        else "idempotency_conflict",
+                        "This key already committed different parameters",
+                    )
+                receipt = parse(m.CommitReceipt, old["receipt"])
+                return receipt, copy.deepcopy(base["payloads"][self._payload_key(receipt)])
+            if (
+                command.expected_version is not None
+                and command.expected_version != self._version(base)
+            ):
+                raise Rejected(
+                    "stale_version", "Refresh the snapshot and construct a new command"
+                )
+            s = copy.deepcopy(base)
+            s["revision"] += 1
+            first_event = len(s["events"])
+            objects, status, body, stage = self._apply(s, command)
+            if command.operation != "test.reset":
+                self._schedule(s, command)
+            event_ids = tuple(e["event_id"] for e in s["events"][first_event:])
+            if command.operation == "test.reset":
+                event_ids = tuple(e["event_id"] for e in s["events"])
+            receipt = m.CommitReceipt(
+                request_id=command.request_id,
+                outcome="committed" if event_ids else "noop",
+                version=self._version(s),
+                logical_time=s["now"],
+                objects=tuple(objects),
+                event_ids=event_ids,
+            )
+            if stage is not None:
+                intent_id, stage_id, operation = stage
+                s["intents"][intent_id]["stages"].append(
+                    plain(
+                        m.StageReceipt(
+                            stage_id=stage_id,
+                            operation=operation,
+                            state="committed",
+                            receipt=receipt,
+                        )
+                    )
+                )
+            # Validate mutable aggregate against the immutable boundary before saving.
+            for intent in s["intents"].values():
+                parse(m.WorkIntent, intent)
+            self._inventory(s)
+            if key is not None:
+                s["dedup"][key] = {"fingerprint": fingerprint, "receipt": plain(receipt)}
+            if body is None:
+                body = {"receipt": plain(receipt)}
+            s["payloads"][self._payload_key(receipt)] = {"status_code": status, "body": body}
+            self.store.save(conn, s)
+            return receipt, copy.deepcopy(s["payloads"][self._payload_key(receipt)])
+        except Rejected as exc:
+            receipt = m.CommitReceipt(
+                request_id=command.request_id,
+                outcome="rejected",
+                version=self._version(base),
+                logical_time=base["now"],
+                error=m.ErrorDetail(
+                    code=exc.code, detail=exc.detail, current_version=self._version(base)
+                ),
+            )
+
+            return receipt, self.receipt_payload(receipt)
 
     @staticmethod
     def _authorize(c):
@@ -1039,6 +1043,27 @@ class Kernel(LifecycleMixin):
             legal_actions=actions,
             next_cursor=m.EventCursor(epoch=s["epoch"], after_sequence=s["seq"]),
         )
+
+    def register_current_intent(self, registration, *, actor, request_id):
+        """Register immutable inputs without inventing a client snapshot precondition.
+
+        HTTP callers that omit If-Match have not made a versioned scheduling
+        decision. Stamp the command from the transaction's state so ordinary CPU
+        clock ticks cannot invalidate registration between a read and this write.
+        Explicitly versioned workflow ports retain their existing CAS semantics.
+        """
+        with self.store.transaction() as conn:
+            base = self.store.load(conn)
+            command = m.CommandEnvelope(
+                request_id=request_id,
+                actor=actor,
+                operation="workflow.register_intent",
+                parameters=m.WorkflowIntentParameters(
+                    kind="workflow.register_intent", registration=registration
+                ),
+                expected_version=self._version(base),
+            )
+            return self._commit_in_transaction(conn, base, command)[0]
 
     def register_intent(self, registration, expected_version, *, actor, request_id):
         return self.commit(

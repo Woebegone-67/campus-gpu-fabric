@@ -20,6 +20,12 @@ CPU 驱动先写持久启动意图，再创建子进程、记录 PID。若在中
 2. **真实 CPU 结果。** 三组确定性输入均执行两次中断和接续；分别与全新不中断 worker 以及独立矩阵运算结果比较。还检查整型工件、owner 隔离、资源归还及服务重启。固定参考 CPU 程序的等价性不等于任意用户程序、GPU 或容器的恢复能力。
 3. **独立有限模型。** 以另外实现的状态机核对生成命令和真实并发历史，检验原子资源账本、幂等、期限、故障和 owner 边界；并发操作枚举符合真实先后约束的串行化。负向控制主动破坏结果，要求判定器能拒绝。模型范围是有限的单节点整卡实例，不声称覆盖所有异构放置或所有线程交错。
 
+## B 联调反馈补修
+
+B 在 CP2 集成版本报告管理员总览偶发 409：业务记录和资源库存分别读取，真实 CPU 时钟可能在两次读取之间提交。现在 `/x/v1/admin/overview` 从一次已授权 SQLite 快照产生两类投影；统计字段、权限和 HTTP 形状不变。错误数据仍拒绝，旧注入 provider 的版本不一致仍返回 409。完整说明见 `docs/handoff/CP2_OVERVIEW_409_FIX.md`。
+
+在检查远端 CI 时另发现首次工作登记存在相同的“读取后再提交”时间窗口。未提供 `If-Match` 的登记改为在写事务内取得版本并登记；显式版本和后续阶段的乐观并发检查保持原义。没有放松命令契约或添加失败重试。旧提交 `6e3afe5` 的本地通过不能替代其失败的 GitHub CI；最终结论必须使用修复后构建的完整回执。
+
 ## 复验
 
 环境与锁文件沿用 README。完整入口：
@@ -30,12 +36,13 @@ npm --prefix web ci
 make cp3-a
 ```
 
-该入口先运行 CP0–CP2 回归及现有 B 集成检查，再顺序执行三个 CP3 注册验证器。专项复验：
+该入口先运行 CP0–CP2 回归及现有 B 集成检查、总览单快照 HTTP 回归，再顺序执行三个 CP3 注册验证器。总览回归是附加项，不新增或替代八项联合门槛。专项复验：
 
 ```sh
 uv run python tests/acceptance/cp3/cp3_crash_recovery.py --output evidence/cp3/crash_recovery_receipt.json
 uv run python tests/acceptance/cp3/cp3_cpu_equivalence.py --output evidence/cp3/cpu_equivalence_receipt.json
 uv run python tests/acceptance/cp3/cp3_independent_model.py --output evidence/cp3/independent_model_receipt.json
+uv run python tests/acceptance/cp3/cp3_overview_snapshot.py --output evidence/cp3/overview_snapshot_receipt.json
 ```
 
 所有实例和端口均隔离；CPU/崩溃测试要求 macOS 或 Linux。源代码、配置、文档或提交身份改变会使旧回执过期，应在稳定构建上重跑。日志和原始检查记录在 `evidence/cp3/`；CI 上传对应 artifact。本分支不把回执里的本机进程号当成可复用运行资源。
