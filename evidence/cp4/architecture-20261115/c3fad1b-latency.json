@@ -1,0 +1,117 @@
+{
+  "actual": {
+    "by_operation": {
+      "allocate": {
+        "count": 4736,
+        "max_ms": 8001.391173000002,
+        "p50_ms": 2335.778067999854,
+        "p95_ms": 5381.401358000176,
+        "p99_ms": 6431.708893999939
+      },
+      "cancel": {
+        "count": 4723,
+        "max_ms": 5226.681461999988,
+        "p50_ms": 256.5358629999537,
+        "p95_ms": 2305.5231989999356,
+        "p99_ms": 3273.8675169998714
+      },
+      "create_job": {
+        "count": 4731,
+        "max_ms": 6876.303074999896,
+        "p50_ms": 1582.8317000000425,
+        "p95_ms": 4166.833988000008,
+        "p99_ms": 5250.279371000033
+      },
+      "job_detail": {
+        "count": 590,
+        "max_ms": 2816.663687999835,
+        "p50_ms": 210.10489399998278,
+        "p95_ms": 1843.6301530000492,
+        "p99_ms": 2325.593151000021
+      },
+      "release": {
+        "count": 4719,
+        "max_ms": 4607.319469999993,
+        "p50_ms": 143.04045599999426,
+        "p95_ms": 1992.1226049998495,
+        "p99_ms": 2679.0725670000484
+      },
+      "renew": {
+        "count": 4727,
+        "max_ms": 6653.183905000105,
+        "p50_ms": 697.4879039998996,
+        "p95_ms": 3198.66284800014,
+        "p99_ms": 4270.895175999954
+      }
+    },
+    "environment": {
+      "cpu_count": 4,
+      "cpu_max": "400000 100000",
+      "limited_memory_bytes": 8589934592,
+      "limited_vcpus": 4.0,
+      "measurement": "Client-observed real TCP wall time, queueing included",
+      "memory_max": "8589934592",
+      "platform": "Linux-6.8.0-117-generic-aarch64-with-glibc2.41",
+      "python": "3.12.16 (main, Nov  5 2026, 08:06:14) [GCC 14.2.0]",
+      "reference_4vcpu_8gib": true
+    },
+    "excluded_workloads": {
+      "clock_batches": "not measured",
+      "fault_injection": "not measured",
+      "policy_experiments": "not measured"
+    },
+    "observed_load": {
+      "commands": 23636,
+      "concurrency": 32,
+      "jobs": 4731,
+      "nodes": 128,
+      "owners": 64,
+      "physical_gpus": 1024
+    },
+    "ordinary": {
+      "count": 24226,
+      "max_ms": 8001.391173000002,
+      "p50_ms": 719.1432770000574,
+      "p95_ms": 3855.914868999889,
+      "p99_ms": 5487.740200999951
+    },
+    "throughput_requests_per_second": 20.168284891701422
+  },
+  "build": {
+    "git_commit": "c3fad1bac8a208b74de99b1c769dee28e771ebc5",
+    "source_file_count": 323,
+    "source_sha256": "e8aaa1f5289a54607df0b2972341ccaae829fb4a30fc4e4446583c66d974e8f2"
+  },
+  "build_at_finish": {
+    "git_commit": "c3fad1bac8a208b74de99b1c769dee28e771ebc5",
+    "source_file_count": 323,
+    "source_sha256": "e8aaa1f5289a54607df0b2972341ccaae829fb4a30fc4e4446583c66d974e8f2"
+  },
+  "check": "CP4-LATENCY",
+  "checks": [],
+  "evidence": [
+    {
+      "path": "evidence/cp4/load/entity-c3fad1b-4cpu8g-20261115/run.json",
+      "sha256": "f375c2e9d284da1786ff4706cef6b95d4a8f1ba88ce65ffe32b1725a790b2e37"
+    },
+    {
+      "path": "evidence/cp4/load/entity-c3fad1b-4cpu8g-20261115/inventory.json",
+      "sha256": "15c48f3a8f5fea66f2bd0264ecd2b06d902b6a5a1f7728ccdbb3457a0e3c7f0d"
+    },
+    {
+      "path": "evidence/cp4/load/entity-c3fad1b-4cpu8g-20261115/http_history.jsonl.gz",
+      "sha256": "72a09f61a89f47df972fee6f53ef6e3bd8fca9726634f044a0525e2e72ae23a9"
+    },
+    {
+      "path": "evidence/cp4/load/entity-c3fad1b-4cpu8g-20261115/final_state.json.gz",
+      "sha256": "00c7396e450555eebcc67c4affc75d78db3172c16a0d6c238e487c205a76e81f"
+    }
+  ],
+  "evidence_kind": "load_test",
+  "observed_at": "2026-11-14T18:16:23.765555+00:00",
+  "schema_version": "1.0.0",
+  "status": "NOT_MET",
+  "unresolved_issues": [
+    "Incomplete declared workload"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "method": "sqlite3.Connection.backup from read-only source after load server stopped; originals retained in stopped containers",
+  "git_included": false,
+  "context": "colima-cp4-load",
+  "containers": [
+    "fabric-entity-20261115",
+    "fabric-request-isolation-20261115"
+  ],
+  "backups": [
+    {
+      "local_backup_path": "/Users/xz/Projects/campus-gpu-fabric/runtime/architecture-preservation-20261115/entity-c3fad1b.sqlite3",
+      "bytes": 197439488,
+      "sha256": "ac74c9c1508611254adfb719ac75502f70006750a42c411803255068e397700c"
+    },
+    {
+      "local_backup_path": "/Users/xz/Projects/campus-gpu-fabric/runtime/architecture-preservation-20261115/phases-failed-b19acae.sqlite3",
+      "bytes": 585728,
+      "sha256": "546cb82f7bb11b12efcac928edd103e3327132b96502b16ca9b216a25fe68d5b"
+    },
+    {
+      "local_backup_path": "/Users/xz/Projects/campus-gpu-fabric/runtime/architecture-preservation-20261115/phases-success-b19acae.sqlite3",
+      "bytes": 3235840,
+      "sha256": "59a899cb5a6c6a09c645794675378a4f28d8f81839222e1b97f38e0d9b1d43b9"
+    },
+    {
+      "local_backup_path": "/Users/xz/Projects/campus-gpu-fabric/runtime/architecture-preservation-20261115/request-b19acae.sqlite3",
+      "bytes": 11165696,
+      "sha256": "d26322280e87c2bd51a8a57e26ec5b4f35de068b6bb845679afd13b1f9587a1c"
+    }
+  ]
+}

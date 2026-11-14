@@ -1,0 +1,42 @@
+[
+  {
+    "path": "build-after.json",
+    "bytes": 178,
+    "sha256": "74407e2ea8f98bfdd96c4ddf62b49481512007214c1f9b37d677d94dbd9f4d27"
+  },
+  {
+    "path": "build-before.json",
+    "bytes": 178,
+    "sha256": "74407e2ea8f98bfdd96c4ddf62b49481512007214c1f9b37d677d94dbd9f4d27"
+  },
+  {
+    "path": "contracts.log",
+    "bytes": 407,
+    "sha256": "d73af0f8a03e589b7abd3feaa3cc281de7a84b5c8816d5ecbe53977eeabc57a6"
+  },
+  {
+    "path": "npm-ci.log",
+    "bytes": 263,
+    "sha256": "a9b6272446fa270fd5e2d5d2631f066c223e57b164552ddfc035e7a07c057511"
+  },
+  {
+    "path": "pytest.log",
+    "bytes": 4196,
+    "sha256": "0102e03ec7781ce220e8294a6d4d9202809dedcdab63509578104b1e63aebab5"
+  },
+  {
+    "path": "session-recheck.log",
+    "bytes": 99,
+    "sha256": "e33d4fe93d712fc38d16b802ccc08a386bcea7e75d53216129f0bbf17f690940"
+  },
+  {
+    "path": "validation.json",
+    "bytes": 1213,
+    "sha256": "7ac9d38655af14510e473575a520c85c72bf8d7099629f4cc734d8ff4cbb5607"
+  },
+  {
+    "path": "web-build.log",
+    "bytes": 411,
+    "sha256": "5b286577f5eb7bdb5577b0f09294d91b90157c76628a32e91a963a166287cd06"
+  }
+]

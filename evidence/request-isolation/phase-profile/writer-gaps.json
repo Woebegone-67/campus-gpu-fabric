@@ -1,0 +1,11 @@
+{
+  "kind": "OFFLINE_WRITER_GAP_SUMMARY",
+  "count": 319,
+  "sum_ms": 2440.70097,
+  "p50_ms": 4.146176,
+  "p95_ms": 34.938889,
+  "max_ms": 95.137727,
+  "with_already_waiting_count": 311,
+  "with_already_waiting_total_ms": 2346.4838420000005,
+  "limitations": "Return-side timestamps can include thread scheduling delay; waiting presence does not identify SQLite sleep/backoff versus OS scheduling."
+}

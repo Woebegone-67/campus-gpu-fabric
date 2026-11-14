@@ -1,0 +1,120 @@
+{
+  "actual": {
+    "by_operation": {
+      "allocate": {
+        "count": 256,
+        "max_ms": 5561.4836430002015,
+        "p50_ms": 1822.2192480000103,
+        "p95_ms": 4865.514394999991,
+        "p99_ms": 5353.0218089999835
+      },
+      "cancel": {
+        "count": 256,
+        "max_ms": 3186.5706889998364,
+        "p50_ms": 39.8816550000447,
+        "p95_ms": 882.4249150000014,
+        "p99_ms": 1977.1384609998677
+      },
+      "create_job": {
+        "count": 256,
+        "max_ms": 3773.6344249999547,
+        "p50_ms": 45.19279800001641,
+        "p95_ms": 1465.058875000068,
+        "p99_ms": 2787.8210209998997
+      },
+      "job_detail": {
+        "count": 32,
+        "max_ms": 42.122698999946806,
+        "p50_ms": 4.65044499992473,
+        "p95_ms": 27.955697999914264,
+        "p99_ms": 42.122698999946806
+      },
+      "release": {
+        "count": 256,
+        "max_ms": 2783.309564999854,
+        "p50_ms": 44.372847999966325,
+        "p95_ms": 1166.8330100001185,
+        "p99_ms": 2400.7875069999045
+      },
+      "renew": {
+        "count": 256,
+        "max_ms": 3769.868419999966,
+        "p50_ms": 46.359612000060224,
+        "p95_ms": 1394.5161829999506,
+        "p99_ms": 2787.4231140001484
+      }
+    },
+    "declared_query_sample_complete": true,
+    "effective_renewals_verified": 256,
+    "ledger": {
+      "events": 1536,
+      "every_resource_delta_checked": true,
+      "final_held_physical_gpus": 0,
+      "peak_held_physical_gpus": 16
+    },
+    "lifecycle_consistent": true,
+    "observed": {
+      "commands": 1280,
+      "concurrency": 32,
+      "jobs": 256,
+      "nodes": 128,
+      "owners": 64,
+      "physical_gpus": 1024
+    },
+    "operation_counts": {
+      "allocate": 256,
+      "cancel": 256,
+      "create_job": 256,
+      "job_detail": 32,
+      "release": 256,
+      "renew": 256
+    },
+    "ordinary": {
+      "count": 1312,
+      "max_ms": 5561.4836430002015,
+      "p50_ms": 54.49521700006699,
+      "p95_ms": 3638.5615839999446,
+      "p99_ms": 4863.476758000161
+    },
+    "request_errors": [],
+    "source_unchanged": true,
+    "throughput_requests_per_second": 31.356554526263306
+  },
+  "build": {
+    "git_commit": "b19acae7f0ea185e6289388fb629d2a15dd84fad",
+    "source_file_count": 325,
+    "source_sha256": "68297acee1ac17e34d6735d724bda124814afd17c62d8857f971fb1d2fa3d6f9"
+  },
+  "build_at_finish": {
+    "git_commit": "b19acae7f0ea185e6289388fb629d2a15dd84fad",
+    "source_file_count": 325,
+    "source_sha256": "68297acee1ac17e34d6735d724bda124814afd17c62d8857f971fb1d2fa3d6f9"
+  },
+  "check": "CP4-SCALE",
+  "checks": [],
+  "evidence": [
+    {
+      "path": "evidence/cp4/load/request-b19acae-probe-20261115/run.json",
+      "sha256": "5908c36d4ee4b4d09c0be831fc8ad89544b8585274a1f25758755c466c882653"
+    },
+    {
+      "path": "evidence/cp4/load/request-b19acae-probe-20261115/inventory.json",
+      "sha256": "15c48f3a8f5fea66f2bd0264ecd2b06d902b6a5a1f7728ccdbb3457a0e3c7f0d"
+    },
+    {
+      "path": "evidence/cp4/load/request-b19acae-probe-20261115/http_history.jsonl.gz",
+      "sha256": "379194878ef00aa49154057e7b4210ba7d90d867f1c6a0647773eaf018855375"
+    },
+    {
+      "path": "evidence/cp4/load/request-b19acae-probe-20261115/final_state.json.gz",
+      "sha256": "7c4a155fa12cfa1249ca19b570d1703ac4a817e8d62b5bf44c88f28041730f9d"
+    }
+  ],
+  "evidence_kind": "load_test",
+  "observed_at": "2026-11-14T18:16:22.951837+00:00",
+  "schema_version": "1.0.0",
+  "status": "NOT_MET",
+  "unresolved_issues": [
+    "Declared full scale and all quality conditions were not met; see actual and raw run."
+  ]
+}

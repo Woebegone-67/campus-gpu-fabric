@@ -1,0 +1,704 @@
+{
+  "kind": "BOUNDED_INSTRUMENTED_DIAGNOSTIC_NOT_ACCEPTANCE",
+  "successful_attempt": "run-b19acae-64-retry1",
+  "failed_start_preserved": "first-attempt-status.json",
+  "elapsed_seconds": 10.80925484799991,
+  "counts": {
+    "allocate": 64,
+    "create_job": 64,
+    "renew": 64,
+    "cancel": 64,
+    "release": 64,
+    "job_detail": 8
+  },
+  "completed_flows": 64,
+  "ledger": {
+    "events": 384,
+    "peak_held_physical_gpus": 12,
+    "final_held_physical_gpus": 0,
+    "every_resource_delta_checked": true
+  },
+  "source_unchanged": true,
+  "build": {
+    "git_commit": "b19acae7f0ea185e6289388fb629d2a15dd84fad",
+    "source_file_count": 325,
+    "source_sha256": "68297acee1ac17e34d6735d724bda124814afd17c62d8857f971fb1d2fa3d6f9"
+  },
+  "client": {
+    "count": 328,
+    "sum_ms": 191493.85532700262,
+    "mean_ms": 583.8227296554958,
+    "p50_ms": 33.34648399959406,
+    "p95_ms": 3855.064502999994,
+    "p99_ms": 4994.579506000264,
+    "max_ms": 5303.460178000023
+  },
+  "write_phases": {
+    "client_ms": {
+      "count": 320,
+      "sum_ms": 191395.80091600146,
+      "mean_ms": 598.1118778625046,
+      "p50_ms": 37.833274000149686,
+      "p95_ms": 3855.064502999994,
+      "p99_ms": 4994.579506000264,
+      "max_ms": 5303.460178000023
+    },
+    "connection_setup_ms": {
+      "count": 320,
+      "sum_ms": 617.299973,
+      "mean_ms": 1.929062415625,
+      "p50_ms": 0.292855,
+      "p95_ms": 10.483105,
+      "p99_ms": 14.851444,
+      "max_ms": 18.021177
+    },
+    "begin_acquire_ms": {
+      "count": 320,
+      "sum_ms": 177098.139511,
+      "mean_ms": 553.431685971875,
+      "p50_ms": 0.015341,
+      "p95_ms": 3756.753367,
+      "p99_ms": 4872.435256,
+      "max_ms": 5189.170154
+    },
+    "held_ms": {
+      "count": 320,
+      "sum_ms": 8339.093427,
+      "mean_ms": 26.059666959375,
+      "p50_ms": 22.890378,
+      "p95_ms": 43.935203,
+      "p99_ms": 56.799747,
+      "max_ms": 104.274569
+    },
+    "body_ms": {
+      "count": 320,
+      "sum_ms": 7767.956255,
+      "mean_ms": 24.274863296875,
+      "p50_ms": 21.274235,
+      "p95_ms": 43.034679,
+      "p99_ms": 55.573241,
+      "max_ms": 101.964457
+    },
+    "commit_ms": {
+      "count": 320,
+      "sum_ms": 569.365728,
+      "mean_ms": 1.7792679,
+      "p50_ms": 1.356218,
+      "p95_ms": 4.475445,
+      "p99_ms": 6.820158,
+      "max_ms": 13.280872
+    },
+    "inventory_ms": {
+      "count": 320,
+      "sum_ms": 5159.998558,
+      "mean_ms": 16.12499549375,
+      "p50_ms": 13.117803,
+      "p95_ms": 35.237447,
+      "p99_ms": 45.776596,
+      "max_ms": 77.752148
+    },
+    "save_ms": {
+      "count": 320,
+      "sum_ms": 2184.031361,
+      "mean_ms": 6.825098003125,
+      "p50_ms": 6.439192,
+      "p95_ms": 9.660926,
+      "p99_ms": 11.044879,
+      "max_ms": 12.672542
+    },
+    "changed_units_ms": {
+      "count": 320,
+      "sum_ms": 1260.723038,
+      "mean_ms": 3.93975949375,
+      "p50_ms": 3.675233,
+      "p95_ms": 5.647063,
+      "p99_ms": 6.068556,
+      "max_ms": 6.574238
+    },
+    "other_body_ms": {
+      "count": 320,
+      "sum_ms": 423.926336,
+      "mean_ms": 1.3247697999999999,
+      "p50_ms": 0.9977519999999984,
+      "p95_ms": 2.344340999999999,
+      "p99_ms": 3.0223309999999977,
+      "max_ms": 37.064662
+    }
+  },
+  "write_phases_by_operation": {
+    "allocate": {
+      "client_ms": {
+        "count": 64,
+        "sum_ms": 139800.18933099837,
+        "mean_ms": 2184.3779582968496,
+        "p50_ms": 1653.7799239999913,
+        "p95_ms": 4994.579506000264,
+        "p99_ms": 5303.460178000023,
+        "max_ms": 5303.460178000023
+      },
+      "connection_setup_ms": {
+        "count": 64,
+        "sum_ms": 444.492787,
+        "mean_ms": 6.945199796875,
+        "p50_ms": 6.342551,
+        "p95_ms": 13.688811,
+        "p99_ms": 18.021177,
+        "max_ms": 18.021177
+      },
+      "begin_acquire_ms": {
+        "count": 64,
+        "sum_ms": 133125.680184,
+        "mean_ms": 2080.088752875,
+        "p50_ms": 1537.681463,
+        "p95_ms": 4872.435256,
+        "p99_ms": 5189.170154,
+        "max_ms": 5189.170154
+      },
+      "held_ms": {
+        "count": 64,
+        "sum_ms": 2364.46761,
+        "mean_ms": 36.94480640625,
+        "p50_ms": 33.531171,
+        "p95_ms": 56.799747,
+        "p99_ms": 104.274569,
+        "max_ms": 104.274569
+      },
+      "body_ms": {
+        "count": 64,
+        "sum_ms": 2246.119405,
+        "mean_ms": 35.095615703125,
+        "p50_ms": 31.967411,
+        "p95_ms": 55.573241,
+        "p99_ms": 101.964457,
+        "max_ms": 101.964457
+      },
+      "commit_ms": {
+        "count": 64,
+        "sum_ms": 117.801584,
+        "mean_ms": 1.84064975,
+        "p50_ms": 1.358515,
+        "p95_ms": 4.597031,
+        "p99_ms": 11.688317,
+        "max_ms": 11.688317
+      },
+      "inventory_ms": {
+        "count": 64,
+        "sum_ms": 1636.367074,
+        "mean_ms": 25.56823553125,
+        "p50_ms": 22.877473,
+        "p95_ms": 45.776596,
+        "p99_ms": 77.752148,
+        "max_ms": 77.752148
+      },
+      "save_ms": {
+        "count": 64,
+        "sum_ms": 447.692994,
+        "mean_ms": 6.99520303125,
+        "p50_ms": 6.596441,
+        "p95_ms": 9.111715,
+        "p99_ms": 10.238117,
+        "max_ms": 10.238117
+      },
+      "changed_units_ms": {
+        "count": 64,
+        "sum_ms": 246.865676,
+        "mean_ms": 3.8572761875,
+        "p50_ms": 3.611509,
+        "p95_ms": 5.286106,
+        "p99_ms": 6.001062,
+        "max_ms": 6.001062
+      },
+      "other_body_ms": {
+        "count": 64,
+        "sum_ms": 162.059337,
+        "mean_ms": 2.532177140625,
+        "p50_ms": 1.7305310000000027,
+        "p95_ms": 2.819569000000003,
+        "p99_ms": 37.064662,
+        "max_ms": 37.064662
+      }
+    },
+    "create_job": {
+      "client_ms": {
+        "count": 64,
+        "sum_ms": 23254.14805000173,
+        "mean_ms": 363.34606328127705,
+        "p50_ms": 29.396528000233957,
+        "p95_ms": 2007.9363589998138,
+        "p99_ms": 4537.299681999684,
+        "max_ms": 4537.299681999684
+      },
+      "connection_setup_ms": {
+        "count": 64,
+        "sum_ms": 26.385142000000002,
+        "mean_ms": 0.41226784375000003,
+        "p50_ms": 0.264506,
+        "p95_ms": 1.21114,
+        "p99_ms": 2.428714,
+        "max_ms": 2.428714
+      },
+      "begin_acquire_ms": {
+        "count": 64,
+        "sum_ms": 21339.51787,
+        "mean_ms": 333.42996671875,
+        "p50_ms": 0.007882,
+        "p95_ms": 1964.980805,
+        "p99_ms": 4499.415266,
+        "max_ms": 4499.415266
+      },
+      "held_ms": {
+        "count": 64,
+        "sum_ms": 1533.659829,
+        "mean_ms": 23.963434828125,
+        "p50_ms": 22.320991,
+        "p95_ms": 37.44935,
+        "p99_ms": 50.206802,
+        "max_ms": 50.206802
+      },
+      "body_ms": {
+        "count": 64,
+        "sum_ms": 1412.293417,
+        "mean_ms": 22.067084640625,
+        "p50_ms": 20.54431,
+        "p95_ms": 36.145716,
+        "p99_ms": 48.778878,
+        "max_ms": 48.778878
+      },
+      "commit_ms": {
+        "count": 64,
+        "sum_ms": 121.102687,
+        "mean_ms": 1.892229484375,
+        "p50_ms": 1.410961,
+        "p95_ms": 4.54608,
+        "p99_ms": 6.979713,
+        "max_ms": 6.979713
+      },
+      "inventory_ms": {
+        "count": 64,
+        "sum_ms": 876.102528,
+        "mean_ms": 13.689102,
+        "p50_ms": 12.66307,
+        "p95_ms": 27.888592,
+        "p99_ms": 36.737445,
+        "max_ms": 36.737445
+      },
+      "save_ms": {
+        "count": 64,
+        "sum_ms": 465.806965,
+        "mean_ms": 7.278233828125,
+        "p50_ms": 6.833976,
+        "p95_ms": 10.214089,
+        "p99_ms": 12.329582,
+        "max_ms": 12.329582
+      },
+      "changed_units_ms": {
+        "count": 64,
+        "sum_ms": 252.704643,
+        "mean_ms": 3.948510046875,
+        "p50_ms": 3.768792,
+        "p95_ms": 5.478727,
+        "p99_ms": 6.116956,
+        "max_ms": 6.116956
+      },
+      "other_body_ms": {
+        "count": 64,
+        "sum_ms": 70.383924,
+        "mean_ms": 1.0997488125,
+        "p50_ms": 0.9279530000000005,
+        "p95_ms": 2.1494969999999984,
+        "p99_ms": 2.9140319999999997,
+        "max_ms": 2.9140319999999997
+      }
+    },
+    "renew": {
+      "client_ms": {
+        "count": 64,
+        "sum_ms": 17613.2216730025,
+        "mean_ms": 275.20658864066405,
+        "p50_ms": 33.439751000059914,
+        "p95_ms": 1908.7892190000275,
+        "p99_ms": 4007.017076000011,
+        "max_ms": 4007.017076000011
+      },
+      "connection_setup_ms": {
+        "count": 64,
+        "sum_ms": 62.317323,
+        "mean_ms": 0.973708171875,
+        "p50_ms": 0.280729,
+        "p95_ms": 1.812144,
+        "p99_ms": 13.684675,
+        "max_ms": 13.684675
+      },
+      "begin_acquire_ms": {
+        "count": 64,
+        "sum_ms": 15580.623866,
+        "mean_ms": 243.44724790625,
+        "p50_ms": 0.008427,
+        "p95_ms": 1865.53438,
+        "p99_ms": 3979.462438,
+        "max_ms": 3979.462438
+      },
+      "held_ms": {
+        "count": 64,
+        "sum_ms": 1546.9124669999999,
+        "mean_ms": 24.170507296874998,
+        "p50_ms": 22.242839,
+        "p95_ms": 43.545428,
+        "p99_ms": 50.97564,
+        "max_ms": 50.97564
+      },
+      "body_ms": {
+        "count": 64,
+        "sum_ms": 1432.587143,
+        "mean_ms": 22.384174109375,
+        "p50_ms": 20.439634,
+        "p95_ms": 42.078202,
+        "p99_ms": 47.222342,
+        "max_ms": 47.222342
+      },
+      "commit_ms": {
+        "count": 64,
+        "sum_ms": 113.951771,
+        "mean_ms": 1.780496421875,
+        "p50_ms": 1.319329,
+        "p95_ms": 4.475445,
+        "p99_ms": 5.067464,
+        "max_ms": 5.067464
+      },
+      "inventory_ms": {
+        "count": 64,
+        "sum_ms": 947.932991,
+        "mean_ms": 14.811452984375,
+        "p50_ms": 12.730286,
+        "p95_ms": 35.927281,
+        "p99_ms": 39.678965,
+        "max_ms": 39.678965
+      },
+      "save_ms": {
+        "count": 64,
+        "sum_ms": 420.607166,
+        "mean_ms": 6.57198696875,
+        "p50_ms": 5.953477,
+        "p95_ms": 9.437007,
+        "p99_ms": 11.055921,
+        "max_ms": 11.055921
+      },
+      "changed_units_ms": {
+        "count": 64,
+        "sum_ms": 255.978197,
+        "mean_ms": 3.999659328125,
+        "p50_ms": 3.630914,
+        "p95_ms": 5.859682,
+        "p99_ms": 6.574238,
+        "max_ms": 6.574238
+      },
+      "other_body_ms": {
+        "count": 64,
+        "sum_ms": 64.04698599999999,
+        "mean_ms": 1.0007341562499998,
+        "p50_ms": 0.8926369999999988,
+        "p95_ms": 1.8133279999999985,
+        "p99_ms": 3.301346999999999,
+        "max_ms": 3.301346999999999
+      }
+    },
+    "cancel": {
+      "client_ms": {
+        "count": 64,
+        "sum_ms": 4648.757077999107,
+        "mean_ms": 72.63682934373605,
+        "p50_ms": 25.821600000199396,
+        "p95_ms": 218.13528799975757,
+        "p99_ms": 872.5980169997456,
+        "max_ms": 872.5980169997456
+      },
+      "connection_setup_ms": {
+        "count": 64,
+        "sum_ms": 35.737872,
+        "mean_ms": 0.55840425,
+        "p50_ms": 0.216525,
+        "p95_ms": 1.254121,
+        "p99_ms": 14.851444,
+        "max_ms": 14.851444
+      },
+      "begin_acquire_ms": {
+        "count": 64,
+        "sum_ms": 2805.831189,
+        "mean_ms": 43.841112328125,
+        "p50_ms": 0.006461,
+        "p95_ms": 189.722707,
+        "p99_ms": 842.693821,
+        "max_ms": 842.693821
+      },
+      "held_ms": {
+        "count": 64,
+        "sum_ms": 1447.4499289999999,
+        "mean_ms": 22.616405140624998,
+        "p50_ms": 20.972901,
+        "p95_ms": 31.341211,
+        "p99_ms": 46.292874,
+        "max_ms": 46.292874
+      },
+      "body_ms": {
+        "count": 64,
+        "sum_ms": 1347.255592,
+        "mean_ms": 21.050868625,
+        "p50_ms": 19.529306,
+        "p95_ms": 29.974916,
+        "p99_ms": 44.457608,
+        "max_ms": 44.457608
+      },
+      "commit_ms": {
+        "count": 64,
+        "sum_ms": 99.905228,
+        "mean_ms": 1.5610191875,
+        "p50_ms": 1.34435,
+        "p95_ms": 3.218326,
+        "p99_ms": 5.286803,
+        "max_ms": 5.286803
+      },
+      "inventory_ms": {
+        "count": 64,
+        "sum_ms": 845.803987,
+        "mean_ms": 13.215687296875,
+        "p50_ms": 12.263615,
+        "p95_ms": 17.053284,
+        "p99_ms": 35.920848,
+        "max_ms": 35.920848
+      },
+      "save_ms": {
+        "count": 64,
+        "sum_ms": 438.145202,
+        "mean_ms": 6.84601878125,
+        "p50_ms": 6.248964,
+        "p95_ms": 10.401414,
+        "p99_ms": 12.672542,
+        "max_ms": 12.672542
+      },
+      "changed_units_ms": {
+        "count": 64,
+        "sum_ms": 253.297939,
+        "mean_ms": 3.957780296875,
+        "p50_ms": 3.689133,
+        "p95_ms": 5.725444,
+        "p99_ms": 6.194267,
+        "max_ms": 6.194267
+      },
+      "other_body_ms": {
+        "count": 64,
+        "sum_ms": 63.306403,
+        "mean_ms": 0.989162546875,
+        "p50_ms": 0.812284,
+        "p95_ms": 2.0047560000000004,
+        "p99_ms": 2.5473109999999997,
+        "max_ms": 2.5473109999999997
+      }
+    },
+    "release": {
+      "client_ms": {
+        "count": 64,
+        "sum_ms": 6079.48478399976,
+        "mean_ms": 94.99194974999625,
+        "p50_ms": 26.15584899967871,
+        "p95_ms": 475.9772389998034,
+        "p99_ms": 873.9910629997212,
+        "max_ms": 873.9910629997212
+      },
+      "connection_setup_ms": {
+        "count": 64,
+        "sum_ms": 48.366849,
+        "mean_ms": 0.755732015625,
+        "p50_ms": 0.223567,
+        "p95_ms": 1.27856,
+        "p99_ms": 15.79108,
+        "max_ms": 15.79108
+      },
+      "begin_acquire_ms": {
+        "count": 64,
+        "sum_ms": 4246.486402,
+        "mean_ms": 66.35135003125,
+        "p50_ms": 0.006336,
+        "p95_ms": 443.099,
+        "p99_ms": 843.433157,
+        "max_ms": 843.433157
+      },
+      "held_ms": {
+        "count": 64,
+        "sum_ms": 1446.603592,
+        "mean_ms": 22.603181125,
+        "p50_ms": 20.828139,
+        "p95_ms": 39.901649,
+        "p99_ms": 56.433824,
+        "max_ms": 56.433824
+      },
+      "body_ms": {
+        "count": 64,
+        "sum_ms": 1329.700698,
+        "mean_ms": 20.77657340625,
+        "p50_ms": 19.000582,
+        "p95_ms": 38.654562,
+        "p99_ms": 52.037569,
+        "max_ms": 52.037569
+      },
+      "commit_ms": {
+        "count": 64,
+        "sum_ms": 116.60445800000001,
+        "mean_ms": 1.8219446562500001,
+        "p50_ms": 1.28115,
+        "p95_ms": 4.381121,
+        "p99_ms": 13.280872,
+        "max_ms": 13.280872
+      },
+      "inventory_ms": {
+        "count": 64,
+        "sum_ms": 853.791978,
+        "mean_ms": 13.34049965625,
+        "p50_ms": 12.144131,
+        "p95_ms": 31.029012,
+        "p99_ms": 42.993126,
+        "max_ms": 42.993126
+      },
+      "save_ms": {
+        "count": 64,
+        "sum_ms": 411.779034,
+        "mean_ms": 6.43404740625,
+        "p50_ms": 5.873488,
+        "p95_ms": 9.406254,
+        "p99_ms": 10.476093,
+        "max_ms": 10.476093
+      },
+      "changed_units_ms": {
+        "count": 64,
+        "sum_ms": 251.876583,
+        "mean_ms": 3.935571609375,
+        "p50_ms": 3.620082,
+        "p95_ms": 5.690686,
+        "p99_ms": 5.928652,
+        "max_ms": 5.928652
+      },
+      "other_body_ms": {
+        "count": 64,
+        "sum_ms": 64.129686,
+        "mean_ms": 1.00202634375,
+        "p50_ms": 0.887947999999998,
+        "p95_ms": 1.9256149999999996,
+        "p99_ms": 2.1022079999999983,
+        "max_ms": 2.1022079999999983
+      }
+    }
+  },
+  "thread_dispatch": {
+    "queue_ms": {
+      "count": 656,
+      "sum_ms": 405.280947,
+      "mean_ms": 0.6178063216463414,
+      "p50_ms": 0.124256,
+      "p95_ms": 4.47945,
+      "p99_ms": 8.015881,
+      "max_ms": 12.207517
+    },
+    "return_delivery_ms": {
+      "count": 656,
+      "sum_ms": 203.747442,
+      "mean_ms": 0.31059061280487804,
+      "p50_ms": 0.158406,
+      "p95_ms": 1.019371,
+      "p99_ms": 4.742162,
+      "max_ms": 7.536141
+    }
+  },
+  "writer_span_ms": 10779.794397,
+  "total_held_ms": 8339.093427,
+  "writer_busy_fraction_in_span": 0.7735855731460664,
+  "acquisition_rank_inversions": 4388,
+  "longest_acquisitions": [
+    {
+      "request_id": "cp4-load-189",
+      "operation": "allocate",
+      "begin_acquire_ms": 5189.170154,
+      "later_arrivals_acquiring_first": 141
+    },
+    {
+      "request_id": "cp4-load-184",
+      "operation": "allocate",
+      "begin_acquire_ms": 5078.297385,
+      "later_arrivals_acquiring_first": 118
+    },
+    {
+      "request_id": "cp4-load-31",
+      "operation": "allocate",
+      "begin_acquire_ms": 4967.475223,
+      "later_arrivals_acquiring_first": 129
+    },
+    {
+      "request_id": "cp4-load-170",
+      "operation": "allocate",
+      "begin_acquire_ms": 4872.435256,
+      "later_arrivals_acquiring_first": 114
+    },
+    {
+      "request_id": "cp4-load-191",
+      "operation": "allocate",
+      "begin_acquire_ms": 4668.651121,
+      "later_arrivals_acquiring_first": 109
+    },
+    {
+      "request_id": "cp4-load-24",
+      "operation": "allocate",
+      "begin_acquire_ms": 4662.092967,
+      "later_arrivals_acquiring_first": 121
+    },
+    {
+      "request_id": "cp4-load-178",
+      "operation": "allocate",
+      "begin_acquire_ms": 4581.404631,
+      "later_arrivals_acquiring_first": 119
+    },
+    {
+      "request_id": "cp4-load-222",
+      "operation": "create_job",
+      "begin_acquire_ms": 4499.415266,
+      "later_arrivals_acquiring_first": 100
+    },
+    {
+      "request_id": "cp4-load-182",
+      "operation": "allocate",
+      "begin_acquire_ms": 4471.216491,
+      "later_arrivals_acquiring_first": 112
+    },
+    {
+      "request_id": "cp4-load-19",
+      "operation": "allocate",
+      "begin_acquire_ms": 4456.587585,
+      "later_arrivals_acquiring_first": 115
+    }
+  ],
+  "inventory_fraction_of_body": 0.6642672008713572,
+  "save_fraction_of_body": 0.2811590705849051,
+  "cached_nodes_range": [
+    128,
+    128
+  ],
+  "cached_allocations_range": [
+    1,
+    12
+  ],
+  "inventory_calls_by_operation": {
+    "allocate": [
+      2
+    ],
+    "create_job": [
+      1
+    ],
+    "renew": [
+      1
+    ],
+    "cancel": [
+      1
+    ],
+    "release": [
+      1
+    ]
+  },
+  "phase_semantics": "BEGIN acquisition is actual execute wall time, not a subtraction from host latency; held includes body and COMMIT; changed_units is nested in save; aggregate waits overlap"
+}

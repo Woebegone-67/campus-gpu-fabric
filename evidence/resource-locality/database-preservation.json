@@ -1,0 +1,9 @@
+{
+  "container": "fabric-locality-20261115",
+  "source": "/tmp/fabric-locality-5f25604-probe-20261115/fabric.sqlite3",
+  "method": "sqlite3 read-only source Connection.backup after load service stopped",
+  "host_backup": "/Users/xz/Projects/campus-gpu-fabric/runtime/architecture-preservation-20261115/locality-5f25604.sqlite3",
+  "bytes": 11325440,
+  "sha256": "c8322b5dec99e2ad61c209b19cf09d5c418ee073e5cd7ed248eb7e7190119243",
+  "database_in_git": false
+}

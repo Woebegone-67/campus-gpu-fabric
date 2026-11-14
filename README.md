@@ -2,6 +2,8 @@
 
 校园共享计算服务：申请、收回、接续与可追问的决定。
 
+**本轮接管总入口：** [B 接管与最终展示准备](docs/handoff/FINAL_PREPARATION.md)。汇总分支 `work/roadshow-preparation` 包含 UI 规范、同账户使用与贡献、实体存储改造和路演准备；B 先保存自己的 UI 提交再正常合并。当前仍是候选，最终 CP4、B 新 UI 真人与同构建实录未完成。路演以 [主张与评分策略](docs/presentation/STRATEGY.md)、[逐页讲述](docs/presentation/STORYBOARD.md) 和 [现场执行手册](docs/presentation/DEMO_RUNBOOK.md) 为准，不把设计稿或计划写成已完成演示。
+
 **当前：进入双页UI设计交接；CP4完整验收仍未通过。** 059f477b候选的可靠性与图表来源检查已有证据，规模/延迟未达，真人干净部署、交叉操作及同构建实录尚缺。当前放置评分路线冻结，R=1.00保留为未达；新工作选择机制有局部收益，也存在严重Owner损害反例，未推广到产品。参见 [CP4后续诊断与评审](evidence/cp4-next/README.md)、[策略瓶颈](docs/research/CP3_BOTTLENECK_AND_DIRECTION.md) 和 [CP4准入记录](docs/handoff/CP4_ENTRY.md)。原CP3分支与证据仍保留，见 [CP3历史收尾](docs/handoff/CP3_CLOSEOUT.md)。阶段准入、设计交接与正式通过分别记录。
 
 **B接手UI：** 先读 [双页界面设计说明](docs/design/UI_DESIGN_SPEC.md) 与 [UI接管步骤](docs/handoff/UI_B_HANDOFF.md)，再按需读 [双指滑动与转场](docs/design/UI_GESTURE_AND_MOTION.md)、[实际数据与组件映射](docs/design/UI_DATA_AND_COMPONENT_MAP.md)。`work/ui-handoff-20261115` 的交接版本已推送；后续 `work/account-capabilities` 在此基础上实现普通账户同时使用与贡献，以及可信账户能力接口，见 [后端接线与兼容说明](docs/handoff/ACCOUNT_CAPABILITIES.md)。新双页、手势和账户接口的UI接线仍待B完成；现有验收实例未被改权或重启。

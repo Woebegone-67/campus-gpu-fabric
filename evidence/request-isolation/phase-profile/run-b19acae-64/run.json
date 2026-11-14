@@ -1,0 +1,70 @@
+{
+  "build": {
+    "git_commit": "b19acae7f0ea185e6289388fb629d2a15dd84fad",
+    "source_file_count": 325,
+    "source_sha256": "68297acee1ac17e34d6735d724bda124814afd17c62d8857f971fb1d2fa3d6f9"
+  },
+  "build_at_finish": {
+    "git_commit": "b19acae7f0ea185e6289388fb629d2a15dd84fad",
+    "source_file_count": 325,
+    "source_sha256": "68297acee1ac17e34d6735d724bda124814afd17c62d8857f971fb1d2fa3d6f9"
+  },
+  "completed_flows": [],
+  "database_directory": "/tmp/fabric-phases-b19acae-64-20261115",
+  "database_storage": "Native runtime filesystem, SQLite synchronous=FULL; raw database retained at database_directory",
+  "deadline_seconds": 300,
+  "declared": {
+    "commands": 320,
+    "concurrency": 32,
+    "jobs": 64,
+    "nodes": 128,
+    "owners": 64,
+    "physical_gpus": 1024
+  },
+  "diagnostic": {
+    "driver_sha256": "0ff4970224a0752a41c94b504d24d56027eacb67a30b80779696adc6d382cfda",
+    "kind": "INSTRUMENTED_DIAGNOSTIC_NOT_ACCEPTANCE",
+    "limits": "No automatic rerun; no production edits; timing instrumentation adds overhead",
+    "predeclared_jobs": 64,
+    "predeclared_maximum_jobs": 64,
+    "queries": 8,
+    "service_wrapper": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/request-isolation/evidence/request-isolation/phase-profile/phase_service.py",
+    "service_wrapper_sha256": "653f0fa413861488b373f9cd14dafaf8e4c6c29bbd38a0ed58d202a924eb3ce4",
+    "writes": 320
+  },
+  "elapsed_seconds": 40.0926576249999,
+  "environment": {
+    "cpu_count": 4,
+    "cpu_max": "400000 100000",
+    "limited_memory_bytes": 8589934592,
+    "limited_vcpus": 4.0,
+    "measurement": "Client-observed real TCP wall time, queueing included",
+    "memory_max": "8589934592",
+    "platform": "Linux-6.8.0-117-generic-aarch64-with-glibc2.41",
+    "python": "3.12.16 (main, Nov  5 2026, 08:06:14) [GCC 14.2.0]",
+    "reference_4vcpu_8gib": true
+  },
+  "errors": [
+    {
+      "error": "Isolated product host did not start"
+    }
+  ],
+  "excluded_workloads": {
+    "clock_batches": "not measured",
+    "fault_injection": "not measured",
+    "policy_experiments": "not measured"
+  },
+  "execution": "Real TCP integrated host; logical jobs, not real GPU work",
+  "peak_inflight_requests": 0,
+  "protocol": "Five writes per job: allocate TTL300, create, renew TTL600, cancel, release; one job detail per eight jobs; 32 concurrent flows; no history reset or compaction",
+  "schema": "cp4-load-v1",
+  "started_at": "2026-11-14T18:21:52.998697+00:00",
+  "timings_summary": {
+    "count": 0,
+    "max_ms": null,
+    "p50_ms": null,
+    "p95_ms": null,
+    "p99_ms": null
+  },
+  "workload_version": "cp4-mixed-lifecycle-v2-effective-renewal"
+}

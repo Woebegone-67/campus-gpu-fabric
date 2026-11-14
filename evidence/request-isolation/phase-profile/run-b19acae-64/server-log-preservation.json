@@ -1,0 +1,7 @@
+{
+  "path": "evidence/request-isolation/phase-profile/run-b19acae-64/server.log.gz",
+  "compression": "gzip; decompress to exact original bytes",
+  "original_bytes": 7431824,
+  "original_sha256": "bf48a41c3acec3f2abb2e4d8ffce023dbbb9e8e5d15aa099a0005a8987ff4b55",
+  "gzip_sha256": "7aadc491793e7292b6153955f73e5490b0d33d84dae07056677a1daa2f9f5f77"
+}

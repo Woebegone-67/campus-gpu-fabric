@@ -1,0 +1,10 @@
+{"requests_finished": 100, "elapsed_seconds": 3.0721526930001346, "recent": {"count": 100, "p50_ms": 89.19248199981666, "p95_ms": 2080.2339540000503, "p99_ms": 2851.682579000226, "max_ms": 3041.051203999814}}
+{
+  "diagnostic_process_finished": true,
+  "workload_completed": true,
+  "completed_flows": 64,
+  "elapsed_seconds": 10.80925484799991,
+  "errors": [],
+  "service_events_exist": true,
+  "runtime": "/tmp/fabric-phases-b19acae-64-20261115-retry1"
+}

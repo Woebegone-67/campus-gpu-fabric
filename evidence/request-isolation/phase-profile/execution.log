@@ -1,0 +1,12 @@
+{
+  "diagnostic_finished": true,
+  "completed_flows": 0,
+  "elapsed_seconds": 40.0926576249999,
+  "errors": [
+    {
+      "error": "Isolated product host did not start"
+    }
+  ],
+  "service_events_exist": true,
+  "runtime": "/tmp/fabric-phases-b19acae-64-20261115"
+}

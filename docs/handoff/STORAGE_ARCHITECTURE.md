@@ -2,6 +2,8 @@
 
 日期：2026-11-15。分支：`work/storage-architecture`，继承账户能力交接 `7c71b3e`。这是需要独立验收的新存储候选；完整 CP4 状态以对应冻结构建的原始记录为准，不能从分支名称推断通过。
 
+后续 `work/roadshow-preparation` 汇总本候选与 `b19acae` 请求隔离补修、路演及最终接管说明。B 统一从 [本轮总入口](FINAL_PREPARATION.md) 接手；本页保留实体存储迁移与回退约束。`b19acae` 不删除第一轮正式负载的未达结果，也不自动获得完整 CP4 通过。
+
 ## B 可以怎样继续
 
 普通账户同时使用算力和贡献资源、`GET /x/v1/session`、总览/工作台设计与手势规范全部保留。先合入本分支，再基于 [账户能力说明](ACCOUNT_CAPABILITIES.md) 和 [UI 接管说明](UI_B_HANDOFF.md) 接线。正常合并自己的视觉提交，不覆盖整个 web 目录。

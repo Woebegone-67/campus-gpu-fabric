@@ -1,0 +1,1592 @@
+{
+  "build": {
+    "git_commit": "b19acae7f0ea185e6289388fb629d2a15dd84fad",
+    "source_file_count": 325,
+    "source_sha256": "68297acee1ac17e34d6735d724bda124814afd17c62d8857f971fb1d2fa3d6f9"
+  },
+  "build_at_finish": {
+    "git_commit": "b19acae7f0ea185e6289388fb629d2a15dd84fad",
+    "source_file_count": 325,
+    "source_sha256": "68297acee1ac17e34d6735d724bda124814afd17c62d8857f971fb1d2fa3d6f9"
+  },
+  "completed_flows": [
+    {
+      "allocation_id": "e0-a7",
+      "index": 27,
+      "job_id": "e0-j8",
+      "owner": "owner-027"
+    },
+    {
+      "allocation_id": "e0-a12",
+      "index": 21,
+      "job_id": "e0-j13",
+      "owner": "owner-021"
+    },
+    {
+      "allocation_id": "e0-a18",
+      "index": 4,
+      "job_id": "e0-j19",
+      "owner": "owner-004"
+    },
+    {
+      "allocation_id": "e0-a11",
+      "index": 11,
+      "job_id": "e0-j22",
+      "owner": "owner-011"
+    },
+    {
+      "allocation_id": "e0-a3",
+      "index": 2,
+      "job_id": "e0-j26",
+      "owner": "owner-002"
+    },
+    {
+      "allocation_id": "e0-a25",
+      "index": 7,
+      "job_id": "e0-j29",
+      "owner": "owner-007"
+    },
+    {
+      "allocation_id": "e0-a1",
+      "index": 1,
+      "job_id": "e0-j33",
+      "owner": "owner-001"
+    },
+    {
+      "allocation_id": "e0-a32",
+      "index": 3,
+      "job_id": "e0-j48",
+      "owner": "owner-003"
+    },
+    {
+      "allocation_id": "e0-a59",
+      "index": 9,
+      "job_id": "e0-j60",
+      "owner": "owner-009"
+    },
+    {
+      "allocation_id": "e0-a36",
+      "index": 16,
+      "job_id": "e0-j40",
+      "owner": "owner-016"
+    },
+    {
+      "allocation_id": "e0-a71",
+      "index": 23,
+      "job_id": "e0-j72",
+      "owner": "owner-023"
+    },
+    {
+      "allocation_id": "e0-a2",
+      "index": 17,
+      "job_id": "e0-j4",
+      "owner": "owner-017"
+    },
+    {
+      "allocation_id": "e0-a44",
+      "index": 19,
+      "job_id": "e0-j45",
+      "owner": "owner-019"
+    },
+    {
+      "allocation_id": "e0-a63",
+      "index": 8,
+      "job_id": "e0-j64",
+      "owner": "owner-008"
+    },
+    {
+      "allocation_id": "e0-a67",
+      "index": 20,
+      "job_id": "e0-j68",
+      "owner": "owner-020"
+    },
+    {
+      "allocation_id": "e0-a51",
+      "index": 12,
+      "job_id": "e0-j53",
+      "owner": "owner-012"
+    },
+    {
+      "allocation_id": "e0-a75",
+      "index": 25,
+      "job_id": "e0-j76",
+      "owner": "owner-025"
+    },
+    {
+      "allocation_id": "e0-a79",
+      "index": 10,
+      "job_id": "e0-j84",
+      "owner": "owner-010"
+    },
+    {
+      "allocation_id": "e0-a83",
+      "index": 6,
+      "job_id": "e0-j87",
+      "owner": "owner-006"
+    },
+    {
+      "allocation_id": "e0-a93",
+      "index": 29,
+      "job_id": "e0-j94",
+      "owner": "owner-029"
+    },
+    {
+      "allocation_id": "e0-a52",
+      "index": 15,
+      "job_id": "e0-j56",
+      "owner": "owner-015"
+    },
+    {
+      "allocation_id": "e0-a97",
+      "index": 13,
+      "job_id": "e0-j98",
+      "owner": "owner-013"
+    },
+    {
+      "allocation_id": "e0-a43",
+      "index": 5,
+      "job_id": "e0-j80",
+      "owner": "owner-005"
+    },
+    {
+      "allocation_id": "e0-a17",
+      "index": 0,
+      "job_id": "e0-j37",
+      "owner": "owner-000"
+    },
+    {
+      "allocation_id": "e0-a16",
+      "index": 14,
+      "job_id": "e0-j90",
+      "owner": "owner-014"
+    },
+    {
+      "allocation_id": "e0-a101",
+      "index": 30,
+      "job_id": "e0-j102",
+      "owner": "owner-030"
+    },
+    {
+      "allocation_id": "e0-a105",
+      "index": 24,
+      "job_id": "e0-j106",
+      "owner": "owner-024"
+    },
+    {
+      "allocation_id": "e0-a109",
+      "index": 31,
+      "job_id": "e0-j110",
+      "owner": "owner-031"
+    },
+    {
+      "allocation_id": "e0-a113",
+      "index": 18,
+      "job_id": "e0-j114",
+      "owner": "owner-018"
+    },
+    {
+      "allocation_id": "e0-a117",
+      "index": 26,
+      "job_id": "e0-j118",
+      "owner": "owner-026"
+    },
+    {
+      "allocation_id": "e0-a121",
+      "index": 22,
+      "job_id": "e0-j122",
+      "owner": "owner-022"
+    },
+    {
+      "allocation_id": "e0-a125",
+      "index": 28,
+      "job_id": "e0-j126",
+      "owner": "owner-028"
+    },
+    {
+      "allocation_id": "e0-a136",
+      "index": 34,
+      "job_id": "e0-j137",
+      "owner": "owner-034"
+    },
+    {
+      "allocation_id": "e0-a131",
+      "index": 54,
+      "job_id": "e0-j145",
+      "owner": "owner-054"
+    },
+    {
+      "allocation_id": "e0-a148",
+      "index": 60,
+      "job_id": "e0-j149",
+      "owner": "owner-060"
+    },
+    {
+      "allocation_id": "e0-a164",
+      "index": 59,
+      "job_id": "e0-j165",
+      "owner": "owner-059"
+    },
+    {
+      "allocation_id": "e0-a129",
+      "index": 32,
+      "job_id": "e0-j152",
+      "owner": "owner-032"
+    },
+    {
+      "allocation_id": "e0-a156",
+      "index": 49,
+      "job_id": "e0-j161",
+      "owner": "owner-049"
+    },
+    {
+      "allocation_id": "e0-a183",
+      "index": 46,
+      "job_id": "e0-j185",
+      "owner": "owner-046"
+    },
+    {
+      "allocation_id": "e0-a179",
+      "index": 61,
+      "job_id": "e0-j180",
+      "owner": "owner-061"
+    },
+    {
+      "allocation_id": "e0-a184",
+      "index": 36,
+      "job_id": "e0-j188",
+      "owner": "owner-036"
+    },
+    {
+      "allocation_id": "e0-a132",
+      "index": 50,
+      "job_id": "e0-j133",
+      "owner": "owner-050"
+    },
+    {
+      "allocation_id": "e0-a191",
+      "index": 33,
+      "job_id": "e0-j195",
+      "owner": "owner-033"
+    },
+    {
+      "allocation_id": "e0-a207",
+      "index": 63,
+      "job_id": "e0-j208",
+      "owner": "owner-063"
+    },
+    {
+      "allocation_id": "e0-a140",
+      "index": 43,
+      "job_id": "e0-j141",
+      "owner": "owner-043"
+    },
+    {
+      "allocation_id": "e0-a211",
+      "index": 56,
+      "job_id": "e0-j212",
+      "owner": "owner-056"
+    },
+    {
+      "allocation_id": "e0-a130",
+      "index": 48,
+      "job_id": "e0-j192",
+      "owner": "owner-048"
+    },
+    {
+      "allocation_id": "e0-a144",
+      "index": 37,
+      "job_id": "e0-j171",
+      "owner": "owner-037"
+    },
+    {
+      "allocation_id": "e0-a178",
+      "index": 39,
+      "job_id": "e0-j215",
+      "owner": "owner-039"
+    },
+    {
+      "allocation_id": "e0-a199",
+      "index": 53,
+      "job_id": "e0-j200",
+      "owner": "owner-053"
+    },
+    {
+      "allocation_id": "e0-a198",
+      "index": 38,
+      "job_id": "e0-j218",
+      "owner": "owner-038"
+    },
+    {
+      "allocation_id": "e0-a221",
+      "index": 62,
+      "job_id": "e0-j222",
+      "owner": "owner-062"
+    },
+    {
+      "allocation_id": "e0-a225",
+      "index": 52,
+      "job_id": "e0-j226",
+      "owner": "owner-052"
+    },
+    {
+      "allocation_id": "e0-a155",
+      "index": 35,
+      "job_id": "e0-j157",
+      "owner": "owner-035"
+    },
+    {
+      "allocation_id": "e0-a203",
+      "index": 47,
+      "job_id": "e0-j204",
+      "owner": "owner-047"
+    },
+    {
+      "allocation_id": "e0-a229",
+      "index": 51,
+      "job_id": "e0-j230",
+      "owner": "owner-051"
+    },
+    {
+      "allocation_id": "e0-a233",
+      "index": 55,
+      "job_id": "e0-j234",
+      "owner": "owner-055"
+    },
+    {
+      "allocation_id": "e0-a237",
+      "index": 42,
+      "job_id": "e0-j238",
+      "owner": "owner-042"
+    },
+    {
+      "allocation_id": "e0-a160",
+      "index": 40,
+      "job_id": "e0-j168",
+      "owner": "owner-040"
+    },
+    {
+      "allocation_id": "e0-a241",
+      "index": 58,
+      "job_id": "e0-j242",
+      "owner": "owner-058"
+    },
+    {
+      "allocation_id": "e0-a245",
+      "index": 57,
+      "job_id": "e0-j246",
+      "owner": "owner-057"
+    },
+    {
+      "allocation_id": "e0-a174",
+      "index": 41,
+      "job_id": "e0-j175",
+      "owner": "owner-041"
+    },
+    {
+      "allocation_id": "e0-a249",
+      "index": 45,
+      "job_id": "e0-j250",
+      "owner": "owner-045"
+    },
+    {
+      "allocation_id": "e0-a253",
+      "index": 44,
+      "job_id": "e0-j254",
+      "owner": "owner-044"
+    },
+    {
+      "allocation_id": "e0-a287",
+      "index": 85,
+      "job_id": "e0-j291",
+      "owner": "owner-021"
+    },
+    {
+      "allocation_id": "e0-a295",
+      "index": 77,
+      "job_id": "e0-j300",
+      "owner": "owner-013"
+    },
+    {
+      "allocation_id": "e0-a264",
+      "index": 72,
+      "job_id": "e0-j270",
+      "owner": "owner-008"
+    },
+    {
+      "allocation_id": "e0-a277",
+      "index": 80,
+      "job_id": "e0-j278",
+      "owner": "owner-016"
+    },
+    {
+      "allocation_id": "e0-a303",
+      "index": 82,
+      "job_id": "e0-j304",
+      "owner": "owner-018"
+    },
+    {
+      "allocation_id": "e0-a307",
+      "index": 86,
+      "job_id": "e0-j311",
+      "owner": "owner-022"
+    },
+    {
+      "allocation_id": "e0-a324",
+      "index": 87,
+      "job_id": "e0-j325",
+      "owner": "owner-023"
+    },
+    {
+      "allocation_id": "e0-a269",
+      "index": 71,
+      "job_id": "e0-j314",
+      "owner": "owner-007"
+    },
+    {
+      "allocation_id": "e0-a281",
+      "index": 67,
+      "job_id": "e0-j321",
+      "owner": "owner-003"
+    },
+    {
+      "allocation_id": "e0-a282",
+      "index": 91,
+      "job_id": "e0-j284",
+      "owner": "owner-027"
+    },
+    {
+      "allocation_id": "e0-a283",
+      "index": 93,
+      "job_id": "e0-j288",
+      "owner": "owner-029"
+    },
+    {
+      "allocation_id": "e0-a294",
+      "index": 65,
+      "job_id": "e0-j296",
+      "owner": "owner-001"
+    },
+    {
+      "allocation_id": "e0-a329",
+      "index": 73,
+      "job_id": "e0-j330",
+      "owner": "owner-009"
+    },
+    {
+      "allocation_id": "e0-a299",
+      "index": 75,
+      "job_id": "e0-j308",
+      "owner": "owner-011"
+    },
+    {
+      "allocation_id": "e0-a328",
+      "index": 92,
+      "job_id": "e0-j333",
+      "owner": "owner-028"
+    },
+    {
+      "allocation_id": "e0-a259",
+      "index": 88,
+      "job_id": "e0-j260",
+      "owner": "owner-024"
+    },
+    {
+      "allocation_id": "e0-a268",
+      "index": 66,
+      "job_id": "e0-j273",
+      "owner": "owner-002"
+    },
+    {
+      "allocation_id": "e0-a257",
+      "index": 64,
+      "job_id": "e0-j336",
+      "owner": "owner-000"
+    },
+    {
+      "allocation_id": "e0-a263",
+      "index": 76,
+      "job_id": "e0-j265",
+      "owner": "owner-012"
+    },
+    {
+      "allocation_id": "e0-a350",
+      "index": 89,
+      "job_id": "e0-j351",
+      "owner": "owner-025"
+    },
+    {
+      "allocation_id": "e0-a354",
+      "index": 94,
+      "job_id": "e0-j355",
+      "owner": "owner-030"
+    },
+    {
+      "allocation_id": "e0-a258",
+      "index": 68,
+      "job_id": "e0-j343",
+      "owner": "owner-004"
+    },
+    {
+      "allocation_id": "e0-a339",
+      "index": 70,
+      "job_id": "e0-j340",
+      "owner": "owner-006"
+    },
+    {
+      "allocation_id": "e0-a358",
+      "index": 95,
+      "job_id": "e0-j359",
+      "owner": "owner-031"
+    },
+    {
+      "allocation_id": "e0-a362",
+      "index": 81,
+      "job_id": "e0-j363",
+      "owner": "owner-017"
+    },
+    {
+      "allocation_id": "e0-a317",
+      "index": 74,
+      "job_id": "e0-j318",
+      "owner": "owner-010"
+    },
+    {
+      "allocation_id": "e0-a346",
+      "index": 84,
+      "job_id": "e0-j347",
+      "owner": "owner-020"
+    },
+    {
+      "allocation_id": "e0-a276",
+      "index": 69,
+      "job_id": "e0-j370",
+      "owner": "owner-005"
+    },
+    {
+      "allocation_id": "e0-a366",
+      "index": 90,
+      "job_id": "e0-j367",
+      "owner": "owner-026"
+    },
+    {
+      "allocation_id": "e0-a373",
+      "index": 79,
+      "job_id": "e0-j374",
+      "owner": "owner-015"
+    },
+    {
+      "allocation_id": "e0-a377",
+      "index": 78,
+      "job_id": "e0-j378",
+      "owner": "owner-014"
+    },
+    {
+      "allocation_id": "e0-a381",
+      "index": 83,
+      "job_id": "e0-j382",
+      "owner": "owner-019"
+    },
+    {
+      "allocation_id": "e0-a400",
+      "index": 110,
+      "job_id": "e0-j403",
+      "owner": "owner-046"
+    },
+    {
+      "allocation_id": "e0-a396",
+      "index": 109,
+      "job_id": "e0-j409",
+      "owner": "owner-045"
+    },
+    {
+      "allocation_id": "e0-a385",
+      "index": 96,
+      "job_id": "e0-j390",
+      "owner": "owner-032"
+    },
+    {
+      "allocation_id": "e0-a388",
+      "index": 119,
+      "job_id": "e0-j397",
+      "owner": "owner-055"
+    },
+    {
+      "allocation_id": "e0-a431",
+      "index": 122,
+      "job_id": "e0-j432",
+      "owner": "owner-058"
+    },
+    {
+      "allocation_id": "e0-a439",
+      "index": 106,
+      "job_id": "e0-j440",
+      "owner": "owner-042"
+    },
+    {
+      "allocation_id": "e0-a401",
+      "index": 100,
+      "job_id": "e0-j435",
+      "owner": "owner-036"
+    },
+    {
+      "allocation_id": "e0-a387",
+      "index": 98,
+      "job_id": "e0-j443",
+      "owner": "owner-034"
+    },
+    {
+      "allocation_id": "e0-a447",
+      "index": 124,
+      "job_id": "e0-j448",
+      "owner": "owner-060"
+    },
+    {
+      "allocation_id": "e0-a402",
+      "index": 118,
+      "job_id": "e0-j406",
+      "owner": "owner-054"
+    },
+    {
+      "allocation_id": "e0-a427",
+      "index": 104,
+      "job_id": "e0-j428",
+      "owner": "owner-040"
+    },
+    {
+      "allocation_id": "e0-a446",
+      "index": 101,
+      "job_id": "e0-j451",
+      "owner": "owner-037"
+    },
+    {
+      "allocation_id": "e0-a420",
+      "index": 114,
+      "job_id": "e0-j421",
+      "owner": "owner-050"
+    },
+    {
+      "allocation_id": "e0-a416",
+      "index": 107,
+      "job_id": "e0-j417",
+      "owner": "owner-043"
+    },
+    {
+      "allocation_id": "e0-a386",
+      "index": 108,
+      "job_id": "e0-j424",
+      "owner": "owner-044"
+    },
+    {
+      "allocation_id": "e0-a454",
+      "index": 116,
+      "job_id": "e0-j455",
+      "owner": "owner-052"
+    },
+    {
+      "allocation_id": "e0-a466",
+      "index": 103,
+      "job_id": "e0-j467",
+      "owner": "owner-039"
+    },
+    {
+      "allocation_id": "e0-a462",
+      "index": 117,
+      "job_id": "e0-j463",
+      "owner": "owner-053"
+    },
+    {
+      "allocation_id": "e0-a472",
+      "index": 111,
+      "job_id": "e0-j473",
+      "owner": "owner-047"
+    },
+    {
+      "allocation_id": "e0-a412",
+      "index": 102,
+      "job_id": "e0-j413",
+      "owner": "owner-038"
+    },
+    {
+      "allocation_id": "e0-a470",
+      "index": 97,
+      "job_id": "e0-j476",
+      "owner": "owner-033"
+    },
+    {
+      "allocation_id": "e0-a458",
+      "index": 113,
+      "job_id": "e0-j459",
+      "owner": "owner-049"
+    },
+    {
+      "allocation_id": "e0-a471",
+      "index": 121,
+      "job_id": "e0-j479",
+      "owner": "owner-057"
+    },
+    {
+      "allocation_id": "e0-a482",
+      "index": 99,
+      "job_id": "e0-j483",
+      "owner": "owner-035"
+    },
+    {
+      "allocation_id": "e0-a438",
+      "index": 126,
+      "job_id": "e0-j486",
+      "owner": "owner-062"
+    },
+    {
+      "allocation_id": "e0-a389",
+      "index": 115,
+      "job_id": "e0-j393",
+      "owner": "owner-051"
+    },
+    {
+      "allocation_id": "e0-a489",
+      "index": 112,
+      "job_id": "e0-j490",
+      "owner": "owner-048"
+    },
+    {
+      "allocation_id": "e0-a493",
+      "index": 105,
+      "job_id": "e0-j494",
+      "owner": "owner-041"
+    },
+    {
+      "allocation_id": "e0-a497",
+      "index": 120,
+      "job_id": "e0-j498",
+      "owner": "owner-056"
+    },
+    {
+      "allocation_id": "e0-a501",
+      "index": 127,
+      "job_id": "e0-j502",
+      "owner": "owner-063"
+    },
+    {
+      "allocation_id": "e0-a505",
+      "index": 125,
+      "job_id": "e0-j506",
+      "owner": "owner-061"
+    },
+    {
+      "allocation_id": "e0-a509",
+      "index": 123,
+      "job_id": "e0-j510",
+      "owner": "owner-059"
+    },
+    {
+      "allocation_id": "e0-a514",
+      "index": 135,
+      "job_id": "e0-j519",
+      "owner": "owner-007"
+    },
+    {
+      "allocation_id": "e0-a533",
+      "index": 142,
+      "job_id": "e0-j534",
+      "owner": "owner-014"
+    },
+    {
+      "allocation_id": "e0-a515",
+      "index": 143,
+      "job_id": "e0-j516",
+      "owner": "owner-015"
+    },
+    {
+      "allocation_id": "e0-a542",
+      "index": 145,
+      "job_id": "e0-j546",
+      "owner": "owner-017"
+    },
+    {
+      "allocation_id": "e0-a541",
+      "index": 155,
+      "job_id": "e0-j543",
+      "owner": "owner-027"
+    },
+    {
+      "allocation_id": "e0-a522",
+      "index": 129,
+      "job_id": "e0-j523",
+      "owner": "owner-001"
+    },
+    {
+      "allocation_id": "e0-a529",
+      "index": 133,
+      "job_id": "e0-j530",
+      "owner": "owner-005"
+    },
+    {
+      "allocation_id": "e0-a553",
+      "index": 159,
+      "job_id": "e0-j554",
+      "owner": "owner-031"
+    },
+    {
+      "allocation_id": "e0-a513",
+      "index": 128,
+      "job_id": "e0-j526",
+      "owner": "owner-000"
+    },
+    {
+      "allocation_id": "e0-a561",
+      "index": 132,
+      "job_id": "e0-j562",
+      "owner": "owner-004"
+    },
+    {
+      "allocation_id": "e0-a565",
+      "index": 131,
+      "job_id": "e0-j566",
+      "owner": "owner-003"
+    },
+    {
+      "allocation_id": "e0-a549",
+      "index": 152,
+      "job_id": "e0-j550",
+      "owner": "owner-024"
+    },
+    {
+      "allocation_id": "e0-a573",
+      "index": 151,
+      "job_id": "e0-j574",
+      "owner": "owner-023"
+    },
+    {
+      "allocation_id": "e0-a569",
+      "index": 130,
+      "job_id": "e0-j570",
+      "owner": "owner-002"
+    },
+    {
+      "allocation_id": "e0-a557",
+      "index": 134,
+      "job_id": "e0-j558",
+      "owner": "owner-006"
+    },
+    {
+      "allocation_id": "e0-a577",
+      "index": 139,
+      "job_id": "e0-j578",
+      "owner": "owner-011"
+    },
+    {
+      "allocation_id": "e0-a537",
+      "index": 137,
+      "job_id": "e0-j538",
+      "owner": "owner-009"
+    },
+    {
+      "allocation_id": "e0-a581",
+      "index": 144,
+      "job_id": "e0-j582",
+      "owner": "owner-016"
+    },
+    {
+      "allocation_id": "e0-a585",
+      "index": 141,
+      "job_id": "e0-j586",
+      "owner": "owner-013"
+    },
+    {
+      "allocation_id": "e0-a589",
+      "index": 156,
+      "job_id": "e0-j590",
+      "owner": "owner-028"
+    },
+    {
+      "allocation_id": "e0-a593",
+      "index": 146,
+      "job_id": "e0-j594",
+      "owner": "owner-018"
+    },
+    {
+      "allocation_id": "e0-a597",
+      "index": 154,
+      "job_id": "e0-j598",
+      "owner": "owner-026"
+    },
+    {
+      "allocation_id": "e0-a601",
+      "index": 150,
+      "job_id": "e0-j602",
+      "owner": "owner-022"
+    },
+    {
+      "allocation_id": "e0-a605",
+      "index": 148,
+      "job_id": "e0-j606",
+      "owner": "owner-020"
+    },
+    {
+      "allocation_id": "e0-a610",
+      "index": 153,
+      "job_id": "e0-j611",
+      "owner": "owner-025"
+    },
+    {
+      "allocation_id": "e0-a609",
+      "index": 157,
+      "job_id": "e0-j614",
+      "owner": "owner-029"
+    },
+    {
+      "allocation_id": "e0-a617",
+      "index": 136,
+      "job_id": "e0-j618",
+      "owner": "owner-008"
+    },
+    {
+      "allocation_id": "e0-a625",
+      "index": 158,
+      "job_id": "e0-j626",
+      "owner": "owner-030"
+    },
+    {
+      "allocation_id": "e0-a621",
+      "index": 138,
+      "job_id": "e0-j622",
+      "owner": "owner-010"
+    },
+    {
+      "allocation_id": "e0-a629",
+      "index": 140,
+      "job_id": "e0-j630",
+      "owner": "owner-012"
+    },
+    {
+      "allocation_id": "e0-a633",
+      "index": 149,
+      "job_id": "e0-j634",
+      "owner": "owner-021"
+    },
+    {
+      "allocation_id": "e0-a637",
+      "index": 147,
+      "job_id": "e0-j638",
+      "owner": "owner-019"
+    },
+    {
+      "allocation_id": "e0-a647",
+      "index": 179,
+      "job_id": "e0-j648",
+      "owner": "owner-051"
+    },
+    {
+      "allocation_id": "e0-a655",
+      "index": 185,
+      "job_id": "e0-j656",
+      "owner": "owner-057"
+    },
+    {
+      "allocation_id": "e0-a665",
+      "index": 164,
+      "job_id": "e0-j666",
+      "owner": "owner-036"
+    },
+    {
+      "allocation_id": "e0-a669",
+      "index": 171,
+      "job_id": "e0-j670",
+      "owner": "owner-043"
+    },
+    {
+      "allocation_id": "e0-a681",
+      "index": 191,
+      "job_id": "e0-j682",
+      "owner": "owner-063"
+    },
+    {
+      "allocation_id": "e0-a642",
+      "index": 174,
+      "job_id": "e0-j662",
+      "owner": "owner-046"
+    },
+    {
+      "allocation_id": "e0-a641",
+      "index": 160,
+      "job_id": "e0-j689",
+      "owner": "owner-032"
+    },
+    {
+      "allocation_id": "e0-a692",
+      "index": 161,
+      "job_id": "e0-j693",
+      "owner": "owner-033"
+    },
+    {
+      "allocation_id": "e0-a696",
+      "index": 169,
+      "job_id": "e0-j697",
+      "owner": "owner-041"
+    },
+    {
+      "allocation_id": "e0-a645",
+      "index": 183,
+      "job_id": "e0-j651",
+      "owner": "owner-055"
+    },
+    {
+      "allocation_id": "e0-a673",
+      "index": 181,
+      "job_id": "e0-j674",
+      "owner": "owner-053"
+    },
+    {
+      "allocation_id": "e0-a654",
+      "index": 166,
+      "job_id": "e0-j700",
+      "owner": "owner-038"
+    },
+    {
+      "allocation_id": "e0-a644",
+      "index": 177,
+      "job_id": "e0-j703",
+      "owner": "owner-049"
+    },
+    {
+      "allocation_id": "e0-a677",
+      "index": 167,
+      "job_id": "e0-j678",
+      "owner": "owner-039"
+    },
+    {
+      "allocation_id": "e0-a711",
+      "index": 184,
+      "job_id": "e0-j712",
+      "owner": "owner-056"
+    },
+    {
+      "allocation_id": "e0-a643",
+      "index": 163,
+      "job_id": "e0-j717",
+      "owner": "owner-035"
+    },
+    {
+      "allocation_id": "e0-a716",
+      "index": 165,
+      "job_id": "e0-j720",
+      "owner": "owner-037"
+    },
+    {
+      "allocation_id": "e0-a685",
+      "index": 170,
+      "job_id": "e0-j686",
+      "owner": "owner-042"
+    },
+    {
+      "allocation_id": "e0-a646",
+      "index": 188,
+      "job_id": "e0-j659",
+      "owner": "owner-060"
+    },
+    {
+      "allocation_id": "e0-a715",
+      "index": 190,
+      "job_id": "e0-j726",
+      "owner": "owner-062"
+    },
+    {
+      "allocation_id": "e0-a706",
+      "index": 173,
+      "job_id": "e0-j707",
+      "owner": "owner-045"
+    },
+    {
+      "allocation_id": "e0-a710",
+      "index": 162,
+      "job_id": "e0-j723",
+      "owner": "owner-034"
+    },
+    {
+      "allocation_id": "e0-a729",
+      "index": 175,
+      "job_id": "e0-j730",
+      "owner": "owner-047"
+    },
+    {
+      "allocation_id": "e0-a733",
+      "index": 187,
+      "job_id": "e0-j734",
+      "owner": "owner-059"
+    },
+    {
+      "allocation_id": "e0-a737",
+      "index": 172,
+      "job_id": "e0-j738",
+      "owner": "owner-044"
+    },
+    {
+      "allocation_id": "e0-a745",
+      "index": 186,
+      "job_id": "e0-j746",
+      "owner": "owner-058"
+    },
+    {
+      "allocation_id": "e0-a741",
+      "index": 180,
+      "job_id": "e0-j742",
+      "owner": "owner-052"
+    },
+    {
+      "allocation_id": "e0-a757",
+      "index": 178,
+      "job_id": "e0-j758",
+      "owner": "owner-050"
+    },
+    {
+      "allocation_id": "e0-a761",
+      "index": 189,
+      "job_id": "e0-j762",
+      "owner": "owner-061"
+    },
+    {
+      "allocation_id": "e0-a749",
+      "index": 182,
+      "job_id": "e0-j750",
+      "owner": "owner-054"
+    },
+    {
+      "allocation_id": "e0-a765",
+      "index": 168,
+      "job_id": "e0-j766",
+      "owner": "owner-040"
+    },
+    {
+      "allocation_id": "e0-a753",
+      "index": 176,
+      "job_id": "e0-j754",
+      "owner": "owner-048"
+    },
+    {
+      "allocation_id": "e0-a782",
+      "index": 219,
+      "job_id": "e0-j788",
+      "owner": "owner-027"
+    },
+    {
+      "allocation_id": "e0-a809",
+      "index": 202,
+      "job_id": "e0-j810",
+      "owner": "owner-010"
+    },
+    {
+      "allocation_id": "e0-a799",
+      "index": 198,
+      "job_id": "e0-j803",
+      "owner": "owner-006"
+    },
+    {
+      "allocation_id": "e0-a795",
+      "index": 200,
+      "job_id": "e0-j796",
+      "owner": "owner-008"
+    },
+    {
+      "allocation_id": "e0-a813",
+      "index": 209,
+      "job_id": "e0-j814",
+      "owner": "owner-017"
+    },
+    {
+      "allocation_id": "e0-a825",
+      "index": 213,
+      "job_id": "e0-j826",
+      "owner": "owner-021"
+    },
+    {
+      "allocation_id": "e0-a794",
+      "index": 195,
+      "job_id": "e0-j806",
+      "owner": "owner-003"
+    },
+    {
+      "allocation_id": "e0-a778",
+      "index": 208,
+      "job_id": "e0-j779",
+      "owner": "owner-016"
+    },
+    {
+      "allocation_id": "e0-a829",
+      "index": 194,
+      "job_id": "e0-j830",
+      "owner": "owner-002"
+    },
+    {
+      "allocation_id": "e0-a771",
+      "index": 197,
+      "job_id": "e0-j800",
+      "owner": "owner-005"
+    },
+    {
+      "allocation_id": "e0-a787",
+      "index": 215,
+      "job_id": "e0-j791",
+      "owner": "owner-023"
+    },
+    {
+      "allocation_id": "e0-a821",
+      "index": 212,
+      "job_id": "e0-j822",
+      "owner": "owner-020"
+    },
+    {
+      "allocation_id": "e0-a833",
+      "index": 214,
+      "job_id": "e0-j834",
+      "owner": "owner-022"
+    },
+    {
+      "allocation_id": "e0-a770",
+      "index": 217,
+      "job_id": "e0-j775",
+      "owner": "owner-025"
+    },
+    {
+      "allocation_id": "e0-a769",
+      "index": 192,
+      "job_id": "e0-j772",
+      "owner": "owner-000"
+    },
+    {
+      "allocation_id": "e0-a783",
+      "index": 193,
+      "job_id": "e0-j784",
+      "owner": "owner-001"
+    },
+    {
+      "allocation_id": "e0-a837",
+      "index": 220,
+      "job_id": "e0-j838",
+      "owner": "owner-028"
+    },
+    {
+      "allocation_id": "e0-a842",
+      "index": 196,
+      "job_id": "e0-j843",
+      "owner": "owner-004"
+    },
+    {
+      "allocation_id": "e0-a849",
+      "index": 203,
+      "job_id": "e0-j850",
+      "owner": "owner-011"
+    },
+    {
+      "allocation_id": "e0-a841",
+      "index": 218,
+      "job_id": "e0-j846",
+      "owner": "owner-026"
+    },
+    {
+      "allocation_id": "e0-a853",
+      "index": 222,
+      "job_id": "e0-j854",
+      "owner": "owner-030"
+    },
+    {
+      "allocation_id": "e0-a857",
+      "index": 201,
+      "job_id": "e0-j858",
+      "owner": "owner-009"
+    },
+    {
+      "allocation_id": "e0-a861",
+      "index": 216,
+      "job_id": "e0-j862",
+      "owner": "owner-024"
+    },
+    {
+      "allocation_id": "e0-a865",
+      "index": 221,
+      "job_id": "e0-j866",
+      "owner": "owner-029"
+    },
+    {
+      "allocation_id": "e0-a869",
+      "index": 210,
+      "job_id": "e0-j870",
+      "owner": "owner-018"
+    },
+    {
+      "allocation_id": "e0-a873",
+      "index": 204,
+      "job_id": "e0-j874",
+      "owner": "owner-012"
+    },
+    {
+      "allocation_id": "e0-a817",
+      "index": 199,
+      "job_id": "e0-j818",
+      "owner": "owner-007"
+    },
+    {
+      "allocation_id": "e0-a877",
+      "index": 223,
+      "job_id": "e0-j878",
+      "owner": "owner-031"
+    },
+    {
+      "allocation_id": "e0-a881",
+      "index": 206,
+      "job_id": "e0-j882",
+      "owner": "owner-014"
+    },
+    {
+      "allocation_id": "e0-a885",
+      "index": 211,
+      "job_id": "e0-j886",
+      "owner": "owner-019"
+    },
+    {
+      "allocation_id": "e0-a889",
+      "index": 207,
+      "job_id": "e0-j890",
+      "owner": "owner-015"
+    },
+    {
+      "allocation_id": "e0-a893",
+      "index": 205,
+      "job_id": "e0-j894",
+      "owner": "owner-013"
+    },
+    {
+      "allocation_id": "e0-a897",
+      "index": 224,
+      "job_id": "e0-j898",
+      "owner": "owner-032"
+    },
+    {
+      "allocation_id": "e0-a910",
+      "index": 244,
+      "job_id": "e0-j911",
+      "owner": "owner-052"
+    },
+    {
+      "allocation_id": "e0-a901",
+      "index": 233,
+      "job_id": "e0-j902",
+      "owner": "owner-041"
+    },
+    {
+      "allocation_id": "e0-a918",
+      "index": 240,
+      "job_id": "e0-j919",
+      "owner": "owner-048"
+    },
+    {
+      "allocation_id": "e0-a914",
+      "index": 246,
+      "job_id": "e0-j915",
+      "owner": "owner-054"
+    },
+    {
+      "allocation_id": "e0-a939",
+      "index": 235,
+      "job_id": "e0-j940",
+      "owner": "owner-043"
+    },
+    {
+      "allocation_id": "e0-a931",
+      "index": 252,
+      "job_id": "e0-j935",
+      "owner": "owner-060"
+    },
+    {
+      "allocation_id": "e0-a922",
+      "index": 247,
+      "job_id": "e0-j924",
+      "owner": "owner-055"
+    },
+    {
+      "allocation_id": "e0-a905",
+      "index": 234,
+      "job_id": "e0-j906",
+      "owner": "owner-042"
+    },
+    {
+      "allocation_id": "e0-a927",
+      "index": 236,
+      "job_id": "e0-j932",
+      "owner": "owner-044"
+    },
+    {
+      "allocation_id": "e0-a943",
+      "index": 226,
+      "job_id": "e0-j944",
+      "owner": "owner-034"
+    },
+    {
+      "allocation_id": "e0-a948",
+      "index": 241,
+      "job_id": "e0-j949",
+      "owner": "owner-049"
+    },
+    {
+      "allocation_id": "e0-a961",
+      "index": 231,
+      "job_id": "e0-j962",
+      "owner": "owner-039"
+    },
+    {
+      "allocation_id": "e0-a938",
+      "index": 225,
+      "job_id": "e0-j958",
+      "owner": "owner-033"
+    },
+    {
+      "allocation_id": "e0-a965",
+      "index": 230,
+      "job_id": "e0-j966",
+      "owner": "owner-038"
+    },
+    {
+      "allocation_id": "e0-a969",
+      "index": 227,
+      "job_id": "e0-j970",
+      "owner": "owner-035"
+    },
+    {
+      "allocation_id": "e0-a973",
+      "index": 253,
+      "job_id": "e0-j974",
+      "owner": "owner-061"
+    },
+    {
+      "allocation_id": "e0-a923",
+      "index": 245,
+      "job_id": "e0-j928",
+      "owner": "owner-053"
+    },
+    {
+      "allocation_id": "e0-a977",
+      "index": 250,
+      "job_id": "e0-j978",
+      "owner": "owner-058"
+    },
+    {
+      "allocation_id": "e0-a981",
+      "index": 228,
+      "job_id": "e0-j982",
+      "owner": "owner-036"
+    },
+    {
+      "allocation_id": "e0-a947",
+      "index": 239,
+      "job_id": "e0-j955",
+      "owner": "owner-047"
+    },
+    {
+      "allocation_id": "e0-a985",
+      "index": 232,
+      "job_id": "e0-j986",
+      "owner": "owner-040"
+    },
+    {
+      "allocation_id": "e0-a989",
+      "index": 243,
+      "job_id": "e0-j990",
+      "owner": "owner-051"
+    },
+    {
+      "allocation_id": "e0-a993",
+      "index": 251,
+      "job_id": "e0-j994",
+      "owner": "owner-059"
+    },
+    {
+      "allocation_id": "e0-a909",
+      "index": 229,
+      "job_id": "e0-j952",
+      "owner": "owner-037"
+    },
+    {
+      "allocation_id": "e0-a997",
+      "index": 255,
+      "job_id": "e0-j998",
+      "owner": "owner-063"
+    },
+    {
+      "allocation_id": "e0-a1001",
+      "index": 237,
+      "job_id": "e0-j1003",
+      "owner": "owner-045"
+    },
+    {
+      "allocation_id": "e0-a1002",
+      "index": 254,
+      "job_id": "e0-j1006",
+      "owner": "owner-062"
+    },
+    {
+      "allocation_id": "e0-a1009",
+      "index": 242,
+      "job_id": "e0-j1010",
+      "owner": "owner-050"
+    },
+    {
+      "allocation_id": "e0-a1013",
+      "index": 248,
+      "job_id": "e0-j1014",
+      "owner": "owner-056"
+    },
+    {
+      "allocation_id": "e0-a1017",
+      "index": 249,
+      "job_id": "e0-j1018",
+      "owner": "owner-057"
+    },
+    {
+      "allocation_id": "e0-a1021",
+      "index": 238,
+      "job_id": "e0-j1022",
+      "owner": "owner-046"
+    }
+  ],
+  "database_directory": "/tmp/fabric-request-b19acae-probe",
+  "database_storage": "Native runtime filesystem, SQLite synchronous=FULL; raw database retained at database_directory",
+  "deadline_seconds": 1200,
+  "declared": {
+    "commands": 1280,
+    "concurrency": 32,
+    "jobs": 256,
+    "nodes": 128,
+    "owners": 64,
+    "physical_gpus": 1024
+  },
+  "elapsed_seconds": 41.84133173500004,
+  "environment": {
+    "cpu_count": 4,
+    "cpu_max": "400000 100000",
+    "limited_memory_bytes": 8589934592,
+    "limited_vcpus": 4.0,
+    "measurement": "Client-observed real TCP wall time, queueing included",
+    "memory_max": "8589934592",
+    "platform": "Linux-6.8.0-117-generic-aarch64-with-glibc2.41",
+    "python": "3.12.16 (main, Nov  5 2026, 08:06:14) [GCC 14.2.0]",
+    "reference_4vcpu_8gib": true
+  },
+  "errors": [],
+  "excluded_workloads": {
+    "clock_batches": "not measured",
+    "fault_injection": "not measured",
+    "policy_experiments": "not measured"
+  },
+  "execution": "Real TCP integrated host; logical jobs, not real GPU work",
+  "peak_inflight_requests": 32,
+  "protocol": "Five writes per job: allocate TTL300, create, renew TTL600, cancel, release; one job detail per eight jobs; 32 concurrent flows; no history reset or compaction",
+  "schema": "cp4-load-v1",
+  "started_at": "2026-11-14T18:16:23.168526+00:00",
+  "timings_summary": {
+    "count": 1312,
+    "max_ms": 5561.4836430002015,
+    "p50_ms": 54.49521700006699,
+    "p95_ms": 3638.5615839999446,
+    "p99_ms": 4863.476758000161
+  },
+  "workload_version": "cp4-mixed-lifecycle-v2-effective-renewal"
+}

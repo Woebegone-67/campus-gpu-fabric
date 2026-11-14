@@ -1,0 +1,27 @@
+{
+  "build": {
+    "git_commit": "5f25604537144d2ddb42a7553dd31932b6de7a7f",
+    "source_sha256": "4f4dd64f0f473a96751a60e37b74bd1cc0f3eab49d3658a16a63fdcd894c1c4d",
+    "source_file_count": 331
+  },
+  "full_pytest": {
+    "command": "uv run pytest -q",
+    "passed": 1164,
+    "failed": 1,
+    "elapsed_seconds": 285.33,
+    "failure": "Missing web/node_modules in new worktree; service preflight refused startup before exercising behavior",
+    "log": "pytest.log"
+  },
+  "environment_correction": "npm --prefix web ci; no source or lockfile modification",
+  "targeted_recheck": {
+    "command": "uv run pytest -q tests/blackbox/test_cp2_joint_session_owned.py",
+    "passed": 4,
+    "elapsed_seconds": 15.32,
+    "log": "session-recheck.log"
+  },
+  "coverage_statement": "Every collected case passed across the full run and environment-corrected targeted rerun; not a single green full-suite run, overlapping counts not added.",
+  "ruff": "src scripts tests passed; whole-tree diagnostic scripts have 51 pre-existing lint violations and were not rewritten",
+  "contracts": "Generated Python/TypeScript parity passed",
+  "web_build": "Passed for existing UI, not B unpublished UI",
+  "source_unchanged": true
+}

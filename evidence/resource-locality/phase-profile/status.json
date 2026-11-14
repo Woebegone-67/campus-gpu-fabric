@@ -1,0 +1,30 @@
+{
+  "status": "NOT_RUN",
+  "reason": "User explicitly requested closeout before any diagnostic service or workload was started.",
+  "preflight_status": "FAILED_PREPARATION_CHECK",
+  "preflight_error": "inspect.isgeneratorfunction(Kernel._inventory_nodes) is false: the method returns iter_inventory(...), rather than declaring its own yield. This is a diagnostic-tool assertion error, not a measured product failure.",
+  "workload_started": false,
+  "diagnostic_service_started": false,
+  "business_requests_executed": 0,
+  "predeclared_jobs": 64,
+  "run_directory_exists": false,
+  "runtime_exists": false,
+  "service_events_exist": false,
+  "absence_check": "Read-only check inside fabric-locality-20261115 confirmed the proposed run directory, /tmp/fabric-locality-phases-5f25604-64-20261115 and service-events.json did not exist.",
+  "source_candidate": "5f25604537144d2ddb42a7553dd31932b6de7a7f",
+  "planned_source_sha256": "4f4dd64f0f473a96751a60e37b74bd1cc0f3eab49d3658a16a63fdcd894c1c4d",
+  "production_source_modified": false,
+  "raw_preflight_log": "preflight.log",
+  "preflight_command": "docker --context colima-cp4-load exec fabric-locality-20261115 python evidence/resource-locality/phase-profile/preflight.py > evidence/resource-locality/phase-profile/preflight.log 2>&1",
+  "sha256": {
+    "phase_service.py": "91fb6ad0fdaa852de2a4e550f2e917dcc9b6eac711c5ba1523f7ff1dc74b6840",
+    "run_diagnostic.py": "1c2dd2026e451c135aa0a29e68f1bdafe36256e23f209d6f1cfb25c4d3fa514d",
+    "preflight.py": "22ff9d1ed5ed9615b37dcdc938ac33a4bc41272ea4c8434aab4b3d4e70085c82",
+    "preflight.log": "09c482b110a9bc9dcff0a8a41d2ec6b7e63322a3c6d8c952223b9cbe5c9330c0"
+  },
+  "limits": [
+    "No phase timings or performance conclusions exist for this prepared diagnostic.",
+    "Prepared scripts are unvalidated and must not be treated as a successful diagnostic.",
+    "No repair or retry is authorized by this archive; user closeout stops further work."
+  ]
+}

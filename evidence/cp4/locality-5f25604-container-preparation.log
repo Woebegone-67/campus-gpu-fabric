@@ -1,0 +1,26 @@
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  4.096kB
+Step 1/5 : FROM python@sha256:5e2bdb1b0d542d5039cffb8181c65930093949194a65c365dfb1b0fe13a4fa5b
+ ---> 5e2bdb1b0d54
+Step 2/5 : RUN apt-get update -qq && apt-get install -y --no-install-recommends git ca-certificates     && rm -rf /var/lib/apt/lists/*
+ ---> Using cache
+ ---> 918ad91dd2ec
+Step 3/5 : COPY requirements.txt /tmp/requirements.txt
+ ---> Using cache
+ ---> 8d2b83d91c54
+Step 4/5 : RUN pip install --no-cache-dir -r /tmp/requirements.txt
+ ---> Using cache
+ ---> 7c926e16b1ba
+Step 5/5 : CMD ["sleep", "infinity"]
+ ---> Using cache
+ ---> 6838d088606e
+Successfully built 6838d088606e
+Successfully tagged fabric-cp4-load:local
+2a0635fb69b5e34f34b2d9cf26d05a94c5ddf25bf1cf520840e1d1586a91242d
+{"Binds":null,"ContainerIDFile":"","LogConfig":{"Type":"json-file","Config":{}},"NetworkMode":"bridge","PortBindings":{},"RestartPolicy":{"Name":"no","MaximumRetryCount":0},"AutoRemove":false,"VolumeDriver":"","VolumesFrom":null,"ConsoleSize":[0,0],"CapAdd":null,"CapDrop":null,"CgroupnsMode":"private","Dns":null,"DnsOptions":[],"DnsSearch":[],"ExtraHosts":null,"GroupAdd":null,"IpcMode":"private","Cgroup":"","Links":null,"OomScoreAdj":0,"PidMode":"","Privileged":false,"PublishAllPorts":false,"ReadonlyRootfs":false,"SecurityOpt":null,"UTSMode":"","UsernsMode":"","ShmSize":67108864,"Runtime":"runc","Isolation":"","CpuShares":0,"Memory":8589934592,"NanoCpus":4000000000,"CgroupParent":"","BlkioWeight":0,"BlkioWeightDevice":[],"BlkioDeviceReadBps":[],"BlkioDeviceWriteBps":[],"BlkioDeviceReadIOps":[],"BlkioDeviceWriteIOps":[],"CpuPeriod":0,"CpuQuota":0,"CpuRealtimePeriod":0,"CpuRealtimeRuntime":0,"CpusetCpus":"","CpusetMems":"","Devices":[],"DeviceCgroupRules":null,"DeviceRequests":null,"MemoryReservation":0,"MemorySwap":8589934592,"MemorySwappiness":null,"OomKillDisable":null,"PidsLimit":null,"Ulimits":null,"CpuCount":0,"CpuPercent":0,"IOMaximumIOps":0,"IOMaximumBandwidth":0,"Mounts":[{"Type":"bind","Source":"/Users/xz/Projects/campus-gpu-fabric","Target":"/Users/xz/Projects/campus-gpu-fabric","ReadOnly":true},{"Type":"bind","Source":"/Users/xz/Projects/campus-gpu-fabric/.worktrees/resource-locality","Target":"/Users/xz/Projects/campus-gpu-fabric/.worktrees/resource-locality"}],"MaskedPaths":["/proc/acpi","/proc/asound","/proc/interrupts","/proc/kcore","/proc/keys","/proc/latency_stats","/proc/sched_debug","/proc/scsi","/proc/timer_list","/proc/timer_stats","/sys/devices/virtual/powercap","/sys/firmware"],"ReadonlyPaths":["/proc/bus","/proc/fs","/proc/irq","/proc/sys","/proc/sysrq-trigger"]}
+400000 100000
+8589934592
+Prepared fabric-locality-20261115 in Docker context colima-cp4-load. Run cp4_scale.py there after freezing the candidate.

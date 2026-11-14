@@ -1,0 +1,451 @@
+{
+  "build": {
+    "git_commit": "b19acae7f0ea185e6289388fb629d2a15dd84fad",
+    "source_file_count": 325,
+    "source_sha256": "68297acee1ac17e34d6735d724bda124814afd17c62d8857f971fb1d2fa3d6f9"
+  },
+  "build_at_finish": {
+    "git_commit": "b19acae7f0ea185e6289388fb629d2a15dd84fad",
+    "source_file_count": 325,
+    "source_sha256": "68297acee1ac17e34d6735d724bda124814afd17c62d8857f971fb1d2fa3d6f9"
+  },
+  "completed_flows": [
+    {
+      "allocation_id": "e0-a10",
+      "index": 3,
+      "job_id": "e0-j11",
+      "owner": "owner-003"
+    },
+    {
+      "allocation_id": "e0-a19",
+      "index": 17,
+      "job_id": "e0-j20",
+      "owner": "owner-017"
+    },
+    {
+      "allocation_id": "e0-a3",
+      "index": 4,
+      "job_id": "e0-j24",
+      "owner": "owner-004"
+    },
+    {
+      "allocation_id": "e0-a14",
+      "index": 15,
+      "job_id": "e0-j16",
+      "owner": "owner-015"
+    },
+    {
+      "allocation_id": "e0-a35",
+      "index": 2,
+      "job_id": "e0-j39",
+      "owner": "owner-002"
+    },
+    {
+      "allocation_id": "e0-a2",
+      "index": 27,
+      "job_id": "e0-j43",
+      "owner": "owner-027"
+    },
+    {
+      "allocation_id": "e0-a1",
+      "index": 0,
+      "job_id": "e0-j46",
+      "owner": "owner-000"
+    },
+    {
+      "allocation_id": "e0-a53",
+      "index": 28,
+      "job_id": "e0-j54",
+      "owner": "owner-028"
+    },
+    {
+      "allocation_id": "e0-a23",
+      "index": 22,
+      "job_id": "e0-j27",
+      "owner": "owner-022"
+    },
+    {
+      "allocation_id": "e0-a34",
+      "index": 14,
+      "job_id": "e0-j36",
+      "owner": "owner-014"
+    },
+    {
+      "allocation_id": "e0-a4",
+      "index": 29,
+      "job_id": "e0-j5",
+      "owner": "owner-029"
+    },
+    {
+      "allocation_id": "e0-a61",
+      "index": 12,
+      "job_id": "e0-j65",
+      "owner": "owner-012"
+    },
+    {
+      "allocation_id": "e0-a42",
+      "index": 1,
+      "job_id": "e0-j62",
+      "owner": "owner-001"
+    },
+    {
+      "allocation_id": "e0-a57",
+      "index": 8,
+      "job_id": "e0-j58",
+      "owner": "owner-008"
+    },
+    {
+      "allocation_id": "e0-a8",
+      "index": 16,
+      "job_id": "e0-j50",
+      "owner": "owner-016"
+    },
+    {
+      "allocation_id": "e0-a15",
+      "index": 13,
+      "job_id": "e0-j71",
+      "owner": "owner-013"
+    },
+    {
+      "allocation_id": "e0-a82",
+      "index": 6,
+      "job_id": "e0-j83",
+      "owner": "owner-006"
+    },
+    {
+      "allocation_id": "e0-a90",
+      "index": 20,
+      "job_id": "e0-j91",
+      "owner": "owner-020"
+    },
+    {
+      "allocation_id": "e0-a74",
+      "index": 31,
+      "job_id": "e0-j75",
+      "owner": "owner-031"
+    },
+    {
+      "allocation_id": "e0-a9",
+      "index": 11,
+      "job_id": "e0-j68",
+      "owner": "owner-011"
+    },
+    {
+      "allocation_id": "e0-a94",
+      "index": 9,
+      "job_id": "e0-j95",
+      "owner": "owner-009"
+    },
+    {
+      "allocation_id": "e0-a49",
+      "index": 26,
+      "job_id": "e0-j98",
+      "owner": "owner-026"
+    },
+    {
+      "allocation_id": "e0-a101",
+      "index": 21,
+      "job_id": "e0-j102",
+      "owner": "owner-021"
+    },
+    {
+      "allocation_id": "e0-a105",
+      "index": 5,
+      "job_id": "e0-j106",
+      "owner": "owner-005"
+    },
+    {
+      "allocation_id": "e0-a78",
+      "index": 10,
+      "job_id": "e0-j79",
+      "owner": "owner-010"
+    },
+    {
+      "allocation_id": "e0-a109",
+      "index": 25,
+      "job_id": "e0-j110",
+      "owner": "owner-025"
+    },
+    {
+      "allocation_id": "e0-a30",
+      "index": 24,
+      "job_id": "e0-j31",
+      "owner": "owner-024"
+    },
+    {
+      "allocation_id": "e0-a113",
+      "index": 19,
+      "job_id": "e0-j114",
+      "owner": "owner-019"
+    },
+    {
+      "allocation_id": "e0-a117",
+      "index": 18,
+      "job_id": "e0-j118",
+      "owner": "owner-018"
+    },
+    {
+      "allocation_id": "e0-a121",
+      "index": 23,
+      "job_id": "e0-j122",
+      "owner": "owner-023"
+    },
+    {
+      "allocation_id": "e0-a86",
+      "index": 7,
+      "job_id": "e0-j87",
+      "owner": "owner-007"
+    },
+    {
+      "allocation_id": "e0-a125",
+      "index": 30,
+      "job_id": "e0-j126",
+      "owner": "owner-030"
+    },
+    {
+      "allocation_id": "e0-a137",
+      "index": 47,
+      "job_id": "e0-j138",
+      "owner": "owner-047"
+    },
+    {
+      "allocation_id": "e0-a141",
+      "index": 33,
+      "job_id": "e0-j142",
+      "owner": "owner-033"
+    },
+    {
+      "allocation_id": "e0-a149",
+      "index": 34,
+      "job_id": "e0-j150",
+      "owner": "owner-034"
+    },
+    {
+      "allocation_id": "e0-a153",
+      "index": 40,
+      "job_id": "e0-j154",
+      "owner": "owner-040"
+    },
+    {
+      "allocation_id": "e0-a158",
+      "index": 43,
+      "job_id": "e0-j159",
+      "owner": "owner-043"
+    },
+    {
+      "allocation_id": "e0-a131",
+      "index": 36,
+      "job_id": "e0-j163",
+      "owner": "owner-036"
+    },
+    {
+      "allocation_id": "e0-a132",
+      "index": 42,
+      "job_id": "e0-j166",
+      "owner": "owner-042"
+    },
+    {
+      "allocation_id": "e0-a179",
+      "index": 52,
+      "job_id": "e0-j180",
+      "owner": "owner-052"
+    },
+    {
+      "allocation_id": "e0-a175",
+      "index": 63,
+      "job_id": "e0-j176",
+      "owner": "owner-063"
+    },
+    {
+      "allocation_id": "e0-a162",
+      "index": 38,
+      "job_id": "e0-j183",
+      "owner": "owner-038"
+    },
+    {
+      "allocation_id": "e0-a145",
+      "index": 48,
+      "job_id": "e0-j146",
+      "owner": "owner-048"
+    },
+    {
+      "allocation_id": "e0-a186",
+      "index": 41,
+      "job_id": "e0-j187",
+      "owner": "owner-041"
+    },
+    {
+      "allocation_id": "e0-a129",
+      "index": 32,
+      "job_id": "e0-j169",
+      "owner": "owner-032"
+    },
+    {
+      "allocation_id": "e0-a136",
+      "index": 50,
+      "job_id": "e0-j172",
+      "owner": "owner-050"
+    },
+    {
+      "allocation_id": "e0-a190",
+      "index": 35,
+      "job_id": "e0-j191",
+      "owner": "owner-035"
+    },
+    {
+      "allocation_id": "e0-a194",
+      "index": 59,
+      "job_id": "e0-j195",
+      "owner": "owner-059"
+    },
+    {
+      "allocation_id": "e0-a198",
+      "index": 62,
+      "job_id": "e0-j199",
+      "owner": "owner-062"
+    },
+    {
+      "allocation_id": "e0-a202",
+      "index": 54,
+      "job_id": "e0-j203",
+      "owner": "owner-054"
+    },
+    {
+      "allocation_id": "e0-a206",
+      "index": 53,
+      "job_id": "e0-j207",
+      "owner": "owner-053"
+    },
+    {
+      "allocation_id": "e0-a210",
+      "index": 39,
+      "job_id": "e0-j211",
+      "owner": "owner-039"
+    },
+    {
+      "allocation_id": "e0-a214",
+      "index": 57,
+      "job_id": "e0-j215",
+      "owner": "owner-057"
+    },
+    {
+      "allocation_id": "e0-a218",
+      "index": 61,
+      "job_id": "e0-j219",
+      "owner": "owner-061"
+    },
+    {
+      "allocation_id": "e0-a222",
+      "index": 46,
+      "job_id": "e0-j223",
+      "owner": "owner-046"
+    },
+    {
+      "allocation_id": "e0-a130",
+      "index": 55,
+      "job_id": "e0-j133",
+      "owner": "owner-055"
+    },
+    {
+      "allocation_id": "e0-a226",
+      "index": 60,
+      "job_id": "e0-j227",
+      "owner": "owner-060"
+    },
+    {
+      "allocation_id": "e0-a234",
+      "index": 45,
+      "job_id": "e0-j235",
+      "owner": "owner-045"
+    },
+    {
+      "allocation_id": "e0-a238",
+      "index": 58,
+      "job_id": "e0-j239",
+      "owner": "owner-058"
+    },
+    {
+      "allocation_id": "e0-a242",
+      "index": 37,
+      "job_id": "e0-j243",
+      "owner": "owner-037"
+    },
+    {
+      "allocation_id": "e0-a230",
+      "index": 49,
+      "job_id": "e0-j231",
+      "owner": "owner-049"
+    },
+    {
+      "allocation_id": "e0-a246",
+      "index": 51,
+      "job_id": "e0-j247",
+      "owner": "owner-051"
+    },
+    {
+      "allocation_id": "e0-a250",
+      "index": 56,
+      "job_id": "e0-j251",
+      "owner": "owner-056"
+    },
+    {
+      "allocation_id": "e0-a157",
+      "index": 44,
+      "job_id": "e0-j254",
+      "owner": "owner-044"
+    }
+  ],
+  "database_directory": "/tmp/fabric-phases-b19acae-64-20261115-retry1",
+  "database_storage": "Native runtime filesystem, SQLite synchronous=FULL; raw database retained at database_directory",
+  "deadline_seconds": 300,
+  "declared": {
+    "commands": 320,
+    "concurrency": 32,
+    "jobs": 64,
+    "nodes": 128,
+    "owners": 64,
+    "physical_gpus": 1024
+  },
+  "diagnostic": {
+    "driver_sha256": "04a7ddc33d579eed381087467494d2b40918fd7cbad84e7df2698099bf250241",
+    "kind": "INSTRUMENTED_DIAGNOSTIC_NOT_ACCEPTANCE",
+    "limits": "No automatic rerun; no production edits; timing instrumentation adds overhead",
+    "predeclared_jobs": 64,
+    "predeclared_maximum_jobs": 64,
+    "queries": 8,
+    "service_wrapper": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/request-isolation/evidence/request-isolation/phase-profile/phase_service.py",
+    "service_wrapper_sha256": "9a6690d38e1d368d5677fd8588c8c5ad2cfc0e41b8cb6b92ec3bff433d669661",
+    "writes": 320
+  },
+  "elapsed_seconds": 10.80925484799991,
+  "environment": {
+    "cpu_count": 4,
+    "cpu_max": "400000 100000",
+    "limited_memory_bytes": 8589934592,
+    "limited_vcpus": 4.0,
+    "measurement": "Client-observed real TCP wall time, queueing included",
+    "memory_max": "8589934592",
+    "platform": "Linux-6.8.0-117-generic-aarch64-with-glibc2.41",
+    "python": "3.12.16 (main, Nov  5 2026, 08:06:14) [GCC 14.2.0]",
+    "reference_4vcpu_8gib": true
+  },
+  "errors": [],
+  "excluded_workloads": {
+    "clock_batches": "not measured",
+    "fault_injection": "not measured",
+    "policy_experiments": "not measured"
+  },
+  "execution": "Real TCP integrated host; logical jobs, not real GPU work",
+  "peak_inflight_requests": 32,
+  "protocol": "Five writes per job: allocate TTL300, create, renew TTL600, cancel, release; one job detail per eight jobs; 32 concurrent flows; no history reset or compaction",
+  "schema": "cp4-load-v1",
+  "started_at": "2026-11-14T18:24:18.650162+00:00",
+  "timings_summary": {
+    "count": 328,
+    "max_ms": 5303.460178000023,
+    "p50_ms": 33.34648399959406,
+    "p95_ms": 3855.064502999994,
+    "p99_ms": 4994.579506000264
+  },
+  "workload_version": "cp4-mixed-lifecycle-v2-effective-renewal"
+}

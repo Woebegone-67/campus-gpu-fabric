@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/Users/xz/Projects/campus-gpu-fabric/.worktrees/resource-locality/evidence/resource-locality/phase-profile/preflight.py", line 12, in <module>
+    assert inspect.isgeneratorfunction(service.Kernel._inventory_nodes)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
