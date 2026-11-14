@@ -195,6 +195,22 @@ def test_deadline_retains_partial_result_and_cannot_pass_full_scale(tmp_path):
     assert json.loads((tmp_path / "stopped/ledger-failure.json").read_text())["jobs"] == {}
 
 
+def test_early_failure_stop_is_not_reported_as_elapsed_deadline(tmp_path, monkeypatch):
+    harness = LoadHarness(tmp_path, {"nodes": 1, "gpus_per_node": 1, "owners": 1},
+                          io.StringIO(), request_timeout=1)
+    monkeypatch.setattr("experiments.cp4_load.time.monotonic", lambda: 100.0)
+    harness.deadline = 200.0
+    harness.stop_load.set()
+    with pytest.raises(RuntimeError, match="earlier failure or stop signal"):
+        harness.measured("GET", "/test", operation="test", category="query",
+                         actor="admin", expected=(200,))
+    harness.deadline = 99.0
+    with pytest.raises(TimeoutError, match="wall-time budget exhausted"):
+        harness.measured("GET", "/test", operation="test", category="query",
+                         actor="admin", expected=(200,))
+    assert harness.samples == []
+
+
 def test_existing_output_is_never_overwritten(tmp_path):
     with pytest.raises(FileExistsError):
         run_load(tmp_path)

@@ -32,16 +32,18 @@ uv run python -m experiments.cp4_load --profile full --max-wall-seconds 240 \
 
 [CP4_PROVENANCE.md](CP4_PROVENANCE.md) 定义从封存输入、策略/模型/运行、原始工件、重算结果到登记输出的来源链。先用 `experiments.cp3_suite` 在当前构建封存并运行指定分区；开发分区与正式验证分区的证据必须分开。
 
+来源审计沿用策略证据目录约束：suite 必须放在仓库的 `evidence/cp3/` 下；CP4 结果索引和回执可另放 `evidence/cp4/`。
+
 ```sh
 uv run python -m experiments.cp3_suite freeze --partition development \
-  --output evidence/cp4/candidate/development-suite
+  --output evidence/cp3/policy-suite-cp4-development
 uv run python -m experiments.cp3_suite run \
-  --suite evidence/cp4/candidate/development-suite --workers 2
+  --suite evidence/cp3/policy-suite-cp4-development --workers 2
 uv run python -m experiments.cp3_suite analyze \
-  --suite evidence/cp4/candidate/development-suite
+  --suite evidence/cp3/policy-suite-cp4-development
 # figure-index.json 必须来自实际输出，不能填写示例占位符。
 uv run python -m experiments.cp4_provenance \
-  --suite evidence/cp4/candidate/development-suite \
+  --suite evidence/cp3/policy-suite-cp4-development \
   --figure-index evidence/cp4/candidate/figure-index.json \
   --output evidence/cp4/candidate/provenance.json
 ```

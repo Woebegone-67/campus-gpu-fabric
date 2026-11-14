@@ -188,10 +188,12 @@ class LoadHarness(Harness):
         self.sequence_failures = []
 
     def measured(self, method, path, *, operation, category, actor, expected, body=None):
-        if category not in {"validation", "cleanup"} and (
-                self.stop_load.is_set() or time.monotonic() >= self.deadline):
-            self.stop_load.set()
-            raise TimeoutError("Load admission wall-time budget exhausted")
+        if category not in {"validation", "cleanup"}:
+            if time.monotonic() >= self.deadline:
+                self.stop_load.set()
+                raise TimeoutError("Load admission wall-time budget exhausted")
+            if self.stop_load.is_set():
+                raise RuntimeError("Load admission stopped after an earlier failure or stop signal")
         with self.lock:
             self.request_counter += 1
             request_id = f"cp4-load-{self.request_counter}"

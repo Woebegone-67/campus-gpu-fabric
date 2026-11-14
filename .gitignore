@@ -43,6 +43,7 @@ evidence/cp3/*history.json
 evidence/cp3/*_histories/
 evidence/cp3/*tests.xml
 evidence/cp3/policy-suite/
+evidence/cp3/policy-suite-cp4*/
 evidence/cp3/*-artifacts/
 evidence/cp3/joint_gate_review.json
 evidence/cp4/
