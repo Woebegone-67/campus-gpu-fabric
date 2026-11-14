@@ -1,4 +1,4 @@
-"""Transactional CP1 authority. Logical simulation never launches a workload process.
+"""Transactional authority with fenced logical and physical execution.
 
 Every externally visible effect, event, stage binding and response is saved in the
 same SQLite transaction. Placement is derived from active claims, not from a
@@ -15,9 +15,10 @@ from pathlib import Path
 
 from campus_fabric.contracts import models as m
 from campus_fabric.domain.decision_views import owner_decision_view
+from campus_fabric.domain.errors import Rejected
+from campus_fabric.domain.lifecycle import LifecycleMixin
 from campus_fabric.domain.placement import (
     choose_placement,
-    inventory,
     validate_node,
     validate_placement,
 )
@@ -44,13 +45,7 @@ def timestamp(seconds):
     )
 
 
-class Rejected(Exception):
-    def __init__(self, code, detail):
-        self.code, self.detail = code, detail
-        super().__init__(detail)
-
-
-class Kernel:
+class Kernel(LifecycleMixin):
     def __init__(
         self,
         db_path: str | Path,
@@ -58,11 +53,14 @@ class Kernel:
         inventory=(),
         simulation_duration_seconds=10.0,
         scheduling_mode="builtin",
+        execution_mode="logical_simulation",
     ):
         if scheduling_mode not in {"builtin", "external"}:
             raise ValueError("Unknown scheduling mode")
         if not math.isfinite(simulation_duration_seconds) or simulation_duration_seconds <= 0:
             raise ValueError("Simulation duration must be a positive finite number")
+        if execution_mode not in {"logical_simulation", "cpu_reference"}:
+            raise ValueError("Unknown execution mode")
         self.store = SQLiteStore(db_path)
         nodes = {}
         for node in inventory:
@@ -71,7 +69,10 @@ class Kernel:
         initial = self._empty(0, float(simulation_duration_seconds))
         initial["scheduling_mode"] = scheduling_mode
         initial["nodes"] = nodes
+        initial["model"]["execution_mode"] = execution_mode
         self.store.initialize(initial)
+        if self.store.read()["model"]["execution_mode"] != execution_mode:
+            raise ValueError("Persisted execution mode differs; use a separate instance")
         if self.store.read()["scheduling_mode"] != scheduling_mode:
             raise ValueError("Persisted scheduling mode differs; use its original mode or a new DB")
         if self.store.read()["model"]["duration_seconds"] != simulation_duration_seconds:
@@ -96,6 +97,11 @@ class Kernel:
             dedup={},
             payloads={},
             outbox={},
+            callbacks={},
+            recalls={},
+            faults={},
+            node_generations={},
+            retired={},
             scheduling_mode="builtin",
             model={
                 "name": "constant-work-v1",
@@ -202,6 +208,40 @@ class Kernel:
     def commit(self, command: m.CommandEnvelope) -> m.CommitReceipt:
         return self.commit_with_payload(command)[0]
 
+    def sync_cpu_clock(self, boot_id: str, monotonic_ns: int):
+        """Persist the physical clock anchor and its domain effects atomically.
+
+        Only the single locked CPU driver calls this port. A service crash cannot
+        separate a saved time advance from the sample that produced it. A host
+        reboot requires explicit recovery instead of guessing a wall-clock delta.
+        """
+        with self.store.transaction() as conn:
+            s = self.store.load(conn)
+            if s["model"]["execution_mode"] != "cpu_reference":
+                raise RuntimeError("Physical clock belongs to CPU reference mode")
+            old = s.get("cpu_clock")
+            if old and (old["boot_id"] != boot_id or monotonic_ns < old["monotonic_ns"]):
+                raise RuntimeError("CPU clock host/boot changed; explicit recovery is required")
+            remaining = 0. if old is None else (monotonic_ns - old["monotonic_ns"]) / 1e9
+            while remaining > 0:
+                delta = min(remaining, 86400.)
+                tick_id = f"wall-{monotonic_ns}-{s['revision']}"
+                command = m.CommandEnvelope(
+                    request_id=tick_id,
+                    actor=m.AuthenticatedActor(actor_id="cpu-driver", role="system"),
+                    operation="clock.advance",
+                    parameters=m.ClockAdvanceParameters(kind="clock.advance",
+                        advance_seconds=delta, source="wall_clock_driver", driver_tick_id=tick_id))
+                s["revision"] += 1
+                self._apply(s, command)
+                self._schedule(s, command)
+                remaining -= delta
+            s["cpu_clock"] = {"boot_id": boot_id, "monotonic_ns": monotonic_ns}
+            for intent in s["intents"].values():
+                parse(m.WorkIntent, intent)
+            self._inventory(s)
+            self.store.save(conn, s)
+
     def commit_with_payload(self, command: m.CommandEnvelope):
         """Return the HTTP response snapshot from the same transaction as its effect."""
         with self.store.transaction() as conn:
@@ -260,7 +300,7 @@ class Kernel:
                 # Validate mutable aggregate against the immutable boundary before saving.
                 for intent in s["intents"].values():
                     parse(m.WorkIntent, intent)
-                inventory(s["nodes"], s["allocations"], s["now"])
+                self._inventory(s)
                 if key is not None:
                     s["dedup"][key] = {"fingerprint": fingerprint, "receipt": plain(receipt)}
                 if body is None:
@@ -292,6 +332,10 @@ class Kernel:
     def _apply(self, s, c):
         p = c.parameters
         refs, status, body, stage = [], 200, None, None
+        if c.operation in {"allocation.checkpoint", "allocation.resume",
+                           "test.contributor_demand", "contribution.recall",
+                           "test.node_state", "test.fault", "executor.report"}:
+            return self._apply_lifecycle(s, c)
         if c.operation == "allocation.create":
             a = self._allocate(s, c, p)
             refs = [self._ref("allocation", a["allocation_id"])]
@@ -331,9 +375,31 @@ class Kernel:
         elif c.operation == "test.reset":
             epoch, duration = s["epoch"] + 1, s["model"]["duration_seconds"]
             mode = s["scheduling_mode"]
+            execution_mode = s["model"]["execution_mode"]
+            cpu_clock = s.get("cpu_clock")
+            retired = dict(s.get("retired", {}))
+            if execution_mode == "cpu_reference":
+                for job in s["jobs"].values():
+                    if job.get("physical_live"):
+                        self._dispatch(s, job, "stop")
+                        a = s["allocations"][job["allocation_id"]]
+                        retired[job["attempt"]["attempt_id"]] = {
+                            "epoch": s["epoch"], "owner_id": job["owner_id"],
+                            "placement": a["placement"], "attempt": job["attempt"],
+                            "physical_gpu_ids": sorted({d["physical_gpu_id"]
+                                for part in (a["placement"] or {}).get("slices", [])
+                                for d in s["nodes"][part["node_id"]]["devices"]
+                                if d["device_id"] in part["device_ids"]}),
+                            "commands": [v["command"] for v in s["outbox"].values()
+                                         if v["command"]["attempt"] == job["attempt"]],
+                        }
             s.clear()
             s.update(self._empty(epoch, duration))
             s["scheduling_mode"] = mode
+            s["model"]["execution_mode"] = execution_mode
+            s["retired"] = retired
+            if cpu_clock is not None:
+                s["cpu_clock"] = cpu_clock
             self._event(s, c, "system.reset")
             status, body = 204, {}
         elif c.operation == "contribution.register":
@@ -344,12 +410,13 @@ class Kernel:
             except ValueError as exc:
                 raise Rejected("invalid_command", str(exc)) from exc
             s["nodes"][p.node.node_id] = plain(p.node)
+            self._refresh_blocks(s)
             refs, status = [self._ref("node", p.node.node_id)], 201
             self._event(s, c, "contribution.registered", c.actor.owner_id, refs, after=p.node.state)
         elif c.operation == "workflow.register_intent":
             r = p.registration
-            if r.execution_mode != "logical_simulation":
-                raise Rejected("invalid_command", "CP1 supports logical_simulation only")
+            if r.execution_mode != s["model"]["execution_mode"]:
+                raise Rejected("invalid_command", "Work execution mode must match this instance")
             if r.intent_id in s["intents"]:
                 raise Rejected("stage_conflict", "Intent identifier already registered")
             data = plain(r)
@@ -401,9 +468,9 @@ class Kernel:
                     intent["attempts"].append(
                         {
                             "ref": job["attempt"],
-                            "state": "running",
+                            "state": "starting" if job["physical_live"] else "running",
                             "created_at": s["now"],
-                            "started_at": s["now"],
+                            "started_at": None if job["physical_live"] else s["now"],
                             "finished_at": None,
                             "checkpoint": None,
                         }
@@ -439,7 +506,7 @@ class Kernel:
                         params.request,
                         params.node_selector,
                         selected.placement,
-                        inventory(s["nodes"], s["allocations"], s["now"]),
+                        self._inventory(s),
                     )
                 except (ValueError, TypeError, AttributeError) as exc:
                     raise Rejected(
@@ -458,29 +525,9 @@ class Kernel:
                 refs,
                 decision=plan,
             )
-        elif c.operation == "executor.report":
-            event = p.event
-            job = s["jobs"].get(event.attempt.job_id)
-            if (
-                event.version.epoch != s["epoch"]
-                or event.version.revision > s["revision"] - 1
-                or job is None
-                or job["state"] != "Running"
-                or job["attempt"] != plain(event.attempt)
-                or event.observed_at != s["now"]
-                or event.mode != "logical_simulation"
-            ):
-                raise Rejected(
-                    "attempt_stale", "Callback does not identify the current live attempt"
-                )
-            # Only the internal simulation driver can settle its modeled completion.
-            if event.kind == "completed" and job["completion_at"] <= s["now"]:
-                self._finish_job(s, c, job, "Succeeded")
-            else:
-                raise Rejected("invalid_command", "Unsupported or premature CP1 executor callback")
         else:
             raise Rejected(
-                "invalid_command", "This operation belongs to CP2 and is not implemented"
+                "invalid_command", "Unsupported operation"
             )
         return refs, status, body, stage
 
@@ -533,6 +580,10 @@ class Kernel:
             expires_at=None,
             granted_at=None,
             intent_id=intent_id,
+            restart_count=0,
+            preemption=None,
+            checkpoint=None,
+            resume_requested=False,
         )
         s["allocations"][ident] = a
         self._event(
@@ -566,6 +617,8 @@ class Kernel:
         return result
 
     def _grant(self, s, c, a, placement, decision=None):
+        resuming = a.get("resume_requested", False)
+        old_expiry, old_grant = a["expires_at"], a["granted_at"]
         a.update(
             state="Allocated",
             placement=plain(placement),
@@ -583,6 +636,12 @@ class Kernel:
             deltas=self._delta(a, 1),
             decision=decision,
         )
+        if resuming:
+            a.update(expires_at=old_expiry, granted_at=old_grant, resume_requested=False)
+            job = self._live_job(s, a)
+            if job is not None:
+                self._next_attempt(s, c, job, reason="restart")
+            a["preemption"] = None
 
     def _schedule(self, s, c):
         if s["scheduling_mode"] == "external":
@@ -598,7 +657,7 @@ class Kernel:
         for a in pending:
             p = parse(m.AllocationCreateParameters, a["parameters"])
             placement = choose_placement(
-                p.request, p.node_selector, inventory(s["nodes"], s["allocations"], s["now"])
+                p.request, p.node_selector, self._inventory(s)
             )
             if placement is not None:
                 self._grant(s, c, a, placement)
@@ -628,7 +687,11 @@ class Kernel:
             timeout_at=s["now"] + (p.timeout_seconds or 86400),
             completion_at=s["now"] + s["model"]["duration_seconds"],
             specification=plain(p),
-            execution_mode="logical_simulation",
+            execution_mode=s["model"]["execution_mode"],
+            retry_count=0,
+            physical_live=s["model"]["execution_mode"] == "cpu_reference",
+            checkpoint=None,
+            retry_at=None,
             intent_id=intent_id,
             failure=None,
         )
@@ -639,19 +702,19 @@ class Kernel:
             version=self._version(s),
             attempt=attempt,
             action="start",
-            mode="logical_simulation",
+            mode=s["model"]["execution_mode"],
             job=p,
         )
         # No external side effect: persisted model execution acknowledges within the transaction.
         s["outbox"][dispatch.dispatch_id] = {
             "command": plain(dispatch),
-            "status": "model_acknowledged",
-            "acknowledged_at": s["now"],
+            "status": "model_acknowledged" if job["execution_mode"] == "logical_simulation" else "pending",
+            "acknowledged_at": s["now"] if job["execution_mode"] == "logical_simulation" else None,
         }
         self._event(
             s,
             c,
-            "job.started",
+            "job.dispatched" if job["physical_live"] else "job.started",
             a["owner_id"],
             [self._ref("job", jid)],
             after="Running",
@@ -659,7 +722,7 @@ class Kernel:
         )
         return job
 
-    def _finish_job(self, s, c, job, state, reason=None, *, settle=True):
+    def _finish_job_final(self, s, c, job, state, reason=None, *, settle=True):
         if job["state"] in JOB_TERMINAL:
             return
         old = job["state"]
@@ -690,6 +753,7 @@ class Kernel:
                         state
                     ],
                     recorded_at=s["now"],
+                    artifact_uris=(job["result_uri"],) if job.get("result_uri") else (),
                     failure=m.ErrorDetail(
                         code="execution_unconfirmed", detail=reason or "Modeled execution failed"
                     )
@@ -722,8 +786,8 @@ class Kernel:
                     after="released",
                 )
 
-    def _release(self, s, c, a, state):
-        if a["state"] not in ACTIVE | {"Pending"}:
+    def _release_final(self, s, c, a, state):
+        if a["state"] not in ACTIVE | {"Pending", "PreemptRequested", "Preempted"}:
             return
         old = a["state"]
         deltas = self._delta(a, -1) if a["placement"] is not None else []
@@ -733,7 +797,7 @@ class Kernel:
                     s,
                     c,
                     job,
-                    "Failed" if state == "Expired" else "Cancelled",
+                    "Failed" if state in {"Expired", "Evicted"} else "Cancelled",
                     "Lease " + state.lower(),
                     settle=False,
                 )
@@ -757,40 +821,6 @@ class Kernel:
             }:
                 intent["state"] = "manual_action"
 
-    def _advance(self, s, c, target):
-        # Rebuild the small CP1 timer frontier after each boundary. No skipped expiries.
-        while True:
-            due = [
-                (a["expires_at"], 0, a["allocation_id"])
-                for a in s["allocations"].values()
-                if a["state"] in ACTIVE and a["expires_at"] <= target
-            ]
-            for job in s["jobs"].values():
-                if job["state"] == "Running":
-                    if job["timeout_at"] <= target:
-                        due.append((job["timeout_at"], 1, job["job_id"]))
-                    if job["completion_at"] <= target:
-                        due.append((job["completion_at"], 2, job["job_id"]))
-            if not due:
-                break
-            at = min(x[0] for x in due)
-            s["now"] = at
-            for _, priority, ident in sorted(x for x in due if x[0] == at):
-                if priority == 0:
-                    self._release(s, c, s["allocations"][ident], "Expired")
-                else:
-                    job = s["jobs"][ident]
-                    if job["state"] == "Running":
-                        self._finish_job(
-                            s,
-                            c,
-                            job,
-                            "Failed" if priority == 1 else "Succeeded",
-                            "Job timeout" if priority == 1 else None,
-                        )
-            self._schedule(s, c)
-        s["now"] = target
-
     @staticmethod
     def allocation_http(a):
         return dict(
@@ -801,8 +831,10 @@ class Kernel:
             placement=a["placement"],
             created_at=timestamp(a["created_at"]),
             expires_at=timestamp(a["expires_at"]),
-            preemption=None,
+            preemption=a.get("preemption"),
             resume_token=None,
+            restart_count=a.get("restart_count", 0),
+            checkpoint=a.get("checkpoint"),
         )
 
     @staticmethod
@@ -814,8 +846,12 @@ class Kernel:
             state=job["state"],
             created_at=timestamp(job["created_at"]),
             finished_at=timestamp(job["finished_at"]),
-            execution_mode="logical_simulation",
+            execution_mode=job["execution_mode"],
             failure=job["failure"],
+            retry_count=job.get("retry_count", 0),
+            attempt=job["attempt"],
+            checkpoint=job.get("checkpoint"),
+            result_uri=job.get("result_uri"),
         )
 
     def receipt_payload(self, receipt):
@@ -841,7 +877,7 @@ class Kernel:
         allowed = {k: state[k] for k in ("epoch", "revision", "now")}
         allowed["nodes"] = {
             n.node_id: plain(n)
-            for n in inventory(state["nodes"], state["allocations"], state["now"])
+            for n in self._inventory(state)
         }
         for collection in ("allocations", "jobs", "intents"):
             allowed[collection] = {
@@ -863,7 +899,7 @@ class Kernel:
                 allowed["decisions"][key] = plain(view)
         # Full internal job timing/specifications belong to authority, not read projections.
         for job in allowed["jobs"].values():
-            for field in ("completion_at", "specification", "timeout_at"):
+            for field in ("completion_at", "specification", "timeout_at", "remaining_seconds", "retry_at"):
                 job.pop(field, None)
         for allocation in allowed["allocations"].values():
             allocation.pop("parameters", None)
@@ -871,12 +907,14 @@ class Kernel:
 
     def decision_snapshot(self):
         s = self.store.read()
-        active = [a for a in s["allocations"].values() if a["state"] in ACTIVE]
+        active = [a for a in s["allocations"].values() if a["placement"] is not None]
         return m.DecisionSnapshot(
             version=self._version(s),
             now=s["now"],
-            execution_mode="logical_simulation",
-            inventory=inventory(s["nodes"], s["allocations"], s["now"]),
+            execution_mode=s["model"]["execution_mode"],
+            notices=tuple(parse(m.ContributorNotice, n) for n in s.get("recalls", {}).values()
+                          if n["unavailable_until"] > s["now"]),
+            inventory=self._inventory(s),
             demands=tuple(
                 m.DemandSnapshot(
                     demand_id=a["allocation_id"],
@@ -899,7 +937,9 @@ class Kernel:
                     owner_id=a["owner_id"],
                     placement=parse(m.Placement, a["placement"]),
                     since=a["granted_at"],
-                    status="executing" if a["state"] == "Running" else "reserved",
+                    status=("quarantined" if a.get("pending_terminal") else
+                            "stopping" if a["state"] == "PreemptRequested" else
+                            "executing" if a["state"] == "Running" else "reserved"),
                 )
                 for a in active
             ),
@@ -929,12 +969,12 @@ class Kernel:
             return not selection or (kind, ident) in selection
 
         allocations = tuple(
-            parse(m.AllocationView, {k: a[k] for k in m.AllocationView.model_fields})
+            parse(m.AllocationView, {k: a[k] for k in m.AllocationView.model_fields if k in a})
             for a in s["allocations"].values()
             if visible(a) and selected("allocation", a["allocation_id"])
         )
         jobs = tuple(
-            parse(m.JobView, {k: j[k] for k in m.JobView.model_fields})
+            parse(m.JobView, {k: j[k] for k in m.JobView.model_fields if k in j})
             for j in s["jobs"].values()
             if visible(j) and selected("job", j["job_id"])
         )

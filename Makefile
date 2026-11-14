@@ -4,7 +4,7 @@ PORT ?= 8080
 HOST ?= 127.0.0.1
 WEB_PORT ?= 5173
 
-.PHONY: setup contracts contracts-check test cp0 cp1-a cp1-joint checkpoint api web smoke
+.PHONY: setup contracts contracts-check test cp0 cp1-a cp1-joint cp2-a checkpoint api web smoke
 setup:
 	uv sync --locked
 	npm --prefix web ci
@@ -31,6 +31,9 @@ cp1-a: contracts-check test
 
 cp1-joint: contracts-check test
 	uv run python scripts/accept_cp1_joint.py
+
+cp2-a:
+	uv run python scripts/accept_cp2_a.py
 
 checkpoint:
 	uv run python scripts/check_checkpoint.py $(CP)

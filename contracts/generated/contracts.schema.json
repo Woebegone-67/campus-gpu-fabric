@@ -159,6 +159,17 @@
           "title": "Allocation Id",
           "type": "string"
         },
+        "checkpoint": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CheckpointFact"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
         "created_at": {
           "maximum": 9007199254740991,
           "minimum": 0,
@@ -186,6 +197,23 @@
           "title": "Owner Id",
           "type": "string"
         },
+        "pending_terminal": {
+          "anyOf": [
+            {
+              "enum": [
+                "Released",
+                "Expired",
+                "Evicted"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pending Terminal"
+        },
         "placement": {
           "anyOf": [
             {
@@ -197,8 +225,26 @@
           ],
           "default": null
         },
+        "preemption": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PreemptionInfo"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
         "request": {
           "$ref": "#/$defs/ResourceRequest"
+        },
+        "restart_count": {
+          "default": 0,
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Restart Count",
+          "type": "integer"
         },
         "state": {
           "enum": [
@@ -2139,9 +2185,8 @@
           "type": "string"
         },
         "target_operation": {
-          "maxLength": 128,
+          "maxLength": 4096,
           "minLength": 1,
-          "pattern": "^\\S+$",
           "title": "Target Operation",
           "type": "string"
         }
@@ -2440,11 +2485,59 @@
           ],
           "default": null
         },
+        "checkpoint": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CheckpointFact"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
         "created_at": {
           "maximum": 9007199254740991,
           "minimum": 0,
           "title": "Created At",
           "type": "number"
+        },
+        "execution_mode": {
+          "default": "logical_simulation",
+          "enum": [
+            "logical_simulation",
+            "cpu_reference"
+          ],
+          "title": "Execution Mode",
+          "type": "string"
+        },
+        "failure": {
+          "anyOf": [
+            {
+              "maxLength": 4096,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Failure"
+        },
+        "finished_at": {
+          "anyOf": [
+            {
+              "maximum": 9007199254740991,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Finished At"
         },
         "job_id": {
           "maxLength": 128,
@@ -2459,6 +2552,27 @@
           "pattern": "^\\S+$",
           "title": "Owner Id",
           "type": "string"
+        },
+        "result_uri": {
+          "anyOf": [
+            {
+              "maxLength": 4096,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Result Uri"
+        },
+        "retry_count": {
+          "default": 0,
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Retry Count",
+          "type": "integer"
         },
         "state": {
           "enum": [
@@ -2921,6 +3035,42 @@
         "expected_value"
       ],
       "title": "Precondition",
+      "type": "object"
+    },
+    "PreemptionInfo": {
+      "additionalProperties": false,
+      "properties": {
+        "checkpoint_due": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Checkpoint Due",
+          "type": "number"
+        },
+        "deadline": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Deadline",
+          "type": "number"
+        },
+        "reason": {
+          "const": "contributor_recall",
+          "title": "Reason",
+          "type": "string"
+        },
+        "requested_at": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Requested At",
+          "type": "number"
+        }
+      },
+      "required": [
+        "requested_at",
+        "deadline",
+        "checkpoint_due",
+        "reason"
+      ],
+      "title": "PreemptionInfo",
       "type": "object"
     },
     "ReadSnapshot": {

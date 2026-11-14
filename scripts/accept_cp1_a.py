@@ -221,8 +221,9 @@ def run_checks(h):
     version = h.get("/v1/version")
     assert version["execution_mode"] == "logical_simulation"
     assert not version["capabilities"]["real_cpu_execution"]
-    assert not version["capabilities"]["checkpoint_recovery"]
-    h.check("execution-disclosure", "Logical simulation; no CPU execution or recovery claimed")
+    assert version["capabilities"]["checkpoint_recovery"]
+    assert not version["checkpoint_passed"]
+    h.check("execution-disclosure", "Logical simulation disclosed; recovery endpoints available, no actual CPU execution claimed by this run")
     before = h.get("/v1/capacity")
     after = h.get("/v1/capacity")
     assert before == after
