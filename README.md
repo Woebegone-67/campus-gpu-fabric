@@ -17,6 +17,11 @@ CP1 审计补修包含身份应用、重复查询、授权决策解释、工作�
 
 ## 启动与验收
 
+CP4 新候选的独立启动、完整重放、规模负载及正式核验入口见
+[CP4 候选实施](docs/handoff/CP4_CANDIDATE.md)。`make cp4` 实际运行可靠性检查并汇集七项证据；
+`make cp4-collect` 只读复核现有材料。缺少真人、实录或未达到规模/延迟目标时仍返回非零，不能据此宣称 CP4 通过。
+旧 CP3 报告可按候选说明显式配置只读归档及两个固定摘要；页面保留原实验构建与审核范围，历史报告不能替代当前构建验收。
+
 需要Git、uv、Python 3.12、Node 22.12+（22.x）、npm和make。依赖固定在`uv.lock`与`web/package-lock.json`；无需 GPU 或 Kubernetes 即可运行逻辑模拟与固定参考 CPU 进程；CPU 进程控制要求 macOS/Linux。
 
 ```bash

@@ -1,34 +1,35 @@
 #!/usr/bin/env python3
-"""CP3 causal-prefix attacks and an independent resource-event projection fold.
+"""CP3 causal-prefix attacks and independent complete committed-state replay.
 
-The full registered replay gate remains NOT_MET: existing events do not carry
-the payloads needed to reconstruct complete final state. A second Kernel run
-is used only for prefix attack comparisons, never as an independent replay.
+Public events retain their bounded resource projection. A private, atomic state
+journal supplies missing payloads; its independent reducer imports no production
+code. Repeated Kernel runs are only causal attacks, never independent replay.
 """
 from __future__ import annotations
 
 import argparse
 import copy
+import json
+import sqlite3
 import sys
 import tempfile
 import traceback
+from contextlib import contextmanager
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "src"))
 from cp3_b_evidence import finish, receipt, retain  # noqa: E402
 from cp3_event_fold import claims_from_final_snapshot, fold_events  # noqa: E402
+from cp3_state_replay import checksum, replay  # noqa: E402
 
+from campus_fabric.storage.sqlite import SQLiteStore  # noqa: E402
 from campus_fabric.workflows import experiment_runner as runner  # noqa: E402
 
 POLICIES = ("B0", "B1", "B2", "P")
 CUTOFF = 5
-REPLAY_GAPS = [
-    "Committed events omit allocation request/TTL/owner payloads, job specifications and complete work-intent stage/result bindings.",
-    "Recall creation/end events omit a complete notice payload; request deduplication, saved responses, outbox and executor callback registries cannot be rebuilt.",
-    "state_changes are text labels, not complete entity patches; intent.stage_bound applies the intent label to allocation/job references, and some coupled lifecycle changes have no separate entity patch.",
-    "The independent fold covers signed resource claims and explicit state facts from a frozen initial inventory only; it is not full database replay or the separate CP3-INDEPENDENT-MODEL gate.",
-]
+REPLAY_GAPS = []
 
 
 def attack_inputs():
@@ -58,7 +59,40 @@ def causal_record(result, cutoff):
 
 
 def execute(inputs, policy, path):
-    result = runner.execute_scenario(copy.deepcopy(inputs), policy, db_path=path)
+    observations = {}
+    original = SQLiteStore.transaction
+
+    @contextmanager
+    def observe_commits(store):
+        # Observe the actual SQL state in each transaction; retain it only after
+        # COMMIT succeeds. No production serializer or reducer is the oracle.
+        observed = None
+        with original(store) as connection:
+            yield connection
+            tables = {row[0] for row in connection.execute(
+                "SELECT name FROM sqlite_master WHERE type='table'")}
+            if {"fabric_state", "fabric_journal"}.issubset(tables):
+                state_row = connection.execute("SELECT payload FROM fabric_state WHERE singleton=1").fetchone()
+                head = connection.execute("SELECT MAX(sequence) FROM fabric_journal").fetchone()[0]
+                if state_row is not None and head is not None:
+                    observed = (head, checksum(json.loads(state_row[0])))
+        if observed is not None:
+            observations[observed[0]] = observed[1]
+
+    with patch.object(SQLiteStore, "transaction", observe_commits):
+        result = runner.execute_scenario(copy.deepcopy(inputs), policy, db_path=path)
+    with sqlite3.connect(path) as connection:
+        actual = json.loads(connection.execute("SELECT payload FROM fabric_state WHERE singleton=1").fetchone()[0])
+    store = SQLiteStore(path)
+    committed = store.export_journal()
+    store.close()
+    rebuilt = replay(committed, observed_prefixes=observations)
+    assert checksum(rebuilt) == checksum(actual), "Complete persisted state differs"
+    assert set(observations) == set(range(1, committed["head_sequence"] + 1)), "A write prefix was not independently observed"
+    result["state_replay"] = {"journal": committed, "observed_commit_prefixes": observations,
+                              "final_persisted_state": actual,
+                              "rebuilt_sha256": checksum(rebuilt),
+                              "scope": "Complete committed JSON from initialization; private journal, not public event-only replay."}
     assert not result["failures"], result["failures"]
     for row in result["decisions"]:
         s = row["snapshot"]
@@ -86,7 +120,8 @@ def exercise(directory, policies=POLICIES, *, artifacts=None, checks=None):
             snapshot = result["snapshot"].model_dump(mode="json")
             record = {"inputs": inputs, "receipts": result["receipts"],
                 "decisions": result["decisions"], "final_snapshot": snapshot,
-                "cutoff_snapshot": prefix_state}
+                "cutoff_snapshot": prefix_state, "state_replay": result["state_replay"],
+                "cutoff_state_replay": state_run["state_replay"]}
             artifacts[f"{policy}-{name}"] = record
             if reference is None:
                 reference, reference_state = prefix, prefix_state
@@ -112,7 +147,8 @@ def exercise(directory, policies=POLICIES, *, artifacts=None, checks=None):
             "Five future/hidden-input mutations preserve events, plans and cutoff state through t=5; visible-input negative control differs."})
     checks.append({"id": "independent-resource-event-fold", "status": "PASS", "observed":
         "Frozen initial inventory plus committed deltas independently reconstruct nonempty cutoff claims and final claims, checking every intermediate capacity and device ownership."})
-    checks.append({"id": "full-final-state-replay", "status": "NOT_MET", "observed": "Event schema lacks full reconstruction payloads; see unresolved_issues."})
+    checks.append({"id": "full-final-state-replay", "status": "PASS", "observed":
+        "Independent standard-library reducer reconstructs every observed committed write prefix and final persisted JSON, including workflow stages/results, requests, saved responses, decisions, budgets and bookkeeping. Public events alone remain insufficient; atomic private journal supplies lossless changes."})
     return checks, artifacts
 
 
@@ -123,13 +159,13 @@ def main(argv=None):
     result = receipt("CP3-PREFIX-REPLAY", "independent_history", {
         "online": "Actual B0/B1/B2/P plans submitted to isolated A kernels; only the current DecisionSnapshot reaches policy.plan.",
         "prefix": "Repeated production runs establish nonanticipation under the declared attacks, not independent state replay.",
-        "replay": "Independent Python delta fold with no production reducer import; resource claims and explicit state facts only.",
+        "replay": "Independent standard-library committed-state journal reducer reconstructs all persisted JSON and compares each write prefix against observed SQL; separate public-event fold checks resource claims.",
         "execution": "Logical simulation with fixed instance-wide hidden duration; no real CPU/GPU claim."})
     artifacts = {}
     try:
         with tempfile.TemporaryDirectory(prefix="fabric-cp3-prefix-") as temp:
             exercise(Path(temp), artifacts=artifacts, checks=result["checks"])
-        result["status"] = "NOT_MET"
+        result["status"] = "PASS"
         result["unresolved_issues"] = list(REPLAY_GAPS)
     except Exception:
         result["status"] = "FAIL"

@@ -57,11 +57,17 @@ def inventory(nodes: dict, allocations: dict, now: float) -> tuple[NodeInventory
     placement uses the device inventory instead. Free VRAM counts physical memory
     once, even when both a whole device and its slice representations are exposed.
     """
+    # Index current claims once. Re-parsing every placement for every node made
+    # a single inventory read grow as nodes * allocations, including unrelated
+    # nodes. The index is local to this derivation, never a second mutable ledger.
+    claims_by_node: dict[str, list[PlacementSlice]] = {}
     for allocation in allocations.values():
         if allocation["state"] in HELD_STATES and allocation.get("placement") is not None:
             placement = _model(Placement, allocation["placement"])
-            if any(part.node_id not in nodes for part in placement.slices):
-                raise ValueError("Live claim refers to an unknown node")
+            for part in placement.slices:
+                if part.node_id not in nodes:
+                    raise ValueError("Live claim refers to an unknown node")
+                claims_by_node.setdefault(part.node_id, []).append(part)
     result = []
     for key, raw in sorted(nodes.items()):
         node = _model(NodeInventory, raw)
@@ -70,19 +76,13 @@ def inventory(nodes: dict, allocations: dict, now: float) -> tuple[NodeInventory
         used = dict.fromkeys(SCALARS, 0)
         claimed: set[str] = set()
         devices = {d.device_id: d for d in node.devices}
-        for allocation in allocations.values():
-            if allocation["state"] not in HELD_STATES or allocation.get("placement") is None:
-                continue
-            placement = _model(Placement, allocation["placement"])
-            for part in placement.slices:
-                if part.node_id != node.node_id:
-                    continue
-                for dimension in SCALARS:
-                    used[dimension] += getattr(part.resources, dimension)
-                for device_id in part.device_ids:
-                    if device_id not in devices or device_id in claimed:
-                        raise ValueError("Unknown or multiply claimed GPU")
-                    claimed.add(device_id)
+        for part in claims_by_node.get(node.node_id, ()):
+            for dimension in SCALARS:
+                used[dimension] += getattr(part.resources, dimension)
+            for device_id in part.device_ids:
+                if device_id not in devices or device_id in claimed:
+                    raise ValueError("Unknown or multiply claimed GPU")
+                claimed.add(device_id)
         parent_claims: dict[str, list[GPUDevice]] = {}
         for device_id in claimed:
             device = devices[device_id]

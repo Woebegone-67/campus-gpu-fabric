@@ -13,7 +13,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 IGNORED_PARTS = {'.git', '.venv', 'node_modules', '__pycache__', '.pytest_cache', '.mypy_cache', '.ruff_cache', 'dist', 'build', 'evidence', '.DS_Store'}
-BUILD_ROOTS = ('src', 'contracts', 'configs', 'semantics', 'scripts', 'tests', 'web', 'experiments', 'spec/official', 'docs')
+BUILD_ROOTS = ('src', 'contracts', 'configs', 'semantics', 'scripts', 'tests', 'web', 'experiments', 'spec/official', 'docs', 'deploy')
 BUILD_FILES = ('pyproject.toml', 'uv.lock', 'requirements.lock', 'Makefile', 'README.md', 'Dockerfile', 'compose.yaml', '.python-version')
 PLACEHOLDERS = {'', 'todo', 'tbd', 'placeholder', 'pass', 'met', 'done', 'not_run', 'stub', 'n/a'}
 
@@ -177,6 +177,91 @@ def _cp3_human_review(root: Path, build: dict) -> dict:
     return result
 
 
+def _cp4_runtime_review(root: Path, requirement: dict, build: dict) -> list[str]:
+    """Recompute CP4 conclusions from primary artifacts, including human boundaries.
+
+    Registered review() functions are read-only. They must never start workloads
+    while the product displays checkpoint status.
+    """
+    path = root / requirement['validator_path']
+    original_path = list(sys.path)
+    try:
+        sys.path.insert(0, str(path.parent))
+        sys.path.insert(0, str(root / 'scripts'))
+        spec = importlib.util.spec_from_file_location(
+            'campus_cp4_gate_' + path.stem, path)
+        if spec is None or spec.loader is None:
+            return ['registered read-only reviewer unavailable']
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        reviewed = module.review(root)
+        if not isinstance(reviewed, dict):
+            return ['registered reviewer returned no structured result']
+        if (reviewed.get('status') != 'PASS' or reviewed.get('build') != build
+                or reviewed.get('check') != requirement['id']):
+            return ['primary evidence review did not pass for this build: '
+                    + str(reviewed.get('unresolved_issues') or reviewed.get('actual'))]
+        return []
+    except (OSError, ValueError, KeyError, TypeError, AttributeError, AssertionError,
+            ImportError) as exc:
+        return [f'primary evidence review failed: {exc}']
+    finally:
+        sys.path[:] = original_path
+
+
+def _cp4_invocation_errors(root: Path, requirement: dict, build: dict) -> list[str]:
+    """A failed or unfinished latest attempt cannot inherit an older PASS.
+
+    Directly produced primary evidence remains supported when no orchestrator
+    invocation exists. Records from another build do not carry failures forward.
+    This checks execution consistency, not the authenticity of the operator.
+    """
+    path = root / 'evidence/cp4/invocations' / (requirement['id'] + '.json')
+    if not path.exists():
+        return []
+    try:
+        record = load_json(path)
+        if not isinstance(record, dict) or not isinstance(record.get('build'), dict):
+            raise ValueError('invalid latest invocation record')
+        if record['build'] != build:
+            return []
+        if record.get('schema') != 'cp4-invocation-v1' or record.get('check') != requirement['id']:
+            raise ValueError('wrong latest invocation identity')
+        run_id = record.get('run_id', '')
+        if len(run_id) != 32 or any(c not in '0123456789abcdef' for c in run_id):
+            raise ValueError('latest invocation needs its unique run ID')
+        validator = root / requirement['validator_path']
+        name = validator.stem.removeprefix('cp4_')
+        output = root / 'evidence/cp4' / (name + '_receipt.json')
+        command = record.get('command', [])
+        if (len(command) != 4 or not command[0]
+                or command[1:] != [str(validator), '--output', str(output)]):
+            raise ValueError('latest invocation command does not match the registered validator')
+        if record.get('state') != 'COMPLETE':
+            raise ValueError('latest invocation is ' + str(record.get('state'))
+                             + '; a successful new attempt is required')
+        if (record.get('exit_code') != 0 or record.get('failure')
+                or record.get('build_at_finish') != build):
+            raise ValueError('latest invocation did not finish successfully on this build')
+        start = datetime.fromisoformat(record['started_at'])
+        finish = datetime.fromisoformat(record['finished_at'])
+        if (start.tzinfo is None or finish.tzinfo is None or finish < start
+                or (finish - datetime.now(timezone.utc)).total_seconds() > 300):
+            raise ValueError('latest invocation timestamps are invalid')
+        expected_log = f'evidence/cp4/invocations/{requirement["id"]}-{run_id}.log'
+        if record.get('log', {}).get('path') != expected_log:
+            raise ValueError('latest invocation log was substituted')
+        if record.get('receipt', {}).get('path') != output.relative_to(root).as_posix():
+            raise ValueError('latest invocation receipt was substituted')
+        for entry in (record['log'], record['receipt']):
+            problems = _artifact_errors(root, 'CP4', entry, path)
+            if problems:
+                raise ValueError('; '.join(problems))
+    except (OSError, ValueError, KeyError, TypeError, AttributeError) as exc:
+        return [f'latest invocation failed review: {exc}']
+    return []
+
+
 def evaluate_checkpoint(root: Path, checkpoint: str, receipt_path: Path | None = None) -> dict:
     root = root.resolve()
     checkpoint = checkpoint.upper()
@@ -289,9 +374,14 @@ def evaluate_checkpoint(root: Path, checkpoint: str, receipt_path: Path | None =
         else:
             for artifact in artifacts:
                 errors.extend(f'{check_id}: {err}' for err in _artifact_errors(root, checkpoint, artifact, receipt_path))
-        if checkpoint == 'CP3' and isinstance(artifacts, list):
+        if checkpoint in {'CP3', 'CP4'} and isinstance(artifacts, list):
             errors.extend(f'{check_id}: nested {err}' for err in
                           _nested_evidence_errors(root, checkpoint, artifacts, receipt_path))
+        if checkpoint == 'CP4' and check.get('status') == 'MET':
+            errors.extend(f'{check_id}: {err}' for err in
+                          _cp4_invocation_errors(root, requirement, build))
+            errors.extend(f'{check_id}: {err}' for err in
+                          _cp4_runtime_review(root, requirement, build))
         if checkpoint == 'CP2' and check_id == 'CP2-SIX-WORKSPACES' and check.get('status') == 'MET':
             errors.extend(f'{check_id}: {err}' for err in _cp2_joint_ui_errors(root, check, build, receipt_path))
     if checkpoint == 'CP3':

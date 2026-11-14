@@ -122,7 +122,21 @@ def node_executable():
     return node
 
 
-def initialize(runtime, ports):
+def policy_archive_configuration(suite, manifest_sha256, index_sha256):
+    if not any((suite, manifest_sha256, index_sha256)):
+        return None
+    if not all((suite, manifest_sha256, index_sha256)):
+        raise ValueError("Historical report needs a directory and both pinned SHA256 values")
+    from campus_fabric.workflows.policy_validation import SealedPolicyValidation
+
+    suite = Path(suite).expanduser().resolve()
+    SealedPolicyValidation(ROOT, suite, historical_manifest_sha256=manifest_sha256,
+                           historical_index_sha256=index_sha256)._load()
+    return {"suite": str(suite), "manifest_sha256": manifest_sha256,
+            "index_sha256": index_sha256}
+
+
+def initialize(runtime, ports, policy_archive=None):
     if len(set(ports.values())) != 4 or any(
         p in PROTECTED_PORTS or not 1024 <= p <= 65535 for p in ports.values()
     ):
@@ -132,6 +146,8 @@ def initialize(runtime, ports):
         session = load_session(runtime)
         if session["ports"] != ports:
             raise RuntimeError("This session already uses different ports; pass its original ports")
+        if session.get("policy_archive") != policy_archive:
+            raise RuntimeError("This session already uses different historical-report settings")
         return session
     if any(path.name != ".session.lock" for path in runtime.iterdir()):
         raise RuntimeError(
@@ -145,16 +161,17 @@ def initialize(runtime, ports):
         "runtime": str(runtime),
         "ports": ports,
         "processes": {},
+        "policy_archive": policy_archive,
     }
     write_private(manifest, session)
     return session
 
 
-def start(runtime, ports):
+def start(runtime, ports, policy_archive=None):
     if importlib.util.find_spec("uvicorn") is None:
         raise RuntimeError("Python dependencies are absent; run make setup first")
     node = node_executable()
-    session = initialize(runtime, ports)
+    session = initialize(runtime, ports, policy_archive)
     for mode in ("logical", "cpu"):
         directory = runtime / mode
         directory.mkdir(exist_ok=True)
@@ -251,6 +268,13 @@ def serve(runtime, name, token, node):
         FABRIC_SCHEDULING_MODE="external",
         FABRIC_B_POLICY="P",
     )
+    if session.get("policy_archive"):
+        archive = session["policy_archive"]
+        os.environ.update(
+            FABRIC_CP3_ARCHIVE_SUITE=archive["suite"],
+            FABRIC_CP3_ARCHIVE_MANIFEST_SHA256=archive["manifest_sha256"],
+            FABRIC_CP3_ARCHIVE_INDEX_SHA256=archive["index_sha256"],
+        )
     if kind == "api":
         sys.path.insert(0, str(ROOT / "scripts"))
         import uvicorn
@@ -476,6 +500,9 @@ def main():
     for key, port in DEFAULT_PORTS.items():
         parser.add_argument("--" + key + "-port", type=int, default=port)
     parser.add_argument("--output", type=Path, help="New export directory (export only)")
+    parser.add_argument("--policy-archive", type=Path, help="Read-only historical CP3 suite (start only)")
+    parser.add_argument("--policy-archive-manifest-sha256", help="Pinned original manifest digest")
+    parser.add_argument("--policy-archive-index-sha256", help="Pinned original index digest")
     parser.add_argument("--service", choices=tuple(DEFAULT_PORTS), help=argparse.SUPPRESS)
     parser.add_argument("--token", help=argparse.SUPPRESS)
     parser.add_argument("--node", help=argparse.SUPPRESS)
@@ -497,7 +524,10 @@ def main():
                 ports = {
                     key: getattr(args, key.replace("-", "_") + "_port") for key in DEFAULT_PORTS
                 }
-                result = start(runtime, ports)
+                archive = policy_archive_configuration(
+                    args.policy_archive, args.policy_archive_manifest_sha256,
+                    args.policy_archive_index_sha256)
+                result = start(runtime, ports, archive)
             elif args.action == "stop":
                 result = stop(runtime)
             elif args.action == "export":

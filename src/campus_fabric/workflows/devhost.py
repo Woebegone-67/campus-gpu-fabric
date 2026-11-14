@@ -31,6 +31,21 @@ OBSERVER = m.AuthenticatedActor(actor_id="b-workflow-observer", role="administra
 POLICY_ACTOR = m.AuthenticatedActor(actor_id="b-policy-worker", role="system")
 
 
+def policy_validation_reader():
+    suite = os.environ.get("FABRIC_CP3_ARCHIVE_SUITE")
+    seal = os.environ.get("FABRIC_CP3_ARCHIVE_MANIFEST_SHA256")
+    index_seal = os.environ.get("FABRIC_CP3_ARCHIVE_INDEX_SHA256")
+    if any((suite, seal, index_seal)) and not all((suite, seal, index_seal)):
+        raise ValueError("Historical report requires archive directory, manifest and index SHA256s")
+    if suite:
+        reader = SealedPolicyValidation(ROOT, Path(suite).expanduser().resolve(),
+                                        historical_manifest_sha256=seal,
+                                        historical_index_sha256=index_seal)
+        reader._load()  # Reject the wrong archive before serving any requests.
+        return reader
+    return SealedPolicyValidation(ROOT)
+
+
 class WorkflowWorker:
     """Replay durable bindings; cached failures only suppress repeated attempts.
 
@@ -129,7 +144,7 @@ def create_app(*, worker_enabled=True, **core_options):
 
     services = make_kernel_services(kernel, app.state.identity, clock_origin=origin,
                                     evidence_reader=evidence, experiment_runner=experiments,
-                                    policy_validation_reader=SealedPolicyValidation(ROOT))
+                                    policy_validation_reader=policy_validation_reader())
     register_queries(app, services, replace_existing=True)
     mode = core_options.get("scheduling_mode") or os.environ.get("FABRIC_SCHEDULING_MODE", "builtin")
     policy_name = os.environ.get("FABRIC_B_POLICY", "B0") if mode == "external" else None
