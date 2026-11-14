@@ -290,27 +290,42 @@ def create_query_router(services: QueryServices | None = None) -> APIRouter:
                          "totals": resource_totals(inventory.nodes)},
         }
 
+    def experiment_records(actor: Any) -> tuple[Any, tuple[EvidenceRun, ...]]:
+        runner = services.experiments(actor)
+        snapshot = services.read(actor)
+        records = invoke(runner.list_runs, actor)
+        try:
+            runs = tuple(EvidenceRun.model_validate_json(row.run.model_dump_json())
+                         for row in records)
+        except (ValidationError, AttributeError, TypeError, ValueError):
+            raise QueryFailure(502, "provider_contract_error", "Invalid experiment records.")
+        return snapshot, runs
+
     def experiment(request: Request, actor: Any) -> dict:
-        evidence = services.evidence(actor)
-        run = next((x.run for x in evidence.runs
-                    if x.run.run_id == request.path_params["run_id"]
-                    and (actor.role == "administrator" or x.owner_id == actor.owner_id)), None)
+        # Isolated runs belong to the administrator scope. Preserve the opaque
+        # 404 for other owners without invoking a repository-wide evidence gate.
+        if actor.role != "administrator":
+            raise QueryFailure(404, "not_found", "The requested run was not found.")
+        snapshot, runs = experiment_records(actor)
+        run = next((run for run in runs
+                    if run.run_id == request.path_params["run_id"]), None)
         if run is None:
             raise QueryFailure(404, "not_found", "The requested run was not found.")
-        return {**metadata(evidence), "item": run.model_dump(mode="json")}
+        return {**metadata(snapshot), "item": run.model_dump(mode="json")}
 
     def experiment_catalog(request: Request, actor: Any) -> dict:
         runner = services.experiments(actor)
         return {"items": invoke(runner.catalog), "execution_mode": "logical_simulation"}
 
     def experiments(request: Request, actor: Any) -> dict:
-        services.experiments(actor)
-        evidence = services.evidence(actor)
+        # Listing persisted runs must not execute checkpoint receipt validation;
+        # that can recursively parse gigabytes of unrelated acceptance evidence.
+        snapshot, runs = experiment_records(actor)
         # Run records advance independently of the operating ledger revision.
         # Do not pretend that its version pins experiment pagination. The
         # registered runner bounds retained runs, so return that complete list.
-        return {**metadata(evidence), "items": [
-            row.run.model_dump(mode="json") for row in evidence.runs
+        return {**metadata(snapshot), "items": [
+            run.model_dump(mode="json") for run in runs
         ]}
 
     def experiment_artifact(request: Request, actor: Any) -> Response:

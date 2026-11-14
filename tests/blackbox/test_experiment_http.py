@@ -15,7 +15,13 @@ TOKENS = {
 }
 
 
-def test_registered_experiments_have_real_records_and_cannot_mutate_operating_ledger(tmp_path):
+def test_registered_experiments_have_real_records_and_cannot_mutate_operating_ledger(tmp_path, monkeypatch):
+    from campus_fabric.workflows import devhost
+
+    def unexpected_gate(_root):
+        raise AssertionError("Experiment reads must not validate checkpoint evidence")
+
+    monkeypatch.setattr(devhost, "checkpoint_checks", unexpected_gate)
     app = create_app(data_dir=tmp_path, auth_tokens=TOKENS, worker_enabled=False)
     with TestClient(app) as client:
         before = client.get("/v1/metrics", headers=ADMIN).json()

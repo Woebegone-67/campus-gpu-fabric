@@ -1,7 +1,9 @@
 """CP3 presentation isolation and exact artifact bytes; no formal suite claims."""
 
 import shutil
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+from threading import Event
 
 from fastapi.testclient import TestClient
 
@@ -15,6 +17,49 @@ TOKENS = {
     "cp3-reader-admin": m.AuthenticatedActor(actor_id="admin", role="administrator"),
     "cp3-reader-owner": m.AuthenticatedActor(actor_id="alice", role="researcher", owner_id="alice"),
 }
+
+
+def test_experiment_reads_do_not_wait_for_unrelated_checkpoint_validation(tmp_path, monkeypatch):
+    entered, release = Event(), Event()
+    gate_calls = []
+
+    def slow_gate(_root):
+        gate_calls.append(True)
+        entered.set()
+        if not release.wait(15):
+            raise AssertionError("Test did not release checkpoint validation")
+        return (), False
+
+    reader = SealedPolicyValidation(tmp_path, tmp_path / "no-suite")
+    monkeypatch.setattr(devhost, "SealedPolicyValidation", lambda root: reader)
+    monkeypatch.setattr(devhost, "checkpoint_checks", slow_gate)
+    app = devhost.create_app(data_dir=tmp_path / "instance", auth_tokens=TOKENS,
+                             worker_enabled=False)
+    with TestClient(app) as client, ThreadPoolExecutor(max_workers=2) as pool:
+        before = client.get("/v1/metrics", headers=ADMIN).json()
+        checking = pool.submit(client.get, "/x/v1/acceptance", headers=ADMIN)
+        assert entered.wait(3)
+        try:
+            for path, expected in (
+                ("/x/v1/experiments?limit=25", 200),
+                ("/x/v1/experiments/catalog", 200),
+                ("/x/v1/experiments/unknown-run", 404),
+                ("/x/v1/policy-validation", 200),
+            ):
+                response = pool.submit(client.get, path, headers=ADMIN).result(timeout=3)
+                assert response.status_code == expected, response.text
+            assert not checking.done()
+            assert len(gate_calls) == 1
+            for path in ("/x/v1/experiments", "/x/v1/experiments/catalog",
+                         "/x/v1/policy-validation"):
+                assert client.get(path, headers=OWNER).status_code == 403
+            assert client.get("/x/v1/experiments/unknown-run", headers=OWNER).status_code == 404
+        finally:
+            release.set()
+        assert checking.result(timeout=3).status_code == 200
+        after = client.get("/v1/metrics", headers=ADMIN).json()
+        for key in ("version", "now", "counts"):
+            assert after[key] == before[key]
 
 
 def test_cp3_missing_report_is_not_run_and_cannot_mutate_instance(tmp_path, monkeypatch):
