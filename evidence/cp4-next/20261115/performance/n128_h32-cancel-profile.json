@@ -1,0 +1,481 @@
+{
+  "operation": "cancel",
+  "phase_call_counts": {
+    "kernel._apply": 1,
+    "kernel._inventory": 1,
+    "kernel._schedule": 1,
+    "store._append_journal": 1,
+    "store.load": 2,
+    "store.save": 1,
+    "transaction.enter_connect_begin": 1,
+    "transaction.exit_commit_close": 1
+  },
+  "phase_inclusive_ms": {
+    "kernel._apply": 0.22229203023016453,
+    "kernel._inventory": 19.265417009592056,
+    "kernel._schedule": 0.025374989490956068,
+    "store._append_journal": 56.83179199695587,
+    "store.load": 7.659166061785072,
+    "store.save": 66.17412494961172,
+    "transaction.enter_connect_begin": 0.6841670256108046,
+    "transaction.exit_commit_close": 2.393208967987448
+  },
+  "process_cpu_ms": 166.38799999999952,
+  "profile_total_seconds": 0.17693383300000007,
+  "profiled": true,
+  "top_exclusive": [
+    {
+      "calls": 46736,
+      "exclusive_s": 0.038900377,
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/copy.py",
+      "function": "deepcopy",
+      "inclusive_s": 0.08313395800000001,
+      "line": 118,
+      "primitive_calls": 2
+    },
+    {
+      "calls": 4323,
+      "exclusive_s": 0.015528992,
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/copy.py",
+      "function": "_deepcopy_dict",
+      "inclusive_s": 0.08312254100000001,
+      "line": 217,
+      "primitive_calls": 2
+    },
+    {
+      "calls": 136,
+      "exclusive_s": 0.01443374,
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/encoder.py",
+      "function": "iterencode",
+      "inclusive_s": 0.01443374,
+      "line": 205,
+      "primitive_calls": 136
+    },
+    {
+      "calls": 100259,
+      "exclusive_s": 0.014428963000000001,
+      "file": "~",
+      "function": "<method 'get' of 'dict' objects>",
+      "inclusive_s": 0.014428963000000001,
+      "line": 0,
+      "primitive_calls": 100259
+    },
+    {
+      "calls": 22130,
+      "exclusive_s": 0.01433116,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/storage/journal.py",
+      "function": "equal",
+      "inclusive_s": 0.028086260000000002,
+      "line": 23,
+      "primitive_calls": 8631
+    },
+    {
+      "calls": 9412,
+      "exclusive_s": 0.014285609000000001,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/storage/journal.py",
+      "function": "changes",
+      "inclusive_s": 0.047984917,
+      "line": 37,
+      "primitive_calls": 1
+    },
+    {
+      "calls": 77787,
+      "exclusive_s": 0.0073865400000000005,
+      "file": "~",
+      "function": "<built-in method builtins.isinstance>",
+      "inclusive_s": 0.0073865400000000005,
+      "line": 0,
+      "primitive_calls": 77787
+    },
+    {
+      "calls": 3,
+      "exclusive_s": 0.0071755000000000005,
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/decoder.py",
+      "function": "raw_decode",
+      "inclusive_s": 0.0071755000000000005,
+      "line": 344,
+      "primitive_calls": 3
+    },
+    {
+      "calls": 58402,
+      "exclusive_s": 0.005656617,
+      "file": "~",
+      "function": "<built-in method builtins.id>",
+      "inclusive_s": 0.005656617,
+      "line": 0,
+      "primitive_calls": 58402
+    },
+    {
+      "calls": 15522,
+      "exclusive_s": 0.0045220500000000005,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/storage/journal.py",
+      "function": "<genexpr>",
+      "inclusive_s": 0.018344663,
+      "line": 28,
+      "primitive_calls": 10666
+    },
+    {
+      "calls": 1,
+      "exclusive_s": 0.0032095350000000003,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/domain/placement.py",
+      "function": "inventory",
+      "inclusive_s": 0.019250959,
+      "line": 52,
+      "primitive_calls": 1
+    },
+    {
+      "calls": 40904,
+      "exclusive_s": 0.002782796,
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/copy.py",
+      "function": "_deepcopy_atomic",
+      "inclusive_s": 0.002782796,
+      "line": 172,
+      "primitive_calls": 40904
+    },
+    {
+      "calls": 5832,
+      "exclusive_s": 0.002617723,
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/copy.py",
+      "function": "_keep_alive",
+      "inclusive_s": 0.003967652,
+      "line": 231,
+      "primitive_calls": 5832
+    },
+    {
+      "calls": 4173,
+      "exclusive_s": 0.0026171080000000004,
+      "file": "~",
+      "function": "<built-in method builtins.all>",
+      "inclusive_s": 0.022785680000000003,
+      "line": 0,
+      "primitive_calls": 650
+    },
+    {
+      "calls": 130,
+      "exclusive_s": 0.0023514060000000003,
+      "file": "~",
+      "function": "<method 'validate_json' of 'pydantic_core._pydantic_core.SchemaValidator' objects>",
+      "inclusive_s": 0.004223013,
+      "line": 0,
+      "primitive_calls": 130
+    },
+    {
+      "calls": 1509,
+      "exclusive_s": 0.0019729640000000002,
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/copy.py",
+      "function": "_deepcopy_list",
+      "inclusive_s": 0.049331049,
+      "line": 191,
+      "primitive_calls": 652
+    },
+    {
+      "calls": 1152,
+      "exclusive_s": 0.0019428120000000001,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/.venv/lib/python3.12/site-packages/pydantic/main.py",
+      "function": "__copy__",
+      "inclusive_s": 0.004898395000000001,
+      "line": 1036,
+      "primitive_calls": 1152
+    },
+    {
+      "calls": 9,
+      "exclusive_s": 0.00159854,
+      "file": "~",
+      "function": "<method 'execute' of 'sqlite3.Connection' objects>",
+      "inclusive_s": 0.00159854,
+      "line": 0,
+      "primitive_calls": 9
+    },
+    {
+      "calls": 3456,
+      "exclusive_s": 0.001540743,
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/copy.py",
+      "function": "copy",
+      "inclusive_s": 0.002574498,
+      "line": 61,
+      "primitive_calls": 3456
+    },
+    {
+      "calls": 1152,
+      "exclusive_s": 0.001403301,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/.venv/lib/python3.12/site-packages/pydantic/main.py",
+      "function": "model_copy",
+      "inclusive_s": 0.007160003000000001,
+      "line": 410,
+      "primitive_calls": 1152
+    },
+    {
+      "calls": 1,
+      "exclusive_s": 0.0013895840000000001,
+      "file": "~",
+      "function": "<method 'commit' of 'sqlite3.Connection' objects>",
+      "inclusive_s": 0.0013895840000000001,
+      "line": 0,
+      "primitive_calls": 1
+    },
+    {
+      "calls": 9788,
+      "exclusive_s": 0.0012733830000000001,
+      "file": "~",
+      "function": "<method 'keys' of 'dict' objects>",
+      "inclusive_s": 0.0012733830000000001,
+      "line": 0,
+      "primitive_calls": 9788
+    },
+    {
+      "calls": 9163,
+      "exclusive_s": 0.001257506,
+      "file": "~",
+      "function": "<method 'append' of 'list' objects>",
+      "inclusive_s": 0.001257506,
+      "line": 0,
+      "primitive_calls": 9163
+    },
+    {
+      "calls": 9411,
+      "exclusive_s": 0.001200305,
+      "file": "~",
+      "function": "<method 'extend' of 'list' objects>",
+      "inclusive_s": 0.001200305,
+      "line": 0,
+      "primitive_calls": 9411
+    },
+    {
+      "calls": 4453,
+      "exclusive_s": 0.0010887120000000001,
+      "file": "~",
+      "function": "<method 'items' of 'dict' objects>",
+      "inclusive_s": 0.0010887120000000001,
+      "line": 0,
+      "primitive_calls": 4453
+    }
+  ],
+  "top_inclusive": [
+    {
+      "calls": 1,
+      "exclusive_s": 9.59e-07,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/evidence/cp4-next/20261115/performance/diagnose.py",
+      "function": "<lambda>",
+      "inclusive_s": 0.17689837500000002,
+      "line": 27,
+      "primitive_calls": 1
+    },
+    {
+      "calls": 1,
+      "exclusive_s": 9.584e-06,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/evidence/cp4-next/20261115/performance/diagnose.py",
+      "function": "commit",
+      "inclusive_s": 0.176897416,
+      "line": 23,
+      "primitive_calls": 1
+    },
+    {
+      "calls": 1,
+      "exclusive_s": 0.000416625,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/domain/kernel.py",
+      "function": "commit",
+      "inclusive_s": 0.176840833,
+      "line": 208,
+      "primitive_calls": 1
+    },
+    {
+      "calls": 1,
+      "exclusive_s": 0.00034020800000000005,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/domain/kernel.py",
+      "function": "commit_with_payload",
+      "inclusive_s": 0.176424208,
+      "line": 245,
+      "primitive_calls": 1
+    },
+    {
+      "calls": 1,
+      "exclusive_s": 0.000410002,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/domain/kernel.py",
+      "function": "_commit_in_transaction",
+      "inclusive_s": 0.16933562500000002,
+      "line": 251,
+      "primitive_calls": 1
+    },
+    {
+      "calls": 7,
+      "exclusive_s": 0.000384003,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/evidence/cp4-next/20261115/performance/diagnose.py",
+      "function": "invoke",
+      "inclusive_s": 0.089348958,
+      "line": 75,
+      "primitive_calls": 5
+    },
+    {
+      "calls": 46736,
+      "exclusive_s": 0.038900377,
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/copy.py",
+      "function": "deepcopy",
+      "inclusive_s": 0.08313395800000001,
+      "line": 118,
+      "primitive_calls": 2
+    },
+    {
+      "calls": 4323,
+      "exclusive_s": 0.015528992,
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/copy.py",
+      "function": "_deepcopy_dict",
+      "inclusive_s": 0.08312254100000001,
+      "line": 217,
+      "primitive_calls": 2
+    },
+    {
+      "calls": 1,
+      "exclusive_s": 1.5042000000000001e-05,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/storage/sqlite.py",
+      "function": "save",
+      "inclusive_s": 0.065845583,
+      "line": 126,
+      "primitive_calls": 1
+    },
+    {
+      "calls": 1,
+      "exclusive_s": 2.1793000000000003e-05,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/storage/sqlite.py",
+      "function": "_append_journal",
+      "inclusive_s": 0.056818834000000006,
+      "line": 138,
+      "primitive_calls": 1
+    },
+    {
+      "calls": 1509,
+      "exclusive_s": 0.0019729640000000002,
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/copy.py",
+      "function": "_deepcopy_list",
+      "inclusive_s": 0.049331049,
+      "line": 191,
+      "primitive_calls": 652
+    },
+    {
+      "calls": 9412,
+      "exclusive_s": 0.014285609000000001,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/storage/journal.py",
+      "function": "changes",
+      "inclusive_s": 0.047984917,
+      "line": 37,
+      "primitive_calls": 1
+    },
+    {
+      "calls": 22130,
+      "exclusive_s": 0.01433116,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/storage/journal.py",
+      "function": "equal",
+      "inclusive_s": 0.028086260000000002,
+      "line": 23,
+      "primitive_calls": 8631
+    },
+    {
+      "calls": 4173,
+      "exclusive_s": 0.0026171080000000004,
+      "file": "~",
+      "function": "<built-in method builtins.all>",
+      "inclusive_s": 0.022785680000000003,
+      "line": 0,
+      "primitive_calls": 650
+    },
+    {
+      "calls": 2173,
+      "exclusive_s": 0.000583797,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/storage/journal.py",
+      "function": "<genexpr>",
+      "inclusive_s": 0.022354493000000003,
+      "line": 52,
+      "primitive_calls": 2173
+    },
+    {
+      "calls": 1,
+      "exclusive_s": 8.041e-06,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/domain/lifecycle.py",
+      "function": "_inventory",
+      "inclusive_s": 0.019260458,
+      "line": 39,
+      "primitive_calls": 1
+    },
+    {
+      "calls": 1,
+      "exclusive_s": 0.0032095350000000003,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/domain/placement.py",
+      "function": "inventory",
+      "inclusive_s": 0.019250959,
+      "line": 52,
+      "primitive_calls": 1
+    },
+    {
+      "calls": 15522,
+      "exclusive_s": 0.0045220500000000005,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/storage/journal.py",
+      "function": "<genexpr>",
+      "inclusive_s": 0.018344663,
+      "line": 28,
+      "primitive_calls": 10666
+    },
+    {
+      "calls": 136,
+      "exclusive_s": 8.899e-05,
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/__init__.py",
+      "function": "dumps",
+      "inclusive_s": 0.014848704,
+      "line": 183,
+      "primitive_calls": 136
+    },
+    {
+      "calls": 136,
+      "exclusive_s": 0.000214896,
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/encoder.py",
+      "function": "encode",
+      "inclusive_s": 0.014750547000000001,
+      "line": 183,
+      "primitive_calls": 136
+    },
+    {
+      "calls": 136,
+      "exclusive_s": 0.01443374,
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/encoder.py",
+      "function": "iterencode",
+      "inclusive_s": 0.01443374,
+      "line": 205,
+      "primitive_calls": 136
+    },
+    {
+      "calls": 100259,
+      "exclusive_s": 0.014428963000000001,
+      "file": "~",
+      "function": "<method 'get' of 'dict' objects>",
+      "inclusive_s": 0.014428963000000001,
+      "line": 0,
+      "primitive_calls": 100259
+    },
+    {
+      "calls": 3,
+      "exclusive_s": 1.8083e-05,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/storage/journal.py",
+      "function": "digest",
+      "inclusive_s": 0.008631833,
+      "line": 19,
+      "primitive_calls": 3
+    },
+    {
+      "calls": 4,
+      "exclusive_s": 7.582e-06,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/storage/journal.py",
+      "function": "encode",
+      "inclusive_s": 0.008093541000000001,
+      "line": 15,
+      "primitive_calls": 4
+    },
+    {
+      "calls": 2,
+      "exclusive_s": 1.3417e-05,
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/storage/sqlite.py",
+      "function": "load",
+      "inclusive_s": 0.007641208000000001,
+      "line": 117,
+      "primitive_calls": 2
+    }
+  ],
+  "wall_ms": 176.9768749945797
+}

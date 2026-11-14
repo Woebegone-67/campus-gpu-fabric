@@ -1,0 +1,45 @@
+{
+  "budget": "4 cases, 80 probe writes plus 160 writes to construct the h32 production history. No concurrency/TCP reference-load rerun. No production source changes. No history deleted. SQLite WAL/FULL unchanged.",
+  "build": {
+    "git_commit": "059f477b9ea24578dda9426a3385e6ec97ba1cc1",
+    "source_file_count": 301,
+    "source_sha256": "5507286afa92d576c4da404209592fe8311c26925847c5168829986a83e04141"
+  },
+  "cases": [
+    {
+      "name": "n4_h0",
+      "nodes": 4,
+      "prior_completed_jobs": 0
+    },
+    {
+      "name": "n128_h0",
+      "nodes": 128,
+      "prior_completed_jobs": 0
+    },
+    {
+      "name": "n128_h32",
+      "nodes": 128,
+      "prior_completed_jobs": 32
+    },
+    {
+      "history": "exact observed final state, no history removed",
+      "name": "n128_h256",
+      "nodes": 128,
+      "prior_completed_jobs": 256
+    }
+  ],
+  "environment": {
+    "limits": "Host diagnostic, not 4vCPU/8GiB reference environment",
+    "logical_cpus": 10,
+    "platform": "macOS-27.3-arm64-arm-64bit",
+    "python": "3.12.13 (main, Mar  3 2026, 12:39:30) [Clang 21.0.0 (clang-2100.0.123.102)]",
+    "temporary_directory": "/var/folders/p3/pm9d9q091hv7q2c2nx37gmhh0000gn/T/cp4-causal-probe-mqsy2myx"
+  },
+  "per_case": "One warmup five-write lifecycle to replace initialization baseline journal head; two measured unprofiled lifecycles; one profiled lifecycle; three direct selected-job reads; one inactive real WorkflowWorker.tick",
+  "purpose": "Causal mechanism diagnosis, not acceptance or a throughput claim",
+  "scope": "Main-thread product Kernel/store calls and cProfile inclusive/exclusive time. No event-loop queue time measured here.",
+  "source_evidence": {
+    "http_sha256": "9ebef8690c9a10ef3cf5f04fff3cafae17f4d7663e4fb90720ceb4e4c99d6b0c",
+    "state_sha256": "7495a46b3f3d51754e8dabae7d885ae54258ed41ab18da195f9fc6ce667e79e1"
+  }
+}

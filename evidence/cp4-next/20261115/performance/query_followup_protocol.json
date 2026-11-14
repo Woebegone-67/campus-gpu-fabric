@@ -1,0 +1,10 @@
+{
+  "purpose": "Correctly measure the owner-wide snapshot used by actual B detail route. Initial selected_job_read is a narrower existing Kernel port, not the actual HTTP detail implementation.",
+  "source": "api/queries/routes.py:169 calls services.read(actor), no entity filter",
+  "budget": "Three unprofiled read-only actual QueryServices.read calls plus one cProfile, on the existing isolated n128_h256 diagnostic DB only; no writes or HTTP traffic.",
+  "original_protocol_build": {
+    "git_commit": "059f477b9ea24578dda9426a3385e6ec97ba1cc1",
+    "source_file_count": 301,
+    "source_sha256": "5507286afa92d576c4da404209592fe8311c26925847c5168829986a83e04141"
+  }
+}

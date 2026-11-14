@@ -2,7 +2,9 @@
 
 校园共享计算服务：申请、收回、接续与可追问的决定。
 
-**当前：按用户授权进入 CP4 开发与独立挑战阶段；CP3 完整验收未通过，CP4 正式验收未运行。** 当前放置评分路线冻结，性能 R=1.00 保留为未达；新工作选择机制有局部收益，也存在严重 Owner 损害反例，未推广到产品。根因与实测见 [性能瓶颈及新方向](docs/research/CP3_BOTTLENECK_AND_DIRECTION.md)，准入依据、硬质量要求和后续责任见 [CP4 准入记录](docs/handoff/CP4_ENTRY.md)。原 `review/cp3-closeout`、两版证据包及15184/15185实例保持原样，见 [CP3 历史收尾](docs/handoff/CP3_CLOSEOUT.md)。阶段准入不改正式门禁，不替代完整重放、实际覆盖或双人签收。
+**当前：进入双页UI设计交接；CP4完整验收仍未通过。** 059f477b候选的可靠性与图表来源检查已有证据，规模/延迟未达，真人干净部署、交叉操作及同构建实录尚缺。当前放置评分路线冻结，R=1.00保留为未达；新工作选择机制有局部收益，也存在严重Owner损害反例，未推广到产品。参见 [CP4后续诊断与评审](evidence/cp4-next/README.md)、[策略瓶颈](docs/research/CP3_BOTTLENECK_AND_DIRECTION.md) 和 [CP4准入记录](docs/handoff/CP4_ENTRY.md)。原CP3分支与证据仍保留，见 [CP3历史收尾](docs/handoff/CP3_CLOSEOUT.md)。阶段准入、设计交接与正式通过分别记录。
+
+**B接手UI：** 先读 [双页界面设计说明](docs/design/UI_DESIGN_SPEC.md) 与 [UI接管步骤](docs/handoff/UI_B_HANDOFF.md)，再按需读 [双指滑动与转场](docs/design/UI_GESTURE_AND_MOTION.md)、[实际数据与组件映射](docs/design/UI_DATA_AND_COMPONENT_MAP.md)。交接分支 `work/ui-handoff-20261115` 包含当前代码与详细说明；新双页、手势和同账户使用/贡献能力尚待实现。用户已授权文档推送后同步开始后端能力改造。
 
 CP1 审计补修包含身份应用、重复查询、授权决策解释、工作关联导航及验收回执读取，详见 [CP1 补修交接](docs/handoff/CP1_B_FIXES.md)。原人工验收实例保留，补修版使用独立工作树和端口。
 

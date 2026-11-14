@@ -1,0 +1,175 @@
+{
+  "measurements": [
+    {
+      "profiled": false,
+      "wall_ms": 21.14516601432115,
+      "cpu_ms": 20.620000000000026,
+      "visible_jobs": 5,
+      "visible_events": 30
+    },
+    {
+      "profiled": false,
+      "wall_ms": 19.48829198954627,
+      "cpu_ms": 19.426,
+      "visible_jobs": 5,
+      "visible_events": 30
+    },
+    {
+      "profiled": false,
+      "wall_ms": 19.40066704992205,
+      "cpu_ms": 19.24300000000001,
+      "visible_jobs": 5,
+      "visible_events": 30
+    },
+    {
+      "profiled": true,
+      "wall_ms": 18.205291009508073,
+      "cpu_ms": 18.006999999999994,
+      "visible_jobs": 5,
+      "visible_events": 30,
+      "top_inclusive": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/api/queries/service.py",
+          "line": 179,
+          "function": "read",
+          "exclusive_s": 8.042e-06,
+          "inclusive_s": 0.018120708000000003
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/api/queries/service.py",
+          "line": 75,
+          "function": "invoke",
+          "exclusive_s": 0.001155542,
+          "inclusive_s": 0.017715750000000002
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/domain/kernel.py",
+          "line": 979,
+          "function": "read_snapshot",
+          "exclusive_s": 2.958e-05,
+          "inclusive_s": 0.016560208
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/storage/sqlite.py",
+          "line": 175,
+          "function": "read",
+          "exclusive_s": 5.416e-06,
+          "inclusive_s": 0.015378500000000002
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/storage/sqlite.py",
+          "line": 117,
+          "function": "load",
+          "exclusive_s": 5.3740000000000006e-06,
+          "inclusive_s": 0.014671834000000002
+        },
+        {
+          "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/__init__.py",
+          "line": 299,
+          "function": "loads",
+          "exclusive_s": 3.833e-06,
+          "inclusive_s": 0.013899667000000001
+        },
+        {
+          "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/decoder.py",
+          "line": 333,
+          "function": "decode",
+          "exclusive_s": 9.250000000000001e-06,
+          "inclusive_s": 0.013895125000000001
+        },
+        {
+          "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/decoder.py",
+          "line": 344,
+          "function": "raw_decode",
+          "exclusive_s": 0.013881417,
+          "inclusive_s": 0.013881417
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/domain/kernel.py",
+          "line": 1007,
+          "function": "<genexpr>",
+          "exclusive_s": 0.00013581200000000002,
+          "inclusive_s": 0.0007999610000000001
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<method 'execute' of 'sqlite3.Connection' objects>",
+          "exclusive_s": 0.000741959,
+          "inclusive_s": 0.000741959
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/domain/kernel.py",
+          "line": 32,
+          "function": "parse",
+          "exclusive_s": 3.2753e-05,
+          "inclusive_s": 0.000626088
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/.venv/lib/python3.12/site-packages/pydantic/main.py",
+          "line": 802,
+          "function": "model_validate_json",
+          "exclusive_s": 1.3837000000000002e-05,
+          "inclusive_s": 0.000598877
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<method 'validate_json' of 'pydantic_core._pydantic_core.SchemaValidator' objects>",
+          "exclusive_s": 0.000483495,
+          "inclusive_s": 0.00058504
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/storage/sqlite.py",
+          "line": 80,
+          "function": "_connect",
+          "exclusive_s": 5.6660000000000005e-06,
+          "inclusive_s": 0.00044708300000000003
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/api/queries/service.py",
+          "line": 86,
+          "function": "validated_snapshot",
+          "exclusive_s": 1.15e-05,
+          "inclusive_s": 0.000389041
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<method 'fetchone' of 'sqlite3.Cursor' objects>",
+          "exclusive_s": 0.000332792,
+          "inclusive_s": 0.000332792
+        },
+        {
+          "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/__init__.py",
+          "line": 183,
+          "function": "dumps",
+          "exclusive_s": 1.2581e-05,
+          "inclusive_s": 0.00026325000000000003
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<method 'close' of 'sqlite3.Connection' objects>",
+          "exclusive_s": 0.000254167,
+          "inclusive_s": 0.000254167
+        },
+        {
+          "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/encoder.py",
+          "line": 183,
+          "function": "encode",
+          "exclusive_s": 3.2745e-05,
+          "inclusive_s": 0.000250669
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/cp4-acceptance/src/campus_fabric/domain/kernel.py",
+          "line": 984,
+          "function": "visible",
+          "exclusive_s": 0.000231307,
+          "inclusive_s": 0.000231307
+        }
+      ]
+    }
+  ],
+  "scope": "Actual detail route owner snapshot service and validation; HTTP dispatch/serialization and event-loop queueing are not timed."
+}

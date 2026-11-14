@@ -1,0 +1,331 @@
+{
+  "build": {
+    "git_commit": "059f477b9ea24578dda9426a3385e6ec97ba1cc1",
+    "source_file_count": 301,
+    "source_sha256": "5507286afa92d576c4da404209592fe8311c26925847c5168829986a83e04141"
+  },
+  "limitations": "Client-observed elapsed time includes queueing, server work and response transport. No per-stage server timestamps exist, so these values alone do not identify a causal percentage.",
+  "source_sha256": "9ebef8690c9a10ef3cf5f04fff3cafae17f4d7663e4fb90720ceb4e4c99d6b0c",
+  "waves": [
+    {
+      "mean_ms": 1584.4346096829802,
+      "operations": {
+        "allocate": {
+          "count": 32,
+          "mean_ms": 1308.0686275311848,
+          "p95_ms": 1508.7072879996413
+        },
+        "cancel": {
+          "count": 32,
+          "mean_ms": 1848.3360019687893,
+          "p95_ms": 3289.5130200004132
+        },
+        "create_job": {
+          "count": 32,
+          "mean_ms": 1534.193880968786,
+          "p95_ms": 1589.0357060006863
+        },
+        "job_detail": {
+          "count": 4,
+          "mean_ms": 1279.1167034999944,
+          "p95_ms": 1799.6210659994176
+        },
+        "release": {
+          "count": 32,
+          "mean_ms": 1439.0442862500379,
+          "p95_ms": 3282.7056159994754
+        },
+        "renew": {
+          "count": 32,
+          "mean_ms": 1830.6949899689755,
+          "p95_ms": 1894.25450500039
+        }
+      },
+      "p95_ms": 2770.7733430006556,
+      "prior_completed_jobs": 0,
+      "requests": 164,
+      "wall_span_s": 9.564652965999812,
+      "wave": 1
+    },
+    {
+      "mean_ms": 2673.157183548738,
+      "operations": {
+        "allocate": {
+          "count": 32,
+          "mean_ms": 2417.824385937479,
+          "p95_ms": 2489.409271000113
+        },
+        "cancel": {
+          "count": 32,
+          "mean_ms": 3102.093528624977,
+          "p95_ms": 6121.361008999884
+        },
+        "create_job": {
+          "count": 32,
+          "mean_ms": 2624.274859062467,
+          "p95_ms": 2637.857153999903
+        },
+        "job_detail": {
+          "count": 4,
+          "mean_ms": 2085.2322802495564,
+          "p95_ms": 2806.8409869993047
+        },
+        "release": {
+          "count": 32,
+          "mean_ms": 2587.001419062545,
+          "p95_ms": 4708.967754000696
+        },
+        "renew": {
+          "count": 32,
+          "mean_ms": 2708.0823379686194,
+          "p95_ms": 2720.216444000471
+        }
+      },
+      "p95_ms": 4079.5461719999366,
+      "prior_completed_jobs": 32,
+      "requests": 164,
+      "wall_span_s": 15.36458463299914,
+      "wave": 2
+    },
+    {
+      "mean_ms": 3759.9460794573556,
+      "operations": {
+        "allocate": {
+          "count": 32,
+          "mean_ms": 3647.2842955000433,
+          "p95_ms": 3743.338292999397
+        },
+        "cancel": {
+          "count": 32,
+          "mean_ms": 4153.534185468829,
+          "p95_ms": 6787.103244999344
+        },
+        "create_job": {
+          "count": 32,
+          "mean_ms": 4215.426641281255,
+          "p95_ms": 4254.446668000128
+        },
+        "job_detail": {
+          "count": 4,
+          "mean_ms": 2427.722788999745,
+          "p95_ms": 4727.920508999887
+        },
+        "release": {
+          "count": 32,
+          "mean_ms": 2551.068424437659,
+          "p95_ms": 4595.965270000306
+        },
+        "renew": {
+          "count": 32,
+          "mean_ms": 4398.944761906194,
+          "p95_ms": 4425.224360999891
+        }
+      },
+      "p95_ms": 4840.235983000639,
+      "prior_completed_jobs": 64,
+      "requests": 164,
+      "wall_span_s": 21.491323365000426,
+      "wave": 3
+    },
+    {
+      "mean_ms": 4478.870579158533,
+      "operations": {
+        "allocate": {
+          "count": 32,
+          "mean_ms": 4619.391709156218,
+          "p95_ms": 4748.504817999674
+        },
+        "cancel": {
+          "count": 32,
+          "mean_ms": 4759.065870937491,
+          "p95_ms": 8580.331821000073
+        },
+        "create_job": {
+          "count": 32,
+          "mean_ms": 4736.652772062513,
+          "p95_ms": 4772.53414200004
+        },
+        "job_detail": {
+          "count": 4,
+          "mean_ms": 1968.6244062497735,
+          "p95_ms": 4658.156475000396
+        },
+        "release": {
+          "count": 32,
+          "mean_ms": 3347.7690061249914,
+          "p95_ms": 7437.888183999348
+        },
+        "renew": {
+          "count": 32,
+          "mean_ms": 5245.2543091250445,
+          "p95_ms": 5274.50733600017
+        }
+      },
+      "p95_ms": 7209.110193000015,
+      "prior_completed_jobs": 96,
+      "requests": 164,
+      "wall_span_s": 26.14667701899998,
+      "wave": 4
+    },
+    {
+      "mean_ms": 5700.91229948781,
+      "operations": {
+        "allocate": {
+          "count": 32,
+          "mean_ms": 5817.620600937516,
+          "p95_ms": 6040.127432999725
+        },
+        "cancel": {
+          "count": 32,
+          "mean_ms": 5766.317744093726,
+          "p95_ms": 9475.151120999726
+        },
+        "create_job": {
+          "count": 32,
+          "mean_ms": 5823.397026281299,
+          "p95_ms": 5873.468772999331
+        },
+        "job_detail": {
+          "count": 4,
+          "mean_ms": 3133.491304249901,
+          "p95_ms": 6239.833691999593
+        },
+        "release": {
+          "count": 32,
+          "mean_ms": 5465.4818786563055,
+          "p95_ms": 7824.661649000518
+        },
+        "renew": {
+          "count": 32,
+          "mean_ms": 5952.671871874941,
+          "p95_ms": 5975.987691999762
+        }
+      },
+      "p95_ms": 6690.991336000479,
+      "prior_completed_jobs": 128,
+      "requests": 164,
+      "wall_span_s": 31.239326804000484,
+      "wave": 5
+    },
+    {
+      "mean_ms": 6405.1493429877755,
+      "operations": {
+        "allocate": {
+          "count": 32,
+          "mean_ms": 6692.327722343862,
+          "p95_ms": 6784.2712120000215
+        },
+        "cancel": {
+          "count": 32,
+          "mean_ms": 6050.3196523437455,
+          "p95_ms": 9207.637403999797
+        },
+        "create_job": {
+          "count": 32,
+          "mean_ms": 6920.996875531159,
+          "p95_ms": 6966.421181000442
+        },
+        "job_detail": {
+          "count": 4,
+          "mean_ms": 2354.5161329996063,
+          "p95_ms": 2822.7847520001887
+        },
+        "release": {
+          "count": 32,
+          "mean_ms": 5847.212022593681,
+          "p95_ms": 9499.117557999853
+        },
+        "renew": {
+          "count": 32,
+          "mean_ms": 7021.219593374952,
+          "p95_ms": 7041.913672999726
+        }
+      },
+      "p95_ms": 9198.322219999682,
+      "prior_completed_jobs": 160,
+      "requests": 164,
+      "wall_span_s": 36.07460994599933,
+      "wave": 6
+    },
+    {
+      "mean_ms": 7312.219105420737,
+      "operations": {
+        "allocate": {
+          "count": 32,
+          "mean_ms": 8013.842525749937,
+          "p95_ms": 8132.710427999882
+        },
+        "cancel": {
+          "count": 32,
+          "mean_ms": 5773.962841437509,
+          "p95_ms": 11119.368145000408
+        },
+        "create_job": {
+          "count": 32,
+          "mean_ms": 8258.152651531305,
+          "p95_ms": 8263.970695999888
+        },
+        "job_detail": {
+          "count": 4,
+          "mean_ms": 6163.549997500013,
+          "p95_ms": 7174.840249999761
+        },
+        "release": {
+          "count": 32,
+          "mean_ms": 6749.388790218717,
+          "p95_ms": 12447.585904999869
+        },
+        "renew": {
+          "count": 32,
+          "mean_ms": 7909.332356656307,
+          "p95_ms": 7959.606855999482
+        }
+      },
+      "p95_ms": 8743.252532999577,
+      "prior_completed_jobs": 192,
+      "requests": 164,
+      "wall_span_s": 41.49116786100058,
+      "wave": 7
+    },
+    {
+      "mean_ms": 8374.497260798817,
+      "operations": {
+        "allocate": {
+          "count": 32,
+          "mean_ms": 8545.801165718814,
+          "p95_ms": 8673.574454999653
+        },
+        "cancel": {
+          "count": 32,
+          "mean_ms": 8165.543578062511,
+          "p95_ms": 19605.89712000001
+        },
+        "create_job": {
+          "count": 32,
+          "mean_ms": 8824.94183050005,
+          "p95_ms": 8887.57344899932
+        },
+        "job_detail": {
+          "count": 4,
+          "mean_ms": 5808.7972072498815,
+          "p95_ms": 8077.699754000605
+        },
+        "release": {
+          "count": 32,
+          "mean_ms": 7101.500192031267,
+          "p95_ms": 14218.503364999378
+        },
+        "renew": {
+          "count": 32,
+          "mean_ms": 9555.41204437506,
+          "p95_ms": 9582.678092999231
+        }
+      },
+      "p95_ms": 14218.503364999378,
+      "prior_completed_jobs": 224,
+      "requests": 164,
+      "wall_span_s": 47.632832551999854,
+      "wave": 8
+    }
+  ]
+}
