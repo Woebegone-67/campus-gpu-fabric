@@ -1,0 +1,121 @@
+{
+  "started_at": "2026-11-14T20:17:58.814Z",
+  "browser": "157.0.8103.51",
+  "url": "http://127.0.0.1:15244",
+  "status": "FAIL",
+  "scope": "Real Chromium render/input behavior against synthetic intercepted API responses; no live backend writes.",
+  "checks": [
+    {
+      "name": "button-press-release-and-keyboard",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Pointer press should retain deep inset depth even while hovered, got rgba(0, 0, 0, 0.19) 0px 0.946121px 2.83836px 0px inset, rgba(0, 0, 0, 0.125) 0px 0.315374px 0.630748px 0px inset, rgba(255, 255, 255, 0.01) 0px -0.315374px 0px 0px inset\n    at file:///Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/web/tests/interaction-motion.browser.mjs:94:10\n    at async check (file:///Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/web/tests/interaction-motion.browser.mjs:73:19)\n    at async file:///Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/web/tests/interaction-motion.browser.mjs:86:1"
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "failure-button-press-release-and-keyboard",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/evidence/ui-final/20261115/motion-press-diagnosis-01/failure-button-press-release-and-keyboard.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    }
+  ],
+  "requests": [
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    }
+  ],
+  "denied": [],
+  "errors": [],
+  "unverified": [
+    "Physical trackpad and touch hardware",
+    "Safari/WebKit",
+    "Actual operating-system clipboard permission UI",
+    "Real backend business transitions and authorization"
+  ],
+  "updated_at": "2026-11-14T20:18:02.858Z",
+  "finished_at": "2026-11-14T20:18:02.858Z"
+}

@@ -1,0 +1,580 @@
+{
+  "scope": "Real Chromium held pointer; synthetic API fixtures",
+  "trace": [
+    {
+      "at": 1.399999976158142,
+      "shadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px inset, rgba(0, 0, 0, 0) 0px 0px 0px 0px inset, rgba(0, 0, 0, 0) 0px 0px 0px 0px inset",
+      "scale": "1",
+      "pressed": "true",
+      "transitions": [
+        {
+          "property": "background-color",
+          "at": 0,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-bottom-color",
+          "at": 0,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-left-color",
+          "at": 0,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-right-color",
+          "at": 0,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-top-color",
+          "at": 0,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "box-shadow",
+          "at": 0,
+          "duration": 160,
+          "state": "running"
+        },
+        {
+          "property": "scale",
+          "at": 0,
+          "duration": 110,
+          "state": "running"
+        }
+      ]
+    },
+    {
+      "at": 23.099999964237213,
+      "shadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px inset, rgba(0, 0, 0, 0) 0px 0px 0px 0px inset, rgba(0, 0, 0, 0) 0px 0px 0px 0px inset",
+      "scale": "1",
+      "pressed": "true",
+      "transitions": [
+        {
+          "property": "background-color",
+          "at": 16.704000039025946,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-bottom-color",
+          "at": 16.699999999999715,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-left-color",
+          "at": 16.699999999999715,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-right-color",
+          "at": 16.699999999999715,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-top-color",
+          "at": 16.699999999999715,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "box-shadow",
+          "at": 0,
+          "duration": 160,
+          "state": "running"
+        },
+        {
+          "property": "scale",
+          "at": 0,
+          "duration": 110,
+          "state": "running"
+        }
+      ]
+    },
+    {
+      "at": 34.19999998807907,
+      "shadow": "rgba(0, 0, 0, 0.063) 0px 0.306073px 0.918219px 0px inset, rgba(0, 0, 0, 0.04) 0px 0.102024px 0.204049px 0px inset, rgba(255, 255, 255, 0.004) 0px -0.102024px 0px 0px inset",
+      "scale": "0.977342",
+      "pressed": "true",
+      "transitions": [
+        {
+          "property": "background-color",
+          "at": 33.4040000390261,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-bottom-color",
+          "at": 33.39999999999988,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-left-color",
+          "at": 33.39999999999988,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-right-color",
+          "at": 33.39999999999988,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-top-color",
+          "at": 33.39999999999988,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "box-shadow",
+          "at": 16.73800002858039,
+          "duration": 160,
+          "state": "running"
+        },
+        {
+          "property": "scale",
+          "at": 16.73800002858039,
+          "duration": 110,
+          "state": "running"
+        }
+      ]
+    },
+    {
+      "at": 56.59999996423721,
+      "shadow": "rgba(0, 0, 0, 0.19) 0px 0.943076px 2.82923px 0px inset, rgba(0, 0, 0, 0.125) 0px 0.314359px 0.628717px 0px inset, rgba(255, 255, 255, 0.01) 0px -0.314359px 0px 0px inset",
+      "scale": "0.966771",
+      "pressed": "true",
+      "transitions": [
+        {
+          "property": "background-color",
+          "at": 50.00400003902605,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-bottom-color",
+          "at": 49.99999999999982,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-left-color",
+          "at": 49.99999999999982,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-right-color",
+          "at": 49.99999999999982,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-top-color",
+          "at": 49.99999999999982,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "box-shadow",
+          "at": 33.33800002858034,
+          "duration": 160,
+          "state": "running"
+        },
+        {
+          "property": "scale",
+          "at": 33.33800002858034,
+          "duration": 110,
+          "state": "running"
+        }
+      ]
+    },
+    {
+      "at": 67.19999998807907,
+      "shadow": "rgba(0, 0, 0, 0.32) 0px 1.61029px 4.83087px 0px inset, rgba(0, 0, 0, 0.216) 0px 0.536763px 1.07353px 0px inset, rgba(255, 255, 255, 0.016) 0px -0.536763px 0px 0px inset",
+      "scale": "0.96283",
+      "pressed": "true",
+      "transitions": [
+        {
+          "property": "background-color",
+          "at": 66.604000039026,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-bottom-color",
+          "at": 66.59999999999977,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-left-color",
+          "at": 66.59999999999977,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-right-color",
+          "at": 66.59999999999977,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-top-color",
+          "at": 66.59999999999977,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "box-shadow",
+          "at": 49.93800002858029,
+          "duration": 160,
+          "state": "running"
+        },
+        {
+          "property": "scale",
+          "at": 49.93800002858029,
+          "duration": 110,
+          "state": "running"
+        }
+      ]
+    },
+    {
+      "at": 90,
+      "shadow": "rgba(0, 0, 0, 0.424) 0px 2.11863px 6.35589px 0px inset, rgba(0, 0, 0, 0.282) 0px 0.70621px 1.41242px 0px inset, rgba(255, 255, 255, 0.024) 0px -0.70621px 0px 0px inset",
+      "scale": "0.961098",
+      "pressed": "true",
+      "transitions": [
+        {
+          "property": "background-color",
+          "at": 83.40400003902593,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-bottom-color",
+          "at": 83.3999999999997,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-left-color",
+          "at": 83.3999999999997,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-right-color",
+          "at": 83.3999999999997,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-top-color",
+          "at": 83.3999999999997,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "box-shadow",
+          "at": 66.73800002858022,
+          "duration": 160,
+          "state": "running"
+        },
+        {
+          "property": "scale",
+          "at": 66.73800002858022,
+          "duration": 110,
+          "state": "running"
+        }
+      ]
+    },
+    {
+      "at": 100.89999997615814,
+      "shadow": "rgba(0, 0, 0, 0.494) 0px 2.46536px 7.39607px 0px inset, rgba(0, 0, 0, 0.33) 0px 0.821786px 1.64357px 0px inset, rgba(255, 255, 255, 0.027) 0px -0.821786px 0px 0px inset",
+      "scale": "0.960334",
+      "pressed": "true",
+      "transitions": [
+        {
+          "property": "background-color",
+          "at": 99.9040000390261,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-bottom-color",
+          "at": 99.89999999999988,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-left-color",
+          "at": 99.89999999999988,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-right-color",
+          "at": 99.89999999999988,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-top-color",
+          "at": 99.89999999999988,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "box-shadow",
+          "at": 83.23800002858039,
+          "duration": 160,
+          "state": "running"
+        },
+        {
+          "property": "scale",
+          "at": 83.23800002858039,
+          "duration": 110,
+          "state": "running"
+        }
+      ]
+    },
+    {
+      "at": 122.89999997615814,
+      "shadow": "rgba(0, 0, 0, 0.54) 0px 2.70339px 8.11017px 0px inset, rgba(0, 0, 0, 0.36) 0px 0.90113px 1.80226px 0px inset, rgba(255, 255, 255, 0.027) 0px -0.90113px 0px 0px inset",
+      "scale": "0.960039",
+      "pressed": "true",
+      "transitions": [
+        {
+          "property": "background-color",
+          "at": 116.60400003902626,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-bottom-color",
+          "at": 116.60000000000004,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-left-color",
+          "at": 116.60000000000004,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-right-color",
+          "at": 116.60000000000004,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "border-top-color",
+          "at": 116.60000000000004,
+          "duration": 180,
+          "state": "running"
+        },
+        {
+          "property": "box-shadow",
+          "at": 99.93800002858055,
+          "duration": 160,
+          "state": "running"
+        },
+        {
+          "property": "scale",
+          "at": 99.93800002858055,
+          "duration": 110,
+          "state": "running"
+        }
+      ]
+    },
+    {
+      "at": 339.5,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 348.19999998807907,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 358,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 366.39999997615814,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 390.0999999642372,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 400.69999998807907,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 423.5,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 434.0999999642372,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 456.7999999523163,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 467.2999999523163,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 490,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 500.69999998807907,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 523.3999999761581,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 534,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 556.6999999880791,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 567.5,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 589.3999999761581,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 600.7999999523163,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 622.7999999523163,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 634.0999999642372,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 656.5,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 666.7999999523163,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 690.0999999642372,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 699.7999999523163,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    },
+    {
+      "at": 723.3999999761581,
+      "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+      "scale": "0.96",
+      "pressed": "true",
+      "transitions": []
+    }
+  ]
+}

@@ -1,0 +1,1249 @@
+{
+  "version": {
+    "epoch": 0,
+    "revision": 1717
+  },
+  "now": 106.84777187500032,
+  "logical_time": 106.84777187500032,
+  "scope": "owner",
+  "owner_id": "alice",
+  "item": {
+    "intent_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+    "owner_id": "alice",
+    "display_name": "联合验收 · 中断后继续",
+    "first_arrival_at": 30.774304209000032,
+    "execution_mode": "cpu_reference",
+    "settlement_action": "release_on_terminal",
+    "specification": {
+      "allocation": {
+        "kind": "allocation.create",
+        "owner_id": "alice",
+        "request": {
+          "cpu_millicores": 1000,
+          "memory_mib": 4096,
+          "gpu": {
+            "count": 1,
+            "model": "A10",
+            "memory_mib": 0,
+            "profile": null
+          },
+          "ephemeral_storage_mib": 0
+        },
+        "queue": "default",
+        "priority": 0,
+        "ttl_seconds": 300,
+        "preemptible": true,
+        "preemption_mode": "checkpoint",
+        "checkpoint_timeout_seconds": 15,
+        "max_restarts": 2,
+        "node_selector": []
+      },
+      "job": {
+        "image": "python:3.12-slim",
+        "command": [
+          "python",
+          "-V"
+        ],
+        "env": [],
+        "timeout_seconds": null,
+        "max_retries": 0
+      }
+    },
+    "state": "completed",
+    "allocation_ids": [
+      "e0-a1"
+    ],
+    "job_ids": [
+      "e0-j2"
+    ],
+    "attempts": [
+      {
+        "ref": {
+          "intent_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+          "attempt_id": "e0-attempt3",
+          "generation": 1,
+          "allocation_id": "e0-a1",
+          "job_id": "e0-j2"
+        },
+        "state": "stopped",
+        "created_at": 32.033301834000035,
+        "started_at": 32.251734584000026,
+        "finished_at": 33.76643154200003,
+        "checkpoint": {
+          "checkpoint_id": "cpu-save-9a20e81318a41cfc8c02f4d0e34c98d3",
+          "report_status": "ready",
+          "reported_at": 33.62630079200003,
+          "artifact_uri": "fabric-cpu://7dfff050b59b368472c02926/2a92636afbbe4b2a9d4e873462e13fe7f17169168d816c400dd014a8964262c8",
+          "verification_status": "verified",
+          "verifier_id": "cpu-reference-hmac-v1",
+          "verified_at": 33.62630079200003,
+          "continuation_status": "not_attempted",
+          "resumed_attempt_id": null
+        }
+      },
+      {
+        "ref": {
+          "intent_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+          "attempt_id": "e0-attempt8",
+          "generation": 2,
+          "allocation_id": "e0-a1",
+          "job_id": "e0-j2"
+        },
+        "state": "completed",
+        "created_at": 51.7430060000001,
+        "started_at": 51.8834526670001,
+        "finished_at": 106.35754695900029,
+        "checkpoint": {
+          "checkpoint_id": "cpu-save-9a20e81318a41cfc8c02f4d0e34c98d3",
+          "report_status": "ready",
+          "reported_at": 33.62630079200003,
+          "artifact_uri": "fabric-cpu://7dfff050b59b368472c02926/2a92636afbbe4b2a9d4e873462e13fe7f17169168d816c400dd014a8964262c8",
+          "verification_status": "verified",
+          "verifier_id": "cpu-reference-hmac-v1",
+          "verified_at": 33.62630079200003,
+          "continuation_status": "applied",
+          "resumed_attempt_id": "e0-attempt8"
+        }
+      }
+    ],
+    "stages": [
+      {
+        "stage_id": "allocate-v1",
+        "operation": "allocate",
+        "state": "committed",
+        "receipt": {
+          "request_id": "workflow-f13acc36cf5af1786aab2f59f648dda1fcc862c7",
+          "outcome": "committed",
+          "version": {
+            "epoch": 0,
+            "revision": 499
+          },
+          "logical_time": 30.935549584000032,
+          "objects": [
+            {
+              "kind": "allocation",
+              "entity_id": "e0-a1"
+            },
+            {
+              "kind": "intent",
+              "entity_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004"
+            }
+          ],
+          "event_ids": [
+            "e0-ev499",
+            "e0-ev500"
+          ],
+          "error": null,
+          "idempotency_replayed": false,
+          "original_request_id": null
+        }
+      },
+      {
+        "stage_id": "job-v1",
+        "operation": "create_job_and_bind",
+        "state": "committed",
+        "receipt": {
+          "request_id": "workflow-1e4bd101b3dfde4179c648af180958f5e771257b",
+          "outcome": "committed",
+          "version": {
+            "epoch": 0,
+            "revision": 518
+          },
+          "logical_time": 32.033301834000035,
+          "objects": [
+            {
+              "kind": "job",
+              "entity_id": "e0-j2"
+            },
+            {
+              "kind": "intent",
+              "entity_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004"
+            }
+          ],
+          "event_ids": [
+            "e0-ev520",
+            "e0-ev521"
+          ],
+          "error": null,
+          "idempotency_replayed": false,
+          "original_request_id": null
+        }
+      }
+    ],
+    "result": {
+      "kind": "success",
+      "recorded_at": 106.35754695900029,
+      "artifact_uris": [
+        "fabric-cpu://7dfff050b59b368472c02926/214261607d3f284a7dc167e8f595d59dddb38df18c2dc797e865eef96c518169"
+      ],
+      "failure": null
+    }
+  },
+  "legal_actions": [],
+  "intent": {
+    "intent_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+    "owner_id": "alice",
+    "display_name": "联合验收 · 中断后继续",
+    "first_arrival_at": 30.774304209000032,
+    "execution_mode": "cpu_reference",
+    "settlement_action": "release_on_terminal",
+    "specification": {
+      "allocation": {
+        "kind": "allocation.create",
+        "owner_id": "alice",
+        "request": {
+          "cpu_millicores": 1000,
+          "memory_mib": 4096,
+          "gpu": {
+            "count": 1,
+            "model": "A10",
+            "memory_mib": 0,
+            "profile": null
+          },
+          "ephemeral_storage_mib": 0
+        },
+        "queue": "default",
+        "priority": 0,
+        "ttl_seconds": 300,
+        "preemptible": true,
+        "preemption_mode": "checkpoint",
+        "checkpoint_timeout_seconds": 15,
+        "max_restarts": 2,
+        "node_selector": []
+      },
+      "job": {
+        "image": "python:3.12-slim",
+        "command": [
+          "python",
+          "-V"
+        ],
+        "env": [],
+        "timeout_seconds": null,
+        "max_retries": 0
+      }
+    },
+    "state": "completed",
+    "allocation_ids": [
+      "e0-a1"
+    ],
+    "job_ids": [
+      "e0-j2"
+    ],
+    "attempts": [
+      {
+        "ref": {
+          "intent_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+          "attempt_id": "e0-attempt3",
+          "generation": 1,
+          "allocation_id": "e0-a1",
+          "job_id": "e0-j2"
+        },
+        "state": "stopped",
+        "created_at": 32.033301834000035,
+        "started_at": 32.251734584000026,
+        "finished_at": 33.76643154200003,
+        "checkpoint": {
+          "checkpoint_id": "cpu-save-9a20e81318a41cfc8c02f4d0e34c98d3",
+          "report_status": "ready",
+          "reported_at": 33.62630079200003,
+          "artifact_uri": "fabric-cpu://7dfff050b59b368472c02926/2a92636afbbe4b2a9d4e873462e13fe7f17169168d816c400dd014a8964262c8",
+          "verification_status": "verified",
+          "verifier_id": "cpu-reference-hmac-v1",
+          "verified_at": 33.62630079200003,
+          "continuation_status": "not_attempted",
+          "resumed_attempt_id": null
+        }
+      },
+      {
+        "ref": {
+          "intent_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+          "attempt_id": "e0-attempt8",
+          "generation": 2,
+          "allocation_id": "e0-a1",
+          "job_id": "e0-j2"
+        },
+        "state": "completed",
+        "created_at": 51.7430060000001,
+        "started_at": 51.8834526670001,
+        "finished_at": 106.35754695900029,
+        "checkpoint": {
+          "checkpoint_id": "cpu-save-9a20e81318a41cfc8c02f4d0e34c98d3",
+          "report_status": "ready",
+          "reported_at": 33.62630079200003,
+          "artifact_uri": "fabric-cpu://7dfff050b59b368472c02926/2a92636afbbe4b2a9d4e873462e13fe7f17169168d816c400dd014a8964262c8",
+          "verification_status": "verified",
+          "verifier_id": "cpu-reference-hmac-v1",
+          "verified_at": 33.62630079200003,
+          "continuation_status": "applied",
+          "resumed_attempt_id": "e0-attempt8"
+        }
+      }
+    ],
+    "stages": [
+      {
+        "stage_id": "allocate-v1",
+        "operation": "allocate",
+        "state": "committed",
+        "receipt": {
+          "request_id": "workflow-f13acc36cf5af1786aab2f59f648dda1fcc862c7",
+          "outcome": "committed",
+          "version": {
+            "epoch": 0,
+            "revision": 499
+          },
+          "logical_time": 30.935549584000032,
+          "objects": [
+            {
+              "kind": "allocation",
+              "entity_id": "e0-a1"
+            },
+            {
+              "kind": "intent",
+              "entity_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004"
+            }
+          ],
+          "event_ids": [
+            "e0-ev499",
+            "e0-ev500"
+          ],
+          "error": null,
+          "idempotency_replayed": false,
+          "original_request_id": null
+        }
+      },
+      {
+        "stage_id": "job-v1",
+        "operation": "create_job_and_bind",
+        "state": "committed",
+        "receipt": {
+          "request_id": "workflow-1e4bd101b3dfde4179c648af180958f5e771257b",
+          "outcome": "committed",
+          "version": {
+            "epoch": 0,
+            "revision": 518
+          },
+          "logical_time": 32.033301834000035,
+          "objects": [
+            {
+              "kind": "job",
+              "entity_id": "e0-j2"
+            },
+            {
+              "kind": "intent",
+              "entity_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004"
+            }
+          ],
+          "event_ids": [
+            "e0-ev520",
+            "e0-ev521"
+          ],
+          "error": null,
+          "idempotency_replayed": false,
+          "original_request_id": null
+        }
+      }
+    ],
+    "result": {
+      "kind": "success",
+      "recorded_at": 106.35754695900029,
+      "artifact_uris": [
+        "fabric-cpu://7dfff050b59b368472c02926/214261607d3f284a7dc167e8f595d59dddb38df18c2dc797e865eef96c518169"
+      ],
+      "failure": null
+    }
+  },
+  "allocations": [
+    {
+      "allocation_id": "e0-a1",
+      "owner_id": "alice",
+      "state": "Released",
+      "request": {
+        "cpu_millicores": 1000,
+        "memory_mib": 4096,
+        "gpu": {
+          "count": 1,
+          "model": "A10",
+          "memory_mib": 0,
+          "profile": null
+        },
+        "ephemeral_storage_mib": 0
+      },
+      "created_at": "2026-01-01T00:00:30.935550Z",
+      "placement": null,
+      "expires_at": "2026-01-01T00:05:30.935550Z",
+      "preemption": null,
+      "checkpoint": {
+        "checkpoint_id": "cpu-save-9a20e81318a41cfc8c02f4d0e34c98d3",
+        "report_status": "ready",
+        "reported_at": 33.62630079200003,
+        "artifact_uri": "fabric-cpu://7dfff050b59b368472c02926/2a92636afbbe4b2a9d4e873462e13fe7f17169168d816c400dd014a8964262c8",
+        "verification_status": "verified",
+        "verifier_id": "cpu-reference-hmac-v1",
+        "verified_at": 33.62630079200003,
+        "continuation_status": "applied",
+        "resumed_attempt_id": "e0-attempt8"
+      },
+      "restart_count": 1,
+      "pending_terminal": null,
+      "id": "e0-a1",
+      "owner": "alice",
+      "created_at_logical": 30.935549584000032,
+      "expires_at_logical": 330.93554958400006
+    }
+  ],
+  "jobs": [
+    {
+      "job_id": "e0-j2",
+      "allocation_id": "e0-a1",
+      "owner_id": "alice",
+      "state": "Succeeded",
+      "created_at": "2026-01-01T00:00:32.033302Z",
+      "attempt": {
+        "intent_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+        "attempt_id": "e0-attempt8",
+        "generation": 2,
+        "allocation_id": "e0-a1",
+        "job_id": "e0-j2"
+      },
+      "execution_mode": "cpu_reference",
+      "retry_count": 0,
+      "checkpoint": {
+        "checkpoint_id": "cpu-save-9a20e81318a41cfc8c02f4d0e34c98d3",
+        "report_status": "ready",
+        "reported_at": 33.62630079200003,
+        "artifact_uri": "fabric-cpu://7dfff050b59b368472c02926/2a92636afbbe4b2a9d4e873462e13fe7f17169168d816c400dd014a8964262c8",
+        "verification_status": "verified",
+        "verifier_id": "cpu-reference-hmac-v1",
+        "verified_at": 33.62630079200003,
+        "continuation_status": "applied",
+        "resumed_attempt_id": "e0-attempt8"
+      },
+      "result_uri": "fabric-cpu://7dfff050b59b368472c02926/214261607d3f284a7dc167e8f595d59dddb38df18c2dc797e865eef96c518169",
+      "failure": null,
+      "finished_at": 106.35754695900029,
+      "id": "e0-j2",
+      "owner": "alice",
+      "created_at_logical": 32.033301834000035,
+      "finished_at_logical": 106.35754695900029
+    }
+  ],
+  "events": [
+    {
+      "event_id": "e0-ev496",
+      "sequence": 496,
+      "version": {
+        "epoch": 0,
+        "revision": 496
+      },
+      "logical_time": 30.774304209000032,
+      "event_type": "intent.registered",
+      "owner_id": "alice",
+      "entities": [
+        {
+          "kind": "intent",
+          "entity_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004"
+        }
+      ],
+      "cause": {
+        "kind": "request",
+        "request_id": "7f77a30872e2482a961bd71fb5a50232"
+      },
+      "attempt": null,
+      "state_changes": [
+        {
+          "entity": {
+            "kind": "intent",
+            "entity_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004"
+          },
+          "before": null,
+          "after": "pending"
+        }
+      ],
+      "resource_deltas": [],
+      "decision_id": null,
+      "decision_snapshot_version": null
+    },
+    {
+      "event_id": "e0-ev499",
+      "sequence": 499,
+      "version": {
+        "epoch": 0,
+        "revision": 499
+      },
+      "logical_time": 30.935549584000032,
+      "event_type": "allocation.requested",
+      "owner_id": "alice",
+      "entities": [
+        {
+          "kind": "allocation",
+          "entity_id": "e0-a1"
+        }
+      ],
+      "cause": {
+        "kind": "request",
+        "request_id": "workflow-f13acc36cf5af1786aab2f59f648dda1fcc862c7"
+      },
+      "attempt": null,
+      "state_changes": [
+        {
+          "entity": {
+            "kind": "allocation",
+            "entity_id": "e0-a1"
+          },
+          "before": null,
+          "after": "Pending"
+        }
+      ],
+      "resource_deltas": [],
+      "decision_id": null,
+      "decision_snapshot_version": null
+    },
+    {
+      "event_id": "e0-ev500",
+      "sequence": 500,
+      "version": {
+        "epoch": 0,
+        "revision": 499
+      },
+      "logical_time": 30.935549584000032,
+      "event_type": "intent.stage_bound",
+      "owner_id": "alice",
+      "entities": [
+        {
+          "kind": "allocation",
+          "entity_id": "e0-a1"
+        },
+        {
+          "kind": "intent",
+          "entity_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004"
+        }
+      ],
+      "cause": {
+        "kind": "request",
+        "request_id": "workflow-f13acc36cf5af1786aab2f59f648dda1fcc862c7"
+      },
+      "attempt": null,
+      "state_changes": [
+        {
+          "entity": {
+            "kind": "allocation",
+            "entity_id": "e0-a1"
+          },
+          "before": null,
+          "after": "waiting"
+        },
+        {
+          "entity": {
+            "kind": "intent",
+            "entity_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004"
+          },
+          "before": null,
+          "after": "waiting"
+        }
+      ],
+      "resource_deltas": [],
+      "decision_id": null,
+      "decision_snapshot_version": null
+    },
+    {
+      "event_id": "e0-ev501",
+      "sequence": 501,
+      "version": {
+        "epoch": 0,
+        "revision": 500
+      },
+      "logical_time": 30.935549584000032,
+      "event_type": "allocation.granted",
+      "owner_id": "alice",
+      "entities": [
+        {
+          "kind": "allocation",
+          "entity_id": "e0-a1"
+        }
+      ],
+      "cause": {
+        "kind": "request",
+        "request_id": "apply-decision-3db20fa75591d687f8247ddab66242b6"
+      },
+      "attempt": null,
+      "state_changes": [
+        {
+          "entity": {
+            "kind": "allocation",
+            "entity_id": "e0-a1"
+          },
+          "before": "Pending",
+          "after": "Allocated"
+        }
+      ],
+      "resource_deltas": [
+        {
+          "node_id": "sim-a10",
+          "allocation_id": "e0-a1",
+          "cpu_millicores": 1000,
+          "memory_mib": 4096,
+          "ephemeral_storage_mib": 0,
+          "device_ids_added": [
+            "sim-a10-gpu0"
+          ],
+          "device_ids_removed": []
+        }
+      ],
+      "decision_id": "decision-3db20fa75591d687f8247ddab66242b6",
+      "decision_snapshot_version": {
+        "epoch": 0,
+        "revision": 499
+      }
+    },
+    {
+      "event_id": "e0-ev520",
+      "sequence": 520,
+      "version": {
+        "epoch": 0,
+        "revision": 518
+      },
+      "logical_time": 32.033301834000035,
+      "event_type": "job.dispatched",
+      "owner_id": "alice",
+      "entities": [
+        {
+          "kind": "job",
+          "entity_id": "e0-j2"
+        }
+      ],
+      "cause": {
+        "kind": "request",
+        "request_id": "workflow-1e4bd101b3dfde4179c648af180958f5e771257b"
+      },
+      "attempt": {
+        "intent_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+        "attempt_id": "e0-attempt3",
+        "generation": 1,
+        "allocation_id": "e0-a1",
+        "job_id": "e0-j2"
+      },
+      "state_changes": [
+        {
+          "entity": {
+            "kind": "job",
+            "entity_id": "e0-j2"
+          },
+          "before": null,
+          "after": "Running"
+        }
+      ],
+      "resource_deltas": [],
+      "decision_id": null,
+      "decision_snapshot_version": null
+    },
+    {
+      "event_id": "e0-ev521",
+      "sequence": 521,
+      "version": {
+        "epoch": 0,
+        "revision": 518
+      },
+      "logical_time": 32.033301834000035,
+      "event_type": "intent.stage_bound",
+      "owner_id": "alice",
+      "entities": [
+        {
+          "kind": "job",
+          "entity_id": "e0-j2"
+        },
+        {
+          "kind": "intent",
+          "entity_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004"
+        }
+      ],
+      "cause": {
+        "kind": "request",
+        "request_id": "workflow-1e4bd101b3dfde4179c648af180958f5e771257b"
+      },
+      "attempt": null,
+      "state_changes": [
+        {
+          "entity": {
+            "kind": "job",
+            "entity_id": "e0-j2"
+          },
+          "before": null,
+          "after": "running"
+        },
+        {
+          "entity": {
+            "kind": "intent",
+            "entity_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004"
+          },
+          "before": null,
+          "after": "running"
+        }
+      ],
+      "resource_deltas": [],
+      "decision_id": null,
+      "decision_snapshot_version": null
+    },
+    {
+      "event_id": "e0-ev525",
+      "sequence": 525,
+      "version": {
+        "epoch": 0,
+        "revision": 522
+      },
+      "logical_time": 32.251734584000026,
+      "event_type": "execution.started",
+      "owner_id": "alice",
+      "entities": [
+        {
+          "kind": "job",
+          "entity_id": "e0-j2"
+        }
+      ],
+      "cause": {
+        "kind": "request",
+        "request_id": "observe-cpu-7dfff050b59b368472c02926-1"
+      },
+      "attempt": {
+        "intent_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+        "attempt_id": "e0-attempt3",
+        "generation": 1,
+        "allocation_id": "e0-a1",
+        "job_id": "e0-j2"
+      },
+      "state_changes": [],
+      "resource_deltas": [],
+      "decision_id": null,
+      "decision_snapshot_version": null
+    },
+    {
+      "event_id": "e0-ev544",
+      "sequence": 544,
+      "version": {
+        "epoch": 0,
+        "revision": 541
+      },
+      "logical_time": 33.47682770900003,
+      "event_type": "allocation.preempt_requested",
+      "owner_id": "alice",
+      "entities": [
+        {
+          "kind": "allocation",
+          "entity_id": "e0-a1"
+        }
+      ],
+      "cause": {
+        "kind": "request",
+        "request_id": "d1a1a39a22924cdcb38e7f1667be8638"
+      },
+      "attempt": null,
+      "state_changes": [
+        {
+          "entity": {
+            "kind": "allocation",
+            "entity_id": "e0-a1"
+          },
+          "before": "Running",
+          "after": "PreemptRequested"
+        }
+      ],
+      "resource_deltas": [],
+      "decision_id": null,
+      "decision_snapshot_version": null
+    },
+    {
+      "event_id": "e0-ev547",
+      "sequence": 547,
+      "version": {
+        "epoch": 0,
+        "revision": 544
+      },
+      "logical_time": 33.62630079200003,
+      "event_type": "checkpoint.reported",
+      "owner_id": "alice",
+      "entities": [
+        {
+          "kind": "allocation",
+          "entity_id": "e0-a1"
+        }
+      ],
+      "cause": {
+        "kind": "request",
+        "request_id": "observe-cpu-7dfff050b59b368472c02926-2"
+      },
+      "attempt": null,
+      "state_changes": [
+        {
+          "entity": {
+            "kind": "allocation",
+            "entity_id": "e0-a1"
+          },
+          "before": null,
+          "after": "ready"
+        }
+      ],
+      "resource_deltas": [],
+      "decision_id": null,
+      "decision_snapshot_version": null
+    },
+    {
+      "event_id": "e0-ev548",
+      "sequence": 548,
+      "version": {
+        "epoch": 0,
+        "revision": 544
+      },
+      "logical_time": 33.62630079200003,
+      "event_type": "execution.checkpoint_reported",
+      "owner_id": "alice",
+      "entities": [
+        {
+          "kind": "job",
+          "entity_id": "e0-j2"
+        }
+      ],
+      "cause": {
+        "kind": "request",
+        "request_id": "observe-cpu-7dfff050b59b368472c02926-2"
+      },
+      "attempt": {
+        "intent_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+        "attempt_id": "e0-attempt3",
+        "generation": 1,
+        "allocation_id": "e0-a1",
+        "job_id": "e0-j2"
+      },
+      "state_changes": [],
+      "resource_deltas": [],
+      "decision_id": null,
+      "decision_snapshot_version": null
+    },
+    {
+      "event_id": "e0-ev551",
+      "sequence": 551,
+      "version": {
+        "epoch": 0,
+        "revision": 547
+      },
+      "logical_time": 33.76643154200003,
+      "event_type": "allocation.preempted",
+      "owner_id": "alice",
+      "entities": [
+        {
+          "kind": "allocation",
+          "entity_id": "e0-a1"
+        }
+      ],
+      "cause": {
+        "kind": "request",
+        "request_id": "observe-cpu-7dfff050b59b368472c02926-3"
+      },
+      "attempt": null,
+      "state_changes": [
+        {
+          "entity": {
+            "kind": "allocation",
+            "entity_id": "e0-a1"
+          },
+          "before": null,
+          "after": "Preempted"
+        }
+      ],
+      "resource_deltas": [
+        {
+          "node_id": "sim-a10",
+          "allocation_id": "e0-a1",
+          "cpu_millicores": -1000,
+          "memory_mib": -4096,
+          "ephemeral_storage_mib": 0,
+          "device_ids_added": [],
+          "device_ids_removed": [
+            "sim-a10-gpu0"
+          ]
+        }
+      ],
+      "decision_id": null,
+      "decision_snapshot_version": null
+    },
+    {
+      "event_id": "e0-ev552",
+      "sequence": 552,
+      "version": {
+        "epoch": 0,
+        "revision": 547
+      },
+      "logical_time": 33.76643154200003,
+      "event_type": "execution.stopped",
+      "owner_id": "alice",
+      "entities": [
+        {
+          "kind": "job",
+          "entity_id": "e0-j2"
+        }
+      ],
+      "cause": {
+        "kind": "request",
+        "request_id": "observe-cpu-7dfff050b59b368472c02926-3"
+      },
+      "attempt": {
+        "intent_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+        "attempt_id": "e0-attempt3",
+        "generation": 1,
+        "allocation_id": "e0-a1",
+        "job_id": "e0-j2"
+      },
+      "state_changes": [],
+      "resource_deltas": [],
+      "decision_id": null,
+      "decision_snapshot_version": null
+    },
+    {
+      "event_id": "e0-ev563",
+      "sequence": 563,
+      "version": {
+        "epoch": 0,
+        "revision": 558
+      },
+      "logical_time": 34.39978129200002,
+      "event_type": "allocation.resume_requested",
+      "owner_id": "alice",
+      "entities": [
+        {
+          "kind": "allocation",
+          "entity_id": "e0-a1"
+        }
+      ],
+      "cause": {
+        "kind": "request",
+        "request_id": "70c7787155da4ecf85b8d7d41009b44e"
+      },
+      "attempt": null,
+      "state_changes": [
+        {
+          "entity": {
+            "kind": "allocation",
+            "entity_id": "e0-a1"
+          },
+          "before": null,
+          "after": "Pending"
+        }
+      ],
+      "resource_deltas": [],
+      "decision_id": null,
+      "decision_snapshot_version": null
+    },
+    {
+      "event_id": "e0-ev850",
+      "sequence": 850,
+      "version": {
+        "epoch": 0,
+        "revision": 844
+      },
+      "logical_time": 51.7430060000001,
+      "event_type": "allocation.granted",
+      "owner_id": "alice",
+      "entities": [
+        {
+          "kind": "allocation",
+          "entity_id": "e0-a1"
+        }
+      ],
+      "cause": {
+        "kind": "request",
+        "request_id": "apply-decision-0ba414c3579567d167cec0a7da03abf5"
+      },
+      "attempt": null,
+      "state_changes": [
+        {
+          "entity": {
+            "kind": "allocation",
+            "entity_id": "e0-a1"
+          },
+          "before": "Pending",
+          "after": "Allocated"
+        }
+      ],
+      "resource_deltas": [
+        {
+          "node_id": "sim-a10",
+          "allocation_id": "e0-a1",
+          "cpu_millicores": 1000,
+          "memory_mib": 4096,
+          "ephemeral_storage_mib": 0,
+          "device_ids_added": [
+            "sim-a10-gpu0"
+          ],
+          "device_ids_removed": []
+        }
+      ],
+      "decision_id": "decision-0ba414c3579567d167cec0a7da03abf5",
+      "decision_snapshot_version": {
+        "epoch": 0,
+        "revision": 843
+      }
+    },
+    {
+      "event_id": "e0-ev851",
+      "sequence": 851,
+      "version": {
+        "epoch": 0,
+        "revision": 844
+      },
+      "logical_time": 51.7430060000001,
+      "event_type": "job.restarted",
+      "owner_id": "alice",
+      "entities": [
+        {
+          "kind": "job",
+          "entity_id": "e0-j2"
+        }
+      ],
+      "cause": {
+        "kind": "request",
+        "request_id": "apply-decision-0ba414c3579567d167cec0a7da03abf5"
+      },
+      "attempt": {
+        "intent_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+        "attempt_id": "e0-attempt8",
+        "generation": 2,
+        "allocation_id": "e0-a1",
+        "job_id": "e0-j2"
+      },
+      "state_changes": [
+        {
+          "entity": {
+            "kind": "job",
+            "entity_id": "e0-j2"
+          },
+          "before": null,
+          "after": "Running"
+        }
+      ],
+      "resource_deltas": [],
+      "decision_id": null,
+      "decision_snapshot_version": null
+    },
+    {
+      "event_id": "e0-ev855",
+      "sequence": 855,
+      "version": {
+        "epoch": 0,
+        "revision": 847
+      },
+      "logical_time": 51.8834526670001,
+      "event_type": "execution.started",
+      "owner_id": "alice",
+      "entities": [
+        {
+          "kind": "job",
+          "entity_id": "e0-j2"
+        }
+      ],
+      "cause": {
+        "kind": "request",
+        "request_id": "observe-cpu-7dfff050b59b368472c02926-4"
+      },
+      "attempt": {
+        "intent_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+        "attempt_id": "e0-attempt8",
+        "generation": 2,
+        "allocation_id": "e0-a1",
+        "job_id": "e0-j2"
+      },
+      "state_changes": [],
+      "resource_deltas": [],
+      "decision_id": null,
+      "decision_snapshot_version": null
+    },
+    {
+      "event_id": "e0-ev1717",
+      "sequence": 1717,
+      "version": {
+        "epoch": 0,
+        "revision": 1709
+      },
+      "logical_time": 106.35754695900029,
+      "event_type": "job.succeeded",
+      "owner_id": "alice",
+      "entities": [
+        {
+          "kind": "job",
+          "entity_id": "e0-j2"
+        }
+      ],
+      "cause": {
+        "kind": "request",
+        "request_id": "observe-cpu-7dfff050b59b368472c02926-5"
+      },
+      "attempt": {
+        "intent_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+        "attempt_id": "e0-attempt8",
+        "generation": 2,
+        "allocation_id": "e0-a1",
+        "job_id": "e0-j2"
+      },
+      "state_changes": [
+        {
+          "entity": {
+            "kind": "job",
+            "entity_id": "e0-j2"
+          },
+          "before": "Running",
+          "after": "Succeeded"
+        }
+      ],
+      "resource_deltas": [],
+      "decision_id": null,
+      "decision_snapshot_version": null
+    },
+    {
+      "event_id": "e0-ev1718",
+      "sequence": 1718,
+      "version": {
+        "epoch": 0,
+        "revision": 1709
+      },
+      "logical_time": 106.35754695900029,
+      "event_type": "intent.completed",
+      "owner_id": "alice",
+      "entities": [
+        {
+          "kind": "intent",
+          "entity_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004"
+        }
+      ],
+      "cause": {
+        "kind": "request",
+        "request_id": "observe-cpu-7dfff050b59b368472c02926-5"
+      },
+      "attempt": null,
+      "state_changes": [
+        {
+          "entity": {
+            "kind": "intent",
+            "entity_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004"
+          },
+          "before": null,
+          "after": "completed"
+        }
+      ],
+      "resource_deltas": [],
+      "decision_id": null,
+      "decision_snapshot_version": null
+    },
+    {
+      "event_id": "e0-ev1719",
+      "sequence": 1719,
+      "version": {
+        "epoch": 0,
+        "revision": 1709
+      },
+      "logical_time": 106.35754695900029,
+      "event_type": "allocation.released",
+      "owner_id": "alice",
+      "entities": [
+        {
+          "kind": "allocation",
+          "entity_id": "e0-a1"
+        }
+      ],
+      "cause": {
+        "kind": "request",
+        "request_id": "observe-cpu-7dfff050b59b368472c02926-5"
+      },
+      "attempt": null,
+      "state_changes": [
+        {
+          "entity": {
+            "kind": "allocation",
+            "entity_id": "e0-a1"
+          },
+          "before": "Allocated",
+          "after": "Released"
+        }
+      ],
+      "resource_deltas": [
+        {
+          "node_id": "sim-a10",
+          "allocation_id": "e0-a1",
+          "cpu_millicores": -1000,
+          "memory_mib": -4096,
+          "ephemeral_storage_mib": 0,
+          "device_ids_added": [],
+          "device_ids_removed": [
+            "sim-a10-gpu0"
+          ]
+        }
+      ],
+      "decision_id": null,
+      "decision_snapshot_version": null
+    },
+    {
+      "event_id": "e0-ev1720",
+      "sequence": 1720,
+      "version": {
+        "epoch": 0,
+        "revision": 1709
+      },
+      "logical_time": 106.35754695900029,
+      "event_type": "intent.lease_settled",
+      "owner_id": "alice",
+      "entities": [
+        {
+          "kind": "intent",
+          "entity_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004"
+        }
+      ],
+      "cause": {
+        "kind": "request",
+        "request_id": "observe-cpu-7dfff050b59b368472c02926-5"
+      },
+      "attempt": null,
+      "state_changes": [
+        {
+          "entity": {
+            "kind": "intent",
+            "entity_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004"
+          },
+          "before": null,
+          "after": "released"
+        }
+      ],
+      "resource_deltas": [],
+      "decision_id": null,
+      "decision_snapshot_version": null
+    },
+    {
+      "event_id": "e0-ev1721",
+      "sequence": 1721,
+      "version": {
+        "epoch": 0,
+        "revision": 1709
+      },
+      "logical_time": 106.35754695900029,
+      "event_type": "execution.completed",
+      "owner_id": "alice",
+      "entities": [
+        {
+          "kind": "job",
+          "entity_id": "e0-j2"
+        }
+      ],
+      "cause": {
+        "kind": "request",
+        "request_id": "observe-cpu-7dfff050b59b368472c02926-5"
+      },
+      "attempt": {
+        "intent_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+        "attempt_id": "e0-attempt8",
+        "generation": 2,
+        "allocation_id": "e0-a1",
+        "job_id": "e0-j2"
+      },
+      "state_changes": [],
+      "resource_deltas": [],
+      "decision_id": null,
+      "decision_snapshot_version": null
+    }
+  ],
+  "request_id": "34ee1be0a4ff49c680cd79edd685ff91"
+}

@@ -3651,6 +3651,20 @@
           "title": "Attempts",
           "type": "array"
         },
+        "display_name": {
+          "anyOf": [
+            {
+              "maxLength": 80,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Display Name"
+        },
         "execution_mode": {
           "enum": [
             "logical_simulation",
@@ -3751,6 +3765,20 @@
       "additionalProperties": false,
       "description": "First-arrival time is stamped by the kernel, never supplied by the UI.",
       "properties": {
+        "display_name": {
+          "anyOf": [
+            {
+              "maxLength": 80,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Display Name"
+        },
         "execution_mode": {
           "enum": [
             "logical_simulation",

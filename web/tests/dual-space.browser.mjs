@@ -359,16 +359,38 @@ try {
     await expectSpace(page, 'overview');
     return {input: 'Chromium mouse.wheel, not hardware trackpad', overviewToWorkbench: 'positive deltaX', emptyHitPoint: point};
   });
-  await check('desktop and narrow layouts preserve visible switcher and reachable forms', async ({page}) => {
-    const measurements = [];
+  await check('desktop and narrow layouts preserve visible switcher and reachable forms', async ({page, fixture}) => {
+    const measurements = [], nameMeasurements = [];
+    const longName = 'W'.repeat(80);
+    for (const id of [ids.active, ids.stopping, ids.completed]) fixture.works.get(id).display_name = longName;
+    async function measureName(selector, label, space) {
+      const element = page.locator(selector).filter({hasText: longName}).first();
+      await element.waitFor();
+      const measurement = await element.evaluate(el => {
+        const panel = el.closest('.panel'), bounds = panel.getBoundingClientRect();
+        const range = document.createRange(); range.selectNodeContents(el);
+        const rects = [...range.getClientRects()];
+        const scroll = el.closest('[data-space-scroll]');
+        return {text: el.textContent, panelWidth: bounds.width, elementWidth: el.clientWidth,
+          elementOverflow: Math.max(0, el.scrollWidth - el.clientWidth),
+          paneOverflow: Math.max(0, scroll.scrollWidth - scroll.clientWidth),
+          textRight: Math.max(...rects.map(rect => rect.right)), panelRight: bounds.right,
+          lineRects: rects.length};
+      });
+      nameMeasurements.push({viewport: page.viewportSize(), label, space, ...measurement});
+    }
     for (const size of [{width: 1440, height: 900}, {width: 1280, height: 800}, {width: 1024, height: 768}, {width: 390, height: 844}, {width: 320, height: 700}]) {
       await page.setViewportSize(size); await goto(page); await expectSpace(page, 'overview');
       await scrollPaneToTop(page, 'overview');
+      await measureName('.attention-row p', 'attention', 'overview');
+      await measureName('.overview-work-row strong', 'current', 'overview');
+      await measureName('.overview-result>span:first-child', 'result', 'overview');
       assert.equal(await control(page, '工作台').isVisible(), true);
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
       if ([1440, 390].includes(size.width)) await snap(page, `overview-${size.width}x${size.height}`);
       await switchSpace(page, 'workbench'); await section(page, 'run');
       await scrollPaneToTop(page, 'workbench');
+      await measureName('.work-list-identity .link-button', 'list', 'workbench');
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
       if ([1440, 390].includes(size.width)) await snap(page, `work-list-${size.width}x${size.height}`);
       await openNewWork(page); await page.locator('input[name=cpu]').click(); await page.locator('input[name=cpu]').fill('1500');
@@ -378,8 +400,15 @@ try {
       assert.ok(input.y >= 0 && input.y + input.height <= size.height + 1, 'Focused real form input must remain vertically visible');
       if ([1440, 390].includes(size.width)) await snap(page, `work-form-${size.width}x${size.height}`);
       measurements.push({...size, horizontalOverflow: await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)});
+      await goto(page, `#continuity?intent=${ids.active}`); await expectSpace(page, 'workbench');
+      await measureName('.work-detail .panel-heading h2', 'detail', 'workbench');
+      await page.locator('.work-detail .panel-heading h2').filter({hasText: longName}).scrollIntoViewIfNeeded();
+      if ([1440, 390, 320].includes(size.width)) await snap(page, `work-detail-long-name-${size.width}x${size.height}`);
     }
-    return measurements;
+    await writeFile(resolve(out, 'long-name-measurements.json'), JSON.stringify({name: longName, measurements: nameMeasurements}, null, 2) + '\n');
+    const overflow = nameMeasurements.filter(item => item.elementOverflow > 1 || item.paneOverflow > 1 || (item.label !== 'list' && item.textRight > item.panelRight + 1));
+    assert.deepEqual(overflow, [], 'Long names must wrap inside their content area without horizontal pane overflow; a narrow table keeps its own scroll container');
+    return {layouts: measurements, longNames: nameMeasurements};
   });
 } finally {
   await browser.close(); result.browserClosed = !browser.isConnected();

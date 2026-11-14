@@ -1,14 +1,18 @@
-import {ApiClient,detail,list,object,text} from '../api';
-import {useLookupQuery} from '../hooks';
+import {ApiClient,detail,encodeId,list,object,text} from '../api';
+import {useLookupQuery,useQuery} from '../hooks';
 import {workHref} from '../navigation';
+import {workName} from '../workName';
+import {CopyWorkId} from '../components/CopyWorkId';
 import {Field,LookupStatus,Metadata,Panel,QueryFeedback,RawData,Refresh,Status,Table} from '../components/common';
 
 export function DecisionsPage({api,initialId='',workId='',onSelect}:{api:ApiClient;initialId?:string;workId?:string;onSelect?:(id:string)=>void}) {
   const {input,setInput,id,query,submit}=useLookupQuery(api,'/x/v1/decisions',initialId,onSelect);
+  const workQuery=useQuery(api,workId?`/x/v1/work-intents/${encodeId(workId)}`:null);
   const plan=detail(query.data), coverage=object(plan.coverage);
   const ownerView=object(query.data).scope==='owner'&&coverage.scope==='partial';
   const receipts=list(object(query.data).commit_receipts), events=list(object(query.data).actual_events);
   return <>
+    {workId&&<QueryFeedback query={workQuery}>{detail(workQuery.data).intent_id===workId&&<div className="event-context"><strong>{workName(detail(workQuery.data))}</strong><CopyWorkId id={workId} scope={api} compact/></div>}</QueryFeedback>}
     <Panel title="追问一次决定" description="读取决策时的候选、排除约束与实际提交记录。计划选中不代表已经执行。" actions={workId&&<a className="button quiet" href={workHref(workId)}>返回这项工作</a>}><form className="inline-form" onSubmit={submit}><Field label="决策 ID"><input value={input} onChange={e=>setInput(e.target.value)} required placeholder="decision-…"/></Field><button className="button primary" disabled={query.loading}>{query.loading?'正在查询…':'查询决定'}</button>{id&&<Refresh onClick={query.refresh} loading={query.loading}/>}</form><LookupStatus query={query}/>{!id&&<p className="empty">从工作详情点击“查看关联决策”，或在事件中点击“查看这次决定”，即可直接打开。</p>}</Panel>
     <QueryFeedback query={query}>
       <Panel title="决策依据"><Metadata data={query.data}/><p className="decision-rationale">{ownerView?(plan.selected_candidate_id?'决策记录选中了你的需求；实际是否提交，请查看下方的已提交事件。':'当前授权视图未显示你的需求被选中，这不代表你的需求不可行。'):text(plan.rationale,'服务端未记录说明。')}</p><dl className="facts"><div><dt>策略</dt><dd>{text(object(plan.policy).name)} · {text(object(plan.policy).version)}</dd></div><div><dt>决策时间</dt><dd>{text(plan.decision_at)} 逻辑秒</dd></div><div><dt>计划选中的候选</dt><dd>{text(plan.selected_candidate_id,ownerView?'当前视图未显示':'未选择')}</dd></div><div><dt>同分规则</dt><dd>{ownerView?'其他用户的比较细节不公开':text(plan.tie_break_rule)}</dd></div></dl>

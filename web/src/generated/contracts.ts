@@ -224,6 +224,7 @@ export type PhysicalElapsedSeconds = number | null;
 export type ResultUri = string | null;
 export type Kind16 = "executor.report";
 export type Kind17 = "workflow.register_intent";
+export type DisplayName = string | null;
 export type ExecutionMode = "logical_simulation" | "cpu_reference";
 export type IntentId2 = string;
 export type OwnerId3 = string;
@@ -374,6 +375,7 @@ export type State4 =
   | "failed"
   | "cancelled";
 export type Attempts = AttemptSnapshot[];
+export type DisplayName1 = string | null;
 export type ExecutionMode3 = "logical_simulation" | "cpu_reference";
 export type FirstArrivalAt = number;
 export type IntentId5 = string;
@@ -691,6 +693,7 @@ export interface WorkflowIntentParameters {
  * First-arrival time is stamped by the kernel, never supplied by the UI.
  */
 export interface WorkIntentRegistration {
+  display_name?: DisplayName;
   execution_mode: ExecutionMode;
   intent_id: IntentId2;
   owner_id: OwnerId3;
@@ -899,6 +902,7 @@ export interface PreemptionInfo {
 export interface WorkIntent {
   allocation_ids?: AllocationIds;
   attempts?: Attempts;
+  display_name?: DisplayName1;
   execution_mode: ExecutionMode3;
   first_arrival_at: FirstArrivalAt;
   intent_id: IntentId5;

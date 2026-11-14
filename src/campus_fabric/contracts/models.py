@@ -13,6 +13,9 @@ from pydantic import BaseModel, ConfigDict, Field, StringConstraints, model_vali
 MAX_SAFE_INTEGER = 9_007_199_254_740_991
 Identifier = Annotated[str, StringConstraints(min_length=1, max_length=128, pattern=r"^\S+$")]
 Text = Annotated[str, StringConstraints(min_length=1, max_length=4096)]
+DisplayName = Annotated[
+    str, StringConstraints(strip_whitespace=True, min_length=1, max_length=80)
+]
 NonnegativeInt = Annotated[int, Field(ge=0, le=MAX_SAFE_INTEGER)]
 PositiveInt = Annotated[int, Field(ge=1, le=MAX_SAFE_INTEGER)]
 ResourceAmount = NonnegativeInt
@@ -359,6 +362,7 @@ class WorkResult(ContractModel):
 class WorkIntent(ContractModel):
     intent_id: Identifier
     owner_id: Identifier
+    display_name: DisplayName | None = None
     first_arrival_at: LogicalTime
     execution_mode: ExecutionMode
     settlement_action: Literal["keep_lease", "release_on_success", "release_on_terminal"]
@@ -841,6 +845,7 @@ class WorkIntentRegistration(ContractModel):
 
     intent_id: Identifier
     owner_id: Identifier
+    display_name: DisplayName | None = None
     execution_mode: ExecutionMode
     settlement_action: Literal["keep_lease", "release_on_success", "release_on_terminal"]
     specification: WorkSpecification

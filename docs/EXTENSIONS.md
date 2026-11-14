@@ -12,7 +12,7 @@
 | POST `/x/v1/work-intents` | researcher owner | 直接 `WorkIntentRegistration`；可选 `If-Match: epoch:revision`；202 `CommitReceipt` 只表示登记 | A 写＋B 编排 |
 | GET `/x/v1/work-intents` | researcher/admin | caller 范围分页，版本化意图列表 | B |
 | GET `/x/v1/work-intents/{intent_id}` | owner/admin | 已授权工作与版本 | B |
-| POST `/x/v1/work-intents/{intent_id}/actions` | owner/admin | `action=allocate/create_job/release/cancel/resume`；必需 `expected_version`；前两项必需稳定 `stage_id`；返回 `CommitReceipt` | A 写＋B 编排 |
+| POST `/x/v1/work-intents/{intent_id}/actions` | owner/admin | `allocate/create_job` 必需 `expected_version` 与稳定 `stage_id`；`release/cancel/resume` 使用 `expected_epoch`，或保留原严格 `expected_version`；返回 `CommitReceipt` | A 写＋B 编排 |
 | GET `/x/v1/decisions/{decision_id}` | owner/admin | 决策快照、计划与实际提交回执的已授权投影 | B |
 | GET `/x/v1/contributions` | contributor/admin | 自己的供给；admin 全局授权范围 | B |
 | POST `/x/v1/contributions` | contributor/admin | 直接 `NodeInventory`；身份、库存及当前 `observed_at` 检查；201 `CommitReceipt` | A |
@@ -31,6 +31,40 @@
 早期蓝图中的 `POST /x/v1/contributions/{contribution_id}/recall`、`POST /x/v1/experiments` 尚未实现；也没有 `GET /x/v1/experiments` 列表入口。当前工件和 recall 使用上表实际路径；实验提供器由 B 后续接入。actions 没有独立的 `retry_stage` 或 `settle`：重试原动作/阶段，或使用已登记 settlement 与 release。
 
 ## 事务、授权与显示
+
+### 工作操作的版本条件
+
+用户对当前工作的 `resume`、`cancel`、`release` 可发送
+`{"action":"resume","expected_epoch":0}`。`expected_epoch` 必须是非负安全整数，
+不能省略、使用字符串或布尔值，也不能与 `expected_version` 同时提供。
+内核在同一写事务中检查实例 epoch、账户权限、工作归属、当前绑定对象及操作合法性；
+无关 CPU 时钟或其他工作带来的 revision 变化不会单独拒绝这类操作。
+跨 reset 的旧 epoch 返回 409 `stale_version`，不产生业务效果，客户端应重新查询，
+不能替换成新 epoch 自动重试。
+
+原有显式 `expected_version` 请求保持严格的 epoch/revision CAS；版本过期仍返回
+409 `stale_version`。`allocate/create_job` 继续要求原版本与稳定阶段 ID，不接受只有
+`expected_epoch` 的请求。恢复仍复查保存核验、原租约截止、资源与预算；没有资源时
+等待，不提前增加执行代次或恢复计数。此接口没有承诺未知网络结果可安全重复提交；
+响应丢失时先查询状态，不盲目重试。
+
+### 工作名称
+
+`POST /x/v1/work-intents` 的 `WorkIntentRegistration` 与查询返回的 `WorkIntent`
+增加可选 `display_name`。字段省略或为 `null` 表示未命名；非空值必须是字符串，
+服务端先去除首尾空白，再校验长度为 1–80 个 Unicode 字符。空串、纯空白、超长字符串
+及非字符串值返回 400，不创建工作。保留内部空格与大小写，不要求名称唯一。
+
+名称与工作规格一起在原登记事务内持久化；列表和详情直接返回服务端保存的名称。
+名称不替代 `intent_id`，不参与权限、URL 或资源调度，也不作为幂等键。
+同一 owner、同一 `intent_id`、相同规范化名称与其余输入的重试返回原登记回执；
+修改名称后重用同一 ID 返回 409 `stage_conflict`，不会重命名或新建工作。
+省略与 `null` 等价，旧版本未包含名称的登记幂等记录仍可重试。
+
+旧记录不需要迁移或补写名称，读出时 `display_name` 为 `null`。中断、恢复、结算和
+服务重启不改变已保存名称；列表、详情及恢复等操作继续执行原 owner 隔离。
+当前没有重命名接口，也没有按名称全局搜索接口；页面可以筛选已经读取的当前页。
+上述字段仅属于产品扩展，冻结的官方 OpenAPI 保持不变。
 
 首次到达由内核登记时确定。allocation/job 的创建、绑定和阶段回执分别在同一事务落地；丢失响应时重试同一 stage。不能把“先创建后补关联”或重复公开 job POST 当作阶段幂等。动作不允许任意修改冻结规格。
 

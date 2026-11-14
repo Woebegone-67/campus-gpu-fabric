@@ -115,6 +115,7 @@ try {
       assert.ok(layout.documentWidth<=viewport.width);assert.ok(layout.contentHeight>=160);assert.ok(layout.scrollHeight>layout.contentHeight);
       assert.ok(layout.mainHeight<=viewport.height);assert.ok(layout.canvasHeight<=viewport.height*1.75);
       await snap(`small-height-first-${viewport.width}x${viewport.height}`);
+      await page.locator('input[name=display_name]').fill('浏览器输入验证');
       await page.locator('input[name=command]').click();await page.locator('input[name=command]').fill('invalid json');
       const inputPosition=await page.locator('input[name=command]').evaluate(el=>{const b=el.getBoundingClientRect();return {top:b.top,bottom:b.bottom,viewportHeight:innerHeight};});
       const visible=inputPosition.top>=0&&inputPosition.bottom<=inputPosition.viewportHeight;
@@ -141,6 +142,7 @@ try {
       await page.getByRole('button',{name:'暂停背景动效',exact:true}).click();
       await page.getByRole('button',{name:'恢复背景动效',exact:true}).waitFor();
       await page.getByRole('button',{name:'恢复背景动效',exact:true}).click();
+      await page.locator('input[name=display_name]').fill('浏览器生产构建验证');
       await page.locator('input[name=command]').fill('invalid json');
       await page.getByRole('button',{name:'提交工作',exact:true}).click();
       await page.locator('.feedback.error').waitFor();
@@ -228,6 +230,7 @@ try {
     });
     await check('native validation and mocked registration / cancellation / release journey',async()=>{
       await clear();const before=fixture.requests.filter(r=>r.method!=='GET').length;
+      await page.locator('input[name=display_name]').fill('浏览器合成工作');
       await page.locator('input[name=command]').fill('invalid json');
       await page.getByRole('button',{name:'提交工作',exact:true}).click();
       await page.locator('.feedback.error').waitFor();assert.equal(fixture.requests.filter(r=>r.method!=='GET').length,before);

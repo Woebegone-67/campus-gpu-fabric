@@ -1,0 +1,857 @@
+{
+  "started_at": "2026-11-14T20:17:38.311Z",
+  "baseUrl": "http://127.0.0.1:15244",
+  "preview": false,
+  "checkFilter": "desktop and narrow",
+  "browser": "157.0.8103.51",
+  "scope": "Real Chrome rendering and interaction with synthetic API fixtures only; no live Fabric backend or business writes.",
+  "checks": [
+    {
+      "name": "desktop and narrow layouts preserve visible switcher and reachable forms",
+      "status": "PASS",
+      "details": {
+        "layouts": [
+          {
+            "width": 1440,
+            "height": 900,
+            "horizontalOverflow": 0
+          },
+          {
+            "width": 1280,
+            "height": 800,
+            "horizontalOverflow": 0
+          },
+          {
+            "width": 1024,
+            "height": 768,
+            "horizontalOverflow": 0
+          },
+          {
+            "width": 390,
+            "height": 844,
+            "horizontalOverflow": 0
+          },
+          {
+            "width": 320,
+            "height": 700,
+            "horizontalOverflow": 0
+          }
+        ],
+        "longNames": [
+          {
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "label": "attention",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW · 截止 43 逻辑秒",
+            "panelWidth": 1160,
+            "elementWidth": 911,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 1206.296875,
+            "panelRight": 1404,
+            "lineRects": 4
+          },
+          {
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "label": "current",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 674.6875,
+            "elementWidth": 455,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 762.546875,
+            "panelRight": 918.6875,
+            "lineRects": 3
+          },
+          {
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "label": "result",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 1160,
+            "elementWidth": 901,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 1161.234375,
+            "panelRight": 1404,
+            "lineRects": 2
+          },
+          {
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "label": "list",
+            "space": "workbench",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 1160,
+            "elementWidth": 658,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 929.046875,
+            "panelRight": 1404,
+            "lineRects": 2
+          },
+          {
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "label": "detail",
+            "space": "workbench",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 1160,
+            "elementWidth": 982,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 1245.078125,
+            "panelRight": 1404,
+            "lineRects": 2
+          },
+          {
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "label": "attention",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW · 截止 43 逻辑秒",
+            "panelWidth": 1000,
+            "elementWidth": 751,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 1052.703125,
+            "panelRight": 1244,
+            "lineRects": 4
+          },
+          {
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "label": "current",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 580,
+            "elementWidth": 360,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 668.328125,
+            "panelRight": 824,
+            "lineRects": 3
+          },
+          {
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "label": "result",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 1000,
+            "elementWidth": 741,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 998.640625,
+            "panelRight": 1244,
+            "lineRects": 2
+          },
+          {
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "label": "list",
+            "space": "workbench",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 1000,
+            "elementWidth": 560,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 832.53125,
+            "panelRight": 1244,
+            "lineRects": 2
+          },
+          {
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "label": "detail",
+            "space": "workbench",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 1000,
+            "elementWidth": 839,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 1095.875,
+            "panelRight": 1244,
+            "lineRects": 2
+          },
+          {
+            "viewport": {
+              "width": 1024,
+              "height": 768
+            },
+            "label": "attention",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW · 截止 43 逻辑秒",
+            "panelWidth": 795.984375,
+            "elementWidth": 555,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 805.21875,
+            "panelRight": 999.984375,
+            "lineRects": 4
+          },
+          {
+            "viewport": {
+              "width": 1024,
+              "height": 768
+            },
+            "label": "current",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 410.515625,
+            "elementWidth": 217,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 473,
+            "panelRight": 614.515625,
+            "lineRects": 5
+          },
+          {
+            "viewport": {
+              "width": 1024,
+              "height": 768
+            },
+            "label": "result",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 795.984375,
+            "elementWidth": 545,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 757.21875,
+            "panelRight": 999.984375,
+            "lineRects": 2
+          },
+          {
+            "viewport": {
+              "width": 1024,
+              "height": 768
+            },
+            "label": "list",
+            "space": "workbench",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 796,
+            "elementWidth": 440,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 664.4375,
+            "panelRight": 1000,
+            "lineRects": 3
+          },
+          {
+            "viewport": {
+              "width": 1024,
+              "height": 768
+            },
+            "label": "detail",
+            "space": "workbench",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 796,
+            "elementWidth": 664,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 886.109375,
+            "panelRight": 1000,
+            "lineRects": 2
+          },
+          {
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "label": "attention",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW · 截止 43 逻辑秒",
+            "panelWidth": 358,
+            "elementWidth": 288,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 347.46875,
+            "panelRight": 374,
+            "lineRects": 6
+          },
+          {
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "label": "current",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 358,
+            "elementWidth": 204,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 233.21875,
+            "panelRight": 374,
+            "lineRects": 5
+          },
+          {
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "label": "result",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 358,
+            "elementWidth": 223,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 253.65625,
+            "panelRight": 374,
+            "lineRects": 5
+          },
+          {
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "label": "list",
+            "space": "workbench",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 358,
+            "elementWidth": 140,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 171.09375,
+            "panelRight": 374,
+            "lineRects": 9
+          },
+          {
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "label": "detail",
+            "space": "workbench",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 358,
+            "elementWidth": 324,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 347.15625,
+            "panelRight": 374,
+            "lineRects": 4
+          },
+          {
+            "viewport": {
+              "width": 320,
+              "height": 700
+            },
+            "label": "attention",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW · 截止 43 逻辑秒",
+            "panelWidth": 288,
+            "elementWidth": 218,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 283.203125,
+            "panelRight": 304,
+            "lineRects": 6
+          },
+          {
+            "viewport": {
+              "width": 320,
+              "height": 700
+            },
+            "label": "current",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 288,
+            "elementWidth": 134,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 162.5625,
+            "panelRight": 304,
+            "lineRects": 8
+          },
+          {
+            "viewport": {
+              "width": 320,
+              "height": 700
+            },
+            "label": "result",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 288,
+            "elementWidth": 153,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 183.984375,
+            "panelRight": 304,
+            "lineRects": 7
+          },
+          {
+            "viewport": {
+              "width": 320,
+              "height": 700
+            },
+            "label": "list",
+            "space": "workbench",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 288,
+            "elementWidth": 140,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 171.09375,
+            "panelRight": 304,
+            "lineRects": 9
+          },
+          {
+            "viewport": {
+              "width": 320,
+              "height": 700
+            },
+            "label": "detail",
+            "space": "workbench",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 288,
+            "elementWidth": 254,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 284.328125,
+            "panelRight": 304,
+            "lineRects": 5
+          }
+        ]
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "overview-1440x900",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/evidence/ui-joint/ui-final-20261115/long-name-01/final/overview-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-list-1440x900",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/evidence/ui-joint/ui-final-20261115/long-name-01/final/work-list-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-form-1440x900",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/evidence/ui-joint/ui-final-20261115/long-name-01/final/work-form-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-detail-long-name-1440x900",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/evidence/ui-joint/ui-final-20261115/long-name-01/final/work-detail-long-name-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "overview-390x844",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/evidence/ui-joint/ui-final-20261115/long-name-01/final/overview-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-list-390x844",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/evidence/ui-joint/ui-final-20261115/long-name-01/final/work-list-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-form-390x844",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/evidence/ui-joint/ui-final-20261115/long-name-01/final/work-form-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-detail-long-name-390x844",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/evidence/ui-joint/ui-final-20261115/long-name-01/final/work-detail-long-name-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-detail-long-name-320x700",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/evidence/ui-joint/ui-final-20261115/long-name-01/final/work-detail-long-name-320x700.png",
+      "viewport": {
+        "width": 320,
+        "height": 700
+      },
+      "data": "synthetic browser fixtures"
+    }
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    }
+  ],
+  "denied": [],
+  "unverified": [
+    "Native two-finger gestures and system history conflicts on physical Chrome/Safari trackpads.",
+    "Native OS reduced-motion setting; this harness uses Chromium media emulation.",
+    "VoiceOver, complete accessibility conformance, real API authorization, server business correctness, and file-download integrity."
+  ],
+  "browserClosed": true,
+  "finished_at": "2026-11-14T20:17:54.951Z",
+  "status": "PASS"
+}

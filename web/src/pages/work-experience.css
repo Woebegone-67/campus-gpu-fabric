@@ -28,6 +28,8 @@
 .work-experience .work-form-heading{margin-top:24px}
 .work-experience .work-form-pair{grid-template-columns:repeat(2,minmax(0,1fr))}
 .work-experience .work-detail-subtitle{margin-top:-8px}
+.work-detail .panel-heading>div:first-child{min-width:0;max-width:100%}
+.work-detail .panel-heading h2{overflow-wrap:anywhere}
 .work-experience .work-outcome{margin:16px 0}
 .work-experience .work-outcome .next-action{font-size:14px}
 .work-experience .work-detail-actions{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;margin:18px 0}

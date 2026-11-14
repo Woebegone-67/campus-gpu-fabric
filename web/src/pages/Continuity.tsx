@@ -4,6 +4,7 @@ import {ApiClient,detail,encodeId,list,object,text,versionOf,type ApiResult} fro
 import {useLookupQuery} from '../hooks';
 import {decisionHref,workEventsHref} from '../navigation';
 import {modeLabel,useService} from '../service';
+import {workName} from '../workName';
 import {Budget,CheckpointFacts,StopStatus} from '../components/CP2';
 import {SettlementSummary} from '../components/Settlement';
 import {ActionButton,Field,LookupStatus,Metadata,Panel,QueryFeedback,RawData,Receipt,Refresh,Status} from '../components/common';
@@ -39,7 +40,7 @@ export function ContinuityPage({api,initialId,onSelect}:{api:ApiClient;initialId
     </Panel>
     {lastAction?.id===id&&lastAction.api===api&&<Receipt result={lastAction.result}/>}
     <QueryFeedback query={query}>
-      <Panel title={`工作 ${id.length>22?`${id.slice(0,13)}…${id.slice(-6)}`:id}`} actions={<div className="work-copy-actions"><CopyWorkId id={id} scope={api}/><Status value={work.state}/></div>}>
+      <Panel title={workName(work,id)} actions={<div className="work-copy-actions"><CopyWorkId id={id} scope={api}/><Status value={work.state}/></div>}>
         <p className="helper work-detail-subtitle">{modeLabel(work.execution_mode)}{object(spec.job).image?` · ${text(object(spec.job).image)}`:''}</p>
         <SettlementSummary api={api} work={work} jobs={jobs} allocations={allocations} legal={legal}/>
         <div className="work-detail-actions">

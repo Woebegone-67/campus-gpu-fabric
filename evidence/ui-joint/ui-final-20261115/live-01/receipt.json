@@ -1,0 +1,228 @@
+{
+  "started_at": "2026-11-14T20:15:43.393Z",
+  "base": "http://127.0.0.1:15245",
+  "commit": "4d2546782d0a5eb05f2a8e30c67f0d842f4c4215",
+  "dirty": "M contracts/generated/contracts.schema.json\n M docs/EXTENSIONS.md\n M src/campus_fabric/contracts/models.py\n M src/campus_fabric/domain/kernel.py\n M web/src/components/CopyWorkId.tsx\n M web/src/generated/contracts.ts\n M web/src/pages/Continuity.tsx\n M web/src/pages/Decisions.tsx\n M web/src/pages/Events.tsx\n M web/src/pages/Overview.tsx\n M web/src/pages/Run.tsx\n M web/tests/copy-work-id.test.tsx\n M web/tests/interaction-motion.browser.mjs\n M web/tests/joint-live.browser.mjs\n M web/tests/ui.test.tsx\n M web/tests/work-experience.test.tsx",
+  "scope": "Live local CPU reference execution, real Chrome UI and downloads; GPU inventory is simulated.",
+  "checks": [
+    {
+      "name": "imported accounts accepted by real session endpoint",
+      "status": "PASS",
+      "details": {
+        "account": {
+          "actor_id": "alice",
+          "owner_id": "alice",
+          "capabilities": [
+            "use_compute",
+            "contribute_resources"
+          ],
+          "is_administrator": false
+        },
+        "supplierAccount": {
+          "actor_id": "supplier",
+          "owner_id": "supplier",
+          "capabilities": [
+            "use_compute",
+            "contribute_resources"
+          ],
+          "is_administrator": false
+        }
+      }
+    }
+  ],
+  "responses": [
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/session",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/session",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/jobs",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "POST",
+      "path": "/x/v1/work-intents",
+      "status": 202
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-41d5f2c0-7541-4c2b-a223-10a4c67c2330",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-41d5f2c0-7541-4c2b-a223-10a4c67c2330",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/capacity",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "POST",
+      "path": "/x/v1/contributions/recall",
+      "status": 201
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/capacity",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-41d5f2c0-7541-4c2b-a223-10a4c67c2330",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "POST",
+      "path": "/x/v1/work-intents/work-41d5f2c0-7541-4c2b-a223-10a4c67c2330/actions",
+      "status": 409
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-41d5f2c0-7541-4c2b-a223-10a4c67c2330",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "POST",
+      "path": "/x/v1/work-intents/work-41d5f2c0-7541-4c2b-a223-10a4c67c2330/actions",
+      "status": 409
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-41d5f2c0-7541-4c2b-a223-10a4c67c2330",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "POST",
+      "path": "/x/v1/work-intents/work-41d5f2c0-7541-4c2b-a223-10a4c67c2330/actions",
+      "status": 409
+    }
+  ],
+  "errors": [],
+  "snapshots": [
+    "overview-empty",
+    "running",
+    "checkpoint-verified",
+    "failure-1",
+    "failure-2"
+  ],
+  "unverified": [
+    "Independent human deployment and A/B cross-operation",
+    "Physical trackpad, Safari, VoiceOver",
+    "Formal CP4 load and performance targets",
+    "Configured CP3 full-report rendering"
+  ],
+  "browser": "157.0.8103.51",
+  "recovery_work": "work-41d5f2c0-7541-4c2b-a223-10a4c67c2330",
+  "status": "FAIL",
+  "failure": "Error: State deadline: {\"id\":\"work-41d5f2c0-7541-4c2b-a223-10a4c67c2330\",\"state\":\"waiting\",\"allocations\":[\"Preempted\"]}\n    at until (file:///Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/web/tests/joint-live.browser.mjs:50:9)\n    at async file:///Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/web/tests/joint-live.browser.mjs:137:19",
+  "finished_at": "2026-11-14T20:16:05.690Z"
+}

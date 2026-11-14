@@ -1,0 +1,64 @@
+{
+  "status": "PASS",
+  "scope": "Bounded UI/backend integration only; not CP4 or final UI human acceptance",
+  "upstream_b_commit": "4d2546782d0a5eb05f2a8e30c67f0d842f4c4215",
+  "application_manifest": "application-files.json",
+  "application_manifest_sha256": "635163c61b322023d47ea0af14940ac7fb450ec9e1eed12b66b80c396ec870f9",
+  "application_files_unchanged_during_final_checks": true,
+  "checks": {
+    "make_cp0": {
+      "exit_code": 0,
+      "python": 1272,
+      "ui": 115,
+      "http_smoke": 5,
+      "contracts_lint_build": "PASS",
+      "log": "cp0.log"
+    },
+    "client": {
+      "passed": 16,
+      "log": "client.log"
+    },
+    "live_chrome": {
+      "passed_groups": 9,
+      "receipt": "live-03/receipt.json",
+      "api_interception": false
+    },
+    "motion_chrome": {
+      "passed": 9,
+      "receipt": "motion-02/interaction-motion-browser.json",
+      "api_interception": true,
+      "clipboard_permission_ui": "NOT_TESTED",
+      "frame_rate": "NOT_CERTIFIED"
+    },
+    "long_names": {
+      "widths": [
+        1440,
+        1280,
+        1024,
+        390,
+        320
+      ],
+      "layout_points": 25,
+      "receipt": "long-name-01/final/browser-results.json",
+      "api_interception": true
+    },
+    "real_service_restart": {
+      "receipt": "restart-after.json",
+      "status": "PASS"
+    }
+  },
+  "not_certified": [
+    "Full UI final revision brief",
+    "Independent human clean deployment and A/B operation",
+    "Safari/VoiceOver/physical trackpad",
+    "CP4 scale/performance",
+    "Current-build CP3 report rendering"
+  ],
+  "retained_failures": [
+    "live-01 stale global version rejected recovery",
+    "live-02 hidden retained draft made name locator ambiguous",
+    "long-name-01/before overflowing names",
+    "motion-01 incomplete final receipt; retained screenshots",
+    "../../ui-final/20261115/motion-press-diagnosis-01 old-frame wall-time sampling"
+  ]
+}

@@ -179,6 +179,11 @@ class Kernel(LifecycleMixin):
         def normalize(value):
             if isinstance(value, dict):
                 result = {k: normalize(v) for k, v in value.items()}
+                if result.get("kind") == "workflow.register_intent":
+                    registration = result["registration"]
+                    # Omitted names retain pre-naming registration fingerprints.
+                    if registration.get("display_name") is None:
+                        registration.pop("display_name", None)
                 for field in ("node_selector", "env"):
                     if field in result:
                         result[field] = sorted(result[field], key=lambda item: item["key"])
@@ -1222,6 +1227,45 @@ class Kernel(LifecycleMixin):
                 ),
                 expected_version=self._version(base),
             )
+            return self._commit_in_transaction(conn, base, command)[0]
+
+    def act_on_current_intent(self, intent_id, action, expected_epoch, *, actor, request_id):
+        """Resolve a user's work action and recheck its legality in one transaction.
+
+        These actions choose no placement from a client snapshot. The epoch fence
+        prevents an old page from acting after reset; lifecycle checks still use
+        the current lease, job, checkpoint and budgets under the writer lock.
+        """
+        with self.store.transaction() as conn:
+            base = self.store.load(conn)
+            version = self._version(base)
+            try:
+                if action not in {"resume", "cancel", "release"}:
+                    raise Rejected("invalid_command", "Unsupported current work action")
+                if (type(expected_epoch) is not int
+                        or not 0 <= expected_epoch <= m.MAX_SAFE_INTEGER):
+                    raise Rejected("invalid_command", "A valid expected_epoch is required")
+                if not actor.can_use_compute:
+                    raise Rejected("forbidden", "Compute-use authority is required")
+                if expected_epoch != version.epoch:
+                    raise Rejected("stale_version", "Instance epoch changed; query the work again")
+                intent = self._owned(base, "intents", intent_id, actor)
+                ids = intent["job_ids"] if action == "cancel" else intent["allocation_ids"]
+                if not ids:
+                    raise Rejected("stage_conflict", "The intent has no object for this action")
+                parameters = (m.JobCancelParameters(kind="job.cancel", job_id=ids[-1])
+                              if action == "cancel" else m.AllocationTargetParameters(
+                                  kind=f"allocation.{action}", allocation_id=ids[-1]))
+                command = m.CommandEnvelope(
+                    request_id=request_id, actor=actor, operation=parameters.kind,
+                    parameters=parameters, expected_version=version,
+                )
+            except Rejected as exc:
+                return m.CommitReceipt(
+                    request_id=request_id, outcome="rejected", version=version,
+                    logical_time=base["now"], error=m.ErrorDetail(
+                        code=exc.code, detail=exc.detail, current_version=version),
+                )
             return self._commit_in_transaction(conn, base, command)[0]
 
     def register_intent(self, registration, expected_version, *, actor, request_id):

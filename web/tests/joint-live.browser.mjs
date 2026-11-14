@@ -86,10 +86,11 @@ async function openDetails(page, text) {
   const summary = page.locator('summary').filter({hasText: text}).first();
   if (!await summary.evaluate(el => el.parentElement.open)) await summary.click();
 }
-async function createWork(page, {checkpoint = false, timeout, model = 'A10'} = {}) {
+async function createWork(page, {checkpoint = false, timeout, model = 'A10', name = '联合验收工作'} = {}) {
   await section(page, 'run');
   if (await control(page, '准备另一项工作').isVisible()) await control(page, '准备另一项工作').click();
   await control(page, '新建工作').click();
+  await page.getByLabel('工作名称', {exact: true}).fill(name);
   await page.locator('input[name=model]').fill(model);
   await page.locator('select[name=preemption]').selectOption(checkpoint ? 'checkpoint' : 'best_effort');
   await page.locator('select[name=settlement]').selectOption('release_on_terminal');
@@ -98,6 +99,7 @@ async function createWork(page, {checkpoint = false, timeout, model = 'A10'} = {
   await control(page, '提交工作').click();
   const response = await submitted;
   const registration = response.request().postDataJSON();
+  assert.equal(registration.display_name, name.trim());
   await control(page, '查询这项工作').click();
   await page.waitForURL(url => url.hash.includes(registration.intent_id));
   return registration.intent_id;
@@ -116,8 +118,11 @@ try {
   const {page: supplier, account: supplierAccount} = await newPage('supplier');
   await pass('imported accounts accepted by real session endpoint', {account, supplierAccount});
   await snapshot(alice, 'overview-empty');
-  const id = await createWork(alice, {checkpoint: true}); result.recovery_work = id;
+  const workName = '联合验收 · 中断后继续';
+  const id = await createWork(alice, {checkpoint: true, name: workName}); result.recovery_work = id;
   const first = await until('alice', id, d => d.item.state === 'running' && d.item.attempts[0]?.started_at != null);
+  assert.equal(first.item.display_name, workName);
+  await alice.getByRole('heading', {name: workName, exact: true}).waitFor();
   await refresh(alice, id); await snapshot(alice, 'running', first);
   await section(supplier, 'resources');
   for (const gpu of ['sim-a10-gpu0', 'sim-a10-gpu1']) await supplier.getByRole('checkbox', {name: new RegExp(`^${gpu} `)}).check();
@@ -136,6 +141,7 @@ try {
   assert.deepEqual(resumed.item.job_ids, first.item.job_ids);
   assert.deepEqual(resumed.item.allocation_ids, first.item.allocation_ids);
   assert.equal(resumed.allocations[0].expires_at, first.allocations[0].expires_at);
+  assert.equal(resumed.item.display_name, workName);
   await refresh(alice, id); await snapshot(alice, 'resumed', resumed);
   await pass('real CPU recall, verified checkpoint, pending resume and applied generation 2', {id});
   const completed = await until('alice', id, d => d.item.state === 'completed' && d.allocations[0].state === 'Released');
@@ -151,12 +157,13 @@ try {
   assert.equal(original.status, 200); assert.deepEqual(downloaded, original.raw);
   // Python's integer JSON decoder avoids rounding the result uint64 in JavaScript.
   const oracle = execFileSync('uv', ['run', 'python', '-c',
-    'import json,sys; from campus_fabric.executors.cpu_files import advance; x=json.load(open(sys.argv[1])); assert x["state"]=={"step":1000000,"value":advance(17,0,1000000)}; print("integer oracle matched")', downloadedPath], {cwd: root, encoding: 'utf8'}).trim();
+    'import json,runpy,sys; oracle=runpy.run_path("tests/acceptance/cp3/cp3_cpu_equivalence.py")["oracle"]; x=json.load(open(sys.argv[1])); assert x["state"]==oracle(17,1000000); print("independent 3x3 matrix oracle matched")', downloadedPath], {cwd: root, encoding: 'utf8'}).trim();
   await snapshot(alice, 'completed-released', completed);
   await pass('browser result preview/download preserves bytes and independent integer result', {id, sha256: digest(downloaded), bytes: downloaded.length, oracle});
   await openDetails(alice, '相关事件与决策');
   await alice.getByRole('link', {name: /查看关联决策/}).first().click();
   await alice.waitForURL(url => url.hash.startsWith('#decisions?'));
+  await pane(alice).locator('.event-context strong').filter({hasText: workName}).waitFor();
   assert.ok(!(await pane(alice).innerText()).includes('请求未完成'));
   await snapshot(alice, 'related-decision');
   await login(alice, 'alice');
@@ -165,7 +172,8 @@ try {
   await login(alice, 'alice');
   await alice.evaluate(value => {location.hash = value;}, `#continuity?intent=${id}`);
   await control(alice, '下载真实结果 1').waitFor();
-  await pass('decision navigation and reimport after refresh retain server work', {id});
+  await alice.getByRole('heading', {name: workName, exact: true}).waitFor();
+  await pass('named work survives recovery, decision navigation and reimport after refresh', {id, display_name: workName});
   const {page: bob} = await newPage('bob');
   const forbidden = bob.waitForResponse(r => new URL(r.url()).pathname === `/x/v1/work-intents/${id}`);
   await bob.evaluate(value => {location.hash = value;}, `#continuity?intent=${id}`);
@@ -175,13 +183,13 @@ try {
   assert.equal(recallDenied.status, 403);
   await snapshot(bob, 'bob-foreign-work');
   await pass('Bob denied foreign work in UI, foreign download and recall over HTTP', {work_status: 404, artifact_status: 404, recall_status: 403});
-  const failedId = await createWork(alice, {timeout: 2});
+  const failedId = await createWork(alice, {timeout: 2, name: '联合验收 · 超时失败'});
   const failed = await until('alice', failedId, d => d.item.state === 'failed' && d.allocations[0].state === 'Released');
   await refresh(alice, failedId); assert.ok((await pane(alice).innerText()).includes('工作失败'));
   assert.equal(await control(alice, '下载真实结果 1').count(), 0);
   await snapshot(alice, 'w2-timeout-failed-released', failed);
   await pass('W2 actual CPU timeout fails and releases without a success artifact', {id: failedId, result: failed.item.result});
-  const supplierId = await createWork(supplier, {timeout: 2});
+  const supplierId = await createWork(supplier, {timeout: 2, name: '贡献者也能提交工作'});
   await until('supplier', supplierId, d => d.item.state === 'failed' && d.allocations[0].state === 'Released');
   await pass('same supplier account both recalls owned supply and submits compute', {id: supplierId});
   const {page: admin} = await newPage('admin'); await section(admin, 'acceptance');

@@ -4,11 +4,11 @@ import type {WorkIntentRegistration} from '../generated/contracts';
 import {ApiClient, ApiError, encodeId, idOf, items, list, object, text, type ApiResult} from '../api';
 import {useQuery} from '../hooks';
 import {modeLabel,useService} from '../service';
+import {workName} from '../workName';
 import {StopStatus} from '../components/CP2';
 import {Field, Metadata, Panel, QueryFeedback, RawData, Receipt, Refresh, Status, Table, ErrorNotice, ActionButton} from '../components/common';
 
 const terminalStates = new Set(['completed', 'failed', 'cancelled']);
-const shortId = (id: string) => id.length > 22 ? `${id.slice(0, 13)}…${id.slice(-6)}` : id;
 
 export function CreateWork({api, onCreated, onOpen}: {api: ApiClient; onCreated: () => void; onOpen: (id: string) => void}) {
   const service=useService();
@@ -18,18 +18,25 @@ export function CreateWork({api, onCreated, onOpen}: {api: ApiClient; onCreated:
   const [intentId, setIntentId] = useState('');
   const [advanced, setAdvanced] = useState(false);
   const [commandError, setCommandError] = useState('');
+  const [nameError, setNameError] = useState('');
   const registration = useRef<WorkIntentRegistration | null>(null);
   async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault(); setError(null); setResult(null); setCommandError('');
+    event.preventDefault(); setError(null); setResult(null); setCommandError(''); setNameError('');
     if(!service.mode){setError(new ApiError('尚未确认服务执行模式，请重新检查连接。',409));return;}
     if (!registration.current) {
       const form = new FormData(event.currentTarget);
+      const displayName = String(form.get('display_name') ?? '').trim();
+      if (!displayName || Array.from(displayName).length > 80) {
+        setNameError(displayName ? '工作名称不能超过 80 个字符。' : '请输入工作名称。');
+        (event.currentTarget.elements.namedItem('display_name') as HTMLInputElement | null)?.focus();
+        return;
+      }
       try {
         const command: unknown = JSON.parse(String(form.get('command')));
         if (!Array.isArray(command) || !command.length || command.some(x => typeof x !== 'string')) throw new Error('command 必须是非空的字符串 JSON 数组。');
         const id = `work-${crypto.randomUUID()}`;
         registration.current = {
-          intent_id: id, owner_id: api.identity.owner, execution_mode: service.mode,
+          intent_id: id, display_name: displayName, owner_id: api.identity.owner, execution_mode: service.mode,
           settlement_action: String(form.get('settlement')) as WorkIntentRegistration['settlement_action'],
           specification: {
             allocation: {kind: 'allocation.create', owner_id: api.identity.owner, ttl_seconds: Number(form.get('ttl')), priority: Number(form.get('priority')), preemption_mode: String(form.get('preemption')) as 'checkpoint' | 'restartable' | 'best_effort', checkpoint_timeout_seconds:Number(form.get('checkpoint_timeout')),max_restarts:Number(form.get('max_restarts')),
@@ -51,7 +58,9 @@ export function CreateWork({api, onCreated, onOpen}: {api: ApiClient; onCreated:
     <div className="work-mode-note"><strong>{modeLabel(service.mode)}</strong><p className="helper simulation-note">{service.mode==='cpu_reference'?'运行服务端固定 CPU 参考程序，不执行填写的镜像与命令；GPU 库存仍为模拟。程序随真实时间运行。':service.mode==='logical_simulation'?<>任务采用 10 秒固定逻辑工期，现实等待不会推进时间；请管理员在<a href="#acceptance">系统验收</a>推进模拟时钟。不实际执行镜像命令，GPU 库存为模拟。</>:'确认服务模式后才能提交。'}</p></div>
     <form onSubmit={submit} onInvalidCapture={event=>{const disclosure=(event.target as HTMLElement).closest('details.work-disclosure');if(disclosure&&event.currentTarget.contains(disclosure)){disclosure.setAttribute('open','');setAdvanced(true);}}}>
       <fieldset disabled={busy || Boolean(registration.current)} className="work-form-fields">
-        <legend>资源需求</legend>
+        <legend>工作信息</legend>
+        <Field label="工作名称"><input name="display_name" required autoComplete="off" aria-invalid={Boolean(nameError)} aria-describedby={nameError?'work-name-error':undefined} onChange={()=>setNameError('')}/>{nameError&&<small id="work-name-error" role="alert">{nameError}</small>}</Field>
+        <h3 className="work-form-heading">资源需求</h3>
         <div className="form-grid">
         <Field label="CPU（millicores）"><input name="cpu" type="number" min="0" defaultValue="1000" required/></Field>
         <Field label="内存（MiB）"><input name="memory" type="number" min="0" defaultValue="4096" required/></Field>
@@ -85,10 +94,10 @@ export function CreateWork({api, onCreated, onOpen}: {api: ApiClient; onCreated:
         </details>
       </fieldset>
       <div className="actions"><button className="button primary" disabled={busy || Boolean(result) || !api.identity.owner || !service.mode || Boolean(error?.uncertain)}>{busy ? '正在登记…' : intentId ? '重试同一工作登记' : '提交工作'}</button>{intentId && <button type="button" className="button" disabled={busy} onClick={() => onOpen(intentId)}>查询这项工作</button>}{intentId && <button type="button" className="button quiet" disabled={busy} onClick={() => {
-        if (window.confirm('新建另一项工作不会取消之前的请求。若结果不明，请先查询原工作。确定准备另一项工作？')) { registration.current = null; setIntentId(''); setError(null); setResult(null); setCommandError(''); }
+        if (window.confirm('新建另一项工作不会取消之前的请求。若结果不明，请先查询原工作。确定准备另一项工作？')) { registration.current = null; setIntentId(''); setError(null); setResult(null); setCommandError(''); setNameError(''); }
       }}>准备另一项工作</button>}</div>
     </form>
-    {intentId && <p className="helper">本次工作 ID：<code>{intentId}</code> <CopyWorkId id={intentId} scope={api} compact/>。重试保持同一 ID 和输入；实际登记结果以服务端记录为准。</p>}
+    {intentId && <p className="helper"><strong>{workName(registration.current, intentId)}</strong> <CopyWorkId id={intentId} scope={api} compact/></p>}
     {error && <ErrorNotice error={error}/>} {error?.uncertain&&<p className="helper">请先查询这项工作确认登记结果，已阻止重复提交。</p>}{result && <Receipt result={result}/>}
   </Panel>;
 }
@@ -106,18 +115,18 @@ export function RunPage({api, onOpen}: {api: ApiClient; onOpen: (id: string) => 
   const allocations = useQuery(api, '/v1/allocations?limit=50', refresh);
   const jobs = useQuery(api, '/v1/jobs?limit=50', refresh);
   const loaded = items(query.data);
-  const rows = loaded.filter(row => (status==='all'||(status==='unfinished'?!terminalStates.has(text(row.state)):text(row.state)===status))&&`${idOf(row)} ${text(row.state)} ${text(object(object(row.specification).job).image)}`.toLowerCase().includes(search.toLowerCase()));
+  const rows = loaded.filter(row => (status==='all'||(status==='unfinished'?!terminalStates.has(text(row.state)):text(row.state)===status))&&`${workName(row)} ${idOf(row)} ${text(row.state)} ${text(object(object(row.specification).job).image)}`.toLowerCase().includes(search.toLowerCase()));
   const reload = () => { setRefresh(n => n + 1); };
   return <div className="work-experience">
     <Panel title="我的工作" description="查看进行中的工作，或打开详情处理结果和资源归还。" actions={<div className="panel-actions"><Refresh loading={query.loading} onClick={reload}/><button className="button primary" type="button" disabled={!api.identity.owner} onClick={openCreate}>新建工作</button></div>}>
       <div className="work-list-filters">
-        <input className="search" aria-label="筛选当前页工作" placeholder="查找当前页的工作 ID 或镜像" value={search} onChange={e => setSearch(e.target.value)}/>
+        <input className="search" aria-label="筛选当前页工作" placeholder="查找当前页的名称、ID 或镜像" value={search} onChange={e => setSearch(e.target.value)}/>
         <select className="search work-status-filter" aria-label="工作状态筛选" value={status} onChange={e=>setStatus(e.target.value)}><option value="unfinished">未完成</option><option value="all">全部状态</option><option value="running">运行中</option><option value="waiting">等待中</option><option value="pending">待处理</option><option value="manual_action">需要处理</option><option value="completed">已完成</option><option value="failed">失败</option><option value="cancelled">已取消</option></select>
       </div>
       <p className="helper work-page-scope">仅筛选当前已加载页{query.data?`：显示 ${rows.length} / ${loaded.length} 项`:''}。切换分页可查看其他工作。</p>
       <QueryFeedback query={query}>
         {rows.length ? <Table rows={rows} rowKey={idOf} columns={[
-          {label:'工作',render:r=><div className="work-list-identity"><div className="work-id-with-copy"><button className="link-button" onClick={()=>onOpen(idOf(r))} title={idOf(r)}>工作 {shortId(idOf(r))}</button><CopyWorkId id={idOf(r)} scope={api} compact/></div><small>{text(object(object(r.specification).job).image,'未提供镜像登记信息')}</small></div>},
+          {label:'工作',render:r=><div className="work-list-identity"><div className="work-id-with-copy"><button className="link-button" onClick={()=>onOpen(idOf(r))} title={idOf(r)}>{workName(r)}</button><CopyWorkId id={idOf(r)} scope={api} compact/></div><small>{text(object(object(r.specification).job).image,'未提供镜像登记信息')}</small></div>},
           {label:'状态',render:r=><Status value={r.state}/>},
           {label:'执行模式',render:r=>modeLabel(r.execution_mode)},
           {label:'操作',render:r=><button className="button quiet" aria-label={`查看工作 ${idOf(r)}`} onClick={()=>onOpen(idOf(r))}>查看详情</button>},

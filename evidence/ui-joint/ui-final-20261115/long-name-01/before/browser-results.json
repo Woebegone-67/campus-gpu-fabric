@@ -1,0 +1,454 @@
+{
+  "started_at": "2026-11-14T20:16:12.911Z",
+  "baseUrl": "http://127.0.0.1:15244",
+  "preview": false,
+  "checkFilter": "desktop and narrow",
+  "browser": "157.0.8103.51",
+  "scope": "Real Chrome rendering and interaction with synthetic API fixtures only; no live Fabric backend or business writes.",
+  "checks": [
+    {
+      "name": "desktop and narrow layouts preserve visible switcher and reachable forms",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Long names must wrap inside their content area without horizontal pane overflow; a narrow table keeps its own scroll container\n+ actual - expected\n\n+ [\n+   {\n+     elementOverflow: 0,\n+     elementWidth: 1326,\n+     label: 'detail',\n+     lineRects: 1,\n+     paneOverflow: 265,\n+     panelRight: 1404,\n+     panelWidth: 1160,\n+     space: 'workbench',\n+     text: 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',\n+     textRight: 1593.203125,\n+     viewport: {\n+       height: 900,\n+       width: 1440\n+     }\n+   },\n+   {\n+     elementOverflow: 106,\n+     elementWidth: 751,\n+     label: 'attention',\n+     lineRects: 3,\n+     paneOverflow: 0,\n+     panelRight: 1244,\n+     panelWidth: 1000,\n+     space: 'overview',\n+     text: 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW · 截止 43 逻辑秒',\n+     textRight: 1159.796875,\n+     viewport: {\n+       height: 800,\n+       width: 1280\n+     }\n+   },\n+   {\n+     elementOverflow: 0,\n+     elementWidth: 1326,\n+     label: 'detail',\n+     lineRects: 1,\n+     paneOverflow: 425,\n+     panelRight: 1244,\n+     panelWidth: 1000,\n+     space: 'workbench',\n+     text: 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',\n+     textRight: 1593.203125,\n+     viewport: {\n+       height: 800,\n+       width: 1280\n+     }\n+   },\n+   {\n+     elementOverflow: 302,\n+     elementWidth: 555,\n+     label: 'attention',\n+     lineRects: 3,\n+     paneOverflow: 92,\n+     panelRight: 999.984375,\n+     panelWidth: 795.984375,\n+     space: 'overview',\n+     text: 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW · 截止 43 逻辑秒',\n+     textRight: 1115.796875,\n+     viewport: {\n+       height: 768,\n+       width: 1024\n+     }\n+   },\n+   {\n+     elementOverflow: 0,\n+     elementWidth: 217,\n+     label: 'current',\n+     lineRects: 5,\n+     paneOverflow: 92,\n+     panelRight: 614.515625,\n+     panelWidth: 410.515625,\n+     space: 'overview',\n+     text: 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',\n+     textRight: 473,\n+     viewport: {\n+       height: 768,\n+       width: 1024\n+     }\n+   },\n+   {\n+     elementOverflow: 0,\n+     elementWidth: 545,\n+     label: 'result',\n+     lineRects: 2,\n+     paneOverflow: 92,\n+     panelRight: 999.984375,\n+     panelWidth: 795.984375,\n+     space: 'overview',\n+     text: 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',\n+     textRight: 757.21875,\n+     viewport: {\n+       height: 768,\n+       width: 1024\n+     }\n+   },\n+   {\n+     elementOverflow: 0,\n+     elementWidth: 1326,\n+     label: 'detail',\n+     lineRects: 1,\n+     paneOverflow: 637,\n+     panelRight: 1000,\n+     panelWidth: 796,\n+     space: 'workbench',\n+     text: 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',\n+     textRight: 1549.203125,\n+     viewport: {\n+       height: 768,\n+       width: 1024\n+     }\n+   },\n+   {\n+     elementOverflow: 736,\n+     elementWidth: 121,\n+     label: 'attention',\n+     lineRects: 4,\n+     paneOverflow: 536,\n+     panelRight: 374,\n+     panelWidth: 358,\n+     space: 'overview',\n+     text: 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW · 截止 43 逻辑秒',\n+     textRight: 925.796875,\n+     viewport: {\n+       height: 844,\n+       width: 390\n+     }\n+   },\n+   {\n+     elementOverflow: 0,\n+     elementWidth: 204,\n+     label: 'current',\n+     lineRects: 5,\n+     paneOverflow: 536,\n+     panelRight: 374,\n+     panelWidth: 358,\n+     space: 'overview',\n+     text: 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',\n+     textRight: 233.21875,\n+     viewport: {\n+       height: 844,\n+       width: 390\n+     }\n+   },\n+   {\n+     elementOverflow: 0,\n+     elementWidth: 223,\n+     label: 'result',\n+     lineRects: 5,\n+     paneOverflow: 536,\n+     panelRight: 374,\n+     panelWidth: 358,\n+     space: 'overview',\n+     text: 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',\n+     textRight: 253.65625,\n+     viewport: {\n+       height: 844,\n+       width: 390\n+     }\n+   },\n+   {\n+     elementOverflow: 0,\n+     elementWidth: 1257,\n+     label: 'detail',\n+     lineRects: 1,\n+     paneOverflow: 900,\n+     panelRight: 374,\n+     panelWidth: 358,\n+     space: 'workbench',\n+     text: 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',\n+     textRight: 1289.625,\n+     viewport: {\n+       height: 844,\n+       width: 390\n+     }\n+   },\n+   {\n+     elementOverflow: 806,\n+     elementWidth: 51,\n+     label: 'attention',\n+     lineRects: 4,\n+     paneOverflow: 606,\n+     panelRight: 304,\n+     panelWidth: 288,\n+     space: 'overview',\n+     text: 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW · 截止 43 逻辑秒',\n+     textRight: 925.796875,\n+     viewport: {\n+       height: 700,\n+       width: 320\n+     }\n+   },\n+   {\n+     elementOverflow: 0,\n+     elementWidth: 134,\n+     label: 'current',\n+     lineRects: 8,\n+     paneOverflow: 606,\n+     panelRight: 304,\n+     panelWidth: 288,\n+     space: 'overview',\n+     text: 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',\n+     textRight: 162.5625,\n+     viewport: {\n+       height: 700,\n+       width: 320\n+     }\n+   },\n+   {\n+     elementOverflow: 0,\n+     elementWidth: 153,\n+     label: 'result',\n+     lineRects: 7,\n+     paneOverflow: 606,\n+     panelRight: 304,\n+     panelWidth: 288,\n+     space: 'overview',\n+     text: 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',\n+     textRight: 183.984375,\n+     viewport: {\n+       height: 700,\n+       width: 320\n+     }\n+   },\n+   {\n+     elementOverflow: 0,\n+     elementWidth: 1257,\n+     label: 'detail',\n+     lineRects: 1,\n+     paneOverflow: 970,\n+     panelRight: 304,\n+     panelWidth: 288,\n+     space: 'workbench',\n+     text: 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',\n+     textRight: 1289.625,\n+     viewport: {\n+       height: 700,\n+       width: 320\n+     }\n+   }\n+ ]\n- []\n\n    at file:///Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/web/tests/dual-space.browser.mjs:410:12\n    at async check (file:///Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/web/tests/dual-space.browser.mjs:114:21)\n    at async file:///Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/web/tests/dual-space.browser.mjs:362:3"
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "overview-1440x900",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/evidence/ui-joint/ui-final-20261115/long-name-01/before/overview-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-list-1440x900",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/evidence/ui-joint/ui-final-20261115/long-name-01/before/work-list-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-form-1440x900",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/evidence/ui-joint/ui-final-20261115/long-name-01/before/work-form-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-detail-long-name-1440x900",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/evidence/ui-joint/ui-final-20261115/long-name-01/before/work-detail-long-name-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "overview-390x844",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/evidence/ui-joint/ui-final-20261115/long-name-01/before/overview-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-list-390x844",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/evidence/ui-joint/ui-final-20261115/long-name-01/before/work-list-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-form-390x844",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/evidence/ui-joint/ui-final-20261115/long-name-01/before/work-form-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-detail-long-name-390x844",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/evidence/ui-joint/ui-final-20261115/long-name-01/before/work-detail-long-name-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-detail-long-name-320x700",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/evidence/ui-joint/ui-final-20261115/long-name-01/before/work-detail-long-name-320x700.png",
+      "viewport": {
+        "width": 320,
+        "height": 700
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "failure-1",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/evidence/ui-joint/ui-final-20261115/long-name-01/before/failure-1.png",
+      "viewport": {
+        "width": 320,
+        "height": 700
+      },
+      "data": "synthetic browser fixtures"
+    }
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    }
+  ],
+  "denied": [],
+  "unverified": [
+    "Native two-finger gestures and system history conflicts on physical Chrome/Safari trackpads.",
+    "Native OS reduced-motion setting; this harness uses Chromium media emulation.",
+    "VoiceOver, complete accessibility conformance, real API authorization, server business correctness, and file-download integrity."
+  ],
+  "browserClosed": true,
+  "finished_at": "2026-11-14T20:16:45.128Z",
+  "status": "FAIL"
+}

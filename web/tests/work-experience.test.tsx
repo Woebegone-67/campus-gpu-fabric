@@ -70,6 +70,7 @@ test('collapsed creation and advanced sections preserve draft inputs and registr
   globalThis.fetch=async(path,options)=>{requests.push({path,options});return json(options.method==='POST'?{...base,receipt:{outcome:'committed'}}:{...base,items:[]},options.method==='POST'?201:200);};
   await render(service(<RunPage api={api()} onOpen={()=>{}}/>));
   const create=disclosure('新建工作');await interact(()=>create.querySelector('summary').click());
+  await input(container.querySelector('input[name=display_name]'),'实验一');
   const cpu=container.querySelector('input[name=cpu]');await input(cpu,'2500');
   await interact(()=>disclosure('高级设置').querySelector('summary').click());
   await input(container.querySelector('input[name=image]'),'metadata/example:1');
@@ -90,6 +91,7 @@ test('collapsed creation and advanced sections preserve draft inputs and registr
 
 test('invalid command opens advanced settings, marks its input and keeps the resource draft',async()=>{
   await render(service(<CreateWork api={api()} onCreated={()=>{}} onOpen={()=>{}}/>));
+  await input(container.querySelector('input[name=display_name]'),'命令验证');
   await input(container.querySelector('input[name=cpu]'),'3500');
   await input(container.querySelector('input[name=command]'),'invalid JSON');
   await interact(()=>container.querySelector('form').dispatchEvent(new dom.window.Event('submit',{bubbles:true,cancelable:true})));
@@ -112,7 +114,7 @@ test('finished work promotes only its legal release while keeping the same versi
     await interact(()=>button('释放租约').click());
     const writes=requests.filter(request=>request.options.method==='POST');assert.equal(writes.length,1);
     assert.equal(writes[0].path,'/x/v1/work-intents/work-complete/actions');
-    assert.deepEqual(JSON.parse(writes[0].options.body),{action:'release',expected_version:base.version});
+    assert.deepEqual(JSON.parse(writes[0].options.body),{action:'release',expected_epoch:base.version.epoch});
   }finally{window.confirm=confirm;}
 });
 

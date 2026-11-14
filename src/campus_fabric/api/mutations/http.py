@@ -321,13 +321,25 @@ def mount_cp1(app, kernel, identity):
     async def intent_action(intent_id: str, request: Request):
         actor = identity.actor(request)
         body = await object_body(request)
-        exact_fields(body, {"action", "stage_id", "expected_version"})
+        exact_fields(body, {"action", "stage_id", "expected_version", "expected_epoch"})
+        if "expected_version" in body and "expected_epoch" in body:
+            raise HTTPException(400, "Choose expected_version or expected_epoch")
+        action = body.get("action")
+        stage_id = body.get("stage_id")
+        if action in {"release", "cancel", "resume"} and "expected_version" not in body:
+            try:
+                epoch = VersionStamp.model_validate_json(json.dumps({
+                    "epoch": body["expected_epoch"], "revision": 0,
+                })).epoch
+            except (KeyError, ValueError, ValidationError) as exc:
+                raise HTTPException(400, "Expected expected_epoch") from exc
+            receipt = await run_in_threadpool(kernel.act_on_current_intent,
+                intent_id, action, epoch, actor=actor, request_id=request_id(request))
+            return receipt_response(kernel, receipt, internal=True)
         try:
             version = VersionStamp.model_validate_json(json.dumps(body["expected_version"]))
         except (KeyError, ValueError, ValidationError) as exc:
             raise HTTPException(400, "Expected expected_version") from exc
-        action = body.get("action")
-        stage_id = body.get("stage_id")
         if action in {"allocate", "create_job"}:
             if not isinstance(stage_id, str) or not stage_id:
                 raise HTTPException(400, "Allocation and job creation require a stable stage_id")

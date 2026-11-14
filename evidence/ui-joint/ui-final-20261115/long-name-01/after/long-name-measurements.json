@@ -1,0 +1,405 @@
+{
+  "name": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+  "measurements": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "label": "attention",
+      "space": "overview",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW · 截止 43 逻辑秒",
+      "panelWidth": 1160,
+      "elementWidth": 911,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 1206.296875,
+      "panelRight": 1404,
+      "lineRects": 4
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "label": "current",
+      "space": "overview",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+      "panelWidth": 674.6875,
+      "elementWidth": 455,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 762.546875,
+      "panelRight": 918.6875,
+      "lineRects": 3
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "label": "result",
+      "space": "overview",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+      "panelWidth": 1160,
+      "elementWidth": 901,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 1161.234375,
+      "panelRight": 1404,
+      "lineRects": 2
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "label": "list",
+      "space": "workbench",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+      "panelWidth": 1160,
+      "elementWidth": 658,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 929.046875,
+      "panelRight": 1404,
+      "lineRects": 2
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "label": "detail",
+      "space": "workbench",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+      "panelWidth": 1160,
+      "elementWidth": 982,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 1245.078125,
+      "panelRight": 1404,
+      "lineRects": 2
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "label": "attention",
+      "space": "overview",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW · 截止 43 逻辑秒",
+      "panelWidth": 1000,
+      "elementWidth": 751,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 1052.703125,
+      "panelRight": 1244,
+      "lineRects": 4
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "label": "current",
+      "space": "overview",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+      "panelWidth": 580,
+      "elementWidth": 360,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 668.328125,
+      "panelRight": 824,
+      "lineRects": 3
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "label": "result",
+      "space": "overview",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+      "panelWidth": 1000,
+      "elementWidth": 741,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 998.640625,
+      "panelRight": 1244,
+      "lineRects": 2
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "label": "list",
+      "space": "workbench",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+      "panelWidth": 1000,
+      "elementWidth": 560,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 832.53125,
+      "panelRight": 1244,
+      "lineRects": 2
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "label": "detail",
+      "space": "workbench",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+      "panelWidth": 1000,
+      "elementWidth": 839,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 1095.875,
+      "panelRight": 1244,
+      "lineRects": 2
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "label": "attention",
+      "space": "overview",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW · 截止 43 逻辑秒",
+      "panelWidth": 795.984375,
+      "elementWidth": 555,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 805.21875,
+      "panelRight": 999.984375,
+      "lineRects": 4
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "label": "current",
+      "space": "overview",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+      "panelWidth": 410.515625,
+      "elementWidth": 217,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 473,
+      "panelRight": 614.515625,
+      "lineRects": 5
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "label": "result",
+      "space": "overview",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+      "panelWidth": 795.984375,
+      "elementWidth": 545,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 757.21875,
+      "panelRight": 999.984375,
+      "lineRects": 2
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "label": "list",
+      "space": "workbench",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+      "panelWidth": 796,
+      "elementWidth": 440,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 664.4375,
+      "panelRight": 1000,
+      "lineRects": 3
+    },
+    {
+      "viewport": {
+        "width": 1024,
+        "height": 768
+      },
+      "label": "detail",
+      "space": "workbench",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+      "panelWidth": 796,
+      "elementWidth": 664,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 886.109375,
+      "panelRight": 1000,
+      "lineRects": 2
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "label": "attention",
+      "space": "overview",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW · 截止 43 逻辑秒",
+      "panelWidth": 358,
+      "elementWidth": 121,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 186.8125,
+      "panelRight": 374,
+      "lineRects": 11
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "label": "current",
+      "space": "overview",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+      "panelWidth": 358,
+      "elementWidth": 204,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 233.21875,
+      "panelRight": 374,
+      "lineRects": 5
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "label": "result",
+      "space": "overview",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+      "panelWidth": 358,
+      "elementWidth": 223,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 253.65625,
+      "panelRight": 374,
+      "lineRects": 5
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "label": "list",
+      "space": "workbench",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+      "panelWidth": 358,
+      "elementWidth": 140,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 171.09375,
+      "panelRight": 374,
+      "lineRects": 9
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "label": "detail",
+      "space": "workbench",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+      "panelWidth": 358,
+      "elementWidth": 324,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 347.15625,
+      "panelRight": 374,
+      "lineRects": 4
+    },
+    {
+      "viewport": {
+        "width": 320,
+        "height": 700
+      },
+      "label": "attention",
+      "space": "overview",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW · 截止 43 逻辑秒",
+      "panelWidth": 288,
+      "elementWidth": 51,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 115,
+      "panelRight": 304,
+      "lineRects": 23
+    },
+    {
+      "viewport": {
+        "width": 320,
+        "height": 700
+      },
+      "label": "current",
+      "space": "overview",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+      "panelWidth": 288,
+      "elementWidth": 134,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 162.5625,
+      "panelRight": 304,
+      "lineRects": 8
+    },
+    {
+      "viewport": {
+        "width": 320,
+        "height": 700
+      },
+      "label": "result",
+      "space": "overview",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+      "panelWidth": 288,
+      "elementWidth": 153,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 183.984375,
+      "panelRight": 304,
+      "lineRects": 7
+    },
+    {
+      "viewport": {
+        "width": 320,
+        "height": 700
+      },
+      "label": "list",
+      "space": "workbench",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+      "panelWidth": 288,
+      "elementWidth": 140,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 171.09375,
+      "panelRight": 304,
+      "lineRects": 9
+    },
+    {
+      "viewport": {
+        "width": 320,
+        "height": 700
+      },
+      "label": "detail",
+      "space": "workbench",
+      "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+      "panelWidth": 288,
+      "elementWidth": 254,
+      "elementOverflow": 0,
+      "paneOverflow": 0,
+      "textRight": 284.328125,
+      "panelRight": 304,
+      "lineRects": 5
+    }
+  ]
+}

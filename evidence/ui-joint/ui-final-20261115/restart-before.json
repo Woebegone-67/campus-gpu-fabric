@@ -1,0 +1,43 @@
+{
+  "status": "BEFORE_RESTART",
+  "works": [
+    {
+      "intent_id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+      "owner_id": "alice",
+      "display_name": "联合验收 · 中断后继续",
+      "state": "completed",
+      "job_ids": [
+        "e0-j2"
+      ],
+      "allocation_ids": [
+        "e0-a1"
+      ]
+    },
+    {
+      "intent_id": "work-4438c668-b3ca-45c7-9887-ceeec52efaee",
+      "owner_id": "supplier",
+      "display_name": "贡献者也能提交工作",
+      "state": "failed",
+      "job_ids": [
+        "e0-j16"
+      ],
+      "allocation_ids": [
+        "e0-a15"
+      ]
+    },
+    {
+      "intent_id": "work-6c1b7d31-499c-4ef4-89e6-284d466d53cf",
+      "owner_id": "alice",
+      "display_name": "联合验收 · 超时失败",
+      "state": "failed",
+      "job_ids": [
+        "e0-j11"
+      ],
+      "allocation_ids": [
+        "e0-a10"
+      ]
+    }
+  ],
+  "artifact_uri": "fabric-cpu://7dfff050b59b368472c02926/214261607d3f284a7dc167e8f595d59dddb38df18c2dc797e865eef96c518169",
+  "artifact_sha256": "4cc96ed2a605bb410d03a488f93d4c2c00f11ecd114b8da85d416a330a02b54d"
+}

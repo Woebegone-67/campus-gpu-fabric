@@ -1,22 +1,22 @@
 # 新 UI 联合版本：快速试用
 
-2026-11-15。分支：`integration/ui-backend-20261115`。B 的双空间界面已经与 A 最新后端合并。此处是开发试用入口，**不是完整 CP4 放行**。
+2026-11-15。分支：`integration/ui-final-20261115`。B 的双空间界面已经与 A 最新后端合并。此处是开发试用入口，**不是完整 CP4 放行**。
 
-## 当前这台 Mac
+## 当前这台 Mac（本轮独立预览）
 
-- 真实 CPU 参考任务：[打开工作台](http://127.0.0.1:15231/)。
-- 本地身份文件：`/Users/xz/Projects/campus-gpu-fabric-integration-20261115/runtime/joint-ui-01/cpu/client-identities.json`。
+- 真实 CPU 参考任务：[打开工作台](http://127.0.0.1:15243/)。
+- 本地身份文件：`/Users/xz/Projects/campus-gpu-fabric-ui-final-20261115/runtime/ui-final-preview-01/cpu/client-identities.json`。
 - 右上角连接账户 → 导入文件 → 选择 `alice` → 关闭账户面板。文件包含私有开发凭据，不提交 Git，不转发。
 - 总览显示当前账户已加载的工作和提醒；工作台提供“我的工作”“我的设备”“活动记录”。`alice`、`bob`、`supplier` 都同时拥有使用和贡献能力；`admin` 是独立管理能力。
-- 工作台 → 我的工作 → 新建工作。第一次保留默认资源，把“租约结算”选为“结束后申请自动归还”，提交后点“查询这项工作”。
+- 工作台 → 我的工作 → 新建工作。先填写工作名称，再保留默认资源，把“租约结算”选为“结束后申请自动归还”，提交后点“查询这项工作”。
 - CPU 参考程序通常约一分钟完成。页面使用查询快照；运行中点击“刷新”读取进度。完成状态、结果下载、资源归还分别核对。
 - 想看已有供给，切换 `supplier` → 我的设备。不要在尚未理解影响前收回设备：这会真实打断当前试用实例中使用这些设备的工作。
 - 总览和工作台可用侧栏、页头按钮切换。显示设置可开启“试用页头横向手势”；只在页头空白区域生效，默认关闭。物理触控板仍待实机验收。
 - 刷新浏览器页面会清空内存中的凭据；重新导入后，服务端工作仍保留。不要因暂时看不到工作而重复提交。
 
-当前运行是固定 CPU 参考程序；GPU 库存为模拟，填写的镜像和命令是登记信息，不执行任意容器。逻辑模式另在 `http://127.0.0.1:15230/`，其身份文件在同目录的 `logical/client-identities.json`，需要管理员推进模拟时间。
+当前运行是固定 CPU 参考程序；GPU 库存为模拟，填写的镜像和命令是登记信息，不执行任意容器。逻辑模式另在 `http://127.0.0.1:15242/`，其身份文件在同目录的 `logical/client-identities.json`，需要管理员推进模拟时间。
 
-本轮自动联调使用另一套 `joint-ui-test2` 实例。上述 `joint-ui-01` 留给用户试用，不进行自动收回、清库或重置。
+本轮自动联调使用 `ui-final-test-*` 实例；`ui-final-preview-01` 留给用户试用。旧目录和 15230/15231 试用服务原样保留，凭据不能跨实例混用。
 
 ## B 在自己的机器复现
 
@@ -24,7 +24,7 @@
 
 ```sh
 git fetch origin
-git switch -c joint-ui origin/integration/ui-backend-20261115
+git switch -c joint-ui origin/integration/ui-final-20261115
 uv sync --frozen
 npm --prefix web ci
 uv run python scripts/cp2_joint_session.py start \
@@ -44,4 +44,4 @@ uv run python scripts/cp2_joint_session.py start \
 - Chrome/Safari 物理触控板：从总览到工作台，回退惯性、纵向滚动、输入框、横向表格和弹层不误触导航；关闭手势仍能用按钮/键盘完成全部操作。
 - 阅读和填写的舒适程度：尤其是详情首屏、创建工作、失败后的下一步、刷新提示和下载位置。截图标注具体问题，不只给总体风格评价。
 
-当前验证结果及已知边界见 [联合对齐记录](UI_JOINT_ALIGNMENT.md)。用户试用后的最新要求见 [B 交互终稿修改清单](B_UI_FINAL_REVISION.md)：需逐屏重审，示例不是全部范围；命名仍需前后端实现。
+当前验证结果及已知边界见 [本轮联合对齐](UI_FINAL_ALIGNMENT_20261115.md)。用户试用后的最新要求见 [B 交互终稿修改清单](B_UI_FINAL_REVISION.md)：需逐屏重审，示例不是全部范围；命名已接通；全站信息删减、首页层级和主路径仍待 B 完成。

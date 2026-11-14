@@ -79,10 +79,11 @@ test('work lookup shows loading and failure without retaining a previous result'
 });
 
 test('same decision ID submit re-reads and direct lookup includes return-to-work link',async()=>{
-  globalThis.fetch=async(path)=>{requests.push({path});return json(decision('decision-1'));};
+  globalThis.fetch=async(path)=>{requests.push({path});return json(path.startsWith('/x/v1/work-intents/')?work('work-1'):decision('decision-1'));};
   await render(<DecisionsPage api={api()} initialId="decision-1" workId="work-1"/>);
-  assert.equal(requests.length,1);
-  await submit(container.querySelector('form'));assert.equal(requests.length,2);
+  assert.equal(requests.filter(r=>r.path==='/x/v1/decisions/decision-1').length,1);
+  await submit(container.querySelector('form'));assert.equal(requests.filter(r=>r.path==='/x/v1/decisions/decision-1').length,2);
+  assert.equal(requests.filter(r=>r.path==='/x/v1/work-intents/work-1').length,1);
   assert.equal(container.querySelector('a').getAttribute('href'),'#continuity?intent=work-1');
 });
 
@@ -176,6 +177,7 @@ function cp2Work(mode='logical_simulation'){
 test('CPU registration follows declared service mode and sends separate recovery/retry budgets',async()=>{
   globalThis.fetch=async(path,options)=>{requests.push({path,options});return json({receipt:{outcome:'committed'}},202);};
   await render(service('cpu_reference',<CreateWork api={api()} onCreated={()=>{}} onOpen={()=>{}}/>));
+  await enter(field('工作名称'),'CPU 参考计算');
   assert.match(container.textContent,/固定 CPU 参考程序，不执行填写的镜像与命令/);
   await submit(container.querySelector('form'));
   assert.equal(requests.length,1);
@@ -233,7 +235,7 @@ test('resume action uses current work ID and version without creating another jo
   await interact(()=>button('恢复这项工作').click());
   const writes=requests.filter(r=>r.options.method==='POST');assert.equal(writes.length,1);
   assert.equal(writes[0].path,'/x/v1/work-intents/work-cp2/actions');
-  assert.deepEqual(JSON.parse(writes[0].options.body),{action:'resume',expected_version:base.version});
+  assert.deepEqual(JSON.parse(writes[0].options.body),{action:'resume',expected_epoch:base.version.epoch});
 });
 
 test('artifact download uses authenticated registered URI endpoint, rejecting arbitrary file links',async()=>{
@@ -398,6 +400,7 @@ test('CPU form retries stale registration with same identity/body and blocks nav
     return new Promise(resolve=>{release=resolve;});
   };
   await render(service('cpu_reference',<CreateWork api={api()} onCreated={()=>{}} onOpen={()=>{opened++;}}/>));
+  await enter(field('工作名称'),'重试计算');
   await submit(container.querySelector('form'));
   assert.equal(requests.length,2);assert.equal(requests[0].options.body,requests[1].options.body);
   const payload=JSON.parse(requests[1].options.body);assert.match(payload.intent_id,/^work-/);assert.equal(payload.execution_mode,'cpu_reference');

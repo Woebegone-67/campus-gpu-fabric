@@ -55,6 +55,11 @@ export class ApiClient {
     // Keep identity selection locked across the refresh between rejected commands.
     this.onMutating(1);
     try {
+      if(['resume','cancel','release'].includes(action)) {
+        // The server validates the current work and epoch in one transaction.
+        // Unrelated CPU clock revisions must not starve lifecycle operations.
+        return await this.request(`${path}/actions`,{method:'POST',body:{action,expected_epoch:version.epoch}});
+      }
       for(let attempt=0;;attempt++) {
         try {
           return await this.request(`${path}/actions`,{method:'POST',body:{action,expected_version:expected,...(stageId?{stage_id:stageId}:{})}});

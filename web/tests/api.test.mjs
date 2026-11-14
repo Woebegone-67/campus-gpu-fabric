@@ -95,18 +95,30 @@ test('stale retry is bounded and epoch changes stop replay',async()=>{
   let posts=0,reads=0;
   globalThis.fetch=async(_path,options)=>{if(options.method==='POST'){posts++;return json({receipt:{outcome:'rejected',error:{code:'stale_version'}}});}reads++;return json({version:{epoch:0,revision:reads+1}});};
   const client=new ApiClient({owner:'bob',token:''});
-  await assert.rejects(client.workAction('work','release',{epoch:0,revision:0}),e=>e.status===409);
+  await assert.rejects(client.workAction('work','allocate',{epoch:0,revision:0},'allocate-v1'),e=>e.status===409);
   assert.equal(posts,3);assert.equal(reads,2);
   posts=0;
   globalThis.fetch=async(_path,options)=>{if(options.method==='POST'){posts++;return json({error:'stale_version'},409);}return json({version:{epoch:1,revision:0}});};
-  await assert.rejects(client.workAction('work','resume',{epoch:0,revision:0}),e=>e.data.error==='epoch_changed');
+  await assert.rejects(client.workAction('work','create_job',{epoch:0,revision:0},'job-v1'),e=>e.data.error==='epoch_changed');
   assert.equal(posts,1);
 });
 
-test('lost response and known non-stale rejection never replay lifecycle commands',async()=>{
-  for(const response of ['network','unavailable','budget']) {
+test('lifecycle actions carry the original epoch and never refresh a global revision',async()=>{
+  for(const action of ['resume','cancel','release']) {
+    const calls=[],guard=[];
+    globalThis.fetch=async(path,options)=>{calls.push({path,options});return json({receipt:{outcome:'committed'}},202);};
+    await new ApiClient({owner:'alice',token:''},delta=>guard.push(delta)).workAction('same/work',action,{epoch:7,revision:2});
+    assert.equal(calls.length,1);
+    assert.equal(calls[0].path,'/x/v1/work-intents/same%2Fwork/actions');
+    assert.deepEqual(JSON.parse(calls[0].options.body),{action,expected_epoch:7});
+    assert.deepEqual(guard,[1,1,-1,-1]);
+  }
+});
+
+test('lost response and any known rejection never replay lifecycle commands',async()=>{
+  for(const response of ['network','unavailable','budget','stale']) {
     let calls=0;
-    globalThis.fetch=async()=>{calls++;if(response==='network')throw new TypeError('lost');return response==='unavailable'?json({error:'unavailable'},503):json({error:'restart_budget_exhausted'},409);};
+    globalThis.fetch=async()=>{calls++;if(response==='network')throw new TypeError('lost');return response==='unavailable'?json({error:'unavailable'},503):json({error:response==='stale'?'stale_version':'restart_budget_exhausted'},409);};
     await assert.rejects(new ApiClient({owner:'bob',token:''}).workAction('work','resume',{epoch:0,revision:0}));
     assert.equal(calls,1,response);
   }

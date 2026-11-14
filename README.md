@@ -2,11 +2,11 @@
 
 校园共享计算服务：申请、收回、接续与可追问的决定。
 
-**本地交互整合：** B 已合入 `06d7958`，补充平滑导航、按钮按压回弹、查询淡入、展开按钮与工作 ID 复制。修改与验证边界见 [交互动效交付](docs/handoff/B_INTERACTION_MOTION.md)；下列完整 UI 终稿要求仍单独跟进。
+**最新联合分支：** `integration/ui-final-20261115` 接入 B 的 `4d25467`，包含导航动效、折叠和 ID 复制；联合对齐补充持久化工作名称、长名称布局与键盘复制焦点。进展和验证范围见 [本轮联合对齐](docs/handoff/UI_FINAL_ALIGNMENT_20261115.md)。
 
-**B 下一步：** 按用户试用后的 [交互终稿修改清单](docs/handoff/B_UI_FINAL_REVISION.md) 逐屏审查与修改。全站删除重复解释和低价值入口，重做首页信息层级与操作主路径，接通持久化工作名称；不只修清单中的几个例子。此分支完成联合接入，尚未完成这轮交互终稿。
+**B 下一步：** 按用户试用后的 [交互终稿修改清单](docs/handoff/B_UI_FINAL_REVISION.md) 逐屏审查与修改。全站删除重复解释和低价值入口，重做首页信息层级与操作主路径；持久化工作名称已接通，保留该契约。不只修清单中的几个例子。此分支完成联合接入，尚未完成这轮交互终稿。
 
-**本轮接管总入口：** [新 UI 快速上手](docs/handoff/UI_JOINT_QUICKSTART.md) 与 [联合对齐记录](docs/handoff/UI_JOINT_ALIGNMENT.md)。分支 `integration/ui-backend-20261115` 已合并 B 的双空间界面与 A 的最新后端。此前架构与展示准备见 [B 接管与最终展示准备](docs/handoff/FINAL_PREPARATION.md)。当前仍是候选，最终 CP4、B 新 UI 真人与同构建实录未完成。路演以 [主张与评分策略](docs/presentation/STRATEGY.md)、[逐页讲述](docs/presentation/STORYBOARD.md) 和 [现场执行手册](docs/presentation/DEMO_RUNBOOK.md) 为准，不把设计稿或计划写成已完成演示。
+**本轮接管总入口：** [新 UI 快速上手](docs/handoff/UI_JOINT_QUICKSTART.md) 与 [联合对齐记录](docs/handoff/UI_FINAL_ALIGNMENT_20261115.md)。最新分支为 `integration/ui-final-20261115`；旧 `integration/ui-backend-20261115` 的接入过程保留为历史记录。此前架构与展示准备见 [B 接管与最终展示准备](docs/handoff/FINAL_PREPARATION.md)。当前仍是候选，最终 CP4、B 新 UI 真人与同构建实录未完成。路演以 [主张与评分策略](docs/presentation/STRATEGY.md)、[逐页讲述](docs/presentation/STORYBOARD.md) 和 [现场执行手册](docs/presentation/DEMO_RUNBOOK.md) 为准，不把设计稿或计划写成已完成演示。
 
 **当前：B 新 UI 已完成联合接入，可本地试用；CP4 完整验收仍未通过。** 新界面上的真实 CPU 接续、失败、归还、下载和权限隔离已有本轮记录；规模/延迟、真人干净部署、交叉操作及最终实录仍单独核验。当前放置评分路线冻结，R=1.00保留为未达；新工作选择机制有局部收益，也存在严重Owner损害反例，未推广到产品。参见 [CP4后续诊断与评审](evidence/cp4-next/README.md)、[策略瓶颈](docs/research/CP3_BOTTLENECK_AND_DIRECTION.md) 和 [CP4准入记录](docs/handoff/CP4_ENTRY.md)。原CP3分支与证据仍保留，见 [CP3历史收尾](docs/handoff/CP3_CLOSEOUT.md)。阶段准入、设计交接与正式通过分别记录。
 

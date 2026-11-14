@@ -44,7 +44,7 @@ export function CopyWorkId({id,scope,compact=false}:{id:string;scope?:unknown;co
   };
   const message=phase==='copied'?'已复制完整工作 ID':phase==='error'?'无法自动复制，请选中下方完整 ID，按 ⌘C 或 Ctrl+C 复制。':phase==='copying'?'正在复制工作 ID':'';
   return <span className={`copy-work-id${compact?' copy-work-id--compact':''}`}>
-    <button type="button" className="button quiet copy-work-id-button" onClick={copy} disabled={!id||phase==='copying'} aria-label={`复制工作 ID ${id}`} aria-busy={phase==='copying'} aria-describedby={feedbackId} title={phase==='copied'?'已复制完整工作 ID':'复制完整工作 ID'}>
+    <button type="button" className="button quiet copy-work-id-button" onClick={copy} disabled={!id} aria-disabled={phase==='copying'} aria-label={`复制工作 ID ${id}`} aria-busy={phase==='copying'} aria-describedby={feedbackId} title={phase==='copied'?'已复制完整工作 ID':'复制完整工作 ID'}>
       <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true" focusable="false">{phase==='copied'?<path d="m4 10 4 4 8-8"/>:<><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M13 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/></>}</svg>
       {!compact&&<span>{phase==='copied'?'已复制':phase==='copying'?'复制中…':'复制 ID'}</span>}
     </button>

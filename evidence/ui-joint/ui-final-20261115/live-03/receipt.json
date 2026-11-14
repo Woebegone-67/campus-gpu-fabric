@@ -1,0 +1,612 @@
+{
+  "started_at": "2026-11-14T20:24:27.978Z",
+  "base": "http://127.0.0.1:15245",
+  "commit": "4d2546782d0a5eb05f2a8e30c67f0d842f4c4215",
+  "dirty": "M README.md\n M contracts/generated/contracts.schema.json\n M docs/EXTENSIONS.md\n M docs/handoff/B_UI_FINAL_REVISION.md\n M docs/handoff/UI_JOINT_ALIGNMENT.md\n M docs/handoff/UI_JOINT_QUICKSTART.md\n M src/campus_fabric/api/mutations/http.py\n M src/campus_fabric/contracts/models.py\n M src/campus_fabric/domain/kernel.py\n M web/src/api.ts\n M web/src/components/CopyWorkId.tsx\n M web/src/dual-space.css\n M web/src/generated/contracts.ts\n M web/src/pages/Continuity.tsx\n M web/src/pages/Decisions.tsx\n M web/src/pages/Events.tsx\n M web/src/pages/Overview.tsx\n M web/src/pages/Run.tsx\n M web/src/pages/work-experience.css\n M web/tests/api.test.mjs\n M web/tests/copy-work-id.test.tsx\n M web/tests/dual-space.browser.mjs\n M web/tests/interaction-motion.browser.mjs\n M web/tests/joint-live.browser.mjs\n M web/tests/starwave.browser.mjs\n M web/tests/ui.test.tsx\n M web/tests/work-experience.test.tsx",
+  "scope": "Live local CPU reference execution, real Chrome UI and downloads; GPU inventory is simulated.",
+  "checks": [
+    {
+      "name": "imported accounts accepted by real session endpoint",
+      "status": "PASS",
+      "details": {
+        "account": {
+          "actor_id": "alice",
+          "owner_id": "alice",
+          "capabilities": [
+            "use_compute",
+            "contribute_resources"
+          ],
+          "is_administrator": false
+        },
+        "supplierAccount": {
+          "actor_id": "supplier",
+          "owner_id": "supplier",
+          "capabilities": [
+            "use_compute",
+            "contribute_resources"
+          ],
+          "is_administrator": false
+        }
+      }
+    },
+    {
+      "name": "real CPU recall, verified checkpoint, pending resume and applied generation 2",
+      "status": "PASS",
+      "details": {
+        "id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004"
+      }
+    },
+    {
+      "name": "browser result preview/download preserves bytes and independent integer result",
+      "status": "PASS",
+      "details": {
+        "id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+        "sha256": "4cc96ed2a605bb410d03a488f93d4c2c00f11ecd114b8da85d416a330a02b54d",
+        "bytes": 476,
+        "oracle": "independent 3x3 matrix oracle matched"
+      }
+    },
+    {
+      "name": "named work survives recovery, decision navigation and reimport after refresh",
+      "status": "PASS",
+      "details": {
+        "id": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+        "display_name": "联合验收 · 中断后继续"
+      }
+    },
+    {
+      "name": "Bob denied foreign work in UI, foreign download and recall over HTTP",
+      "status": "PASS",
+      "details": {
+        "work_status": 404,
+        "artifact_status": 404,
+        "recall_status": 403
+      }
+    },
+    {
+      "name": "W2 actual CPU timeout fails and releases without a success artifact",
+      "status": "PASS",
+      "details": {
+        "id": "work-6c1b7d31-499c-4ef4-89e6-284d466d53cf",
+        "result": {
+          "kind": "failure",
+          "recorded_at": 115.39467929200032,
+          "artifact_uris": [],
+          "failure": {
+            "code": "execution_unconfirmed",
+            "detail": "Job timeout",
+            "retryable": false,
+            "current_version": null
+          }
+        }
+      }
+    },
+    {
+      "name": "same supplier account both recalls owned supply and submits compute",
+      "status": "PASS",
+      "details": {
+        "id": "work-4438c668-b3ca-45c7-9887-ceeec52efaee"
+      }
+    },
+    {
+      "name": "admin overview ten UI refreshes without 409",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "name": "no browser page errors during live flow",
+      "status": "PASS",
+      "details": {}
+    }
+  ],
+  "responses": [
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/session",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/session",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/jobs",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "POST",
+      "path": "/x/v1/work-intents",
+      "status": 202
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/jobs",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/capacity",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "POST",
+      "path": "/x/v1/contributions/recall",
+      "status": 201
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/capacity",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "POST",
+      "path": "/x/v1/work-intents/work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004/actions",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/artifacts",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/artifacts",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/decisions/decision-3db20fa75591d687f8247ddab66242b6",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/session",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/session",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+      "status": 200
+    },
+    {
+      "actor": "bob",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "bob",
+      "method": "GET",
+      "path": "/x/v1/session",
+      "status": 200
+    },
+    {
+      "actor": "bob",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "bob",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "bob",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "bob",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+      "status": 404
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/jobs",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "POST",
+      "path": "/x/v1/work-intents",
+      "status": 202
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-6c1b7d31-499c-4ef4-89e6-284d466d53cf",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-6c1b7d31-499c-4ef4-89e6-284d466d53cf",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/jobs",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "POST",
+      "path": "/x/v1/work-intents",
+      "status": 202
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-4438c668-b3ca-45c7-9887-ceeec52efaee",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/session",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/admin/overview",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/acceptance",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/v1/metrics",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/admin/overview",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/admin/overview",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/admin/overview",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/admin/overview",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/admin/overview",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/admin/overview",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/admin/overview",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/admin/overview",
+      "status": 200
+    },
+    {
+      "actor": "admin",
+      "method": "GET",
+      "path": "/x/v1/admin/overview",
+      "status": 200
+    }
+  ],
+  "errors": [],
+  "snapshots": [
+    "overview-empty",
+    "running",
+    "checkpoint-verified",
+    "resume-waiting",
+    "resumed",
+    "completed-released",
+    "related-decision",
+    "bob-foreign-work",
+    "w2-timeout-failed-released"
+  ],
+  "unverified": [
+    "Independent human deployment and A/B cross-operation",
+    "Physical trackpad, Safari, VoiceOver",
+    "Formal CP4 load and performance targets",
+    "Configured CP3 full-report rendering"
+  ],
+  "browser": "157.0.8103.51",
+  "recovery_work": "work-2dcb5019-f3a0-4dfc-a937-a2475c0d6004",
+  "status": "PASS",
+  "finished_at": "2026-11-14T20:26:12.358Z"
+}

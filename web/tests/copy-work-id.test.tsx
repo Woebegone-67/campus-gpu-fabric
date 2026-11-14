@@ -19,7 +19,7 @@ const fullId='work-a383db08-d613-4e00-aba0-9d61d2ba9801';
 const originalFetch=globalThis.fetch;
 const base={version:{epoch:0,revision:5},now:10};
 const json=value=>new Response(JSON.stringify(value),{headers:{'Content-Type':'application/json'}});
-const work={intent_id:fullId,owner_id:'alice',state:'running',execution_mode:'logical_simulation',allocation_ids:[],job_ids:[],specification:{job:{image:'synthetic:1'}}};
+const work={intent_id:fullId,display_name:'可命名工作',owner_id:'alice',state:'running',execution_mode:'logical_simulation',allocation_ids:[],job_ids:[],specification:{job:{image:'synthetic:1'}}};
 let container,root,copied,requests;
 const clipboard=writeText=>Object.defineProperty(navigator,'clipboard',{value:{writeText},configurable:true});
 const render=element=>act(async()=>root.render(element));
@@ -53,17 +53,37 @@ test('unavailable or rejected clipboard offers the complete selectable ID withou
   await click(copyButton());assert.match(container.querySelector('[role="status"]').textContent,/无法自动复制/);
 });
 
+test('pending copy keeps its control focusable and rejects repeated activation until settled',async()=>{
+  const pending=[];clipboard(text=>new Promise(resolve=>pending.push({text,resolve})));
+  await render(<CopyWorkId id={fullId}/>);
+  const button=copyButton();button.focus();
+  await click(button);
+  assert.equal(button.disabled,false,'Native disabling would discard keyboard focus');
+  assert.equal(button.getAttribute('aria-disabled'),'true');
+  assert.equal(button.getAttribute('aria-busy'),'true');
+  await click(button);await click(button);
+  assert.deepEqual(pending.map(entry=>entry.text),[fullId],'Repeated activation must not write again');
+  await act(async()=>pending[0].resolve());
+  assert.equal(button.getAttribute('aria-disabled'),'false');
+  assert.equal(button.getAttribute('aria-busy'),'false');
+  await click(button);
+  assert.deepEqual(pending.map(entry=>entry.text),[fullId,fullId],'A later deliberate copy is permitted');
+  await act(async()=>pending[1].resolve());
+});
+
 test('a pending clipboard request cannot put feedback onto a different ID or account',async()=>{
   const pending=[];clipboard(text=>new Promise(resolve=>pending.push({text,resolve})));
   const alice={},bob={};
   await render(<CopyWorkId id={fullId} scope={alice}/>);await click(copyButton());
-  assert.equal(copyButton().disabled,true);
+  assert.equal(copyButton().disabled,false);
+  assert.equal(copyButton().getAttribute('aria-disabled'),'true');
   await render(<CopyWorkId id="work-new" scope={alice}/>);
   await act(async()=>pending[0].resolve());
   assert.equal(container.querySelector('[role="status"]').textContent,'');
   await render(<CopyWorkId id={fullId} scope={alice}/>);await click(copyButton());
   await render(<CopyWorkId id={fullId} scope={bob}/>);
   assert.equal(copyButton().disabled,false);
+  assert.equal(copyButton().getAttribute('aria-disabled'),'false');
   await act(async()=>pending[1].resolve());
   assert.equal(container.querySelector('[role="status"]').textContent,'');
   await click(copyButton());await act(async()=>pending[2].resolve());
