@@ -1,0 +1,40 @@
+{
+  "tested_candidate": "5f25604537144d2ddb42a7553dd31932b6de7a7f",
+  "production_paths": [
+    "src",
+    "contracts",
+    "configs",
+    "semantics",
+    "scripts",
+    "tests",
+    "web",
+    "experiments",
+    "spec/official",
+    "deploy",
+    "pyproject.toml",
+    "uv.lock",
+    "requirements.lock",
+    "Makefile",
+    "Dockerfile",
+    "compose.yaml",
+    ".python-version"
+  ],
+  "production_diff_empty": true,
+  "raw_evidence_references_verified": [
+    "evidence/cp4/load/locality-5f25604-probe-20261115/run.json",
+    "evidence/cp4/load/locality-5f25604-probe-20261115/inventory.json",
+    "evidence/cp4/load/locality-5f25604-probe-20261115/http_history.jsonl.gz",
+    "evidence/cp4/load/locality-5f25604-probe-20261115/final_state.json.gz",
+    "evidence/cp4/load/entity-c3fad1b-4cpu8g-20261115/run.json",
+    "evidence/cp4/load/entity-c3fad1b-4cpu8g-20261115/inventory.json",
+    "evidence/cp4/load/entity-c3fad1b-4cpu8g-20261115/http_history.jsonl.gz",
+    "evidence/cp4/load/entity-c3fad1b-4cpu8g-20261115/final_state.json.gz",
+    "evidence/cp4/load/request-b19acae-probe-20261115/run.json",
+    "evidence/cp4/load/request-b19acae-probe-20261115/inventory.json",
+    "evidence/cp4/load/request-b19acae-probe-20261115/http_history.jsonl.gz",
+    "evidence/cp4/load/request-b19acae-probe-20261115/final_state.json.gz"
+  ],
+  "full_build_identity_same": false,
+  "reason": "Build fingerprint deliberately includes docs and README; delivery documentation changes it. No acceptance receipt was rewritten to the aggregate build.",
+  "review_note": "An initial whole-build equality assertion failed because of four added delivery docs and changed README/handoff; no runtime source difference was found. The following commit and push did proceed because the shell commands were not fail-fast. This verification corrects the scope rather than claiming that failed assertion passed."
+}

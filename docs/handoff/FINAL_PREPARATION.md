@@ -55,7 +55,7 @@ git merge origin/work/roadshow-preparation
 
 阶段计时随后直接观察到写锁长等待和后到越过，持锁业务中库存构造约占三分之二。`5f25604` 将校验改为事务实际资源输入变化驱动，对受影响节点检查全部现有声明；拓扑、隔离、未知结构保守全量，启动建立完整语义基线。builtin 首次匹配按原顺序逐节点求值，128 节点定向例只解码选中节点，原有 whole/MIG 轨迹由冻结旧实现对照。每个 SQLiteStore 内部增加至多64票的 FIFO，跨进程仍由 SQLite 授权，不宣称全局公平。API、权限、原租约、FULL 持久化与单库原子性保持。
 
-详见 [事先协议](../architecture/RESOURCE_LOCALITY_PROTOCOL.md)、[写入准入](../architecture/WRITER_ADMISSION.md) 和 [独立资源审查](../../evidence/resource-locality/review.md)。当前5f25604的源摘要为 `4f4dd64f0f473a96751a60e37b74bd1cc0f3eab49d3658a16a63fdcd894c1c4d`，331 个源文件；汇总提交只增加交付资料，不能将运行回执的原 Git 身份改成汇总 HEAD。
+详见 [事先协议](../architecture/RESOURCE_LOCALITY_PROTOCOL.md)、[写入准入](../architecture/WRITER_ADMISSION.md) 和 [独立资源审查](../../evidence/resource-locality/review.md)。当前5f25604的源摘要为 `4f4dd64f0f473a96751a60e37b74bd1cc0f3eab49d3658a16a63fdcd894c1c4d`，331 个源文件；汇总提交只增加交付资料，不能将运行回执的原 Git 身份改成汇总 HEAD。构建摘要包含 docs 和 README，交付文档也会改变完整摘要；已另逐路径确认生产代码、契约、测试、部署与依赖和5f25604一致，但这不等于汇总构建重新通过验收。
 
 ## 已有实测与当前门槛
 
