@@ -2,6 +2,7 @@ import {useState,type FormEvent} from 'react';
 import {ApiClient,ApiError,detail,encodeId,items,list,object,text,type ApiResult} from '../api';
 import {useLookupQuery,useQuery} from '../hooks';
 import {downloadJson,downloadJsonText,ErrorNotice,Field,LookupStatus,Metadata,Panel,QueryFeedback,RawData,Receipt,Refresh,Status,Table} from './common';
+import {PolicyValidation} from './PolicyValidation';
 
 const artifactNames:Record<string,string>={input:'固定输入',summary:'汇总',events:'事件',decisions:'决策',receipts:'提交回执','final-snapshot':'最终快照','run-metadata':'运行元数据'};
 export function Experiments({api}:{api:ApiClient}) {
@@ -21,6 +22,7 @@ export function Experiments({api}:{api:ApiClient}) {
     finally{setBusy(false);}
   }
   return <>
+    <PolicyValidation api={api}/>
     <Panel title="隔离实验记录" description="实验拥有独立输入、策略、种子与输出，不修改运营实例。读写均由服务端核验管理员权限。">
       <form className="inline-form" onSubmit={submit}><Field label="Run ID"><input value={input} onChange={e=>setInput(e.target.value)} required placeholder="run-…"/></Field><button className="button primary" disabled={query.loading}>{query.loading?'正在查询…':'查询实验'}</button>{id&&<Refresh loading={query.loading} onClick={query.refresh}/>}</form><LookupStatus query={query}/>
       <p className="helper">CP2 研发样例只验证流程与证据，不构成 CP3 正式效果比较，也不代表真实 GPU 性能。</p>

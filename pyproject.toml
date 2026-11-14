@@ -18,10 +18,11 @@ dependencies = [
 dev = ["httpx>=0.28,<1", "pytest>=8,<10", "jsonschema>=4.23,<5", "ruff>=0.11,<1"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/campus_fabric"]
+packages = ["src/campus_fabric", "experiments"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
 addopts = "-ra"
 
 [tool.ruff]

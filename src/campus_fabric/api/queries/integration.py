@@ -16,7 +16,14 @@ from campus_fabric.contracts.models import (
 )
 from campus_fabric.projections.read_models import InventoryRead, OverviewRead
 
-from .service import ArtifactReader, EvidenceReader, ExperimentRunner, QueryFailure, QueryServices
+from .service import (
+    ArtifactReader,
+    EvidenceReader,
+    ExperimentRunner,
+    PolicyValidationReader,
+    QueryFailure,
+    QueryServices,
+)
 
 
 def make_kernel_services(
@@ -27,6 +34,7 @@ def make_kernel_services(
     evidence_reader: EvidenceReader | None = None,
     artifact_reader: ArtifactReader | None = None,
     experiment_runner: ExperimentRunner | None = None,
+    policy_validation_reader: PolicyValidationReader | None = None,
 ) -> QueryServices:
     """Bind A's Kernel and HTTPIdentity to B's read adapters.
 
@@ -89,5 +97,6 @@ def make_kernel_services(
         read_port=kernel, resolve_actor=identity.actor, inventory_reader=inventory_reader,
         evidence_reader=evidence_reader, artifact_reader=artifact_reader,
         experiment_runner=experiment_runner,
+        policy_validation_reader=policy_validation_reader,
         clock_origin=clock_origin, cp1_advisory_actions=True, overview_reader=overview_reader,
     )
