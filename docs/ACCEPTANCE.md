@@ -1,6 +1,6 @@
-# CP0 验收入口与后续证据门禁
+# 验收入口与证据门禁
 
-本仓库当前交付 CP0：可审阅的设计、契约、配置、六区前端骨架和本地 HTTP 开发入口。`/healthz` 与 `/v1/version` 可运行，其余 19 个官方操作显式返回 501。静态检查、类型生成、测试工具自测、前端构建和服务启动，分别证明各自执行过的事情；均不代表 21 个操作合规、账本正确或成品可用。
+当前为 CP2 A 后端交付：官方 21 个操作均有实际处理器，回收恢复和 CPU reference 专项入口位于 `tests/acceptance/cp2/`。后端实现、单项实测、B 六工作台与三角色联合验收分别记录；当前联合 CP2 尚未放行。详见 [CP2 交付记录](CP2_A_DELIVERY.md)。
 
 正式目标来自 [终态产品](blueprint/01_终态产品与独立复审.md)、[双人作战书](blueprint/02_双人24小时正向开发作战书.md) 与 [交汇契约](blueprint/03_交汇契约与验收规格.md)。交接节点见 [CHECKPOINTS](handoff/CHECKPOINTS.md)。
 
@@ -12,13 +12,15 @@
 make cp0
 make checkpoint CP=CP0
 make checkpoint CP=CP1
+make cp2-a
+make checkpoint CP=CP2
 ```
 
 `make cp0` 执行仓库规定的契约导出/类型一致性、pytest、前端构建、静态检查和真实本地服务冒烟。单独的 `uv run python scripts/check_cp0.py` 只执行静态部分，输出 `evidence/cp0/static_receipt.json`。`scripts/smoke_cp0.py` 的实际 HTTP 子进程检查输出独立的 `runtime_receipt.json`。不能从一份静态回执推断其余构建步骤已经执行。
 
 `make checkpoint CP=CP0` 核对这两份回执的具体检查 ID、结果和当前构建身份，输出 `cp0_static_and_host_only`。其中的 `MET` 只表示这些 CP0 检查有有效记录，`product_acceptance` 仍为 `NOT_RUN`。它不重新运行 npm 或 pytest，也不把契约样例当作真实任务记录。
 
-`make checkpoint CP=CP1` 至 `CP5` 读取对应 `evidence/cpN/receipt.json`。当前没有这些运行证据，命令必须以非零退出码报告 `NOT_RUN` 或 `NOT_MET`。测试文件存在、前端能构建、HTTP 返回 501，均不能满足后续检查点。
+`make checkpoint CP=CP1` 至 `CP5` 读取对应 `evidence/cpN/receipt.json`。缺少完整、有效、当前构建的运行证据时，命令必须以非零退出码报告 `NOT_RUN` 或 `NOT_MET`。测试文件存在、前端能构建、HTTP 返回 501，均不能满足后续检查点。
 
 ## CP0 静态检查实际检查什么
 
@@ -33,7 +35,7 @@ make checkpoint CP=CP1
 
 ## CP1—CP5 回执格式
 
-配置中的 `status: NOT_RUN` 是初始计划快照。实际状态由当前回执计算；不要只改配置状态。每项期望、目标 ID 和允许证据类型在配置中登记，不能通过缩小回执判据来通过检查。后续真实验证器登记在 `validator_path`，位于 `tests/acceptance/cpN/`；这些验证器在 CP0 尚未实现。实施时可审阅后更正登记路径，再生成运行证据。
+配置中的 `status: NOT_RUN` 是初始计划快照。实际状态由当前回执计算；不要只改配置状态。每项期望、目标 ID 和允许证据类型在配置中登记，不能通过缩小回执判据来通过检查。真实验证器登记在 `validator_path`，位于 `tests/acceptance/cpN/`。CP1/CP2 已有可执行入口；后续阶段仍需实际实现和运行。登记路径不证明已经执行。
 
 完整回执结构如下。示意值必须换成实际执行结果；省略的检查不会通过门禁。
 
@@ -91,3 +93,5 @@ uv run python scripts/check_checkpoint.py --build-id
 `MET / NOT_MET / NOT_RUN` 对应团队明确目标。效果、规模、延迟目标未达到时保留 `NOT_MET` 和原始结果，不删困难输入、不改分母，也不因此否认已真实成立的其他能力。继续修复与交接不受这些命令的时间限制；门禁只阻止把缺证据或未达目标写成已经达成。
 
 CP0 之后的完整工作仍由 A（Woebegone-67）和 B（xuyangma）按交接文档分工。运行正式验证前，先冻结输入、模型、策略、构建和判据；验收记录必须分清本地重放、独立复核、真实执行和外部提交。
+
+CP2 A 完整入口 `make cp2-a` 实际运行工程检查、CP1 回归及八项后端验证器，生成 `evidence/cp2/a_core_receipt.json`；它同时写入联合 `receipt.json`，但因六工作台/三角色证据缺失而保持 `NOT_MET`，`CP2-SIX-WORKSPACES` 为 `NOT_RUN`。因此 A 入口成功而联合门禁拒绝放行是预期结果。

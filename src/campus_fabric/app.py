@@ -1,9 +1,12 @@
-"""CP1 assembly: one persistent command kernel and replaceable read adapters."""
+"""CP2 assembly: one persistent command kernel and replaceable read adapters."""
 
 from __future__ import annotations
 
+import asyncio
 import json
+import logging
 import os
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException, Request
@@ -13,6 +16,7 @@ from pydantic import ValidationError
 
 from campus_fabric import __version__
 from campus_fabric.api.mutations.http import assign_request_id, mount_cp1
+from campus_fabric.api.test_control.faults import fault_targets, intercept_fault
 from campus_fabric.auth.http import HTTPIdentity
 from campus_fabric.contracts.models import NodeInventory
 from campus_fabric.domain.kernel import Kernel
@@ -20,27 +24,10 @@ from campus_fabric.domain.kernel import Kernel
 ROOT = Path(__file__).resolve().parents[2]
 
 
-def pending_handler(operation):
-    async def endpoint(request: Request):
-        # Test endpoints remain unavailable rather than pretending CP2 is complete.
-        if operation["path"].startswith("/_test/"):
-            request.app.state.identity.test_actor(request)
-        else:
-            request.app.state.identity.actor(request)
-        return JSONResponse(status_code=501, content={
-            "error": "not_implemented",
-            "detail": "This operation belongs to CP2 and is not implemented in CP1.",
-            "operation_id": operation["operation_id"], "owner": operation["owner"],
-            "checkpoint": "CP1", "request_id": request.state.request_id,
-        })
-    return endpoint
-
-
 def create_app(data_dir=None, inventory=(), test_key=None, auth_tokens=None,
-               simulation_duration_seconds=10.0, scheduling_mode=None) -> FastAPI:
-    mode = os.environ.get("FABRIC_MODE", "logical_simulation")
-    if mode != "logical_simulation":
-        raise ValueError("CP1 supports logical_simulation only; CPU execution is not implemented")
+               simulation_duration_seconds=10.0, scheduling_mode=None,
+               execution_mode=None, cpu_config=None) -> FastAPI:
+    mode = execution_mode or os.environ.get("FABRIC_MODE", "logical_simulation")
     if data_dir is None:
         instance = os.environ.get("FABRIC_INSTANCE", "local")
         if not instance or any(char not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_" for char in instance):
@@ -66,21 +53,63 @@ def create_app(data_dir=None, inventory=(), test_key=None, auth_tokens=None,
     scheduling_mode = scheduling_mode or os.environ.get("FABRIC_SCHEDULING_MODE", "builtin")
     kernel = Kernel(data_dir / "fabric.sqlite3", inventory=inventory,
                     simulation_duration_seconds=simulation_duration_seconds,
-                    scheduling_mode=scheduling_mode)
-    app = FastAPI(title="Campus Fabric — CP1 control plane", version=__version__,
-                  description="Persistent logical simulation; CP2 recovery and real execution pending.")
+                    scheduling_mode=scheduling_mode, execution_mode=mode)
+    app = FastAPI(title="Campus Fabric — CP2 control plane", version=__version__,
+                  description="Persistent leases, interruption recovery and bounded fault controls.")
     app.state.kernel = kernel
     app.state.identity = identity
+    app.state.cpu_driver = None
+    if mode == "cpu_reference":
+        from campus_fabric.executors.cpu_reference import CpuReferenceExecutor
+        from campus_fabric.executors.driver import CpuDriver
+        executor = CpuReferenceExecutor(data_dir / "cpu-executor", config=cpu_config)
+        driver = CpuDriver(kernel, executor, lock_path=data_dir / "cpu-driver.lock")
+        app.state.cpu_driver = driver
+
+        @asynccontextmanager
+        async def cpu_lifespan(_app):
+            driver.start()
+            async def run():
+                while True:
+                    try:
+                        await asyncio.to_thread(driver.tick)
+                    except asyncio.CancelledError:
+                        raise
+                    except Exception:
+                        logging.getLogger(__name__).exception("CPU driver reconciliation failed")
+                    await asyncio.sleep(.05)
+            task = asyncio.create_task(run())
+            try:
+                yield
+            finally:
+                task.cancel()
+                try:
+                    await task
+                except asyncio.CancelledError:
+                    pass
+                await asyncio.to_thread(driver.close)
+        app.router.lifespan_context = cpu_lifespan
+
+    catalogue = json.loads((ROOT / "contracts/api_ownership.json").read_text())
+    app.state.fault_targets = fault_targets(catalogue)
 
     @app.middleware("http")
     async def correlation(request, call_next):
         try:
             assign_request_id(request)
+            if app.state.cpu_driver is not None and request.url.path in {"/_test/clock", "/x/v1/admin/clock"}:
+                await asyncio.to_thread(app.state.cpu_driver.tick)
+            response = await intercept_fault(request, kernel, identity, app.state.fault_targets)
+            if response is None:
+                response = await call_next(request)
         except HTTPException as exc:
-            return JSONResponse(status_code=exc.status_code,
-                                content={"error": "invalid_request", "detail": exc.detail})
-        response = await call_next(request)
-        response.headers["X-Request-Id"] = request.state.request_id
+            response = JSONResponse(status_code=exc.status_code, content={
+                "error": {401: "unauthorized", 403: "forbidden"}.get(
+                    exc.status_code, "invalid_request"),
+                "detail": exc.detail, "request_id": getattr(request.state, "request_id", None),
+            })
+        if hasattr(request.state, "request_id"):
+            response.headers["X-Request-Id"] = request.state.request_id
         return response
 
     @app.exception_handler(HTTPException)
@@ -102,27 +131,37 @@ def create_app(data_dir=None, inventory=(), test_key=None, auth_tokens=None,
     @app.get("/healthz")
     def health():
         kernel.decision_snapshot()  # Exercise a coherent persisted read.
-        return {"status": "ok", "checkpoint": "CP1", "control_plane_ready": True,
+        return {"status": "ok", "checkpoint": "CP2", "control_plane_ready": True,
                 "checkpoint_passed": False}
 
     @app.get("/v1/version")
     def version():
         return {"api_version": "2.0.0", "implementation_version": __version__,
-                "checkpoint": "CP1", "checkpoint_passed": False,
-                "execution_mode": "logical_simulation", "scheduling_mode": scheduling_mode,
+                "checkpoint": "CP2", "checkpoint_passed": False,
+                "execution_mode": mode, "scheduling_mode": scheduling_mode,
                 "capabilities": {
                     "contracts": True, "resource_ledger": True,
-                    "scheduler": True, "checkpoint_recovery": False,
-                    "real_gpu_execution": False, "real_cpu_execution": False,
+                    "scheduler": True, "checkpoint_recovery": True,
+                    "real_gpu_execution": False, "real_cpu_execution": mode == "cpu_reference",
                 }}
+
+    @app.get("/x/v1/artifacts")
+    def artifact(request: Request, uri: str):
+        actor = identity.actor(request)
+        if app.state.cpu_driver is None or actor.owner_id is None:
+            raise HTTPException(404, "Artifact not found")
+        from campus_fabric.executors.cpu_reference import ExecutorRejected
+        try:
+            return app.state.cpu_driver.executor.read_artifact(
+                uri, owner_id=actor.owner_id, epoch=kernel.store.read()["epoch"])
+        except (ExecutorRejected, OSError):
+            raise HTTPException(404, "Artifact not found") from None
 
     mount_cp1(app, kernel, identity)
     existing = {(method, route.path) for route in app.routes
                 for method in (getattr(route, "methods", None) or [])}
-    catalogue = json.loads((ROOT / "contracts/api_ownership.json").read_text())
-    for operation in catalogue["operations"]:
-        if (operation["method"], operation["path"]) not in existing:
-            app.add_api_route(operation["path"], pending_handler(operation),
-                              methods=[operation["method"]], name=operation["operation_id"],
-                              description="CP2 operation; honest 501 after authentication.")
+    missing = [item["operation_id"] for item in catalogue["operations"]
+               if (item["method"], item["path"]) not in existing]
+    if missing:
+        raise RuntimeError(f"Frozen API operations are not mounted: {missing}")
     return app

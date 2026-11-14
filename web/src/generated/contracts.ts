@@ -338,6 +338,12 @@ export type AllocationId10 = string;
 export type CreatedAt = number;
 export type ExpiresAt1 = number | null;
 export type OwnerId8 = string;
+export type PendingTerminal = ("Released" | "Expired" | "Evicted") | null;
+export type CheckpointDue = number;
+export type Deadline1 = number;
+export type Reason = "contributor_recall";
+export type RequestedAt = number;
+export type RestartCount = number;
 export type State3 =
   | "Pending"
   | "Allocated"
@@ -385,8 +391,13 @@ export type State6 = "pending" | "waiting" | "running" | "completed" | "failed" 
 export type Intents = WorkIntent[];
 export type AllocationId11 = string;
 export type CreatedAt2 = number;
+export type ExecutionMode4 = "logical_simulation" | "cpu_reference";
+export type Failure = string | null;
+export type FinishedAt1 = number | null;
 export type JobId2 = string;
 export type OwnerId10 = string;
+export type ResultUri1 = string | null;
+export type RetryCount = number;
 export type State7 = "Pending" | "Running" | "Checkpointing" | "Preempted" | "Succeeded" | "Failed" | "Cancelled";
 export type Jobs = JobView[];
 export type Explanation1 = string;
@@ -868,12 +879,22 @@ export interface ReadSnapshot {
 }
 export interface AllocationView {
   allocation_id: AllocationId10;
+  checkpoint?: CheckpointFact | null;
   created_at: CreatedAt;
   expires_at?: ExpiresAt1;
   owner_id: OwnerId8;
+  pending_terminal?: PendingTerminal;
   placement?: Placement | null;
+  preemption?: PreemptionInfo | null;
   request: ResourceRequest;
+  restart_count?: RestartCount;
   state: State3;
+}
+export interface PreemptionInfo {
+  checkpoint_due: CheckpointDue;
+  deadline: Deadline1;
+  reason: Reason;
+  requested_at: RequestedAt;
 }
 export interface WorkIntent {
   allocation_ids?: AllocationIds;
@@ -912,9 +933,15 @@ export interface StageReceipt {
 export interface JobView {
   allocation_id: AllocationId11;
   attempt?: AttemptRef | null;
+  checkpoint?: CheckpointFact | null;
   created_at: CreatedAt2;
+  execution_mode?: ExecutionMode4;
+  failure?: Failure;
+  finished_at?: FinishedAt1;
   job_id: JobId2;
   owner_id: OwnerId10;
+  result_uri?: ResultUri1;
+  retry_count?: RetryCount;
   state: State7;
 }
 export interface LegalAction {

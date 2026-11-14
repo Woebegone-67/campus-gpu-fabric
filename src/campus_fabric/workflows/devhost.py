@@ -142,8 +142,10 @@ def create_app(*, worker_enabled=True, **core_options):
                 LOG.exception("Workflow pass failed; persisted work is preserved")
             await asyncio.sleep(0.5)
 
+    core_lifespan = app.router.lifespan_context
+
     @asynccontextmanager
-    async def lifespan(_app):
+    async def worker_lifespan(_app):
         task = asyncio.create_task(run_worker()) if worker_enabled else None
         try:
             yield
@@ -154,6 +156,12 @@ def create_app(*, worker_enabled=True, **core_options):
                     await task
                 except asyncio.CancelledError:
                     pass
+
+    @asynccontextmanager
+    async def lifespan(_app):
+        # Preserve the core CPU clock/outbox driver when composing B's workflow host.
+        async with core_lifespan(_app), worker_lifespan(_app):
+            yield
 
     app.router.lifespan_context = lifespan
     return app

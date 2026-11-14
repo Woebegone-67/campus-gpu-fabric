@@ -61,7 +61,7 @@ def test_host_workflow_clock_settlement_authorization_and_honest_acceptance(tmp_
         assert completed["jobs"][0]["state"] == "Succeeded"
         assert completed["allocations"][0]["state"] == "Released"
         aid = completed["allocations"][0]["id"]
-        assert client.post(f"/v1/allocations/{aid}/resume", headers=ALICE).status_code == 501
+        assert client.post(f"/v1/allocations/{aid}/resume", headers=ALICE).status_code == 409
         acceptance = client.get("/x/v1/acceptance", headers=ADMIN)
         assert acceptance.status_code == 200, acceptance.text
         assert acceptance.json()["status"] == "NOT_RUN"

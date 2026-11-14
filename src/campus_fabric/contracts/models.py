@@ -879,7 +879,7 @@ class NodeStateParameters(ContractModel):
 
 class FaultParameters(ContractModel):
     kind: Literal["test.fault"]
-    target_operation: Identifier
+    target_operation: Text
     mode: Literal["none", "429", "500", "503", "latency"]
     count: Annotated[int, Field(ge=0, le=20)] | None = None
     delay_ms: Annotated[int, Field(ge=0, le=30000)] | None = None
@@ -973,6 +973,13 @@ class CommandEnvelope(ContractModel):
         return self
 
 
+class PreemptionInfo(ContractModel):
+    requested_at: LogicalTime
+    deadline: LogicalTime
+    checkpoint_due: LogicalTime
+    reason: Literal["contributor_recall"]
+
+
 class AllocationView(ContractModel):
     allocation_id: Identifier
     owner_id: Identifier
@@ -991,6 +998,10 @@ class AllocationView(ContractModel):
     created_at: LogicalTime
     placement: Placement | None = None
     expires_at: LogicalTime | None = None
+    preemption: PreemptionInfo | None = None
+    checkpoint: CheckpointFact | None = None
+    restart_count: NonnegativeInt = 0
+    pending_terminal: Literal["Released", "Expired", "Evicted"] | None = None
 
 
 class JobView(ContractModel):
@@ -1002,6 +1013,13 @@ class JobView(ContractModel):
     ]
     created_at: LogicalTime
     attempt: AttemptRef | None = None
+
+    execution_mode: ExecutionMode = "logical_simulation"
+    retry_count: NonnegativeInt = 0
+    checkpoint: CheckpointFact | None = None
+    result_uri: Text | None = None
+    failure: Text | None = None
+    finished_at: LogicalTime | None = None
 
     @model_validator(mode="after")
     def attempt_target(self) -> JobView:

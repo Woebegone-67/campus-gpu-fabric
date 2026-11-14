@@ -1,4 +1,4 @@
-name: Contracts and CP1 technical integration
+name: CP2 A core and CP1 regression
 on:
   push:
   pull_request:
@@ -24,18 +24,16 @@ jobs:
           cache-dependency-path: web/package-lock.json
       - run: uv python install 3.12
       - run: make setup
-      - run: make cp0
-      - run: uv run python scripts/accept_cp1_a.py
-      - run: uv run python scripts/accept_cp1_joint.py
-      - run: npm --prefix web run test:client
+      - run: make cp2-a
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: cp1-technical-evidence
+          name: cp2-a-core-evidence
           path: |
             evidence/cp0/*.json
             evidence/cp1/a_core_receipt.json
             evidence/cp1/a_core_http_history.json
             evidence/cp1/joint_backend_receipt.json
             evidence/cp1/joint_backend_history.json
+            evidence/cp2/
           if-no-files-found: ignore

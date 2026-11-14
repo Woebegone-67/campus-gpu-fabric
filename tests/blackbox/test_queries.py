@@ -217,7 +217,8 @@ def test_explicit_registration_replaces_get_stubs_without_changing_writes(tmp_pa
         register_queries(app, configured())
     register_queries(app, configured(), replace_existing=True)
     current = TestClient(app)
-    assert current.get("/v1/allocations").status_code == 200
+    assert current.get("/v1/allocations").status_code == 401
+    assert current.get("/v1/allocations", headers={"X-Owner": ACTOR.owner_id}).status_code == 200
     assert current.post("/v1/allocations", json={}).status_code == 401
     assert current.post("/_test/reset").status_code == 403
     assert current.get("/healthz").json()["control_plane_ready"] is True

@@ -1,6 +1,6 @@
 # 权威状态、资源占用与执行代次
 
-本页描述完整状态设计。CP1 已实现正常分配、执行、租约和事务；PreemptRequested/Preempted/Evicted、真实执行隔离与恢复仍属 CP2 待实现范围。A 写唯一账本；B 只消费带 `VersionStamp(epoch,revision)` 的不可变快照。状态、占用差量、事件与幂等/阶段回执同一 SQLite 事务提交；外部执行通过持久 outbox 驱动，回调核对 epoch、attempt_id、generation。
+本页描述权威状态设计。CP2 A 已实现 PreemptRequested/Preempted/Evicted、真实 CPU 停止确认与恢复；B 界面及三角色联合验收仍待完成。A 写唯一账本；B 只消费带 `VersionStamp(epoch,revision)` 的不可变快照。状态、占用差量、事件与幂等/阶段回执同一 SQLite 事务提交；外部执行通过持久 outbox 驱动，回调核对 epoch、attempt_id、generation。
 
 | allocation 状态 | 占用 | 合法后续/触发 |
 |---|---|---|
@@ -25,4 +25,6 @@ job保持同一ID，契约状态为 Pending→Running→Succeeded/Failed/Cancell
 - I6 时间/预算：按所有到期边界推进；通知、expiry及两种预算均遵守语义表；ready报告、工件核验、实际恢复是三个事实。
 - I7 信息：策略输入只到当前逻辑时刻；修改未出现输入不能改变共同前缀；读投影不能反向改权威状态。
 
-A用独立小参考模型和并发历史验证 I1–I6；B用跨Owner查询、前缀对照和实际decision解释验证 I3/I7。`make checkpoint CP=CP1` 起各项必须附实际历史；CP1 A 已有独立内核和 HTTP 验证，见 docs/handoff/CP1_A_TO_B.md；联合 UI、故障与真实执行不可沿用此结论。
+A 的领域反例、独立资源历史与真实进程测试分别检查 I1–I6 的具体分支；它们不是对全部可能历史的形式证明。B 负责跨Owner查询、前缀对照和实际decision解释的 I3/I7 验证。`make checkpoint CP=CP1` 起各项必须附实际历史；CP1 A 已有独立内核和 HTTP 验证，见 docs/handoff/CP1_A_TO_B.md；联合 UI、故障与真实执行不可沿用此结论。
+
+CPU 停止请求与终态分开：公开 allocation 在确认前保留 `PreemptRequested` 和 placement，`pending_terminal` 表示请求的最终结果。同一次停止确认须同时结清取消/超时、贡献者回收与显式释放，终态优先。reset 清除公开工作后，未确认进程保存在私有 retired fence；旧回调只能解除对应隔离，不能复活旧工作。
