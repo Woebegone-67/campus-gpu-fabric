@@ -114,16 +114,34 @@ test('same experiment ID submit fetches fresh results',async()=>{
 });
 
 test('hash navigation opens a decision and changing its parameter loads the other decision',async()=>{
-  dom.window.history.replaceState(null,'','#decisions?decision=decision-one');
+  dom.window.history.replaceState(null,'','/?visual=classic#decisions?decision=decision-one');
   globalThis.location=dom.window.location;
-  globalThis.fetch=async(path)=>{requests.push({path});return json(path==='/healthz'?{control_plane_ready:true}:decision(path.split('/').at(-1)));};
-  await render(<App/>);
-  assert.equal(field('决策 ID').value,'decision-one');
-  assert.equal(requests.filter(r=>r.path==='/x/v1/decisions/decision-one').length,1);
-  await interact(()=>{dom.window.history.replaceState(null,'','#decisions?decision=decision-two');dom.window.dispatchEvent(new dom.window.HashChangeEvent('hashchange'));});
-  assert.equal(field('决策 ID').value,'decision-two');
-  assert.equal(requests.filter(r=>r.path==='/x/v1/decisions/decision-two').length,1);
-  assert.doesNotMatch(container.textContent,/说明 decision-one/);
+  const frames={request:globalThis.requestAnimationFrame,cancel:globalThis.cancelAnimationFrame};
+  globalThis.requestAnimationFrame=callback=>setTimeout(()=>callback(0),0);
+  globalThis.cancelAnimationFrame=id=>clearTimeout(id);
+  globalThis.fetch=async(path)=>{
+    requests.push({path});
+    if(path==='/healthz')return json({control_plane_ready:true});
+    if(path==='/v1/version')return json({checkpoint:'CP4',execution_mode:'logical_simulation',capabilities:{}});
+    if(path==='/x/v1/session')return json({actor_id:'synthetic-bob',owner_id:'bob',capabilities:['use_compute'],is_administrator:false});
+    return json(decision(path.split('/').at(-1)));
+  };
+  try{
+    await render(<App/>);
+    await interact(()=>button('导入或切换账户').click());
+    await uploadProfiles();
+    await interact(()=>{const select=container.querySelector('.identity-panel select');select.value='bob';select.dispatchEvent(new dom.window.Event('change',{bubbles:true}));});
+    assert.equal(field('决策 ID').value,'decision-one');
+    assert.equal(requests.filter(r=>r.path==='/x/v1/decisions/decision-one').length,1);
+    await interact(()=>{dom.window.history.replaceState(null,'','#decisions?decision=decision-two');dom.window.dispatchEvent(new dom.window.HashChangeEvent('hashchange'));});
+    assert.equal(field('决策 ID').value,'decision-two');
+    assert.equal(requests.filter(r=>r.path==='/x/v1/decisions/decision-two').length,1);
+    assert.doesNotMatch(container.textContent,/说明 decision-one/);
+  }finally{
+    await render(null);
+    if(frames.request)globalThis.requestAnimationFrame=frames.request;else delete globalThis.requestAnimationFrame;
+    if(frames.cancel)globalThis.cancelAnimationFrame=frames.cancel;else delete globalThis.cancelAnimationFrame;
+  }
 });
 
 test('owner-scoped decision explains limited visibility without claiming global rejection',async()=>{

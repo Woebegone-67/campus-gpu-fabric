@@ -1,0 +1,63 @@
+/* CP4-only skin. The approved engine/preset and starter material CSS are unchanged.
+   Removing .cp4-starwave restores the original layout and palette. */
+.app.cp4-starwave {height:100dvh;min-height:0;background:#000;color:#f1f1f1;color-scheme:dark}
+.cp4-starwave>.sidebar {height:100%;min-height:0;background:#000;color:#c9c9c9;border-right:1px solid #202020;overflow-y:auto}
+.cp4-starwave .wordmark small,.cp4-starwave .sidebar footer {color:#a1a1a1}
+.cp4-starwave .sidebar nav a {color:#c9c9c9}
+.cp4-starwave .sidebar nav a[aria-current] {background:#171717;color:#fff;box-shadow:inset 0 0 0 1px #303030}
+.cp4-starwave .sidebar nav a:hover {background:#202020}
+.cp4-starwave>main.sw-stage {padding:0;max-width:none;min-height:0;height:100%}
+.cp4-starwave .sw-content {height:100%;overflow:auto;scrollbar-color:#5a5a5a #101010;scrollbar-gutter:stable}
+.cp4-starwave .sw-scroll-content {padding:0 36px 24px;max-width:1500px;min-width:0}
+.cp4-starwave .topbar {border-color:#333;color:#c5c5c5}
+.cp4-starwave .topbar-controls {display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cp4-starwave :is(p,.helper,.field small,.metadata,.facts dt,.checkpoint-grid small,.stat-row span,.stat-row>div>small,.stat-row strong small,.page-footer,.service-mode) {color:#b7b7b7}
+.cp4-starwave :is(a,.link-button,.raw summary,.history>summary,.service-mode strong) {color:#e3e3e3}
+.cp4-starwave :is(.field>span,.eyebrow) {color:#cbcbcb}
+.cp4-starwave :is(.intro,.topbar,.service-mode,.page-footer) {text-shadow:0 1px 4px #000,0 0 14px #000}
+.cp4-starwave :is(.panel,.identity-panel) {background:rgb(92 92 92 / var(--sw-glass-alpha,.20));border:1px solid rgb(215 215 215 / .17);backdrop-filter:blur(14px) saturate(0%);-webkit-backdrop-filter:blur(14px) saturate(0%);box-shadow:inset 0 1px 0 rgb(255 255 255 / .065),inset 0 -1px 0 rgb(185 185 185 / .025),0 8px 24px rgb(0 0 0 / .1)}
+.cp4-starwave :is(.field input,.field select,.field textarea,.search,.button) {background:rgb(92 92 92 / var(--sw-glass-alpha,.20));color:#f1f1f1;border-color:rgb(215 215 215 / .25);box-shadow:inset 0 1px 4px rgb(0 0 0 / .08)}
+.cp4-starwave :is(.field input,.field select,.field textarea):disabled {background:rgb(92 92 92 / .2);color:#aaa}
+.cp4-starwave ::placeholder {color:#aaa;opacity:1}
+.cp4-starwave option {background:#202020;color:#f1f1f1}
+.cp4-starwave input::file-selector-button {font:inherit;background:#313131;color:#eee;border:1px solid #666;border-radius:3px;padding:5px 8px;margin-right:8px;cursor:pointer}
+.cp4-starwave .button.primary {background:rgb(158 158 158 / .20);border-color:rgb(195 195 195 / .37);box-shadow:inset 0 1px 0 rgb(255 255 255 / .13),0 4px 22px rgb(127 127 127 / .09);color:#fff}
+.cp4-starwave .button:hover:not(:disabled) {background:rgb(158 158 158 / .28);border-color:#999}
+.cp4-starwave .button.quiet {background:transparent;border-color:transparent;box-shadow:none;color:#c6c6c6}
+.cp4-starwave .button.quiet:hover:not(:disabled) {background:rgb(92 92 92 / .2);border-color:#555}
+.cp4-starwave :is(button,a,input,textarea,select,summary):focus-visible {outline:2px solid #ededed;outline-offset:3px}
+.cp4-starwave :is(.panel,.identity-panel) :is(.panel,.identity-panel,.button,input,select,textarea) {backdrop-filter:none;-webkit-backdrop-filter:none}
+.cp4-starwave :is(.record,.work-outcome,.lease-summary,.raw pre,fieldset) {border-color:#414141}
+.cp4-starwave :is(.empty,.raw pre,.lease-summary,.work-outcome,.checkpoint-grid>div,.capabilities>div,th) {background:rgb(28 28 28 / .7);color:#c9c9c9}
+.cp4-starwave .empty {border-color:#4b4b4b}
+.cp4-starwave td {border-color:#393939}
+.cp4-starwave .decision-rationale {color:#e2e2e2}
+.cp4-starwave .simulation-note,.cp4-starwave .timeline {border-color:#797979}
+.cp4-starwave .timeline>li {border-color:#363636}
+.cp4-starwave .timeline>li:before {background:#ccc;border-color:#171717}
+.cp4-starwave .device-choices input {accent-color:#ccc}
+/* Semantic status colours remain recognisable; no filter on business content. */
+.cp4-starwave .status {background:#30343a;color:#d0d6df}
+.cp4-starwave :is(.status-running,.status-allocated,.status-available) {background:#183b46;color:#a7deef}
+.cp4-starwave :is(.status-met,.status-succeeded,.status-completed,.status-committed,.status-applied,.status-verified) {background:#173a2a;color:#a5e7bf}
+.cp4-starwave :is(.status-failed,.status-not_met,.status-rejected,.status-evicted) {background:#4b2422;color:#ffc0b6}
+.cp4-starwave :is(.status-pending,.status-waiting,.status-preemptrequested,.status-preempted,.status-quarantined,.status-manual_action) {background:#44361c;color:#f1d49b}
+.cp4-starwave .feedback {background:#222;border-color:#505050;color:#eee}
+.cp4-starwave .feedback.warning,.cp4-starwave .service-banner {background:#302613;border-color:#9d7b3a;color:#f3d59c}
+.cp4-starwave .feedback.error {background:#351d1b;border-color:#a1574e;color:#ffc3b9}
+.cp4-starwave .feedback.success {background:#162d24;border-color:#4a8d6d;color:#b1e5c6}
+.cp4-starwave .feedback :is(p,small) {color:inherit}
+.cp4-starwave ::selection {background:#535353;color:#fff}
+@supports not ((backdrop-filter:blur(3px)) or (-webkit-backdrop-filter:blur(3px))) {
+ .cp4-starwave :is(.panel,.identity-panel) {background:rgb(43 43 43 / .92)}
+}
+@media(max-width:1100px) {.cp4-starwave .sw-scroll-content {padding:0 22px 24px}}
+@media(max-width:760px) {
+ /* Short windows / zoom must not collapse the business scroll area to zero.
+    Let the document scroll past the existing navigation when space is limited. */
+ .app.cp4-starwave {grid-template-rows:max-content minmax(160px,1fr)}
+ .cp4-starwave>.sidebar {height:auto;border-right:0;border-bottom:1px solid #262626;overflow:visible}
+ .cp4-starwave .sw-scroll-content {padding:0 16px 24px}
+ .cp4-starwave .topbar-controls {justify-content:space-between;width:100%}
+ .cp4-starwave .panel-heading {flex-wrap:wrap}
+}

@@ -35,7 +35,7 @@ export class ApiError extends Error {
   get uncertain() { return this.status === 0 || this.status >= 500; }
 }
 export class ApiClient {
-  constructor(public identity: Identity, private onMutating: (amount: number) => void = () => {}) {}
+  constructor(public identity: Identity, private onMutating: (amount: number) => void = () => {}, private canMutate: () => boolean = () => true) {}
   async registerWork(registration: unknown): Promise<ApiResult> {
     // Registration owns a stable intent ID and immutable input. Only an explicit
     // pre-commit version rejection permits replaying this same registration.
@@ -74,6 +74,7 @@ export class ApiClient {
     if (!path.startsWith('/v1/') && !path.startsWith('/x/v1/') && path !== '/healthz') throw new Error('不支持的产品接口');
     const method = options.method || 'GET';
     const mutation = method !== 'GET';
+    if (mutation && !this.canMutate()) throw new ApiError('账户能力正在重新确认，已填内容保留；确认后再提交。',409,null,{error:'account_unconfirmed'});
     const headers: Record<string, string> = {Accept: 'application/json'};
     if (this.identity.owner) headers['X-Owner'] = this.identity.owner;
     if (this.identity.token) headers.Authorization = `Bearer ${this.identity.token}`;

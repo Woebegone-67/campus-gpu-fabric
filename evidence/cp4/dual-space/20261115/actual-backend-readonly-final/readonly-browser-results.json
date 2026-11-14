@@ -1,0 +1,86 @@
+{
+  "started_at": "2026-11-14T18:09:46.250Z",
+  "origin": "http://127.0.0.1:15191",
+  "scope": "Actual local backend via Vite proxy, Alice UI file import, GET only. No synthetic records or business writes.",
+  "responses": [
+    {
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/healthz",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/healthz",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/session",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/allocations?limit=50",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/work-intents?limit=25",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/contributions?limit=50",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/work-intents?limit=25",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/allocations?limit=50",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs?limit=50",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/v1/capacity",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/contributions?limit=50",
+      "status": 200
+    }
+  ],
+  "blocked": [],
+  "pageErrors": [],
+  "screenshots": [
+    "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/dual-space/20261115/actual-backend-readonly-final/actual-backend-empty-overview-1440x900.png",
+    "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/dual-space/20261115/actual-backend-readonly-final/actual-backend-empty-work-list-1440x900.png",
+    "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/dual-space/20261115/actual-backend-readonly-final/actual-backend-empty-devices-1440x900.png"
+  ],
+  "status": "PASS",
+  "import_feedback": [
+    "已读取 client-identities.json，共 4 个身份。请在下拉框选择；当前身份未改变。",
+    "文件仅在浏览器内存解析，不上传、不写入浏览器存储。身份名称不授予权限；每个请求由后端核验。刷新页面后需重新导入。"
+  ],
+  "browserClosed": true,
+  "finished_at": "2026-11-14T18:09:49.941Z"
+}

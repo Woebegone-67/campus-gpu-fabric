@@ -1,0 +1,52 @@
+/* Task reading layout. Materials and colors remain owned by the workbench theme. */
+.work-experience{display:grid;gap:20px;min-width:0}
+.work-experience .panel-heading{margin-bottom:16px}
+.work-experience .panel-heading p,.work-experience .helper{font-size:13px}
+.work-experience table{font-size:14px}
+.work-experience .field{font-size:14px}
+.work-experience .field input,.work-experience .field select,.work-experience .search{font-size:14px}
+.work-experience .status{font-size:12px}
+.work-experience .work-disclosure{min-width:0;margin:16px 0 0}
+.work-experience .work-disclosure>summary{cursor:pointer;font-size:14px;padding:10px 0;line-height:1.5}
+.work-experience .work-disclosure[open]>summary{margin-bottom:12px}
+.work-experience .work-create,.work-experience .work-supporting-records{margin:0}
+.work-experience .work-create>summary,.work-experience .work-supporting-records>summary{font-weight:600}
+.work-experience .work-supporting-records>.panel+.panel{margin-top:16px}
+.work-experience .work-list-filters{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.work-experience .work-list-filters .search{margin:0;flex:1;min-width:180px;max-width:none}
+.work-experience .work-list-filters .work-status-filter{flex:0 1 160px;min-width:140px}
+.work-experience .work-page-scope{margin:8px 0 16px}
+.work-experience .work-list-identity{display:grid;gap:6px;min-width:160px}
+.work-experience .work-list-identity .link-button{font-weight:600}
+.work-experience .work-list-identity small{font-size:12px;opacity:.75;overflow-wrap:anywhere}
+.work-experience .empty>.button{display:block;margin:12px auto 0}
+.work-experience .work-mode-note{margin-bottom:24px}
+.work-experience .work-mode-note strong{font-size:14px}
+.work-experience .work-mode-note p{margin-top:6px}
+.work-experience .work-form-fields{border:0;padding:0;margin:0;min-width:0}
+.work-experience .work-form-fields legend,.work-experience .work-form-heading{font-size:14px;font-weight:600;margin:0 0 16px;padding:0}
+.work-experience .work-form-heading{margin-top:24px}
+.work-experience .work-form-pair{grid-template-columns:repeat(2,minmax(0,1fr))}
+.work-experience .work-detail-subtitle{margin-top:-8px}
+.work-experience .work-outcome{margin:16px 0}
+.work-experience .work-outcome .next-action{font-size:14px}
+.work-experience .work-detail-actions{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;margin:18px 0}
+.work-experience .work-detail-actions .work-secondary-actions{margin:0;flex:1;min-width:180px}
+.work-experience .work-secondary-actions .actions{margin-top:0}
+.work-experience .work-full-id{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:12px 0 20px}
+.work-experience .work-full-id code{user-select:all;overflow-wrap:anywhere;min-width:0}
+.work-experience .work-technical .facts{margin-bottom:12px}
+.work-experience .checkpoint-summary{font-size:14px;margin:12px 0 2px}
+.work-experience .checkpoint-details{margin-top:0}
+.work-experience .lease-summary{font-size:13px}
+.work-experience .raw pre{font-size:12px}
+@media(max-width:600px){
+  .work-experience{gap:16px}
+  .work-experience .form-grid,.work-experience .work-form-pair{grid-template-columns:1fr}
+  .work-experience .work-list-filters .search{min-width:0;width:100%;flex-basis:100%}
+  .work-experience .work-detail-actions{display:grid}
+  .work-experience .work-secondary-actions{min-width:0}
+  .work-experience .work-list-identity{min-width:140px}
+  .work-experience .work-full-id{display:grid}
+  .work-experience .work-full-id .button{justify-self:start}
+}
