@@ -12,7 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 IGNORED_PARTS = {'.git', '.venv', 'node_modules', '__pycache__', '.pytest_cache', '.mypy_cache', '.ruff_cache', 'dist', 'build', 'evidence', '.DS_Store'}
-BUILD_ROOTS = ('src', 'contracts', 'configs', 'semantics', 'scripts', 'tests', 'web', 'spec/official', 'docs')
+BUILD_ROOTS = ('src', 'contracts', 'configs', 'semantics', 'scripts', 'tests', 'web', 'experiments', 'spec/official', 'docs')
 BUILD_FILES = ('pyproject.toml', 'uv.lock', 'requirements.lock', 'Makefile', 'README.md', 'Dockerfile', 'compose.yaml', '.python-version')
 PLACEHOLDERS = {'', 'todo', 'tbd', 'placeholder', 'pass', 'met', 'done', 'not_run', 'stub', 'n/a'}
 

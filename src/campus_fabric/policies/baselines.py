@@ -4,8 +4,9 @@ This module proposes at most one placement. It never commits, reserves, reads a
 scenario, or predicts a duration. The kernel must recheck all constraints inside
 its transaction. Search is explicitly single-node and never proves pool-wide
 infeasibility. B1/B2 use current occupied dominant share, not a historical fair
-service guarantee. Recovery budgets/checkpoint readiness are not in the current
-DecisionSnapshot contract, so previously granted leases are not auto-resumed.
+service guarantee. Recovery eligibility is kernel-owned: a resume validated by A re-enters Pending
+without placement and is treated as a normal placement demand. Currently held
+leases are never allocated a second time.
 """
 
 from __future__ import annotations
@@ -37,7 +38,7 @@ from campus_fabric.contracts.models import (
     VersionedArtifact,
 )
 
-PolicyName = Literal["B0", "B1", "B2"]
+PolicyName = Literal["B0", "B1", "B2", "P"]
 _RESOURCE_FIELDS = ("cpu_millicores", "memory_mib", "ephemeral_storage_mib")
 
 
@@ -383,5 +384,8 @@ class BaselinePolicy:
         )
 
 
-def make_policy(name: PolicyName, *, max_candidates: int = 512) -> BaselinePolicy:
+def make_policy(name: PolicyName, *, max_candidates: int = 512):
+    if name == "P":
+        from .candidate import CandidatePolicy
+        return CandidatePolicy(max_candidates=max_candidates)
     return BaselinePolicy(name, max_candidates=max_candidates)

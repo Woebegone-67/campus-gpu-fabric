@@ -1,4 +1,4 @@
-"""CP1 composition adapter: delegate to A without adding another ledger."""
+"""Composition adapter: delegate to A without adding another operating ledger."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from typing import Any
 from campus_fabric.contracts.models import AuthenticatedActor, NodeInventory, VersionStamp
 from campus_fabric.projections.read_models import InventoryRead
 
-from .service import ArtifactReader, EvidenceReader, QueryFailure, QueryServices
+from .service import ArtifactReader, EvidenceReader, ExperimentRunner, QueryFailure, QueryServices
 
 
 def make_kernel_services(
@@ -18,13 +18,14 @@ def make_kernel_services(
     clock_origin: str | None,
     evidence_reader: EvidenceReader | None = None,
     artifact_reader: ArtifactReader | None = None,
+    experiment_runner: ExperimentRunner | None = None,
 ) -> QueryServices:
-    """Bind A's CP1 Kernel and HTTPIdentity to B's read adapters.
+    """Bind A's Kernel and HTTPIdentity to B's read adapters.
 
     The host supplies ``bootstrap_epoch.value.clock_origin`` from the shared
     semantics configuration. Evidence/artifacts stay unavailable unless the host
-    supplies actual persisted readers. Public inventory is the shared discovery
-    surface already offered by CP1; private contribution ownership is redacted by
+    supplies actual persisted readers. The signed CPU artifact URI route remains
+    A-owned. Public inventory is the shared discovery surface; private ownership is redacted by
     the public capacity route.
     """
 
@@ -46,5 +47,6 @@ def make_kernel_services(
     return QueryServices(
         read_port=kernel, resolve_actor=identity.actor, inventory_reader=inventory_reader,
         evidence_reader=evidence_reader, artifact_reader=artifact_reader,
+        experiment_runner=experiment_runner,
         clock_origin=clock_origin, cp1_advisory_actions=True,
     )

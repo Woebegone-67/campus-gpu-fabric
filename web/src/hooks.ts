@@ -37,5 +37,6 @@ export function useLookupQuery(api: ApiClient, basePath: string, initialId = '',
     else if (onSelect) onSelect(next);
     else setId(next);
   }
-  return {input, setInput, id, query, submit};
+  function open(next:string) {setInput(next);if(next===id)query.refresh();else setId(next);}
+  return {input, setInput, id, query, submit, open};
 }

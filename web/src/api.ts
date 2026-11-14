@@ -36,6 +36,27 @@ export class ApiError extends Error {
 }
 export class ApiClient {
   constructor(public identity: Identity, private onMutating: (amount: number) => void = () => {}) {}
+  async workAction(intentId: string, action: string, version: {epoch:number;revision:number}, stageId?:string): Promise<ApiResult> {
+    const path=`/x/v1/work-intents/${encodeId(intentId)}`;
+    let expected=version;
+    // Keep identity selection locked across the refresh between rejected commands.
+    this.onMutating(1);
+    try {
+      for(let attempt=0;;attempt++) {
+        try {
+          return await this.request(`${path}/actions`,{method:'POST',body:{action,expected_version:expected,...(stageId?{stage_id:stageId}:{})}});
+        } catch(error) {
+          // A known version rejection did not commit. Unknown/network failures are
+          // never automatically replayed, particularly cancel/release/resume.
+          if(!(error instanceof ApiError)||error.status!==409||apiErrorCode(error)!=='stale_version'||attempt>=2)throw error;
+          const fresh=await this.request(path);
+          const next=versionOf(fresh.data);
+          if(!next||next.epoch!==version.epoch)throw new ApiError('实例代次已改变，请重新查询工作后再操作。',409,null,{error:'epoch_changed'});
+          expected=next;
+        }
+      }
+    } finally {this.onMutating(-1);}
+  }
   async request(path: string, options: {method?: string; body?: unknown; signal?: AbortSignal; idempotencyKey?: string} = {}): Promise<ApiResult> {
     if (!path.startsWith('/v1/') && !path.startsWith('/x/v1/') && path !== '/healthz') throw new Error('不支持的产品接口');
     const method = options.method || 'GET';
@@ -77,5 +98,9 @@ export class ApiClient {
       if (mutation) this.onMutating(-1);
     }
   }
+}
+export function apiErrorCode(error:ApiError):string {
+  const record=object(error.data),receipt=object(record.receipt??record.commit_receipt??record);
+  return text(record.error,text(object(receipt.error).code,''));
 }
 export const encodeId = (value: string) => encodeURIComponent(value);

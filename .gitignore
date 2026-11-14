@@ -34,3 +34,4 @@ evidence/cp2/*tcp_receipt.json
 evidence/cp2/*tests.xml
 evidence/cp2/*history.json
 evidence/cp2/cpu_downtime_after_fix.json
+evidence/cp2/b/

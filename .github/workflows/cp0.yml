@@ -1,4 +1,4 @@
-name: CP2 A core and CP1 regression
+name: CP2 integrated backend and UI regression
 on:
   push:
   pull_request:
@@ -25,10 +25,12 @@ jobs:
       - run: uv python install 3.12
       - run: make setup
       - run: make cp2-a
+      - run: npm --prefix web run test:ui
+      - run: uv run python scripts/accept_cp2_b.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: cp2-a-core-evidence
+          name: cp2-integrated-evidence
           path: |
             evidence/cp0/*.json
             evidence/cp1/a_core_receipt.json

@@ -6,7 +6,7 @@ import math
 from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import datetime, timezone
-from typing import Any
+from typing import Any, Protocol
 
 from fastapi import Request
 from pydantic import ValidationError
@@ -34,6 +34,20 @@ ActorResolver = Callable[[Request], AuthenticatedActor]
 InventoryReader = Callable[[AuthenticatedActor], InventoryRead]
 EvidenceReader = Callable[[AuthenticatedActor], EvidenceRead]
 ArtifactReader = Callable[[AuthenticatedActor, str, str], ArtifactRead | None]
+
+
+class ExperimentRunner(Protocol):
+    """Registered, isolated experiments; never a caller-supplied scenario or URL."""
+
+    def catalog(self) -> list[dict]: ...
+
+    def submit(self, *, actor: AuthenticatedActor, scenario_id: str,
+               policy: str, seed: int = 0) -> EvidenceRun: ...
+
+    def list_runs(self, actor: AuthenticatedActor) -> tuple[OwnedEvidence, ...]: ...
+
+    def artifact(self, actor: AuthenticatedActor, run_id: str,
+                 artifact_id: str) -> tuple[bytes, str]: ...
 
 
 class QueryFailure(Exception):
@@ -73,8 +87,16 @@ class QueryServices:
     inventory_reader: InventoryReader | None = None
     evidence_reader: EvidenceReader | None = None
     artifact_reader: ArtifactReader | None = None
+    experiment_runner: ExperimentRunner | None = None
     clock_origin: str | None = None
     cp1_advisory_actions: bool = False
+
+    def experiments(self, actor: AuthenticatedActor) -> ExperimentRunner:
+        if actor.role != "administrator":
+            raise QueryFailure(403, "forbidden", "Administrator authority is required.")
+        if self.experiment_runner is None:
+            raise unavailable("Isolated experiment runner")
+        return self.experiment_runner
 
     def actor(self, request: Request) -> AuthenticatedActor:
         if self.resolve_actor is None:

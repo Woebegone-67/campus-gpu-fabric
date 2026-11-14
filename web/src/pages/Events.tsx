@@ -1,15 +1,16 @@
 import {useState} from 'react';
-import {ApiClient,detail,encodeId,items,list,object,text} from '../api';
-import {useLookupQuery,useQuery} from '../hooks';
+import {ApiClient,encodeId,items,list,object,text} from '../api';
+import {useQuery} from '../hooks';
+import {Experiments} from '../components/Experiments';
 import {decisionHref,workHref} from '../navigation';
-import {downloadJson,Field,LookupStatus,Metadata,Panel,QueryFeedback,RawData,Refresh,Status,Table} from '../components/common';
+import {downloadJson,Metadata,Panel,QueryFeedback,RawData,Refresh} from '../components/common';
 
 const eventLabels:Record<string,string>={
   'intent.registered':'工作已登记','allocation.requested':'已申请资源','allocation.granted':'资源已分配',
   'decision.committed':'决策已提交','job.started':'任务开始运行','job.succeeded':'任务运行成功',
   'job.failed':'任务运行失败','job.cancelled':'任务已取消','intent.completed':'工作已完成',
   'intent.cancelled':'工作已取消','allocation.released':'租约已释放','intent.lease_settled':'租约已结算',
-  'intent.stage_bound':'执行阶段已关联',
+  'intent.stage_bound':'执行阶段已关联','allocation.preempt_requested':'收到资源收回通知','allocation.preempted':'资源已中断','allocation.resumed':'租约已恢复','job.resumed':'任务已恢复','checkpoint.reported':'已收到保存报告','checkpoint.verified':'保存点已核验','checkpoint.applied':'保存点已应用','contribution.recalled':'贡献者收回资源',
 };
 
 export function EventsPage({api,intentId=''}:{api:ApiClient;intentId?:string}) {
@@ -19,8 +20,6 @@ export function EventsPage({api,intentId=''}:{api:ApiClient;intentId?:string}) {
   const allRows=intentId?list(object(query.data).events):items(query.data);
   const rows=allRows.filter(row=>JSON.stringify(row).toLowerCase().includes(filter.toLowerCase()));
   const exportData=intentId?{version:object(query.data).version,now:object(query.data).now,scope:'work',intent_id:intentId,items:allRows}:query.data;
-  const {input:runInput,setInput:setRunInput,id:runId,query:runQuery,submit:queryRun}=useLookupQuery(api,'/x/v1/experiments');
-  const run=detail(runQuery.data);
   return <>
     <Panel title={intentId?'这项工作的事件':'事件时间线'} description={intentId?'集中查看这项工作及其关联租约、任务的已提交事件。':'已提交事实按逻辑时间和事件序号展示；当前身份只能读取授权范围内的事件。'} actions={<div className="panel-actions">
       <Refresh onClick={()=>{setCursors(['']);query.refresh();}} loading={query.loading}/>
@@ -41,9 +40,6 @@ export function EventsPage({api,intentId=''}:{api:ApiClient;intentId?:string}) {
         {!intentId&&<div className="actions"><button type="button" className="button quiet" disabled={cursors.length===1} onClick={()=>setCursors(values=>values.slice(0,-1))}>上一页</button><span className="helper">第 {cursors.length} 页</span><button type="button" className="button quiet" disabled={!object(query.data).has_more || typeof object(query.data).next_after!=='string'} onClick={()=>setCursors(values=>[...values,object(query.data).next_after as string])}>下一页</button></div>}
       </QueryFeedback>
     </Panel>
-    <Panel title="隔离实验记录" description="按 run ID 查询已登记的实验与原始证据。运行环境、输入和策略身份彼此独立。"><form className="inline-form" onSubmit={queryRun}><Field label="Run ID"><input value={runInput} onChange={e=>setRunInput(e.target.value)} required placeholder="run-…"/></Field><button className="button primary" disabled={runQuery.loading}>{runQuery.loading?'正在查询…':'查询实验'}</button></form><LookupStatus query={runQuery}/><p className="helper">实验提交需接入管理员写入口与已登记场景清单。本版提供读取与导出，不使用运营实例重放或重置。</p></Panel>
-    <QueryFeedback query={runQuery}>
-      <Panel title={`实验 ${runId}`} actions={<Status value={run.status}/>}><Metadata data={runQuery.data}/><dl className="facts"><div><dt>运行类型</dt><dd>{text(run.run_kind)}</dd></div><div><dt>执行模式</dt><dd>{text(object(run.environment).execution_mode)}</dd></div><div><dt>策略</dt><dd>{text(object(run.policy).name)} · {text(object(run.policy).version)}</dd></div><div><dt>种子 / 窗口</dt><dd>{text(run.seed)} · {text(object(run.window).start)}—{text(object(run.window).end)} s</dd></div></dl><Table rows={list(run.checks)} rowKey={(r,i)=>`${text(r.target_id)}-${i}`} columns={[{label:'目标',render:r=>text(r.target_id)},{label:'结果',render:r=><Status value={r.status}/>},{label:'实际观察',render:r=>text(r.actual,'尚未运行')}]}/><RawData data={runQuery.data} label="输入、输出、版本与异常记录"/><button type="button" className="button" onClick={()=>downloadJson(runQuery.data,`experiment-${runId}.json`)}>导出实验记录</button></Panel>
-    </QueryFeedback>
+    <Experiments api={api}/>
   </>;
 }

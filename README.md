@@ -2,7 +2,7 @@
 
 校园共享计算服务：申请、收回、接续与可追问的决定。
 
-**当前：CP2 A 后端交付，等待 B 接线与联合验收。** 用户已确认双方完成 CP1 人工验收。A 已实现官方 21 操作、回收/恢复、节点与故障控制，以及真实 CPU reference 保存接续；B 六工作台和三角色的 CP2 验收仍为 `NOT_RUN`。先读 [CP2 交付记录](docs/CP2_A_DELIVERY.md) 与 [A→B 接线说明](docs/handoff/CP2_A_TO_B.md)。默认使用 builtin 基线，本轮不宣称新的调度收益。
+**当前：CP2 A/B 已接线，联合人工验收待完成。** 用户已授权进入 CP2。A 的官方 21 操作、收回/恢复、故障与真实 CPU 执行已接入 B 六工作台；新增贡献者收回、三层保存事实、接续与工件、候选策略 P 和独立场景实验。启动与验证见 [B→A 交接](docs/handoff/CP2_B_TO_A.md)，A 内核边界见 [A→B 接线](docs/handoff/CP2_A_TO_B.md)。自动验证、代理 UI 检查和双人放行分别记账，本轮不宣称调度收益。
 
 CP1 审计补修包含身份应用、重复查询、授权决策解释、工作关联导航及验收回执读取，详见 [CP1 补修交接](docs/handoff/CP1_B_FIXES.md)。原人工验收实例保留，补修版使用独立工作树和端口。
 
@@ -13,7 +13,7 @@ CP1 审计补修包含身份应用、重复查询、授权决策解释、工作�
 | 负责人 | 主线 | 开发分支 | 先读 |
 |---|---|---|---|
 | A · Xiuzhu Du / `Woebegone-67` | 可信资源与执行 | `work/a-cp2` | [CP2接线](docs/handoff/CP2_A_TO_B.md) / [A任务书](docs/handoff/OWNER_A.md) |
-| B · `xuyangma` | 服务决策与操作体验 | `feat/route-b` | [B开发任务书](docs/handoff/OWNER_B.md) |
+| B · `xuyangma` | 服务决策与操作体验 | `feat/b-cp2` | [B开发任务书](docs/handoff/OWNER_B.md) |
 
 ## 启动与验收
 
@@ -34,16 +34,16 @@ make checkpoint CP=CP0
 
 ```bash
 # 终端1：新 CP2 逻辑实例，不触碰 CP1 运行目录
-FABRIC_INSTANCE=cp2-a-logical FABRIC_MODE=logical_simulation \
-FABRIC_DATA_DIR="$PWD/runtime/cp2-a-logical" \
-FABRIC_AUTH_FILE="$PWD/runtime/cp2-a-logical/auth.json" \
+FABRIC_INSTANCE=cp2-b-logical FABRIC_MODE=logical_simulation \
+FABRIC_DATA_DIR="$PWD/runtime/cp2-b-logical" \
+FABRIC_AUTH_FILE="$PWD/runtime/cp2-b-logical/auth.json" \
 FABRIC_INVENTORY_FILE="$PWD/configs/cp1_inventory.json" \
-FABRIC_SCHEDULING_MODE=builtin PORT=18082 bash web/dev-local.sh api
+FABRIC_SCHEDULING_MODE=external FABRIC_B_POLICY=P PORT=18083 bash web/dev-local.sh api
 # 终端2
-FABRIC_API_TARGET=http://127.0.0.1:18082 WEB_PORT=15175 bash web/dev-local.sh web
+FABRIC_API_TARGET=http://127.0.0.1:18083 WEB_PORT=15176 bash web/dev-local.sh web
 ```
 
-访问`http://127.0.0.1:15175`；API为`http://127.0.0.1:18082`。首次启动在 `runtime/cp2-a-logical/` 创建本地演示凭据。在页面右上角“当前身份”导入该目录的 `client-identities.json`，再选择 alice、bob、supplier 或 admin。凭据只保留在浏览器内存；刷新后需重新导入。开发host仅绑定本机，Web代理不包含`/_test`。
+访问`http://127.0.0.1:15176`；API为`http://127.0.0.1:18083`。首次启动在 `runtime/cp2-b-logical/` 创建本地演示凭据。在页面右上角“当前身份”导入该目录的 `client-identities.json`，再选择 alice、bob、supplier 或 admin。凭据只保留在浏览器内存；刷新后需重新导入。开发host仅绑定本机，Web代理不包含`/_test`。
 
 每人使用自己的clone、端口与`runtime/<owner>`。上面的集成入口组装 B 查询与工作流，并保留 A CPU 驱动生命周期；A 的 `make api` 默认在8080提供内核接口，不自动推进 B 工作流。端口可通过 `PORT`、`WEB_PORT` 调整。不要把实验reset指向另一人的实例。环境变量需由启动 shell 显式设置，程序不会自动加载 `.env`。
 
@@ -98,7 +98,7 @@ git pull --ff-only
 
 提交前运行`make cp0`；后续使用`make checkpoint CP=CP1`等入口，缺失/过期/未运行证据应失败。不能拿CP0的501占位测试替代业务测试：实现对应操作时更新责任表、CP0状态检查和业务验收，保持“实际实现什么就声明什么”。
 
-CI会在push/PR运行CP0检查。代码审阅责任写在`.github/CODEOWNERS`；它与远端分支保护是否启用是两回事。CP1–CP5的高标准定义不会因一个构建成功自动达成。
+CI会在push/PR运行 A CP2 后端门槛、CP0/CP1 回归、B 页面组件与真实 TCP 接续检查。代码审阅责任写在`.github/CODEOWNERS`；它与远端分支保护是否启用是两回事。CP1–CP5的高标准定义不会因一个构建成功自动达成。
 
 ## 来源与边界
 
@@ -139,3 +139,5 @@ uv run python tests/acceptance/cp2/cp2_cpu_reference.py
 ```
 
 两份脚本在独立临时实例运行真实 TCP 请求，后者启动真实 CPU 进程。回执写入 `evidence/cp2/`，源码更新后须重新核验构建匹配。B 六工作台、三角色交叉操作和联合 CP2 放行独立记录，不由后端检查自动通过。
+
+B CP2 技术回归：`make cp2-b`。它不自动签署人工验收。隔离场景 CLI、CPU 演示启动及六工作台人工步骤见 [CP2_B_TO_A](docs/handoff/CP2_B_TO_A.md)。

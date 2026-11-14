@@ -73,3 +73,41 @@ test('public-job identity uses job ID even when sharing an allocation', () => {
   assert.equal(versionOf({version:{epoch:'1',revision:2}}),null);
   assert.deepEqual(versionOf({version:{epoch:1,revision:2}}),{epoch:1,revision:2});
 });
+
+test('known stale rejection refreshes same work and retries with new version and stable stage',async()=>{
+  const calls=[],guard=[];
+  globalThis.fetch=async(path,options)=>{
+    calls.push({path,options});
+    if(calls.length===1)return json({error:'stale_version'},409);
+    if(options.method==='GET')return json({version:{epoch:4,revision:11},item:{intent_id:'same-work'}});
+    return json({receipt:{outcome:'committed'}},202);
+  };
+  const response=await new ApiClient({owner:'bob',token:'test-token'},delta=>guard.push(delta)).workAction('same-work','create_job',{epoch:4,revision:9},'job-v1');
+  assert.equal(response.status,202);assert.equal(calls.length,3);
+  const sent=calls.filter(c=>c.options.method==='POST').map(c=>JSON.parse(c.options.body));
+  assert.deepEqual(sent.map(b=>b.stage_id),['job-v1','job-v1']);
+  assert.deepEqual(sent.map(b=>b.expected_version),[{epoch:4,revision:9},{epoch:4,revision:11}]);
+  assert.equal(guard.reduce((sum,value)=>sum+value,0),0);
+  assert.ok(guard.slice(0,-1).reduce((state,value)=>{state.sum+=value;state.min=Math.min(state.min,state.sum);return state;},{sum:0,min:1}).min>0,'identity guard stays active across refresh');
+});
+
+test('stale retry is bounded and epoch changes stop replay',async()=>{
+  let posts=0,reads=0;
+  globalThis.fetch=async(_path,options)=>{if(options.method==='POST'){posts++;return json({receipt:{outcome:'rejected',error:{code:'stale_version'}}});}reads++;return json({version:{epoch:0,revision:reads+1}});};
+  const client=new ApiClient({owner:'bob',token:''});
+  await assert.rejects(client.workAction('work','release',{epoch:0,revision:0}),e=>e.status===409);
+  assert.equal(posts,3);assert.equal(reads,2);
+  posts=0;
+  globalThis.fetch=async(_path,options)=>{if(options.method==='POST'){posts++;return json({error:'stale_version'},409);}return json({version:{epoch:1,revision:0}});};
+  await assert.rejects(client.workAction('work','resume',{epoch:0,revision:0}),e=>e.data.error==='epoch_changed');
+  assert.equal(posts,1);
+});
+
+test('lost response and known non-stale rejection never replay lifecycle commands',async()=>{
+  for(const response of ['network','unavailable','budget']) {
+    let calls=0;
+    globalThis.fetch=async()=>{calls++;if(response==='network')throw new TypeError('lost');return response==='unavailable'?json({error:'unavailable'},503):json({error:'restart_budget_exhausted'},409);};
+    await assert.rejects(new ApiClient({owner:'bob',token:''}).workAction('work','resume',{epoch:0,revision:0}));
+    assert.equal(calls,1,response);
+  }
+});

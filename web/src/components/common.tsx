@@ -6,10 +6,10 @@ const labels: Record<string, string> = {
   Pending: '等待分配', Allocated: '已获资源', Running: '运行中', PreemptRequested: '收到收回通知',
   Preempted: '已中断', Released: '已释放', Expired: '已过期', Evicted: '已驱逐', Rejected: '已拒绝',
   Succeeded: '已完成', Failed: '失败', Cancelled: '已取消', Checkpointing: '保存中',
-  pending: '待处理', waiting: '等待中', running: '运行中', completed: '已完成', failed: '失败', cancelled: '已取消',
+  stopping: '正在停止', quarantined: '隔离中', interrupted: '已中断', pending: '待处理', waiting: '等待中', running: '运行中', completed: '已完成', failed: '失败', cancelled: '已取消',
   manual_action: '需要处理', committed: '已提交', rejected: '已拒绝', noop: '无新增效果',
   ready: '收到 ready 报告', verified: '已核验', unverified: '未核验', applied: '已接续', not_attempted: '未接续',
-  MET: '已通过', NOT_MET: '未通过', NOT_RUN: '未运行', available: '可用', occupied: '占用', quarantined: '隔离中', unavailable: '不可用',
+  MET: '已通过', NOT_MET: '未通过', NOT_RUN: '未运行', available: '可用', occupied: '占用', unavailable: '不可用',
   legal: '可行', infeasible: '不可行', unexamined: '未检查',
 };
 export function Status({value}: {value: unknown}) {
@@ -45,18 +45,18 @@ export function Panel({title, description, actions, children}: {title: string; d
   return <section className="panel"><div className="panel-heading"><div><h2>{title}</h2>{description && <p>{description}</p>}</div>{actions}</div>{children}</section>;
 }
 export function Refresh({onClick, loading = false}: {onClick: () => void; loading?: boolean}) { return <button type="button" className="button quiet" disabled={loading} onClick={onClick}>{loading?'正在刷新…':'刷新'}</button>; }
-export function ActionButton({api, path, method = 'POST', body, children, confirmation, onDone, disabled = false}: {api: ApiClient; path: string; method?: string; body?: unknown; children: ReactNode; confirmation?: string; onDone?: () => void; disabled?: boolean}) {
+export function ActionButton({api, path, method = 'POST', body, children, confirmation, onDone, request, disabled = false}: {api: ApiClient; path: string; method?: string; body?: unknown; children: ReactNode; confirmation?: string; onDone?: () => void; request?: () => Promise<ApiResult>; disabled?: boolean}) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<ApiError | null>(null);
   const [result, setResult] = useState<ApiResult | null>(null);
   async function run() {
     if (confirmation && !window.confirm(confirmation)) return;
     setBusy(true); setError(null); setResult(null);
-    try { setResult(await api.request(path, {method, body})); onDone?.(); }
+    try { setResult(await (request ? request() : api.request(path, {method, body})));  onDone?.(); }
     catch (error) { setError(error instanceof ApiError ? error : new ApiError('操作失败', 0)); }
     finally { setBusy(false); }
   }
-  return <div className="action-unit"><button className="button" disabled={disabled || busy} onClick={run}>{busy ? '处理中…' : children}</button>{error && <ErrorNotice error={error}/>}{result && <Receipt result={result}/>}</div>;
+  return <div className="action-unit"><button className="button" disabled={disabled || busy || Boolean(error?.uncertain)} onClick={run}>{busy ? '处理中…' : children}</button>{error && <ErrorNotice error={error}/>} {error?.uncertain&&<p className="helper">结果尚不确定，已阻止重复提交。请先刷新当前状态，再决定下一步。</p>}{result && <Receipt result={result}/>}</div>;
 }
 export function Receipt({result}: {result: ApiResult}) {
   const receipt = object(object(result.data).receipt ?? object(result.data).commit_receipt ?? result.data);

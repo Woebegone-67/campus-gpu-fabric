@@ -90,6 +90,7 @@ def job_json(item: JobView, origin: datetime) -> dict[str, Any]:
     return {
         **item.model_dump(mode="json"), "id": item.job_id, "owner": item.owner_id,
         "created_at": timestamp(origin, item.created_at), "created_at_logical": item.created_at,
+        "finished_at_logical": item.finished_at,
     }
 
 
@@ -157,7 +158,7 @@ def legal_actions_json(
         return actions
     if snapshot.viewer.role not in ("researcher", "administrator"):
         return []
-    # CP1 hints are derived only from the authorized causal snapshot. They are
+    # Lifecycle hints are derived only from the authorized causal snapshot. They are
     # advisory: a concurrent commit can invalidate them before A checks a write.
     found = {(x["operation"], x["entity"]["kind"], x["entity"]["entity_id"]) for x in actions}
 
@@ -167,12 +168,57 @@ def legal_actions_json(
                             "explanation": explanation, "advisory": True})
             found.add((operation, kind, key))
 
+    intents_by_allocation = {
+        allocation_id: intent for intent in snapshot.intents
+        for allocation_id in intent.allocation_ids
+    }
+    jobs_by_allocation = {
+        job.allocation_id: job for job in snapshot.jobs
+        if job.state not in {"Succeeded", "Failed", "Cancelled"}
+    }
+    stopping_jobs = {
+        attempt.ref.job_id for intent in snapshot.intents for attempt in intent.attempts
+        if attempt.state in {"stopping", "quarantined"}
+        and any(job.attempt == attempt.ref for job in snapshot.jobs)
+    }
+    stopping_jobs.update(job.job_id for job in snapshot.jobs if any(
+        allocation.allocation_id == job.allocation_id and allocation.pending_terminal is not None
+        for allocation in snapshot.allocations))
     for allocation in snapshot.allocations:
         if (allocation.state in {"Allocated", "Running"} and allocation.expires_at is not None
                 and allocation.expires_at > snapshot.now):
             add("allocation.renew", "allocation", allocation.allocation_id, "Renew this live lease")
+        if allocation.state in {"PreemptRequested", "Preempted"} and not allocation.pending_terminal:
+            add("allocation.release", "allocation", allocation.allocation_id,
+                "Request lease release; CPU claims remain held until stop is confirmed")
+        job = jobs_by_allocation.get(allocation.allocation_id)
+        stopping = allocation.pending_terminal is not None or (
+            job is not None and job.job_id in stopping_jobs)
+        if (allocation.state == "PreemptRequested" and allocation.preemption is not None
+                and allocation.preemption.checkpoint_due > snapshot.now
+                and allocation.checkpoint is None and not stopping):
+            add("allocation.checkpoint", "allocation", allocation.allocation_id,
+                "Report ready or failed within the save window; a report is not verification")
+        if (allocation.state != "Preempted" or allocation.expires_at is None
+                or allocation.expires_at <= snapshot.now or stopping):
+            continue
+        intent = intents_by_allocation.get(allocation.allocation_id)
+        # The public AllocationView omits policy and limits. Without a linked
+        # specification, do not guess that a restart has remaining authority.
+        if intent is None or intent.state in {"completed", "failed", "cancelled"}:
+            continue
+        policy = intent.specification.allocation
+        if job is not None and allocation.restart_count >= policy.max_restarts:
+            continue
+        if (job is not None and job.execution_mode == "cpu_reference"
+                and policy.preemption_mode == "checkpoint"
+                and (job.checkpoint is None or job.checkpoint.verification_status != "verified")):
+            continue
+        add("allocation.resume", "allocation", allocation.allocation_id,
+            "Request resumption of the same work; capacity may still require waiting")
     for job in snapshot.jobs:
-        if job.state in {"Pending", "Running"}:
+        if (job.state in {"Pending", "Running", "Checkpointing", "Preempted"}
+                and job.job_id not in stopping_jobs):
             add("job.cancel", "job", job.job_id, "Cancel the current job")
     allocations = {x.allocation_id: x for x in snapshot.allocations}
     for intent in snapshot.intents:

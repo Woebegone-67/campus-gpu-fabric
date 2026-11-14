@@ -9,6 +9,7 @@ import {DecisionsPage} from './pages/Decisions';
 import {EventsPage} from './pages/Events';
 import {AcceptancePage} from './pages/Acceptance';
 import {decisionHref,workHref} from './navigation';
+import {ServiceContext,serviceInfo,modeLabel} from './service';
 
 const workspaces=[
   {id:'run',name:'运行工作台',description:'提交工作，处理等待与运行，核对任务和租约。'},
@@ -27,24 +28,27 @@ export default function App(){
   const [route,setRoute]=useState(readLocation);
   useEffect(()=>{const change=()=>setRoute(readLocation());window.addEventListener('hashchange',change);return()=>window.removeEventListener('hashchange',change);},[]);
   const health=useQuery(api,'/healthz');
+  const version=useQuery(api,'/v1/version');
+  const service=serviceInfo(version.data);
   const selected=workspaces.find(w=>w.id===route.section)!;
   const openIntent=(id:string)=>{location.hash=workHref(id);};
   const isOnline=health.data!==null&&!health.error;
   return <div className="app">
     <aside className="sidebar"><a className="wordmark" href="#run"><span>织算</span><small>CAMPUS FABRIC</small></a><nav aria-label="工作区">{workspaces.map((workspace,index)=><a key={workspace.id} href={`#${workspace.id}`} aria-current={route.section===workspace.id?'page':undefined}><span className="number">0{index+1}</span>{workspace.name}</a>)}</nav><footer>临时共享 · 持续接续<br/>B · 服务决策与体验</footer></aside>
-    <main><header className="topbar"><div><span className={`connection-dot ${isOnline?'online':''}`}/><span role="status">{health.loading?'正在连接服务':isOnline?'服务在线':'服务未连接'}</span><button className="link-button" onClick={health.refresh} disabled={health.loading}>重新检查</button></div><button className="button quiet" onClick={()=>setIdentityOpen(!identityOpen)}>当前身份：{identity.profile || identity.owner || '未设置'}</button></header>
+    <main><header className="topbar"><div><span className={`connection-dot ${isOnline?'online':''}`}/><span role="status">{health.loading?'正在连接服务':isOnline?'服务在线':'服务未连接'}</span><button className="link-button" onClick={()=>{health.refresh();version.refresh();}} disabled={health.loading}>重新检查</button></div><button className="button quiet" onClick={()=>setIdentityOpen(!identityOpen)}>当前身份：{identity.profile || identity.owner || '未设置'}</button></header>
       <div hidden={!identityOpen}><IdentityPicker identity={identity} onApply={setIdentity} busy={mutations>0}/></div>
       <section className="intro"><p className="eyebrow">CAMPUS COMPUTE / {selected.id.toUpperCase()}</p><h1>{selected.name}</h1><p>{selected.description}</p></section>
       {isOnline&&object(health.data).control_plane_ready===false&&<div className="service-banner" role="status"><strong>业务内核待接入</strong><span>当前服务已启动，资源账本与执行尚未就绪。界面会显示真实接口回执，不预填运行结果。</span></div>}
       {health.error&&<div className="service-banner"><strong>无法连接 API</strong><span>{health.error.message} 请检查本地服务和代理地址。</span></div>}
-      <div key={`${identity.owner}\0${identity.token}`} className="workspace">
+      <div className="service-mode" role="status">{service.checkpoint&&<strong>{service.checkpoint}</strong>}<span>{modeLabel(service.mode)}</span>{service.mode==='cpu_reference'&&<span>固定参考程序 · GPU 库存为模拟</span>}{version.error&&<span>{version.error.message}</span>}</div>
+      <ServiceContext.Provider value={service}><div key={`${identity.owner}\0${identity.token}`} className="workspace">
         {route.section==='run'&&<RunPage api={api} onOpen={openIntent}/>}
         {route.section==='resources'&&<ResourcesPage api={api}/>}
         {route.section==='continuity'&&<ContinuityPage key={route.intent} api={api} initialId={route.intent} onSelect={openIntent}/>}
         {route.section==='decisions'&&<DecisionsPage key={route.decision} api={api} initialId={route.decision} workId={route.intent} onSelect={id=>{location.hash=decisionHref(id);}}/>}
         {route.section==='events'&&<EventsPage key={route.intent} api={api} intentId={route.intent}/>}
         {route.section==='acceptance'&&<AcceptancePage api={api} showAdminClock={identity.profile==='admin' && Boolean(identity.token)}/>}
-      </div><footer className="page-footer">当前为逻辑模拟 · 所有业务状态以服务端为准</footer>
+      </div></ServiceContext.Provider><footer className="page-footer">{modeLabel(service.mode)} · 所有业务状态以服务端为准</footer>
     </main>
   </div>;
 }

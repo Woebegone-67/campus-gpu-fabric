@@ -140,3 +140,154 @@ test('temporary 503 lookup failure is not labeled as an unimplemented capability
   assert.match(container.textContent,/HTTP 503/);
   assert.doesNotMatch(container.textContent,/能力等待后端接入/);
 });
+
+const {ServiceContext}=await import('../src/service.tsx');
+const {CreateWork}=await import('../src/pages/Run.tsx');
+const {RecallForm}=await import('../src/pages/Resources.tsx');
+const {AcceptancePage}=await import('../src/pages/Acceptance.tsx');
+const {ArtifactDownload}=await import('../src/components/CP2.tsx');
+const {Experiments}=await import('../src/components/Experiments.tsx');
+const {ActionButton}=await import('../src/components/common.tsx');
+function service(mode,children){return <ServiceContext.Provider value={{mode,checkpoint:'CP2',capabilities:{checkpoint_recovery:true,real_gpu_execution:false}}}>{children}</ServiceContext.Provider>;}
+function cp2Work(mode='logical_simulation'){
+  return {...work('work-cp2'),item:{...work('work-cp2').item,execution_mode:mode,specification:{allocation:{max_restarts:2},job:{max_retries:0}},attempts:[{ref:{attempt_id:'attempt-2',generation:2,job_id:'job-1'},state:'running',checkpoint:null}]},allocations:[{allocation_id:'lease-1',state:'PreemptRequested',restart_count:1,preemption:{requested_at:2,deadline:12,checkpoint_due:7},checkpoint:{report_status:'ready',reported_at:3,verification_status:'unverified',continuation_status:'not_attempted'}}],jobs:[{job_id:'job-1',state:'Running',retry_count:0,attempt:{generation:2,attempt_id:'attempt-2'}}],legal_actions:[{operation:'allocation.resume',entity:{entity_id:'lease-1'}},{operation:'allocation.checkpoint',entity:{entity_id:'lease-1'}}]};
+}
+
+test('CPU registration follows declared service mode and sends separate recovery/retry budgets',async()=>{
+  globalThis.fetch=async(path,options)=>{requests.push({path,options});return json({receipt:{outcome:'committed'}},202);};
+  await render(service('cpu_reference',<CreateWork api={api()} onCreated={()=>{}} onOpen={()=>{}}/>));
+  assert.match(container.textContent,/固定 CPU 参考程序，不执行填写的镜像与命令/);
+  await submit(container.querySelector('form'));
+  assert.equal(requests.length,1);
+  const payload=JSON.parse(requests[0].options.body);
+  assert.equal(payload.execution_mode,'cpu_reference');
+  assert.equal(payload.specification.allocation.max_restarts,2);
+  assert.equal(payload.specification.job.max_retries,0);
+  assert.equal(payload.specification.allocation.checkpoint_timeout_seconds,15);
+  assert.equal(payload.owner_id,'bob');
+  assert.ok(button('重试同一工作登记').disabled,'accepted registration cannot be duplicated by button');
+});
+
+test('unknown execution mode blocks registration and does not guess logical mode',async()=>{
+  await render(<CreateWork api={api()} onCreated={()=>{}} onOpen={()=>{}}/>);
+  assert.ok(button('提交工作').disabled);
+  await submit(container.querySelector('form'));
+  assert.equal(requests.length,0);assert.match(container.textContent,/尚未确认服务执行模式/);
+});
+
+test('contributor recalls owned physical GPUs without contribution ID or test route',async()=>{
+  globalThis.fetch=async(path,options)=>{requests.push({path,options});return json({outcome:'committed'},201);};
+  await render(<RecallForm api={api()} nodes={[{node_id:'own-node',contributor_owner_id:'bob',devices:[{device_id:'gpu-own',physical_gpu_id:'gpu-own',model:'A10'},{device_id:'gpu-own-slice',physical_gpu_id:'gpu-own',model:'A10'}]},{node_id:'other-node',contributor_owner_id:'alice',devices:[{device_id:'gpu-private'}]}]} onDone={()=>{}}/>);
+  const boxes=container.querySelectorAll('input[type=checkbox]');assert.equal(boxes.length,1);assert.doesNotMatch(container.textContent,/gpu-private/);
+  await interact(()=>boxes[0].click());await submit(container.querySelector('form'));
+  assert.equal(requests[0].path,'/x/v1/contributions/recall');
+  assert.deepEqual(JSON.parse(requests[0].options.body),{gpu_ids:['gpu-own'],notice_seconds:30,duration_seconds:60});
+  assert.equal(requests[0].options.headers['X-Test-Key'],undefined);
+});
+
+test('checkpoint facts stay separate; logical report writes only status and refreshes',async()=>{
+  globalThis.fetch=async(path,options)=>{requests.push({path,options});return json(options.method==='POST'?{allocation_id:'lease-1'}:cp2Work());};
+  await render(service('logical_simulation',<ContinuityPage api={api()} initialId="work-cp2"/>));
+  const facts=container.querySelector('.checkpoint-grid');assert.match(facts.textContent,/收到 ready 报告.*未核验.*未接续/s);
+  assert.equal([...container.querySelectorAll('button')].some(b=>b.textContent==='下载已核验保存点'),false);
+  await interact(()=>button('报告保存 ready').click());
+  const post=requests.find(r=>r.options.method==='POST');
+  assert.equal(post.path,'/v1/allocations/lease-1/checkpoint');assert.deepEqual(JSON.parse(post.options.body),{status:'ready'});
+  assert.equal(requests.filter(r=>r.path==='/x/v1/work-intents/work-cp2').length,2);
+});
+
+test('CPU continuity cannot manually mark checkpoint verified and keeps stopping claims visible',async()=>{
+  const data=cp2Work('cpu_reference');data.allocations[0].pending_terminal='Released';data.item.attempts[0].state='stopping';
+  globalThis.fetch=async()=>json(data);
+  await render(service('cpu_reference',<ContinuityPage api={api()} initialId="work-cp2"/>));
+  assert.match(container.textContent,/停止确认前，资源仍由此租约持有/);
+  assert.match(container.textContent,/新代次已登记不代表保存点已应用/);
+  assert.doesNotMatch(container.textContent,/这项工作当前没有持有资源/);
+  assert.equal([...container.querySelectorAll('button')].some(b=>b.textContent==='报告保存 ready'),false);
+  assert.match(container.textContent,/收回恢复预算1 \/ 2/);assert.match(container.textContent,/任务失败重试预算0 \/ 0/);
+});
+
+test('resume action uses current work ID and version without creating another job or stage',async()=>{
+  globalThis.fetch=async(path,options)=>{requests.push({path,options});return json(options.method==='POST'?{receipt:{outcome:'committed'}}:cp2Work('cpu_reference'));};
+  await render(service('cpu_reference',<ContinuityPage api={api()} initialId="work-cp2"/>));
+  await interact(()=>button('恢复这项工作').click());
+  const writes=requests.filter(r=>r.options.method==='POST');assert.equal(writes.length,1);
+  assert.equal(writes[0].path,'/x/v1/work-intents/work-cp2/actions');
+  assert.deepEqual(JSON.parse(writes[0].options.body),{action:'resume',expected_version:base.version});
+});
+
+test('artifact download uses authenticated registered URI endpoint, rejecting arbitrary file links',async()=>{
+  const urls=[];const originalCreate=URL.createObjectURL,originalRevoke=URL.revokeObjectURL,originalClick=dom.window.HTMLAnchorElement.prototype.click;
+  URL.createObjectURL=()=>{urls.push('blob-created');return 'blob:isolated-test';};URL.revokeObjectURL=()=>{};dom.window.HTMLAnchorElement.prototype.click=function(){urls.push(this.download);};
+  try{
+    globalThis.fetch=async(path,options)=>{requests.push({path,options});return json({result:42});};
+    await render(<><ArtifactDownload api={api()} uri="fabric-cpu://epoch-0/work/result.json"/><ArtifactDownload api={api()} uri="file:///private/arbitrary"/></>);
+    assert.equal(container.querySelectorAll('button').length,1);
+    await interact(()=>button('下载真实工件').click());
+    assert.equal(requests[0].path,'/x/v1/artifacts?uri=fabric-cpu%3A%2F%2Fepoch-0%2Fwork%2Fresult.json');
+    assert.equal(requests[0].options.headers['X-Owner'],'bob');assert.equal(urls.length,2);
+  }finally{URL.createObjectURL=originalCreate;URL.revokeObjectURL=originalRevoke;dom.window.HTMLAnchorElement.prototype.click=originalClick;}
+});
+
+test('unknown lifecycle write result cannot be replayed from the same button',async()=>{
+  globalThis.fetch=async(path,options)=>{requests.push({path,options});throw new TypeError('lost response');};
+  await render(<ActionButton api={api()} path="/x/v1/work-intents/work/actions" body={{action:'release'}}>释放</ActionButton>);
+  await interact(()=>button('释放').click());assert.ok(button('释放').disabled);
+  await interact(()=>button('释放').click());assert.equal(requests.length,1);
+  assert.match(container.textContent,/先刷新当前状态/);
+});
+
+test('CPU system acceptance hides manual logical clock even with admin profile',async()=>{
+  globalThis.fetch=async(path)=>json(path==='/v1/version'?{execution_mode:'cpu_reference',checkpoint:'CP2',capabilities:{real_cpu_execution:true}}:{items:[]});
+  await render(<AcceptancePage api={api()} showAdminClock/>);
+  assert.doesNotMatch(container.textContent,/推进模拟时间/);assert.match(container.textContent,/cpu_reference/);
+});
+
+test('admin experiment uses real catalog input and queries accepted run, preserving pending status',async()=>{
+  const admin=new ApiClient({owner:'',token:'synthetic-admin',profile:'admin'});
+  globalThis.fetch=async(path,options)=>{
+    requests.push({path,options});
+    if(path==='/x/v1/experiments/catalog')return json({items:[{scenario_id:'small-development',label:'研发小场景',description:'isolated',policies:['B0','P'],seed_min:0,seed_max:99,work_count:4,horizon:30,max_candidates:12}]});
+    if(options.method==='POST')return json({item:{run_id:'run-accepted',status:'running'}},202);
+    if(path==='/x/v1/experiments/run-accepted')return json({item:{run_id:'run-accepted',status:'running',outputs:[],checks:[]}});
+    return json({items:[]});
+  };
+  await render(<Experiments api={admin}/>);
+  await submit(button('运行隔离实验').closest('form'));
+  const post=requests.find(r=>r.options.method==='POST');assert.equal(post.path,'/x/v1/experiments');
+  assert.deepEqual(JSON.parse(post.options.body),{scenario_id:'small-development',policy:'B0',seed:0});
+  assert.ok(requests.some(r=>r.path==='/x/v1/experiments/run-accepted'));
+  assert.match(container.textContent,/运行中/);assert.match(container.textContent,/不构成 CP3 正式效果/);
+  assert.equal([...container.querySelectorAll('button')].some(b=>b.textContent==='下载汇总'),false,'pending run does not invent artifacts');
+});
+
+test('failed checkpoint report sends failed without adding verification or artifact fields',async()=>{
+  const data=cp2Work();data.allocations[0].checkpoint=null;
+  globalThis.fetch=async(path,options)=>{requests.push({path,options});return json(options.method==='POST'?{allocation_id:'lease-1'}:data);};
+  await render(service('logical_simulation',<ContinuityPage api={api()} initialId="work-cp2"/>));
+  await interact(()=>button('报告保存 failed').click());
+  assert.deepEqual(JSON.parse(requests.find(r=>r.options.method==='POST').options.body),{status:'failed'});
+});
+
+test('forbidden artifact response stays 404 and never produces a download',async()=>{
+  const originalCreate=URL.createObjectURL;let downloads=0;URL.createObjectURL=()=>{downloads++;return 'blob:should-not-exist';};
+  try{
+    globalThis.fetch=async()=>json({error:'not_found',detail:'Artifact is not visible'},404);
+    await render(<ArtifactDownload api={api()} uri="fabric-cpu://other-owner/result.json"/>);
+    await interact(()=>button('下载真实工件').click());
+    assert.equal(downloads,0);assert.match(container.textContent,/HTTP 404/);
+  }finally{URL.createObjectURL=originalCreate;}
+});
+
+test('experiment input and output downloads use only registered fixed artifact IDs',async()=>{
+  const originalCreate=URL.createObjectURL,originalRevoke=URL.revokeObjectURL,originalClick=dom.window.HTMLAnchorElement.prototype.click;
+  URL.createObjectURL=()=> 'blob:experiment-test';URL.revokeObjectURL=()=>{};dom.window.HTMLAnchorElement.prototype.click=function(){};
+  try{
+    globalThis.fetch=async(path,options)=>{requests.push({path,options});return json(path.endsWith('/artifacts/input')?{seed:0}:{item:{run_id:'run-evidence',status:'completed',inputs:[{name:'input',uri:'experiment://run-evidence/input'}],outputs:[{name:'summary',uri:'experiment://run-evidence/summary'},{name:'../../private',uri:'file:///private'}]}});};
+    await render(<Experiments api={api()}/>);await enter(field('Run ID'),'run-evidence');await submit(container.querySelector('form'));
+    assert.ok(button('下载固定输入'));assert.ok(button('下载汇总'));assert.equal([...container.querySelectorAll('button')].some(b=>b.textContent?.includes('../../private')),false);
+    await interact(()=>button('下载固定输入').click());
+    assert.equal(requests.at(-1).path,'/x/v1/experiments/run-evidence/artifacts/input');
+    assert.equal(requests.at(-1).options.headers.Authorization,'Bearer synthetic-test-token');
+  }finally{URL.createObjectURL=originalCreate;URL.revokeObjectURL=originalRevoke;dom.window.HTMLAnchorElement.prototype.click=originalClick;}
+});
