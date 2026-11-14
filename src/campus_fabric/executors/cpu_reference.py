@@ -122,6 +122,42 @@ class CpuReferenceExecutor:
             if not path.exists():
                 atomic_json(path, signed(control, self.key))
 
+    def _fence_unstarted_launch(self, record):
+        """Cancel a reserved launch only while no worker can execute its workload.
+
+        A protocol-2 worker holds this lock for its entire run and checks the
+        durable cancellation marker before publishing started.json. Thus even
+        a child delayed between Popen and Python startup cannot run after the
+        reservation is retired. Legacy launches remain conservatively unknown.
+        """
+        if (
+            record.get("launch_protocol") != 2
+            or record.get("pid") is not None
+            or record["key"] in self._handles
+            or record["status"] not in {"launching", "stopping"}
+        ):
+            return
+        directory = self._directory(record)
+        with (directory / "launch.lock").open("a+b") as stream:
+            try:
+                fcntl.flock(stream, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError:
+                return
+            try:
+                if (directory / "started.json").exists():
+                    return
+                identity = {
+                    name: record[name] for name in ("owner_id", "epoch", "attempt", "token")
+                }
+                atomic_json(directory / "launch-cancelled.json", signed(identity, self.key))
+                record.update(
+                    status="launch_failed",
+                    launch_error="unstarted_launch_fenced",
+                    stop_confirmed=True,
+                )
+            finally:
+                fcntl.flock(stream, fcntl.LOCK_UN)
+
     def _alive(self, record):
         handle = self._handles.get(record["key"])
         if handle is not None:
@@ -278,6 +314,7 @@ class CpuReferenceExecutor:
                     "version": raw["version"],
                     "pid": None,
                     "status": "launching",
+                    "launch_protocol": 2,
                     "stop_confirmed": False,
                     "reported": [],
                     "checkpoint_requests": [],
@@ -298,6 +335,7 @@ class CpuReferenceExecutor:
                         "config",
                         "initial",
                         "resumed_from",
+                        "launch_protocol",
                     )
                 }
                 atomic_json(directory / "manifest.json", signed(manifest, self.key))
@@ -386,6 +424,7 @@ class CpuReferenceExecutor:
     def _observe_record(self, state, record, logical_time):
         if record["stop_confirmed"] and "terminal" in record["reported"]:
             return
+        self._fence_unstarted_launch(record)
         self._sync_controls(record)
         directory = self._directory(record)
         if (directory / "started.json").exists():

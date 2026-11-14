@@ -6,6 +6,7 @@ Pacing makes interruption observable; the integer computation is deterministic.
 
 from __future__ import annotations
 
+import fcntl
 import os
 import sys
 import time
@@ -18,11 +19,29 @@ else:
 
 
 def run(manifest_path: Path) -> None:
+    # The lock spans all workload effects. Recovery may cancel a launch that
+    # has not acquired it yet; a delayed child must then exit without working.
+    with (manifest_path.parent / "launch.lock").open("a+b") as stream:
+        fcntl.flock(stream, fcntl.LOCK_EX)
+        try:
+            _run_locked(manifest_path)
+        finally:
+            fcntl.flock(stream, fcntl.LOCK_UN)
+
+
+def _run_locked(manifest_path: Path) -> None:
     directory = manifest_path.parent
     key = (directory.parent.parent / "secret.key").read_bytes()
     manifest = read_signed(manifest_path, key)
     config = manifest["config"]
     identity = {name: manifest[name] for name in ("owner_id", "epoch", "attempt", "token")}
+    cancelled = directory / "launch-cancelled.json"
+    if cancelled.exists():
+        if read_signed(cancelled, key) != identity:
+            raise ValueError("Launch cancellation targets another execution")
+        return
+    if (directory / "started.json").exists():
+        raise ValueError("This attempt already executed; refusing a second launch")
     started_ns = time.monotonic_ns()
     pid = os.getpid()
     base = {

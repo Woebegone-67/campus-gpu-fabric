@@ -2,7 +2,7 @@
 
 校园共享计算服务：申请、收回、接续与可追问的决定。
 
-**当前：CP2 A/B 已接线，联合人工验收待完成。** 用户已授权进入 CP2。A 的官方 21 操作、收回/恢复、故障与真实 CPU 执行已接入 B 六工作台；新增贡献者收回、三层保存事实、接续与工件、候选策略 P 和独立场景实验。启动与验证见 [B→A 交接](docs/handoff/CP2_B_TO_A.md)，A 内核边界见 [A→B 接线](docs/handoff/CP2_A_TO_B.md)。自动验证、代理 UI 检查和双人放行分别记账，本轮不宣称调度收益。
+**当前：CP2 联合验收已通过，进入 CP3 的 A 侧可靠性验收。** CP2 冻结基线为 `aa63fb6`；两位操作者均已确认完成本轮人工验收。CP3 增加真实崩溃窗口、两次 CPU 中断接续与独立账本模型的检验，并修复未启动执行的恢复问题。A 侧实测结果以 `evidence/cp3/a_core_receipt.json` 为准；策略效果、完整重放和联合产品门槛仍须分别验收，不自动放行 CP3。先读 [CP3 交付](docs/CP3_A_DELIVERY.md) 与 [A→B 交接](docs/handoff/CP3_A_TO_B.md)。
 
 CP1 审计补修包含身份应用、重复查询、授权决策解释、工作关联导航及验收回执读取，详见 [CP1 补修交接](docs/handoff/CP1_B_FIXES.md)。原人工验收实例保留，补修版使用独立工作树和端口。
 
@@ -12,7 +12,7 @@ CP1 审计补修包含身份应用、重复查询、授权决策解释、工作�
 
 | 负责人 | 主线 | 开发分支 | 先读 |
 |---|---|---|---|
-| A · Xiuzhu Du / `Woebegone-67` | 可信资源与执行 | `work/a-cp2` | [CP2接线](docs/handoff/CP2_A_TO_B.md) / [A任务书](docs/handoff/OWNER_A.md) |
+| A · Xiuzhu Du / `Woebegone-67` | 可信资源与执行 | `work/a-cp3` | [CP3接线](docs/handoff/CP3_A_TO_B.md) / [A任务书](docs/handoff/OWNER_A.md) |
 | B · `xuyangma` | 服务决策与操作体验 | `feat/b-cp2` | [B开发任务书](docs/handoff/OWNER_B.md) |
 
 ## 启动与验收
@@ -49,7 +49,7 @@ FABRIC_API_TARGET=http://127.0.0.1:18083 WEB_PORT=15176 bash web/dev-local.sh we
 
 ## 从哪里开始读
 
-0. [CP2 当前交付](docs/CP2_A_DELIVERY.md) 与 [CP2 接线](docs/handoff/CP2_A_TO_B.md)；[CP1 交接](docs/handoff/CP1_A_TO_B.md)作为历史记录。
+0. [CP3 当前交付](docs/CP3_A_DELIVERY.md) 与 [CP3 接线](docs/handoff/CP3_A_TO_B.md)；[CP2 交付](docs/CP2_A_DELIVERY.md)及更早文档作为对应版本的历史记录。
 1. 自己的任务书：[A](docs/handoff/OWNER_A.md) / [B](docs/handoff/OWNER_B.md)。
 2. [共同checkpoint](docs/handoff/CHECKPOINTS.md)、[交接模板](docs/handoff/HANDOFF_TEMPLATE.md)。
 3. [共享契约](docs/CONTRACTS.md)、[产品扩展接口](docs/EXTENSIONS.md)、[状态与占用](docs/STATE_MODEL.md)、[暂定语义及来源](docs/SEMANTICS.md)。
@@ -90,7 +90,7 @@ deploy/                      A：后续部署配置
 ```bash
 git fetch origin
 # A使用以下一行；B改为work/b-product
-git switch work/a-cp2
+git switch work/a-cp3
 git pull --ff-only
 ```
 
@@ -98,14 +98,14 @@ git pull --ff-only
 
 提交前运行`make cp0`；后续使用`make checkpoint CP=CP1`等入口，缺失/过期/未运行证据应失败。不能拿CP0的501占位测试替代业务测试：实现对应操作时更新责任表、CP0状态检查和业务验收，保持“实际实现什么就声明什么”。
 
-CI会在push/PR运行 A CP2 后端门槛、CP0/CP1 回归、B 页面组件与真实 TCP 接续检查。代码审阅责任写在`.github/CODEOWNERS`；它与远端分支保护是否启用是两回事。CP1–CP5的高标准定义不会因一个构建成功自动达成。
+CI在push/PR运行 `make cp3-a`：A CP3 可靠性门槛、CP0–CP2 回归、B 页面组件与真实 TCP 接续检查。代码审阅责任写在`.github/CODEOWNERS`；它与远端分支保护是否启用是两回事。CP1–CP5的高标准定义不会因一个构建成功自动达成。
 
 ## 来源与边界
 
 - 当前有两种隔离模式：`logical_simulation` 是固定 10 秒模型；`cpu_reference` 运行真实固定整数参考程序。两者均不运行提交的 image/command/env，也不代表真实 GPU 执行。CPU 模式的目录、请求模式和证据见 [CP2 接线](docs/handoff/CP2_A_TO_B.md)。
 - 团队暂定语义集中在`configs/semantics.json`。正式答疑到达时局部调整，不改官方原件。
 - 内部契约与产品扩展不增加基础客户端必填字段。WorkIntent计时从意图到达开始，不从获配后创建job开始。
-- 仓库用于竞赛协作，尚未添加开源许可证。第三方库保留其许可；AI协助生成及测试 CP0–CP2 代码和文档，记录见[CP0交付记录](docs/CP0_DELIVERY.md)、[CP1交付记录](docs/CP1_A_DELIVERY.md)与[CP2交付记录](docs/CP2_A_DELIVERY.md)。
+- 仓库用于竞赛协作，尚未添加开源许可证。第三方库保留其许可；AI协助生成及测试 CP0–CP3 代码和文档，记录见各阶段交付文档。
 - 此仓库不含旧MCM原始数据、历史实验、论文或凭据。
 
 ## 验证入口与历史记录
@@ -141,3 +141,13 @@ uv run python tests/acceptance/cp2/cp2_cpu_reference.py
 两份脚本在独立临时实例运行真实 TCP 请求，后者启动真实 CPU 进程。回执写入 `evidence/cp2/`，源码更新后须重新核验构建匹配。B 六工作台、三角色交叉操作和联合 CP2 放行独立记录，不由后端检查自动通过。
 
 B CP2 技术回归：`make cp2-b`。它不自动签署人工验收。隔离场景 CLI、CPU 演示启动及六工作台人工步骤见 [CP2_B_TO_A](docs/handoff/CP2_B_TO_A.md)。
+
+CP3 A 完整入口：
+
+```sh
+make cp3-a
+# 联合门槛：B 与联合证据未齐时必须失败，不能以 A 通过替代
+make checkpoint CP=CP3
+```
+
+专项入口与证据范围见 [CP3 交付](docs/CP3_A_DELIVERY.md)。测试创建独立临时目录和端口；不需要重置现有人工验收实例。
