@@ -22,14 +22,16 @@
 
 | 任务 ID | 操作与必须看见的结果 |
 |---|---|
-| `submit-and-follow` | 从运行工作台登记新工作，进入任务连续性查询同一工作。额外完成空列表和部分成功场景：资源申请已成功而后续创建被拒绝，重试保持原租约，没有重复借卡。保留成功和失败响应、原租约 ID。 |
+| `submit-and-follow` | 从运行工作台登记新工作，进入任务连续性查询同一工作。额外完成空列表和[部分成功场景](CP4_PARTIAL_SUCCESS.md)：资源申请成功后，由 supplier 通知收回实际占用 GPU；正常客户端刷新重试后，任务创建仍被 `lease_unavailable` 拒绝。同一租约保留、工作没有任务，最后释放原租约。保留真实成功与最终拒绝响应、原租约 ID。 |
 | `contributor-recall` | 贡献者实际收回自己的资源，并尝试收回另一贡献者的资源。前者成功，后者由服务端拒绝；在资源与连续性两区核对通知和状态。 |
 | `checkpoint-and-recover` | 在 CPU 参考实例运行保存—停止—恢复。查询响应必须分别显示工件 `verification_status=verified`、`continuation_status=applied` 和新 `resumed_attempt_id`；逻辑 ready 不满足此项。 |
 | `explain-decision` | 从工作关联导航打开实际决定，核对当时合法候选、选中动作与已提交事件；`commit_status=committed`，不是仅显示计划。 |
 | `events-report-and-download` | 读取工作关联事件和冻结的策略报告；保留原执行构建，R=1.00 与覆盖缺口不得改写。点击浏览器下载，保存实际下载文件并逐字节对照服务端工件。 |
 | `administrator-acceptance` | 读取验收状态，再连续刷新管理员总览十次。每次真实响应均为 200；出现任何 409 或间歇错误应保留，不删失败后补十次成功。 |
 
-每人都要覆盖 `error`、`empty`、`partial-success` 三种条件，可分布在六项任务中。每个任务的原始历史使用 `cp4-ui-history-v1`：`build`、`task_id`、`human_id`、从1递增的 `actions`（含 `operation`、`observed`）、实际 `requests`（`method`、`path`、`status_code`、`response`）。下载还需 `downloads`，逐项引用 `file` 与原 `server_artifact`；部分成功还需 `retained_allocation_id` 与 `duplicate_allocation_created=false`，以及前后两次同工作、同一租约的实际详情。异步阶段失败可通过 HTTP 200 详情中的已提交资源阶段和带 rejected 回执的任务失败阶段证明，无须伪造 HTTP 错误状态。
+每人都要覆盖 `error`、`empty`、`partial-success` 三种条件，可分布在六项任务中。每个任务的原始历史使用 `cp4-ui-history-v1`：`build`、`task_id`、`human_id`、从1递增的 `actions`（含 `operation`、`observed`）、实际 `requests`（`method`、`path`、`status_code`、`request_body`、`response`）。请求体保留实际 `action`、`stage_id`、`expected_version`，不保存身份文件和 Authorization。下载还需 `downloads`，逐项引用 `file` 与原 `server_artifact`；部分成功还需 `retained_allocation_id` 与 `duplicate_allocation_created=false`，以及按实际先后顺序记录的同工作 allocate 成功、分配后详情、create_job 拒绝和拒绝后同租约详情。无关接口的失败不能代替该任务阶段拒绝。若服务实际产生异步阶段失败，可通过 HTTP 200 详情中的已提交资源阶段和带 rejected 回执的任务失败阶段证明；不能为凑记录伪造此类阶段。
+
+部分成功必须执行正式步骤中的隔离实例和供应者路线。仅推进时钟制造 `stale_version` 会被前端正常自动重试，不保证显示错误，不能作为该浏览器场景的通过证据。也不能通过公开 `/v1/jobs` 向工作绑定租约塞入占用任务：服务会正确拒绝这一绕过。代理的纯 TCP 或前端客户端复验均不代替本人实际看见页面最终错误、刷新后状态和释放结果。
 
 联合记录 `evidence/cp4/user_tasks_observer.json` 使用 `cp4-user-tasks-v1`。根含 `build`、带时区 `observed_at`、空的 `unresolved_issues`、两位 `operators`。每人有不同 `human_id`、`observer_kind=human`、角色 `A` 或 `B`、本人确认的 `attested` 和六个 `tasks`。每项写 `id`、`status`、具体 `actual`、`viewport`、`workspaces`、`conditions`、`screenshot` 与 `history` 引用。缺项应留待完成，不能补造观察。
 
