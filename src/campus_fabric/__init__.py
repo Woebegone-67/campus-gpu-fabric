@@ -1,3 +1,3 @@
-"""Campus Fabric control plane. CP0 establishes contracts, not a scheduler."""
+"""Campus Fabric transactional CP1 control plane, with logical execution only."""
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"

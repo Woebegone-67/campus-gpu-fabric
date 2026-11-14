@@ -458,6 +458,30 @@
         "Crash after commit retains receipt; old generation callback cannot mutate current allocation."
       ],
       "replace_at": "CommandCommit and outbox"
+    },
+    {
+      "id": "cp1_execution_model",
+      "source": "team_provisional",
+      "value": {
+        "mode": "logical_simulation",
+        "model": "constant-work-v1",
+        "default_duration_seconds": 10,
+        "duration": "fixed model configuration, never timeout_seconds; not measured GPU/CPU performance",
+        "completion": "explicit logical clock boundaries; no command or container is actually run",
+        "scheduling": "builtin priority/FIFO first-fit or external DecisionPlan; persisted mode cannot change silently on restart",
+        "cp1_scope": "normal successful modeled execution and terminal timeout/cancel; interruption/retries are CP2"
+      },
+      "reason": "Make CP1 execution reproducible without inventing workload duration or physical execution.",
+      "operations": [
+        "jobs",
+        "clock",
+        "startup"
+      ],
+      "validation": [
+        "Timeout5 fails at5; timeout100 completes at10; timeout10 loses exact tie to timeout.",
+        "Restart preserves model and pending timers; external policy sees feasible pending demands."
+      ],
+      "replace_at": "execution model and scheduler adapter"
     }
   ]
 }

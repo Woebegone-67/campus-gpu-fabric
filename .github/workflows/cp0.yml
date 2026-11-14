@@ -1,4 +1,4 @@
-name: CP0 contract and scaffold gate
+name: Contract and CP1 A backend gate
 on:
   push:
   pull_request:
@@ -25,9 +25,13 @@ jobs:
       - run: uv python install 3.12
       - run: make setup
       - run: make cp0
+      - run: uv run python scripts/accept_cp1_a.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: cp0-evidence
-          path: evidence/cp0/*.json
+          name: cp1-a-backend-evidence
+          path: |
+            evidence/cp0/*.json
+            evidence/cp1/a_core_receipt.json
+            evidence/cp1/a_core_http_history.json
           if-no-files-found: ignore

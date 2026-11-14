@@ -1,6 +1,6 @@
 # CP0 语义冻结
 
-当前状态：**已作为CP0团队开发约定；非官方补充规则，业务实现与运行验收待完成。** 机器可读唯一表为 [semantics.json](../configs/semantics.json)，按 `id` 引用，不在各模块复制默认值。
+当前状态：**已作为CP0团队开发约定；非官方补充规则，CP1 正常链已实现，回收/恢复/真实 CPU 等后续规则仍待实现与验收。** 机器可读唯一表为 [semantics.json](../configs/semantics.json)，按 `id` 引用，不在各模块复制默认值。
 
 `source=official` 仅表示原规范已写明；`team_provisional` 是本团队为可执行开发作出的暂定选择。官方文件保持原样。每条含 `value / reason / operations / validation / replace_at`；收到正式答疑时由集成负责人改配置、适配器与对应回归，记录语义版本并重新跑受影响验收。
 
@@ -20,3 +20,5 @@
 原规范待澄清处：初始化/reset场景；TTL、并用与预算细则；fault 的 string 类型与数字 enum；X-Owner 写在扩展说明但未逐路由挂接。兼容适配不能反写原件。`timeout_seconds` 是终止上限，绝不当作工期；`GPURequest.profile` 是硬资源约束，区别于可选性能 profile。
 
 验收至少覆盖每条 `validation`，保存输入与实际回执。配置能解析、文档存在、schema能生成，只说明 CP0 材料可用，不说明 HTTP、并发、执行恢复或产品通过。
+
+CP1 的显式逻辑执行模型见 `cp1_execution_model`。首次初始化的库存及调度模式都是实例配置；reset 不恢复演示库存。CP1 配置保留了 CP2 的预算字段，但普通成功模拟不会触发重试或证明其实现。
