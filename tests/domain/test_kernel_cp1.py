@@ -3,7 +3,6 @@
 from pathlib import Path
 
 import pytest
-from campus_fabric.domain.kernel import Kernel
 
 from campus_fabric.contracts.models import (
     AllocationCreateParameters,
@@ -29,6 +28,7 @@ from campus_fabric.contracts.models import (
     WorkIntentRegistration,
     WorkSpecification,
 )
+from campus_fabric.domain.kernel import Kernel
 
 ALICE = AuthenticatedActor(actor_id="alice", role="researcher", owner_id="alice")
 BOB = AuthenticatedActor(actor_id="bob", role="researcher", owner_id="bob")

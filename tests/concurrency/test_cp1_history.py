@@ -3,8 +3,6 @@
 from concurrent.futures import ThreadPoolExecutor
 from threading import Barrier
 
-from campus_fabric.domain.kernel import Kernel
-
 from campus_fabric.contracts.models import (
     AllocationCreateParameters,
     AllocationTargetParameters,
@@ -17,6 +15,7 @@ from campus_fabric.contracts.models import (
     ResourceAmounts,
     ResourceRequest,
 )
+from campus_fabric.domain.kernel import Kernel
 
 ADMIN = AuthenticatedActor(actor_id="audit", role="administrator")
 

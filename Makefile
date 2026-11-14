@@ -17,7 +17,7 @@ contracts-check:
 	uv run python scripts/check_generated.py
 
 test:
-	uv run ruff check src scripts tests
+	uv run ruff check src scripts tests --no-cache
 	uv run pytest
 
 cp0: contracts-check test
