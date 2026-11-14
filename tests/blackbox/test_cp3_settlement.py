@@ -42,10 +42,10 @@ def host(directory, name, *, cpu=False):
                 (path / f"{name}.json").write_text(raw + "\n")
 
 
-def register(h, name, settlement, *, timeout=100, cpu=False):
+def register(h, name, settlement, *, timeout=100, cpu=False, preemption="checkpoint"):
     body = registration(name, settlement=settlement, timeout=timeout)
     body["execution_mode"] = "cpu_reference" if cpu else "logical_simulation"
-    body["specification"]["allocation"].update(preemption_mode="checkpoint", max_restarts=2)
+    body["specification"]["allocation"].update(preemption_mode=preemption, max_restarts=2)
     for _ in range(5):
         status, value = h.request("POST", "/x/v1/work-intents", body=body, expected=(202, 409))
         if status == 202:
@@ -104,6 +104,38 @@ def test_terminal_result_and_lease_settlement_are_independent(tmp_path, ending, 
                            body={"action": "release", "expected_version": released["version"]})
         assert denied[0] == 404
         assert h.get(path)["item"] == released["item"]
+
+
+def test_w2_best_effort_timeout_fails_once_and_releases_without_recall(tmp_path):
+    name = "w2-best-effort-timeout"
+    path = f"/x/v1/work-intents/{name}"
+    with host(tmp_path, name) as h:
+        initial = register(h, name, "release_on_terminal", timeout=2,
+                           preemption="best_effort")
+        assert initial["item"]["specification"]["job"]["max_retries"] == 0
+        clock(h, 10)
+        final = until(h, path, lambda d: d["allocations"][0]["state"] == "Released")
+        assert final["now"] == initial["now"] + 10
+        assert final["item"]["state"] == "failed"
+        assert final["item"]["result"]["kind"] == "failure"
+        assert final["item"]["result"]["failure"]["detail"] == "Job timeout"
+        assert final["item"]["result"]["recorded_at"] == initial["now"] + 2
+        assert final["item"]["result"]["artifact_uris"] == []
+        assert final["jobs"][0]["state"] == "Failed"
+        assert final["jobs"][0]["retry_count"] == 0
+        assert len(final["item"]["attempts"]) == 1
+        assert final["item"]["allocation_ids"] == initial["item"]["allocation_ids"]
+        assert final["item"]["job_ids"] == initial["item"]["job_ids"]
+        assert final["allocations"][0]["restart_count"] == 0
+        assert final["allocations"][0]["checkpoint"] is None
+        events = [event["event_type"] for event in final["events"]]
+        for ending in ("job.failed", "intent.failed", "allocation.released",
+                       "intent.lease_settled"):
+            assert events.count(ending) == 1
+        assert not any(event.startswith("allocation.preempt") or event == "job.succeeded"
+                       for event in events)
+        capacity = h.get("/v1/capacity")["totals"]
+        assert capacity["available"] == capacity["capacity"]
 
 
 def test_interruption_ready_is_not_verification_or_applied_and_waiting_is_not_completion(tmp_path):

@@ -3,7 +3,7 @@ import {ApiClient,ApiError,encodeId,list,object,text} from '../api';
 import {useQuery} from '../hooks';
 import {downloadJsonText,ErrorNotice,Field,Panel,QueryFeedback,RawData,Refresh,Status,Table} from './common';
 
-const names:Record<string,string>={manifest:'冻结协议',analysis:'完整配对报告',summary:'工作结果',input:'冻结输入',events:'提交事件',decisions:'决策记录',receipts:'提交回执','final-snapshot':'最终快照','run-metadata':'运行元数据',commands:'命令记录','resource-samples':'资源采样','external-injections':'外部事件执行记录','final-decision-snapshot':'最终决策快照'};
+const names:Record<string,string>={manifest:'冻结协议',analysis:'配对分析报告',summary:'工作结果',input:'冻结输入',events:'提交事件',decisions:'决策记录',receipts:'提交回执','final-snapshot':'最终快照','run-metadata':'运行元数据',commands:'命令记录','resource-samples':'资源采样','external-injections':'外部事件执行记录','final-decision-snapshot':'最终决策快照'};
 const ratio=(v:unknown)=>typeof v==='number'&&Number.isFinite(v)?v.toFixed(4):'未定义';
 
 export function PolicyValidation({api}:{api:ApiClient}) {
@@ -13,14 +13,17 @@ export function PolicyValidation({api}:{api:ApiClient}) {
   const aggregate=object(comparison.aggregate),runs=list(data.runs);
   const [family,setFamily]=useState(''),[policy,setPolicy]=useState(''),[onlyFailures,setOnlyFailures]=useState(false);
   const shown=runs.filter(r=>(!family||r.scenario_family===family)&&(!policy||r.policy===policy)&&(!onlyFailures||r.status!=='complete'));
-  return <Panel title="CP3 策略配对验证" description="冻结五类输入与验证种子，对照 B0、B1、B2、P 和机会分量消融。这里读取独立实验产物。" actions={enabled?<Refresh loading={query.loading} onClick={query.refresh}/>:undefined}>
+  return <Panel title="CP3 策略配对验证" description="读取冻结输入及 B0、B1、B2、P 和机会分量消融的独立实验产物；证据用途与执行范围在下方列出。" actions={enabled?<Refresh loading={query.loading} onClick={query.refresh}/>:undefined}>
     {!enabled&&<button className="button" onClick={()=>setEnabled(true)}>管理员 · 读取 CP3 报告</button>}
     <QueryFeedback query={query}>
+      {data.partition==='development'&&<p className="helper">开发回归结果，仅用于功能检查；不构成正式策略效果验证。未运行项保留，不计为通过。</p>}
+      {data.partition==='validation'&&<p className="helper">正式验证集结果。是否完整执行、达到目标和满足场景覆盖分别核验。</p>}
+      {data.build!=null&&<RawData data={{build:data.build,partition:data.partition,manifest_sha256:data.manifest_sha256}} label="证据版本与用途"/>}
       {data.status==='NOT_RUN'&&<p className="helper">尚无完整分析。先在独立实验目录执行冻结、运行与分析；研发样例不会自动成为 CP3 证据。</p>}
       {data.analysis!=null&&<>
         <dl className="facts">
-          <div><dt>P / B2 · 族等权需求面积比 R</dt><dd>{ratio(aggregate.macro_area_ratio)} · 目标 ≤ 0.85</dd></div>
-          <div><dt>当前模型的效果目标</dt><dd><Status value={analysis.target_met===true?'MET':'NOT_MET'}/></dd></div>
+          <div><dt>{data.partition==='development'?'已运行子集 · P / B2 面积比 R':'P / B2 · 族等权需求面积比 R'}</dt><dd>{ratio(aggregate.macro_area_ratio)}{data.partition==='development'?' · 仅作诊断':' · 目标 ≤ 0.85'}</dd></div>
+          <div><dt>当前模型的效果目标</dt><dd>{data.partition==='development'?'开发回归不作正式目标判定':<Status value={analysis.target_met===true?'MET':'NOT_MET'}/>}</dd></div>
           <div><dt>实验工件完整性</dt><dd>{analysis.evidence_complete===true?'全部工件已核验':'未齐全'}</dd></div>
           <div><dt>蓝图场景覆盖</dt><dd>{analysis.coverage_complete===true?'已覆盖':'存在未覆盖项'}</dd></div>
         </dl>
@@ -43,7 +46,7 @@ export function PolicyValidation({api}:{api:ApiClient}) {
           <Field label="筛选策略"><select value={policy} onChange={e=>setPolicy(e.target.value)}><option value="">全部策略</option>{[...new Set(runs.map(r=>text(r.policy)))].map(v=><option key={v}>{v}</option>)}</select></Field>
           <label><input type="checkbox" checked={onlyFailures} onChange={e=>setOnlyFailures(e.target.checked)}/> 只看失败或未运行</label>
         </div>
-        <p className="helper">当前显示 {shown.length} 次运行。完整配对报告包含每个工作与 Owner 的差值。</p>
+        <p className="helper">当前显示 {shown.length} 次运行。配对分析报告包含每个工作与 Owner 的差值。</p>
         <Table rows={shown} rowKey={r=>text(r.run_id)} columns={[
           {label:'场景 / 种子 / 策略',render:r=><>{text(r.scenario_family)} · {text(r.seed)} · {text(r.policy)}</>},
           {label:'执行状态',render:r=>text(r.status)},

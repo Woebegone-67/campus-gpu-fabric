@@ -32,12 +32,29 @@ test('a stale report refresh clears the prior score and downloads',async()=>{
   const refresh=[...container.querySelectorAll('button')].find(b=>b.textContent==='刷新');
   await act(async()=>refresh.click());
   assert.match(container.textContent,/HTTP 409/);assert.doesNotMatch(container.textContent,/1.0500/);
-  assert.doesNotMatch(container.textContent,/下载完整配对报告/);
+  assert.doesNotMatch(container.textContent,/下载配对分析报告/);
 });
 test('unexecuted suite displays no numerical target or fabricated success',async()=>{
   globalThis.fetch=async()=>json({status:'NOT_RUN',analysis:null,runs:[]});
   await act(async()=>root.render(<PolicyValidation api={api()}/>));
   assert.match(container.textContent,/尚无完整分析/);assert.doesNotMatch(container.textContent,/全部工件已核验/);
+});
+
+test('partial development runs cannot be presented as a formal target pass',async()=>{
+  const runs=Array.from({length:50},(_,i)=>({...report.runs[0],run_id:`development-${i}`,
+    status:i<5?'complete':'not_run'}));
+  globalThis.fetch=async()=>json({...report,partition:'development',expected_runs:50,
+    build:{git_commit:'development-build'},analysis:{...report.analysis,target_met:true,evidence_complete:false},
+    runs});
+  await act(async()=>root.render(<PolicyValidation api={api()}/>));
+  assert.match(container.textContent,/开发回归结果，仅用于功能检查/);
+  assert.match(container.textContent,/开发回归不作正式目标判定/);
+  assert.match(container.textContent,/登记 50 \/ 50 次运行；完成 5 次/);
+  assert.match(container.textContent,/未齐全/);
+  assert.match(container.textContent,/not_run/);
+  assert.doesNotMatch(container.textContent,/当前模型的效果目标通过/);
+  await act(async()=>container.querySelector('input[type=checkbox]').click());
+  assert.match(container.textContent,/当前显示 45 次运行/);
 });
 
 test('switching identity aborts a pending admin download and ignores its late response',async()=>{
@@ -57,13 +74,13 @@ test('switching identity aborts a pending admin download and ignores its late re
       return json(report);
     };
     await act(async()=>root.render(<div key="admin"><PolicyValidation api={api()}/></div>));
-    await act(async()=>[...container.querySelectorAll('button')].find(b=>b.textContent==='下载完整配对报告').click());
+    await act(async()=>[...container.querySelectorAll('button')].find(b=>b.textContent==='下载配对分析报告').click());
     assert.equal(downloadSignal.aborted,false);
     const bob=new ApiClient({owner:'bob',token:'synthetic-bob',profile:'bob'});
     // App keys its workspace by owner and token, unmounting the old identity.
     await act(async()=>root.render(<div key="bob"><PolicyValidation api={bob}/></div>));
     assert.equal(downloadSignal.aborted,true);
-    assert.doesNotMatch(container.textContent,/1.0500|下载完整配对报告/);
+    assert.doesNotMatch(container.textContent,/1.0500|下载配对分析报告/);
     await act(async()=>resolveDownload(new Response('{"admin_only_record":18446744073709551615}\n',{status:200})));
     assert.equal(downloads.length,0,'the old identity must not create any download blob');
     assert.doesNotMatch(container.textContent,/admin_only_record|工件读取失败|HTTP/);
@@ -83,11 +100,11 @@ test('a current admin download preserves raw JSON bytes and its registered filen
   try{
     globalThis.fetch=async path=>path.includes('/artifacts/')?new Response(raw,{status:200}):json(report);
     await act(async()=>root.render(<PolicyValidation api={api()}/>));
-    await act(async()=>[...container.querySelectorAll('button')].find(b=>b.textContent==='下载完整配对报告').click());
+    await act(async()=>[...container.querySelectorAll('button')].find(b=>b.textContent==='下载配对分析报告').click());
     assert.equal(downloads.length,1);
     assert.equal(downloads[0].filename,'cp3-analysis.json');
     assert.equal(await downloads[0].blob.text(),raw);
-    assert.equal([...container.querySelectorAll('button')].find(b=>b.textContent==='下载完整配对报告').disabled,false);
+    assert.equal([...container.querySelectorAll('button')].find(b=>b.textContent==='下载配对分析报告').disabled,false);
   }finally{
     URL.createObjectURL=create;URL.revokeObjectURL=revoke;
     dom.window.HTMLAnchorElement.prototype.click=click;
