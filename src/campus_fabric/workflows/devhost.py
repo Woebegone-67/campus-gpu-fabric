@@ -20,6 +20,7 @@ from campus_fabric.app import create_app as create_core_app
 from campus_fabric.contracts import models as m
 from campus_fabric.policies import make_policy
 from campus_fabric.projections.read_models import EvidenceRead
+from campus_fabric.workflows.acceptance_evidence import checkpoint_checks
 from campus_fabric.workflows.orchestrator import WorkflowOrchestrator, WorkflowReadError
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -110,19 +111,12 @@ def create_app(*, worker_enabled=True, **core_options):
     semantics = json.loads((ROOT / "configs/semantics.json").read_text())
     origin = next(rule["value"]["clock_origin"] for rule in semantics["rules"]
                   if rule["id"] == "bootstrap_epoch")
-    registry = json.loads((ROOT / "configs/checkpoints.json").read_text())
-
     def evidence(actor):
         snapshot = kernel.read_snapshot(m.ReadQuery(actor=actor,
                                                    global_scope=actor.role == "administrator"))
-        # The joint acceptance registry is NOT evidence of execution. Until
-        # version-bound joint receipts are registered, every target stays NOT_RUN.
-        checks = tuple(m.EvidenceCheck(target_id=check["target_id"], status="NOT_RUN",
-            expected=f"{check['id']}: {check['expected']}")
-            for name, checkpoint in registry["checkpoints"].items() if name != "CP0"
-            for check in checkpoint["required_checks"])
+        checks, build_matches = checkpoint_checks(ROOT)
         return EvidenceRead(viewer=actor, version=snapshot.version, now=snapshot.now,
-                            checks=checks, build_matches=None)
+                            checks=checks, build_matches=build_matches)
 
     services = make_kernel_services(kernel, app.state.identity, clock_origin=origin,
                                     evidence_reader=evidence)

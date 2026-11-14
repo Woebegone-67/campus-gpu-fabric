@@ -21,6 +21,7 @@ test:
 	uv run pytest
 
 cp0: contracts-check test
+	npm --prefix web run test:ui
 	npm --prefix web run build
 	uv run python scripts/check_cp0.py
 	uv run python scripts/smoke_cp0.py

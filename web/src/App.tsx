@@ -8,6 +8,7 @@ import {ContinuityPage} from './pages/Continuity';
 import {DecisionsPage} from './pages/Decisions';
 import {EventsPage} from './pages/Events';
 import {AcceptancePage} from './pages/Acceptance';
+import {decisionHref,workHref} from './navigation';
 
 const workspaces=[
   {id:'run',name:'运行工作台',description:'提交工作，处理等待与运行，核对任务和租约。'},
@@ -17,7 +18,7 @@ const workspaces=[
   {id:'events',name:'事件与实验',description:'追踪已提交事件，检查独立实验与证据。'},
   {id:'acceptance',name:'系统验收',description:'区分已经验证、尚未运行和仍待接入的能力。'},
 ];
-function readLocation(){const [section,search='']=location.hash.slice(1).split('?');return {section:workspaces.some(w=>w.id===section)?section:'run',intent:new URLSearchParams(search).get('intent')||''};}
+function readLocation(){const [section,search='']=location.hash.slice(1).split('?');const params=new URLSearchParams(search);return {section:workspaces.some(w=>w.id===section)?section:'run',intent:params.get('intent')||'',decision:params.get('decision')||''};}
 export default function App(){
   const [identity,setIdentity]=useState<Identity>({owner:'alice',token:''});
   const [identityOpen,setIdentityOpen]=useState(false),[mutations,setMutations]=useState(0);
@@ -27,7 +28,7 @@ export default function App(){
   useEffect(()=>{const change=()=>setRoute(readLocation());window.addEventListener('hashchange',change);return()=>window.removeEventListener('hashchange',change);},[]);
   const health=useQuery(api,'/healthz');
   const selected=workspaces.find(w=>w.id===route.section)!;
-  const openIntent=(id:string)=>{location.hash=`continuity?intent=${encodeURIComponent(id)}`;};
+  const openIntent=(id:string)=>{location.hash=workHref(id);};
   const isOnline=health.data!==null&&!health.error;
   return <div className="app">
     <aside className="sidebar"><a className="wordmark" href="#run"><span>织算</span><small>CAMPUS FABRIC</small></a><nav aria-label="工作区">{workspaces.map((workspace,index)=><a key={workspace.id} href={`#${workspace.id}`} aria-current={route.section===workspace.id?'page':undefined}><span className="number">0{index+1}</span>{workspace.name}</a>)}</nav><footer>临时共享 · 持续接续<br/>B · 服务决策与体验</footer></aside>
@@ -39,9 +40,9 @@ export default function App(){
       <div key={`${identity.owner}\0${identity.token}`} className="workspace">
         {route.section==='run'&&<RunPage api={api} onOpen={openIntent}/>}
         {route.section==='resources'&&<ResourcesPage api={api}/>}
-        {route.section==='continuity'&&<ContinuityPage key={route.intent} api={api} initialId={route.intent}/>}
-        {route.section==='decisions'&&<DecisionsPage api={api}/>}
-        {route.section==='events'&&<EventsPage api={api}/>}
+        {route.section==='continuity'&&<ContinuityPage key={route.intent} api={api} initialId={route.intent} onSelect={openIntent}/>}
+        {route.section==='decisions'&&<DecisionsPage key={route.decision} api={api} initialId={route.decision} workId={route.intent} onSelect={id=>{location.hash=decisionHref(id);}}/>}
+        {route.section==='events'&&<EventsPage key={route.intent} api={api} intentId={route.intent}/>}
         {route.section==='acceptance'&&<AcceptancePage api={api} showAdminClock={identity.profile==='admin' && Boolean(identity.token)}/>}
       </div><footer className="page-footer">当前为逻辑模拟 · 所有业务状态以服务端为准</footer>
     </main>

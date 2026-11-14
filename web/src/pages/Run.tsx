@@ -53,7 +53,7 @@ export function CreateWork({api, onCreated, onOpen}: {api: ApiClient; onCreated:
         <Field label="中断处理"><select name="preemption" defaultValue="best_effort"><option value="checkpoint">保存点策略（CP2 待接入）</option><option value="restartable">允许重启</option><option value="best_effort">尽力运行</option></select></Field>
         <Field label="租约结算"><select name="settlement" defaultValue="keep_lease"><option value="keep_lease">保留租约，手动归还</option><option value="release_on_success">成功后申请自动归还</option><option value="release_on_terminal">结束后申请自动归还</option></select></Field>
       </fieldset>
-      <p className="helper">执行模式：逻辑模拟。当前 CP1 采用 10 秒固定逻辑工期，不实际执行镜像命令；checkpoint / 恢复属于待接入 CP2。任务结束不代表租约已经释放。</p>
+      <p className="helper">执行模式：逻辑模拟。当前 CP1 采用 10 秒固定逻辑工期，现实中等待不会推进时间；需要管理员在<a href="#acceptance">系统验收</a>推进模拟时钟。不实际执行镜像命令；checkpoint / 恢复属于待接入 CP2。任务结束后请核对租约是否释放。</p>
       <div className="actions"><button className="button primary" disabled={busy || Boolean(result) || !api.identity.owner}>{busy ? '正在登记…' : intentId ? '重试同一工作登记' : '提交工作'}</button>{intentId && <button type="button" className="button" onClick={() => onOpen(intentId)}>查询这项工作</button>}{intentId && <button type="button" className="button quiet" disabled={busy} onClick={() => {
         if (window.confirm('新建另一项工作不会取消之前的请求。若结果不明，请先查询原工作。确定准备另一项工作？')) { registration.current = null; setIntentId(''); setError(null); setResult(null); }
       }}>准备另一项工作</button>}</div>

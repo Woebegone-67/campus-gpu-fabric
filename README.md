@@ -4,6 +4,8 @@
 
 **当前：CP1，A + B 本地联调版。** 六工作区已接入持久后端，服务端工作流可完成登记—分配—模拟执行—结算。B0/B1/B2 策略已通过真实内核端口测试；默认演示仍使用 A 的 builtin 基线。CP2 的回收/恢复/故障与真实 CPU 执行尚未实现。先读 [B 第一版交接](docs/handoff/B_V1_DELIVERY.md) 和 [A 接线说明](docs/handoff/CP1_A_TO_B.md)。双人联合 CP1 尚未通过，不自动进入 CP2。
 
+CP1 审计补修包含身份应用、重复查询、授权决策解释、工作关联导航及验收回执读取，详见 [CP1 补修交接](docs/handoff/CP1_B_FIXES.md)。原人工验收实例保留，补修版使用独立工作树和端口。
+
 协作仓库：https://github.com/Woebegone-67/campus-gpu-fabric
 
 仓库可见性以GitHub实时设置为准。当前私有访问需使用各自GitHub身份；xuyangma的write权限已生效。Codex桌面本地开发只需克隆后打开项目文件夹，不要求在GitHub应用安装列表选中仓库。切勿共享凭据。
@@ -26,7 +28,7 @@ make cp0
 make checkpoint CP=CP0
 ```
 
-`make cp0`检查生成契约是否过时，运行Python静态检查与测试，构建Web，执行静态CP0验收，并启动真实HTTP子进程进行运行主机冒烟。回执在`evidence/cp0/`，属于本地生成物。`make checkpoint CP=CP0`检查这些回执是否对应当前构建。
+`make cp0`检查生成契约是否过时，运行Python静态检查与测试、前端组件交互回归，构建Web，执行静态CP0验收，并启动真实HTTP子进程进行运行主机冒烟。回执在`evidence/cp0/`，属于本地生成物。`make checkpoint CP=CP0`检查这些回执是否对应当前构建。
 
 运行两个终端：
 

@@ -10,15 +10,17 @@ const labels: Record<string, string> = {
   manual_action: '需要处理', committed: '已提交', rejected: '已拒绝', noop: '无新增效果',
   ready: '收到 ready 报告', verified: '已核验', unverified: '未核验', applied: '已接续', not_attempted: '未接续',
   MET: '已通过', NOT_MET: '未通过', NOT_RUN: '未运行', available: '可用', occupied: '占用', quarantined: '隔离中', unavailable: '不可用',
+  legal: '可行', infeasible: '不可行', unexamined: '未检查',
 };
 export function Status({value}: {value: unknown}) {
   const key = text(value, 'unknown');
   return <span className={`status status-${key.toLowerCase()}`}>{labels[key] || key}</span>;
 }
 export function ErrorNotice({error}: {error: ApiError}) {
-  const pending = error.status === 501 || error.status === 503;
-  const title = pending ? '此能力等待后端接入' : error.status === 403 || error.status === 401 ? '当前身份无权访问' : '请求未完成';
-  return <div className={`feedback ${pending ? 'warning' : 'error'}`} role="alert"><strong>{title}</strong><p>{error.message}</p><small>{error.status ? `HTTP ${error.status}` : '连接或响应中断'}{error.requestId ? ` · 请求 ${error.requestId}` : ''}</small></div>;
+  const pending = error.status === 501;
+  const unavailable = error.status === 503;
+  const title = pending ? '此能力等待后端接入' : unavailable ? '服务暂时不可用' : error.status === 403 || error.status === 401 ? '当前身份无权访问' : '请求未完成';
+  return <div className={`feedback ${pending || unavailable ? 'warning' : 'error'}`} role="alert"><strong>{title}</strong><p>{error.message}</p><small>{error.status ? `HTTP ${error.status}` : '连接或响应中断'}{error.requestId ? ` · 请求 ${error.requestId}` : ''}</small></div>;
 }
 export function QueryFeedback({query, empty, children}: {query: QueryState; empty?: boolean; children: ReactNode}) {
   if (query.loading) return <div className="empty" role="status">正在读取服务端状态…</div>;
@@ -26,6 +28,9 @@ export function QueryFeedback({query, empty, children}: {query: QueryState; empt
   if (query.data === null) return null;
   if (empty) return <div className="empty">当前授权范围内没有记录。新记录会在服务端接受后显示。</div>;
   return <>{children}</>;
+}
+export function LookupStatus({query}: {query: QueryState}) {
+  return <p className="helper lookup-status" role="status" aria-live="polite">{query.loading ? '正在查询…' : query.receivedAt ? `已读取服务端状态 · 本机 ${new Date(query.receivedAt).toLocaleTimeString()}` : ''}</p>;
 }
 export function Metadata({data}: {data: unknown}) {
   const version = versionOf(data);
@@ -39,7 +44,7 @@ export function RawData({data, label = '查看服务端原始记录'}: {data: un
 export function Panel({title, description, actions, children}: {title: string; description?: string; actions?: ReactNode; children: ReactNode}) {
   return <section className="panel"><div className="panel-heading"><div><h2>{title}</h2>{description && <p>{description}</p>}</div>{actions}</div>{children}</section>;
 }
-export function Refresh({onClick, loading = false}: {onClick: () => void; loading?: boolean}) { return <button className="button quiet" disabled={loading} onClick={onClick}>刷新</button>; }
+export function Refresh({onClick, loading = false}: {onClick: () => void; loading?: boolean}) { return <button type="button" className="button quiet" disabled={loading} onClick={onClick}>{loading?'正在刷新…':'刷新'}</button>; }
 export function ActionButton({api, path, method = 'POST', body, children, confirmation, onDone, disabled = false}: {api: ApiClient; path: string; method?: string; body?: unknown; children: ReactNode; confirmation?: string; onDone?: () => void; disabled?: boolean}) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<ApiError | null>(null);

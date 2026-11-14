@@ -14,6 +14,7 @@ from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 from campus_fabric.contracts import models as m
+from campus_fabric.domain.decision_views import owner_decision_view
 from campus_fabric.domain.placement import (
     choose_placement,
     inventory,
@@ -853,12 +854,13 @@ class Kernel:
             for e in state["events"]
             if actor.role == "administrator" or e["owner_id"] == actor.owner_id
         ]
-        allowed["decisions"] = {
-            k: p
-            for k, p in state["decisions"].items()
-            if actor.role == "administrator"
-            or all(x["owner_id"] == actor.owner_id for x in p["candidates"])
-        }
+        allowed["decisions"] = {}
+        for key, value in state["decisions"].items():
+            plan = parse(m.DecisionPlan, value)
+            view = (plan if actor.role == "administrator" else
+                    owner_decision_view(plan, actor.owner_id, state["allocations"]))
+            if view is not None:
+                allowed["decisions"][key] = plain(view)
         # Full internal job timing/specifications belong to authority, not read projections.
         for job in allowed["jobs"].values():
             for field in ("completion_at", "specification", "timeout_at"):
@@ -951,17 +953,13 @@ class Kernel:
                 or any((x["kind"], x["entity_id"]) in selection for x in e["entities"])
             )
         )
-        decisions = tuple(
-            parse(m.DecisionPlan, p)
-            for p in s["decisions"].values()
-            if (
-                query.global_scope
-                or (
-                    p["candidates"]
-                    and all(x["owner_id"] == query.actor.owner_id for x in p["candidates"])
-                )
-            )
-        )
+        decisions = []
+        for value in s["decisions"].values():
+            plan = parse(m.DecisionPlan, value)
+            view = (plan if query.global_scope else
+                    owner_decision_view(plan, query.actor.owner_id, s["allocations"]))
+            if view is not None:
+                decisions.append(view)
         actions = tuple(
             m.LegalAction(
                 operation="allocation.release",
@@ -980,7 +978,7 @@ class Kernel:
             jobs=jobs,
             intents=intents,
             events=events,
-            decisions=decisions,
+            decisions=tuple(decisions),
             legal_actions=actions,
             next_cursor=m.EventCursor(epoch=s["epoch"], after_sequence=s["seq"]),
         )

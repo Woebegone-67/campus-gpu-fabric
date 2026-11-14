@@ -1,30 +1,37 @@
-import {useState, type FormEvent} from 'react';
+import {useState} from 'react';
 import {ApiClient, detail, encodeId, list, object, text, versionOf} from '../api';
-import {useQuery} from '../hooks';
-import {ActionButton, Field, Metadata, Panel, QueryFeedback, RawData, Refresh, Status} from '../components/common';
+import {useLookupQuery} from '../hooks';
+import {decisionHref,workEventsHref} from '../navigation';
+import {ActionButton, Field, LookupStatus, Metadata, Panel, QueryFeedback, RawData, Refresh, Status} from '../components/common';
 
-export function ContinuityPage({api, initialId}: {api: ApiClient; initialId: string}) {
-  const [input, setInput] = useState(initialId);
-  const [id, setId] = useState(initialId);
-  const query = useQuery(api, id ? `/x/v1/work-intents/${encodeId(id)}` : null);
+export function ContinuityPage({api, initialId, onSelect}: {api: ApiClient; initialId: string; onSelect?: (id:string)=>void}) {
+  const {input,setInput,id,query,submit}=useLookupQuery(api,'/x/v1/work-intents',initialId,onSelect);
   const work = detail(query.data);
   const version = versionOf(query.data);
   const result = object(work.result);
   const legal = list(object(query.data).legal_actions);
   const [actionRevision, setActionRevision] = useState(0);
   const stages = list(work.stages);
+  const allocations=list(object(query.data).allocations);
+  const holding=allocations.filter(allocation=>['Allocated','Running','PreemptRequested'].includes(text(allocation.state)));
+  const decisionIds=[...new Set(list(object(query.data).events).map(event=>text(event.decision_id,'')).filter(Boolean))];
   const stage = `ui-${id}-${version?.epoch ?? 0}-${version?.revision ?? 0}-${actionRevision}`;
   const operationFor: Record<string,string> = {allocate:'workflow.create_allocation_and_bind',create_job:'workflow.create_job_and_bind',cancel:'job.cancel',release:'allocation.release'};
   const allowed = (action:string) => legal.some(item=>item.operation===operationFor[action]);
   const done = () => { setActionRevision(n=>n+1); query.refresh(); };
   return <>
     <Panel title="追踪同一项工作" description="查看已记录的执行与租约结算；保存点报告、核验和接续能力将在 CP2 接入。">
-      <form className="inline-form" onSubmit={(event:FormEvent)=>{event.preventDefault();setId(input.trim());}}><Field label="工作 ID"><input value={input} onChange={e=>setInput(e.target.value)} required placeholder="work-…"/></Field><button className="button primary">查询工作</button>{id && <Refresh loading={query.loading} onClick={query.refresh}/>}</form>
+      <form className="inline-form" onSubmit={submit}><Field label="工作 ID"><input value={input} onChange={e=>setInput(e.target.value)} required placeholder="work-…"/></Field><button className="button primary" disabled={query.loading}>{query.loading?'正在查询…':'查询工作'}</button>{id && <Refresh loading={query.loading} onClick={query.refresh}/>}</form>
+      <LookupStatus query={query}/>
       {!id && <div className="empty">输入工作 ID，或在运行工作台选择一项工作。</div>}
     </Panel>
     <QueryFeedback query={query}>
       <Panel title={id} actions={<Status value={work.state}/>}>
-        <Metadata data={query.data}/><dl className="facts"><div><dt>首次需求到达</dt><dd>{text(work.first_arrival_at)} 逻辑秒</dd></div><div><dt>执行模式</dt><dd>{work.execution_mode === 'cpu_reference' ? '真实 CPU 参考执行' : '逻辑模拟'}</dd></div><div><dt>租约</dt><dd>{Array.isArray(work.allocation_ids) ? work.allocation_ids.map(String).join('，') || '尚无关联租约' : '尚无关联租约'}</dd></div><div><dt>结算选择</dt><dd>{text(work.settlement_action)}</dd></div></dl>
+        <Metadata data={query.data}/><dl className="facts"><div><dt>首次需求到达</dt><dd>{text(work.first_arrival_at)} 逻辑秒</dd></div><div><dt>执行模式</dt><dd>{work.execution_mode === 'cpu_reference' ? '真实 CPU 参考执行' : '逻辑模拟'}</dd></div><div><dt>租约</dt><dd>{Array.isArray(work.allocation_ids) ? work.allocation_ids.map(String).join('，') || '尚无关联租约' : '尚无关联租约'}</dd></div><div><dt>结算选择</dt><dd>{({keep_lease:'保留租约，手动归还',release_on_success:'成功后自动归还',release_on_terminal:'结束后自动归还'} as Record<string,string>)[text(work.settlement_action)]||text(work.settlement_action)}</dd></div></dl>
+        <div className="lease-summary" aria-label="租约与资源占用"><strong>租约与资源占用</strong>{allocations.length?allocations.map(allocation=><div key={text(allocation.allocation_id??allocation.id)}><code>{text(allocation.allocation_id??allocation.id)}</code><Status value={allocation.state}/></div>):<p>尚无关联租约记录。</p>}{holding.length>0&&<p>{work.settlement_action==='keep_lease'?'你选择了保留租约；任务完成或取消后仍会占用资源，需要手动释放。':'租约当前仍持有资源，是否归还以这里的租约状态为准。'}</p>}{allocations.length>0&&allocations.every(allocation=>['Released','Expired','Evicted','Rejected'].includes(text(allocation.state)))&&<p>这项工作当前没有持有资源。资源池若仍有占用，请查看其他工作的租约。</p>}</div>
+        {work.execution_mode==='logical_simulation'&&<p className="helper simulation-note">CP1 任务需要 10 个逻辑秒。现实中等待不会推进时间，请管理员在<a href="#acceptance">系统验收</a>推进模拟时钟，再刷新这项工作。</p>}
+        <div className="actions related-links"><a className="button" href={workEventsHref(id)}>查看关联事件</a>{decisionIds.map((decisionId,index)=><a className="button" key={decisionId} href={decisionHref(decisionId,id)}>{decisionIds.length===1?'查看关联决策':`查看关联决策 ${index+1}`}</a>)}</div>
+        {!decisionIds.length&&<p className="helper">尚无可见的关联决策记录。</p>}
         {stages.some(s=>s.state==='failed') && Array.isArray(work.allocation_ids) && work.allocation_ids.length>0 && <div className="feedback warning"><strong>已有租约，后续阶段失败</strong><p>请核对下面的阶段回执。重试应使用已有工作与租约，避免重新申请另一份资源。</p></div>}
         <div className="actions">{(['allocate','create_job','cancel','release'] as const).map(action=><ActionButton key={`${action}-${stage}`} api={api} path={`/x/v1/work-intents/${encodeId(id)}/actions`} body={{action,stage_id:action==='allocate'?'allocate-v1':action==='create_job'?'job-v1':stage,expected_version:version}} disabled={!version || !allowed(action)} onDone={done} confirmation={['cancel','release'].includes(action)?'确定执行此操作？请核对租约及正在运行的任务。':undefined}>{({allocate:'重试资源申请',create_job:'重试任务创建',cancel:'取消工作',release:'释放租约'})[action]}</ActionButton>)}</div>
         <p className="helper">操作由服务端合法动作列表控制；不可用时请查看状态和回执。动作仍会在服务端复查权限与版本。</p>
