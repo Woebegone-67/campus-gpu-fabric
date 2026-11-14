@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect,useRef,useState} from 'react';
 import {ApiClient,ApiError,encodeId,list,object,text} from '../api';
 import {useQuery} from '../hooks';
 import {downloadJsonText,ErrorNotice,Field,Panel,QueryFeedback,RawData,Refresh,Status,Table} from './common';
@@ -56,6 +56,29 @@ export function PolicyValidation({api}:{api:ApiClient}) {
 
 function ValidationDownload({api,id}:{api:ApiClient;id:string}) {
   const [busy,setBusy]=useState(false),[error,setError]=useState<ApiError|null>(null);
-  async function download(){setBusy(true);setError(null);try{const response=await api.request(`/x/v1/policy-validation/artifacts/${encodeId(id)}`);downloadJsonText(response.raw,`cp3-${id.replace(/:/g,'-')}.json`);}catch(e){setError(e instanceof ApiError?e:new ApiError('CP3 工件读取失败',0));}finally{setBusy(false);}}
+  const pending=useRef<AbortController|null>(null);
+  const current=useRef({api,id});
+  current.current={api,id};
+  useEffect(()=>{
+    setBusy(false);setError(null);
+    return ()=>{pending.current?.abort();pending.current=null;};
+  },[api,id]);
+  async function download(){
+    pending.current?.abort();
+    const controller=new AbortController();
+    pending.current=controller;setBusy(true);setError(null);
+    // A response already in flight can outlive identity changes or navigation.
+    // Cancellation alone is insufficient if the transport has already resolved.
+    const isCurrent=()=>pending.current===controller&&!controller.signal.aborted
+      &&current.current.api===api&&current.current.id===id;
+    try{
+      const response=await api.request(`/x/v1/policy-validation/artifacts/${encodeId(id)}`,{signal:controller.signal});
+      if(isCurrent())downloadJsonText(response.raw,`cp3-${id.replace(/:/g,'-')}.json`);
+    }catch(e){
+      if(isCurrent())setError(e instanceof ApiError?e:new ApiError('CP3 工件读取失败',0));
+    }finally{
+      if(isCurrent()){pending.current=null;setBusy(false);}
+    }
+  }
   return <div className="action-unit"><button type="button" className="button" disabled={busy} onClick={download}>{busy?'正在核验…':`下载${names[id.split(':').at(-1)!]??id}`}</button>{error&&<ErrorNotice error={error}/>}</div>;
 }

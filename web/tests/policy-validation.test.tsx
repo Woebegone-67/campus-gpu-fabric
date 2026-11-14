@@ -39,3 +39,57 @@ test('unexecuted suite displays no numerical target or fabricated success',async
   await act(async()=>root.render(<PolicyValidation api={api()}/>));
   assert.match(container.textContent,/尚无完整分析/);assert.doesNotMatch(container.textContent,/全部工件已核验/);
 });
+
+test('switching identity aborts a pending admin download and ignores its late response',async()=>{
+  let resolveDownload,downloadSignal;
+  const downloads=[];
+  const create=URL.createObjectURL,revoke=URL.revokeObjectURL,click=dom.window.HTMLAnchorElement.prototype.click;
+  URL.createObjectURL=blob=>{downloads.push(blob);return 'blob:synthetic-cp3';};
+  URL.revokeObjectURL=()=>{};
+  dom.window.HTMLAnchorElement.prototype.click=function(){};
+  try{
+    globalThis.fetch=async(path,options)=>{
+      if(path.includes('/artifacts/')){
+        downloadSignal=options.signal;
+        // Deliberately ignore abort, as a response/body may already be arriving.
+        return new Promise(resolve=>{resolveDownload=resolve;});
+      }
+      return json(report);
+    };
+    await act(async()=>root.render(<div key="admin"><PolicyValidation api={api()}/></div>));
+    await act(async()=>[...container.querySelectorAll('button')].find(b=>b.textContent==='下载完整配对报告').click());
+    assert.equal(downloadSignal.aborted,false);
+    const bob=new ApiClient({owner:'bob',token:'synthetic-bob',profile:'bob'});
+    // App keys its workspace by owner and token, unmounting the old identity.
+    await act(async()=>root.render(<div key="bob"><PolicyValidation api={bob}/></div>));
+    assert.equal(downloadSignal.aborted,true);
+    assert.doesNotMatch(container.textContent,/1.0500|下载完整配对报告/);
+    await act(async()=>resolveDownload(new Response('{"admin_only_record":18446744073709551615}\n',{status:200})));
+    assert.equal(downloads.length,0,'the old identity must not create any download blob');
+    assert.doesNotMatch(container.textContent,/admin_only_record|工件读取失败|HTTP/);
+  }finally{
+    URL.createObjectURL=create;URL.revokeObjectURL=revoke;
+    dom.window.HTMLAnchorElement.prototype.click=click;
+  }
+});
+
+test('a current admin download preserves raw JSON bytes and its registered filename',async()=>{
+  const raw='{ "large_integer":18446744073709551615, "target_met":false }\n';
+  const downloads=[];
+  const create=URL.createObjectURL,revoke=URL.revokeObjectURL,click=dom.window.HTMLAnchorElement.prototype.click;
+  URL.createObjectURL=blob=>{downloads.push({blob});return 'blob:synthetic-cp3';};
+  URL.revokeObjectURL=()=>{};
+  dom.window.HTMLAnchorElement.prototype.click=function(){downloads.at(-1).filename=this.download;};
+  try{
+    globalThis.fetch=async path=>path.includes('/artifacts/')?new Response(raw,{status:200}):json(report);
+    await act(async()=>root.render(<PolicyValidation api={api()}/>));
+    await act(async()=>[...container.querySelectorAll('button')].find(b=>b.textContent==='下载完整配对报告').click());
+    assert.equal(downloads.length,1);
+    assert.equal(downloads[0].filename,'cp3-analysis.json');
+    assert.equal(await downloads[0].blob.text(),raw);
+    assert.equal([...container.querySelectorAll('button')].find(b=>b.textContent==='下载完整配对报告').disabled,false);
+  }finally{
+    URL.createObjectURL=create;URL.revokeObjectURL=revoke;
+    dom.window.HTMLAnchorElement.prototype.click=click;
+  }
+});
