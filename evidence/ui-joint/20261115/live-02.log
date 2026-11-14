@@ -1,0 +1,9 @@
+PASS imported accounts accepted by real session endpoint
+PASS real CPU recall, verified checkpoint, pending resume and applied generation 2
+PASS browser result preview/download preserves bytes and independent integer result
+PASS decision navigation and reimport after refresh retain server work
+PASS Bob denied foreign work in UI, foreign download and recall over HTTP
+PASS W2 actual CPU timeout fails and releases without a success artifact
+PASS same supplier account both recalls owned supply and submits compute
+PASS admin overview ten UI refreshes without 409
+PASS no browser page errors during live flow

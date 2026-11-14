@@ -1,0 +1,5 @@
+PASS imported accounts accepted by real session endpoint
+locator.check: Timeout 12000ms exceeded.
+Call log:
+[2m  - waiting for getByRole('checkbox', { name: 'sim-a10-gpu0', exact: true })[22m
+

@@ -1,0 +1,18 @@
+PASS default overview loads scoped work and real session capabilities without mutations
+PASS overview joins authorized lease records and prioritizes dismissible factual reminders
+PASS failed lease reads preserve work facts without inventing resource reminders
+PASS overview opens the same work in workbench and browser history returns
+PASS same-session drafts, current-page filters and workbench scroll survive space switching
+PASS workbench subpage and overview scroll are independent and recover on return
+PASS old six workspace hashes and work deep link remain direct and read-only
+PASS identity switch and clear remove old objects, drafts, filters and late responses
+PASS unconfirmed session fails closed without protected overview or workbench reads
+PASS compute-only session does not request contributor or administrator data
+PASS new observed epoch clears previous drafts and discards a late old snapshot
+PASS empty current-owner overview does not invent work or global success
+PASS same-identity refresh failure retains previously loaded list with failure notice
+PASS art exists only in overview and reduced motion stops continuous drawing
+PASS keyboard switching leaves focus in a visible active surface
+PASS optional header gesture is off by default and respects inertia and controls
+PASS desktop and narrow layouts preserve visible switcher and reachable forms
+Evidence: /Users/xz/Projects/campus-gpu-fabric-integration-20261115/evidence/ui-joint/20261115/fixtures-02
