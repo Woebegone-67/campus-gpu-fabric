@@ -52,6 +52,13 @@ function defaults(path, owner) {
 async function interact(action) {
   await act(async () => {action(); await new Promise(resolve => setTimeout(resolve, 5));});
 }
+async function waitForState(predicate, description) {
+  const deadline = performance.now() + 1000;
+  while (!predicate()) {
+    assert.ok(performance.now() < deadline, `Timed out waiting for ${description}`);
+    await act(async () => {await new Promise(resolve => setImmediate(resolve));});
+  }
+}
 async function mount(hash = '#overview') {
   dom.window.history.replaceState(null, '', `/?visual=classic${hash}`);
   await act(async () => {root.render(<App/>);});
@@ -199,6 +206,10 @@ for (const entry of ['space button', 'sidebar link']) {
     await mount(); await connect('contributor');
     if (entry === 'space button') await space('工作台');
     else await interact(() => container.querySelector('nav[aria-label="工作台导航"] a[href="#resources"]').click());
+    // Native anchor activation and hashchange are queued separately by JSDOM.
+    // Observe the rendered route and its data instead of assuming 5 ms settled it.
+    await waitForState(() => location.hash === '#resources' && workbench()?.hidden === false
+      && /contributor-node/.test(workbench()?.textContent || ''), 'the contributor devices workspace');
     assert.equal(location.hash, '#resources');
     assert.equal(workbench().hidden, false); assert.match(workbench().textContent, /contributor-node/);
     assert.doesNotMatch(workbench().textContent, /此账户未获得该能力|提交一项工作/);

@@ -79,6 +79,22 @@ test('activity page searches readable labels and does not mount experiments even
   assert.equal(container.querySelectorAll('.timeline li').length,1);assert.match(container.querySelector('.timeline').textContent,/收到保存报告/);assert.doesNotMatch(container.querySelector('.timeline').textContent,/进度已保存|checkpoint.reported/);
 });
 
+test('activity without name metadata uses a neutral work link and shows repeated states only once',async()=>{
+  const id='work-8bb481e0-89d9-4ebd-8f62-1c6413db971c';
+  const changes=[{entity:{kind:'allocation',entity_id:'lease-1'},after:'Running'},{entity:{kind:'intent',entity_id:id},after:'running'},{entity:{kind:'intent',entity_id:id},after:'running'},{entity:{kind:'job',entity_id:'job-2'},after:'Pending'}];
+  globalThis.fetch=async(path,options)=>{calls.push({path,options});return json({...base,items:[{event_id:'e1',event_type:'job.started',logical_time:2,state_changes:changes}]});};
+  await render(<EventsPage api={api()}/>);
+  const timeline=container.querySelector('.timeline'),links=timeline.querySelectorAll('a');
+  assert.equal(links.length,1);assert.equal(links[0].getAttribute('href'),`#continuity?intent=${id}`);
+  assert.equal(links[0].textContent,'工作 · work-8bb481e0…db971c');
+  assert.doesNotMatch(timeline.textContent,/未命名工作/);
+  const states=[...timeline.querySelectorAll('.status')].map(node=>node.textContent);
+  assert.deepEqual(states,['运行中','等待分配'],'different states remain visible while equivalent running states are deduplicated');
+  assert.deepEqual(calls.map(call=>call.path),['/v1/events?limit=50'],'event presentation must not add per-work reads');
+  const raw=container.querySelector('details.raw');assert.equal(raw.open,false);
+  assert.deepEqual(JSON.parse(raw.querySelector('pre').textContent).items[0].state_changes,changes,'technical evidence retains every original state change');
+});
+
 test('unknown experiment submission cannot be resubmitted through the form',async()=>{
   globalThis.fetch=async(path,options)=>{calls.push({path,options});if(options.method==='POST')throw new TypeError('synthetic lost response');return json(path.endsWith('/catalog')?{items:[{scenario_id:'case',label:'场景',policies:['B0'],seed_min:0,seed_max:10,work_count:2,horizon:20}]}:{items:[]});};
   await render(<Experiments api={api()}/>);

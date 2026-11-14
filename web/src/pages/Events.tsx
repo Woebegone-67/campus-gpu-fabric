@@ -4,7 +4,7 @@ import {useQuery} from '../hooks';
 import {decisionHref,workHref} from '../navigation';
 import {downloadJson,Panel,QueryFeedback,RawData,Refresh,Status} from '../components/common';
 import {CopyWorkId} from '../components/CopyWorkId';
-import {workName} from '../workName';
+import {shortWorkId,workName} from '../workName';
 
 const eventLabels:Record<string,string>={
   'intent.registered':'工作已创建','allocation.requested':'正在申请资源','allocation.granted':'资源已分配',
@@ -34,14 +34,18 @@ export function EventsPage({api,intentId=''}:{api:ApiClient;intentId?:string;sho
     <QueryFeedback query={query}>
       {allRows.length?<>
         <input className="search" aria-label="筛选活动" placeholder="查找活动" value={filter} onChange={e=>setFilter(e.target.value)}/>
-        {rows.length?<ol className="timeline">{rows.map(event=><li key={text(event.event_id)}>
+        {rows.length?<ol className="timeline">{rows.map(event=>{const shownStates=new Set<string>(),shownWorkIds=new Set<string>();return <li key={text(event.event_id)}>
           <div className="record-title"><strong>{eventLabels[text(event.event_type)]||'状态已更新'}</strong><span>{eventTime(event.logical_time)}</span></div>
           {list(event.state_changes).map((change,index)=>{
             const entity=object(change.entity),id=text(entity.entity_id,'');
-            return <p key={index}>{!intentId&&entity.kind==='intent'&&id&&<a href={workHref(id)}>{workName({intent_id:id})}</a>}{change.after!=null&&<Status value={change.after}/>}</p>;
+            const showWork=!intentId&&entity.kind==='intent'&&Boolean(id)&&!shownWorkIds.has(id);
+            const stateKey=text(change.after).toLowerCase(),showState=change.after!=null&&!shownStates.has(stateKey);
+            if(showWork)shownWorkIds.add(id);
+            if(showState)shownStates.add(stateKey);
+            return showWork||showState?<p key={index}>{showWork&&<a href={workHref(id)}>工作 · {shortWorkId(id)}</a>}{showState&&<Status value={change.after}/>}</p>:null;
           })}
           {typeof event.decision_id==='string'&&<a href={decisionHref(event.decision_id,intentId)}>分配说明</a>}
-        </li>)}</ol>:<p className="empty">没有匹配的活动</p>}
+        </li>;})}</ol>:<p className="empty">没有匹配的活动</p>}
       </>:<p className="empty">暂无活动</p>}
       {!intentId&&(more||cursors.length>1)&&<div className="actions">{cursors.length>1&&<button type="button" className="button quiet" onClick={()=>setCursors(values=>values.slice(0,-1))}>上一页</button>}<span>第 {cursors.length} 页</span>{more&&<button type="button" className="button quiet" onClick={()=>setCursors(values=>[...values,object(query.data).next_after as string])}>下一页</button>}</div>}
       {allRows.length>0&&<RawData data={exportData} label="技术详情"/>}
