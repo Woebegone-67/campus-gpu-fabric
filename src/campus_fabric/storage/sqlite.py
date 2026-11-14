@@ -10,8 +10,10 @@ import copy
 import json
 import sqlite3
 import time
+from collections import deque
 from contextlib import contextmanager
 from pathlib import Path
+from threading import Condition
 from uuid import uuid4
 
 from campus_fabric.storage import journal
@@ -32,6 +34,51 @@ UNIT_COLUMNS = (
     ("item_key", "TEXT"), ("item_index", "INTEGER"), ("payload", "TEXT"),
     *((field, "REAL" if field == "unavailable_until" else "TEXT") for field in FILTER_FIELDS),
 )
+
+
+class _WriterAdmission:
+    """Bounded FIFO among callers admitted to this store instance, not a DB lock."""
+
+    def __init__(self, capacity=64, timeout_seconds=30.0):
+        self.capacity = capacity
+        self.timeout_seconds = timeout_seconds
+        self.condition = Condition()
+        self.queue = deque()
+
+    @staticmethod
+    def remaining(deadline):
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            error = sqlite3.OperationalError("database is locked")
+            error.sqlite_errorcode = sqlite3.SQLITE_BUSY
+            error.sqlite_errorname = "SQLITE_BUSY"
+            raise error
+        return remaining
+
+    @contextmanager
+    def enter(self):
+        deadline = time.monotonic() + self.timeout_seconds
+        ticket = object()
+        queued = False
+        try:
+            with self.condition:
+                # Overflow callers wait within the same acquisition budget;
+                # fairness starts when a caller actually enters this queue.
+                while len(self.queue) >= self.capacity:
+                    self.condition.wait(self.remaining(deadline))
+                self.remaining(deadline)
+                self.queue.append(ticket)
+                queued = True
+                self.condition.notify_all()
+                while self.queue[0] is not ticket:
+                    self.condition.wait(self.remaining(deadline))
+                self.remaining(deadline)
+            yield deadline
+        finally:
+            if queued:
+                with self.condition:
+                    self.queue.remove(ticket)
+                    self.condition.notify_all()
 
 
 def _record_chain(rows):
@@ -119,6 +166,7 @@ class SQLiteStore:
     SCHEMA_VERSION = 3
 
     def __init__(self, path: str | Path):
+        self._writer_admission = _WriterAdmission()
         self._anchor = None
         self._uri = str(path) == ":memory:"
         if self._uri:
@@ -282,16 +330,22 @@ class SQLiteStore:
 
     @contextmanager
     def transaction(self):
-        conn = self._connect()
-        try:
-            conn.execute("BEGIN IMMEDIATE")
-            yield conn
-            conn.commit()
-        except BaseException:
-            conn.rollback()
-            raise
-        finally:
-            conn.close()
+        with self._writer_admission.enter() as deadline:
+            conn = self._connect()
+            try:
+                remaining = self._writer_admission.remaining(deadline)
+                conn.execute(f"PRAGMA busy_timeout={max(1, int(remaining * 1000))}")
+                conn.execute("BEGIN IMMEDIATE")
+                # Admission and BEGIN share the existing acquisition budget.
+                # Subsequent SQL retains the original SQLite busy timeout.
+                conn.execute("PRAGMA busy_timeout=30000")
+                yield conn
+                conn.commit()
+            except BaseException:
+                conn.rollback()
+                raise
+            finally:
+                conn.close()
 
     @contextmanager
     def snapshot(self):

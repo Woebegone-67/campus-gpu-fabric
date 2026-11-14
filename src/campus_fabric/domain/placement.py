@@ -49,7 +49,7 @@ def validate_node(node: NodeInventory, existing_nodes: tuple[NodeInventory, ...]
         raise ValueError("Configured slices exceed physical GPU memory")
 
 
-def inventory(nodes: dict, allocations: dict, now: float) -> tuple[NodeInventory, ...]:
+def iter_inventory(nodes, allocations, now: float, node_ids=None):
     """Derive free resources from unique live claims, detecting corrupt overcommit.
 
     A physical parent's whole-GPU view is unavailable while any of its slices is
@@ -60,17 +60,22 @@ def inventory(nodes: dict, allocations: dict, now: float) -> tuple[NodeInventory
     # Index current claims once. Re-parsing every placement for every node made
     # a single inventory read grow as nodes * allocations, including unrelated
     # nodes. The index is local to this derivation, never a second mutable ledger.
+    # Key enumeration does not decode lazy node payloads. Checking membership on
+    # the lazy mapping itself would fetch every claimed node before iteration.
+    known_nodes = set(nodes)
     claims_by_node: dict[str, list[PlacementSlice]] = {}
     for allocation in allocations.values():
         if allocation["state"] in HELD_STATES and allocation.get("placement") is not None:
             placement = _model(Placement, allocation["placement"])
             for part in placement.slices:
-                if part.node_id not in nodes:
+                if part.node_id not in known_nodes:
                     raise ValueError("Live claim refers to an unknown node")
                 claims_by_node.setdefault(part.node_id, []).append(part)
-    result = []
-    for key, raw in sorted(nodes.items()):
-        node = _model(NodeInventory, raw)
+    selected = known_nodes if node_ids is None else set(node_ids)
+    if not selected <= known_nodes:
+        raise ValueError("Resource validation refers to an unknown node")
+    for key in sorted(selected):
+        node = _model(NodeInventory, nodes[key])
         if key != node.node_id:
             raise ValueError("Inventory node key mismatch")
         used = dict.fromkeys(SCALARS, 0)
@@ -126,10 +131,14 @@ def inventory(nodes: dict, allocations: dict, now: float) -> tuple[NodeInventory
         if node.state != "Ready":
             free = dict.fromkeys(SCALARS, 0)
         free.update(gpu_count=len(available_parents), gpu_memory_mib=free_memory)
-        result.append(node.model_copy(update={
+        yield node.model_copy(update={
             "available": ResourceAmounts(**free), "devices": tuple(view_devices), "observed_at": now,
-        }))
-    return tuple(result)
+        })
+
+
+def inventory(nodes: dict, allocations: dict, now: float) -> tuple[NodeInventory, ...]:
+    """Fully fold all current claims; retained for reads and conservative audits."""
+    return tuple(iter_inventory(nodes, allocations, now))
 
 
 def _fits_node(request: ResourceRequest, selectors: tuple[KeyValue, ...], node: NodeInventory):
@@ -163,7 +172,14 @@ def choose_placement(
     inventory: tuple[NodeInventory, ...],
 ) -> Placement | None:
     """Deterministic first-fit node/device order; no workload duration input."""
-    for node in sorted(inventory, key=lambda item: item.node_id):
+    return choose_placement_ordered(
+        request, node_selector, sorted(inventory, key=lambda item: item.node_id)
+    )
+
+
+def choose_placement_ordered(request: ResourceRequest, node_selector, nodes) -> Placement | None:
+    """First-fit over an already ordered stream, deriving no unused node views."""
+    for node in nodes:
         if not _fits_node(request, node_selector, node):
             continue
         choices = tuple(
@@ -177,7 +193,7 @@ def choose_placement(
             node_id=node.node_id, resources=_resources(request, selected),
             device_ids=tuple(d.device_id for d in selected),
         ),))
-        validate_placement(request, node_selector, placement, inventory)
+        validate_placement(request, node_selector, placement, (node,))
         return placement
     return None
 

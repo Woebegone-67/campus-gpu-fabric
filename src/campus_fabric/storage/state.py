@@ -379,6 +379,29 @@ class StateDict(dict):
     def __deepcopy__(self, memo):
         return materialize(self)
 
+    def projected_map_changes(self, name, project):
+        """Read old/current entity projections without changing tracking or SQL.
+
+        ``project`` must return JSON and must not mutate its input. Missing rows
+        project to None. Replaced, moved or detached roots have no bounded entity
+        proof and return None, asking the caller to perform its full validation.
+        Original SQL bytes, not a caller-maintained dirty flag, cover in-place
+        nested changes and deletion. Returned values are detached observations.
+        """
+        value = self.get(name)
+        if (not isinstance(value, LazyMap) or self._containers.get(name) is not value
+                or value.name != name or value._detached
+                or any(other != name and item is value for other, item in self.items())):
+            return None
+        result = []
+        for key in sorted(value._cache.keys() | value._deleted):
+            payload = value._original[key]
+            before = None if payload is None else project(json.loads(payload))
+            after = None if key in value._deleted else project(value._cache[key])
+            if journal.encode(before) != journal.encode(after):
+                result.append((key, materialize(before), materialize(after)))
+        return tuple(result)
+
     def changed_units(self):
         result = {}
         # Replacing/deleting a root must also preserve containers retained by a

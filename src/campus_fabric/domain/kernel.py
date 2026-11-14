@@ -18,7 +18,7 @@ from campus_fabric.domain.decision_views import owner_decision_view
 from campus_fabric.domain.errors import Rejected
 from campus_fabric.domain.lifecycle import LifecycleMixin
 from campus_fabric.domain.placement import (
-    choose_placement,
+    choose_placement_ordered,
     validate_node,
     validate_placement,
 )
@@ -86,6 +86,7 @@ class Kernel(LifecycleMixin):
                 raise ValueError(
                     "Persisted execution model differs; use its original duration or a new DB"
                 )
+            self._audit_resources(state)
 
     @staticmethod
     def _empty(epoch, duration):
@@ -246,8 +247,7 @@ class Kernel(LifecycleMixin):
             s["cpu_clock"] = {"boot_id": boot_id, "monotonic_ns": monotonic_ns}
             for intent in touched_values(s["intents"]):
                 parse(m.WorkIntent, intent)
-            self._inventory(s)
-            self.store.save(conn, s)
+            self._save_state(conn, s)
 
     def commit_with_payload(self, command: m.CommandEnvelope):
         """Return the HTTP response snapshot from the same transaction as its effect."""
@@ -313,13 +313,12 @@ class Kernel(LifecycleMixin):
             # Validate mutable aggregate against the immutable boundary before saving.
             for intent in touched_values(s["intents"]):
                 parse(m.WorkIntent, intent)
-            self._inventory(s)
             if key is not None:
                 s["dedup"][key] = {"fingerprint": fingerprint, "receipt": plain(receipt)}
             if body is None:
                 body = {"receipt": plain(receipt)}
             s["payloads"][self._payload_key(receipt)] = {"status_code": status, "body": body}
-            self.store.save(conn, s)
+            self._save_state(conn, s)
             return receipt, copy.deepcopy(s["payloads"][self._payload_key(receipt)])
         except Rejected as exc:
             receipt = m.CommitReceipt(
@@ -670,8 +669,8 @@ class Kernel(LifecycleMixin):
         )
         for a in pending:
             p = parse(m.AllocationCreateParameters, a["parameters"])
-            placement = choose_placement(
-                p.request, p.node_selector, self._inventory(s)
+            placement = choose_placement_ordered(
+                p.request, p.node_selector, self._inventory_nodes(s)
             )
             if placement is not None:
                 self._grant(s, c, a, placement)

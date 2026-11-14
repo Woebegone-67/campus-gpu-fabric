@@ -1,0 +1,38 @@
+{
+  "classification": "targeted correctness checks; not CP4 performance acceptance",
+  "worktree": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/resource-locality",
+  "base_head": "b19acae7f0ea185e6289388fb629d2a15dd84fad",
+  "source_state": "uncommitted writer-admission changes plus concurrent resource-locality work",
+  "checks": [
+    {
+      "command": "PYTHONPATH=src:. /Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/.venv/bin/python -m pytest tests/concurrency/test_writer_admission.py -q",
+      "result": "14 passed in 0.68s",
+      "raw_stdout_stderr": "new-tests.log"
+    },
+    {
+      "command": "PYTHONPATH=src:. /Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/.venv/bin/python -m pytest tests/domain/test_entity_storage.py tests/concurrency/test_cp3_transaction_windows.py tests/concurrency/test_fault_request_isolation.py -q",
+      "result": "50 passed in 4.34s",
+      "raw_stdout_stderr": "existing-regression.log"
+    },
+    {
+      "command": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/.venv/bin/ruff check src/campus_fabric/storage/sqlite.py tests/concurrency/test_writer_admission.py",
+      "result": "All checks passed!",
+      "evidence_kind": "observed tool output; no raw log saved"
+    },
+    {
+      "command": "git diff --check -- src/campus_fabric/storage/sqlite.py tests/concurrency/test_writer_admission.py docs/architecture/WRITER_ADMISSION.md",
+      "result": "exit 0, empty output",
+      "evidence_kind": "observed tool output; no raw log saved"
+    }
+  ],
+  "sha256": {
+    "src/campus_fabric/storage/sqlite.py": "2cc2232c86dab5a8c58caf44e379cc85ed462a16905a200b1626dd770aeb44b3",
+    "tests/concurrency/test_writer_admission.py": "7a9e6589496734c0d21b4ec93c33038bca190bd5f261c005d052d77e0f13636a",
+    "docs/architecture/WRITER_ADMISSION.md": "e6a61c6f6bd479b5a19205b4e98a65690fa628db0dd499f79e7a9b657985c366"
+  },
+  "limits": [
+    "No full suite run",
+    "No load or performance run",
+    "No commit or push"
+  ]
+}

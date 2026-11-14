@@ -39,3 +39,9 @@ def touched_values(collection):
     """A plain dict has no access tracking, so its validation stays conservative."""
     touched = getattr(collection, "touched_values", None)
     return collection.values() if touched is None else touched()
+
+
+def projected_map_changes(state, name, project):
+    """Plain snapshots cannot prove an unchanged base; require a full check."""
+    changes = getattr(state, "projected_map_changes", None)
+    return None if changes is None else changes(name, project)

@@ -9,11 +9,12 @@ import json
 
 from campus_fabric.contracts import models as m
 from campus_fabric.domain.errors import Rejected
-from campus_fabric.domain.placement import inventory
+from campus_fabric.domain.placement import iter_inventory, validate_node
 from campus_fabric.domain.state_views import (
     HELD_ALLOCATIONS,
     LIVE_ALLOCATIONS,
     LIVE_JOBS,
+    projected_map_changes,
     values_where,
 )
 
@@ -42,8 +43,8 @@ class LifecycleMixin:
                              if any(d["physical_gpu_id"] in retired_devices for d in n["devices"]))
         return retired_nodes
 
-    def _inventory(self, s):
-        # inventory() derives immutable views without mutating raw nodes/devices.
+    def _inventory_nodes(self, s, node_ids=None):
+        # Derive immutable views without mutating raw nodes/devices.
         # Only quarantined node rows need an overlay; copying all physical devices
         # on every read/commit scales with pool size for no semantic benefit.
         retired = self._retired_node_ids(s)
@@ -51,10 +52,75 @@ class LifecycleMixin:
             ident: {**node, "state": "NotReady"} if ident in retired else node
             for ident, node in s["nodes"].items()
         }
-        claims = {a["allocation_id"]: a for a in values_where(
+        # The row's identity is not a resource input. Do not let an accidental
+        # duplicate identity collapse two authoritative rows into one claim.
+        claims = {index: a for index, a in enumerate(values_where(
             s["allocations"], state=HELD_ALLOCATIONS
-        ) if a.get("placement") is not None}
-        return inventory(nodes, claims, s["now"])
+        )) if a.get("placement") is not None}
+        return iter_inventory(nodes, claims, s["now"], node_ids)
+
+    def _inventory(self, s):
+        return tuple(self._inventory_nodes(s))
+
+    def _audit_resources(self, s):
+        """Establish the global baseline at startup and after structural changes.
+
+        Availability and recall/quarantine state are derived, so neutralize those
+        fields only for the registration-time topology constraints. The full
+        claim fold below still uses the actual stored state and quarantine.
+        """
+        previous = []
+        for key in sorted(s["nodes"]):
+            node = parse(m.NodeInventory, s["nodes"][key])
+            if key != node.node_id:
+                raise ValueError("Inventory node key mismatch")
+            topology = node.model_copy(update={
+                "available": node.capacity,
+                "devices": tuple(d.model_copy(update={"state": "available"}) for d in node.devices),
+            })
+            validate_node(topology, tuple(previous))
+            previous.append(topology)
+        self._inventory(s)
+
+    @staticmethod
+    def _resource_row(value):
+        if not isinstance(value, dict):
+            raise ValueError("Resource entity must be an object")
+        return value
+
+    @classmethod
+    def _held_placement(cls, value):
+        cls._resource_row(value)
+        return value.get("placement") if value["state"] in HELD_ALLOCATIONS else None
+
+    def _validate_resources(self, s):
+        """Validate the actual post-scheduling resource changes in this transaction.
+
+        The SQL originals and current entities determine the affected set, not
+        command names or caller-maintained dirty flags. Every affected node is
+        folded against all its current claims. A plain snapshot or structural
+        replacement has no bounded proof and therefore needs the global audit.
+        """
+        nodes = projected_map_changes(s, "nodes", self._resource_row)
+        retired = projected_map_changes(s, "retired", self._resource_row)
+        if nodes is None or retired is None or nodes or retired:
+            self._audit_resources(s)
+            return
+        claims = projected_map_changes(s, "allocations", self._held_placement)
+        if claims is None:
+            self._audit_resources(s)
+            return
+        affected = set()
+        for _, before, after in claims:
+            for placement in (before, after):
+                if placement is not None:
+                    affected.update(p.node_id for p in parse(m.Placement, placement).slices)
+        if affected:
+            tuple(self._inventory_nodes(s, affected))
+
+    def _save_state(self, connection, s):
+        self._validate_resources(s)
+        self.store.save(connection, s)
 
     def acknowledge_dispatch(self, dispatch_id, epoch):
         # Transport bookkeeping only: no clock, placement, or decision version mutation.
@@ -63,7 +129,7 @@ class LifecycleMixin:
             entry = s["outbox"].get(dispatch_id) if s["epoch"] == epoch else None
             if entry:
                 entry.update(status="delivered", acknowledged_at=s["now"])
-                self.store.save(connection, s)
+                self._save_state(connection, s)
 
     def reconcile_retired(self, event):
         """Trusted driver stop receipt removes a private old-epoch quarantine, never work."""
@@ -84,7 +150,7 @@ class LifecycleMixin:
                 parameters=m.ExecutorReportParameters(kind="executor.report", event=event))
             self._event(s, c, "execution.retired_reconciled")
             self._schedule(s, c)
-            self.store.save(connection, s)
+            self._save_state(connection, s)
             return True
 
     @staticmethod
@@ -158,7 +224,7 @@ class LifecycleMixin:
             if not fault or fault["mode"] == "none" or not fault["remaining"]:
                 return None
             fault["remaining"] -= 1
-            self.store.save(connection, s)
+            self._save_state(connection, s)
             return {"mode": fault["mode"], "delay_ms": fault["delay_ms"]}
 
     def _recall(self, s, c, p):
