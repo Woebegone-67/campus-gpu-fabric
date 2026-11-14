@@ -25,7 +25,11 @@ def test_optimized_python_cannot_issue_evidence_or_clone(tmp_path, worker):
     args += ["--worker"] if worker else ["--uv", sys.executable]
     response = subprocess.run(args, cwd=clean.ROOT, capture_output=True, text=True, timeout=8,
         env={**clean.clean_environment(), "PYTHONPATH": str(clean.ROOT)})
-    assert response.returncode != 0 and "requires assertions" in response.stderr
+    assert response.returncode != 0
+    assert response.stderr.splitlines()[-1] == (
+        "RuntimeError: Acceptance validation requires Python assertions; remove -O/-OO and "
+        "unset PYTHONOPTIMIZE before running validators or the acceptance host."
+    )
     assert not output.exists()
 
 

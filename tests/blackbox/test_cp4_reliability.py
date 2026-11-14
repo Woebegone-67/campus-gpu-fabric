@@ -78,7 +78,10 @@ def test_optimized_interpreter_is_rejected_before_creating_evidence(tmp_path, mo
                     "run_suite(Path(sys.argv[1]), selected=[])", str(output)])
     result = subprocess.run(command, cwd=cp4.ROOT, env=env, capture_output=True, text=True, timeout=15)
     assert result.returncode != 0
-    assert "requires enabled Python assertions" in result.stderr
+    assert result.stderr.splitlines()[-1] == (
+        "RuntimeError: Acceptance validation requires Python assertions; remove -O/-OO and "
+        "unset PYTHONOPTIMIZE before running validators or the acceptance host."
+    )
     assert not output.exists()
 
 

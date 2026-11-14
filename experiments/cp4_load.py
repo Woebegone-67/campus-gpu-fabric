@@ -26,8 +26,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
+sys.path.insert(0, str(ROOT / "tests/acceptance/cp3"))
 from accept_cp1_a import Harness  # noqa: E402
 from check_checkpoint import current_build  # noqa: E402
+from cp3_state_replay import read_sql_state  # noqa: E402
 
 PROFILES = {
     "smoke": {"nodes": 2, "gpus_per_node": 4, "owners": 4, "jobs": 8, "concurrency": 4},
@@ -302,10 +304,14 @@ class LoadHarness(Harness):
 
 
 def read_state(directory):
+    """Rebuild a single read-only SQL snapshot independently of production storage."""
     path = Path(directory) / "database/fabric.sqlite3"
     with sqlite3.connect(f"file:{path}?mode=ro", uri=True, timeout=2) as connection:
-        return json.loads(connection.execute("SELECT payload FROM fabric_state WHERE singleton=1")
-                          .fetchone()[0])
+        connection.execute("BEGIN")
+        state = read_sql_state(connection)
+        if not isinstance(state, dict):
+            raise ValueError("No authoritative state is available for the load observation")
+        return state
 
 
 def write_ledger_snapshot(output, label, state, harness):
