@@ -1,0 +1,52 @@
+{
+  "check": "STORAGE-ARCHITECTURE-BOUNDED-PREFIX-DEVELOPMENT",
+  "status": "PASS",
+  "scope": "Development execution and independent review only; not build-bound formal CP4 acceptance",
+  "formal_acceptance": false,
+  "build_bound": false,
+  "execution_mode": "logical_simulation",
+  "policies": [
+    "B0",
+    "B1",
+    "B2",
+    "P"
+  ],
+  "runner_check_count": 6,
+  "record_count": 28,
+  "independent_state_audit_count": 52,
+  "observed_write_prefix_count": 1260,
+  "journal_schemas": {
+    "fabric-committed-state-v2": 52
+  },
+  "review": {
+    "status": "PASS",
+    "method": "cp3_prefix_replay.exercise followed by validate_prefix_records on retained JSON",
+    "checks": [
+      "complete SQL write-prefix checksums",
+      "independent v2 journal and treap roots",
+      "public projection bindings",
+      "future-input causal prefix controls",
+      "visible-input control",
+      "final and nonempty cutoff resource folds"
+    ],
+    "observed_in_session": true,
+    "run_build_identity": null,
+    "review_build_identity": null
+  },
+  "artifact": {
+    "path": "evidence/storage-architecture/replay-development/bounded-prefix-records.json.gz",
+    "encoding": "gzip",
+    "gzip_mtime": 0,
+    "sha256": "881c145c70ea5dc882ff9d74cd5d702441a4aa05547013403898c7f49af7e4ff",
+    "bytes": 971951,
+    "uncompressed_sha256": "89873bd4205b0760938e9cdbabbaf2998e099c0da1b864302d743ebd545d4ff6",
+    "uncompressed_bytes": 11981988,
+    "original_observation_path": "/var/folders/p3/pm9d9q091hv7q2c2nx37gmhh0000gn/T/fabric-incremental-prefix-56532.json"
+  },
+  "archived_at": "2026-11-14T17:43:02.638620+00:00",
+  "limits": [
+    "No formal build binding was recorded for this development run.",
+    "This does not certify complete CP4, real CPU/GPU execution, browser or human acceptance, or scale/latency.",
+    "Unkeyed hashes establish consistency; rewriting all observations still requires an independently retained head anchor to detect."
+  ]
+}

@@ -1,0 +1,382 @@
+{
+  "kind": "HOST_MECHANISM_DIAGNOSTIC",
+  "build": {
+    "git_commit": "7c71b3e750c692597ddf0c3c0a108a4193d8a305",
+    "source_sha256": "e8aaa1f5289a54607df0b2972341ccaae829fb4a30fc4e4446583c66d974e8f2",
+    "source_file_count": 323
+  },
+  "build_at_finish": {
+    "git_commit": "7c71b3e750c692597ddf0c3c0a108a4193d8a305",
+    "source_sha256": "e8aaa1f5289a54607df0b2972341ccaae829fb4a30fc4e4446583c66d974e8f2",
+    "source_file_count": 323
+  },
+  "runtime": "/var/folders/p3/pm9d9q091hv7q2c2nx37gmhh0000gn/T/fabric-entity-probe-n78af9p5",
+  "platform": "macOS-27.3-arm64-arm-64bit",
+  "python": "3.12.13 (main, Mar  3 2026, 12:39:30) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "source_sha256": "7495a46b3f3d51754e8dabae7d885ae54258ed41ab18da195f9fc6ce667e79e1",
+  "initial_jobs": 256,
+  "final_jobs": 259,
+  "history_preserved": true,
+  "durability": {
+    "journal_mode": "wal",
+    "synchronous": 2
+  },
+  "measurements": [
+    {
+      "operation": "allocate",
+      "elapsed_ms": 29.382458014879376,
+      "transactions": [
+        {
+          "entity_cache_counts": {
+            "allocations": 1,
+            "callbacks": 0,
+            "decisions": 0,
+            "dedup": 0,
+            "events": 2,
+            "faults": 0,
+            "intents": 0,
+            "jobs": 0,
+            "model": 0,
+            "node_generations": 0,
+            "nodes": 128,
+            "outbox": 0,
+            "payloads": 1,
+            "recalls": 0,
+            "retired": 0
+          },
+          "write_stats": {
+            "changed_units": 8,
+            "entity_rows_written": 4,
+            "merkle_loaded_nodes": 120,
+            "merkle_written_nodes": 110,
+            "decoded_rows": 128,
+            "touched_rows": 132
+          }
+        }
+      ]
+    },
+    {
+      "operation": "create_job",
+      "elapsed_ms": 22.17412495519966,
+      "transactions": [
+        {
+          "entity_cache_counts": {
+            "allocations": 1,
+            "callbacks": 0,
+            "decisions": 0,
+            "dedup": 0,
+            "events": 1,
+            "faults": 0,
+            "intents": 0,
+            "jobs": 1,
+            "model": 2,
+            "node_generations": 0,
+            "nodes": 128,
+            "outbox": 1,
+            "payloads": 1,
+            "recalls": 0,
+            "retired": 0
+          },
+          "write_stats": {
+            "changed_units": 9,
+            "entity_rows_written": 5,
+            "merkle_loaded_nodes": 129,
+            "merkle_written_nodes": 121,
+            "decoded_rows": 131,
+            "touched_rows": 135
+          }
+        }
+      ]
+    },
+    {
+      "operation": "renew",
+      "elapsed_ms": 17.984500038437545,
+      "transactions": [
+        {
+          "entity_cache_counts": {
+            "allocations": 1,
+            "callbacks": 0,
+            "decisions": 0,
+            "dedup": 0,
+            "events": 1,
+            "faults": 0,
+            "intents": 0,
+            "jobs": 0,
+            "model": 0,
+            "node_generations": 0,
+            "nodes": 128,
+            "outbox": 0,
+            "payloads": 1,
+            "recalls": 0,
+            "retired": 0
+          },
+          "write_stats": {
+            "changed_units": 6,
+            "entity_rows_written": 3,
+            "merkle_loaded_nodes": 92,
+            "merkle_written_nodes": 70,
+            "decoded_rows": 129,
+            "touched_rows": 131
+          }
+        }
+      ]
+    },
+    {
+      "operation": "cancel",
+      "elapsed_ms": 19.19837499735877,
+      "transactions": [
+        {
+          "entity_cache_counts": {
+            "allocations": 1,
+            "callbacks": 0,
+            "decisions": 0,
+            "dedup": 0,
+            "events": 1,
+            "faults": 0,
+            "intents": 0,
+            "jobs": 1,
+            "model": 0,
+            "node_generations": 0,
+            "nodes": 128,
+            "outbox": 0,
+            "payloads": 1,
+            "recalls": 0,
+            "retired": 0
+          },
+          "write_stats": {
+            "changed_units": 7,
+            "entity_rows_written": 4,
+            "merkle_loaded_nodes": 104,
+            "merkle_written_nodes": 94,
+            "decoded_rows": 130,
+            "touched_rows": 132
+          }
+        }
+      ]
+    },
+    {
+      "operation": "release",
+      "elapsed_ms": 19.40516702597961,
+      "transactions": [
+        {
+          "entity_cache_counts": {
+            "allocations": 1,
+            "callbacks": 0,
+            "decisions": 0,
+            "dedup": 0,
+            "events": 1,
+            "faults": 0,
+            "intents": 0,
+            "jobs": 0,
+            "model": 0,
+            "node_generations": 0,
+            "nodes": 128,
+            "outbox": 0,
+            "payloads": 1,
+            "recalls": 0,
+            "retired": 0
+          },
+          "write_stats": {
+            "changed_units": 6,
+            "entity_rows_written": 3,
+            "merkle_loaded_nodes": 94,
+            "merkle_written_nodes": 72,
+            "decoded_rows": 129,
+            "touched_rows": 131
+          }
+        }
+      ]
+    },
+    {
+      "operation": "allocate",
+      "elapsed_ms": 28.980292030610144,
+      "transactions": [
+        {
+          "entity_cache_counts": {
+            "allocations": 1,
+            "callbacks": 0,
+            "decisions": 0,
+            "dedup": 0,
+            "events": 2,
+            "faults": 0,
+            "intents": 0,
+            "jobs": 0,
+            "model": 0,
+            "node_generations": 0,
+            "nodes": 128,
+            "outbox": 0,
+            "payloads": 1,
+            "recalls": 0,
+            "retired": 0
+          },
+          "write_stats": {
+            "changed_units": 8,
+            "entity_rows_written": 4,
+            "merkle_loaded_nodes": 114,
+            "merkle_written_nodes": 108,
+            "decoded_rows": 128,
+            "touched_rows": 132
+          }
+        }
+      ]
+    },
+    {
+      "operation": "create_job",
+      "elapsed_ms": 21.100667014252394,
+      "transactions": [
+        {
+          "entity_cache_counts": {
+            "allocations": 1,
+            "callbacks": 0,
+            "decisions": 0,
+            "dedup": 0,
+            "events": 1,
+            "faults": 0,
+            "intents": 0,
+            "jobs": 1,
+            "model": 2,
+            "node_generations": 0,
+            "nodes": 128,
+            "outbox": 1,
+            "payloads": 1,
+            "recalls": 0,
+            "retired": 0
+          },
+          "write_stats": {
+            "changed_units": 9,
+            "entity_rows_written": 5,
+            "merkle_loaded_nodes": 132,
+            "merkle_written_nodes": 122,
+            "decoded_rows": 131,
+            "touched_rows": 135
+          }
+        }
+      ]
+    },
+    {
+      "operation": "renew",
+      "elapsed_ms": 21.927834022790194,
+      "transactions": [
+        {
+          "entity_cache_counts": {
+            "allocations": 1,
+            "callbacks": 0,
+            "decisions": 0,
+            "dedup": 0,
+            "events": 1,
+            "faults": 0,
+            "intents": 0,
+            "jobs": 0,
+            "model": 0,
+            "node_generations": 0,
+            "nodes": 128,
+            "outbox": 0,
+            "payloads": 1,
+            "recalls": 0,
+            "retired": 0
+          },
+          "write_stats": {
+            "changed_units": 6,
+            "entity_rows_written": 3,
+            "merkle_loaded_nodes": 95,
+            "merkle_written_nodes": 71,
+            "decoded_rows": 129,
+            "touched_rows": 131
+          }
+        }
+      ]
+    },
+    {
+      "operation": "cancel",
+      "elapsed_ms": 48.24329202529043,
+      "transactions": [
+        {
+          "entity_cache_counts": {
+            "allocations": 1,
+            "callbacks": 0,
+            "decisions": 0,
+            "dedup": 0,
+            "events": 1,
+            "faults": 0,
+            "intents": 0,
+            "jobs": 1,
+            "model": 0,
+            "node_generations": 0,
+            "nodes": 128,
+            "outbox": 0,
+            "payloads": 1,
+            "recalls": 0,
+            "retired": 0
+          },
+          "write_stats": {
+            "changed_units": 7,
+            "entity_rows_written": 4,
+            "merkle_loaded_nodes": 107,
+            "merkle_written_nodes": 92,
+            "decoded_rows": 130,
+            "touched_rows": 132
+          }
+        }
+      ]
+    },
+    {
+      "operation": "release",
+      "elapsed_ms": 21.17441699374467,
+      "transactions": [
+        {
+          "entity_cache_counts": {
+            "allocations": 1,
+            "callbacks": 0,
+            "decisions": 0,
+            "dedup": 0,
+            "events": 1,
+            "faults": 0,
+            "intents": 0,
+            "jobs": 0,
+            "model": 0,
+            "node_generations": 0,
+            "nodes": 128,
+            "outbox": 0,
+            "payloads": 1,
+            "recalls": 0,
+            "retired": 0
+          },
+          "write_stats": {
+            "changed_units": 6,
+            "entity_rows_written": 3,
+            "merkle_loaded_nodes": 98,
+            "merkle_written_nodes": 73,
+            "decoded_rows": 129,
+            "touched_rows": 131
+          }
+        }
+      ]
+    },
+    {
+      "operation": "selected_job_record_read",
+      "elapsed_ms": 1.0659160325303674,
+      "transactions": []
+    },
+    {
+      "operation": "selected_job_record_read",
+      "elapsed_ms": 0.8745830273255706,
+      "transactions": []
+    },
+    {
+      "operation": "selected_job_record_read",
+      "elapsed_ms": 0.7101669907569885,
+      "transactions": []
+    },
+    {
+      "operation": "inactive_worker_tick",
+      "elapsed_ms": 0.677208008710295,
+      "transactions": []
+    }
+  ],
+  "median_write_ms": 21.551125508267432,
+  "limitations": [
+    "Small host diagnostic, not 4 vCPU / 8 GiB CP4 acceptance",
+    "No paired same-environment baseline speed ratio is claimed",
+    "GPU inventory simulated; no policy effectiveness result"
+  ]
+}

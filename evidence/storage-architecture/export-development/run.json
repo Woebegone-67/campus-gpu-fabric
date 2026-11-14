@@ -1,0 +1,104 @@
+{
+  "build": {
+    "git_commit": "7c71b3e750c692597ddf0c3c0a108a4193d8a305",
+    "source_file_count": 323,
+    "source_sha256": "874d86afd7658ff2ed719265b69b32b06dd7a9a5966856c1195a5402b95cd6d9"
+  },
+  "build_at_finish": {
+    "git_commit": "7c71b3e750c692597ddf0c3c0a108a4193d8a305",
+    "source_file_count": 323,
+    "source_sha256": "874d86afd7658ff2ed719265b69b32b06dd7a9a5966856c1195a5402b95cd6d9"
+  },
+  "completed_flows": [
+    {
+      "allocation_id": "e0-a3",
+      "index": 1,
+      "job_id": "e0-j13",
+      "owner": "owner-001"
+    },
+    {
+      "allocation_id": "e0-a6",
+      "index": 6,
+      "job_id": "e0-j20",
+      "owner": "owner-006"
+    },
+    {
+      "allocation_id": "e0-a2",
+      "index": 2,
+      "job_id": "e0-j10",
+      "owner": "owner-002"
+    },
+    {
+      "allocation_id": "e0-a1",
+      "index": 0,
+      "job_id": "e0-j7",
+      "owner": "owner-000"
+    },
+    {
+      "allocation_id": "e0-a4",
+      "index": 4,
+      "job_id": "e0-j23",
+      "owner": "owner-004"
+    },
+    {
+      "allocation_id": "e0-a19",
+      "index": 7,
+      "job_id": "e0-j26",
+      "owner": "owner-007"
+    },
+    {
+      "allocation_id": "e0-a5",
+      "index": 5,
+      "job_id": "e0-j16",
+      "owner": "owner-005"
+    },
+    {
+      "allocation_id": "e0-a29",
+      "index": 3,
+      "job_id": "e0-j30",
+      "owner": "owner-003"
+    }
+  ],
+  "database_directory": "/private/var/folders/p3/pm9d9q091hv7q2c2nx37gmhh0000gn/T/fabric-storage-load-export-09nywvtk/runtime",
+  "database_storage": "Native runtime filesystem, SQLite synchronous=FULL; raw database retained at database_directory",
+  "deadline_seconds": 60,
+  "declared": {
+    "commands": 40,
+    "concurrency": 32,
+    "jobs": 8,
+    "nodes": 128,
+    "owners": 64,
+    "physical_gpus": 1024
+  },
+  "elapsed_seconds": 3.780827875016257,
+  "environment": {
+    "cpu_count": 10,
+    "cpu_max": null,
+    "limited_memory_bytes": null,
+    "limited_vcpus": null,
+    "measurement": "Client-observed real TCP wall time, queueing included",
+    "memory_max": null,
+    "platform": "macOS-27.3-arm64-arm-64bit",
+    "python": "3.12.13 (main, Mar  3 2026, 12:39:30) [Clang 21.0.0 (clang-2100.0.123.102)]",
+    "reference_4vcpu_8gib": false
+  },
+  "errors": [],
+  "excluded_workloads": {
+    "clock_batches": "not measured",
+    "fault_injection": "not measured",
+    "policy_experiments": "not measured"
+  },
+  "execution": "Real TCP integrated host; logical jobs, not real GPU work",
+  "peak_inflight_requests": 8,
+  "protocol": "Five writes per job: allocate TTL300, create, renew TTL600, cancel, release; one job detail per eight jobs; 32 concurrent flows; no history reset or compaction",
+  "schema": "cp4-load-v1",
+  "started_at": "2026-11-14T17:52:05.084919+00:00",
+  "timings_summary": {
+    "count": 41,
+    "max_ms": 2112.5730000203475,
+    "p50_ms": 570.4587920336053,
+    "p95_ms": 1166.443416965194,
+    "p99_ms": 2112.5730000203475
+  },
+  "workload_version": "cp4-mixed-lifecycle-v2-effective-renewal"
+}

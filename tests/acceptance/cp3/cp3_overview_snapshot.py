@@ -31,6 +31,7 @@ sys.path.insert(0, str(ROOT / "tests/acceptance/cp2"))
 from accept_cp1_a import inventory_node, object_id, registration  # noqa: E402
 from check_checkpoint import current_build  # noqa: E402
 from cp2_cpu_reference import CpuHarness, process_cannot_execute  # noqa: E402
+from cp3_state_replay import read_sql_state  # noqa: E402
 
 from campus_fabric.executors.cpu_reference import CpuReferenceConfig  # noqa: E402
 from campus_fabric.workflows.devhost import create_app  # noqa: E402
@@ -97,8 +98,8 @@ class OverviewHarness(CpuHarness):
     def persisted(self):
         path = self.directory / "database/fabric.sqlite3"
         with sqlite3.connect(f"file:{path}?mode=ro", uri=True, timeout=2) as connection:
-            return json.loads(connection.execute(
-                "SELECT payload FROM fabric_state WHERE singleton=1").fetchone()[0])
+            connection.execute("BEGIN")
+            return read_sql_state(connection)
 
     def finish_owned_processes(self):
         if self.mode != "cpu_reference" or self.process is None:

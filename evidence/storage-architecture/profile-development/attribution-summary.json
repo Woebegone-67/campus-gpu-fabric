@@ -1,0 +1,13 @@
+{
+  "nodes": 128,
+  "node_leaf_values": 7936,
+  "materialize_json_leaf_roundtrips": 16038,
+  "inferred_node_leaf_roundtrips_two_passes": 15872,
+  "inferred_node_fraction_of_leaf_roundtrips": 0.9896495822421748,
+  "inferred_node_whole_entity_encodings": 256,
+  "phase_times_ms": {
+    "changed_units": 65.670958,
+    "rebase": 64.82908400000001
+  },
+  "materialize_inclusive_fraction": 0.7826123376923522
+}

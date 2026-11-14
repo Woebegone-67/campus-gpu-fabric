@@ -62,7 +62,7 @@ class WorkflowWorker:
         self.transport_retries: dict[tuple[int, str], tuple[int, float]] = {}
 
     def tick(self):
-        snapshot = self.kernel.read_snapshot(m.ReadQuery(actor=OBSERVER, global_scope=True))
+        snapshot = self.kernel.workflow_pending_snapshot(OBSERVER)
         live = set()
         for intent in snapshot.intents:
             if (intent.state in {"completed", "failed", "cancelled", "manual_action"}

@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import fcntl
-import json
 import logging
 import platform
 import subprocess
@@ -70,19 +69,12 @@ class CpuDriver:
                 raise RuntimeError("CPU driver has not acquired its instance lock")
             if advance_wall:
                 self.kernel.sync_cpu_clock(self._boot, time.monotonic_ns())
-            state = self.kernel.store.read()
-            pending = [(item["command"], state["jobs"].get(item["command"]["attempt"]["job_id"], {}).get("owner_id"))
-                       for item in state["outbox"].values() if item["status"] == "pending"]
-            for retired in state.get("retired", {}).values():
-                pending.extend((command, retired["owner_id"]) for command in retired["commands"])
-            pending.sort(key=lambda item: (item[0]["version"]["epoch"],
-                                          int(item[0]["dispatch_id"].split("dispatch")[-1])))
-            for raw, owner in pending:
+            logical_time, pending = self.kernel.pending_dispatches()
+            for command, owner in pending:
                 if not owner:
                     continue
-                command = m.ExecutorCommand.model_validate_json(json.dumps(raw))
                 try:
-                    self.executor.dispatch(command, owner_id=owner, logical_time=state["now"])
+                    self.executor.dispatch(command, owner_id=owner, logical_time=logical_time)
                 except (ExecutorRejected, OSError) as exc:
                     # Keep the claim and the outbox. Dispatch cannot be assumed side-effect free.
                     if self.dispatch_errors.get(command.dispatch_id) != str(exc):
@@ -91,10 +83,10 @@ class CpuDriver:
                     continue
                 self.dispatch_errors.pop(command.dispatch_id, None)
                 self.kernel.acknowledge_dispatch(command.dispatch_id, command.version.epoch)
-            state = self.kernel.store.read()
+            state = self.kernel.runtime_metadata()
             version = m.VersionStamp(epoch=state["epoch"], revision=state["revision"])
             for event in self.executor.poll(logical_time=state["now"], version=version):
-                current = self.kernel.store.read()
+                current = self.kernel.runtime_metadata()
                 if event.version.epoch != current["epoch"]:
                     self.kernel.reconcile_retired(event)
                     self.executor.acknowledge(event.callback_id)

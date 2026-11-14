@@ -1,0 +1,2814 @@
+{
+  "kind": "ONE_RENEWAL_FUNCTION_PROFILE",
+  "build": {
+    "git_commit": "7c71b3e750c692597ddf0c3c0a108a4193d8a305",
+    "source_sha256": "3a99d174691d76d2ffa28bdf38f696e0b404c4d295e10d0c60d7a4f672cdb681",
+    "source_file_count": 323
+  },
+  "build_at_finish": {
+    "git_commit": "7c71b3e750c692597ddf0c3c0a108a4193d8a305",
+    "source_sha256": "3a99d174691d76d2ffa28bdf38f696e0b404c4d295e10d0c60d7a4f672cdb681",
+    "source_file_count": 323
+  },
+  "database": "/var/folders/p3/pm9d9q091hv7q2c2nx37gmhh0000gn/T/fabric-entity-probe-_7jzfo3d/state.sqlite3",
+  "operation": "allocation.renew",
+  "profiled_operations": 1,
+  "setup_and_cleanup": "One allocation before profile, one release after profile; no history deleted",
+  "receipt": {
+    "request_id": "profile-development-renew",
+    "outcome": "committed",
+    "version": {
+      "epoch": 0,
+      "revision": 1297
+    },
+    "logical_time": 0.0,
+    "objects": [
+      {
+        "kind": "allocation",
+        "entity_id": "e0-a1037"
+      }
+    ],
+    "event_ids": [
+      "e0-ev1557"
+    ],
+    "error": null,
+    "idempotency_replayed": false,
+    "original_request_id": null
+  },
+  "profiled_elapsed_ms": 159.78133300086483,
+  "profile_total_seconds": 0.1597527919999999,
+  "total_calls": 446804,
+  "primitive_calls": 427469,
+  "placement_model_calls": {
+    "Placement": 1,
+    "NodeInventory": 128
+  },
+  "cache_counts_at_save": {
+    "allocations": 1,
+    "callbacks": 0,
+    "decisions": 0,
+    "dedup": 0,
+    "events": 1,
+    "faults": 0,
+    "intents": 0,
+    "jobs": 0,
+    "model": 0,
+    "node_generations": 0,
+    "nodes": 128,
+    "outbox": 0,
+    "payloads": 1,
+    "recalls": 0,
+    "retired": 0
+  },
+  "write_stats": {
+    "changed_units": 6,
+    "entity_rows_written": 3,
+    "merkle_loaded_nodes": 106,
+    "merkle_written_nodes": 83,
+    "decoded_rows": 129,
+    "touched_rows": 131
+  },
+  "exclusive_top15": [
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 19,
+      "function": "materialize",
+      "primitive_calls": 262,
+      "total_calls": 19426,
+      "exclusive_seconds": 0.019119692,
+      "inclusive_seconds": 0.125024506,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 250,
+          "function": "rebase",
+          "stats": [
+            130,
+            130,
+            0.000378536,
+            0.062049212000000006
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 19,
+          "function": "materialize",
+          "stats": [
+            19164,
+            2106,
+            0.018341385,
+            0.124032074
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 343,
+          "function": "rebase",
+          "stats": [
+            1,
+            1,
+            5.166e-06,
+            0.000141125
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 239,
+          "function": "changed_units",
+          "stats": [
+            130,
+            130,
+            0.000389354,
+            0.06268683600000001
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 334,
+          "function": "changed_units",
+          "stats": [
+            1,
+            1,
+            5.251e-06,
+            0.000147333
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/decoder.py",
+      "line": 333,
+      "function": "decode",
+      "primitive_calls": 16219,
+      "total_calls": 16219,
+      "exclusive_seconds": 0.015022864,
+      "inclusive_seconds": 0.032602506,
+      "callers": [
+        {
+          "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/__init__.py",
+          "line": 299,
+          "function": "loads",
+          "stats": [
+            16219,
+            16219,
+            0.015022864,
+            0.032602506
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/__init__.py",
+      "line": 183,
+      "function": "dumps",
+      "primitive_calls": 16728,
+      "total_calls": 16728,
+      "exclusive_seconds": 0.014750367,
+      "inclusive_seconds": 0.043330983,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/placement.py",
+          "line": 19,
+          "function": "_model",
+          "stats": [
+            129,
+            129,
+            5.2548000000000006e-05,
+            0.001959787
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/kernel.py",
+          "line": 176,
+          "function": "_fingerprint",
+          "stats": [
+            1,
+            1,
+            4.374e-06,
+            1.3041000000000001e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/journal.py",
+          "line": 15,
+          "function": "encode",
+          "stats": [
+            16598,
+            16598,
+            0.014693445000000001,
+            0.041358155
+          ]
+        }
+      ]
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method builtins.isinstance>",
+      "primitive_calls": 77092,
+      "total_calls": 77092,
+      "exclusive_seconds": 0.012860432000000002,
+      "inclusive_seconds": 0.024337865,
+      "callers": [
+        {
+          "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/functools.py",
+          "line": 482,
+          "function": "lru_cache",
+          "stats": [
+            1,
+            1,
+            1.67e-07,
+            1.67e-07
+          ]
+        },
+        {
+          "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/encoder.py",
+          "line": 183,
+          "function": "encode",
+          "stats": [
+            24430,
+            24430,
+            0.002510823,
+            0.002510823
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/placement.py",
+          "line": 19,
+          "function": "_model",
+          "stats": [
+            129,
+            129,
+            3.1381e-05,
+            3.1381e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 224,
+          "function": "_matches",
+          "stats": [
+            2,
+            2,
+            2.91e-07,
+            2.91e-07
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 266,
+          "function": "_index",
+          "stats": [
+            1,
+            1,
+            8.3e-08,
+            8.3e-08
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/merkle.py",
+          "line": 117,
+          "function": "set",
+          "stats": [
+            12,
+            12,
+            1.128e-06,
+            1.128e-06
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 92,
+          "function": "indexed_value",
+          "stats": [
+            38,
+            38,
+            2.9180000000000003e-06,
+            2.9180000000000003e-06
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 144,
+          "function": "__setitem__",
+          "stats": [
+            1,
+            1,
+            1.67e-07,
+            1.67e-07
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 28,
+          "function": "marker",
+          "stats": [
+            56,
+            56,
+            1.496e-05,
+            3.7378e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 19,
+          "function": "materialize",
+          "stats": [
+            35992,
+            35992,
+            0.008885984000000001,
+            0.020324538
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 104,
+          "function": "index_columns",
+          "stats": [
+            6,
+            6,
+            7.08e-07,
+            7.08e-07
+          ]
+        },
+        {
+          "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/__init__.py",
+          "line": 299,
+          "function": "loads",
+          "stats": [
+            16219,
+            16219,
+            0.0013851690000000001,
+            0.0013851690000000001
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/contracts/models.py",
+          "line": 724,
+          "function": "causal_event",
+          "stats": [
+            1,
+            1,
+            3.34e-07,
+            3.34e-07
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/contracts/models.py",
+          "line": 960,
+          "function": "trusted_identity_and_payload",
+          "stats": [
+            4,
+            4,
+            1.0000000000000002e-06,
+            1.0000000000000002e-06
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/kernel.py",
+          "line": 178,
+          "function": "normalize",
+          "stats": [
+            7,
+            7,
+            7.09e-07,
+            7.09e-07
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 183,
+          "function": "values_where",
+          "stats": [
+            2,
+            2,
+            3.34e-07,
+            3.34e-07
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 372,
+          "function": "changed_units",
+          "stats": [
+            27,
+            27,
+            8.291e-06,
+            1.9127e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/journal.py",
+          "line": 23,
+          "function": "equal",
+          "stats": [
+            6,
+            6,
+            6.240000000000001e-07,
+            6.240000000000001e-07
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 133,
+          "function": "__getitem__",
+          "stats": [
+            133,
+            133,
+            1.0193e-05,
+            1.0193e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 281,
+          "function": "__getitem__",
+          "stats": [
+            2,
+            2,
+            1.67e-07,
+            1.67e-07
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/sqlite.py",
+          "line": 322,
+          "function": "save",
+          "stats": [
+            2,
+            2,
+            2.5000000000000004e-07,
+            2.5000000000000004e-07
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 351,
+          "function": "__init__",
+          "stats": [
+            21,
+            21,
+            4.751e-06,
+            1.0376e-05
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/encoder.py",
+      "line": 205,
+      "function": "iterencode",
+      "primitive_calls": 7702,
+      "total_calls": 7702,
+      "exclusive_seconds": 0.011691412,
+      "inclusive_seconds": 0.011691412,
+      "callers": [
+        {
+          "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/encoder.py",
+          "line": 183,
+          "function": "encode",
+          "stats": [
+            7702,
+            7702,
+            0.011691412,
+            0.011691412
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/encoder.py",
+      "line": 183,
+      "function": "encode",
+      "primitive_calls": 16728,
+      "total_calls": 16728,
+      "exclusive_seconds": 0.008947514,
+      "inclusive_seconds": 0.025453999,
+      "callers": [
+        {
+          "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/__init__.py",
+          "line": 183,
+          "function": "dumps",
+          "stats": [
+            16728,
+            16728,
+            0.008947514,
+            0.025453999
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/__init__.py",
+      "line": 299,
+      "function": "loads",
+      "primitive_calls": 16219,
+      "total_calls": 16219,
+      "exclusive_seconds": 0.008729259000000001,
+      "inclusive_seconds": 0.045599854,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/sqlite.py",
+          "line": 376,
+          "function": "<genexpr>",
+          "stats": [
+            6,
+            6,
+            3.332e-06,
+            1.6873000000000003e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 19,
+          "function": "materialize",
+          "stats": [
+            16038,
+            16038,
+            0.008631042,
+            0.044053479
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 104,
+          "function": "index_columns",
+          "stats": [
+            12,
+            12,
+            7.0810000000000005e-06,
+            6.1875e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 372,
+          "function": "changed_units",
+          "stats": [
+            6,
+            6,
+            3.2070000000000004e-06,
+            1.7874000000000002e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 133,
+          "function": "__getitem__",
+          "stats": [
+            129,
+            129,
+            6.601500000000001e-05,
+            0.0012959620000000001
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/sqlite.py",
+          "line": 342,
+          "function": "_save_changes",
+          "stats": [
+            7,
+            7,
+            5.625e-06,
+            8.8041e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 351,
+          "function": "__init__",
+          "stats": [
+            21,
+            21,
+            1.2957000000000001e-05,
+            6.575e-05
+          ]
+        }
+      ]
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'match' of 're.Pattern' objects>",
+      "primitive_calls": 32438,
+      "total_calls": 32438,
+      "exclusive_seconds": 0.007000648000000001,
+      "inclusive_seconds": 0.007000648000000001,
+      "callers": [
+        {
+          "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/decoder.py",
+          "line": 333,
+          "function": "decode",
+          "stats": [
+            32438,
+            32438,
+            0.007000648000000001,
+            0.007000648000000001
+          ]
+        }
+      ]
+    },
+    {
+      "file": "<frozen abc>",
+      "line": 117,
+      "function": "__instancecheck__",
+      "primitive_calls": 35558,
+      "total_calls": 35558,
+      "exclusive_seconds": 0.005762569,
+      "inclusive_seconds": 0.011505766,
+      "callers": [
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<built-in method builtins.isinstance>",
+          "stats": [
+            35556,
+            35556,
+            0.005761236,
+            0.011477433
+          ]
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<method 'validate_python' of 'pydantic_core._pydantic_core.SchemaValidator' objects>",
+          "stats": [
+            2,
+            2,
+            1.333e-06,
+            2.8333e-05
+          ]
+        }
+      ]
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method _abc._abc_instancecheck>",
+      "primitive_calls": 35558,
+      "total_calls": 35558,
+      "exclusive_seconds": 0.005718822,
+      "inclusive_seconds": 0.005743197,
+      "callers": [
+        {
+          "file": "<frozen abc>",
+          "line": 117,
+          "function": "__instancecheck__",
+          "stats": [
+            35558,
+            35558,
+            0.005718822,
+            0.005743197
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/decoder.py",
+      "line": 344,
+      "function": "raw_decode",
+      "primitive_calls": 16219,
+      "total_calls": 16219,
+      "exclusive_seconds": 0.005562495000000001,
+      "inclusive_seconds": 0.005562495000000001,
+      "callers": [
+        {
+          "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/decoder.py",
+          "line": 333,
+          "function": "decode",
+          "stats": [
+            16219,
+            16219,
+            0.005562495000000001,
+            0.005562495000000001
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/journal.py",
+      "line": 15,
+      "function": "encode",
+      "primitive_calls": 16598,
+      "total_calls": 16598,
+      "exclusive_seconds": 0.005531168,
+      "inclusive_seconds": 0.046889323000000004,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/merkle.py",
+          "line": 27,
+          "function": "node_hash",
+          "stats": [
+            87,
+            87,
+            3.655e-05,
+            0.000409878
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 15,
+          "function": "unit_key",
+          "stats": [
+            136,
+            136,
+            4.2588e-05,
+            0.00044646000000000003
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 211,
+          "function": "<genexpr>",
+          "stats": [
+            4,
+            4,
+            1.7080000000000002e-06,
+            1.1292000000000001e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 250,
+          "function": "rebase",
+          "stats": [
+            130,
+            130,
+            4.3799000000000005e-05,
+            0.002296329
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/journal.py",
+          "line": 19,
+          "function": "digest",
+          "stats": [
+            1,
+            1,
+            4.5800000000000005e-07,
+            4.725e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 19,
+          "function": "materialize",
+          "stats": [
+            16038,
+            16038,
+            0.005336638,
+            0.041092154000000006
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 343,
+          "function": "rebase",
+          "stats": [
+            1,
+            1,
+            4.16e-07,
+            1.1750000000000001e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 104,
+          "function": "index_columns",
+          "stats": [
+            27,
+            27,
+            9e-06,
+            8.3708e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 372,
+          "function": "changed_units",
+          "stats": [
+            21,
+            21,
+            7.71e-06,
+            7.4959e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 239,
+          "function": "changed_units",
+          "stats": [
+            130,
+            130,
+            4.4881000000000006e-05,
+            0.002303957
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/sqlite.py",
+          "line": 342,
+          "function": "_save_changes",
+          "stats": [
+            1,
+            1,
+            5.000000000000001e-07,
+            3.2000000000000005e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 334,
+          "function": "changed_units",
+          "stats": [
+            1,
+            1,
+            3.7600000000000003e-07,
+            1.2084000000000002e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 408,
+          "function": "rebase",
+          "stats": [
+            21,
+            21,
+            6.544e-06,
+            6.7502e-05
+          ]
+        }
+      ]
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'end' of 're.Match' objects>",
+      "primitive_calls": 32438,
+      "total_calls": 32438,
+      "exclusive_seconds": 0.0035862800000000003,
+      "inclusive_seconds": 0.0035862800000000003,
+      "callers": [
+        {
+          "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/decoder.py",
+          "line": 333,
+          "function": "decode",
+          "stats": [
+            32438,
+            32438,
+            0.0035862800000000003,
+            0.0035862800000000003
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/encoder.py",
+      "line": 105,
+      "function": "__init__",
+      "primitive_calls": 16599,
+      "total_calls": 16599,
+      "exclusive_seconds": 0.0031266170000000004,
+      "inclusive_seconds": 0.0031266170000000004,
+      "callers": [
+        {
+          "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/__init__.py",
+          "line": 183,
+          "function": "dumps",
+          "stats": [
+            16599,
+            16599,
+            0.0031266170000000004,
+            0.0031266170000000004
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/placement.py",
+      "line": 52,
+      "function": "inventory",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "exclusive_seconds": 0.002972058,
+      "inclusive_seconds": 0.020635833000000003,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/lifecycle.py",
+          "line": 45,
+          "function": "_inventory",
+          "stats": [
+            1,
+            1,
+            0.002972058,
+            0.020635833000000003
+          ]
+        }
+      ]
+    }
+  ],
+  "inclusive_top15": [
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/evidence/storage-architecture/profile-development/run.py",
+      "line": 38,
+      "function": "commit",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "exclusive_seconds": 5.416e-06,
+      "inclusive_seconds": 0.159731542,
+      "callers": []
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/kernel.py",
+      "line": 215,
+      "function": "commit",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "exclusive_seconds": 0.000159917,
+      "inclusive_seconds": 0.159674792,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/evidence/storage-architecture/profile-development/run.py",
+          "line": 38,
+          "function": "commit",
+          "stats": [
+            1,
+            1,
+            0.000159917,
+            0.159674792
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/kernel.py",
+      "line": 252,
+      "function": "commit_with_payload",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "exclusive_seconds": 1.7458e-05,
+      "inclusive_seconds": 0.159514875,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/kernel.py",
+          "line": 215,
+          "function": "commit",
+          "stats": [
+            1,
+            1,
+            1.7458e-05,
+            0.159514875
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/kernel.py",
+      "line": 258,
+      "function": "_commit_in_transaction",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "exclusive_seconds": 0.000241124,
+      "inclusive_seconds": 0.155280958,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/kernel.py",
+          "line": 252,
+          "function": "commit_with_payload",
+          "stats": [
+            1,
+            1,
+            0.000241124,
+            0.155280958
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/evidence/storage-architecture/profile-development/run.py",
+      "line": 54,
+      "function": "observed_save",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "exclusive_seconds": 1.2335000000000001e-05,
+      "inclusive_seconds": 0.133898125,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/kernel.py",
+          "line": 258,
+          "function": "_commit_in_transaction",
+          "stats": [
+            1,
+            1,
+            1.2335000000000001e-05,
+            0.133898125
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/sqlite.py",
+      "line": 322,
+      "function": "save",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "exclusive_seconds": 4.6584e-05,
+      "inclusive_seconds": 0.133884375,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/evidence/storage-architecture/profile-development/run.py",
+          "line": 54,
+          "function": "observed_save",
+          "stats": [
+            1,
+            1,
+            4.6584e-05,
+            0.133884375
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 19,
+      "function": "materialize",
+      "primitive_calls": 262,
+      "total_calls": 19426,
+      "exclusive_seconds": 0.019119692,
+      "inclusive_seconds": 0.125024506,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 250,
+          "function": "rebase",
+          "stats": [
+            130,
+            130,
+            0.000378536,
+            0.062049212000000006
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 19,
+          "function": "materialize",
+          "stats": [
+            19164,
+            2106,
+            0.018341385,
+            0.124032074
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 343,
+          "function": "rebase",
+          "stats": [
+            1,
+            1,
+            5.166e-06,
+            0.000141125
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 239,
+          "function": "changed_units",
+          "stats": [
+            130,
+            130,
+            0.000389354,
+            0.06268683600000001
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 334,
+          "function": "changed_units",
+          "stats": [
+            1,
+            1,
+            5.251e-06,
+            0.000147333
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 372,
+      "function": "changed_units",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "exclusive_seconds": 5.6795e-05,
+      "inclusive_seconds": 0.065670958,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/sqlite.py",
+          "line": 322,
+          "function": "save",
+          "stats": [
+            1,
+            1,
+            5.6795e-05,
+            0.065670958
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 239,
+      "function": "changed_units",
+      "primitive_calls": 14,
+      "total_calls": 14,
+      "exclusive_seconds": 0.000284667,
+      "inclusive_seconds": 0.065285626,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 372,
+          "function": "changed_units",
+          "stats": [
+            14,
+            14,
+            0.000284667,
+            0.065285626
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 408,
+      "function": "rebase",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "exclusive_seconds": 2.5162e-05,
+      "inclusive_seconds": 0.06482908400000001,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/sqlite.py",
+          "line": 322,
+          "function": "save",
+          "stats": [
+            1,
+            1,
+            2.5162e-05,
+            0.06482908400000001
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 250,
+      "function": "rebase",
+      "primitive_calls": 14,
+      "total_calls": 14,
+      "exclusive_seconds": 0.00020062900000000002,
+      "inclusive_seconds": 0.064551045,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 408,
+          "function": "rebase",
+          "stats": [
+            14,
+            14,
+            0.00020062900000000002,
+            0.064551045
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/journal.py",
+      "line": 15,
+      "function": "encode",
+      "primitive_calls": 16598,
+      "total_calls": 16598,
+      "exclusive_seconds": 0.005531168,
+      "inclusive_seconds": 0.046889323000000004,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/merkle.py",
+          "line": 27,
+          "function": "node_hash",
+          "stats": [
+            87,
+            87,
+            3.655e-05,
+            0.000409878
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 15,
+          "function": "unit_key",
+          "stats": [
+            136,
+            136,
+            4.2588e-05,
+            0.00044646000000000003
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 211,
+          "function": "<genexpr>",
+          "stats": [
+            4,
+            4,
+            1.7080000000000002e-06,
+            1.1292000000000001e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 250,
+          "function": "rebase",
+          "stats": [
+            130,
+            130,
+            4.3799000000000005e-05,
+            0.002296329
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/journal.py",
+          "line": 19,
+          "function": "digest",
+          "stats": [
+            1,
+            1,
+            4.5800000000000005e-07,
+            4.725e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 19,
+          "function": "materialize",
+          "stats": [
+            16038,
+            16038,
+            0.005336638,
+            0.041092154000000006
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 343,
+          "function": "rebase",
+          "stats": [
+            1,
+            1,
+            4.16e-07,
+            1.1750000000000001e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 104,
+          "function": "index_columns",
+          "stats": [
+            27,
+            27,
+            9e-06,
+            8.3708e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 372,
+          "function": "changed_units",
+          "stats": [
+            21,
+            21,
+            7.71e-06,
+            7.4959e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 239,
+          "function": "changed_units",
+          "stats": [
+            130,
+            130,
+            4.4881000000000006e-05,
+            0.002303957
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/sqlite.py",
+          "line": 342,
+          "function": "_save_changes",
+          "stats": [
+            1,
+            1,
+            5.000000000000001e-07,
+            3.2000000000000005e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 334,
+          "function": "changed_units",
+          "stats": [
+            1,
+            1,
+            3.7600000000000003e-07,
+            1.2084000000000002e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 408,
+          "function": "rebase",
+          "stats": [
+            21,
+            21,
+            6.544e-06,
+            6.7502e-05
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/__init__.py",
+      "line": 299,
+      "function": "loads",
+      "primitive_calls": 16219,
+      "total_calls": 16219,
+      "exclusive_seconds": 0.008729259000000001,
+      "inclusive_seconds": 0.045599854,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/sqlite.py",
+          "line": 376,
+          "function": "<genexpr>",
+          "stats": [
+            6,
+            6,
+            3.332e-06,
+            1.6873000000000003e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 19,
+          "function": "materialize",
+          "stats": [
+            16038,
+            16038,
+            0.008631042,
+            0.044053479
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 104,
+          "function": "index_columns",
+          "stats": [
+            12,
+            12,
+            7.0810000000000005e-06,
+            6.1875e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 372,
+          "function": "changed_units",
+          "stats": [
+            6,
+            6,
+            3.2070000000000004e-06,
+            1.7874000000000002e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 133,
+          "function": "__getitem__",
+          "stats": [
+            129,
+            129,
+            6.601500000000001e-05,
+            0.0012959620000000001
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/sqlite.py",
+          "line": 342,
+          "function": "_save_changes",
+          "stats": [
+            7,
+            7,
+            5.625e-06,
+            8.8041e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 351,
+          "function": "__init__",
+          "stats": [
+            21,
+            21,
+            1.2957000000000001e-05,
+            6.575e-05
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/__init__.py",
+      "line": 183,
+      "function": "dumps",
+      "primitive_calls": 16728,
+      "total_calls": 16728,
+      "exclusive_seconds": 0.014750367,
+      "inclusive_seconds": 0.043330983,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/placement.py",
+          "line": 19,
+          "function": "_model",
+          "stats": [
+            129,
+            129,
+            5.2548000000000006e-05,
+            0.001959787
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/kernel.py",
+          "line": 176,
+          "function": "_fingerprint",
+          "stats": [
+            1,
+            1,
+            4.374e-06,
+            1.3041000000000001e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/journal.py",
+          "line": 15,
+          "function": "encode",
+          "stats": [
+            16598,
+            16598,
+            0.014693445000000001,
+            0.041358155
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/decoder.py",
+      "line": 333,
+      "function": "decode",
+      "primitive_calls": 16219,
+      "total_calls": 16219,
+      "exclusive_seconds": 0.015022864,
+      "inclusive_seconds": 0.032602506,
+      "callers": [
+        {
+          "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/__init__.py",
+          "line": 299,
+          "function": "loads",
+          "stats": [
+            16219,
+            16219,
+            0.015022864,
+            0.032602506
+          ]
+        }
+      ]
+    }
+  ],
+  "relevant_function_stats": [
+    {
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/encoder.py",
+      "line": 183,
+      "function": "encode",
+      "primitive_calls": 16728,
+      "total_calls": 16728,
+      "exclusive_seconds": 0.008947514,
+      "inclusive_seconds": 0.025453999,
+      "callers": [
+        {
+          "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/__init__.py",
+          "line": 183,
+          "function": "dumps",
+          "stats": [
+            16728,
+            16728,
+            0.008947514,
+            0.025453999
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/__init__.py",
+      "line": 183,
+      "function": "dumps",
+      "primitive_calls": 16728,
+      "total_calls": 16728,
+      "exclusive_seconds": 0.014750367,
+      "inclusive_seconds": 0.043330983,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/placement.py",
+          "line": 19,
+          "function": "_model",
+          "stats": [
+            129,
+            129,
+            5.2548000000000006e-05,
+            0.001959787
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/kernel.py",
+          "line": 176,
+          "function": "_fingerprint",
+          "stats": [
+            1,
+            1,
+            4.374e-06,
+            1.3041000000000001e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/journal.py",
+          "line": 15,
+          "function": "encode",
+          "stats": [
+            16598,
+            16598,
+            0.014693445000000001,
+            0.041358155
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/.venv/lib/python3.12/site-packages/pydantic/main.py",
+      "line": 802,
+      "function": "model_validate_json",
+      "primitive_calls": 129,
+      "total_calls": 129,
+      "exclusive_seconds": 6.0585000000000004e-05,
+      "inclusive_seconds": 0.004297714,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/placement.py",
+          "line": 19,
+          "function": "_model",
+          "stats": [
+            129,
+            129,
+            6.0585000000000004e-05,
+            0.004297714
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 224,
+      "function": "_matches",
+      "primitive_calls": 2,
+      "total_calls": 2,
+      "exclusive_seconds": 2.6260000000000004e-06,
+      "inclusive_seconds": 9.583000000000001e-06,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 220,
+          "function": "<genexpr>",
+          "stats": [
+            2,
+            2,
+            2.6260000000000004e-06,
+            9.583000000000001e-06
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 266,
+      "function": "_index",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "exclusive_seconds": 4.1700000000000004e-07,
+      "inclusive_seconds": 5.000000000000001e-07,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 281,
+          "function": "__getitem__",
+          "stats": [
+            1,
+            1,
+            4.1700000000000004e-07,
+            5.000000000000001e-07
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 92,
+      "function": "indexed_value",
+      "primitive_calls": 32,
+      "total_calls": 32,
+      "exclusive_seconds": 1.6621000000000002e-05,
+      "inclusive_seconds": 2.5667e-05,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 220,
+          "function": "<genexpr>",
+          "stats": [
+            2,
+            2,
+            1.333e-06,
+            1.916e-06
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 104,
+          "function": "index_columns",
+          "stats": [
+            30,
+            30,
+            1.5288e-05,
+            2.3751e-05
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 126,
+      "function": "_read",
+      "primitive_calls": 130,
+      "total_calls": 130,
+      "exclusive_seconds": 8.1927e-05,
+      "inclusive_seconds": 0.000869872,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 144,
+          "function": "__setitem__",
+          "stats": [
+            1,
+            1,
+            1.7920000000000002e-06,
+            3.4292e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 133,
+          "function": "__getitem__",
+          "stats": [
+            129,
+            129,
+            8.0135e-05,
+            0.00083558
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/journal.py",
+      "line": 15,
+      "function": "encode",
+      "primitive_calls": 16598,
+      "total_calls": 16598,
+      "exclusive_seconds": 0.005531168,
+      "inclusive_seconds": 0.046889323000000004,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/merkle.py",
+          "line": 27,
+          "function": "node_hash",
+          "stats": [
+            87,
+            87,
+            3.655e-05,
+            0.000409878
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 15,
+          "function": "unit_key",
+          "stats": [
+            136,
+            136,
+            4.2588e-05,
+            0.00044646000000000003
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 211,
+          "function": "<genexpr>",
+          "stats": [
+            4,
+            4,
+            1.7080000000000002e-06,
+            1.1292000000000001e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 250,
+          "function": "rebase",
+          "stats": [
+            130,
+            130,
+            4.3799000000000005e-05,
+            0.002296329
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/journal.py",
+          "line": 19,
+          "function": "digest",
+          "stats": [
+            1,
+            1,
+            4.5800000000000005e-07,
+            4.725e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 19,
+          "function": "materialize",
+          "stats": [
+            16038,
+            16038,
+            0.005336638,
+            0.041092154000000006
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 343,
+          "function": "rebase",
+          "stats": [
+            1,
+            1,
+            4.16e-07,
+            1.1750000000000001e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 104,
+          "function": "index_columns",
+          "stats": [
+            27,
+            27,
+            9e-06,
+            8.3708e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 372,
+          "function": "changed_units",
+          "stats": [
+            21,
+            21,
+            7.71e-06,
+            7.4959e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 239,
+          "function": "changed_units",
+          "stats": [
+            130,
+            130,
+            4.4881000000000006e-05,
+            0.002303957
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/sqlite.py",
+          "line": 342,
+          "function": "_save_changes",
+          "stats": [
+            1,
+            1,
+            5.000000000000001e-07,
+            3.2000000000000005e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 334,
+          "function": "changed_units",
+          "stats": [
+            1,
+            1,
+            3.7600000000000003e-07,
+            1.2084000000000002e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 408,
+          "function": "rebase",
+          "stats": [
+            21,
+            21,
+            6.544e-06,
+            6.7502e-05
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 15,
+      "function": "unit_key",
+      "primitive_calls": 136,
+      "total_calls": 136,
+      "exclusive_seconds": 4.4629e-05,
+      "inclusive_seconds": 0.000491089,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 126,
+          "function": "_read",
+          "stats": [
+            130,
+            130,
+            4.2048e-05,
+            0.00046830000000000005
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 372,
+          "function": "changed_units",
+          "stats": [
+            3,
+            3,
+            1.2480000000000002e-06,
+            1.1040000000000001e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 239,
+          "function": "changed_units",
+          "stats": [
+            2,
+            2,
+            9.58e-07,
+            8.083e-06
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 334,
+          "function": "changed_units",
+          "stats": [
+            1,
+            1,
+            3.75e-07,
+            3.666e-06
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 171,
+      "function": "<genexpr>",
+      "primitive_calls": 2,
+      "total_calls": 2,
+      "exclusive_seconds": 2.91e-07,
+      "inclusive_seconds": 2.91e-07,
+      "callers": [
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<built-in method builtins.sum>",
+          "stats": [
+            2,
+            2,
+            2.91e-07,
+            2.91e-07
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 170,
+      "function": "<genexpr>",
+      "primitive_calls": 3,
+      "total_calls": 3,
+      "exclusive_seconds": 5.420000000000001e-07,
+      "inclusive_seconds": 5.420000000000001e-07,
+      "callers": [
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<built-in method builtins.sum>",
+          "stats": [
+            3,
+            3,
+            5.420000000000001e-07,
+            5.420000000000001e-07
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 173,
+      "function": "touched_values",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "exclusive_seconds": 1.833e-06,
+      "inclusive_seconds": 2.0830000000000002e-06,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/state_views.py",
+          "line": 38,
+          "function": "touched_values",
+          "stats": [
+            1,
+            1,
+            1.833e-06,
+            2.0830000000000002e-06
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 211,
+      "function": "<genexpr>",
+      "primitive_calls": 6,
+      "total_calls": 6,
+      "exclusive_seconds": 1.542e-06,
+      "inclusive_seconds": 1.2834000000000001e-05,
+      "callers": [
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<method 'extend' of 'list' objects>",
+          "stats": [
+            6,
+            6,
+            1.542e-06,
+            1.2834000000000001e-05
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 228,
+      "function": "<genexpr>",
+      "primitive_calls": 4,
+      "total_calls": 4,
+      "exclusive_seconds": 2.9580000000000003e-06,
+      "inclusive_seconds": 5.416e-06,
+      "callers": [
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<built-in method builtins.any>",
+          "stats": [
+            3,
+            3,
+            2.7500000000000004e-06,
+            5.208e-06
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 224,
+          "function": "_matches",
+          "stats": [
+            1,
+            1,
+            2.08e-07,
+            2.08e-07
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 144,
+      "function": "__setitem__",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "exclusive_seconds": 3.999e-06,
+      "inclusive_seconds": 3.875e-05,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/kernel.py",
+          "line": 258,
+          "function": "_commit_in_transaction",
+          "stats": [
+            1,
+            1,
+            3.999e-06,
+            3.875e-05
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 250,
+      "function": "rebase",
+      "primitive_calls": 14,
+      "total_calls": 14,
+      "exclusive_seconds": 0.00020062900000000002,
+      "inclusive_seconds": 0.064551045,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 408,
+          "function": "rebase",
+          "stats": [
+            14,
+            14,
+            0.00020062900000000002,
+            0.064551045
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 220,
+      "function": "<genexpr>",
+      "primitive_calls": 4,
+      "total_calls": 4,
+      "exclusive_seconds": 5.044e-06,
+      "inclusive_seconds": 1.6543e-05,
+      "callers": [
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<built-in method builtins.all>",
+          "stats": [
+            3,
+            3,
+            4.586000000000001e-06,
+            1.6085e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 183,
+          "function": "values_where",
+          "stats": [
+            1,
+            1,
+            4.5800000000000005e-07,
+            4.5800000000000005e-07
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 210,
+      "function": "<genexpr>",
+      "primitive_calls": 6,
+      "total_calls": 6,
+      "exclusive_seconds": 8.760000000000001e-07,
+      "inclusive_seconds": 8.760000000000001e-07,
+      "callers": [
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<method 'join' of 'str' objects>",
+          "stats": [
+            6,
+            6,
+            8.760000000000001e-07,
+            8.760000000000001e-07
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 263,
+      "function": "__len__",
+      "primitive_calls": 4,
+      "total_calls": 4,
+      "exclusive_seconds": 4.5800000000000005e-07,
+      "inclusive_seconds": 4.5800000000000005e-07,
+      "callers": [
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<built-in method builtins.len>",
+          "stats": [
+            4,
+            4,
+            4.5800000000000005e-07,
+            4.5800000000000005e-07
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 28,
+      "function": "marker",
+      "primitive_calls": 42,
+      "total_calls": 42,
+      "exclusive_seconds": 1.3995e-05,
+      "inclusive_seconds": 5.3706000000000004e-05,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 372,
+          "function": "changed_units",
+          "stats": [
+            21,
+            21,
+            7.332e-06,
+            2.6499e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 408,
+          "function": "rebase",
+          "stats": [
+            21,
+            21,
+            6.663e-06,
+            2.7207000000000002e-05
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 120,
+      "function": "__init__",
+      "primitive_calls": 14,
+      "total_calls": 14,
+      "exclusive_seconds": 3.503e-06,
+      "inclusive_seconds": 3.503e-06,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 351,
+          "function": "__init__",
+          "stats": [
+            14,
+            14,
+            3.503e-06,
+            3.503e-06
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 256,
+      "function": "__init__",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "exclusive_seconds": 2.92e-07,
+      "inclusive_seconds": 2.92e-07,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 351,
+          "function": "__init__",
+          "stats": [
+            1,
+            1,
+            2.92e-07,
+            2.92e-07
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 19,
+      "function": "materialize",
+      "primitive_calls": 262,
+      "total_calls": 19426,
+      "exclusive_seconds": 0.019119692,
+      "inclusive_seconds": 0.125024506,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 250,
+          "function": "rebase",
+          "stats": [
+            130,
+            130,
+            0.000378536,
+            0.062049212000000006
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 19,
+          "function": "materialize",
+          "stats": [
+            19164,
+            2106,
+            0.018341385,
+            0.124032074
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 343,
+          "function": "rebase",
+          "stats": [
+            1,
+            1,
+            5.166e-06,
+            0.000141125
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 239,
+          "function": "changed_units",
+          "stats": [
+            130,
+            130,
+            0.000389354,
+            0.06268683600000001
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 334,
+          "function": "changed_units",
+          "stats": [
+            1,
+            1,
+            5.251e-06,
+            0.000147333
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 164,
+      "function": "__len__",
+      "primitive_calls": 2,
+      "total_calls": 2,
+      "exclusive_seconds": 4.625000000000001e-06,
+      "inclusive_seconds": 3.3792000000000004e-05,
+      "callers": [
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<built-in method builtins.len>",
+          "stats": [
+            1,
+            1,
+            1.667e-06,
+            1.2250000000000001e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/lifecycle.py",
+          "line": 33,
+          "function": "_retired_node_ids",
+          "stats": [
+            1,
+            1,
+            2.9580000000000003e-06,
+            2.1542e-05
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 343,
+      "function": "rebase",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "exclusive_seconds": 2.667e-06,
+      "inclusive_seconds": 0.000155708,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 408,
+          "function": "rebase",
+          "stats": [
+            1,
+            1,
+            2.667e-06,
+            0.000155708
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 104,
+      "function": "index_columns",
+      "primitive_calls": 6,
+      "total_calls": 6,
+      "exclusive_seconds": 3.9836e-05,
+      "inclusive_seconds": 0.000219208,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/sqlite.py",
+          "line": 209,
+          "function": "_write_unit",
+          "stats": [
+            6,
+            6,
+            3.9836e-05,
+            0.000219208
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/__init__.py",
+      "line": 299,
+      "function": "loads",
+      "primitive_calls": 16219,
+      "total_calls": 16219,
+      "exclusive_seconds": 0.008729259000000001,
+      "inclusive_seconds": 0.045599854,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/sqlite.py",
+          "line": 376,
+          "function": "<genexpr>",
+          "stats": [
+            6,
+            6,
+            3.332e-06,
+            1.6873000000000003e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 19,
+          "function": "materialize",
+          "stats": [
+            16038,
+            16038,
+            0.008631042,
+            0.044053479
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 104,
+          "function": "index_columns",
+          "stats": [
+            12,
+            12,
+            7.0810000000000005e-06,
+            6.1875e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 372,
+          "function": "changed_units",
+          "stats": [
+            6,
+            6,
+            3.2070000000000004e-06,
+            1.7874000000000002e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 133,
+          "function": "__getitem__",
+          "stats": [
+            129,
+            129,
+            6.601500000000001e-05,
+            0.0012959620000000001
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/sqlite.py",
+          "line": 342,
+          "function": "_save_changes",
+          "stats": [
+            7,
+            7,
+            5.625e-06,
+            8.8041e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 351,
+          "function": "__init__",
+          "stats": [
+            21,
+            21,
+            1.2957000000000001e-05,
+            6.575e-05
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/encoder.py",
+      "line": 205,
+      "function": "iterencode",
+      "primitive_calls": 7702,
+      "total_calls": 7702,
+      "exclusive_seconds": 0.011691412,
+      "inclusive_seconds": 0.011691412,
+      "callers": [
+        {
+          "file": "/opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/encoder.py",
+          "line": 183,
+          "function": "encode",
+          "stats": [
+            7702,
+            7702,
+            0.011691412,
+            0.011691412
+          ]
+        }
+      ]
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'validate_json' of 'pydantic_core._pydantic_core.SchemaValidator' objects>",
+      "primitive_calls": 129,
+      "total_calls": 129,
+      "exclusive_seconds": 0.0021511580000000002,
+      "inclusive_seconds": 0.004237129,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/.venv/lib/python3.12/site-packages/pydantic/main.py",
+          "line": 802,
+          "function": "model_validate_json",
+          "stats": [
+            129,
+            129,
+            0.0021511580000000002,
+            0.004237129
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 316,
+      "function": "insert",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "exclusive_seconds": 7.09e-07,
+      "inclusive_seconds": 7.09e-07,
+      "callers": [
+        {
+          "file": "<frozen _collections_abc>",
+          "line": 1128,
+          "function": "append",
+          "stats": [
+            1,
+            1,
+            7.09e-07,
+            7.09e-07
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 183,
+      "function": "values_where",
+      "primitive_calls": 3,
+      "total_calls": 3,
+      "exclusive_seconds": 2.6585e-05,
+      "inclusive_seconds": 0.000106624,
+      "callers": [
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<built-in method builtins.sorted>",
+          "stats": [
+            1,
+            1,
+            1.396e-05,
+            5.3583000000000005e-05
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/lifecycle.py",
+          "line": 45,
+          "function": "_inventory",
+          "stats": [
+            2,
+            2,
+            1.2625e-05,
+            5.3041e-05
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 372,
+      "function": "changed_units",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "exclusive_seconds": 5.6795e-05,
+      "inclusive_seconds": 0.065670958,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/sqlite.py",
+          "line": 322,
+          "function": "save",
+          "stats": [
+            1,
+            1,
+            5.6795e-05,
+            0.065670958
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/placement.py",
+      "line": 52,
+      "function": "inventory",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "exclusive_seconds": 0.002972058,
+      "inclusive_seconds": 0.020635833000000003,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/lifecycle.py",
+          "line": 45,
+          "function": "_inventory",
+          "stats": [
+            1,
+            1,
+            0.002972058,
+            0.020635833000000003
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 133,
+      "function": "__getitem__",
+      "primitive_calls": 133,
+      "total_calls": 133,
+      "exclusive_seconds": 0.00010909500000000001,
+      "inclusive_seconds": 0.00225083,
+      "callers": [
+        {
+          "file": "<frozen _collections_abc>",
+          "line": 804,
+          "function": "get",
+          "stats": [
+            1,
+            1,
+            2.2080000000000003e-06,
+            3.9833e-05
+          ]
+        },
+        {
+          "file": "<frozen _collections_abc>",
+          "line": 811,
+          "function": "__contains__",
+          "stats": [
+            1,
+            1,
+            1.4170000000000002e-06,
+            2.9292000000000003e-05
+          ]
+        },
+        {
+          "file": "<frozen _collections_abc>",
+          "line": 892,
+          "function": "__iter__",
+          "stats": [
+            128,
+            128,
+            0.00010334500000000001,
+            0.00217933
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 183,
+          "function": "values_where",
+          "stats": [
+            2,
+            2,
+            1.083e-06,
+            1.25e-06
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/kernel.py",
+          "line": 258,
+          "function": "_commit_in_transaction",
+          "stats": [
+            1,
+            1,
+            1.0420000000000001e-06,
+            1.125e-06
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 157,
+      "function": "__iter__",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "exclusive_seconds": 0.000114333,
+      "inclusive_seconds": 0.00013962500000000002,
+      "callers": [
+        {
+          "file": "<frozen _collections_abc>",
+          "line": 892,
+          "function": "__iter__",
+          "stats": [
+            1,
+            1,
+            0.000114333,
+            0.00013962500000000002
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 239,
+      "function": "changed_units",
+      "primitive_calls": 14,
+      "total_calls": 14,
+      "exclusive_seconds": 0.000284667,
+      "inclusive_seconds": 0.065285626,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 372,
+          "function": "changed_units",
+          "stats": [
+            14,
+            14,
+            0.000284667,
+            0.065285626
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 281,
+      "function": "__getitem__",
+      "primitive_calls": 1,
+      "total_calls": 2,
+      "exclusive_seconds": 4.833e-06,
+      "inclusive_seconds": 6.542e-06,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/kernel.py",
+          "line": 258,
+          "function": "_commit_in_transaction",
+          "stats": [
+            1,
+            1,
+            3.209e-06,
+            6.542e-06
+          ]
+        },
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 281,
+          "function": "__getitem__",
+          "stats": [
+            1,
+            1,
+            1.624e-06,
+            2.2080000000000003e-06
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 334,
+      "function": "changed_units",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "exclusive_seconds": 5.375e-06,
+      "inclusive_seconds": 0.000168791,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+          "line": 372,
+          "function": "changed_units",
+          "stats": [
+            1,
+            1,
+            5.375e-06,
+            0.000168791
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 351,
+      "function": "__init__",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "exclusive_seconds": 4.9996e-05,
+      "inclusive_seconds": 0.00014737500000000002,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/sqlite.py",
+          "line": 317,
+          "function": "load",
+          "stats": [
+            1,
+            1,
+            4.9996e-05,
+            0.00014737500000000002
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py",
+      "line": 408,
+      "function": "rebase",
+      "primitive_calls": 1,
+      "total_calls": 1,
+      "exclusive_seconds": 2.5162e-05,
+      "inclusive_seconds": 0.06482908400000001,
+      "callers": [
+        {
+          "file": "/Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/sqlite.py",
+          "line": 322,
+          "function": "save",
+          "stats": [
+            1,
+            1,
+            2.5162e-05,
+            0.06482908400000001
+          ]
+        }
+      ]
+    }
+  ],
+  "environment": {
+    "platform": "macOS-27.3-arm64-arm-64bit",
+    "python": "3.12.13 (main, Mar  3 2026, 12:39:30) [Clang 21.0.0 (clang-2100.0.123.102)]"
+  },
+  "limitations": [
+    "One cProfile sample, with interpreter profiler overhead; not a latency benchmark",
+    "Full pytest and pre-existing CPU services were active on this shared host",
+    "No services were stopped; compare call counts and attribution, not a formal CP4 result",
+    "The in-memory placement model counter adds one lightweight wrapper per model conversion"
+  ]
+}

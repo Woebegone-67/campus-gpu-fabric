@@ -6,6 +6,8 @@
 
 **B接手UI：** 先读 [双页界面设计说明](docs/design/UI_DESIGN_SPEC.md) 与 [UI接管步骤](docs/handoff/UI_B_HANDOFF.md)，再按需读 [双指滑动与转场](docs/design/UI_GESTURE_AND_MOTION.md)、[实际数据与组件映射](docs/design/UI_DATA_AND_COMPONENT_MAP.md)。`work/ui-handoff-20261115` 的交接版本已推送；后续 `work/account-capabilities` 在此基础上实现普通账户同时使用与贡献，以及可信账户能力接口，见 [后端接线与兼容说明](docs/handoff/ACCOUNT_CAPABILITIES.md)。新双页、手势和账户接口的UI接线仍待B完成；现有验收实例未被改权或重启。
 
+**架构候选：** `work/storage-architecture` 继承上述交接，改用实体事务存储和增量状态校验，保留历史、原子提交和独立重放。接口兼容、迁移与回退说明见 [架构交接](docs/handoff/STORAGE_ARCHITECTURE.md)，实际测试与性能结果保存在 `evidence/storage-architecture/`。该候选不能继承旧构建的正式通过结论；完整 CP4 和新 UI 真人验收仍须逐项核对。
+
 CP1 审计补修包含身份应用、重复查询、授权决策解释、工作关联导航及验收回执读取，详见 [CP1 补修交接](docs/handoff/CP1_B_FIXES.md)。原人工验收实例保留，补修版使用独立工作树和端口。
 
 协作仓库：https://github.com/Woebegone-67/campus-gpu-fabric

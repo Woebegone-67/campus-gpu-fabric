@@ -6,6 +6,7 @@ no timing sleeps, mocked revisions, or replacement state dictionaries are used.
 """
 
 from concurrent.futures import ThreadPoolExecutor
+from contextlib import contextmanager
 from dataclasses import replace
 from threading import Event
 from types import SimpleNamespace
@@ -74,16 +75,17 @@ def test_actual_sqlite_commit_between_reads_is_coherent_or_legacy_409(
 
     captured = Event()
     committed = Event()
-    original_read = kernel.store.read
+    original_snapshot = kernel.store.snapshot
     reads = []
 
-    def read_with_commit_between_capture_and_projection():
-        snapshot = original_read()
-        reads.append((snapshot["revision"], snapshot["now"]))
-        if len(reads) == 1:
-            captured.set()
-            assert committed.wait(5), "Concurrent writer failed to commit"
-        return snapshot
+    @contextmanager
+    def snapshot_with_commit_between_capture_and_projection():
+        with original_snapshot() as snapshot:
+            reads.append((snapshot["revision"], snapshot["now"]))
+            if len(reads) == 1:
+                captured.set()
+                assert committed.wait(5), "Concurrent writer failed to commit"
+            yield snapshot
 
     def mutate():
         assert captured.wait(5), "Overview never captured its first SQLite snapshot"
@@ -102,7 +104,7 @@ def test_actual_sqlite_commit_between_reads_is_coherent_or_legacy_409(
         finally:
             committed.set()
 
-    monkeypatch.setattr(kernel.store, "read", read_with_commit_between_capture_and_projection)
+    monkeypatch.setattr(kernel.store, "snapshot", snapshot_with_commit_between_capture_and_projection)
     with ThreadPoolExecutor(max_workers=1) as executor:
         future = executor.submit(mutate)
         response = query_client(services).get(PATH)
@@ -136,8 +138,8 @@ def test_empty_overview_reads_once_and_preserves_metric_shape(tmp_path, monkeypa
     kernel = Kernel(tmp_path / "empty.sqlite3", inventory=(node(),) if with_inventory else ())
     services = make_kernel_services(kernel, SimpleNamespace(actor=lambda request: ADMIN),
                                     clock_origin=ORIGIN)
-    read = Mock(wraps=kernel.store.read)
-    monkeypatch.setattr(kernel.store, "read", read)
+    read = Mock(wraps=kernel.store.snapshot)
+    monkeypatch.setattr(kernel.store, "snapshot", read)
     monkeypatch.setattr(kernel, "read_snapshot", Mock(side_effect=AssertionError("wrong reader")))
     response = query_client(services).get(PATH)
     assert response.status_code == 200, response.text

@@ -28,7 +28,9 @@ import httpx
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "scripts"))
+sys.path.insert(0, str(ROOT / "tests/acceptance/cp3"))
 from check_checkpoint import current_build  # noqa: E402
+from cp3_state_replay import read_sql_state  # noqa: E402
 
 TARGET = {"nodes": 128, "physical_gpus": 1024, "owners": 64,
           "jobs": 10000, "commands": 50000, "concurrency": 32}
@@ -331,7 +333,8 @@ def execute(directory, jobs=10000, deadline_seconds=1200, runtime_directory=None
         database = candidates[0] if candidates else None
     if database:
         with sqlite3.connect(f"file:{database}?mode=ro", uri=True) as conn:
-            state = json.loads(conn.execute("SELECT payload FROM fabric_state WHERE singleton=1").fetchone()[0])
+            conn.execute("BEGIN")
+            state = read_sql_state(conn)
         with gzip.open(directory / "final_state.json.gz", "wt") as handle:
             json.dump(state, handle, separators=(",", ":"))
     metadata.update(build_at_finish=current_build(ROOT), elapsed_seconds=elapsed,

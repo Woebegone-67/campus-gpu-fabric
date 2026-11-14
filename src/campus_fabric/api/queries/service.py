@@ -183,6 +183,7 @@ class QueryServices:
         global_scope: bool | None = None,
         entities: tuple[EntityRef, ...] = (),
         after: EventCursor | None = None,
+        records_only: bool = False,
     ) -> ReadSnapshot:
         # A global administrator has no tenant to impersonate. This default is
         # derived only from the trusted auth adapter, never headers/UI profiles.
@@ -197,8 +198,16 @@ class QueryServices:
         if self.read_port is None:
             raise unavailable("ReadPort")
         try:
+            reader = self.read_port.read_snapshot
+            if records_only:
+                scoped_reader = getattr(self.read_port, "record_snapshot", None)
+                if scoped_reader is not None:
+                    reader = scoped_reader
+                else:
+                    # Older providers supplied related objects through a full read.
+                    entities = ()
             value = invoke(
-                self.read_port.read_snapshot,
+                reader,
                 ReadQuery(actor=actor, global_scope=global_scope, entities=entities, after=after),
             )
         except ValueError as error:

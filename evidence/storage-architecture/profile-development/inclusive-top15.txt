@@ -1,0 +1,21 @@
+         446804 function calls (427469 primitive calls) in 0.160 seconds
+
+   Ordered by: cumulative time
+   List reduced from 198 to 15 due to restriction <15>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.160    0.160 /Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/evidence/storage-architecture/profile-development/run.py:38(commit)
+        1    0.000    0.000    0.160    0.160 /Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/kernel.py:215(commit)
+        1    0.000    0.000    0.160    0.160 /Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/kernel.py:252(commit_with_payload)
+        1    0.000    0.000    0.155    0.155 /Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/kernel.py:258(_commit_in_transaction)
+        1    0.000    0.000    0.134    0.134 /Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/evidence/storage-architecture/profile-development/run.py:54(observed_save)
+        1    0.000    0.000    0.134    0.134 /Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/sqlite.py:322(save)
+19426/262    0.019    0.000    0.125    0.000 /Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py:19(materialize)
+        1    0.000    0.000    0.066    0.066 /Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py:372(changed_units)
+       14    0.000    0.000    0.065    0.005 /Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py:239(changed_units)
+        1    0.000    0.000    0.065    0.065 /Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py:408(rebase)
+       14    0.000    0.000    0.065    0.005 /Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py:250(rebase)
+    16598    0.006    0.000    0.047    0.000 /Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/journal.py:15(encode)
+    16219    0.009    0.000    0.046    0.000 /opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/__init__.py:299(loads)
+    16728    0.015    0.000    0.043    0.000 /opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/__init__.py:183(dumps)
+    16219    0.015    0.000    0.033    0.000 /opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/decoder.py:333(decode)

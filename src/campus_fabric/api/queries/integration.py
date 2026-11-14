@@ -69,9 +69,10 @@ def make_kernel_services(
         )
 
     def inventory_reader(actor: AuthenticatedActor) -> InventoryRead:
-        # export_state is an A-owned, actor-scoped read of one SQLite snapshot.
+        # The dedicated port avoids reading private histories for public capacity.
         try:
-            return inventory_from_state(kernel.export_state(actor), actor)
+            reader = getattr(kernel, "inventory_state", kernel.export_state)
+            return inventory_from_state(reader(actor), actor)
         except (KeyError, TypeError, ValueError, AttributeError) as error:
             raise QueryFailure(502, "provider_contract_error", "Invalid inventory snapshot.") from error
 
