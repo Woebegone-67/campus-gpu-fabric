@@ -104,6 +104,8 @@ CI会在push/PR运行CP0检查。代码审阅责任写在`.github/CODEOWNERS`；
 
 ## CP1 真实后端
 
+合并后的技术验收入口为 `make cp1-joint`，它实际启动 A+B 集成进程，检查自动编排、并发、响应丢失、硬重启及部分成功。它不代替双人操作。当前验收结论见 [CP1 联合验收](docs/review/CP1_ACCEPTANCE_DECISION.md)，双人剩余操作见 [交接清单](docs/review/CP1_HUMAN_HANDOFF.md)。
+
 ```bash
 make cp1-a
 # 使用明确模拟库存；默认本地 X-Owner 身份，不开放公网
