@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import argparse
 import copy
-import json
 import sqlite3
 import sys
 import tempfile
@@ -22,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "src"))
 from cp3_b_evidence import finish, receipt, retain  # noqa: E402
 from cp3_event_fold import claims_from_final_snapshot, fold_events  # noqa: E402
-from cp3_state_replay import checksum, replay  # noqa: E402
+from cp3_state_replay import checksum, read_sql_state, replay  # noqa: E402
 
 from campus_fabric.storage.sqlite import SQLiteStore  # noqa: E402
 from campus_fabric.workflows import experiment_runner as runner  # noqa: E402
@@ -71,18 +70,21 @@ def execute(inputs, policy, path):
             yield connection
             tables = {row[0] for row in connection.execute(
                 "SELECT name FROM sqlite_master WHERE type='table'")}
-            if {"fabric_state", "fabric_journal"}.issubset(tables):
-                state_row = connection.execute("SELECT payload FROM fabric_state WHERE singleton=1").fetchone()
+            if "fabric_journal" in tables:
                 head = connection.execute("SELECT MAX(sequence) FROM fabric_journal").fetchone()[0]
-                if state_row is not None and head is not None:
-                    observed = (head, checksum(json.loads(state_row[0])))
+                if head is not None:
+                    actual = read_sql_state(connection)
+                    if not isinstance(actual, dict):
+                        raise ValueError("Committed journal has no authoritative SQL state")
+                    observed = (head, checksum(actual))
         if observed is not None:
             observations[observed[0]] = observed[1]
 
     with patch.object(SQLiteStore, "transaction", observe_commits):
         result = runner.execute_scenario(copy.deepcopy(inputs), policy, db_path=path)
     with sqlite3.connect(path) as connection:
-        actual = json.loads(connection.execute("SELECT payload FROM fabric_state WHERE singleton=1").fetchone()[0])
+        connection.execute("BEGIN")
+        actual = read_sql_state(connection)
     store = SQLiteStore(path)
     committed = store.export_journal()
     store.close()
@@ -142,7 +144,12 @@ def exercise(directory, policies=POLICIES, *, artifacts=None, checks=None):
         changed["works"][0]["gpu_model"] = "A100"
         negative = execute(changed, policy, directory / f"{policy}-visible-control.sqlite")
         assert causal_record(negative, CUTOFF) != reference, "Attack comparator failed its visible-input control"
-        artifacts[f"{policy}-visible-control"] = {"inputs": changed, "prefix": causal_record(negative, CUTOFF)}
+        artifacts[f"{policy}-visible-control"] = {
+            "inputs": changed, "prefix": causal_record(negative, CUTOFF),
+            "decisions": negative["decisions"],
+            "final_snapshot": negative["snapshot"].model_dump(mode="json"),
+            "state_replay": negative["state_replay"],
+        }
         checks.append({"id": f"{policy}-online-prefix", "status": "PASS", "observed":
             "Five future/hidden-input mutations preserve events, plans and cutoff state through t=5; visible-input negative control differs."})
     checks.append({"id": "independent-resource-event-fold", "status": "PASS", "observed":

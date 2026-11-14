@@ -43,7 +43,8 @@ def test_complete_fields_deletions_list_replacement_and_numeric_types(tmp_path):
         journal["entries"] = journal["entries"][:number]
         journal.update(head_sequence=number,
                        head_record_sha256=journal["entries"][-1]["record_sha256"],
-                       state_sha256=journal["entries"][-1]["after_sha256"])
+                       state_root=journal["entries"][-1]["after_root"],
+                       state_sha256=observations[number])
         assert independent.checksum(independent.replay(journal)) == observations[number]
 
 
@@ -72,7 +73,10 @@ def test_signed_zero_scalar_and_list_prefix_are_losslessly_replayed(tmp_path, be
     # A prefix equality that ignores the sign would append while retaining the
     # old zero. The independent reducer must reject that internally rehashed log.
     bad = copy.deepcopy(journal)
-    bad['entries'][-1]['changes'] = [{'op': 'append', 'path': ['rows'], 'values': [{'appended': True}]}]
+    bad['entries'][-1]['changes'] = [
+        {'op': 'set', 'key': '["rows"]', 'value': ['list', 2]},
+        {'op': 'set', 'key': '["rows",1]', 'value': {'appended': True}},
+    ]
     record = bad['entries'][-1]
     record['record_sha256'] = independent.checksum({k: v for k, v in record.items() if k != 'record_sha256'})
     bad['head_record_sha256'] = record['record_sha256']

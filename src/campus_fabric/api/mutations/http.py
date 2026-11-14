@@ -13,6 +13,7 @@ from datetime import datetime, timedelta, timezone
 from fastapi import HTTPException, Request
 from fastapi.responses import JSONResponse, Response
 from pydantic import ValidationError
+from starlette.concurrency import run_in_threadpool
 
 from campus_fabric.api.test_control.faults import fault_parameters
 from campus_fabric.contracts.models import (
@@ -188,7 +189,7 @@ def mount_cp1(app, kernel, identity):
             raise HTTPException(403, "Allocation owner must match the authenticated owner")
         envelope = command(request, actor, allocation_parameters(body),
                            key=request.headers.get("idempotency-key"))
-        receipt, payload = kernel.commit_with_payload(envelope)
+        receipt, payload = await run_in_threadpool(kernel.commit_with_payload, envelope)
         return receipt_response(kernel, receipt, payload=payload)
 
     @app.delete("/v1/allocations/{allocation_id}")
@@ -200,7 +201,7 @@ def mount_cp1(app, kernel, identity):
         identity.actor(request)
         body = await object_body(request, optional=True)
         exact_fields(body, {"ttl_seconds"})
-        return commit(request, {"kind": "allocation.renew", "allocation_id": allocation_id, **body})
+        return await run_in_threadpool(commit, request, {"kind": "allocation.renew", "allocation_id": allocation_id, **body})
 
     @app.post("/v1/allocations/{allocation_id}/checkpoint")
     async def checkpoint_allocation(allocation_id: str, request: Request):
@@ -209,7 +210,7 @@ def mount_cp1(app, kernel, identity):
         exact_fields(body, {"status", "artifact_uri"})
         if "artifact_uri" in body and not isinstance(body["artifact_uri"], str):
             raise HTTPException(400, "artifact_uri must be a string when supplied")
-        return commit(request, {"kind": "allocation.checkpoint",
+        return await run_in_threadpool(commit, request, {"kind": "allocation.checkpoint",
                                 "allocation_id": allocation_id, **body})
 
     @app.post("/v1/allocations/{allocation_id}/resume")
@@ -217,12 +218,12 @@ def mount_cp1(app, kernel, identity):
         identity.actor(request)
         body = await object_body(request, optional=True)
         exact_fields(body, set())
-        return commit(request, {"kind": "allocation.resume", "allocation_id": allocation_id})
+        return await run_in_threadpool(commit, request, {"kind": "allocation.resume", "allocation_id": allocation_id})
 
     @app.post("/v1/jobs")
     async def create_job(request: Request):
         identity.actor(request)
-        return commit(request, job_parameters(await object_body(request)))
+        return await run_in_threadpool(commit, request, job_parameters(await object_body(request)))
 
     @app.delete("/v1/jobs/{job_id}")
     def cancel_job(job_id: str, request: Request):
@@ -233,7 +234,7 @@ def mount_cp1(app, kernel, identity):
         identity.test_actor(request)
         body = await object_body(request)
         exact_fields(body, {"advance_seconds"})
-        return commit(request, {"kind": "clock.advance", "source": "test_control", **body}, test=True)
+        return await run_in_threadpool(commit, request, {"kind": "clock.advance", "source": "test_control", **body}, test=True)
 
     def recall_parameters(body, kind):
         exact_fields(body, {"gpu_ids", "notice_seconds", "duration_seconds"})
@@ -245,20 +246,20 @@ def mount_cp1(app, kernel, identity):
     async def contributor_demand(request: Request):
         identity.test_actor(request)
         parameters = recall_parameters(await object_body(request), "test.contributor_demand")
-        return commit(request, parameters, test=True, status=201)
+        return await run_in_threadpool(commit, request, parameters, test=True, status=201)
 
     @app.post("/_test/node-state")
     async def node_state(request: Request):
         identity.test_actor(request)
         body = await object_body(request)
         exact_fields(body, {"node_id", "state"})
-        return commit(request, {"kind": "test.node_state", **body}, test=True)
+        return await run_in_threadpool(commit, request, {"kind": "test.node_state", **body}, test=True)
 
     @app.post("/_test/fault")
     async def configure_fault(request: Request):
         identity.test_actor(request)
         parameters = fault_parameters(await object_body(request), app.state.fault_targets)
-        return commit(request, parameters, test=True, status=204)
+        return await run_in_threadpool(commit, request, parameters, test=True, status=204)
 
     @app.post("/x/v1/admin/clock")
     async def admin_clock(request: Request):
@@ -267,7 +268,7 @@ def mount_cp1(app, kernel, identity):
             raise HTTPException(403, "Administrator authority is required")
         body = await object_body(request)
         exact_fields(body, {"advance_seconds"})
-        return commit(request, {"kind": "clock.advance", "source": "manual", **body})
+        return await run_in_threadpool(commit, request, {"kind": "clock.advance", "source": "manual", **body})
 
     @app.post("/_test/reset")
     def reset(request: Request):
@@ -283,7 +284,8 @@ def mount_cp1(app, kernel, identity):
             raise HTTPException(403, "Contribution owner must match the authenticated owner")
         envelope = command(request, actor, {"kind": "contribution.register",
                                             "node": node.model_dump(mode="json")})
-        return receipt_response(kernel, kernel.commit(envelope), internal=True, status=201)
+        receipt = await run_in_threadpool(kernel.commit, envelope)
+        return receipt_response(kernel, receipt, internal=True, status=201)
 
     @app.post("/x/v1/contributions/recall")
     async def recall_contribution(request: Request):
@@ -292,7 +294,8 @@ def mount_cp1(app, kernel, identity):
             raise HTTPException(403, "Contributor authority is required")
         parameters = recall_parameters(await object_body(request), "contribution.recall")
         envelope = command(request, actor, parameters)
-        return receipt_response(kernel, kernel.commit(envelope), internal=True, status=201)
+        receipt = await run_in_threadpool(kernel.commit, envelope)
+        return receipt_response(kernel, receipt, internal=True, status=201)
 
     @app.post("/x/v1/work-intents")
     async def register_intent(request: Request):
@@ -302,7 +305,7 @@ def mount_cp1(app, kernel, identity):
             raise HTTPException(403, "Intent owner must match the authenticated owner")
         match = request.headers.get("if-match")
         if match is None:
-            receipt = kernel.register_current_intent(
+            receipt = await run_in_threadpool(kernel.register_current_intent,
                 registration, actor=actor, request_id=request_id(request))
         else:
             try:
@@ -310,7 +313,7 @@ def mount_cp1(app, kernel, identity):
                 version = VersionStamp(epoch=int(epoch), revision=int(revision))
             except (ValueError, ValidationError) as exc:
                 raise HTTPException(400, "If-Match must be epoch:revision") from exc
-            receipt = kernel.register_intent(registration, version, actor=actor,
+            receipt = await run_in_threadpool(kernel.register_intent, registration, version, actor=actor,
                                              request_id=request_id(request))
         return receipt_response(kernel, receipt, internal=True, status=202)
 
@@ -330,10 +333,10 @@ def mount_cp1(app, kernel, identity):
                 raise HTTPException(400, "Allocation and job creation require a stable stage_id")
             method = (kernel.create_allocation_and_bind if action == "allocate"
                       else kernel.create_job_and_bind)
-            receipt = method(intent_id, stage_id, version, actor=actor,
+            receipt = await run_in_threadpool(method, intent_id, stage_id, version, actor=actor,
                              request_id=request_id(request))
         elif action in {"release", "cancel", "resume"}:
-            view = kernel.read_snapshot(ReadQuery(actor=actor,
+            view = await run_in_threadpool(kernel.read_snapshot, ReadQuery(actor=actor,
                 global_scope=actor.role == "administrator",
                 entities=(EntityRef(kind="intent", entity_id=intent_id),)))
             intent = next((item for item in view.intents if item.intent_id == intent_id), None)
@@ -344,7 +347,7 @@ def mount_cp1(app, kernel, identity):
                 raise HTTPException(409, "The intent has no object for this action")
             kind = "job.cancel" if action == "cancel" else f"allocation.{action}"
             key = "job_id" if action == "cancel" else "allocation_id"
-            receipt = kernel.commit(command(request, actor, {"kind": kind, key: ids[-1]},
+            receipt = await run_in_threadpool(kernel.commit, command(request, actor, {"kind": kind, key: ids[-1]},
                                              expected=version.model_dump(mode="json")))
         else:
             raise HTTPException(400, "Supported actions: allocate, create_job, release, cancel, resume")

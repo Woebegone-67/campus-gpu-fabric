@@ -5,6 +5,7 @@ they do not authenticate the producer of an observation or execute workloads.
 """
 from __future__ import annotations
 
+import copy
 import importlib.util
 import json
 import re
@@ -212,27 +213,126 @@ def validate_cpu(child):
         assert checks[name + ":settled-persistence-isolation"]["observed"]["bob_status"] == 404
 
 
-def validate_prefix(root, child):
-    path = root / "tests/acceptance/cp3/cp3_state_replay.py"
-    spec = importlib.util.spec_from_file_location("cp4_independent_state_replay", path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    names = {Path(ref["path"]).stem for ref in child["evidence"]}
+def _prefix_snapshot_binding(snapshot, state, checksum):
+    """Bind the public comparison projection to independently rebuilt SQL data."""
+    assert snapshot["version"] == {"epoch": state["epoch"], "revision": state["revision"]}
+    assert checksum(snapshot["now"]) == checksum(state["now"])
+    assert checksum(snapshot["events"]) == checksum(state["events"]), "Public events differ from persisted events"
+    definitions = {
+        "allocations": ("allocation_id", {
+            "allocation_id": None, "owner_id": None, "state": None, "request": None,
+            "created_at": None, "placement": None, "expires_at": None, "preemption": None,
+            "checkpoint": None, "restart_count": 0, "pending_terminal": None,
+        }),
+        "jobs": ("job_id", {
+            "job_id": None, "allocation_id": None, "owner_id": None, "state": None,
+            "created_at": None, "attempt": None, "execution_mode": "logical_simulation",
+            "retry_count": 0, "checkpoint": None, "result_uri": None, "failure": None,
+            "finished_at": None,
+        }),
+        "intents": ("intent_id", None),
+        "decisions": ("decision_id", None),
+    }
+    for collection, (identifier, defaults) in definitions.items():
+        rows = snapshot[collection]
+        projected = {row[identifier]: row for row in rows}
+        assert len(rows) == len(projected) and set(projected) == set(state[collection]), "Projection omitted or duplicated persisted objects"
+        for key, original in state[collection].items():
+            expected = original if defaults is None else {
+                name: original.get(name, default) for name, default in defaults.items()
+            }
+            assert checksum(projected[key]) == checksum(expected), "Public object differs from persisted state"
+
+
+def _prefix_audit(retained, module):
+    raw = retained["observed_commit_prefixes"]
+    observations = {int(k): v for k, v in raw.items()}
+    assert len(raw) == len(observations) and {str(k) for k in raw} == {str(k) for k in observations}, "Noncanonical observed prefix identity"
+    journal = retained["journal"]
+    assert set(observations) == set(range(1, journal["head_sequence"] + 1))
+    rebuilt = module.replay(journal, observed_prefixes=observations)
+    assert module.checksum(rebuilt) == retained["rebuilt_sha256"] == module.checksum(retained["final_persisted_state"])
+    return rebuilt
+
+
+def validate_prefix_records(records, module, event_fold):
+    """Recompute causal controls and folds, even if every outer hash was updated."""
     variants = {"baseline", "changed-future-arrival", "deleted-future-arrival",
                 "changed-future-recall", "deleted-future-recall", "changed-hidden-duration", "visible-control"}
-    assert names == {f"{policy}-{variant}" for policy in ("B0", "B1", "B2", "P") for variant in variants}
-    assert len(child["evidence"]) == len(names)
-    for ref in child["evidence"]:
-        if Path(ref["path"]).stem.endswith("visible-control"):
-            continue
-        record = json.loads((root / ref["path"]).read_text())
-        for key in ("state_replay", "cutoff_state_replay"):
-            retained = record[key]
-            observations = {int(k): v for k, v in retained["observed_commit_prefixes"].items()}
-            journal = retained["journal"]
-            assert set(observations) == set(range(1, journal["head_sequence"] + 1))
-            rebuilt = module.replay(journal, observed_prefixes=observations)
-            assert module.checksum(rebuilt) == retained["rebuilt_sha256"] == module.checksum(retained["final_persisted_state"])
+    assert set(records) == {f"{policy}-{variant}" for policy in ("B0", "B1", "B2", "P") for variant in variants}
+    checksum = module.checksum
+    common_input = records["B0-baseline"]["inputs"]
+    for policy in ("B0", "B1", "B2", "P"):
+        baseline = records[f"{policy}-baseline"]
+        base = baseline["inputs"]
+        assert checksum(base) == checksum(common_input), "Policies used different prefix fixtures"
+        assert base["scenario_id"] == "cp3-prefix-attack-v1" and base["horizon"] == 25
+        assert len(base["works"]) == 2 and len(base["events"]) == 1
+        assert base["works"][0]["arrived_at"] == 0 and base["works"][0]["gpu_model"] == "A10"
+        assert base["works"][1]["arrived_at"] == 8
+        assert (base["events"][0]["at"], base["events"][0]["notice_seconds"],
+                base["events"][0]["duration_seconds"]) == (9, 2, 4)
+        expected = {name: copy.deepcopy(base) for name in variants}
+        expected["changed-future-arrival"]["works"][1].update(arrived_at=12., gpu_model="A100")
+        expected["deleted-future-arrival"]["works"] = expected["deleted-future-arrival"]["works"][:1]
+        expected["changed-future-recall"]["events"][0].update(at=11, notice_seconds=1, duration_seconds=7)
+        expected["deleted-future-recall"]["events"] = []
+        expected["changed-hidden-duration"]["model"]["duration_seconds"] = 40
+        expected["visible-control"]["works"][0]["gpu_model"] = "A100"
+        prefixes = {}
+        for name in sorted(variants):
+            record = records[f"{policy}-{name}"]
+            assert checksum(record["inputs"]) == checksum(expected[name]), "Declared causal attack input differs"
+            state = _prefix_audit(record["state_replay"], module)
+            snapshot = record["final_snapshot"]
+            _prefix_snapshot_binding(snapshot, state, checksum)
+            plans = []
+            for row in record["decisions"]:
+                source, plan = row["snapshot"], row["plan"]
+                assert all(d["arrived_at"] <= source["now"] for d in source["demands"])
+                assert all(n["issued_at"] <= source["now"] for n in source["notices"])
+                assert not ({"completion_at", "duration_seconds", "future_arrivals", "future_recalls"} & source.keys())
+                assert plan["snapshot_version"] == source["version"]
+                assert plan["policy"]["name"] == policy
+                if plan["selected_candidate_id"] is not None:
+                    assert checksum(state["decisions"][plan["decision_id"]]) == checksum(plan), "Selected proposal absent from persisted decisions"
+                if source["now"] <= 5:
+                    plans.append({"snapshot": source, "plan": plan})
+            prefix = {"events": [event for event in snapshot["events"] if event["logical_time"] <= 5],
+                      "decisions": plans}
+            prefixes[name] = prefix
+            folded = event_fold.fold_events(base["inventory"], snapshot["events"])
+            assert folded["claims"] == event_fold.claims_from_final_snapshot(snapshot), "Final resource fold differs"
+            if name == "visible-control":
+                assert checksum(record["prefix"]) == checksum(prefix), "Visible control summary differs from raw observations"
+                continue
+            assert checksum(record["fold"]) == checksum(folded), "Retained final fold differs from independent fold"
+            cutoff_state = _prefix_audit(record["cutoff_state_replay"], module)
+            cutoff = record["cutoff_snapshot"]
+            _prefix_snapshot_binding(cutoff, cutoff_state, checksum)
+            assert cutoff["now"] == 5, "Cutoff run stopped at the wrong time"
+            assert checksum(cutoff["events"]) == checksum(prefix["events"]), "Full-run and cutoff event prefixes differ"
+            active = event_fold.fold_events(base["inventory"], cutoff["events"])
+            assert active["claims"] and active["claims"] == event_fold.claims_from_final_snapshot(cutoff), "Nonempty cutoff resource fold differs"
+            assert checksum(record["cutoff_fold"]) == checksum(active), "Retained cutoff fold differs"
+            assert checksum(cutoff) == checksum(baseline["cutoff_snapshot"]), "Future input changed cutoff state"
+        for name in variants - {"baseline", "visible-control"}:
+            assert checksum(prefixes[name]) == checksum(prefixes["baseline"]), "Future input changed causal prefix"
+        assert checksum(prefixes["visible-control"]) != checksum(prefixes["baseline"]), "Visible input control failed to change the prefix"
+
+
+def validate_prefix(root, child):
+    modules = []
+    for name in ("cp3_state_replay", "cp3_event_fold"):
+        path = root / "tests/acceptance/cp3" / f"{name}.py"
+        spec = importlib.util.spec_from_file_location("cp4_independent_" + name, path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        modules.append(module)
+    records = {Path(ref["path"]).stem: json.loads((root / ref["path"]).read_text())
+               for ref in child["evidence"]}
+    assert len(records) == len(child["evidence"]), "Duplicate prefix evidence artifact"
+    validate_prefix_records(records, *modules)
 
 
 def validate_overview(child):

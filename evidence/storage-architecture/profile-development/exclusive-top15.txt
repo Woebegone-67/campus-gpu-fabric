@@ -1,0 +1,21 @@
+         446804 function calls (427469 primitive calls) in 0.160 seconds
+
+   Ordered by: internal time
+   List reduced from 198 to 15 due to restriction <15>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+19426/262    0.019    0.000    0.125    0.000 /Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/state.py:19(materialize)
+    16219    0.015    0.000    0.033    0.000 /opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/decoder.py:333(decode)
+    16728    0.015    0.000    0.043    0.000 /opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/__init__.py:183(dumps)
+    77092    0.013    0.000    0.024    0.000 {built-in method builtins.isinstance}
+     7702    0.012    0.000    0.012    0.000 /opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/encoder.py:205(iterencode)
+    16728    0.009    0.000    0.025    0.000 /opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/encoder.py:183(encode)
+    16219    0.009    0.000    0.046    0.000 /opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/__init__.py:299(loads)
+    32438    0.007    0.000    0.007    0.000 {method 'match' of 're.Pattern' objects}
+    35558    0.006    0.000    0.012    0.000 <frozen abc>:117(__instancecheck__)
+    35558    0.006    0.000    0.006    0.000 {built-in method _abc._abc_instancecheck}
+    16219    0.006    0.000    0.006    0.000 /opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/decoder.py:344(raw_decode)
+    16598    0.006    0.000    0.047    0.000 /Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/storage/journal.py:15(encode)
+    32438    0.004    0.000    0.004    0.000 {method 'end' of 're.Match' objects}
+    16599    0.003    0.000    0.003    0.000 /opt/homebrew/Cellar/python@3.12/3.12.13_2/Frameworks/Python.framework/Versions/3.12/lib/python3.12/json/encoder.py:105(__init__)
+        1    0.003    0.003    0.021    0.021 /Users/xz/Projects/campus-gpu-fabric/.worktrees/storage-architecture/src/campus_fabric/domain/placement.py:52(inventory)

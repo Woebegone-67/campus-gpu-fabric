@@ -1,0 +1,302 @@
+
+> campus-fabric-web@0.1.0 test:ui
+> tsx --tsconfig tsconfig.json --test tests/*.test.tsx
+
+TAP version 13
+# Subtest: negative target and incomplete semantic coverage remain visible despite complete artifacts
+ok 1 - negative target and incomplete semantic coverage remain visible despite complete artifacts
+  ---
+  duration_ms: 90.223041
+  type: 'test'
+  ...
+# Subtest: historical reports disclose original audit scope and never claim current acceptance
+ok 2 - historical reports disclose original audit scope and never claim current acceptance
+  ---
+  duration_ms: 16.867791
+  type: 'test'
+  ...
+# Subtest: a stale report refresh clears the prior score and downloads
+ok 3 - a stale report refresh clears the prior score and downloads
+  ---
+  duration_ms: 22.062583
+  type: 'test'
+  ...
+# Subtest: unexecuted suite displays no numerical target or fabricated success
+ok 4 - unexecuted suite displays no numerical target or fabricated success
+  ---
+  duration_ms: 4.67725
+  type: 'test'
+  ...
+# Subtest: partial development runs cannot be presented as a formal target pass
+ok 5 - partial development runs cannot be presented as a formal target pass
+  ---
+  duration_ms: 39.674583
+  type: 'test'
+  ...
+# Subtest: switching identity aborts a pending admin download and ignores its late response
+ok 6 - switching identity aborts a pending admin download and ignores its late response
+  ---
+  duration_ms: 15.294792
+  type: 'test'
+  ...
+# Subtest: a current admin download preserves raw JSON bytes and its registered filename
+ok 7 - a current admin download preserves raw JSON bytes and its registered filename
+  ---
+  duration_ms: 19.132375
+  type: 'test'
+  ...
+# Subtest: imported admin remains selected after Apply, changed manual credentials lose its hint
+ok 8 - imported admin remains selected after Apply, changed manual credentials lose its hint
+  ---
+  duration_ms: 63.376375
+  type: 'test'
+  ...
+# Subtest: same work ID submit re-reads once, updates state, and Refresh is not a form submit
+ok 9 - same work ID submit re-reads once, updates state, and Refresh is not a form submit
+  ---
+  duration_ms: 86.641667
+  type: 'test'
+  ...
+# Subtest: work lookup shows loading and failure without retaining a previous result
+ok 10 - work lookup shows loading and failure without retaining a previous result
+  ---
+  duration_ms: 10.812958
+  type: 'test'
+  ...
+# Subtest: same decision ID submit re-reads and direct lookup includes return-to-work link
+ok 11 - same decision ID submit re-reads and direct lookup includes return-to-work link
+  ---
+  duration_ms: 18.215917
+  type: 'test'
+  ...
+# Subtest: work details link to their decisions and events and disclose held lease after completion
+ok 12 - work details link to their decisions and events and disclose held lease after completion
+  ---
+  duration_ms: 16.102084
+  type: 'test'
+  ...
+# Subtest: work event view uses authorized work events, exposes decision links and top export
+ok 13 - work event view uses authorized work events, exposes decision links and top export
+  ---
+  duration_ms: 17.052167
+  type: 'test'
+  ...
+# Subtest: same experiment ID submit fetches fresh results
+ok 14 - same experiment ID submit fetches fresh results
+  ---
+  duration_ms: 30.868708
+  type: 'test'
+  ...
+# Subtest: hash navigation opens a decision and changing its parameter loads the other decision
+ok 15 - hash navigation opens a decision and changing its parameter loads the other decision
+  ---
+  duration_ms: 27.8845
+  type: 'test'
+  ...
+# Subtest: owner-scoped decision explains limited visibility without claiming global rejection
+ok 16 - owner-scoped decision explains limited visibility without claiming global rejection
+  ---
+  duration_ms: 9.11325
+  type: 'test'
+  ...
+# Subtest: temporary 503 lookup failure is not labeled as an unimplemented capability
+ok 17 - temporary 503 lookup failure is not labeled as an unimplemented capability
+  ---
+  duration_ms: 5.446417
+  type: 'test'
+  ...
+# Subtest: CPU registration follows declared service mode and sends separate recovery/retry budgets
+ok 18 - CPU registration follows declared service mode and sends separate recovery/retry budgets
+  ---
+  duration_ms: 13.866125
+  type: 'test'
+  ...
+# Subtest: unknown execution mode blocks registration and does not guess logical mode
+ok 19 - unknown execution mode blocks registration and does not guess logical mode
+  ---
+  duration_ms: 9.49625
+  type: 'test'
+  ...
+# Subtest: contributor recalls owned physical GPUs without contribution ID or test route
+ok 20 - contributor recalls owned physical GPUs without contribution ID or test route
+  ---
+  duration_ms: 8.371625
+  type: 'test'
+  ...
+# Subtest: checkpoint facts stay separate; logical report writes only status and refreshes
+ok 21 - checkpoint facts stay separate; logical report writes only status and refreshes
+  ---
+  duration_ms: 39.188833
+  type: 'test'
+  ...
+# Subtest: CPU continuity cannot manually mark checkpoint verified and keeps stopping claims visible
+ok 22 - CPU continuity cannot manually mark checkpoint verified and keeps stopping claims visible
+  ---
+  duration_ms: 14.861541
+  type: 'test'
+  ...
+# Subtest: resume action uses current work ID and version without creating another job or stage
+ok 23 - resume action uses current work ID and version without creating another job or stage
+  ---
+  duration_ms: 35.186959
+  type: 'test'
+  ...
+# Subtest: artifact download uses authenticated registered URI endpoint, rejecting arbitrary file links
+ok 24 - artifact download uses authenticated registered URI endpoint, rejecting arbitrary file links
+  ---
+  duration_ms: 4.824708
+  type: 'test'
+  ...
+# Subtest: pending CPU artifact download cannot survive identity
+ok 25 - pending CPU artifact download cannot survive identity
+  ---
+  duration_ms: 4.024625
+  type: 'test'
+  ...
+# Subtest: pending CPU artifact download cannot survive uri
+ok 26 - pending CPU artifact download cannot survive uri
+  ---
+  duration_ms: 3.201917
+  type: 'test'
+  ...
+# Subtest: pending CPU artifact download cannot survive navigation
+ok 27 - pending CPU artifact download cannot survive navigation
+  ---
+  duration_ms: 2.914458
+  type: 'test'
+  ...
+# Subtest: late CPU artifact failure cannot replace a newer URI result
+ok 28 - late CPU artifact failure cannot replace a newer URI result
+  ---
+  duration_ms: 6.140042
+  type: 'test'
+  ...
+# Subtest: unknown lifecycle write result cannot be replayed from the same button
+ok 29 - unknown lifecycle write result cannot be replayed from the same button
+  ---
+  duration_ms: 3.554416
+  type: 'test'
+  ...
+# Subtest: CPU system acceptance hides manual logical clock even with admin profile
+ok 30 - CPU system acceptance hides manual logical clock even with admin profile
+  ---
+  duration_ms: 9.771541
+  type: 'test'
+  ...
+# Subtest: admin experiment uses real catalog input and queries accepted run, preserving pending status
+ok 31 - admin experiment uses real catalog input and queries accepted run, preserving pending status
+  ---
+  duration_ms: 25.703959
+  type: 'test'
+  ...
+# Subtest: failed checkpoint report sends failed without adding verification or artifact fields
+ok 32 - failed checkpoint report sends failed without adding verification or artifact fields
+  ---
+  duration_ms: 29.276333
+  type: 'test'
+  ...
+# Subtest: forbidden artifact response stays 404 and never produces a download
+ok 33 - forbidden artifact response stays 404 and never produces a download
+  ---
+  duration_ms: 3.224791
+  type: 'test'
+  ...
+# Subtest: experiment input and output downloads use only registered fixed artifact IDs
+ok 34 - experiment input and output downloads use only registered fixed artifact IDs
+  ---
+  duration_ms: 14.6415
+  type: 'test'
+  ...
+# Subtest: pending experiment artifact download cannot survive identity
+ok 35 - pending experiment artifact download cannot survive identity
+  ---
+  duration_ms: 16.541791
+  type: 'test'
+  ...
+# Subtest: pending experiment artifact download cannot survive run
+ok 36 - pending experiment artifact download cannot survive run
+  ---
+  duration_ms: 24.271792
+  type: 'test'
+  ...
+# Subtest: pending experiment artifact download cannot survive navigation
+ok 37 - pending experiment artifact download cannot survive navigation
+  ---
+  duration_ms: 12.692375
+  type: 'test'
+  ...
+# Subtest: CPU resources hide manual inventory registration while keeping owned GPU recall usable
+ok 38 - CPU resources hide manual inventory registration while keeping owned GPU recall usable
+  ---
+  duration_ms: 11.477959
+  type: 'test'
+  ...
+# Subtest: CPU form retries stale registration with same identity/body and blocks navigation until response
+ok 39 - CPU form retries stale registration with same identity/body and blocks navigation until response
+  ---
+  duration_ms: 12.9935
+  type: 'test'
+  ...
+# Subtest: CP3 settlement puts authoritative failure and held lease guidance before history
+ok 40 - CP3 settlement puts authoritative failure and held lease guidance before history
+  ---
+  duration_ms: 16.026917
+  type: 'test'
+  ...
+# Subtest: CP3 settlement distinguishes completed work from pending stop and preserves receipt after refresh
+ok 41 - CP3 settlement distinguishes completed work from pending stop and preserves receipt after refresh
+  ---
+  duration_ms: 22.237041
+  type: 'test'
+  ...
+# Subtest: CP3 settlement shows released cancellation and keeps previous attempts collapsed
+ok 42 - CP3 settlement shows released cancellation and keeps previous attempts collapsed
+  ---
+  duration_ms: 13.175666
+  type: 'test'
+  ...
+# Subtest: CP3 settlement leaves waiting recovery incomplete and exposes failed stage reason
+ok 43 - CP3 settlement leaves waiting recovery incomplete and exposes failed stage reason
+  ---
+  duration_ms: 13.205208
+  type: 'test'
+  ...
+# Subtest: allocated work without a job distinguishes task creation from waiting for resources
+ok 44 - allocated work without a job distinguishes task creation from waiting for resources
+  ---
+  duration_ms: 27.476833
+  type: 'test'
+  ...
+# Subtest: CP3 settlement result preview preserves exact JSON integers and is cleared on denied read
+ok 45 - CP3 settlement result preview preserves exact JSON integers and is cleared on denied read
+  ---
+  duration_ms: 5.122334
+  type: 'test'
+  ...
+# Subtest: CP3 settlement artifact preview never leaks across identity or URI changes
+ok 46 - CP3 settlement artifact preview never leaks across identity or URI changes
+  ---
+  duration_ms: 2.42075
+  type: 'test'
+  ...
+# Subtest: CP3 settlement rejected business receipt is an error even with HTTP 200
+ok 47 - CP3 settlement rejected business receipt is an error even with HTTP 200
+  ---
+  duration_ms: 3.086167
+  type: 'test'
+  ...
+# Subtest: CP3 settlement completed CPU work exposes an inline result before any execution history
+ok 48 - CP3 settlement completed CPU work exposes an inline result before any execution history
+  ---
+  duration_ms: 12.36225
+  type: 'test'
+  ...
+1..48
+# tests 48
+# suites 0
+# pass 48
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1725.3275

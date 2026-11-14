@@ -1,0 +1,106 @@
+
+> campus-fabric-web@0.1.0 test:client
+> node --experimental-transform-types --test tests/api.test.mjs
+
+TAP version 13
+# (node:59191) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: uses only ordinary owner/token identity, never client role or test credentials
+ok 1 - uses only ordinary owner/token identity, never client role or test credentials
+  ---
+  duration_ms: 37.55025
+  type: 'test'
+  ...
+# Subtest: administrator token without owner omits X-Owner rather than sending an empty value
+ok 2 - administrator token without owner omits X-Owner rather than sending an empty value
+  ---
+  duration_ms: 0.567375
+  type: 'test'
+  ...
+# Subtest: product client refuses test-control paths before issuing a request
+ok 3 - product client refuses test-control paths before issuing a request
+  ---
+  duration_ms: 0.714291
+  type: 'test'
+  ...
+# Subtest: HTTP 503 preserves unavailable reason and request ID
+ok 4 - HTTP 503 preserves unavailable reason and request ID
+  ---
+  duration_ms: 0.736334
+  type: 'test'
+  ...
+# Subtest: an HTTP 200 rejected receipt is still a failed business operation
+ok 5 - an HTTP 200 rejected receipt is still a failed business operation
+  ---
+  duration_ms: 0.438125
+  type: 'test'
+  ...
+# Subtest: 202 result stays accepted, does not manufacture running or completion status
+ok 6 - 202 result stays accepted, does not manufacture running or completion status
+  ---
+  duration_ms: 2.042291
+  type: 'test'
+  ...
+# Subtest: successful HTML proxy fallback cannot masquerade as API success
+ok 7 - successful HTML proxy fallback cannot masquerade as API success
+  ---
+  duration_ms: 0.435125
+  type: 'test'
+  ...
+# Subtest: lost mutation response is uncertain and releases the in-flight guard
+ok 8 - lost mutation response is uncertain and releases the in-flight guard
+  ---
+  duration_ms: 0.237666
+  type: 'test'
+  ...
+# Subtest: public-job identity uses job ID even when sharing an allocation
+ok 9 - public-job identity uses job ID even when sharing an allocation
+  ---
+  duration_ms: 0.40175
+  type: 'test'
+  ...
+# Subtest: known stale rejection refreshes same work and retries with new version and stable stage
+ok 10 - known stale rejection refreshes same work and retries with new version and stable stage
+  ---
+  duration_ms: 2.230458
+  type: 'test'
+  ...
+# Subtest: stale retry is bounded and epoch changes stop replay
+ok 11 - stale retry is bounded and epoch changes stop replay
+  ---
+  duration_ms: 1.164625
+  type: 'test'
+  ...
+# Subtest: lost response and known non-stale rejection never replay lifecycle commands
+ok 12 - lost response and known non-stale rejection never replay lifecycle commands
+  ---
+  duration_ms: 0.498792
+  type: 'test'
+  ...
+# Subtest: registration retries only known stale rejection with identical stable ID/body and continuous identity guard
+ok 13 - registration retries only known stale rejection with identical stable ID/body and continuous identity guard
+  ---
+  duration_ms: 0.425375
+  type: 'test'
+  ...
+# Subtest: registration stale rejection stops at three attempts; network/server/other conflict never replays
+ok 14 - registration stale rejection stops at three attempts; network/server/other conflict never replays
+  ---
+  duration_ms: 0.527458
+  type: 'test'
+  ...
+# Subtest: raw artifact JSON preserves uint64 results independently of parsed presentation data
+ok 15 - raw artifact JSON preserves uint64 results independently of parsed presentation data
+  ---
+  duration_ms: 0.274667
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 287.132625

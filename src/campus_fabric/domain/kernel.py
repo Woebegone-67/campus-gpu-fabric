@@ -22,6 +22,12 @@ from campus_fabric.domain.placement import (
     validate_node,
     validate_placement,
 )
+from campus_fabric.domain.state_views import (
+    HELD_ALLOCATIONS,
+    LIVE_JOBS,
+    touched_values,
+    values_where,
+)
 from campus_fabric.storage.sqlite import SQLiteStore
 
 ACTIVE = {"Allocated", "Running"}
@@ -71,14 +77,15 @@ class Kernel(LifecycleMixin):
         initial["nodes"] = nodes
         initial["model"]["execution_mode"] = execution_mode
         self.store.initialize(initial)
-        if self.store.read()["model"]["execution_mode"] != execution_mode:
-            raise ValueError("Persisted execution mode differs; use a separate instance")
-        if self.store.read()["scheduling_mode"] != scheduling_mode:
-            raise ValueError("Persisted scheduling mode differs; use its original mode or a new DB")
-        if self.store.read()["model"]["duration_seconds"] != simulation_duration_seconds:
-            raise ValueError(
-                "Persisted execution model differs; use its original duration or a new DB"
-            )
+        with self.store.snapshot() as state:
+            if state["model"]["execution_mode"] != execution_mode:
+                raise ValueError("Persisted execution mode differs; use a separate instance")
+            if state["scheduling_mode"] != scheduling_mode:
+                raise ValueError("Persisted scheduling mode differs; use its original mode or a new DB")
+            if state["model"]["duration_seconds"] != simulation_duration_seconds:
+                raise ValueError(
+                    "Persisted execution model differs; use its original duration or a new DB"
+                )
 
     @staticmethod
     def _empty(epoch, duration):
@@ -237,7 +244,7 @@ class Kernel(LifecycleMixin):
                 self._schedule(s, command)
                 remaining -= delta
             s["cpu_clock"] = {"boot_id": boot_id, "monotonic_ns": monotonic_ns}
-            for intent in s["intents"].values():
+            for intent in touched_values(s["intents"]):
                 parse(m.WorkIntent, intent)
             self._inventory(s)
             self.store.save(conn, s)
@@ -252,6 +259,7 @@ class Kernel(LifecycleMixin):
         """Apply one validated command while the caller holds the writer transaction."""
         key = self._dedup_key(command)
         fingerprint = self._fingerprint(command)
+        original_version, original_time = self._version(base), base["now"]
         try:
             self._authorize(command)
             if key is not None and key in base["dedup"]:
@@ -272,7 +280,8 @@ class Kernel(LifecycleMixin):
                 raise Rejected(
                     "stale_version", "Refresh the snapshot and construct a new command"
                 )
-            s = copy.deepcopy(base)
+            # load() is owned by this transaction; rejected changes are never saved.
+            s = base
             s["revision"] += 1
             first_event = len(s["events"])
             objects, status, body, stage = self._apply(s, command)
@@ -302,7 +311,7 @@ class Kernel(LifecycleMixin):
                     )
                 )
             # Validate mutable aggregate against the immutable boundary before saving.
-            for intent in s["intents"].values():
+            for intent in touched_values(s["intents"]):
                 parse(m.WorkIntent, intent)
             self._inventory(s)
             if key is not None:
@@ -316,10 +325,10 @@ class Kernel(LifecycleMixin):
             receipt = m.CommitReceipt(
                 request_id=command.request_id,
                 outcome="rejected",
-                version=self._version(base),
-                logical_time=base["now"],
+                version=original_version,
+                logical_time=original_time,
                 error=m.ErrorDetail(
-                    code=exc.code, detail=exc.detail, current_version=self._version(base)
+                    code=exc.code, detail=exc.detail, current_version=original_version
                 ),
             )
 
@@ -380,10 +389,10 @@ class Kernel(LifecycleMixin):
             epoch, duration = s["epoch"] + 1, s["model"]["duration_seconds"]
             mode = s["scheduling_mode"]
             execution_mode = s["model"]["execution_mode"]
-            cpu_clock = s.get("cpu_clock")
+            cpu_clock = dict(s["cpu_clock"]) if s.get("cpu_clock") is not None else None
             retired = dict(s.get("retired", {}))
             if execution_mode == "cpu_reference":
-                for job in s["jobs"].values():
+                for job in values_where(s["jobs"], physical_live=True):
                     if job.get("physical_live"):
                         self._dispatch(s, job, "stop")
                         a = s["allocations"][job["allocation_id"]]
@@ -394,7 +403,8 @@ class Kernel(LifecycleMixin):
                                 for part in (a["placement"] or {}).get("slices", [])
                                 for d in s["nodes"][part["node_id"]]["devices"]
                                 if d["device_id"] in part["device_ids"]}),
-                            "commands": [v["command"] for v in s["outbox"].values()
+                            "commands": [v["command"] for v in values_where(
+                                s["outbox"], attempt_id=job["attempt"]["attempt_id"])
                                          if v["command"]["attempt"] == job["attempt"]],
                         }
             s.clear()
@@ -651,7 +661,7 @@ class Kernel(LifecycleMixin):
         if s["scheduling_mode"] == "external":
             return
         pending = sorted(
-            (a for a in s["allocations"].values() if a["state"] == "Pending"),
+            values_where(s["allocations"], state="Pending"),
             key=lambda a: (
                 -a["parameters"]["priority"],
                 a["created_at"],
@@ -795,7 +805,9 @@ class Kernel(LifecycleMixin):
             return
         old = a["state"]
         deltas = self._delta(a, -1) if a["placement"] is not None else []
-        for job in s["jobs"].values():
+        for job in values_where(
+            s["jobs"], allocation_id=a["allocation_id"], state=LIVE_JOBS
+        ):
             if job["allocation_id"] == a["allocation_id"] and job["state"] not in JOB_TERMINAL:
                 self._finish_job(
                     s,
@@ -891,10 +903,14 @@ class Kernel(LifecycleMixin):
                     "receipt": plain(receipt),
                 },
             }
-        return self.store.read()["payloads"][self._payload_key(receipt)]
+        with self.store.snapshot() as state:
+            return copy.deepcopy(state["payloads"][self._payload_key(receipt)])
 
     def export_state(self, actor):
-        state = self.store.read()
+        with self.store.snapshot() as state:
+            return self._export_state(state, actor)
+
+    def _export_state(self, state, actor):
         allowed = {k: state[k] for k in ("epoch", "revision", "now")}
         allowed["nodes"] = {
             n.node_id: plain(n)
@@ -927,13 +943,18 @@ class Kernel(LifecycleMixin):
         return allowed
 
     def decision_snapshot(self):
-        s = self.store.read()
-        active = [a for a in s["allocations"].values() if a["placement"] is not None]
+        with self.store.snapshot() as state:
+            return self._decision_snapshot(state)
+
+    def _decision_snapshot(self, s):
+        active = [a for a in values_where(s["allocations"], state=HELD_ALLOCATIONS)
+                  if a["placement"] is not None]
         return m.DecisionSnapshot(
             version=self._version(s),
             now=s["now"],
             execution_mode=s["model"]["execution_mode"],
-            notices=tuple(parse(m.ContributorNotice, n) for n in s.get("recalls", {}).values()
+            notices=tuple(parse(m.ContributorNotice, n) for n in values_where(
+                              s.get("recalls", {}), unavailable_until__gt=s["now"])
                           if n["unavailable_until"] > s["now"]),
             inventory=self._inventory(s),
             demands=tuple(
@@ -949,8 +970,7 @@ class Kernel(LifecycleMixin):
                         parse(m.KeyValue, x) for x in a["parameters"]["node_selector"]
                     ),
                 )
-                for a in s["allocations"].values()
-                if a["state"] == "Pending"
+                for a in values_where(s["allocations"], state="Pending")
             ),
             occupancy=tuple(
                 m.Occupancy(
@@ -977,7 +997,10 @@ class Kernel(LifecycleMixin):
         )
 
     def read_snapshot(self, query):
-        s = self.store.read()
+        with self.store.snapshot() as state:
+            return self._read_snapshot(state, query)
+
+    def _read_snapshot(self, s, query):
         if query.after is not None and query.after.epoch != s["epoch"]:
             raise ValueError("Event cursor belongs to an old epoch; refresh without the cursor")
 
@@ -989,19 +1012,28 @@ class Kernel(LifecycleMixin):
         def selected(kind, ident):
             return not selection or (kind, ident) in selection
 
+        def rows(collection, kind):
+            if selection:
+                identifiers = dict.fromkeys(ref.entity_id for ref in query.entities
+                                            if ref.kind == kind)
+                return (row for ident in sorted(identifiers)
+                        if (row := s[collection].get(ident)) is not None)
+            return (s[collection].values() if query.global_scope else
+                    values_where(s[collection], owner_id=query.actor.owner_id))
+
         allocations = tuple(
             parse(m.AllocationView, {k: a[k] for k in m.AllocationView.model_fields if k in a})
-            for a in s["allocations"].values()
+            for a in rows("allocations", "allocation")
             if visible(a) and selected("allocation", a["allocation_id"])
         )
         jobs = tuple(
             parse(m.JobView, {k: j[k] for k in m.JobView.model_fields if k in j})
-            for j in s["jobs"].values()
+            for j in rows("jobs", "job")
             if visible(j) and selected("job", j["job_id"])
         )
         intents = tuple(
             parse(m.WorkIntent, v)
-            for v in s["intents"].values()
+            for v in rows("intents", "intent")
             if visible(v) and selected("intent", v["intent_id"])
         )
         events = tuple(
@@ -1043,6 +1075,134 @@ class Kernel(LifecycleMixin):
             legal_actions=actions,
             next_cursor=m.EventCursor(epoch=s["epoch"], after_sequence=s["seq"]),
         )
+
+    def runtime_metadata(self):
+        """Read clock/version without loading histories; values are detached scalars."""
+        with self.store.snapshot() as state:
+            return {key: state[key] for key in ("epoch", "revision", "now")}
+
+    def inventory_state(self, actor):
+        """Capacity-only provider with the same public inventory scope as export_state."""
+        with self.store.snapshot() as state:
+            return {
+                **{key: state[key] for key in ("epoch", "revision", "now")},
+                "nodes": {node.node_id: plain(node) for node in self._inventory(state)},
+            }
+
+    def record_snapshot(self, query):
+        """Allocation/job detail provider; linked records preserve lifecycle hints."""
+        if not query.entities or any(ref.kind not in {"allocation", "job"} for ref in query.entities):
+            return self.read_snapshot(query)
+        with self.store.snapshot() as state:
+            if query.after is not None and query.after.epoch != state["epoch"]:
+                raise ValueError("Event cursor belongs to an old epoch; refresh without the cursor")
+
+            def visible(row):
+                return row is not None and (query.global_scope or row["owner_id"] == query.actor.owner_id)
+
+            allocations, jobs, intents = {}, {}, {}
+            for ref in query.entities:
+                if ref.kind == "allocation":
+                    allocation = state["allocations"].get(ref.entity_id)
+                    if not visible(allocation):
+                        continue
+                    allocations[ref.entity_id] = allocation
+                    for job in values_where(state["jobs"], allocation_id=ref.entity_id, state=LIVE_JOBS):
+                        if visible(job):
+                            jobs[job["job_id"]] = job
+                else:
+                    job = state["jobs"].get(ref.entity_id)
+                    if not visible(job):
+                        continue
+                    jobs[ref.entity_id] = job
+                    allocation = state["allocations"].get(job["allocation_id"])
+                    if visible(allocation):
+                        allocations[allocation["allocation_id"]] = allocation
+            # Resume limits and stopping-generation hints live on the linked intent.
+            for row in (*allocations.values(), *jobs.values()):
+                if row.get("intent_id"):
+                    intent = state["intents"].get(row["intent_id"])
+                    if visible(intent):
+                        intents[intent["intent_id"]] = intent
+            allocation_views = tuple(self._allocation_view(allocations[key]) for key in sorted(allocations))
+            job_views = tuple(parse(m.JobView, {field: jobs[key][field]
+                              for field in m.JobView.model_fields if field in jobs[key]})
+                              for key in sorted(jobs))
+            actions = tuple(m.LegalAction(
+                operation="allocation.release", entity=self._ref("allocation", allocation.allocation_id),
+                explanation="Return this lease explicitly",
+            ) for allocation in allocation_views
+                if allocation.state in ACTIVE | {"Pending"} and query.actor.can_use_compute)
+            return m.ReadSnapshot(
+                version=self._version(state), now=state["now"], viewer=query.actor,
+                global_scope=query.global_scope, allocations=allocation_views, jobs=job_views,
+                intents=tuple(parse(m.WorkIntent, intents[key]) for key in sorted(intents)),
+                legal_actions=actions,
+                next_cursor=m.EventCursor(epoch=state["epoch"], after_sequence=state["seq"]),
+            )
+
+    def pending_dispatches(self):
+        """Return immutable commands and owner bindings from one coherent snapshot."""
+        with self.store.snapshot() as state:
+            pending = []
+            for item in values_where(state["outbox"], status="pending"):
+                command = parse(m.ExecutorCommand, item["command"])
+                owner = state["jobs"].get(command.attempt.job_id, {}).get("owner_id")
+                pending.append((command, owner))
+            for retired in state.get("retired", {}).values():
+                pending.extend((parse(m.ExecutorCommand, command), retired["owner_id"])
+                               for command in retired["commands"])
+            pending.sort(key=lambda item: (item[0].version.epoch,
+                                          int(item[0].dispatch_id.split("dispatch")[-1])))
+            return state["now"], tuple(pending)
+
+    def workflow_pending_snapshot(self, actor):
+        """Private worker discovery, excluding histories that cannot create a job."""
+        if actor.role != "administrator":
+            raise PermissionError("Workflow discovery requires administrator authority")
+        with self.store.snapshot() as state:
+            intents = tuple(parse(m.WorkIntent, intent) for intent in values_where(
+                state["intents"], state=("pending", "waiting", "running")
+            ) if not intent["job_ids"] and not any(
+                stage["state"] == "failed" for stage in intent["stages"]
+            ))
+            allocation_ids = {aid for intent in intents for aid in intent.allocation_ids}
+            allocations = tuple(self._allocation_view(state["allocations"][aid])
+                                for aid in sorted(allocation_ids))
+            return m.ReadSnapshot(
+                version=self._version(state), now=state["now"], viewer=actor, global_scope=True,
+                intents=intents, allocations=allocations,
+                next_cursor=m.EventCursor(epoch=state["epoch"], after_sequence=state["seq"]),
+            )
+
+    @staticmethod
+    def _allocation_view(allocation):
+        return parse(m.AllocationView, {key: allocation[key]
+                     for key in m.AllocationView.model_fields if key in allocation})
+
+    def work_snapshot(self, intent_id, actor):
+        """Private orchestration read; ordinary page/history snapshots stay complete."""
+        with self.store.snapshot() as state:
+            raw = state["intents"].get(intent_id)
+            intent = (parse(m.WorkIntent, raw) if raw is not None
+                      and raw["owner_id"] == actor.owner_id else None)
+            allocations, jobs = [], []
+            if intent is not None:
+                for aid in intent.allocation_ids:
+                    allocation = state["allocations"].get(aid)
+                    if allocation is not None and allocation["owner_id"] == actor.owner_id:
+                        allocations.append(self._allocation_view(allocation))
+                for jid in intent.job_ids:
+                    job = state["jobs"].get(jid)
+                    if job is not None and job["owner_id"] == actor.owner_id:
+                        jobs.append(parse(m.JobView, {key: job[key]
+                                    for key in m.JobView.model_fields if key in job}))
+            return m.ReadSnapshot(
+                version=self._version(state), now=state["now"], viewer=actor, global_scope=False,
+                intents=() if intent is None else (intent,), allocations=tuple(allocations),
+                jobs=tuple(jobs),
+                next_cursor=m.EventCursor(epoch=state["epoch"], after_sequence=state["seq"]),
+            )
 
     def register_current_intent(self, registration, *, actor, request_id):
         """Register immutable inputs without inventing a client snapshot precondition.

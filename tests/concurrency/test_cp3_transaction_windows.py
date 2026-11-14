@@ -15,6 +15,7 @@ import pytest
 
 from campus_fabric.contracts import models as m
 from campus_fabric.domain.kernel import Kernel
+from campus_fabric.storage.state import materialize
 
 ALICE = m.AuthenticatedActor(actor_id="alice", role="researcher", owner_id="alice")
 OPERATIONS = ("allocation", "workflow_allocation", "workflow_job")
@@ -86,7 +87,9 @@ def killed_writer(path, command, window, pipe):
     def intercepted():
         with original() as conn:
             yield conn
-            provisional = kernel.store.load(conn)
+            # Detach the complete observation while this transaction's lazy
+            # containers can still read their connection; never pickle a cursor.
+            provisional = materialize(kernel.store.load(conn))
             if window == "before_commit":
                 pipe.send(("barrier", provisional))
                 pipe.recv()

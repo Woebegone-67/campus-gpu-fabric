@@ -13,7 +13,7 @@ from fastapi import APIRouter, FastAPI, Request
 from fastapi.responses import JSONResponse, Response
 from pydantic import ValidationError
 
-from campus_fabric.contracts.models import EventCursor, EvidenceRun, VersionStamp
+from campus_fabric.contracts.models import EntityRef, EventCursor, EvidenceRun, VersionStamp
 from campus_fabric.projections.read_models import (
     ProjectionError,
     allocation_json,
@@ -166,7 +166,11 @@ def create_query_router(services: QueryServices | None = None) -> APIRouter:
 
     def detail(request: Request, actor: Any, kind: str, parameter: str) -> dict:
         key = request.path_params[parameter]
-        snapshot = services.read(actor)
+        if kind in {"allocation", "job"}:
+            snapshot = services.read(actor, entities=(EntityRef(kind=kind, entity_id=key),),
+                                     records_only=True)
+        else:
+            snapshot = services.read(actor)
         collection, attribute = {
             "allocation": (snapshot.allocations, "allocation_id"),
             "job": (snapshot.jobs, "job_id"),

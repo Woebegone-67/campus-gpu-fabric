@@ -10,6 +10,12 @@ import json
 from campus_fabric.contracts import models as m
 from campus_fabric.domain.errors import Rejected
 from campus_fabric.domain.placement import inventory
+from campus_fabric.domain.state_views import (
+    HELD_ALLOCATIONS,
+    LIVE_ALLOCATIONS,
+    LIVE_JOBS,
+    values_where,
+)
 
 TERMINAL_JOBS = {"Succeeded", "Failed", "Cancelled"}
 TERMINAL_ALLOCATIONS = {"Released", "Expired", "Evicted"}
@@ -45,7 +51,10 @@ class LifecycleMixin:
             ident: {**node, "state": "NotReady"} if ident in retired else node
             for ident, node in s["nodes"].items()
         }
-        return inventory(nodes, s["allocations"], s["now"])
+        claims = {a["allocation_id"]: a for a in values_where(
+            s["allocations"], state=HELD_ALLOCATIONS
+        ) if a.get("placement") is not None}
+        return inventory(nodes, claims, s["now"])
 
     def acknowledge_dispatch(self, dispatch_id, epoch):
         # Transport bookkeeping only: no clock, placement, or decision version mutation.
@@ -80,7 +89,8 @@ class LifecycleMixin:
 
     @staticmethod
     def _live_job(s, allocation):
-        return next((j for j in s["jobs"].values()
+        return next((j for j in values_where(
+                        s["jobs"], allocation_id=allocation["allocation_id"], state=LIVE_JOBS)
                      if j["allocation_id"] == allocation["allocation_id"]
                      and j["state"] not in TERMINAL_JOBS), None)
 
@@ -111,7 +121,7 @@ class LifecycleMixin:
             generations = s.setdefault("node_generations", {})
             if p.state == "NotReady" and previous != "NotReady":
                 generations[p.node_id] = generations.get(p.node_id, 0) + 1
-                for a in s["allocations"].values():
+                for a in values_where(s["allocations"], state=LIVE_ALLOCATIONS):
                     if a["placement"] and any(x["node_id"] == p.node_id
                                               for x in a["placement"]["slices"]):
                         self._release(s, c, a, "Evicted")
@@ -165,7 +175,7 @@ class LifecycleMixin:
             s.setdefault("recalls", {})[notice["notice_id"]] = notice
             notices.append(notice)
         self._refresh_blocks(s)
-        for a in s["allocations"].values():
+        for a in values_where(s["allocations"], state=LIVE_ALLOCATIONS):
             if not a["placement"] or a["state"] in TERMINAL_ALLOCATIONS:
                 continue
             held = [devices[d][1] for part in a["placement"]["slices"] for d in part["device_ids"]]
@@ -212,7 +222,8 @@ class LifecycleMixin:
 
     def _refresh_blocks(self, s):
         devices = {d["device_id"]: d for n in s["nodes"].values() for d in n["devices"]}
-        recalled = [devices[ident] for notice in s.get("recalls", {}).values()
+        recalled = [devices[ident] for notice in values_where(
+                        s.get("recalls", {}), unavailable_until__gt=s["now"])
                     if notice["unavailable_until"] > s["now"]
                     for ident in notice["device_ids"]]
         retired_nodes = self._retired_node_ids(s)
@@ -252,7 +263,9 @@ class LifecycleMixin:
 
     def _dispatch(self, s, job, action, checkpoint=None):
         # One durable command of each action per generation. Delivery itself is repeatable.
-        for record in s["outbox"].values():
+        for record in values_where(
+            s["outbox"], attempt_id=job["attempt"]["attempt_id"], action=action
+        ):
             command = record["command"]
             if command["attempt"] == job["attempt"] and command["action"] == action:
                 return command["dispatch_id"]
@@ -357,10 +370,8 @@ class LifecycleMixin:
             job["completion_at"] = s["now"] + remaining
             if cp and cp["report_status"] == "ready":
                 job["model_continuation"] = "restored"
-            self._dispatch(s, job, "start")
-            for entry in s["outbox"].values():
-                if entry["command"]["attempt"] == job["attempt"]:
-                    entry.update(status="model_acknowledged", acknowledged_at=s["now"])
+            dispatch_id = self._dispatch(s, job, "start")
+            s["outbox"][dispatch_id].update(status="model_acknowledged", acknowledged_at=s["now"])
         else:
             verified = cp and cp["verification_status"] == "verified"
             job["resuming_checkpoint"] = bool(verified)
@@ -481,7 +492,7 @@ class LifecycleMixin:
     def _advance(self, s, c, target):
         while True:
             due = []
-            for a in s["allocations"].values():
+            for a in values_where(s["allocations"], state=LIVE_ALLOCATIONS):
                 if (a["expires_at"] is not None and a["state"] not in TERMINAL_ALLOCATIONS
                         and not a.get("pending_terminal") and a["expires_at"] <= target):
                     due.append((a["expires_at"], 0, a["allocation_id"]))
@@ -489,7 +500,7 @@ class LifecycleMixin:
                         and not a.get("stop_requested") and not a.get("pending_terminal")
                         and a["preemption"]["checkpoint_due"] <= target):
                     due.append((a["preemption"]["checkpoint_due"], 1, a["allocation_id"]))
-            for job in s["jobs"].values():
+            for job in values_where(s["jobs"], state=LIVE_JOBS):
                 if job["state"] in TERMINAL_JOBS or job.get("pending_finish"):
                     continue
                 if job["timeout_at"] <= target:
@@ -500,9 +511,9 @@ class LifecycleMixin:
                     due.append((job["completion_at"], 3, job["job_id"]))
                 if job.get("retry_at") is not None and job["retry_at"] <= target:
                     due.append((job["retry_at"], 5, job["job_id"]))
-            for key, notice in s.get("recalls", {}).items():
+            for notice in values_where(s.get("recalls", {}), unavailable_until__gt=s["now"]):
                 if s["now"] < notice["unavailable_until"] <= target:
-                    due.append((notice["unavailable_until"], 4, key))
+                    due.append((notice["unavailable_until"], 4, notice["notice_id"]))
             if not due:
                 break
             at = min(x[0] for x in due)

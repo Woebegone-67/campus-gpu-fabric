@@ -66,7 +66,9 @@ class WorkflowOrchestrator:
     def _read(self, intent_id: str, actor: AuthenticatedActor) -> tuple[ReadSnapshot, WorkIntent]:
         if actor.owner_id is None or not actor.can_use_compute:
             raise PermissionError("Work orchestration requires an authenticated work owner")
-        snapshot = self.reads.read_snapshot(ReadQuery(actor=actor))
+        scoped_read = getattr(self.reads, "work_snapshot", None)
+        snapshot = (scoped_read(intent_id, actor) if scoped_read is not None else
+                    self.reads.read_snapshot(ReadQuery(actor=actor)))
         if snapshot.viewer != actor or snapshot.global_scope:
             raise WorkflowReadError("ReadPort returned the wrong authenticated scope")
         intent = next((item for item in snapshot.intents if item.intent_id == intent_id), None)
