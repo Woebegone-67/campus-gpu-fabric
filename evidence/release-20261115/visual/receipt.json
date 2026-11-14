@@ -1,0 +1,233 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "width": 1440,
+      "section": "overview",
+      "overflow": {
+        "viewport": 1440,
+        "document": 1440,
+        "body": 1440,
+        "areas": [
+          {
+            "width": 1248,
+            "scroll": 1248
+          }
+        ]
+      }
+    },
+    {
+      "width": 1440,
+      "section": "run",
+      "overflow": {
+        "viewport": 1440,
+        "document": 1440,
+        "body": 1440,
+        "areas": [
+          {
+            "width": 1248,
+            "scroll": 1248
+          }
+        ]
+      }
+    },
+    {
+      "width": 1440,
+      "section": "resources",
+      "overflow": {
+        "viewport": 1440,
+        "document": 1440,
+        "body": 1440,
+        "areas": [
+          {
+            "width": 1248,
+            "scroll": 1248
+          }
+        ]
+      }
+    },
+    {
+      "width": 1440,
+      "section": "events",
+      "overflow": {
+        "viewport": 1440,
+        "document": 1440,
+        "body": 1440,
+        "areas": [
+          {
+            "width": 1248,
+            "scroll": 1248
+          }
+        ]
+      }
+    },
+    {
+      "width": 1440,
+      "section": "decisions",
+      "overflow": {
+        "viewport": 1440,
+        "document": 1440,
+        "body": 1440,
+        "areas": [
+          {
+            "width": 1248,
+            "scroll": 1248
+          }
+        ]
+      }
+    },
+    {
+      "width": 768,
+      "section": "overview",
+      "overflow": {
+        "viewport": 768,
+        "document": 768,
+        "body": 768,
+        "areas": [
+          {
+            "width": 594,
+            "scroll": 594
+          }
+        ]
+      }
+    },
+    {
+      "width": 768,
+      "section": "run",
+      "overflow": {
+        "viewport": 768,
+        "document": 768,
+        "body": 768,
+        "areas": [
+          {
+            "width": 594,
+            "scroll": 594
+          }
+        ]
+      }
+    },
+    {
+      "width": 768,
+      "section": "resources",
+      "overflow": {
+        "viewport": 768,
+        "document": 768,
+        "body": 768,
+        "areas": [
+          {
+            "width": 594,
+            "scroll": 594
+          }
+        ]
+      }
+    },
+    {
+      "width": 768,
+      "section": "events",
+      "overflow": {
+        "viewport": 768,
+        "document": 768,
+        "body": 768,
+        "areas": [
+          {
+            "width": 594,
+            "scroll": 594
+          }
+        ]
+      }
+    },
+    {
+      "width": 768,
+      "section": "decisions",
+      "overflow": {
+        "viewport": 768,
+        "document": 768,
+        "body": 768,
+        "areas": [
+          {
+            "width": 594,
+            "scroll": 594
+          }
+        ]
+      }
+    },
+    {
+      "width": 390,
+      "section": "overview",
+      "overflow": {
+        "viewport": 390,
+        "document": 390,
+        "body": 390,
+        "areas": [
+          {
+            "width": 390,
+            "scroll": 390
+          }
+        ]
+      }
+    },
+    {
+      "width": 390,
+      "section": "run",
+      "overflow": {
+        "viewport": 390,
+        "document": 390,
+        "body": 390,
+        "areas": [
+          {
+            "width": 390,
+            "scroll": 390
+          }
+        ]
+      }
+    },
+    {
+      "width": 390,
+      "section": "resources",
+      "overflow": {
+        "viewport": 390,
+        "document": 390,
+        "body": 390,
+        "areas": [
+          {
+            "width": 390,
+            "scroll": 390
+          }
+        ]
+      }
+    },
+    {
+      "width": 390,
+      "section": "events",
+      "overflow": {
+        "viewport": 390,
+        "document": 390,
+        "body": 390,
+        "areas": [
+          {
+            "width": 390,
+            "scroll": 390
+          }
+        ]
+      }
+    },
+    {
+      "width": 390,
+      "section": "decisions",
+      "overflow": {
+        "viewport": 390,
+        "document": 390,
+        "body": 390,
+        "areas": [
+          {
+            "width": 390,
+            "scroll": 390
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "browser": "157.0.8103.51",
+  "scope": "Real API; read-only page navigation, 3 widths × 5 pages; screenshots require visual inspection."
+}

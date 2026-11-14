@@ -1,0 +1,551 @@
+{
+  "arms": {
+    "cold": {
+      "F_seconds": 7.072791376,
+      "completed": 4,
+      "failed": 0,
+      "unfinished": 0
+    },
+    "continuation": {
+      "F_seconds": 43.794873583,
+      "completed": 3,
+      "failed": 1,
+      "unfinished": 0
+    },
+    "finish_fits": {
+      "F_seconds": 4.795369374,
+      "completed": 4,
+      "failed": 0,
+      "unfinished": 0
+    }
+  },
+  "baseline_scope": "executed fixed-boundary save/finish with same deadline",
+  "kernel_path": "PASS",
+  "pairs": [
+    {
+      "case": "zero",
+      "cold": {
+        "attempts": [
+          {
+            "final_step": 0,
+            "generation": 1,
+            "initial_source": "cold_start",
+            "initial_step": 0
+          },
+          {
+            "final_step": 10000000,
+            "generation": 2,
+            "initial_source": "cold_start",
+            "initial_step": 0
+          }
+        ],
+        "baseline_opportunity": {
+          "action": "checkpoint",
+          "reason": "No causal throughput estimate"
+        },
+        "errors": [],
+        "metrics": {
+          "all_worker_write_bytes": 117900,
+          "checkpoint_verify_seconds": 0.0,
+          "checkpoint_write_bytes": 0,
+          "checkpoint_write_seconds": 0.0,
+          "compute_cpu_seconds": 0.940228,
+          "compute_wall_seconds": 0.968381332,
+          "discarded_first_attempt_steps": 0,
+          "end_to_end_seconds": 1.202989042,
+          "executed_steps": 10000000,
+          "measurement_audit_gap_seconds": 0.000112208,
+          "notice_overrun_seconds": 0.0,
+          "notice_to_stop_confirmed_seconds": 0.050228458,
+          "redundant_steps_if_completed": 0,
+          "required_steps": 10000000,
+          "resume_or_cold_start_seconds": 0.054368667,
+          "truncated_completion_cost_seconds": 1.202989042,
+          "verified_saved_step": 0,
+          "worker_cpu_seconds": 1.046897,
+          "worker_occupied_wall_seconds": 1.086750251
+        },
+        "status": "completed"
+      },
+      "continuation": {
+        "attempts": [
+          {
+            "final_step": 50000,
+            "generation": 1,
+            "initial_source": "cold_start",
+            "initial_step": 0
+          },
+          {
+            "final_step": 10000000,
+            "generation": 2,
+            "initial_source": "fabric-cpu://53b6ecdf1c650970482ea9ae/4e5a5610deb4234a8c99b8d715d7b152b5544879906acac99e2017972e16f902",
+            "initial_step": 0
+          }
+        ],
+        "baseline_opportunity": {
+          "action": "checkpoint",
+          "reason": "No causal throughput estimate"
+        },
+        "errors": [],
+        "metrics": {
+          "all_worker_write_bytes": 119186,
+          "checkpoint_verify_seconds": 0.00018025,
+          "checkpoint_write_bytes": 587,
+          "checkpoint_write_seconds": 0.000262709,
+          "compute_cpu_seconds": 0.96983,
+          "compute_wall_seconds": 1.046605622,
+          "discarded_first_attempt_steps": 50000,
+          "end_to_end_seconds": 1.321905,
+          "executed_steps": 10050000,
+          "measurement_audit_gap_seconds": 0.000155084,
+          "notice_overrun_seconds": 0.0,
+          "notice_to_stop_confirmed_seconds": 0.05938025,
+          "redundant_steps_if_completed": 50000,
+          "required_steps": 10000000,
+          "resume_or_cold_start_seconds": 0.047986708,
+          "truncated_completion_cost_seconds": 1.321905,
+          "verified_saved_step": 0,
+          "worker_cpu_seconds": 1.082665,
+          "worker_occupied_wall_seconds": 1.206613042
+        },
+        "status": "completed"
+      },
+      "finish_fits": {
+        "attempts": [
+          {
+            "final_step": 7500000,
+            "generation": 1,
+            "initial_source": "cold_start",
+            "initial_step": 0
+          },
+          {
+            "final_step": 10000000,
+            "generation": 2,
+            "initial_source": "fabric-cpu://b1235af242c64c81314e4855/db62d9b8b1c784cca283a7f20f2e79ddc2435b8880faaee41f72b5d233affed1",
+            "initial_step": 7450000
+          }
+        ],
+        "baseline_opportunity": {
+          "action": "checkpoint",
+          "reason": "No causal throughput estimate"
+        },
+        "errors": [],
+        "metrics": {
+          "all_worker_write_bytes": 119218,
+          "checkpoint_verify_seconds": 0.00024675,
+          "checkpoint_write_bytes": 611,
+          "checkpoint_write_seconds": 0.000209375,
+          "compute_cpu_seconds": 0.985079,
+          "compute_wall_seconds": 1.005788123,
+          "discarded_first_attempt_steps": 50000,
+          "end_to_end_seconds": 1.274174166,
+          "executed_steps": 10050000,
+          "measurement_audit_gap_seconds": 0.000118666,
+          "notice_overrun_seconds": 0.0,
+          "notice_to_stop_confirmed_seconds": 0.920883084,
+          "redundant_steps_if_completed": 50000,
+          "required_steps": 10000000,
+          "resume_or_cold_start_seconds": 0.061934209,
+          "truncated_completion_cost_seconds": 1.274174166,
+          "verified_saved_step": 7450000,
+          "worker_cpu_seconds": 1.090259,
+          "worker_occupied_wall_seconds": 1.138875042
+        },
+        "status": "completed"
+      }
+    },
+    {
+      "case": "middle",
+      "cold": {
+        "attempts": [
+          {
+            "final_step": 5050000,
+            "generation": 1,
+            "initial_source": "cold_start",
+            "initial_step": 0
+          },
+          {
+            "final_step": 10000000,
+            "generation": 2,
+            "initial_source": "cold_start",
+            "initial_step": 0
+          }
+        ],
+        "baseline_opportunity": {
+          "action": "checkpoint",
+          "estimator": "2x slowest observed progress-interval seconds per step",
+          "remaining_seconds_upper_estimate": 1.7890750000000002,
+          "safety_margin_seconds": 0.1,
+          "scope": "causal decision opportunity check only; finish was not executed"
+        },
+        "errors": [],
+        "metrics": {
+          "all_worker_write_bytes": 176334,
+          "checkpoint_verify_seconds": 0.0,
+          "checkpoint_write_bytes": 0,
+          "checkpoint_write_seconds": 0.0,
+          "compute_cpu_seconds": 1.413803,
+          "compute_wall_seconds": 1.442466163,
+          "discarded_first_attempt_steps": 5050000,
+          "end_to_end_seconds": 1.730751709,
+          "executed_steps": 15050000,
+          "measurement_audit_gap_seconds": 0.000100541,
+          "notice_overrun_seconds": 0.0,
+          "notice_to_stop_confirmed_seconds": 0.010062125,
+          "redundant_steps_if_completed": 5050000,
+          "required_steps": 10000000,
+          "resume_or_cold_start_seconds": 0.049399584,
+          "truncated_completion_cost_seconds": 1.730751709,
+          "verified_saved_step": 0,
+          "worker_cpu_seconds": 1.56378,
+          "worker_occupied_wall_seconds": 1.619350208
+        },
+        "status": "completed"
+      },
+      "continuation": {
+        "attempts": [
+          {
+            "final_step": 5100000,
+            "generation": 1,
+            "initial_source": "cold_start",
+            "initial_step": 0
+          },
+          {
+            "final_step": 10000000,
+            "generation": 2,
+            "initial_source": "fabric-cpu://e29156f99c79e1a81e523edf/ef21e8fa227b5ecdfa86af1e4e220d1d2d29d02f65c5efdb66b33e9316d43733",
+            "initial_step": 5050000
+          }
+        ],
+        "baseline_opportunity": {
+          "action": "checkpoint",
+          "estimator": "2x slowest observed progress-interval seconds per step",
+          "remaining_seconds_upper_estimate": 1.7215500000000001,
+          "safety_margin_seconds": 0.1,
+          "scope": "causal decision opportunity check only; finish was not executed"
+        },
+        "errors": [],
+        "metrics": {
+          "all_worker_write_bytes": 119219,
+          "checkpoint_verify_seconds": 0.000281459,
+          "checkpoint_write_bytes": 610,
+          "checkpoint_write_seconds": 0.000226875,
+          "compute_cpu_seconds": 0.974798,
+          "compute_wall_seconds": 0.992808417,
+          "discarded_first_attempt_steps": 50000,
+          "end_to_end_seconds": 1.22464875,
+          "executed_steps": 10050000,
+          "measurement_audit_gap_seconds": 0.000112708,
+          "notice_overrun_seconds": 0.0,
+          "notice_to_stop_confirmed_seconds": 0.019566542,
+          "redundant_steps_if_completed": 50000,
+          "required_steps": 10000000,
+          "resume_or_cold_start_seconds": 0.044936709,
+          "truncated_completion_cost_seconds": 1.22464875,
+          "verified_saved_step": 5050000,
+          "worker_cpu_seconds": 1.082881,
+          "worker_occupied_wall_seconds": 1.10898425
+        },
+        "status": "completed"
+      },
+      "finish_fits": {
+        "attempts": [
+          {
+            "final_step": 10000000,
+            "generation": 1,
+            "initial_source": "cold_start",
+            "initial_step": 0
+          }
+        ],
+        "baseline_opportunity": {
+          "action": "checkpoint",
+          "estimator": "2x slowest observed progress-interval seconds per step",
+          "remaining_seconds_upper_estimate": 1.8873666000000002,
+          "safety_margin_seconds": 0.1,
+          "scope": "causal decision opportunity check only; finish was not executed"
+        },
+        "errors": [],
+        "metrics": {
+          "all_worker_write_bytes": 116806,
+          "checkpoint_verify_seconds": 0.0,
+          "checkpoint_write_bytes": 0,
+          "checkpoint_write_seconds": 0.0,
+          "compute_cpu_seconds": 0.953384,
+          "compute_wall_seconds": 0.97541825,
+          "discarded_first_attempt_steps": 0,
+          "end_to_end_seconds": 1.140281792,
+          "executed_steps": 10000000,
+          "notice_overrun_seconds": 0.0,
+          "notice_to_stop_confirmed_seconds": 0.557860458,
+          "redundant_steps_if_completed": 0,
+          "required_steps": 10000000,
+          "truncated_completion_cost_seconds": 1.140281792,
+          "verified_saved_step": 0,
+          "worker_cpu_seconds": 1.054951,
+          "worker_occupied_wall_seconds": 1.088561166
+        },
+        "status": "completed"
+      }
+    },
+    {
+      "case": "late",
+      "cold": {
+        "attempts": [
+          {
+            "final_step": 9050000,
+            "generation": 1,
+            "initial_source": "cold_start",
+            "initial_step": 0
+          },
+          {
+            "final_step": 10000000,
+            "generation": 2,
+            "initial_source": "cold_start",
+            "initial_step": 0
+          }
+        ],
+        "baseline_opportunity": {
+          "action": "finish",
+          "estimator": "2x slowest observed progress-interval seconds per step",
+          "remaining_seconds_upper_estimate": 0.41549500000000006,
+          "safety_margin_seconds": 0.1,
+          "scope": "causal decision opportunity check only; finish was not executed"
+        },
+        "errors": [],
+        "metrics": {
+          "all_worker_write_bytes": 222601,
+          "checkpoint_verify_seconds": 0.0,
+          "checkpoint_write_bytes": 0,
+          "checkpoint_write_seconds": 0.0,
+          "compute_cpu_seconds": 1.977855,
+          "compute_wall_seconds": 2.024869831,
+          "discarded_first_attempt_steps": 9050000,
+          "end_to_end_seconds": 2.349027542,
+          "executed_steps": 19050000,
+          "measurement_audit_gap_seconds": 8.5875e-05,
+          "notice_overrun_seconds": 0.0,
+          "notice_to_stop_confirmed_seconds": 0.011860459,
+          "redundant_steps_if_completed": 9050000,
+          "required_steps": 10000000,
+          "resume_or_cold_start_seconds": 0.043632125,
+          "truncated_completion_cost_seconds": 2.349027542,
+          "verified_saved_step": 0,
+          "worker_cpu_seconds": 2.174753,
+          "worker_occupied_wall_seconds": 2.237499001
+        },
+        "status": "completed"
+      },
+      "continuation": {
+        "attempts": [
+          {
+            "final_step": 9100000,
+            "generation": 1,
+            "initial_source": "cold_start",
+            "initial_step": 0
+          },
+          {
+            "final_step": 10000000,
+            "generation": 2,
+            "initial_source": "fabric-cpu://b1f319da063e280faa860f41/d28ac5bed1493cba9e2fb9ac678bfb8cb2502dce5a2ce5769df5b88c3e80bf0c",
+            "initial_step": 9050000
+          }
+        ],
+        "baseline_opportunity": {
+          "action": "finish",
+          "estimator": "2x slowest observed progress-interval seconds per step",
+          "remaining_seconds_upper_estimate": 0.39330832,
+          "safety_margin_seconds": 0.1,
+          "scope": "causal decision opportunity check only; finish was not executed"
+        },
+        "errors": [],
+        "metrics": {
+          "all_worker_write_bytes": 119218,
+          "checkpoint_verify_seconds": 0.000272958,
+          "checkpoint_write_bytes": 611,
+          "checkpoint_write_seconds": 0.000345208,
+          "compute_cpu_seconds": 0.993487,
+          "compute_wall_seconds": 1.018725996,
+          "discarded_first_attempt_steps": 50000,
+          "end_to_end_seconds": 1.248319833,
+          "executed_steps": 10050000,
+          "measurement_audit_gap_seconds": 0.000101292,
+          "notice_overrun_seconds": 0.0,
+          "notice_to_stop_confirmed_seconds": 0.019933917,
+          "redundant_steps_if_completed": 50000,
+          "required_steps": 10000000,
+          "resume_or_cold_start_seconds": 0.048021541,
+          "truncated_completion_cost_seconds": 1.248319833,
+          "verified_saved_step": 9050000,
+          "worker_cpu_seconds": 1.100922,
+          "worker_occupied_wall_seconds": 1.134029208
+        },
+        "status": "completed"
+      },
+      "finish_fits": {
+        "attempts": [
+          {
+            "final_step": 10000000,
+            "generation": 1,
+            "initial_source": "cold_start",
+            "initial_step": 0
+          }
+        ],
+        "baseline_opportunity": {
+          "action": "finish",
+          "estimator": "2x slowest observed progress-interval seconds per step",
+          "remaining_seconds_upper_estimate": 0.37042332,
+          "safety_margin_seconds": 0.1,
+          "scope": "causal decision opportunity check only; finish was not executed"
+        },
+        "errors": [],
+        "metrics": {
+          "all_worker_write_bytes": 116806,
+          "checkpoint_verify_seconds": 0.0,
+          "checkpoint_write_bytes": 0,
+          "checkpoint_write_seconds": 0.0,
+          "compute_cpu_seconds": 0.974738,
+          "compute_wall_seconds": 1.000148799,
+          "discarded_first_attempt_steps": 0,
+          "end_to_end_seconds": 1.173643,
+          "executed_steps": 10000000,
+          "notice_overrun_seconds": 0.0,
+          "notice_to_stop_confirmed_seconds": 0.118374375,
+          "redundant_steps_if_completed": 0,
+          "required_steps": 10000000,
+          "truncated_completion_cost_seconds": 1.173643,
+          "verified_saved_step": 0,
+          "worker_cpu_seconds": 1.081182,
+          "worker_occupied_wall_seconds": 1.112263125
+        },
+        "status": "completed"
+      }
+    },
+    {
+      "case": "save-failure",
+      "cold": {
+        "attempts": [
+          {
+            "final_step": 5050000,
+            "generation": 1,
+            "initial_source": "cold_start",
+            "initial_step": 0
+          },
+          {
+            "final_step": 10000000,
+            "generation": 2,
+            "initial_source": "cold_start",
+            "initial_step": 0
+          }
+        ],
+        "baseline_opportunity": {
+          "action": "checkpoint",
+          "estimator": "2x slowest observed progress-interval seconds per step",
+          "remaining_seconds_upper_estimate": 1.8256084,
+          "safety_margin_seconds": 0.1,
+          "scope": "causal decision opportunity check only; finish was not executed"
+        },
+        "errors": [],
+        "metrics": {
+          "all_worker_write_bytes": 176334,
+          "checkpoint_verify_seconds": 0.0,
+          "checkpoint_write_bytes": 0,
+          "checkpoint_write_seconds": 0.0,
+          "compute_cpu_seconds": 1.461064,
+          "compute_wall_seconds": 1.499898872,
+          "discarded_first_attempt_steps": 5050000,
+          "end_to_end_seconds": 1.790023083,
+          "executed_steps": 15050000,
+          "measurement_audit_gap_seconds": 8.3459e-05,
+          "notice_overrun_seconds": 0.0,
+          "notice_to_stop_confirmed_seconds": 0.010956666,
+          "redundant_steps_if_completed": 5050000,
+          "required_steps": 10000000,
+          "resume_or_cold_start_seconds": 0.04928575,
+          "truncated_completion_cost_seconds": 1.790023083,
+          "verified_saved_step": 0,
+          "worker_cpu_seconds": 1.627552,
+          "worker_occupied_wall_seconds": 1.676078959
+        },
+        "status": "completed"
+      },
+      "continuation": {
+        "attempts": [
+          {
+            "final_step": 5050000,
+            "generation": 1,
+            "initial_source": "cold_start",
+            "initial_step": 0
+          }
+        ],
+        "baseline_opportunity": {
+          "action": "checkpoint",
+          "estimator": "2x slowest observed progress-interval seconds per step",
+          "remaining_seconds_upper_estimate": 1.968075,
+          "safety_margin_seconds": 0.1,
+          "scope": "causal decision opportunity check only; finish was not executed"
+        },
+        "errors": [],
+        "metrics": {
+          "all_worker_write_bytes": 58933,
+          "checkpoint_verify_seconds": 0.0,
+          "checkpoint_write_bytes": 0,
+          "checkpoint_write_seconds": 0.0,
+          "compute_cpu_seconds": 0.49935,
+          "compute_wall_seconds": 0.511563754,
+          "discarded_first_attempt_steps": 5050000,
+          "end_to_end_seconds": null,
+          "executed_steps": 5050000,
+          "notice_overrun_seconds": 0.0,
+          "notice_to_stop_confirmed_seconds": 0.013574084,
+          "redundant_steps_if_completed": null,
+          "required_steps": 10000000,
+          "truncated_completion_cost_seconds": 40.0,
+          "verified_saved_step": 0,
+          "worker_cpu_seconds": 0.549387,
+          "worker_occupied_wall_seconds": 0.564204125
+        },
+        "status": "failed"
+      },
+      "finish_fits": {
+        "attempts": [
+          {
+            "final_step": 10000000,
+            "generation": 1,
+            "initial_source": "cold_start",
+            "initial_step": 0
+          }
+        ],
+        "baseline_opportunity": {
+          "action": "checkpoint",
+          "estimator": "2x slowest observed progress-interval seconds per step",
+          "remaining_seconds_upper_estimate": 1.7331584000000002,
+          "safety_margin_seconds": 0.1,
+          "scope": "causal decision opportunity check only; finish was not executed"
+        },
+        "errors": [],
+        "metrics": {
+          "all_worker_write_bytes": 116806,
+          "checkpoint_verify_seconds": 0.0,
+          "checkpoint_write_bytes": 0,
+          "checkpoint_write_seconds": 0.0,
+          "compute_cpu_seconds": 1.02317,
+          "compute_wall_seconds": 1.042946714,
+          "discarded_first_attempt_steps": 0,
+          "end_to_end_seconds": 1.207270416,
+          "executed_steps": 10000000,
+          "notice_overrun_seconds": 0.0,
+          "notice_to_stop_confirmed_seconds": 0.591658375,
+          "redundant_steps_if_completed": 0,
+          "required_steps": 10000000,
+          "truncated_completion_cost_seconds": 1.207270416,
+          "verified_saved_step": 0,
+          "worker_cpu_seconds": 1.125936,
+          "worker_occupied_wall_seconds": 1.151570208
+        },
+        "status": "completed"
+      }
+    }
+  ],
+  "run_count": 12,
+  "source_unchanged": true
+}

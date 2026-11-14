@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "commit": "b5e72c1627871d34a2c6669771cee898eea36a30",
+  "sourceClean": true,
+  "checks": [
+    {
+      "name": "completed named work and released resource persist after owned service restart",
+      "status": "PASS",
+      "intent": "work-ec231e5f-349a-4f8a-9147-05de24f71d97"
+    },
+    {
+      "name": "neutral work label, visible timeline and no horizontal overflow",
+      "width": 1440,
+      "status": "PASS"
+    },
+    {
+      "name": "neutral work label, visible timeline and no horizontal overflow",
+      "width": 768,
+      "status": "PASS"
+    },
+    {
+      "name": "neutral work label, visible timeline and no horizontal overflow",
+      "width": 390,
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "scope": "Same clean checkout after Events-only correction, owned service restart, read-only final browser checks."
+}

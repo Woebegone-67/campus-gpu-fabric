@@ -1,0 +1,130 @@
+{
+  "started_at": "2026-11-14T21:00:57.440Z",
+  "browser": "157.0.8103.51",
+  "url": "http://127.0.0.1:15253",
+  "status": "FAIL",
+  "scope": "Real Chromium render/input behavior against synthetic intercepted API responses; no live backend writes.",
+  "checks": [
+    {
+      "name": "button-press-release-and-keyboard",
+      "status": "FAIL",
+      "error": "AssertionError [ERR_ASSERTION]: Release should produce a slight overshoot\n    at file:///Users/xz/Projects/campus-gpu-fabric-release-20261115/web/tests/interaction-motion.browser.mjs:121:10\n    at async check (file:///Users/xz/Projects/campus-gpu-fabric-release-20261115/web/tests/interaction-motion.browser.mjs:96:19)\n    at async file:///Users/xz/Projects/campus-gpu-fabric-release-20261115/web/tests/interaction-motion.browser.mjs:109:1"
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "1440-button-pressed",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-release-20261115/evidence/release-20261115/browser/motion-01/1440-button-pressed.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "failure-button-press-release-and-keyboard",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-release-20261115/evidence/release-20261115/browser/motion-01/failure-button-press-release-and-keyboard.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    }
+  ],
+  "requests": [
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    }
+  ],
+  "denied": [],
+  "errors": [],
+  "unverified": [
+    "Physical trackpad and touch hardware",
+    "Safari/WebKit",
+    "Actual operating-system clipboard permission UI",
+    "Real backend business transitions and authorization"
+  ],
+  "updated_at": "2026-11-14T21:01:02.326Z",
+  "finished_at": "2026-11-14T21:01:02.326Z"
+}

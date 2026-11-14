@@ -1,0 +1,11 @@
+{
+  "stopped": [
+    "logical-web",
+    "cpu-web",
+    "logical-api",
+    "cpu-api"
+  ],
+  "unresolved": [],
+  "data_preserved": true,
+  "note": "Service stop does not cancel work. Real CPU workers may finish while the service is down; restart reconciles them. Complete/cancel and release work in the UI before a final shutdown."
+}

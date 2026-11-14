@@ -1,0 +1,31 @@
+{
+  "status": "MET",
+  "scope": "static_design_only",
+  "receipt": "/Users/xz/Projects/campus-gpu-fabric-release-20261115/evidence/cp0/static_receipt.json",
+  "checks": [
+    {
+      "id": "CP0-OFFICIAL-INTEGRITY",
+      "status": "MET"
+    },
+    {
+      "id": "CP0-API-MAPPING",
+      "status": "MET"
+    },
+    {
+      "id": "CP0-SEMANTICS",
+      "status": "MET"
+    },
+    {
+      "id": "CP0-CONTRACT-FIXTURES",
+      "status": "MET"
+    },
+    {
+      "id": "CP0-DOCUMENTATION",
+      "status": "MET"
+    },
+    {
+      "id": "CP0-EVIDENCE-POLICY",
+      "status": "MET"
+    }
+  ]
+}

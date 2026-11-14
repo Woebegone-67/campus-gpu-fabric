@@ -1,0 +1,140 @@
+{
+  "session_id": "3015d2515d804fc4afea870aa7ce423c",
+  "observed_at": "2026-11-14T21:16:03.715678+00:00",
+  "current_build": {
+    "git_commit": "f08a701af801c023a6abddd111195bf9cc027687",
+    "source_sha256": "69aeeb293ad4d5cee9dbd2ac779af4422c98819b3ecbd9b9dfa2daeaaaeba511",
+    "source_file_count": 400
+  },
+  "runtime": "/Users/xz/Projects/campus-gpu-fabric-release-20261115/runtime/final-clean-checkout/runtime/final-clean",
+  "services": {
+    "logical-api": {
+      "url": "http://127.0.0.1:18262",
+      "owned_running": true,
+      "pid": 90043,
+      "started_at": "2026-11-14T21:15:59.310721+00:00",
+      "build_at_start": {
+        "git_commit": "f08a701af801c023a6abddd111195bf9cc027687",
+        "source_sha256": "69aeeb293ad4d5cee9dbd2ac779af4422c98819b3ecbd9b9dfa2daeaaaeba511",
+        "source_file_count": 400
+      },
+      "source_matches_start": true,
+      "health": {
+        "status": 200,
+        "body": {
+          "status": "ok",
+          "checkpoint": "CP2",
+          "control_plane_ready": true,
+          "checkpoint_passed": false
+        }
+      },
+      "version": {
+        "status": 200,
+        "body": {
+          "api_version": "2.0.0",
+          "implementation_version": "0.2.0",
+          "checkpoint": "CP2",
+          "checkpoint_passed": false,
+          "execution_mode": "logical_simulation",
+          "scheduling_mode": "external",
+          "capabilities": {
+            "contracts": true,
+            "resource_ledger": true,
+            "scheduler": true,
+            "checkpoint_recovery": true,
+            "real_gpu_execution": false,
+            "real_cpu_execution": false
+          }
+        }
+      }
+    },
+    "logical-web": {
+      "url": "http://127.0.0.1:15262",
+      "owned_running": true,
+      "pid": 90063,
+      "started_at": "2026-11-14T21:16:01.192826+00:00",
+      "build_at_start": {
+        "git_commit": "f08a701af801c023a6abddd111195bf9cc027687",
+        "source_sha256": "69aeeb293ad4d5cee9dbd2ac779af4422c98819b3ecbd9b9dfa2daeaaaeba511",
+        "source_file_count": 400
+      },
+      "source_matches_start": true,
+      "health": {
+        "status": 200,
+        "body": {
+          "status": "ok",
+          "checkpoint": "CP2",
+          "control_plane_ready": true,
+          "checkpoint_passed": false
+        }
+      }
+    },
+    "cpu-api": {
+      "url": "http://127.0.0.1:18263",
+      "owned_running": true,
+      "pid": 90070,
+      "started_at": "2026-11-14T21:16:01.719152+00:00",
+      "build_at_start": {
+        "git_commit": "f08a701af801c023a6abddd111195bf9cc027687",
+        "source_sha256": "69aeeb293ad4d5cee9dbd2ac779af4422c98819b3ecbd9b9dfa2daeaaaeba511",
+        "source_file_count": 400
+      },
+      "source_matches_start": true,
+      "health": {
+        "status": 200,
+        "body": {
+          "status": "ok",
+          "checkpoint": "CP2",
+          "control_plane_ready": true,
+          "checkpoint_passed": false
+        }
+      },
+      "version": {
+        "status": 200,
+        "body": {
+          "api_version": "2.0.0",
+          "implementation_version": "0.2.0",
+          "checkpoint": "CP2",
+          "checkpoint_passed": false,
+          "execution_mode": "cpu_reference",
+          "scheduling_mode": "external",
+          "capabilities": {
+            "contracts": true,
+            "resource_ledger": true,
+            "scheduler": true,
+            "checkpoint_recovery": true,
+            "real_gpu_execution": false,
+            "real_cpu_execution": true
+          }
+        }
+      }
+    },
+    "cpu-web": {
+      "url": "http://127.0.0.1:15263",
+      "owned_running": true,
+      "pid": 90083,
+      "started_at": "2026-11-14T21:16:02.735093+00:00",
+      "build_at_start": {
+        "git_commit": "f08a701af801c023a6abddd111195bf9cc027687",
+        "source_sha256": "69aeeb293ad4d5cee9dbd2ac779af4422c98819b3ecbd9b9dfa2daeaaaeba511",
+        "source_file_count": 400
+      },
+      "source_matches_start": true,
+      "health": {
+        "status": 200,
+        "body": {
+          "status": "ok",
+          "checkpoint": "CP2",
+          "control_plane_ready": true,
+          "checkpoint_passed": false
+        }
+      }
+    }
+  },
+  "identities": {
+    "logical": "/Users/xz/Projects/campus-gpu-fabric-release-20261115/runtime/final-clean-checkout/runtime/final-clean/logical/client-identities.json",
+    "cpu": "/Users/xz/Projects/campus-gpu-fabric-release-20261115/runtime/final-clean-checkout/runtime/final-clean/cpu/client-identities.json"
+  },
+  "human_acceptance": "NOT_ATTESTED",
+  "checkpoint_passed": false
+}

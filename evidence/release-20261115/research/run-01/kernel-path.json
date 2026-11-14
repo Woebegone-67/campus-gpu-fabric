@@ -1,0 +1,326 @@
+{
+  "arrival_ns": 527705290663625,
+  "authorized_resume_ns": 527705980584041,
+  "checkpoint": {
+    "independent_oracle_equal": true,
+    "original_sha256": "02078a65d37977ee16ed3e0e39cab2781e046d58ef202ff0046a6182360b3ea0",
+    "payload": {
+      "algorithm": "lcg64-indexed-v1",
+      "attempt": {
+        "allocation_id": "e0-a1",
+        "attempt_id": "e0-attempt3",
+        "generation": 1,
+        "intent_id": "loss-product-path",
+        "job_id": "e0-j2"
+      },
+      "dispatch_id": "e0-dispatch6",
+      "epoch": 0,
+      "kind": "checkpoint",
+      "owner_id": "alice",
+      "pid": 86283,
+      "started_monotonic_ns": 527705342049083,
+      "state": {
+        "step": 5250000,
+        "value": 11010359700171258617
+      },
+      "total_steps": 10000000,
+      "workload_id": "61cdcfe4a95d46532d43778a273645679e0438796861c2a6d9f57c31713167eb"
+    }
+  },
+  "final_snapshot": {
+    "allocations": [
+      {
+        "allocation_id": "e0-a1",
+        "checkpoint": {
+          "artifact_uri": "fabric-cpu://de3cb7c084c7d23dc3ff0b5d/50d45d93afa314ed05de2328a341fd43c6b33b2e0ea1da90187ebd4ecbe46092",
+          "checkpoint_id": "cpu-save-9a20e81318a41cfc8c02f4d0e34c98d3",
+          "continuation_status": "applied",
+          "report_status": "ready",
+          "reported_at": 0.6621663340000002,
+          "resumed_attempt_id": "e0-attempt8",
+          "verification_status": "verified",
+          "verified_at": 0.6621663340000002,
+          "verifier_id": "cpu-reference-hmac-v1"
+        },
+        "created_at": 0.0,
+        "expires_at": 30.0,
+        "owner_id": "alice",
+        "pending_terminal": null,
+        "placement": null,
+        "preemption": null,
+        "request": {
+          "cpu_millicores": 1000,
+          "ephemeral_storage_mib": 0,
+          "gpu": {
+            "count": 1,
+            "memory_mib": 0,
+            "model": "any",
+            "profile": null
+          },
+          "memory_mib": 256
+        },
+        "restart_count": 1,
+        "state": "Released"
+      }
+    ],
+    "decisions": [],
+    "events": [],
+    "global_scope": false,
+    "intents": [
+      {
+        "allocation_ids": [
+          "e0-a1"
+        ],
+        "attempts": [
+          {
+            "checkpoint": {
+              "artifact_uri": "fabric-cpu://de3cb7c084c7d23dc3ff0b5d/50d45d93afa314ed05de2328a341fd43c6b33b2e0ea1da90187ebd4ecbe46092",
+              "checkpoint_id": "cpu-save-9a20e81318a41cfc8c02f4d0e34c98d3",
+              "continuation_status": "not_attempted",
+              "report_status": "ready",
+              "reported_at": 0.6621663340000002,
+              "resumed_attempt_id": null,
+              "verification_status": "verified",
+              "verified_at": 0.6621663340000002,
+              "verifier_id": "cpu-reference-hmac-v1"
+            },
+            "created_at": 0.0,
+            "finished_at": 0.6915285840000002,
+            "ref": {
+              "allocation_id": "e0-a1",
+              "attempt_id": "e0-attempt3",
+              "generation": 1,
+              "intent_id": "loss-product-path",
+              "job_id": "e0-j2"
+            },
+            "started_at": 0.076362292,
+            "state": "stopped"
+          },
+          {
+            "checkpoint": {
+              "artifact_uri": "fabric-cpu://de3cb7c084c7d23dc3ff0b5d/50d45d93afa314ed05de2328a341fd43c6b33b2e0ea1da90187ebd4ecbe46092",
+              "checkpoint_id": "cpu-save-9a20e81318a41cfc8c02f4d0e34c98d3",
+              "continuation_status": "applied",
+              "report_status": "ready",
+              "reported_at": 0.6621663340000002,
+              "resumed_attempt_id": "e0-attempt8",
+              "verification_status": "verified",
+              "verified_at": 0.6621663340000002,
+              "verifier_id": "cpu-reference-hmac-v1"
+            },
+            "created_at": 2.6366192500000003,
+            "finished_at": 3.2681280420000016,
+            "ref": {
+              "allocation_id": "e0-a1",
+              "attempt_id": "e0-attempt8",
+              "generation": 2,
+              "intent_id": "loss-product-path",
+              "job_id": "e0-j2"
+            },
+            "started_at": 2.6950936249999997,
+            "state": "completed"
+          }
+        ],
+        "display_name": "Loss accounting path",
+        "execution_mode": "cpu_reference",
+        "first_arrival_at": 0.0,
+        "intent_id": "loss-product-path",
+        "job_ids": [
+          "e0-j2"
+        ],
+        "owner_id": "alice",
+        "result": {
+          "artifact_uris": [
+            "fabric-cpu://de3cb7c084c7d23dc3ff0b5d/f133897f739d9caa99c676bc2f79c55625b5701df5c902b6e7b2ce2048575629"
+          ],
+          "failure": null,
+          "kind": "success",
+          "recorded_at": 3.2681280420000016
+        },
+        "settlement_action": "release_on_success",
+        "specification": {
+          "allocation": {
+            "checkpoint_timeout_seconds": 1,
+            "kind": "allocation.create",
+            "max_restarts": 1,
+            "node_selector": [],
+            "owner_id": "alice",
+            "preemptible": true,
+            "preemption_mode": "checkpoint",
+            "priority": 0,
+            "queue": "default",
+            "request": {
+              "cpu_millicores": 1000,
+              "ephemeral_storage_mib": 0,
+              "gpu": {
+                "count": 1,
+                "memory_mib": 0,
+                "model": "any",
+                "profile": null
+              },
+              "memory_mib": 256
+            },
+            "ttl_seconds": 30
+          },
+          "job": {
+            "command": [
+              "not-executed"
+            ],
+            "env": [],
+            "image": "not-executed",
+            "max_retries": null,
+            "timeout_seconds": 30
+          }
+        },
+        "stages": [
+          {
+            "operation": "allocate",
+            "receipt": {
+              "error": null,
+              "event_ids": [
+                "e0-ev2",
+                "e0-ev3",
+                "e0-ev4"
+              ],
+              "idempotency_replayed": false,
+              "logical_time": 0.0,
+              "objects": [
+                {
+                  "entity_id": "e0-a1",
+                  "kind": "allocation"
+                },
+                {
+                  "entity_id": "loss-product-path",
+                  "kind": "intent"
+                }
+              ],
+              "original_request_id": null,
+              "outcome": "committed",
+              "request_id": "workflow-e1aa3a2e786ebe7ed15cfea215764073422784f3",
+              "version": {
+                "epoch": 0,
+                "revision": 2
+              }
+            },
+            "stage_id": "allocate",
+            "state": "committed"
+          },
+          {
+            "operation": "create_job_and_bind",
+            "receipt": {
+              "error": null,
+              "event_ids": [
+                "e0-ev5",
+                "e0-ev6"
+              ],
+              "idempotency_replayed": false,
+              "logical_time": 0.0,
+              "objects": [
+                {
+                  "entity_id": "e0-j2",
+                  "kind": "job"
+                },
+                {
+                  "entity_id": "loss-product-path",
+                  "kind": "intent"
+                }
+              ],
+              "original_request_id": null,
+              "outcome": "committed",
+              "request_id": "workflow-9b3a004bf71f57c0dc25e6bc379dd5a0acd689a1",
+              "version": {
+                "epoch": 0,
+                "revision": 3
+              }
+            },
+            "stage_id": "create-job",
+            "state": "committed"
+          }
+        ],
+        "state": "completed"
+      }
+    ],
+    "jobs": [
+      {
+        "allocation_id": "e0-a1",
+        "attempt": {
+          "allocation_id": "e0-a1",
+          "attempt_id": "e0-attempt8",
+          "generation": 2,
+          "intent_id": "loss-product-path",
+          "job_id": "e0-j2"
+        },
+        "checkpoint": {
+          "artifact_uri": "fabric-cpu://de3cb7c084c7d23dc3ff0b5d/50d45d93afa314ed05de2328a341fd43c6b33b2e0ea1da90187ebd4ecbe46092",
+          "checkpoint_id": "cpu-save-9a20e81318a41cfc8c02f4d0e34c98d3",
+          "continuation_status": "applied",
+          "report_status": "ready",
+          "reported_at": 0.6621663340000002,
+          "resumed_attempt_id": "e0-attempt8",
+          "verification_status": "verified",
+          "verified_at": 0.6621663340000002,
+          "verifier_id": "cpu-reference-hmac-v1"
+        },
+        "created_at": 0.0,
+        "execution_mode": "cpu_reference",
+        "failure": null,
+        "finished_at": 3.2681280420000016,
+        "job_id": "e0-j2",
+        "owner_id": "alice",
+        "result_uri": "fabric-cpu://de3cb7c084c7d23dc3ff0b5d/f133897f739d9caa99c676bc2f79c55625b5701df5c902b6e7b2ce2048575629",
+        "retry_count": 0,
+        "state": "Succeeded"
+      }
+    ],
+    "legal_actions": [],
+    "next_cursor": {
+      "after_sequence": 370,
+      "epoch": 0
+    },
+    "now": 3.2830363340000015,
+    "version": {
+      "epoch": 0,
+      "revision": 358
+    },
+    "viewer": {
+      "actor_id": "research-owner",
+      "owner_id": "alice",
+      "role": "researcher"
+    }
+  },
+  "finished_ns": 527708559601958,
+  "ledger_released_ns": 527705977078750,
+  "notice_ns": 527705915179166,
+  "notice_to_ledger_release_seconds": 0.061899584,
+  "original_expiry": 30.0,
+  "physical_stop_confirmed_before_ledger_observation": true,
+  "result": {
+    "independent_oracle_equal": true,
+    "original_sha256": "238f6798fe6f9414c0e04e0f22632cd31acde2f4e4908619a64f64e65f61b09f",
+    "payload": {
+      "algorithm": "lcg64-indexed-v1",
+      "attempt": {
+        "allocation_id": "e0-a1",
+        "attempt_id": "e0-attempt8",
+        "generation": 2,
+        "intent_id": "loss-product-path",
+        "job_id": "e0-j2"
+      },
+      "epoch": 0,
+      "finished_monotonic_ns": 527708535217375,
+      "kind": "result",
+      "owner_id": "alice",
+      "pid": 86284,
+      "started_monotonic_ns": 527707967084000,
+      "state": {
+        "step": 10000000,
+        "value": 6275713146641809233
+      },
+      "total_steps": 10000000,
+      "workload_id": "61cdcfe4a95d46532d43778a273645679e0438796861c2a6d9f57c31713167eb"
+    }
+  },
+  "same_work_and_lease": true,
+  "scope": "one real Kernel + CpuDriver path; not a paired performance arm",
+  "status": "PASS"
+}

@@ -1,0 +1,122 @@
+{
+  "started_at": "2026-11-14T20:58:12.198Z",
+  "baseUrl": "http://127.0.0.1:15253",
+  "preview": true,
+  "checkFilter": "desktop and narrow",
+  "browser": "157.0.8103.51",
+  "scope": "Real Chrome rendering and interaction with synthetic API fixtures only; no live Fabric backend or business writes.",
+  "checks": [
+    {
+      "name": "desktop and narrow layouts preserve visible switcher and reachable forms",
+      "status": "FAIL",
+      "error": "locator.isVisible: Error: strict mode violation: getByLabel('账户', { exact: true }) resolved to 2 elements:\n    1) <div hidden=\"\" role=\"dialog\" aria-label=\"账户\" id=\"account-panel\" data-space-gesture-blocked=\"true\" class=\"shell-popovers account-menu\">…</div> aka getByText('alice×切换账户显示偏好暂停背景动效页头横向手势逻辑模拟断开连接账户访问凭证连接账户从身份文件连接导入本地身份文件刷新页面后需重新连接。')\n    2) <input value=\"alice\" name=\"account\" placeholder=\"管理员可留空\" autocomplete=\"username\"/> aka getByPlaceholder('管理员可留空')\n\nCall log:\n\u001b[2m    - checking visibility of getByLabel('账户', { exact: true })\u001b[22m\n\n    at applyIdentity (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/tests/dual-space.browser.mjs:70:50)\n    at async goto (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/tests/dual-space.browser.mjs:130:56)\n    at async file:///Users/xz/Projects/campus-gpu-fabric-release-20261115/web/tests/dual-space.browser.mjs:386:41\n    at async check (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/tests/dual-space.browser.mjs:115:21)\n    at async file:///Users/xz/Projects/campus-gpu-fabric-release-20261115/web/tests/dual-space.browser.mjs:365:3"
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "failure-1",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-release-20261115/evidence/release-20261115/browser/layout-01/failure-1.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    }
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    }
+  ],
+  "denied": [],
+  "unverified": [
+    "Native two-finger gestures and system history conflicts on physical Chrome/Safari trackpads.",
+    "Native OS reduced-motion setting; this harness uses Chromium media emulation.",
+    "VoiceOver, complete accessibility conformance, real API authorization, server business correctness, and file-download integrity."
+  ],
+  "browserClosed": true,
+  "finished_at": "2026-11-14T20:58:14.081Z",
+  "status": "FAIL"
+}

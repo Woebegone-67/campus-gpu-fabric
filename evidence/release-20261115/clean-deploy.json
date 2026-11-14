@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "source_commit": "b5e72c1627871d34a2c6669771cee898eea36a30",
+  "checkout": "runtime/final-clean-checkout",
+  "installed_from_lockfiles": true,
+  "setup_exit_code": 0,
+  "production_build_exit_code": 0,
+  "initial_full_browser_flow": "browser/clean-live/receipt.json",
+  "initial_source_commit": "f08a701af801c023a6abddd111195bf9cc027687",
+  "after_events_only_change_and_restart": "browser/freeze-followup/receipt.json",
+  "scope": "First-party clean local checkout; not another person or machine"
+}

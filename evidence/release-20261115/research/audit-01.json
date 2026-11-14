@@ -1,0 +1,179 @@
+{
+  "all_denominators": {
+    "cold": {
+      "F_seconds": 7.072791376,
+      "completed": 4,
+      "failed": 0,
+      "unfinished": 0
+    },
+    "continuation": {
+      "F_seconds": 43.794873583,
+      "completed": 3,
+      "failed": 1,
+      "unfinished": 0
+    },
+    "finish_fits": {
+      "F_seconds": 4.795369374,
+      "completed": 4,
+      "failed": 0,
+      "unfinished": 0
+    }
+  },
+  "recorded_files_match": true,
+  "recorded_sources_match": true,
+  "runs": [
+    {
+      "actual_baseline_branch": null,
+      "arm": "continuation",
+      "baseline_forecast": "checkpoint",
+      "case": "zero",
+      "contiguous_steps_and_initial_sources_verified": true,
+      "executor_slot_dispatch_to_confirmed_exit_seconds": 1.320271084,
+      "independent_artifact_checks": 2,
+      "notice_to_stop_confirmed_seconds": 0.05938025,
+      "slot_scope": "conservative reference-slot reservation; not measured GPU utilization",
+      "status": "completed"
+    },
+    {
+      "actual_baseline_branch": null,
+      "arm": "cold",
+      "baseline_forecast": "checkpoint",
+      "case": "zero",
+      "contiguous_steps_and_initial_sources_verified": true,
+      "executor_slot_dispatch_to_confirmed_exit_seconds": 1.201597959,
+      "independent_artifact_checks": 1,
+      "notice_to_stop_confirmed_seconds": 0.050228458,
+      "slot_scope": "conservative reference-slot reservation; not measured GPU utilization",
+      "status": "completed"
+    },
+    {
+      "actual_baseline_branch": "fixed_boundary_checkpoint",
+      "arm": "finish_fits",
+      "baseline_forecast": "checkpoint",
+      "case": "zero",
+      "contiguous_steps_and_initial_sources_verified": true,
+      "executor_slot_dispatch_to_confirmed_exit_seconds": 1.272869959,
+      "independent_artifact_checks": 2,
+      "notice_to_stop_confirmed_seconds": 0.920883084,
+      "slot_scope": "conservative reference-slot reservation; not measured GPU utilization",
+      "status": "completed"
+    },
+    {
+      "actual_baseline_branch": null,
+      "arm": "continuation",
+      "baseline_forecast": "checkpoint",
+      "case": "middle",
+      "contiguous_steps_and_initial_sources_verified": true,
+      "executor_slot_dispatch_to_confirmed_exit_seconds": 1.223098667,
+      "independent_artifact_checks": 2,
+      "notice_to_stop_confirmed_seconds": 0.019566542,
+      "slot_scope": "conservative reference-slot reservation; not measured GPU utilization",
+      "status": "completed"
+    },
+    {
+      "actual_baseline_branch": null,
+      "arm": "cold",
+      "baseline_forecast": "checkpoint",
+      "case": "middle",
+      "contiguous_steps_and_initial_sources_verified": true,
+      "executor_slot_dispatch_to_confirmed_exit_seconds": 1.729550167,
+      "independent_artifact_checks": 1,
+      "notice_to_stop_confirmed_seconds": 0.010062125,
+      "slot_scope": "conservative reference-slot reservation; not measured GPU utilization",
+      "status": "completed"
+    },
+    {
+      "actual_baseline_branch": "finish_before_save_boundary",
+      "arm": "finish_fits",
+      "baseline_forecast": "checkpoint",
+      "case": "middle",
+      "contiguous_steps_and_initial_sources_verified": true,
+      "executor_slot_dispatch_to_confirmed_exit_seconds": 1.139798167,
+      "independent_artifact_checks": 1,
+      "notice_to_stop_confirmed_seconds": 0.557860458,
+      "slot_scope": "conservative reference-slot reservation; not measured GPU utilization",
+      "status": "completed"
+    },
+    {
+      "actual_baseline_branch": null,
+      "arm": "continuation",
+      "baseline_forecast": "finish",
+      "case": "late",
+      "contiguous_steps_and_initial_sources_verified": true,
+      "executor_slot_dispatch_to_confirmed_exit_seconds": 1.247110208,
+      "independent_artifact_checks": 2,
+      "notice_to_stop_confirmed_seconds": 0.019933917,
+      "slot_scope": "conservative reference-slot reservation; not measured GPU utilization",
+      "status": "completed"
+    },
+    {
+      "actual_baseline_branch": null,
+      "arm": "cold",
+      "baseline_forecast": "finish",
+      "case": "late",
+      "contiguous_steps_and_initial_sources_verified": true,
+      "executor_slot_dispatch_to_confirmed_exit_seconds": 2.347986541,
+      "independent_artifact_checks": 1,
+      "notice_to_stop_confirmed_seconds": 0.011860459,
+      "slot_scope": "conservative reference-slot reservation; not measured GPU utilization",
+      "status": "completed"
+    },
+    {
+      "actual_baseline_branch": "finish_before_save_boundary",
+      "arm": "finish_fits",
+      "baseline_forecast": "finish",
+      "case": "late",
+      "contiguous_steps_and_initial_sources_verified": true,
+      "executor_slot_dispatch_to_confirmed_exit_seconds": 1.172857959,
+      "independent_artifact_checks": 1,
+      "notice_to_stop_confirmed_seconds": 0.118374375,
+      "slot_scope": "conservative reference-slot reservation; not measured GPU utilization",
+      "status": "completed"
+    },
+    {
+      "actual_baseline_branch": null,
+      "arm": "continuation",
+      "baseline_forecast": "checkpoint",
+      "case": "save-failure",
+      "contiguous_steps_and_initial_sources_verified": true,
+      "executor_slot_dispatch_to_confirmed_exit_seconds": 0.629056916,
+      "independent_artifact_checks": 0,
+      "notice_to_stop_confirmed_seconds": 0.013574084,
+      "slot_scope": "conservative reference-slot reservation; not measured GPU utilization",
+      "status": "failed"
+    },
+    {
+      "actual_baseline_branch": null,
+      "arm": "cold",
+      "baseline_forecast": "checkpoint",
+      "case": "save-failure",
+      "contiguous_steps_and_initial_sources_verified": true,
+      "executor_slot_dispatch_to_confirmed_exit_seconds": 1.789082208,
+      "independent_artifact_checks": 1,
+      "notice_to_stop_confirmed_seconds": 0.010956666,
+      "slot_scope": "conservative reference-slot reservation; not measured GPU utilization",
+      "status": "completed"
+    },
+    {
+      "actual_baseline_branch": "finish_before_save_boundary",
+      "arm": "finish_fits",
+      "baseline_forecast": "checkpoint",
+      "case": "save-failure",
+      "contiguous_steps_and_initial_sources_verified": true,
+      "executor_slot_dispatch_to_confirmed_exit_seconds": 1.20669375,
+      "independent_artifact_checks": 1,
+      "notice_to_stop_confirmed_seconds": 0.591658375,
+      "slot_scope": "conservative reference-slot reservation; not measured GPU utilization",
+      "status": "completed"
+    }
+  ],
+  "scope_corrections": [
+    "finish_fits executes fixed-boundary closeout regardless of the diagnostic estimate; not predictive optimization.",
+    "The forecast's raw scope text says finish was not executed. That refers only to the diagnostic forecast, not the separately executed third arm.",
+    "worker_occupied_wall_seconds excludes interpreter/import startup and final measurement write/exit; use slot intervals for reservation.",
+    "No notice overrun was observed in these 12 arms; 100ms is not a proved worst-case bound.",
+    "Immediate post-release authorization isolates computation; real contributor self-use and resource wait are not modeled in the 12 arms.",
+    "The third-arm fault case avoids the save operation; it did not survive an actual checkpoint write failure."
+  ],
+  "status": "PASS"
+}

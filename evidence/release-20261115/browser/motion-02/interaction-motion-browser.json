@@ -1,0 +1,210 @@
+{
+  "started_at": "2026-11-14T21:01:58.256Z",
+  "browser": "157.0.8103.51",
+  "url": "http://127.0.0.1:15253",
+  "status": "PASS",
+  "scope": "Real Chromium render/input behavior against synthetic intercepted API responses; no live backend writes.",
+  "checks": [
+    {
+      "name": "button-press-release-and-keyboard",
+      "status": "PASS",
+      "details": {
+        "before": {
+          "scale": 1,
+          "transform": "none",
+          "shadow": "rgba(255, 255, 255, 0.17) 0px 1px 0px 0px inset, rgba(255, 255, 255, 0.035) 0px -1px 0px 0px inset, rgba(0, 0, 0, 0.18) 0px 3px 9px 0px",
+          "pressed": null
+        },
+        "pressed": {
+          "scale": 0.96,
+          "transform": "none",
+          "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+          "pressed": "true",
+          "animation_wait_ms": 113.89999997615814,
+          "transitions": [
+            {
+              "property": "scale",
+              "delay": 0,
+              "direction": "normal",
+              "duration": 110,
+              "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1
+            }
+          ]
+        },
+        "after": {
+          "scale": 1,
+          "transform": "none",
+          "shadow": "rgba(255, 255, 255, 0.25) 0px 1px 0px 0px inset, rgba(255, 255, 255, 0.08) 0px -1px 0px 0px inset, rgba(0, 0, 0, 0.2) 0px 4px 12px 0px",
+          "pressed": null
+        },
+        "keyboardPressed": {
+          "scale": 0.96,
+          "transform": "none",
+          "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+          "pressed": "true",
+          "animation_wait_ms": 117.20000004768372,
+          "transitions": [
+            {
+              "property": "scale",
+              "delay": 0,
+              "direction": "normal",
+              "duration": 110,
+              "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1
+            }
+          ]
+        },
+        "fromInput": {
+          "scale": 0.96,
+          "transform": "none",
+          "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+          "pressed": "true",
+          "animation_wait_ms": 288.9000000357628,
+          "transitions": [
+            {
+              "property": "box-shadow",
+              "delay": 0,
+              "direction": "normal",
+              "duration": 160,
+              "easing": "ease",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1
+            },
+            {
+              "property": "scale",
+              "delay": 0,
+              "direction": "normal",
+              "duration": 110,
+              "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+              "endDelay": 0,
+              "fill": "backwards",
+              "iterationStart": 0,
+              "iterations": 1
+            }
+          ]
+        },
+        "release_peak": 1.01639,
+        "scope": "Verifies configured durations and rendered endpoints; not a frame-rate or input-latency performance certification"
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "1440-button-pressed",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-release-20261115/evidence/release-20261115/browser/motion-02/1440-button-pressed.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "1440-button-and-popover",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-release-20261115/evidence/release-20261115/browser/motion-02/1440-button-and-popover.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    }
+  ],
+  "requests": [
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    }
+  ],
+  "denied": [],
+  "errors": [],
+  "unverified": [
+    "Physical trackpad and touch hardware",
+    "Safari/WebKit",
+    "Actual operating-system clipboard permission UI",
+    "Real backend business transitions and authorization"
+  ],
+  "updated_at": "2026-11-14T21:02:03.974Z",
+  "finished_at": "2026-11-14T21:02:03.974Z"
+}

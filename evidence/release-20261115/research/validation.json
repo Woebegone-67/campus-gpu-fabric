@@ -1,0 +1,23 @@
+{
+  "scope": "Focused research-harness validation; not CP4 or full project acceptance",
+  "tests": {
+    "command": "uv run pytest -q tests/research/test_release_loss_accounting.py",
+    "result": "4 passed in 0.15s"
+  },
+  "lint": {
+    "command": "uv run ruff check experiments/research/release_loss_accounting.py experiments/research/release_cpu_worker.py experiments/research/release_audit_loss.py tests/research/test_release_loss_accounting.py",
+    "result": "All checks passed"
+  },
+  "audit": {
+    "path": "audit-01.json",
+    "result": "PASS",
+    "run_count": 12,
+    "recorded_sources_and_files_match": true
+  },
+  "post_run_process_check": {
+    "recorded_attempts": 22,
+    "all_recorded_stop_confirmed": true,
+    "remaining_recorded_pid_matches": [],
+    "method": "ps queried only PIDs recorded by this research runtime after all workload runs completed"
+  }
+}

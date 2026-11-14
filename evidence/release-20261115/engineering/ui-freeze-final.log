@@ -1,0 +1,821 @@
+
+> campus-fabric-web@0.1.0 test:ui
+> tsx --tsconfig tsconfig.json --test tests/*.test.tsx
+
+TAP version 13
+# Subtest: a local admin label grants no workspace before a trusted session and no administrator capability afterward
+ok 1 - a local admin label grants no workspace before a trusted session and no administrator capability afterward
+  ---
+  duration_ms: 337.348208
+  type: 'test'
+  ...
+# Subtest: a pure administrator opening \#run sees the capability notice and receives no compute workspace
+ok 2 - a pure administrator opening \#run sees the capability notice and receives no compute workspace
+  ---
+  duration_ms: 64.46575
+  type: 'test'
+  ...
+# Subtest: changing identity clears prior data immediately, aborts hidden reads, and ignores a late old-owner response
+ok 3 - changing identity clears prior data immediately, aborts hidden reads, and ignores a late old-owner response
+  ---
+  duration_ms: 204.681292
+  type: 'test'
+  ...
+# Subtest: temporary session failure retains drafts but disables submission, including handlers invoked outside native button activation
+ok 4 - temporary session failure retains drafts but disables submission, including handlers invoked outside native button activation
+  ---
+  duration_ms: 320.73
+  type: 'test'
+  ...
+# Subtest: session authorization rejection clears the prior workspace instead of preserving privileged content
+ok 5 - session authorization rejection clears the prior workspace instead of preserving privileged content
+  ---
+  duration_ms: 92.932375
+  type: 'test'
+  ...
+# Subtest: a contribution-only account enters its devices through the space button
+ok 6 - a contribution-only account enters its devices through the space button
+  ---
+  duration_ms: 67.888458
+  type: 'test'
+  ...
+# Subtest: a contribution-only account enters its devices through the sidebar link
+ok 7 - a contribution-only account enters its devices through the sidebar link
+  ---
+  duration_ms: 68.915542
+  type: 'test'
+  ...
+# Subtest: device drafts and disclosure state survive an overview roundtrip without remounting or issuing writes
+ok 8 - device drafts and disclosure state survive an overview roundtrip without remounting or issuing writes
+  ---
+  duration_ms: 116.883292
+  type: 'test'
+  ...
+# Subtest: hidden workbench reads abort while the form and filters remain available on return
+ok 9 - hidden workbench reads abort while the form and filters remain available on return
+  ---
+  duration_ms: 142.095
+  type: 'test'
+  ...
+# Error: Uncaught [ReferenceError: Node is not defined]
+#     at reportException (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/node_modules/jsdom/lib/jsdom/living/helpers/runtime-script-errors.js:66:24)
+#     at innerInvokeEventListeners (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:353:9)
+#     at invokeEventListeners (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:286:3)
+#     at HTMLInputElementImpl._dispatch (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:233:9)
+#     at exports.fireFocusEventWithTargetAdjustment (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/node_modules/jsdom/lib/jsdom/living/helpers/focusing.js:103:10)
+#     at HTMLHeadingElementImpl.focus (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/node_modules/jsdom/lib/jsdom/living/nodes/HTMLOrSVGElement-impl.js:58:16)
+#     at HTMLHeadingElement.focus (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/node_modules/jsdom/lib/jsdom/living/generated/HTMLElement.js:128:34)
+#     at <anonymous> (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/src/App.tsx:111:247)
+#     at invokeTheCallbackFunction (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/node_modules/jsdom/lib/jsdom/living/generated/Function.js:19:26)
+#     at runAnimationFrameCallbacks (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/node_modules/jsdom/lib/jsdom/browser/Window.js:662:13) ReferenceError: Node is not defined
+#     at HTMLDivElement.focusout (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/src/motion.tsx:99:68)
+#     at HTMLDivElement.callTheUserObjectsOperation (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/node_modules/jsdom/lib/jsdom/living/generated/EventListener.js:26:30)
+#     at innerInvokeEventListeners (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:350:25)
+#     at invokeEventListeners (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:286:3)
+#     at HTMLInputElementImpl._dispatch (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:233:9)
+#     at exports.fireFocusEventWithTargetAdjustment (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/node_modules/jsdom/lib/jsdom/living/helpers/focusing.js:103:10)
+#     at HTMLHeadingElementImpl.focus (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/node_modules/jsdom/lib/jsdom/living/nodes/HTMLOrSVGElement-impl.js:58:16)
+#     at HTMLHeadingElement.focus (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/node_modules/jsdom/lib/jsdom/living/generated/HTMLElement.js:128:34)
+#     at <anonymous> (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/src/App.tsx:111:247)
+#     at invokeTheCallbackFunction (/Users/xz/Projects/campus-gpu-fabric-release-20261115/web/node_modules/jsdom/lib/jsdom/living/generated/Function.js:19:26)
+# Subtest: a new epoch resets workspace context and rejects both late and newly returned older-epoch data
+ok 10 - a new epoch resets workspace context and rejects both late and newly returned older-epoch data
+  ---
+  duration_ms: 194.858333
+  type: 'test'
+  ...
+# Subtest: the account write guard blocks direct mutations and composite actions before fetch, while reads remain usable
+ok 11 - the account write guard blocks direct mutations and composite actions before fetch, while reads remain usable
+  ---
+  duration_ms: 4.881708
+  type: 'test'
+  ...
+# Subtest: one primary connection flow and account menu keep preferences out of the header
+ok 12 - one primary connection flow and account menu keep preferences out of the header
+  ---
+  duration_ms: 107.803792
+  type: 'test'
+  ...
+# Subtest: copy uses the full ID and does not submit forms or bubble into row navigation
+ok 13 - copy uses the full ID and does not submit forms or bubble into row navigation
+  ---
+  duration_ms: 67.898333
+  type: 'test'
+  ...
+# Subtest: unavailable or rejected clipboard offers the complete selectable ID without a fake success
+ok 14 - unavailable or rejected clipboard offers the complete selectable ID without a fake success
+  ---
+  duration_ms: 16.135917
+  type: 'test'
+  ...
+# Subtest: pending copy keeps its control focusable and rejects repeated activation until settled
+ok 15 - pending copy keeps its control focusable and rejects repeated activation until settled
+  ---
+  duration_ms: 16.19575
+  type: 'test'
+  ...
+# Subtest: a pending clipboard request cannot put feedback onto a different ID or account
+ok 16 - a pending clipboard request cannot put feedback onto a different ID or account
+  ---
+  duration_ms: 33.448792
+  type: 'test'
+  ...
+# Subtest: clipboard completion after unmount is ignored
+ok 17 - clipboard completion after unmount is ignored
+  ---
+  duration_ms: 6.892083
+  type: 'test'
+  ...
+# Subtest: work lists copy without opening a work and the detail keeps its full ID copy in technical details
+ok 18 - work lists copy without opening a work and the detail keeps its full ID copy in technical details
+  ---
+  duration_ms: 155.581041
+  type: 'test'
+  ...
+# Subtest: overview shows the work name and correct destination without an inline ID copy control
+ok 19 - overview shows the work name and correct destination without an inline ID copy control
+  ---
+  duration_ms: 11.5565
+  type: 'test'
+  ...
+# Subtest: CPU device page has no inactive registration branch and no recall form without devices
+ok 20 - CPU device page has no inactive registration branch and no recall form without devices
+  ---
+  duration_ms: 92.405125
+  type: 'test'
+  ...
+# Subtest: recall requires specific confirmation and ignores selection removed by a fresh device read
+ok 21 - recall requires specific confirmation and ignores selection removed by a fresh device read
+  ---
+  duration_ms: 34.152417
+  type: 'test'
+  ...
+# Subtest: device pagination opens the next server cursor and refresh returns to the first page
+ok 22 - device pagination opens the next server cursor and refresh returns to the first page
+  ---
+  duration_ms: 110.370417
+  type: 'test'
+  ...
+# Subtest: system management loads expensive tools only when opened and keeps not-run checks honest
+ok 23 - system management loads expensive tools only when opened and keeps not-run checks honest
+  ---
+  duration_ms: 56.041125
+  type: 'test'
+  ...
+# Subtest: a selected plan without a committed event never appears executed; owner comparison scores stay out of the primary table
+ok 24 - a selected plan without a committed event never appears executed; owner comparison scores stay out of the primary table
+  ---
+  duration_ms: 13.880958
+  type: 'test'
+  ...
+# Subtest: activity page searches readable labels and does not mount experiments even through the legacy flag
+ok 25 - activity page searches readable labels and does not mount experiments even through the legacy flag
+  ---
+  duration_ms: 21.745667
+  type: 'test'
+  ...
+# Subtest: activity without name metadata uses a neutral work link and shows repeated states only once
+ok 26 - activity without name metadata uses a neutral work link and shows repeated states only once
+  ---
+  duration_ms: 12.636625
+  type: 'test'
+  ...
+# Subtest: unknown experiment submission cannot be resubmitted through the form
+ok 27 - unknown experiment submission cannot be resubmitted through the form
+  ---
+  duration_ms: 17.706334
+  type: 'test'
+  ...
+# Subtest: real WorkIntent allocation_ids join separate authorized leases for all three resource reminders
+ok 28 - real WorkIntent allocation_ids join separate authorized leases for all three resource reminders
+  ---
+  duration_ms: 241.299041
+  type: 'test'
+  ...
+# Subtest: only exact related authorized resume hints prompt interrupted work; Pending never becomes a warning
+ok 29 - only exact related authorized resume hints prompt interrupted work; Pending never becomes a warning
+  ---
+  duration_ms: 14.827958
+  type: 'test'
+  ...
+# Subtest: reminders order by severity then real logical deadline, occurrence and stable ID
+ok 30 - reminders order by severity then real logical deadline, occurrence and stable ID
+  ---
+  duration_ms: 22.68175
+  type: 'test'
+  ...
+# Subtest: dismissed reminders stay explicit, can be restored, and a changed deadline or reason reappears
+ok 31 - dismissed reminders stay explicit, can be restored, and a changed deadline or reason reappears
+  ---
+  duration_ms: 39.497333
+  type: 'test'
+  ...
+# Subtest: unread or truncated lease pages cannot be presented as no reminders and embedded fixture-only fields are ignored
+ok 32 - unread or truncated lease pages cannot be presented as no reminders and embedded fixture-only fields are ignored
+  ---
+  duration_ms: 137.919791
+  type: 'test'
+  ...
+# Subtest: different epochs never join; same-epoch different revisions show provisional independently read reminders
+ok 33 - different epochs never join; same-epoch different revisions show provisional independently read reminders
+  ---
+  duration_ms: 24.540958
+  type: 'test'
+  ...
+# Subtest: failed lease refresh retains prior reminders as stale while authorization failure clears old lease data
+ok 34 - failed lease refresh retains prior reminders as stale while authorization failure clears old lease data
+  ---
+  duration_ms: 28.50525
+  type: 'test'
+  ...
+# Subtest: identity changes abort late reads and never reuse previous leases or dismissal state
+ok 35 - identity changes abort late reads and never reuse previous leases or dismissal state
+  ---
+  duration_ms: 29.573625
+  type: 'test'
+  ...
+# Subtest: no compute capability means no work or lease reads, and own device cards show source availability and states
+ok 36 - no compute capability means no work or lease reads, and own device cards show source availability and states
+  ---
+  duration_ms: 14.043125
+  type: 'test'
+  ...
+# Subtest: results use actual recorded_at descending within the loaded page, with missing times last
+ok 37 - results use actual recorded_at descending within the loaded page, with missing times last
+  ---
+  duration_ms: 12.043916
+  type: 'test'
+  ...
+# Subtest: empty personal overview has one create entry and no empty device or result cards
+ok 38 - empty personal overview has one create entry and no empty device or result cards
+  ---
+  duration_ms: 59.988208
+  type: 'test'
+  ...
+# Subtest: administrator home reads authorized global counts without inventing private work
+ok 39 - administrator home reads authorized global counts without inventing private work
+  ---
+  duration_ms: 28.019292
+  type: 'test'
+  ...
+# Subtest: negative target and incomplete semantic coverage remain visible despite complete artifacts
+ok 40 - negative target and incomplete semantic coverage remain visible despite complete artifacts
+  ---
+  duration_ms: 253.171875
+  type: 'test'
+  ...
+# Subtest: historical reports disclose original audit scope and never claim current acceptance
+ok 41 - historical reports disclose original audit scope and never claim current acceptance
+  ---
+  duration_ms: 23.058
+  type: 'test'
+  ...
+# Subtest: a stale report refresh clears the prior score and downloads
+ok 42 - a stale report refresh clears the prior score and downloads
+  ---
+  duration_ms: 23.571708
+  type: 'test'
+  ...
+# Subtest: unexecuted suite displays no numerical target or fabricated success
+ok 43 - unexecuted suite displays no numerical target or fabricated success
+  ---
+  duration_ms: 6.788917
+  type: 'test'
+  ...
+# Subtest: partial development runs cannot be presented as a formal target pass
+ok 44 - partial development runs cannot be presented as a formal target pass
+  ---
+  duration_ms: 112.69975
+  type: 'test'
+  ...
+# Subtest: switching identity aborts a pending admin download and ignores its late response
+ok 45 - switching identity aborts a pending admin download and ignores its late response
+  ---
+  duration_ms: 24.630083
+  type: 'test'
+  ...
+# Subtest: a current admin download preserves raw JSON bytes and its registered filename
+ok 46 - a current admin download preserves raw JSON bytes and its registered filename
+  ---
+  duration_ms: 94.424709
+  type: 'test'
+  ...
+# Subtest: compute-only view does not query contributions or mount write forms despite a local admin label
+ok 47 - compute-only view does not query contributions or mount write forms despite a local admin label
+  ---
+  duration_ms: 126.019583
+  type: 'test'
+  ...
+# Subtest: owned devices precede the shared pool and recall deduplicates physical cards without exposing another owner
+ok 48 - owned devices precede the shared pool and recall deduplicates physical cards without exposing another owner
+  ---
+  duration_ms: 67.5585
+  type: 'test'
+  ...
+# Subtest: revoking contribution capability aborts pending reads and removes the old forms immediately
+ok 49 - revoking contribution capability aborts pending reads and removes the old forms immediately
+  ---
+  duration_ms: 55.685
+  type: 'test'
+  ...
+# Subtest: unknown recall response blocks both button retry and a repeated form submission
+ok 50 - unknown recall response blocks both button retry and a repeated form submission
+  ---
+  duration_ms: 21.0085
+  type: 'test'
+  ...
+# Subtest: unknown contribution registration blocks resubmission while its configuration remains available
+ok 51 - unknown contribution registration blocks resubmission while its configuration remains available
+  ---
+  duration_ms: 19.386042
+  type: 'test'
+  ...
+# Subtest: ordinary work events never mount experiments when showExperiments is false
+ok 52 - ordinary work events never mount experiments when showExperiments is false
+  ---
+  duration_ms: 13.710958
+  type: 'test'
+  ...
+# Subtest: event refresh preserves pagination and no longer mounts administrative experiments
+ok 53 - event refresh preserves pagination and no longer mounts administrative experiments
+  ---
+  duration_ms: 148.5675
+  type: 'test'
+  ...
+# Subtest: a deliberate horizontal sequence commits once and long reversing inertia cannot navigate back
+ok 54 - a deliberate horizontal sequence commits once and long reversing inertia cannot navigate back
+  ---
+  duration_ms: 0.965958
+  type: 'test'
+  ...
+# Subtest: a short or reversed preview returns to its source without a navigation
+ok 55 - a short or reversed preview returns to its source without a navigation
+  ---
+  duration_ms: 13.799333
+  type: 'test'
+  ...
+# Subtest: vertical-first and invalid beginnings remain native for the complete sequence
+ok 56 - vertical-first and invalid beginnings remain native for the complete sequence
+  ---
+  duration_ms: 0.3535
+  type: 'test'
+  ...
+# Subtest: spaces do not wrap, and one high velocity event never commits by itself
+ok 57 - spaces do not wrap, and one high velocity event never commits by itself
+  ---
+  duration_ms: 0.2595
+  type: 'test'
+  ...
+# Subtest: cooldown requires both elapsed time and quiet, not a clock deadline alone
+ok 58 - cooldown requires both elapsed time and quiet, not a clock deadline alone
+  ---
+  duration_ms: 0.265584
+  type: 'test'
+  ...
+# Subtest: the optional gesture is off by default and never changes the URL itself
+ok 59 - the optional gesture is off by default and never changes the URL itself
+  ---
+  duration_ms: 143.864125
+  type: 'test'
+  ...
+# Subtest: form controls, semantic content and nested scrollers retain native wheel at their boundary
+ok 60 - form controls, semantic content and nested scrollers retain native wheel at their boundary
+  ---
+  duration_ms: 203.191583
+  type: 'test'
+  ...
+# Subtest: focused editing, selected text, overlays and composition suspend space switching
+ok 61 - focused editing, selected text, overlays and composition suspend space switching
+  ---
+  duration_ms: 28.167541
+  type: 'test'
+  ...
+# Subtest: outside, vertical, modifier and noncancelable input cannot upgrade into an app gesture
+ok 62 - outside, vertical, modifier and noncancelable input cannot upgrade into an app gesture
+  ---
+  duration_ms: 25.446791
+  type: 'test'
+  ...
+# Subtest: Escape, context changes, native scrolling, blur and resize cancel an unfinished preview
+ok 63 - Escape, context changes, native scrolling, blur and resize cancel an unfinished preview
+  ---
+  duration_ms: 42.464875
+  type: 'test'
+  ...
+# Subtest: space rerenders retain inertia suppression and disabling removes interception
+ok 64 - space rerenders retain inertia suppression and disabling removes interception
+  ---
+  duration_ms: 52.004041
+  type: 'test'
+  ...
+# Subtest: a quiet short preview resets without navigation and unmount does not leave timers active
+ok 65 - a quiet short preview resets without navigation and unmount does not leave timers active
+  ---
+  duration_ms: 415.506
+  type: 'test'
+  ...
+# Subtest: loss of cancellation support during tracking cancels the preview and relinquishes input
+ok 66 - loss of cancellation support during tracking cancels the preview and relinquishes input
+  ---
+  duration_ms: 8.16175
+  type: 'test'
+  ...
+# Subtest: an embedded host that ignores cancellation never receives a navigation or preview
+ok 67 - an embedded host that ignores cancellation never receives a navigation or preview
+  ---
+  duration_ms: 13.536709
+  type: 'test'
+  ...
+# Subtest: StrictMode replay, rerender and unmount/remount retain one active scene without leaked resources
+ok 68 - StrictMode replay, rerender and unmount/remount retain one active scene without leaked resources
+  ---
+  duration_ms: 321.600625
+  type: 'test'
+  ...
+# Subtest: disabling the visual shell releases the scene and leaves business controls operable
+ok 69 - disabling the visual shell releases the scene and leaves business controls operable
+  ---
+  duration_ms: 85.408
+  type: 'test'
+  ...
+# Subtest: legacy media listeners synchronize static preference, local pause and cleanup
+ok 70 - legacy media listeners synchronize static preference, local pause and cleanup
+  ---
+  duration_ms: 95.541375
+  type: 'test'
+  ...
+# Subtest: controlled document visibility suspends and resumes the active animation without duplicate callbacks
+ok 71 - controlled document visibility suspends and resumes the active animation without duplicate callbacks
+  ---
+  duration_ms: 20.739875
+  type: 'test'
+  ...
+# Subtest: Canvas2D-unavailable fallback retains business children and a disabled static motion control
+ok 72 - Canvas2D-unavailable fallback retains business children and a disabled static motion control
+  ---
+  duration_ms: 6.978167
+  type: 'test'
+  ...
+# Subtest: adapter defaults keep the approved budget, DPR cap, debug privacy and active-time wave expiry
+ok 73 - adapter defaults keep the approved budget, DPR cap, debug privacy and active-time wave expiry
+  ---
+  duration_ms: 316.374791
+  type: 'test'
+  ...
+# Subtest: imported admin remains selected after Apply, changed manual credentials lose its hint
+ok 74 - imported admin remains selected after Apply, changed manual credentials lose its hint
+  ---
+  duration_ms: 193.780417
+  type: 'test'
+  ...
+# Subtest: same work ID submit re-reads once, updates state, and Refresh is not a form submit
+ok 75 - same work ID submit re-reads once, updates state, and Refresh is not a form submit
+  ---
+  duration_ms: 127.614666
+  type: 'test'
+  ...
+# Subtest: work lookup shows loading and failure without retaining a previous result
+ok 76 - work lookup shows loading and failure without retaining a previous result
+  ---
+  duration_ms: 12.176542
+  type: 'test'
+  ...
+# Subtest: same decision ID submit re-reads and direct lookup includes return-to-work link
+ok 77 - same decision ID submit re-reads and direct lookup includes return-to-work link
+  ---
+  duration_ms: 18.543209
+  type: 'test'
+  ...
+# Subtest: work details link to their decisions and events and disclose held lease after completion
+ok 78 - work details link to their decisions and events and disclose held lease after completion
+  ---
+  duration_ms: 19.028125
+  type: 'test'
+  ...
+# Subtest: work event view uses authorized work events, exposes decision links and top export
+ok 79 - work event view uses authorized work events, exposes decision links and top export
+  ---
+  duration_ms: 22.113209
+  type: 'test'
+  ...
+# Subtest: same experiment ID submit fetches fresh results
+ok 80 - same experiment ID submit fetches fresh results
+  ---
+  duration_ms: 100.364708
+  type: 'test'
+  ...
+# Subtest: hash navigation opens a decision and changing its parameter loads the other decision
+ok 81 - hash navigation opens a decision and changing its parameter loads the other decision
+  ---
+  duration_ms: 86.021792
+  type: 'test'
+  ...
+# Subtest: owner-scoped decision explains limited visibility without claiming global rejection
+ok 82 - owner-scoped decision explains limited visibility without claiming global rejection
+  ---
+  duration_ms: 11.14875
+  type: 'test'
+  ...
+# Subtest: temporary 503 lookup failure is not labeled as an unimplemented capability
+ok 83 - temporary 503 lookup failure is not labeled as an unimplemented capability
+  ---
+  duration_ms: 10.322625
+  type: 'test'
+  ...
+# Subtest: CPU registration follows declared service mode and sends separate recovery/retry budgets
+ok 84 - CPU registration follows declared service mode and sends separate recovery/retry budgets
+  ---
+  duration_ms: 49.076292
+  type: 'test'
+  ...
+# Subtest: unknown execution mode blocks registration and does not guess logical mode
+ok 85 - unknown execution mode blocks registration and does not guess logical mode
+  ---
+  duration_ms: 23.015792
+  type: 'test'
+  ...
+# Subtest: contributor recalls owned physical GPUs without contribution ID or test route
+ok 86 - contributor recalls owned physical GPUs without contribution ID or test route
+  ---
+  duration_ms: 27.082834
+  type: 'test'
+  ...
+# Subtest: checkpoint facts stay separate; logical report writes only status and refreshes
+ok 87 - checkpoint facts stay separate; logical report writes only status and refreshes
+  ---
+  duration_ms: 29.055125
+  type: 'test'
+  ...
+# Subtest: CPU continuity cannot manually mark checkpoint verified and keeps stopping claims visible
+ok 88 - CPU continuity cannot manually mark checkpoint verified and keeps stopping claims visible
+  ---
+  duration_ms: 14.025458
+  type: 'test'
+  ...
+# Subtest: resume action uses current work ID and version without creating another job or stage
+ok 89 - resume action uses current work ID and version without creating another job or stage
+  ---
+  duration_ms: 35.854334
+  type: 'test'
+  ...
+# Subtest: artifact download uses authenticated registered URI endpoint, rejecting arbitrary file links
+ok 90 - artifact download uses authenticated registered URI endpoint, rejecting arbitrary file links
+  ---
+  duration_ms: 11.162916
+  type: 'test'
+  ...
+# Subtest: pending CPU artifact download cannot survive identity
+ok 91 - pending CPU artifact download cannot survive identity
+  ---
+  duration_ms: 18.115625
+  type: 'test'
+  ...
+# Subtest: pending CPU artifact download cannot survive uri
+ok 92 - pending CPU artifact download cannot survive uri
+  ---
+  duration_ms: 5.920791
+  type: 'test'
+  ...
+# Subtest: pending CPU artifact download cannot survive navigation
+ok 93 - pending CPU artifact download cannot survive navigation
+  ---
+  duration_ms: 4.546583
+  type: 'test'
+  ...
+# Subtest: late CPU artifact failure cannot replace a newer URI result
+ok 94 - late CPU artifact failure cannot replace a newer URI result
+  ---
+  duration_ms: 29.74775
+  type: 'test'
+  ...
+# Subtest: unknown lifecycle write result cannot be replayed from the same button
+ok 95 - unknown lifecycle write result cannot be replayed from the same button
+  ---
+  duration_ms: 5.266166
+  type: 'test'
+  ...
+# Subtest: a failed work refresh cannot unlock a lifecycle action whose result is still unknown
+ok 96 - a failed work refresh cannot unlock a lifecycle action whose result is still unknown
+  ---
+  duration_ms: 99.595
+  type: 'test'
+  ...
+# Subtest: CPU system acceptance hides manual logical clock even with admin profile
+ok 97 - CPU system acceptance hides manual logical clock even with admin profile
+  ---
+  duration_ms: 20.2305
+  type: 'test'
+  ...
+# Subtest: admin experiment uses real catalog input and queries accepted run, preserving pending status
+ok 98 - admin experiment uses real catalog input and queries accepted run, preserving pending status
+  ---
+  duration_ms: 28.076792
+  type: 'test'
+  ...
+# Subtest: failed checkpoint report sends failed without adding verification or artifact fields
+ok 99 - failed checkpoint report sends failed without adding verification or artifact fields
+  ---
+  duration_ms: 30.905041
+  type: 'test'
+  ...
+# Subtest: forbidden artifact response stays 404 and never produces a download
+ok 100 - forbidden artifact response stays 404 and never produces a download
+  ---
+  duration_ms: 5.402
+  type: 'test'
+  ...
+# Subtest: experiment input and output downloads use only registered fixed artifact IDs
+ok 101 - experiment input and output downloads use only registered fixed artifact IDs
+  ---
+  duration_ms: 21.725875
+  type: 'test'
+  ...
+# Subtest: pending experiment artifact download cannot survive identity
+ok 102 - pending experiment artifact download cannot survive identity
+  ---
+  duration_ms: 24.944292
+  type: 'test'
+  ...
+# Subtest: pending experiment artifact download cannot survive run
+ok 103 - pending experiment artifact download cannot survive run
+  ---
+  duration_ms: 37.86175
+  type: 'test'
+  ...
+# Subtest: pending experiment artifact download cannot survive navigation
+ok 104 - pending experiment artifact download cannot survive navigation
+  ---
+  duration_ms: 19.086667
+  type: 'test'
+  ...
+# Subtest: CPU resources hide manual inventory registration while keeping owned GPU recall usable
+ok 105 - CPU resources hide manual inventory registration while keeping owned GPU recall usable
+  ---
+  duration_ms: 28.561625
+  type: 'test'
+  ...
+# Subtest: CPU form retries stale registration with same identity/body and blocks navigation until response
+ok 106 - CPU form retries stale registration with same identity/body and blocks navigation until response
+  ---
+  duration_ms: 17.685334
+  type: 'test'
+  ...
+# Subtest: CP3 settlement puts authoritative failure and held lease guidance before history
+ok 107 - CP3 settlement puts authoritative failure and held lease guidance before history
+  ---
+  duration_ms: 8.74525
+  type: 'test'
+  ...
+# Subtest: CP3 settlement distinguishes completed work from pending stop and preserves receipt after refresh
+ok 108 - CP3 settlement distinguishes completed work from pending stop and preserves receipt after refresh
+  ---
+  duration_ms: 32.578875
+  type: 'test'
+  ...
+# Subtest: the actual W2 timeout payload remains a failure with returned resources and retained technical evidence
+ok 109 - the actual W2 timeout payload remains a failure with returned resources and retained technical evidence
+  ---
+  duration_ms: 11.909208
+  type: 'test'
+  ...
+# Subtest: CP3 settlement shows released cancellation and keeps previous attempts collapsed
+ok 110 - CP3 settlement shows released cancellation and keeps previous attempts collapsed
+  ---
+  duration_ms: 12.347916
+  type: 'test'
+  ...
+# Subtest: CP3 settlement leaves waiting recovery incomplete and exposes failed stage reason
+ok 111 - CP3 settlement leaves waiting recovery incomplete and exposes failed stage reason
+  ---
+  duration_ms: 9.238625
+  type: 'test'
+  ...
+# Subtest: allocated work without a job distinguishes task creation from waiting for resources
+ok 112 - allocated work without a job distinguishes task creation from waiting for resources
+  ---
+  duration_ms: 40.731709
+  type: 'test'
+  ...
+# Subtest: CP3 settlement result preview preserves exact JSON integers and is cleared on denied read
+ok 113 - CP3 settlement result preview preserves exact JSON integers and is cleared on denied read
+  ---
+  duration_ms: 9.902333
+  type: 'test'
+  ...
+# Subtest: CP3 settlement artifact preview never leaks across identity or URI changes
+ok 114 - CP3 settlement artifact preview never leaks across identity or URI changes
+  ---
+  duration_ms: 10.740959
+  type: 'test'
+  ...
+# Subtest: CP3 settlement rejected business receipt is an error even with HTTP 200
+ok 115 - CP3 settlement rejected business receipt is an error even with HTTP 200
+  ---
+  duration_ms: 5.586583
+  type: 'test'
+  ...
+# Subtest: CP3 settlement completed CPU work exposes an inline result before any execution history
+ok 116 - CP3 settlement completed CPU work exposes an inline result before any execution history
+  ---
+  duration_ms: 16.401625
+  type: 'test'
+  ...
+# Subtest: my work precedes creation, defaults to all states and retains current-page filters on refresh
+ok 117 - my work precedes creation, defaults to all states and retains current-page filters on refresh
+  ---
+  duration_ms: 128.163208
+  type: 'test'
+  ...
+# Subtest: refresh keeps the selected page and an empty filtered page can show all loaded work
+ok 118 - refresh keeps the selected page and an empty filtered page can show all loaded work
+  ---
+  duration_ms: 93.378083
+  type: 'test'
+  ...
+# Subtest: closed creation and advanced sections preserve draft inputs and use fixed execution metadata
+ok 119 - closed creation and advanced sections preserve draft inputs and use fixed execution metadata
+  ---
+  duration_ms: 75.703375
+  type: 'test'
+  ...
+# Subtest: an invalid advanced field opens its section and preserves the resource draft
+ok 120 - an invalid advanced field opens its section and preserves the resource draft
+  ---
+  duration_ms: 18.466125
+  type: 'test'
+  ...
+# Subtest: creation waits for service capabilities so its first interruption choice defaults to checkpoint recovery
+ok 121 - creation waits for service capabilities so its first interruption choice defaults to checkpoint recovery
+  ---
+  duration_ms: 21.860042
+  type: 'test'
+  ...
+# Subtest: creation blocks synchronous duplicate submissions and does not reopen or register after an accepted response
+ok 122 - creation blocks synchronous duplicate submissions and does not reopen or register after an accepted response
+  ---
+  duration_ms: 21.977042
+  type: 'test'
+  ...
+# Subtest: unknown registration results keep the original ID and input and block a programmatic resubmission
+ok 123 - unknown registration results keep the original ID and input and block a programmatic resubmission
+  ---
+  duration_ms: 19.167334
+  type: 'test'
+  ...
+# Subtest: finished work promotes only its legal release while keeping the same versioned command
+ok 124 - finished work promotes only its legal release while keeping the same versioned command
+  ---
+  duration_ms: 40.830375
+  type: 'test'
+  ...
+# Subtest: concise checkpoint summary does not equate a ready report or verified artifact with continuation
+ok 125 - concise checkpoint summary does not equate a ready report or verified artifact with continuation
+  ---
+  duration_ms: 9.008875
+  type: 'test'
+  ...
+# Subtest: creation requires its first field, trims the name and counts Unicode characters
+ok 126 - creation requires its first field, trims the name and counts Unicode characters
+  ---
+  duration_ms: 106.17225
+  type: 'test'
+  ...
+# Subtest: a registration retry retains the same name, ID and complete input
+ok 127 - a registration retry retains the same name, ID and complete input
+  ---
+  duration_ms: 44.630584
+  type: 'test'
+  ...
+# Subtest: list names may repeat, remain safe text, filter locally and open by the original ID
+ok 128 - list names may repeat, remain safe text, filter locally and open by the original ID
+  ---
+  duration_ms: 48.970334
+  type: 'test'
+  ...
+# Subtest: the same persisted name appears in details, associated events and decision context
+ok 129 - the same persisted name appears in details, associated events and decision context
+  ---
+  duration_ms: 66.066458
+  type: 'test'
+  ...
+# Subtest: overview names cover attention, current work and completed results with a legacy fallback
+ok 130 - overview names cover attention, current work and completed results with a legacy fallback
+  ---
+  duration_ms: 13.808875
+  type: 'test'
+  ...
+# Subtest: decision context cannot retain an old account name after unauthorized lookup
+ok 131 - decision context cannot retain an old account name after unauthorized lookup
+  ---
+  duration_ms: 16.671917
+  type: 'test'
+  ...
+1..131
+# tests 131
+# suites 0
+# pass 131
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3521.541583

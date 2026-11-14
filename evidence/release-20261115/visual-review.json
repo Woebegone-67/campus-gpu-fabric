@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "reviewed_at": "2026-11-14T21:22:17.134371+00:00",
+  "pages": 15,
+  "viewport_widths": [
+    1440,
+    768,
+    390
+  ],
+  "evidence": "visual-ready",
+  "final_activity_override": "browser/freeze-followup",
+  "final_activity_pages": 3,
+  "observations": [
+    "Desktop and mobile pages readable; no horizontal overflow or clipped controls",
+    "No standalone pause/settings in header and no sidebar slogan",
+    "No fake unnamed label in final activity page; actual raw event retained",
+    "Earlier loading screenshots retained and superseded for content review"
+  ],
+  "limits": [
+    "Synthetic browser viewports; not physical-device accessibility certification"
+  ]
+}

@@ -1,0 +1,47 @@
+uv sync --locked
+Using CPython 3.12.13 interpreter at: /opt/homebrew/opt/python@3.12/bin/python3.12
+Creating virtual environment at: .venv
+Resolved 31 packages in 5ms
+   Building campus-gpu-fabric @ file:///Users/xz/Projects/campus-gpu-fabric-release-20261115/runtime/final-clean-checkout
+      Built campus-gpu-fabric @ file:///Users/xz/Projects/campus-gpu-fabric-release-20261115/runtime/final-clean-checkout
+Prepared 1 package in 2.60s
+Installed 30 packages in 61ms
+ + annotated-doc==0.0.6
+ + annotated-types==0.8.0
+ + anyio==4.16.0
+ + attrs==26.1.0
+ + campus-gpu-fabric==0.2.0 (from file:///Users/xz/Projects/campus-gpu-fabric-release-20261115/runtime/final-clean-checkout)
+ + certifi==2026.10.23
+ + click==8.5.1
+ + fastapi==0.162.7
+ + h11==0.16.0
+ + httpcore==1.0.9
+ + httpx==0.28.1
+ + idna==3.20
+ + iniconfig==2.3.1
+ + jsonschema==4.26.0
+ + jsonschema-specifications==2025.9.1
+ + opentelemetry-api==1.45.2
+ + packaging==26.3
+ + pluggy==1.7.0
+ + pydantic==2.14.3
+ + pydantic-core==2.50.4
+ + pygments==2.21.0
+ + pytest==9.2.0
+ + pyyaml==6.0.3
+ + referencing==0.37.0
+ + rpds-py==2026.9.1
+ + ruff==0.17.5
+ + starlette==1.10.0
+ + typing-extensions==4.16.0
+ + typing-inspection==0.4.5
+ + uvicorn==0.54.0
+npm --prefix web ci
+npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+
+added 81 packages, and audited 82 packages in 2s
+
+23 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities

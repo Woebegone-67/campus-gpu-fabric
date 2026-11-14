@@ -1,0 +1,96 @@
+{
+  "cases": [
+    [
+      "zero",
+      0,
+      false
+    ],
+    [
+      "middle",
+      5000000,
+      false
+    ],
+    [
+      "late",
+      9000000,
+      false
+    ],
+    [
+      "save-failure",
+      5000000,
+      true
+    ]
+  ],
+  "config": {
+    "batch_pause_seconds": 0,
+    "batch_steps": 50000,
+    "seed": 17,
+    "stop_timeout_seconds": 0.2,
+    "total_steps": 10000000
+  },
+  "frozen_at_ns": 527688683868416,
+  "head": "d39450197c3f3902fb3b20b62cd4729e7fddcdc8",
+  "horizon": 40.0,
+  "host": {
+    "cpus": 10,
+    "platform": "macOS-27.3-arm64-arm-64bit",
+    "python": "3.12.13"
+  },
+  "notice_seconds": 1.0,
+  "runtime_private": "/Users/xz/Projects/campus-gpu-fabric-release-20261115/runtime/release-loss-run-01",
+  "scope": "12 executor arms + one Kernel/Driver path; no GPU performance claim",
+  "source_hashes": {
+    "evidence/release-20261115/research/PROTOCOL.md": "6b2d965ec7eb9d654d3f215f5f153def260f87127788c9bb4d1b52e9e90d3f90",
+    "experiments/research/release_cpu_worker.py": "32a5051aac20c9173159c4d7ea1f275367b4b2d056ea332e614462727a6e80fd",
+    "experiments/research/release_loss_accounting.py": "b66eee55d1c13bd98934289e1f2213dc13b1c178b0b2a85bd965caa4e8f823b1",
+    "src/campus_fabric/__init__.py": "704b473a62185038a24486173bbe64c7170bf5d29794c7e20e16219a78178dd1",
+    "src/campus_fabric/api/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/api/extensions/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/api/extensions/mutations/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/api/extensions/queries/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/api/mutations/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/api/mutations/http.py": "b52136e5faad726b8816ed7a933191512996a61ac3d34b56bbf87c0b62a2ae35",
+    "src/campus_fabric/api/queries/__init__.py": "a0c94a933539ee9a8be5457cce39fdb14f9a3dd062c78f76ade830cf2139e320",
+    "src/campus_fabric/api/queries/integration.py": "a99f717331397e466b547d984eea55450f56b28e49ca96128cefd0075395df9d",
+    "src/campus_fabric/api/queries/routes.py": "62894063089df6739c74152c531f934dc53569889dfda341f4ace0a805aae168",
+    "src/campus_fabric/api/queries/service.py": "c16ee063f599f0148282a95d2a948e0e9a38e6ea578eced43a65e777f349bbd2",
+    "src/campus_fabric/api/test_control/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/api/test_control/faults.py": "95a9ffce15576d9f4fafcad4e860bc8debe86f9177acc9f2c3f937d1737286c6",
+    "src/campus_fabric/app.py": "916151d0e4ce6a44bb1af6a6f2234b4a6e45710d3bc3a27ba8410363df5302fb",
+    "src/campus_fabric/auth/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/auth/http.py": "e3e39ceaa78d68cc6bed700a2b25c586d09beae04409b97e90338baa27f54793",
+    "src/campus_fabric/clock/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/contracts/__init__.py": "244fdb414fdc42da22cba3685b0049247c7c02a4138fdc52092f879b487de17e",
+    "src/campus_fabric/contracts/models.py": "d74e9a48f1e763ab48d5f9a3a0a699a736c6a009e65edec40b2c03251137e4c5",
+    "src/campus_fabric/contracts/ports.py": "594e12d80c957f3acf696799039fdac87d4232b70de7efc224edc9589f79c47d",
+    "src/campus_fabric/domain/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/domain/decision_views.py": "f369f3dd48c511204f90917ea6abb8ecada96f2ff1e1c1bed5e5d055314feecd",
+    "src/campus_fabric/domain/errors.py": "bc06ef63964b1a12c9aa006b3b00efc128abd6b25c73af605d8043802c6fe2f3",
+    "src/campus_fabric/domain/kernel.py": "d0c043ed21e50525543e4e699015a64873b4708cf419b4a85be708037eb67476",
+    "src/campus_fabric/domain/lifecycle.py": "96875ff360ee4a57010c80d107e3a4fcec4aa11866cb2a0eb1ef35aada38a7bb",
+    "src/campus_fabric/domain/placement.py": "0b5bd966462162c474b17d132c132a09def26638049860911086d6e6cee892ed",
+    "src/campus_fabric/domain/state_views.py": "13dce9d9e33653894a0483f6868d8f1602f30dbbc12f0a97bfa1c8a26d8122eb",
+    "src/campus_fabric/executors/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/executors/cpu_files.py": "d1c2d6cac65d3aacd0368a77e7c2946f118f0f1748e4ad8022f18f67652bdd30",
+    "src/campus_fabric/executors/cpu_reference.py": "518bafea282ff6ceb0a469d0392c08d27b11ceb41e18d3f8365aa58726144cc4",
+    "src/campus_fabric/executors/cpu_worker.py": "461884dd392c40572402b6e041ea0b86d16fc694186899dc5861347bc803fedd",
+    "src/campus_fabric/executors/driver.py": "46362f83b91b1fd5a3004756ba6a11e3ea21deef4992bd1d9d256da39be8ab0e",
+    "src/campus_fabric/policies/__init__.py": "b9297b723c6443aca601a232cc4cd6fda6b809d2d270c6019d53d1a6d3ad0b95",
+    "src/campus_fabric/policies/baselines.py": "b9c5759b772792df658cbfbc00a9369b57eef6f2a0e47942980f37bed76400e2",
+    "src/campus_fabric/policies/candidate.py": "6b97c3c8d9a6c186334bb1f4fb92df76d2e56458f45903bbc08ecc46ad4d4f52",
+    "src/campus_fabric/projections/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/projections/read_models.py": "2d30ec6670eac5d4db1b1269515e871e090c3da67bd8eeb17e0c5f5b804bf288",
+    "src/campus_fabric/storage/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/storage/journal.py": "03d69f082bf59aed29884a05f692319ecf349d0b08eb37168723cb583e21458b",
+    "src/campus_fabric/storage/merkle.py": "211fc662dd83dabc45d7586861e3164333ced1df8287e3f37a6fe7848f22af39",
+    "src/campus_fabric/storage/sqlite.py": "2cc2232c86dab5a8c58caf44e379cc85ed462a16905a200b1626dd770aeb44b3",
+    "src/campus_fabric/storage/state.py": "f11e6614cdaea2e113f484f32b9583728da834898a65d1040cfad9a63ab472f7",
+    "src/campus_fabric/workflows/__init__.py": "5b0835ce371e11627f11d52c19e5d3aaa95ab9bd80c62b6aeae2d8f5db2614d0",
+    "src/campus_fabric/workflows/acceptance_evidence.py": "c4e8e70f818816b5c0a3875ab009a6864dd0016dad10c0b41c6b069215a918ae",
+    "src/campus_fabric/workflows/devhost.py": "77c0ccf48d17b5b3d0c3f830536720cb2cc3c360a9cbf42847de302ef1c1cd69",
+    "src/campus_fabric/workflows/experiment_runner.py": "045cdac49b0f4d4ce4f368d531bf93213d6472b7d182bf60d39a04299f59d86d",
+    "src/campus_fabric/workflows/orchestrator.py": "2203c247f517423de35aec8dd09eededf7af49dad050a2b69a8df09b6f49601e",
+    "src/campus_fabric/workflows/policy_validation.py": "b8a7028f9d4c2dfadd2b4c4de9344700cf3563418d097dc95984983f78137a3c",
+    "tests/acceptance/cp3/cp3_cpu_equivalence.py": "7e43997979fb5b0c66e902d5b1ba42b4a72fafca0b36bb176d04c2f817275da4"
+  }
+}

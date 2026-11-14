@@ -1,0 +1,172 @@
+{
+  "started_at": "2026-11-14T20:56:43.101Z",
+  "base": "http://127.0.0.1:15253",
+  "commit": "d39450197c3f3902fb3b20b62cd4729e7fddcdc8",
+  "dirty": "M web/src/App.tsx\n M web/src/components/CP2.tsx\n M web/src/components/Experiments.tsx\n M web/src/components/IdentityPicker.tsx\n M web/src/components/PolicyValidation.tsx\n M web/src/components/Settlement.tsx\n M web/src/components/common.tsx\n M web/src/dual-space.css\n M web/src/pages/Acceptance.tsx\n M web/src/pages/Continuity.tsx\n M web/src/pages/Decisions.tsx\n M web/src/pages/Events.tsx\n M web/src/pages/Overview.tsx\n M web/src/pages/Resources.tsx\n M web/src/pages/Run.tsx\n M web/src/pages/work-experience.css\n M web/tests/account-workspace.test.tsx\n M web/tests/joint-live.browser.mjs\n M web/tests/joint-report.browser.mjs\n M web/tests/overview.test.tsx\n M web/tests/policy-validation.test.tsx\n M web/tests/resource-access.test.tsx\n M web/tests/ui.test.tsx\n M web/tests/work-experience.test.tsx\n M web/tests/work-names.test.tsx",
+  "scope": "Live local CPU reference execution, real Chrome UI and downloads; GPU inventory is simulated.",
+  "resumed_from": "evidence/release-20261115/browser/joint-live-01/receipt.json",
+  "checks": [
+    {
+      "name": "primary account connection accepted by real session endpoint",
+      "status": "PASS",
+      "details": {
+        "account": {
+          "actor_id": "alice",
+          "owner_id": "alice",
+          "capabilities": [
+            "use_compute",
+            "contribute_resources"
+          ],
+          "is_administrator": false
+        },
+        "supplierAccount": {
+          "actor_id": "supplier",
+          "owner_id": "supplier",
+          "capabilities": [
+            "use_compute",
+            "contribute_resources"
+          ],
+          "is_administrator": false
+        }
+      }
+    },
+    {
+      "name": "browser result preview/download preserves bytes and independent integer result",
+      "status": "PASS",
+      "details": {
+        "id": "work-8bb81913-5a1a-4330-9be7-abe79e6f94ce",
+        "sha256": "17fe8b59e4b95a0273943d44ab534484bdb9a3d1de0bd97cc4ac3b1c71cfb939",
+        "bytes": 476,
+        "oracle": "independent 3x3 matrix oracle matched"
+      }
+    }
+  ],
+  "responses": [
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/session",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/session",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/version",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/contributions",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/x/v1/work-intents",
+      "status": 200
+    },
+    {
+      "actor": "supplier",
+      "method": "GET",
+      "path": "/v1/allocations",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-8bb81913-5a1a-4330-9be7-abe79e6f94ce",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-8bb81913-5a1a-4330-9be7-abe79e6f94ce",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/artifacts",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/artifacts",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/decisions/decision-a839ed2f1a4e49294e3d4f8160fc4da2",
+      "status": 200
+    },
+    {
+      "actor": "alice",
+      "method": "GET",
+      "path": "/x/v1/work-intents/work-8bb81913-5a1a-4330-9be7-abe79e6f94ce",
+      "status": 200
+    }
+  ],
+  "errors": [],
+  "snapshots": [
+    "overview-empty",
+    "completed-released",
+    "failure-1",
+    "failure-2"
+  ],
+  "unverified": [
+    "Independent human deployment and A/B cross-operation",
+    "Physical trackpad, Safari, VoiceOver",
+    "Formal CP4 load and performance targets",
+    "Configured CP3 full-report rendering"
+  ],
+  "browser": "157.0.8103.51",
+  "recovery_work": "work-8bb81913-5a1a-4330-9be7-abe79e6f94ce",
+  "status": "FAIL",
+  "failure": "locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-space-scroll=\"workbench\"]').locator('.event-context strong').filter({ hasText: '联合验收 · 中断后继续' }) to be visible\u001b[22m\n\n    at /Users/xz/Projects/campus-gpu-fabric-release-20261115/web/tests/joint-live.browser.mjs:179:82",
+  "finished_at": "2026-11-14T20:57:03.467Z"
+}

@@ -1,0 +1,810 @@
+{
+  "started_at": "2026-11-14T20:59:23.892Z",
+  "baseUrl": "http://127.0.0.1:15253",
+  "preview": true,
+  "checkFilter": "desktop and narrow",
+  "browser": "157.0.8103.51",
+  "scope": "Real Chrome rendering and interaction with synthetic API fixtures only; no live Fabric backend or business writes.",
+  "checks": [
+    {
+      "name": "desktop and narrow layouts preserve visible switcher and reachable forms",
+      "status": "PASS",
+      "details": {
+        "layouts": [
+          {
+            "width": 1440,
+            "height": 900,
+            "horizontalOverflow": 0
+          },
+          {
+            "width": 1280,
+            "height": 800,
+            "horizontalOverflow": 0
+          },
+          {
+            "width": 1024,
+            "height": 768,
+            "horizontalOverflow": 0
+          },
+          {
+            "width": 390,
+            "height": 844,
+            "horizontalOverflow": 0
+          },
+          {
+            "width": 320,
+            "height": 700,
+            "horizontalOverflow": 0
+          }
+        ],
+        "longNames": [
+          {
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "label": "attention",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 1176,
+            "elementWidth": 0,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 1301.609375,
+            "panelRight": 1404,
+            "lineRects": 1
+          },
+          {
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "label": "current",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 579,
+            "elementWidth": 449,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 694.90625,
+            "panelRight": 807,
+            "lineRects": 3
+          },
+          {
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "label": "result",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 579,
+            "elementWidth": 452,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 1291.90625,
+            "panelRight": 1404,
+            "lineRects": 3
+          },
+          {
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "label": "list",
+            "space": "workbench",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 1176,
+            "elementWidth": 759,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 1009.5625,
+            "panelRight": 1404,
+            "lineRects": 2
+          },
+          {
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "label": "detail",
+            "space": "workbench",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 1176,
+            "elementWidth": 1027,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 1262.234375,
+            "panelRight": 1404,
+            "lineRects": 2
+          },
+          {
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "label": "attention",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 1016,
+            "elementWidth": 0,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 1149.421875,
+            "panelRight": 1244,
+            "lineRects": 2
+          },
+          {
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "label": "current",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 499,
+            "elementWidth": 369,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 618.796875,
+            "panelRight": 727,
+            "lineRects": 3
+          },
+          {
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "label": "result",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 499,
+            "elementWidth": 372,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 1135.796875,
+            "panelRight": 1244,
+            "lineRects": 3
+          },
+          {
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "label": "list",
+            "space": "workbench",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 1016,
+            "elementWidth": 648,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 899.265625,
+            "panelRight": 1244,
+            "lineRects": 2
+          },
+          {
+            "viewport": {
+              "width": 1280,
+              "height": 800
+            },
+            "label": "detail",
+            "space": "workbench",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 1016,
+            "elementWidth": 880,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 1129.609375,
+            "panelRight": 1244,
+            "lineRects": 2
+          },
+          {
+            "viewport": {
+              "width": 1024,
+              "height": 768
+            },
+            "label": "attention",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 802,
+            "elementWidth": 0,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 912.5,
+            "panelRight": 1000,
+            "lineRects": 2
+          },
+          {
+            "viewport": {
+              "width": 1024,
+              "height": 768
+            },
+            "label": "current",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 392,
+            "elementWidth": 270,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 483.34375,
+            "panelRight": 590,
+            "lineRects": 4
+          },
+          {
+            "viewport": {
+              "width": 1024,
+              "height": 768
+            },
+            "label": "result",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 392,
+            "elementWidth": 273,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 893.34375,
+            "panelRight": 1000,
+            "lineRects": 4
+          },
+          {
+            "viewport": {
+              "width": 1024,
+              "height": 768
+            },
+            "label": "list",
+            "space": "workbench",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 802,
+            "elementWidth": 506,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 727.375,
+            "panelRight": 1000,
+            "lineRects": 3
+          },
+          {
+            "viewport": {
+              "width": 1024,
+              "height": 768
+            },
+            "label": "detail",
+            "space": "workbench",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 802,
+            "elementWidth": 690,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 896.6875,
+            "panelRight": 1000,
+            "lineRects": 2
+          },
+          {
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "label": "attention",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 358,
+            "elementWidth": 0,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 348.03125,
+            "panelRight": 374,
+            "lineRects": 4
+          },
+          {
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "label": "current",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 358,
+            "elementWidth": 248,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 273.984375,
+            "panelRight": 374,
+            "lineRects": 5
+          },
+          {
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "label": "result",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 358,
+            "elementWidth": 251,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 273.984375,
+            "panelRight": 374,
+            "lineRects": 5
+          },
+          {
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "label": "list",
+            "space": "workbench",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 358,
+            "elementWidth": 140,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 171.09375,
+            "panelRight": 374,
+            "lineRects": 9
+          },
+          {
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "label": "detail",
+            "space": "workbench",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 358,
+            "elementWidth": 324,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 347.15625,
+            "panelRight": 374,
+            "lineRects": 4
+          },
+          {
+            "viewport": {
+              "width": 320,
+              "height": 700
+            },
+            "label": "attention",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 288,
+            "elementWidth": 0,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 284.609375,
+            "panelRight": 304,
+            "lineRects": 5
+          },
+          {
+            "viewport": {
+              "width": 320,
+              "height": 700
+            },
+            "label": "current",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 288,
+            "elementWidth": 178,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 210.5625,
+            "panelRight": 304,
+            "lineRects": 6
+          },
+          {
+            "viewport": {
+              "width": 320,
+              "height": 700
+            },
+            "label": "result",
+            "space": "overview",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 288,
+            "elementWidth": 181,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 210.5625,
+            "panelRight": 304,
+            "lineRects": 6
+          },
+          {
+            "viewport": {
+              "width": 320,
+              "height": 700
+            },
+            "label": "list",
+            "space": "workbench",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 288,
+            "elementWidth": 140,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 171.09375,
+            "panelRight": 304,
+            "lineRects": 9
+          },
+          {
+            "viewport": {
+              "width": 320,
+              "height": 700
+            },
+            "label": "detail",
+            "space": "workbench",
+            "text": "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+            "panelWidth": 288,
+            "elementWidth": 254,
+            "elementOverflow": 0,
+            "paneOverflow": 0,
+            "textRight": 284.328125,
+            "panelRight": 304,
+            "lineRects": 5
+          }
+        ]
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "overview-1440x900",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-release-20261115/evidence/release-20261115/browser/layout-02/overview-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-list-1440x900",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-release-20261115/evidence/release-20261115/browser/layout-02/work-list-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-form-1440x900",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-release-20261115/evidence/release-20261115/browser/layout-02/work-form-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-detail-long-name-1440x900",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-release-20261115/evidence/release-20261115/browser/layout-02/work-detail-long-name-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "overview-390x844",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-release-20261115/evidence/release-20261115/browser/layout-02/overview-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-list-390x844",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-release-20261115/evidence/release-20261115/browser/layout-02/work-list-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-form-390x844",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-release-20261115/evidence/release-20261115/browser/layout-02/work-form-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-detail-long-name-390x844",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-release-20261115/evidence/release-20261115/browser/layout-02/work-detail-long-name-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-detail-long-name-320x700",
+      "path": "/Users/xz/Projects/campus-gpu-fabric-release-20261115/evidence/release-20261115/browser/layout-02/work-detail-long-name-320x700.png",
+      "viewport": {
+        "width": 320,
+        "height": 700
+      },
+      "data": "synthetic browser fixtures"
+    }
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    }
+  ],
+  "denied": [],
+  "unverified": [
+    "Native two-finger gestures and system history conflicts on physical Chrome/Safari trackpads.",
+    "Native OS reduced-motion setting; this harness uses Chromium media emulation.",
+    "VoiceOver, complete accessibility conformance, real API authorization, server business correctness, and file-download integrity."
+  ],
+  "browserClosed": true,
+  "finished_at": "2026-11-14T20:59:38.966Z",
+  "status": "PASS"
+}

@@ -1,0 +1,204 @@
+{
+  "reviewed_at": "2026-11-14T21:17:26.032053+00:00",
+  "status": "PASS",
+  "scope": "All pages visually inspected after embedding Chinese fonts; structural text and bounds checks support the visual review. This is not a live delivery rehearsal.",
+  "initial_issue": "Original STSong-Light CID font was not embedded; Poppler lacked Adobe-GB1 mapping and rendered text blank. Replaced with subset-embedded STHeitiSC-Light and Medium.",
+  "corrections": [
+    "Embedded Chinese fonts and registered bold family",
+    "Adjusted table column widths, body spacing, and question-heading keep-with-next",
+    "Kept cost heading, introduction and table on one page; removed speech-wrapper quotes in PDF layout only",
+    "Root-authorized two short main-script corrections: shorter 4:05 segment, lifecycle coverage marked backup"
+  ],
+  "render_dpi": 125,
+  "guide_final_pngs_identical_to_reviewed": true,
+  "documents": [
+    {
+      "pdf": "docs/release/artifacts/织算_上台前阅读手册.pdf",
+      "source": "docs/release/MORNING_GUIDE.md",
+      "sha256": "fc40fdb800bd4cf0e21650c8e8fa05bfc4fa19f23b31c697e7137ad4790d4de5",
+      "source_sha256": "dcb54a57a6ce88c2396040a665dba76237858dc2e13582f72bb7c9f53c2c5c36",
+      "pages": 4,
+      "status": "PASS",
+      "missing_chinese_chars": {},
+      "extra_chinese_chars": {},
+      "fonts": {
+        "/Helvetica": {
+          "subtype": "/Type1",
+          "embedded": false
+        },
+        "/AAAAAA+STHeitiSC-Light-1": {
+          "subtype": "/TrueType",
+          "embedded": true
+        },
+        "/AAAAAB+STHeitiSC-Light-1": {
+          "subtype": "/TrueType",
+          "embedded": true
+        },
+        "/AAAAAC+STHeitiSC-Light-1": {
+          "subtype": "/TrueType",
+          "embedded": true
+        },
+        "/AAAAAA+STHeitiSC-Medium-1": {
+          "subtype": "/TrueType",
+          "embedded": true
+        }
+      },
+      "page_reviews": [
+        {
+          "page": 1,
+          "visual_check": "PASS",
+          "render": "runtime/pdf-review-agent/guide-1.png",
+          "text_characters": 1008,
+          "characters_outside_page": [],
+          "findings": []
+        },
+        {
+          "page": 2,
+          "visual_check": "PASS",
+          "render": "runtime/pdf-review-agent/guide-2.png",
+          "text_characters": 534,
+          "characters_outside_page": [],
+          "findings": []
+        },
+        {
+          "page": 3,
+          "visual_check": "PASS",
+          "render": "runtime/pdf-review-agent/guide-3.png",
+          "text_characters": 1210,
+          "characters_outside_page": [],
+          "findings": []
+        },
+        {
+          "page": 4,
+          "visual_check": "PASS",
+          "render": "runtime/pdf-review-agent/guide-4.png",
+          "text_characters": 1012,
+          "characters_outside_page": [],
+          "findings": []
+        }
+      ],
+      "render_stderr_empty": true,
+      "caption_added_by_layout": "工作详情实际画面。结果、资源归还和执行记录留在同一项工作中。",
+      "chinese_text_inventory_matches_source_and_caption": true
+    },
+    {
+      "pdf": "docs/release/artifacts/织算_五分钟路演与问答.pdf",
+      "source": "docs/release/ROADSHOW_5MIN.md",
+      "sha256": "1f70dff9c2449b244d8aa21781d012bb91a2f96fc2a1ead128b6a5b4b81732fb",
+      "source_sha256": "0aed352d55d10a19133ee651cd54e06ed473578e6c704ff14a6ecc7ddf694419",
+      "pages": 5,
+      "status": "PASS",
+      "chinese_text_inventory_matches_source": true,
+      "missing_chinese_chars": {},
+      "extra_chinese_chars": {},
+      "fonts": {
+        "/Helvetica": {
+          "subtype": "/Type1",
+          "embedded": false
+        },
+        "/AAAAAA+STHeitiSC-Light-1": {
+          "subtype": "/TrueType",
+          "embedded": true
+        },
+        "/AAAAAB+STHeitiSC-Light-1": {
+          "subtype": "/TrueType",
+          "embedded": true
+        },
+        "/AAAAAC+STHeitiSC-Light-1": {
+          "subtype": "/TrueType",
+          "embedded": true
+        },
+        "/AAAAAA+STHeitiSC-Medium-1": {
+          "subtype": "/TrueType",
+          "embedded": true
+        }
+      },
+      "page_reviews": [
+        {
+          "page": 1,
+          "visual_check": "PASS",
+          "render": "runtime/pdf-review-agent/roadshow-1.png",
+          "text_characters": 823,
+          "characters_outside_page": [],
+          "findings": []
+        },
+        {
+          "page": 2,
+          "visual_check": "PASS",
+          "render": "runtime/pdf-review-agent/roadshow-2.png",
+          "text_characters": 841,
+          "characters_outside_page": [],
+          "findings": []
+        },
+        {
+          "page": 3,
+          "visual_check": "PASS",
+          "render": "runtime/pdf-review-agent/roadshow-3.png",
+          "text_characters": 987,
+          "characters_outside_page": [],
+          "findings": []
+        },
+        {
+          "page": 4,
+          "visual_check": "PASS",
+          "render": "runtime/pdf-review-agent/roadshow-4.png",
+          "text_characters": 1004,
+          "characters_outside_page": [],
+          "findings": []
+        },
+        {
+          "page": 5,
+          "visual_check": "PASS",
+          "render": "runtime/pdf-review-agent/roadshow-5.png",
+          "text_characters": 378,
+          "characters_outside_page": [],
+          "findings": []
+        }
+      ],
+      "render_stderr_empty": true
+    }
+  ],
+  "roadshow_review": {
+    "facts": "Numeric claims and baseline boundaries match FINAL_LOSS_ACCOUNTING.md; no new claim of superior algorithm or GPU speedup.",
+    "reserved_seconds": 20,
+    "time_segments": [
+      {
+        "section": "0:00–0:30",
+        "spoken_character_proxy": 82,
+        "estimated_seconds_at_240_chars_per_minute": 20.5
+      },
+      {
+        "section": "0:30–1:00",
+        "spoken_character_proxy": 95,
+        "estimated_seconds_at_240_chars_per_minute": 23.8
+      },
+      {
+        "section": "1:00–2:10",
+        "spoken_character_proxy": 150,
+        "estimated_seconds_at_240_chars_per_minute": 37.5
+      },
+      {
+        "section": "2:10–3:00",
+        "spoken_character_proxy": 143,
+        "estimated_seconds_at_240_chars_per_minute": 35.8
+      },
+      {
+        "section": "3:00–4:05",
+        "spoken_character_proxy": 184,
+        "estimated_seconds_at_240_chars_per_minute": 46.0
+      },
+      {
+        "section": "4:05–4:20",
+        "spoken_character_proxy": 41,
+        "estimated_seconds_at_240_chars_per_minute": 10.2
+      },
+      {
+        "section": "4:20–4:40",
+        "spoken_character_proxy": 59,
+        "estimated_seconds_at_240_chars_per_minute": 14.8
+      }
+    ],
+    "human_rehearsal": "NOT_RUN",
+    "remaining_risk": "Live operation latency and speaking pace require two human timed rehearsals; no final five-minute runtime PASS claimed."
+  }
+}

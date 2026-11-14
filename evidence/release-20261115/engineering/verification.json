@@ -1,0 +1,33 @@
+{
+  "recorded_at": "2026-11-14T21:17:58.394400+00:00",
+  "scope": "Engineering checks, not complete CP4 acceptance",
+  "python": {
+    "passed": 1276,
+    "warnings": 1,
+    "log": "cp0.log"
+  },
+  "contracts_and_ruff": "PASS",
+  "first_make_cp0": {
+    "exit_code": 2,
+    "cause": "Old copy test expected visible header ID; killed DOM serialization-heavy failing child; preserved log"
+  },
+  "after_test_alignment": {
+    "ui_passed": 130,
+    "ui_failed": 0,
+    "api_client_passed": 16,
+    "typescript_build": "PASS",
+    "static_check": "PASS",
+    "real_http_smoke_passed": 5,
+    "continuation_exit_code": 0,
+    "final_ui_passed": 131,
+    "final_ui_log": "ui-freeze-final.log"
+  },
+  "full_formal_125_suite_rerun": false,
+  "final_source_commit": "b5e72c1627871d34a2c6669771cee898eea36a30",
+  "later_ui_race": {
+    "log": "ui-freeze.log",
+    "cause": "Fixed 5ms wait raced DOM anchor hashchange; test now waits for actual route and loaded visible device state",
+    "product_code_changed": false,
+    "resolved": true
+  }
+}

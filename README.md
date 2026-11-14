@@ -1,76 +1,54 @@
 # 织算 Campus Fabric
 
-校园共享计算服务：申请、收回、接续与可追问的决定。
+校园临时共享算力：贡献者收回设备，使用者沿同一项工作继续。
 
-**最新联合分支：** `integration/ui-final-20261115` 接入 B 的 `4d25467`，包含导航动效、折叠和 ID 复制；联合对齐补充持久化工作名称、长名称布局与键盘复制焦点。进展和验证范围见 [本轮联合对齐](docs/handoff/UI_FINAL_ALIGNMENT_20261115.md)。
+当前收尾分支：`release/final-20261115`。已合入新 UI，并完成最终一轮页面删减、工作流调整和实际浏览器验证。旧 B 交接任务已经结束，历史文档保留在 `docs/handoff/`，不再作为当前操作入口。
 
-**B 下一步：** 按用户试用后的 [交互终稿修改清单](docs/handoff/B_UI_FINAL_REVISION.md) 逐屏审查与修改。全站删除重复解释和低价值入口，重做首页信息层级与操作主路径；持久化工作名称已接通，保留该契约。不只修清单中的几个例子。此分支完成联合接入，尚未完成这轮交互终稿。
+## 直接开始
 
-**本轮接管总入口：** [新 UI 快速上手](docs/handoff/UI_JOINT_QUICKSTART.md) 与 [联合对齐记录](docs/handoff/UI_FINAL_ALIGNMENT_20261115.md)。最新分支为 `integration/ui-final-20261115`；旧 `integration/ui-backend-20261115` 的接入过程保留为历史记录。此前架构与展示准备见 [B 接管与最终展示准备](docs/handoff/FINAL_PREPARATION.md)。当前仍是候选，最终 CP4、B 新 UI 真人与同构建实录未完成。路演以 [主张与评分策略](docs/presentation/STRATEGY.md)、[逐页讲述](docs/presentation/STORYBOARD.md) 和 [现场执行手册](docs/presentation/DEMO_RUNBOOK.md) 为准，不把设计稿或计划写成已完成演示。
+- [上台前阅读手册](docs/release/MORNING_GUIDE.md)：产品原理、页面、账户和完整操作。
+- [五分钟路演与问答](docs/release/ROADSHOW_5MIN.md)：一条真实收回接续链、三臂成本对照、六项评分覆盖。
+- [最终验收记录](docs/release/FINAL_ACCEPTANCE.md)：实际通过项、复现方法和冻结范围。
+- [界面修改清单](docs/release/FINAL_UI_CHANGES.md)：本轮删除、调整和问题修复。
+- [损失核算与强基线](docs/research/FINAL_LOSS_ACCOUNTING.md)：先算清保住多少计算，再比较贡献者等待；未开发无额外收益的复杂策略。
+- 可打印：[阅读手册 PDF](docs/release/artifacts/织算_上台前阅读手册.pdf)、[路演与问答 PDF](docs/release/artifacts/织算_五分钟路演与问答.pdf)。
 
-**当前：B 新 UI 已完成联合接入，可本地试用；CP4 完整验收仍未通过。** 新界面上的真实 CPU 接续、失败、归还、下载和权限隔离已有本轮记录；规模/延迟、真人干净部署、交叉操作及最终实录仍单独核验。当前放置评分路线冻结，R=1.00保留为未达；新工作选择机制有局部收益，也存在严重Owner损害反例，未推广到产品。参见 [CP4后续诊断与评审](evidence/cp4-next/README.md)、[策略瓶颈](docs/research/CP3_BOTTLENECK_AND_DIRECTION.md) 和 [CP4准入记录](docs/handoff/CP4_ENTRY.md)。原CP3分支与证据仍保留，见 [CP3历史收尾](docs/handoff/CP3_CLOSEOUT.md)。阶段准入、设计交接与正式通过分别记录。
+已有本机试用：CPU 实例 <http://127.0.0.1:15253>，逻辑模拟 <http://127.0.0.1:15252>。这两个地址只适用于已经启动本仓库的当前电脑。CPU 身份文件在 `runtime/release-preview/cpu/client-identities.json`，不纳入 Git。页面可直接连接账户，身份文件导入保留为快捷方式。
 
-**B双空间UI：** 已接入 `7c71b3e` 的可信账户能力接口，实现总览、工作台及同账户使用/贡献入口。总览保留黑色 Starwave 与中性毛玻璃，工作台采用不透明业务表面；旧业务链接保持可达。交付、截图与验证范围见 [B 双空间交付记录](docs/handoff/B_UI_V2_DELIVERY.md)。页头横向手势默认关闭，物理触控板与 Safari 尚待真人验证；本轮界面检查不代表完整 CP4 通过，原验收实例未被改权或重启。设计来源见 [双页界面设计说明](docs/design/UI_DESIGN_SPEC.md)、[UI接管步骤](docs/handoff/UI_B_HANDOFF.md) 和 [后端接线说明](docs/handoff/ACCOUNT_CAPABILITIES.md)。
+## 从干净目录启动
 
-**架构候选：** `work/storage-architecture` 继承上述交接，改用实体事务存储和增量状态校验，保留历史、原子提交和独立重放。接口兼容、迁移与回退说明见 [架构交接](docs/handoff/STORAGE_ARCHITECTURE.md)，实际测试与性能结果保存在 `evidence/storage-architecture/`。该候选不能继承旧构建的正式通过结论；完整 CP4 和新 UI 真人验收仍须逐项核对。
-
-CP1 审计补修包含身份应用、重复查询、授权决策解释、工作关联导航及验收回执读取，详见 [CP1 补修交接](docs/handoff/CP1_B_FIXES.md)。原人工验收实例保留，补修版使用独立工作树和端口。
-
-协作仓库：https://github.com/Woebegone-67/campus-gpu-fabric
-
-仓库可见性以GitHub实时设置为准。当前私有访问需使用各自GitHub身份；xuyangma的write权限已生效。Codex桌面本地开发只需克隆后打开项目文件夹，不要求在GitHub应用安装列表选中仓库。切勿共享凭据。
-
-| 负责人 | 主线 | 开发分支 | 先读 |
-|---|---|---|---|
-| A · Xiuzhu Du / `Woebegone-67` | 可信资源与执行 | `work/a-cp3` | [CP3接线](docs/handoff/CP3_A_TO_B.md) / [A任务书](docs/handoff/OWNER_A.md) |
-| B · `xuyangma` | 服务决策与操作体验 | `feat/b-cp3` | [B开发任务书](docs/handoff/OWNER_B.md) |
-
-## 启动与验收
-
-CP4 新候选的独立启动、完整重放、规模负载及正式核验入口见
-[CP4 候选实施](docs/handoff/CP4_CANDIDATE.md)。`make cp4` 实际运行可靠性检查并汇集七项证据；
-`make cp4-collect` 只读复核现有材料。缺少真人、实录或未达到规模/延迟目标时仍返回非零，不能据此宣称 CP4 通过。
-旧 CP3 报告可按候选说明显式配置只读归档及两个固定摘要；页面保留原实验构建与审核范围，历史报告不能替代当前构建验收。
-
-需要Git、uv、Python 3.12、Node 22.12+（22.x）、npm和make。依赖固定在`uv.lock`与`web/package-lock.json`；无需 GPU 或 Kubernetes 即可运行逻辑模拟与固定参考 CPU 进程；CPU 进程控制要求 macOS/Linux。
+需要 Git、uv、Python 3.12、Node 22.12+（22.x）、npm 和 make。无需真实 GPU；CPU 进程控制要求 macOS/Linux。端口被占用时选择另一组端口，不停止其他实例。
 
 ```bash
-git clone https://github.com/Woebegone-67/campus-gpu-fabric.git
+git clone --branch release/final-20261115 https://github.com/Woebegone-67/campus-gpu-fabric.git
 cd campus-gpu-fabric
 uv python install 3.12
 make setup
-make cp0
-make checkpoint CP=CP0
+uv run python scripts/cp2_joint_session.py start   --runtime runtime/my-demo   --logical-api-port 18262 --logical-web-port 15262   --cpu-api-port 18263 --cpu-web-port 15263
 ```
 
-`make cp0`检查生成契约是否过时，运行Python静态检查与测试、前端组件交互回归，构建Web，执行静态CP0验收，并启动真实HTTP子进程进行运行主机冒烟。回执在`evidence/cp0/`，属于本地生成物。`make checkpoint CP=CP0`检查这些回执是否对应当前构建。
+打开 CPU 页面 <http://127.0.0.1:15263>，展开“从身份文件连接”，选择 `runtime/my-demo/cpu/client-identities.json`，再选 Alice。Supplier 有演示设备，且同样可以提交工作；Admin 有全局管理权限。逻辑实例使用其 `logical/` 目录内的身份文件，不能混用凭证。
 
-运行两个终端：
+CPU 模式执行固定参考程序并生成可核验结果；GPU 库存是模拟的。逻辑模式使用可推进的模拟时钟。两种模式的工作、资源、身份独立，均不执行任意用户镜像或 CUDA 训练。
+
+停止自己刚创建的会话：
 
 ```bash
-# 终端1：新 CP2 逻辑实例，不触碰 CP1 运行目录
-FABRIC_INSTANCE=cp2-b-logical FABRIC_MODE=logical_simulation \
-FABRIC_DATA_DIR="$PWD/runtime/cp2-b-logical" \
-FABRIC_AUTH_FILE="$PWD/runtime/cp2-b-logical/auth.json" \
-FABRIC_INVENTORY_FILE="$PWD/configs/cp1_inventory.json" \
-FABRIC_SCHEDULING_MODE=external FABRIC_B_POLICY=P PORT=18083 bash web/dev-local.sh api
-# 终端2
-FABRIC_API_TARGET=http://127.0.0.1:18083 WEB_PORT=15176 bash web/dev-local.sh web
+uv run python scripts/cp2_joint_session.py stop --runtime runtime/my-demo
 ```
 
-访问`http://127.0.0.1:15176`；API为`http://127.0.0.1:18083`。首次启动在 `runtime/cp2-b-logical/` 创建本地演示凭据。在页面右上角“当前身份”导入该目录的 `client-identities.json`，再选择 alice、bob、supplier 或 admin。凭据只保留在浏览器内存；刷新后需重新导入。开发host仅绑定本机，Web代理不包含`/_test`。
+## 验证与研究
 
-每人使用自己的clone、端口与`runtime/<owner>`。上面的集成入口组装 B 查询与工作流，并保留 A CPU 驱动生命周期；A 的 `make api` 默认在8080提供内核接口，不自动推进 B 工作流。端口可通过 `PORT`、`WEB_PORT` 调整。不要把实验reset指向另一人的实例。环境变量需由启动 shell 显式设置，程序不会自动加载 `.env`。
+```bash
+make cp0
+npm --prefix web run test:client
+```
 
-## 从哪里开始读
+`make cp0` 检查契约、静态规则、Python 测试、UI 交互、构建及真实 HTTP 冒烟。本轮完整后端检查只运行一次；发现旧 UI 测试定位问题后只重跑受影响的前端与下游检查。具体数量、退出结果和原始失败见最终验收记录。
 
-0. [CP3 当前交付](docs/CP3_A_DELIVERY.md) 与 [CP3 接线](docs/handoff/CP3_A_TO_B.md)；[CP2 交付](docs/CP2_A_DELIVERY.md)及更早文档作为对应版本的历史记录。
-1. 自己的任务书：[A](docs/handoff/OWNER_A.md) / [B](docs/handoff/OWNER_B.md)。
-2. [共同checkpoint](docs/handoff/CHECKPOINTS.md)、[交接模板](docs/handoff/HANDOFF_TEMPLATE.md)。
-3. [共享契约](docs/CONTRACTS.md)、[产品扩展接口](docs/EXTENSIONS.md)、[状态与占用](docs/STATE_MODEL.md)、[暂定语义及来源](docs/SEMANTICS.md)。
-4. [终态产品](docs/PRODUCT.md)、[验收与证据](docs/ACCEPTANCE.md)。
+真实浏览器证据位于 `evidence/release-20261115/`。正式旧 CP3 报告仍是历史数据；本轮只验证其页面和原字节下载，没有重跑 125 组实验。新的损失核算仅包含四条件、三策略的最小对照。原 P/B2=1.00、规模和延迟未达结果保留，不用新的指标覆盖旧负例。
 
-`docs/blueprint/`保存本轮已选择的完整蓝图，按需查阅。正式依据是[challenge](spec/official/challenge.md)和[原始OpenAPI](spec/official/api/openapi.yaml)；[补充说明](spec/official/participant_supplement.pdf)解释题意。`spec/official/manifest.json`核对原字节，绝不静默修订官方文件。
+评分以 [challenge.md](spec/official/challenge.md) 的 55/45 为准，路演为五分钟。作品按本轮已验证范围冻结；完整 CP4、独立真人部署、Safari 和物理触控板没有因本机测试而补记通过。未来工作优先改变有代表性的负载与约束，不继续投入没有收益的评分微调。
 
 ## 工程地图
 
@@ -98,73 +76,8 @@ deploy/                      A：后续部署配置
 
 更新`src/campus_fabric/contracts`后运行`make contracts`，同时提交JSON Schema与TypeScript产物。`make cp0`会拒绝过时生成物。契约模型核验数据形状和局部语义；物理可行性、原子账本、权限仍要由A内核独立保证。
 
-## 协作与合入
+## 规范与历史
 
-首次从自己的分支开始：
+公共 API 原件在 `spec/official/api/openapi.yaml`；`spec/official/manifest.json` 保存来源摘要。核心约束见 [共享契约](docs/CONTRACTS.md)、[状态与占用](docs/STATE_MODEL.md)、[产品扩展](docs/EXTENSIONS.md)。
 
-```bash
-git fetch origin
-# A使用以下一行；B改为work/b-product
-git switch work/a-cp3
-git pull --ff-only
-```
-
-沿各自目录连续开发，小而完整地提交，通过PR合入main。跨边界变更先发准确契约diff；共享契约由A合入、双方检查。两人各自写测试和说明，不把全部验收杂务交给B。
-
-提交前运行`make cp0`；后续使用`make checkpoint CP=CP1`等入口，缺失/过期/未运行证据应失败。不能拿CP0的501占位测试替代业务测试：实现对应操作时更新责任表、CP0状态检查和业务验收，保持“实际实现什么就声明什么”。
-
-CI在push/PR运行 `make cp3-a`：A CP3 可靠性门槛、CP0–CP2 回归、B 页面组件与真实 TCP 接续检查。代码审阅责任写在`.github/CODEOWNERS`；它与远端分支保护是否启用是两回事。CP1–CP5的高标准定义不会因一个构建成功自动达成。
-
-## 来源与边界
-
-- 当前有两种隔离模式：`logical_simulation` 是固定 10 秒模型；`cpu_reference` 运行真实固定整数参考程序。两者均不运行提交的 image/command/env，也不代表真实 GPU 执行。CPU 模式的目录、请求模式和证据见 [CP2 接线](docs/handoff/CP2_A_TO_B.md)。
-- 团队暂定语义集中在`configs/semantics.json`。正式答疑到达时局部调整，不改官方原件。
-- 内部契约与产品扩展不增加基础客户端必填字段。WorkIntent计时从意图到达开始，不从获配后创建job开始。
-- 仓库用于竞赛协作，尚未添加开源许可证。第三方库保留其许可；AI协助生成及测试 CP0–CP3 代码和文档，记录见各阶段交付文档。
-- 此仓库不含旧MCM原始数据、历史实验、论文或凭据。
-
-## 验证入口与历史记录
-
-合并后的技术验收入口为 `make cp1-joint`，它实际启动 A+B 集成进程，检查自动编排、并发、响应丢失、硬重启及部分成功。它不代替双人操作。[CP1 联合验收](docs/review/CP1_ACCEPTANCE_DECISION.md)和[交接清单](docs/review/CP1_HUMAN_HANDOFF.md)保留早期审查状态；之后用户在会话确认双方完成操作并授权 CP2。该确认不替代新构建的 CP2 联合回执。
-
-```bash
-make cp1-a
-# 使用明确模拟库存；默认本地 X-Owner 身份，不开放公网
-FABRIC_INSTANCE=owner-a FABRIC_INVENTORY_FILE=configs/cp1_inventory.json make api
-```
-
-`make cp1-a` 在隔离目录启动真实 HTTP 进程，检查并发、租约、响应丢失和重启，写入 `evidence/cp1/a_core_receipt.json`。它不替代 `make checkpoint CP=CP1` 的双人 UI 与联合门槛。没有联合证据时，该门槛应继续失败。库存仅首次创建数据库时载入；reset 后保持空库存，重启不会偷偷补回。
-
-配置三角色本地演示：
-
-```bash
-uv run python scripts/init_cp1_demo.py runtime/demo
-FABRIC_DATA_DIR=runtime/demo FABRIC_AUTH_FILE=runtime/demo/auth.json FABRIC_INVENTORY_FILE=configs/cp1_inventory.json make api
-```
-
-`runtime/demo/client-identities.json` 是本机调用所需的请求头，只交给本地开发界面，不加入源码、构建或录像。测试密钥另行在服务端设置；普通用户和贡献者路径不需要测试后门。
-
-CP2 A 完整验收与专项入口：
-
-```sh
-make cp2-a
-# 以下为按需单项复验
-uv run python tests/acceptance/cp2/cp2_all_operations.py
-uv run python tests/acceptance/cp2/cp2_cpu_reference.py
-```
-
-两份脚本在独立临时实例运行真实 TCP 请求，后者启动真实 CPU 进程。回执写入 `evidence/cp2/`，源码更新后须重新核验构建匹配。B 六工作台、三角色交叉操作和联合 CP2 放行独立记录，不由后端检查自动通过。
-
-B CP2 技术回归：`make cp2-b`。它不自动签署人工验收。隔离场景 CLI、CPU 演示启动及六工作台人工步骤见 [CP2_B_TO_A](docs/handoff/CP2_B_TO_A.md)。
-
-CP3 A 完整入口：
-
-```sh
-make cp3-a
-# 联合门槛：B 与联合证据未齐时必须失败，不能以 A 通过替代
-make checkpoint CP=CP3
-```
-
-专项入口与证据范围见 [CP3 交付](docs/CP3_A_DELIVERY.md)。测试创建独立临时目录和端口；不需要重置现有人工验收实例。
-
-B CP3 入口见 [B 交付与边界](docs/CP3_B_DELIVERY.md) 和 [冻结实验协议](experiments/CP3_POLICY_SUITE.md)。在已提交的稳定构建上依次冻结、运行、分析实验，再执行 `make cp3-b`；它合并同构建 A 回执，明确保留效果未达标与完整重放、场景覆盖缺口。报告可在“事件与实验”读取，结果和租约结算可在“任务连续性”首屏查看。管理员总览 409 的 A 侧修复已合入，联合验收会重跑真实 HTTP 回归。新人工实例使用独立目录与端口，旧 CP2 实例保留。
+历次阶段交付和协作记录保留在 `docs/handoff/`。它们描述当时版本，不覆盖本页的最新启动方式、最终验收或五分钟路演。原架构性能困境见 [历史收尾](evidence/resource-locality/CLOSEOUT.md)，最终独立只读审查见 [复核报告](docs/release/FINAL_REVIEW.md)。

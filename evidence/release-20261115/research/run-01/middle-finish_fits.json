@@ -1,0 +1,3871 @@
+{
+  "actual_branch": "finish_before_save_boundary",
+  "arm": "finish_fits",
+  "arrival_ns": 527695661469291,
+  "artifacts": [
+    {
+      "independent_oracle_equal": true,
+      "original_sha256": "38c3e3ec94ca565fbb0f167bf9bfacb2a94839f802f2a1e0c158d2611c1e0682",
+      "payload": {
+        "algorithm": "lcg64-indexed-v1",
+        "attempt": {
+          "allocation_id": "research-allocation",
+          "attempt_id": "attempt-1",
+          "generation": 1,
+          "intent_id": "research-work",
+          "job_id": "research-job"
+        },
+        "epoch": 0,
+        "finished_monotonic_ns": 527696795205583,
+        "kind": "result",
+        "owner_id": "alice",
+        "pid": 86207,
+        "started_monotonic_ns": 527695707258333,
+        "state": {
+          "step": 10000000,
+          "value": 6275713146641809233
+        },
+        "total_steps": 10000000,
+        "workload_id": "61cdcfe4a95d46532d43778a273645679e0438796861c2a6d9f57c31713167eb"
+      }
+    }
+  ],
+  "baseline_opportunity": {
+    "action": "checkpoint",
+    "estimator": "2x slowest observed progress-interval seconds per step",
+    "remaining_seconds_upper_estimate": 1.8873666000000002,
+    "safety_margin_seconds": 0.1,
+    "scope": "causal decision opportunity check only; finish was not executed"
+  },
+  "case": "middle",
+  "dispatches": [
+    {
+      "action": "start",
+      "end_ns": 527695667101625,
+      "generation": 1,
+      "start_ns": 527695661585333
+    }
+  ],
+  "errors": [],
+  "events": [
+    {
+      "event": {
+        "attempt": {
+          "allocation_id": "research-allocation",
+          "attempt_id": "attempt-1",
+          "generation": 1,
+          "intent_id": "research-work",
+          "job_id": "research-job"
+        },
+        "callback_id": "cpu-45848f817f4b69beb48acd36-1",
+        "checkpoint": null,
+        "error": null,
+        "kind": "started",
+        "mode": "cpu_reference",
+        "observed_at": 0.046464417,
+        "physical_elapsed_seconds": 0.046426583,
+        "result_uri": null,
+        "version": {
+          "epoch": 0,
+          "revision": 0
+        }
+      },
+      "received_ns": 527695710406625
+    },
+    {
+      "event": {
+        "attempt": {
+          "allocation_id": "research-allocation",
+          "attempt_id": "attempt-1",
+          "generation": 1,
+          "intent_id": "research-work",
+          "job_id": "research-job"
+        },
+        "callback_id": "cpu-45848f817f4b69beb48acd36-2",
+        "checkpoint": null,
+        "error": null,
+        "kind": "completed",
+        "mode": "cpu_reference",
+        "observed_at": 1.138969084,
+        "physical_elapsed_seconds": 1.138917958,
+        "result_uri": "fabric-cpu://45848f817f4b69beb48acd36/25b4a157f7c0220e10faa891573a2e38c26a3c1e5b679a27f19be148a22d0480",
+        "version": {
+          "epoch": 0,
+          "revision": 0
+        }
+      },
+      "received_ns": 527696801383500
+    }
+  ],
+  "finished_ns": 527696801751083,
+  "measurements": [
+    {
+      "compute": [
+        {
+          "cpu_ns": 4335000,
+          "end_ns": 527695712385333,
+          "end_step": 50000,
+          "start_ns": 527695708024125,
+          "start_step": 0
+        },
+        {
+          "cpu_ns": 5795000,
+          "end_ns": 527695718852208,
+          "end_step": 100000,
+          "start_ns": 527695712979583,
+          "start_step": 50000
+        },
+        {
+          "cpu_ns": 4488000,
+          "end_ns": 527695723960000,
+          "end_step": 150000,
+          "start_ns": 527695719376958,
+          "start_step": 100000
+        },
+        {
+          "cpu_ns": 5430000,
+          "end_ns": 527695729876666,
+          "end_step": 200000,
+          "start_ns": 527695724397250,
+          "start_step": 150000
+        },
+        {
+          "cpu_ns": 4825000,
+          "end_ns": 527695735839791,
+          "end_step": 250000,
+          "start_ns": 527695730686916,
+          "start_step": 200000
+        },
+        {
+          "cpu_ns": 6134000,
+          "end_ns": 527695742504541,
+          "end_step": 300000,
+          "start_ns": 527695736360500,
+          "start_step": 250000
+        },
+        {
+          "cpu_ns": 4111000,
+          "end_ns": 527695747254208,
+          "end_step": 350000,
+          "start_ns": 527695743129833,
+          "start_step": 300000
+        },
+        {
+          "cpu_ns": 3861000,
+          "end_ns": 527695751832750,
+          "end_step": 400000,
+          "start_ns": 527695747970875,
+          "start_step": 350000
+        },
+        {
+          "cpu_ns": 7355000,
+          "end_ns": 527695759710166,
+          "end_step": 450000,
+          "start_ns": 527695752347833,
+          "start_step": 400000
+        },
+        {
+          "cpu_ns": 5725000,
+          "end_ns": 527695766139791,
+          "end_step": 500000,
+          "start_ns": 527695760382125,
+          "start_step": 450000
+        },
+        {
+          "cpu_ns": 3611000,
+          "end_ns": 527695770604791,
+          "end_step": 550000,
+          "start_ns": 527695766989500,
+          "start_step": 500000
+        },
+        {
+          "cpu_ns": 3743000,
+          "end_ns": 527695774813791,
+          "end_step": 600000,
+          "start_ns": 527695771064166,
+          "start_step": 550000
+        },
+        {
+          "cpu_ns": 4612000,
+          "end_ns": 527695782224416,
+          "end_step": 650000,
+          "start_ns": 527695775414041,
+          "start_step": 600000
+        },
+        {
+          "cpu_ns": 3574000,
+          "end_ns": 527695786342875,
+          "end_step": 700000,
+          "start_ns": 527695782707666,
+          "start_step": 650000
+        },
+        {
+          "cpu_ns": 4075000,
+          "end_ns": 527695790971583,
+          "end_step": 750000,
+          "start_ns": 527695786860166,
+          "start_step": 700000
+        },
+        {
+          "cpu_ns": 5062000,
+          "end_ns": 527695797811166,
+          "end_step": 800000,
+          "start_ns": 527695791896333,
+          "start_step": 750000
+        },
+        {
+          "cpu_ns": 3611000,
+          "end_ns": 527695802033291,
+          "end_step": 850000,
+          "start_ns": 527695798421416,
+          "start_step": 800000
+        },
+        {
+          "cpu_ns": 3797000,
+          "end_ns": 527695806226166,
+          "end_step": 900000,
+          "start_ns": 527695802429750,
+          "start_step": 850000
+        },
+        {
+          "cpu_ns": 3932000,
+          "end_ns": 527695810580833,
+          "end_step": 950000,
+          "start_ns": 527695806648125,
+          "start_step": 900000
+        },
+        {
+          "cpu_ns": 3882000,
+          "end_ns": 527695814915458,
+          "end_step": 1000000,
+          "start_ns": 527695811033458,
+          "start_step": 950000
+        },
+        {
+          "cpu_ns": 4250000,
+          "end_ns": 527695819599000,
+          "end_step": 1050000,
+          "start_ns": 527695815323916,
+          "start_step": 1000000
+        },
+        {
+          "cpu_ns": 3922000,
+          "end_ns": 527695824078666,
+          "end_step": 1100000,
+          "start_ns": 527695820151708,
+          "start_step": 1050000
+        },
+        {
+          "cpu_ns": 4058000,
+          "end_ns": 527695828574041,
+          "end_step": 1150000,
+          "start_ns": 527695824500750,
+          "start_step": 1100000
+        },
+        {
+          "cpu_ns": 3928000,
+          "end_ns": 527695833102333,
+          "end_step": 1200000,
+          "start_ns": 527695829174166,
+          "start_step": 1150000
+        },
+        {
+          "cpu_ns": 3913000,
+          "end_ns": 527695837538916,
+          "end_step": 1250000,
+          "start_ns": 527695833621791,
+          "start_step": 1200000
+        },
+        {
+          "cpu_ns": 5088000,
+          "end_ns": 527695843647916,
+          "end_step": 1300000,
+          "start_ns": 527695838174958,
+          "start_step": 1250000
+        },
+        {
+          "cpu_ns": 4057000,
+          "end_ns": 527695848174500,
+          "end_step": 1350000,
+          "start_ns": 527695844109416,
+          "start_step": 1300000
+        },
+        {
+          "cpu_ns": 5138000,
+          "end_ns": 527695854177250,
+          "end_step": 1400000,
+          "start_ns": 527695848797541,
+          "start_step": 1350000
+        },
+        {
+          "cpu_ns": 3847000,
+          "end_ns": 527695858729458,
+          "end_step": 1450000,
+          "start_ns": 527695854880500,
+          "start_step": 1400000
+        },
+        {
+          "cpu_ns": 3813000,
+          "end_ns": 527695863011750,
+          "end_step": 1500000,
+          "start_ns": 527695859198208,
+          "start_step": 1450000
+        },
+        {
+          "cpu_ns": 5856000,
+          "end_ns": 527695869290166,
+          "end_step": 1550000,
+          "start_ns": 527695863363583,
+          "start_step": 1500000
+        },
+        {
+          "cpu_ns": 3899000,
+          "end_ns": 527695873947666,
+          "end_step": 1600000,
+          "start_ns": 527695870048750,
+          "start_step": 1550000
+        },
+        {
+          "cpu_ns": 4081000,
+          "end_ns": 527695878484000,
+          "end_step": 1650000,
+          "start_ns": 527695874393000,
+          "start_step": 1600000
+        },
+        {
+          "cpu_ns": 4187000,
+          "end_ns": 527695883481083,
+          "end_step": 1700000,
+          "start_ns": 527695879280000,
+          "start_step": 1650000
+        },
+        {
+          "cpu_ns": 4420000,
+          "end_ns": 527695888473541,
+          "end_step": 1750000,
+          "start_ns": 527695884040916,
+          "start_step": 1700000
+        },
+        {
+          "cpu_ns": 5641000,
+          "end_ns": 527695894574583,
+          "end_step": 1800000,
+          "start_ns": 527695888916500,
+          "start_step": 1750000
+        },
+        {
+          "cpu_ns": 6547000,
+          "end_ns": 527695902434041,
+          "end_step": 1850000,
+          "start_ns": 527695895336416,
+          "start_step": 1800000
+        },
+        {
+          "cpu_ns": 6337000,
+          "end_ns": 527695909246875,
+          "end_step": 1900000,
+          "start_ns": 527695902842541,
+          "start_step": 1850000
+        },
+        {
+          "cpu_ns": 5084000,
+          "end_ns": 527695915023458,
+          "end_step": 1950000,
+          "start_ns": 527695909692708,
+          "start_step": 1900000
+        },
+        {
+          "cpu_ns": 5066000,
+          "end_ns": 527695920991000,
+          "end_step": 2000000,
+          "start_ns": 527695915919750,
+          "start_step": 1950000
+        },
+        {
+          "cpu_ns": 6452000,
+          "end_ns": 527695927982083,
+          "end_step": 2050000,
+          "start_ns": 527695921504458,
+          "start_step": 2000000
+        },
+        {
+          "cpu_ns": 4175000,
+          "end_ns": 527695932742250,
+          "end_step": 2100000,
+          "start_ns": 527695928550375,
+          "start_step": 2050000
+        },
+        {
+          "cpu_ns": 4418000,
+          "end_ns": 527695937663041,
+          "end_step": 2150000,
+          "start_ns": 527695933223875,
+          "start_step": 2100000
+        },
+        {
+          "cpu_ns": 4099000,
+          "end_ns": 527695942241125,
+          "end_step": 2200000,
+          "start_ns": 527695938131333,
+          "start_step": 2150000
+        },
+        {
+          "cpu_ns": 5142000,
+          "end_ns": 527695947891083,
+          "end_step": 2250000,
+          "start_ns": 527695942741875,
+          "start_step": 2200000
+        },
+        {
+          "cpu_ns": 3970000,
+          "end_ns": 527695952546666,
+          "end_step": 2300000,
+          "start_ns": 527695948571791,
+          "start_step": 2250000
+        },
+        {
+          "cpu_ns": 4283000,
+          "end_ns": 527695957436500,
+          "end_step": 2350000,
+          "start_ns": 527695953004541,
+          "start_step": 2300000
+        },
+        {
+          "cpu_ns": 4072000,
+          "end_ns": 527695962307000,
+          "end_step": 2400000,
+          "start_ns": 527695958082500,
+          "start_step": 2350000
+        },
+        {
+          "cpu_ns": 4063000,
+          "end_ns": 527695966932291,
+          "end_step": 2450000,
+          "start_ns": 527695962849208,
+          "start_step": 2400000
+        },
+        {
+          "cpu_ns": 4937000,
+          "end_ns": 527695972514041,
+          "end_step": 2500000,
+          "start_ns": 527695967377500,
+          "start_step": 2450000
+        },
+        {
+          "cpu_ns": 3892000,
+          "end_ns": 527695976967750,
+          "end_step": 2550000,
+          "start_ns": 527695972985166,
+          "start_step": 2500000
+        },
+        {
+          "cpu_ns": 3919000,
+          "end_ns": 527695981408625,
+          "end_step": 2600000,
+          "start_ns": 527695977489541,
+          "start_step": 2550000
+        },
+        {
+          "cpu_ns": 4135000,
+          "end_ns": 527695985954208,
+          "end_step": 2650000,
+          "start_ns": 527695981800666,
+          "start_step": 2600000
+        },
+        {
+          "cpu_ns": 4048000,
+          "end_ns": 527695990343333,
+          "end_step": 2700000,
+          "start_ns": 527695986280791,
+          "start_step": 2650000
+        },
+        {
+          "cpu_ns": 4098000,
+          "end_ns": 527695994790250,
+          "end_step": 2750000,
+          "start_ns": 527695990667750,
+          "start_step": 2700000
+        },
+        {
+          "cpu_ns": 4037000,
+          "end_ns": 527695999229208,
+          "end_step": 2800000,
+          "start_ns": 527695995170125,
+          "start_step": 2750000
+        },
+        {
+          "cpu_ns": 5122000,
+          "end_ns": 527696004772833,
+          "end_step": 2850000,
+          "start_ns": 527695999585166,
+          "start_step": 2800000
+        },
+        {
+          "cpu_ns": 4566000,
+          "end_ns": 527696009998625,
+          "end_step": 2900000,
+          "start_ns": 527696005395500,
+          "start_step": 2850000
+        },
+        {
+          "cpu_ns": 3918000,
+          "end_ns": 527696014299291,
+          "end_step": 2950000,
+          "start_ns": 527696010381875,
+          "start_step": 2900000
+        },
+        {
+          "cpu_ns": 5187000,
+          "end_ns": 527696020121833,
+          "end_step": 3000000,
+          "start_ns": 527696014641375,
+          "start_step": 2950000
+        },
+        {
+          "cpu_ns": 3882000,
+          "end_ns": 527696024600458,
+          "end_step": 3050000,
+          "start_ns": 527696020718000,
+          "start_step": 3000000
+        },
+        {
+          "cpu_ns": 3999000,
+          "end_ns": 527696029028208,
+          "end_step": 3100000,
+          "start_ns": 527696025007083,
+          "start_step": 3050000
+        },
+        {
+          "cpu_ns": 5452000,
+          "end_ns": 527696035082500,
+          "end_step": 3150000,
+          "start_ns": 527696029490125,
+          "start_step": 3100000
+        },
+        {
+          "cpu_ns": 6015000,
+          "end_ns": 527696041746166,
+          "end_step": 3200000,
+          "start_ns": 527696035727375,
+          "start_step": 3150000
+        },
+        {
+          "cpu_ns": 3914000,
+          "end_ns": 527696046208541,
+          "end_step": 3250000,
+          "start_ns": 527696042281208,
+          "start_step": 3200000
+        },
+        {
+          "cpu_ns": 4620000,
+          "end_ns": 527696051227125,
+          "end_step": 3300000,
+          "start_ns": 527696046583458,
+          "start_step": 3250000
+        },
+        {
+          "cpu_ns": 4254000,
+          "end_ns": 527696055946833,
+          "end_step": 3350000,
+          "start_ns": 527696051692166,
+          "start_step": 3300000
+        },
+        {
+          "cpu_ns": 4059000,
+          "end_ns": 527696060392958,
+          "end_step": 3400000,
+          "start_ns": 527696056333750,
+          "start_step": 3350000
+        },
+        {
+          "cpu_ns": 4425000,
+          "end_ns": 527696065205791,
+          "end_step": 3450000,
+          "start_ns": 527696060763708,
+          "start_step": 3400000
+        },
+        {
+          "cpu_ns": 4986000,
+          "end_ns": 527696070778083,
+          "end_step": 3500000,
+          "start_ns": 527696065782791,
+          "start_step": 3450000
+        },
+        {
+          "cpu_ns": 6413000,
+          "end_ns": 527696078184125,
+          "end_step": 3550000,
+          "start_ns": 527696071252041,
+          "start_step": 3500000
+        },
+        {
+          "cpu_ns": 5409000,
+          "end_ns": 527696084624958,
+          "end_step": 3600000,
+          "start_ns": 527696079059916,
+          "start_step": 3550000
+        },
+        {
+          "cpu_ns": 3893000,
+          "end_ns": 527696088964166,
+          "end_step": 3650000,
+          "start_ns": 527696085072291,
+          "start_step": 3600000
+        },
+        {
+          "cpu_ns": 4424000,
+          "end_ns": 527696094017000,
+          "end_step": 3700000,
+          "start_ns": 527696089356541,
+          "start_step": 3650000
+        },
+        {
+          "cpu_ns": 4282000,
+          "end_ns": 527696098989166,
+          "end_step": 3750000,
+          "start_ns": 527696094702833,
+          "start_step": 3700000
+        },
+        {
+          "cpu_ns": 4752000,
+          "end_ns": 527696104429958,
+          "end_step": 3800000,
+          "start_ns": 527696099648791,
+          "start_step": 3750000
+        },
+        {
+          "cpu_ns": 3904000,
+          "end_ns": 527696109161375,
+          "end_step": 3850000,
+          "start_ns": 527696105252916,
+          "start_step": 3800000
+        },
+        {
+          "cpu_ns": 6357000,
+          "end_ns": 527696115950708,
+          "end_step": 3900000,
+          "start_ns": 527696109587791,
+          "start_step": 3850000
+        },
+        {
+          "cpu_ns": 4089000,
+          "end_ns": 527696120651625,
+          "end_step": 3950000,
+          "start_ns": 527696116548541,
+          "start_step": 3900000
+        },
+        {
+          "cpu_ns": 5083000,
+          "end_ns": 527696126246666,
+          "end_step": 4000000,
+          "start_ns": 527696121146125,
+          "start_step": 3950000
+        },
+        {
+          "cpu_ns": 5105000,
+          "end_ns": 527696132223041,
+          "end_step": 4050000,
+          "start_ns": 527696126611666,
+          "start_step": 4000000
+        },
+        {
+          "cpu_ns": 3907000,
+          "end_ns": 527696136706375,
+          "end_step": 4100000,
+          "start_ns": 527696132798666,
+          "start_step": 4050000
+        },
+        {
+          "cpu_ns": 4249000,
+          "end_ns": 527696141961875,
+          "end_step": 4150000,
+          "start_ns": 527696137564583,
+          "start_step": 4100000
+        },
+        {
+          "cpu_ns": 4808000,
+          "end_ns": 527696148722875,
+          "end_step": 4200000,
+          "start_ns": 527696142438625,
+          "start_step": 4150000
+        },
+        {
+          "cpu_ns": 4618000,
+          "end_ns": 527696154121125,
+          "end_step": 4250000,
+          "start_ns": 527696149464208,
+          "start_step": 4200000
+        },
+        {
+          "cpu_ns": 3910000,
+          "end_ns": 527696158451583,
+          "end_step": 4300000,
+          "start_ns": 527696154539791,
+          "start_step": 4250000
+        },
+        {
+          "cpu_ns": 4282000,
+          "end_ns": 527696163161041,
+          "end_step": 4350000,
+          "start_ns": 527696158837000,
+          "start_step": 4300000
+        },
+        {
+          "cpu_ns": 4175000,
+          "end_ns": 527696167752333,
+          "end_step": 4400000,
+          "start_ns": 527696163555583,
+          "start_step": 4350000
+        },
+        {
+          "cpu_ns": 6420000,
+          "end_ns": 527696174501916,
+          "end_step": 4450000,
+          "start_ns": 527696168078208,
+          "start_step": 4400000
+        },
+        {
+          "cpu_ns": 6935000,
+          "end_ns": 527696182065625,
+          "end_step": 4500000,
+          "start_ns": 527696175116041,
+          "start_step": 4450000
+        },
+        {
+          "cpu_ns": 4177000,
+          "end_ns": 527696187096458,
+          "end_step": 4550000,
+          "start_ns": 527696182905250,
+          "start_step": 4500000
+        },
+        {
+          "cpu_ns": 4997000,
+          "end_ns": 527696192731791,
+          "end_step": 4600000,
+          "start_ns": 527696187652833,
+          "start_step": 4550000
+        },
+        {
+          "cpu_ns": 5416000,
+          "end_ns": 527696202162708,
+          "end_step": 4650000,
+          "start_ns": 527696195209916,
+          "start_step": 4600000
+        },
+        {
+          "cpu_ns": 5313000,
+          "end_ns": 527696209183083,
+          "end_step": 4700000,
+          "start_ns": 527696203239250,
+          "start_step": 4650000
+        },
+        {
+          "cpu_ns": 6722000,
+          "end_ns": 527696217075250,
+          "end_step": 4750000,
+          "start_ns": 527696209663875,
+          "start_step": 4700000
+        },
+        {
+          "cpu_ns": 4211000,
+          "end_ns": 527696222126625,
+          "end_step": 4800000,
+          "start_ns": 527696217808625,
+          "start_step": 4750000
+        },
+        {
+          "cpu_ns": 3903000,
+          "end_ns": 527696226487416,
+          "end_step": 4850000,
+          "start_ns": 527696222580833,
+          "start_step": 4800000
+        },
+        {
+          "cpu_ns": 6755000,
+          "end_ns": 527696233695458,
+          "end_step": 4900000,
+          "start_ns": 527696226916791,
+          "start_step": 4850000
+        },
+        {
+          "cpu_ns": 4036000,
+          "end_ns": 527696238422541,
+          "end_step": 4950000,
+          "start_ns": 527696234377000,
+          "start_step": 4900000
+        },
+        {
+          "cpu_ns": 4101000,
+          "end_ns": 527696243111625,
+          "end_step": 5000000,
+          "start_ns": 527696238996416,
+          "start_step": 4950000
+        },
+        {
+          "cpu_ns": 3890000,
+          "end_ns": 527696247605791,
+          "end_step": 5050000,
+          "start_ns": 527696243715750,
+          "start_step": 5000000
+        },
+        {
+          "cpu_ns": 3962000,
+          "end_ns": 527696252076875,
+          "end_step": 5100000,
+          "start_ns": 527696248069083,
+          "start_step": 5050000
+        },
+        {
+          "cpu_ns": 3849000,
+          "end_ns": 527696256483958,
+          "end_step": 5150000,
+          "start_ns": 527696252633583,
+          "start_step": 5100000
+        },
+        {
+          "cpu_ns": 5501000,
+          "end_ns": 527696262953791,
+          "end_step": 5200000,
+          "start_ns": 527696256959000,
+          "start_step": 5150000
+        },
+        {
+          "cpu_ns": 4523000,
+          "end_ns": 527696267969000,
+          "end_step": 5250000,
+          "start_ns": 527696263380708,
+          "start_step": 5200000
+        },
+        {
+          "cpu_ns": 5910000,
+          "end_ns": 527696274300458,
+          "end_step": 5300000,
+          "start_ns": 527696268369666,
+          "start_step": 5250000
+        },
+        {
+          "cpu_ns": 7251000,
+          "end_ns": 527696282098916,
+          "end_step": 5350000,
+          "start_ns": 527696274811541,
+          "start_step": 5300000
+        },
+        {
+          "cpu_ns": 6767000,
+          "end_ns": 527696289443041,
+          "end_step": 5400000,
+          "start_ns": 527696282671208,
+          "start_step": 5350000
+        },
+        {
+          "cpu_ns": 4001000,
+          "end_ns": 527696294009458,
+          "end_step": 5450000,
+          "start_ns": 527696289990791,
+          "start_step": 5400000
+        },
+        {
+          "cpu_ns": 4291000,
+          "end_ns": 527696298732125,
+          "end_step": 5500000,
+          "start_ns": 527696294433250,
+          "start_step": 5450000
+        },
+        {
+          "cpu_ns": 4058000,
+          "end_ns": 527696303422083,
+          "end_step": 5550000,
+          "start_ns": 527696299341583,
+          "start_step": 5500000
+        },
+        {
+          "cpu_ns": 3954000,
+          "end_ns": 527696307944333,
+          "end_step": 5600000,
+          "start_ns": 527696303983375,
+          "start_step": 5550000
+        },
+        {
+          "cpu_ns": 4179000,
+          "end_ns": 527696312624083,
+          "end_step": 5650000,
+          "start_ns": 527696308391041,
+          "start_step": 5600000
+        },
+        {
+          "cpu_ns": 4138000,
+          "end_ns": 527696317284666,
+          "end_step": 5700000,
+          "start_ns": 527696313077291,
+          "start_step": 5650000
+        },
+        {
+          "cpu_ns": 4303000,
+          "end_ns": 527696322327416,
+          "end_step": 5750000,
+          "start_ns": 527696317793041,
+          "start_step": 5700000
+        },
+        {
+          "cpu_ns": 3989000,
+          "end_ns": 527696327083166,
+          "end_step": 5800000,
+          "start_ns": 527696322855625,
+          "start_step": 5750000
+        },
+        {
+          "cpu_ns": 4791000,
+          "end_ns": 527696332513500,
+          "end_step": 5850000,
+          "start_ns": 527696327652458,
+          "start_step": 5800000
+        },
+        {
+          "cpu_ns": 4084000,
+          "end_ns": 527696337179208,
+          "end_step": 5900000,
+          "start_ns": 527696333070583,
+          "start_step": 5850000
+        },
+        {
+          "cpu_ns": 4948000,
+          "end_ns": 527696342578583,
+          "end_step": 5950000,
+          "start_ns": 527696337614958,
+          "start_step": 5900000
+        },
+        {
+          "cpu_ns": 3965000,
+          "end_ns": 527696346993083,
+          "end_step": 6000000,
+          "start_ns": 527696343013083,
+          "start_step": 5950000
+        },
+        {
+          "cpu_ns": 5244000,
+          "end_ns": 527696352608541,
+          "end_step": 6050000,
+          "start_ns": 527696347336291,
+          "start_step": 6000000
+        },
+        {
+          "cpu_ns": 7271000,
+          "end_ns": 527696360564833,
+          "end_step": 6100000,
+          "start_ns": 527696353269208,
+          "start_step": 6050000
+        },
+        {
+          "cpu_ns": 4534000,
+          "end_ns": 527696366085750,
+          "end_step": 6150000,
+          "start_ns": 527696361238666,
+          "start_step": 6100000
+        },
+        {
+          "cpu_ns": 4343000,
+          "end_ns": 527696370829041,
+          "end_step": 6200000,
+          "start_ns": 527696366465625,
+          "start_step": 6150000
+        },
+        {
+          "cpu_ns": 3892000,
+          "end_ns": 527696375156291,
+          "end_step": 6250000,
+          "start_ns": 527696371261208,
+          "start_step": 6200000
+        },
+        {
+          "cpu_ns": 4029000,
+          "end_ns": 527696379639041,
+          "end_step": 6300000,
+          "start_ns": 527696375537958,
+          "start_step": 6250000
+        },
+        {
+          "cpu_ns": 4312000,
+          "end_ns": 527696386329541,
+          "end_step": 6350000,
+          "start_ns": 527696381938208,
+          "start_step": 6300000
+        },
+        {
+          "cpu_ns": 7302000,
+          "end_ns": 527696394210750,
+          "end_step": 6400000,
+          "start_ns": 527696386785583,
+          "start_step": 6350000
+        },
+        {
+          "cpu_ns": 4386000,
+          "end_ns": 527696399162458,
+          "end_step": 6450000,
+          "start_ns": 527696394763041,
+          "start_step": 6400000
+        },
+        {
+          "cpu_ns": 5755000,
+          "end_ns": 527696405319666,
+          "end_step": 6500000,
+          "start_ns": 527696399547166,
+          "start_step": 6450000
+        },
+        {
+          "cpu_ns": 4415000,
+          "end_ns": 527696410097375,
+          "end_step": 6550000,
+          "start_ns": 527696405681541,
+          "start_step": 6500000
+        },
+        {
+          "cpu_ns": 4307000,
+          "end_ns": 527696414949875,
+          "end_step": 6600000,
+          "start_ns": 527696410629083,
+          "start_step": 6550000
+        },
+        {
+          "cpu_ns": 6763000,
+          "end_ns": 527696422127833,
+          "end_step": 6650000,
+          "start_ns": 527696415321583,
+          "start_step": 6600000
+        },
+        {
+          "cpu_ns": 4874000,
+          "end_ns": 527696427705958,
+          "end_step": 6700000,
+          "start_ns": 527696422737458,
+          "start_step": 6650000
+        },
+        {
+          "cpu_ns": 4521000,
+          "end_ns": 527696432686958,
+          "end_step": 6750000,
+          "start_ns": 527696428057291,
+          "start_step": 6700000
+        },
+        {
+          "cpu_ns": 4597000,
+          "end_ns": 527696437662333,
+          "end_step": 6800000,
+          "start_ns": 527696433008250,
+          "start_step": 6750000
+        },
+        {
+          "cpu_ns": 5093000,
+          "end_ns": 527696443309833,
+          "end_step": 6850000,
+          "start_ns": 527696438029916,
+          "start_step": 6800000
+        },
+        {
+          "cpu_ns": 4615000,
+          "end_ns": 527696448368750,
+          "end_step": 6900000,
+          "start_ns": 527696443733916,
+          "start_step": 6850000
+        },
+        {
+          "cpu_ns": 6528000,
+          "end_ns": 527696455505333,
+          "end_step": 6950000,
+          "start_ns": 527696448903166,
+          "start_step": 6900000
+        },
+        {
+          "cpu_ns": 6242000,
+          "end_ns": 527696462574708,
+          "end_step": 7000000,
+          "start_ns": 527696456191333,
+          "start_step": 6950000
+        },
+        {
+          "cpu_ns": 4380000,
+          "end_ns": 527696467500291,
+          "end_step": 7050000,
+          "start_ns": 527696463101500,
+          "start_step": 7000000
+        },
+        {
+          "cpu_ns": 4355000,
+          "end_ns": 527696472294250,
+          "end_step": 7100000,
+          "start_ns": 527696467897291,
+          "start_step": 7050000
+        },
+        {
+          "cpu_ns": 6252000,
+          "end_ns": 527696479323000,
+          "end_step": 7150000,
+          "start_ns": 527696472756666,
+          "start_step": 7100000
+        },
+        {
+          "cpu_ns": 5131000,
+          "end_ns": 527696485322833,
+          "end_step": 7200000,
+          "start_ns": 527696479977833,
+          "start_step": 7150000
+        },
+        {
+          "cpu_ns": 5671000,
+          "end_ns": 527696491553625,
+          "end_step": 7250000,
+          "start_ns": 527696485812875,
+          "start_step": 7200000
+        },
+        {
+          "cpu_ns": 5826000,
+          "end_ns": 527696498201583,
+          "end_step": 7300000,
+          "start_ns": 527696492224916,
+          "start_step": 7250000
+        },
+        {
+          "cpu_ns": 5759000,
+          "end_ns": 527696504679583,
+          "end_step": 7350000,
+          "start_ns": 527696498869625,
+          "start_step": 7300000
+        },
+        {
+          "cpu_ns": 4336000,
+          "end_ns": 527696510138458,
+          "end_step": 7400000,
+          "start_ns": 527696505348750,
+          "start_step": 7350000
+        },
+        {
+          "cpu_ns": 4478000,
+          "end_ns": 527696515079750,
+          "end_step": 7450000,
+          "start_ns": 527696510568750,
+          "start_step": 7400000
+        },
+        {
+          "cpu_ns": 4439000,
+          "end_ns": 527696520050208,
+          "end_step": 7500000,
+          "start_ns": 527696515591083,
+          "start_step": 7450000
+        },
+        {
+          "cpu_ns": 6623000,
+          "end_ns": 527696527044791,
+          "end_step": 7550000,
+          "start_ns": 527696520417750,
+          "start_step": 7500000
+        },
+        {
+          "cpu_ns": 4316000,
+          "end_ns": 527696532090916,
+          "end_step": 7600000,
+          "start_ns": 527696527760375,
+          "start_step": 7550000
+        },
+        {
+          "cpu_ns": 4288000,
+          "end_ns": 527696536844875,
+          "end_step": 7650000,
+          "start_ns": 527696532544916,
+          "start_step": 7600000
+        },
+        {
+          "cpu_ns": 4272000,
+          "end_ns": 527696541475625,
+          "end_step": 7700000,
+          "start_ns": 527696537203666,
+          "start_step": 7650000
+        },
+        {
+          "cpu_ns": 4655000,
+          "end_ns": 527696546554125,
+          "end_step": 7750000,
+          "start_ns": 527696541786666,
+          "start_step": 7700000
+        },
+        {
+          "cpu_ns": 6106000,
+          "end_ns": 527696553075708,
+          "end_step": 7800000,
+          "start_ns": 527696546946958,
+          "start_step": 7750000
+        },
+        {
+          "cpu_ns": 7107000,
+          "end_ns": 527696561202541,
+          "end_step": 7850000,
+          "start_ns": 527696553763500,
+          "start_step": 7800000
+        },
+        {
+          "cpu_ns": 4293000,
+          "end_ns": 527696566205166,
+          "end_step": 7900000,
+          "start_ns": 527696561808083,
+          "start_step": 7850000
+        },
+        {
+          "cpu_ns": 6463000,
+          "end_ns": 527696573471875,
+          "end_step": 7950000,
+          "start_ns": 527696566607291,
+          "start_step": 7900000
+        },
+        {
+          "cpu_ns": 6212000,
+          "end_ns": 527696583190916,
+          "end_step": 8000000,
+          "start_ns": 527696576621333,
+          "start_step": 7950000
+        },
+        {
+          "cpu_ns": 4327000,
+          "end_ns": 527696588175458,
+          "end_step": 8050000,
+          "start_ns": 527696583839625,
+          "start_step": 8000000
+        },
+        {
+          "cpu_ns": 4403000,
+          "end_ns": 527696593024166,
+          "end_step": 8100000,
+          "start_ns": 527696588591500,
+          "start_step": 8050000
+        },
+        {
+          "cpu_ns": 4279000,
+          "end_ns": 527696597863375,
+          "end_step": 8150000,
+          "start_ns": 527696593566416,
+          "start_step": 8100000
+        },
+        {
+          "cpu_ns": 7216000,
+          "end_ns": 527696605886166,
+          "end_step": 8200000,
+          "start_ns": 527696598558166,
+          "start_step": 8150000
+        },
+        {
+          "cpu_ns": 4236000,
+          "end_ns": 527696610713916,
+          "end_step": 8250000,
+          "start_ns": 527696606474625,
+          "start_step": 8200000
+        },
+        {
+          "cpu_ns": 4360000,
+          "end_ns": 527696615745166,
+          "end_step": 8300000,
+          "start_ns": 527696611320250,
+          "start_step": 8250000
+        },
+        {
+          "cpu_ns": 5217000,
+          "end_ns": 527696621607833,
+          "end_step": 8350000,
+          "start_ns": 527696616236041,
+          "start_step": 8300000
+        },
+        {
+          "cpu_ns": 4360000,
+          "end_ns": 527696626508166,
+          "end_step": 8400000,
+          "start_ns": 527696622129250,
+          "start_step": 8350000
+        },
+        {
+          "cpu_ns": 4331000,
+          "end_ns": 527696631277083,
+          "end_step": 8450000,
+          "start_ns": 527696626930916,
+          "start_step": 8400000
+        },
+        {
+          "cpu_ns": 4919000,
+          "end_ns": 527696636928750,
+          "end_step": 8500000,
+          "start_ns": 527696631738375,
+          "start_step": 8450000
+        },
+        {
+          "cpu_ns": 4278000,
+          "end_ns": 527696642046041,
+          "end_step": 8550000,
+          "start_ns": 527696637759666,
+          "start_step": 8500000
+        },
+        {
+          "cpu_ns": 4341000,
+          "end_ns": 527696646824375,
+          "end_step": 8600000,
+          "start_ns": 527696642464333,
+          "start_step": 8550000
+        },
+        {
+          "cpu_ns": 4323000,
+          "end_ns": 527696651616833,
+          "end_step": 8650000,
+          "start_ns": 527696647279291,
+          "start_step": 8600000
+        },
+        {
+          "cpu_ns": 4176000,
+          "end_ns": 527696656172958,
+          "end_step": 8700000,
+          "start_ns": 527696651989958,
+          "start_step": 8650000
+        },
+        {
+          "cpu_ns": 4703000,
+          "end_ns": 527696661629166,
+          "end_step": 8750000,
+          "start_ns": 527696656677041,
+          "start_step": 8700000
+        },
+        {
+          "cpu_ns": 3907000,
+          "end_ns": 527696666123416,
+          "end_step": 8800000,
+          "start_ns": 527696662216333,
+          "start_step": 8750000
+        },
+        {
+          "cpu_ns": 4036000,
+          "end_ns": 527696670687625,
+          "end_step": 8850000,
+          "start_ns": 527696666638750,
+          "start_step": 8800000
+        },
+        {
+          "cpu_ns": 6183000,
+          "end_ns": 527696677768500,
+          "end_step": 8900000,
+          "start_ns": 527696671055750,
+          "start_step": 8850000
+        },
+        {
+          "cpu_ns": 4353000,
+          "end_ns": 527696682623666,
+          "end_step": 8950000,
+          "start_ns": 527696678256125,
+          "start_step": 8900000
+        },
+        {
+          "cpu_ns": 4354000,
+          "end_ns": 527696687439708,
+          "end_step": 9000000,
+          "start_ns": 527696683071416,
+          "start_step": 8950000
+        },
+        {
+          "cpu_ns": 4476000,
+          "end_ns": 527696692546958,
+          "end_step": 9050000,
+          "start_ns": 527696688062458,
+          "start_step": 9000000
+        },
+        {
+          "cpu_ns": 5246000,
+          "end_ns": 527696698796458,
+          "end_step": 9100000,
+          "start_ns": 527696693280125,
+          "start_step": 9050000
+        },
+        {
+          "cpu_ns": 5644000,
+          "end_ns": 527696704851791,
+          "end_step": 9150000,
+          "start_ns": 527696699202208,
+          "start_step": 9100000
+        },
+        {
+          "cpu_ns": 4330000,
+          "end_ns": 527696709788500,
+          "end_step": 9200000,
+          "start_ns": 527696705416916,
+          "start_step": 9150000
+        },
+        {
+          "cpu_ns": 4402000,
+          "end_ns": 527696715091958,
+          "end_step": 9250000,
+          "start_ns": 527696710671625,
+          "start_step": 9200000
+        },
+        {
+          "cpu_ns": 7362000,
+          "end_ns": 527696723177833,
+          "end_step": 9300000,
+          "start_ns": 527696715806666,
+          "start_step": 9250000
+        },
+        {
+          "cpu_ns": 5138000,
+          "end_ns": 527696729048375,
+          "end_step": 9350000,
+          "start_ns": 527696723896083,
+          "start_step": 9300000
+        },
+        {
+          "cpu_ns": 5600000,
+          "end_ns": 527696735630625,
+          "end_step": 9400000,
+          "start_ns": 527696729574916,
+          "start_step": 9350000
+        },
+        {
+          "cpu_ns": 4303000,
+          "end_ns": 527696740359500,
+          "end_step": 9450000,
+          "start_ns": 527696736057458,
+          "start_step": 9400000
+        },
+        {
+          "cpu_ns": 4342000,
+          "end_ns": 527696745218125,
+          "end_step": 9500000,
+          "start_ns": 527696740824583,
+          "start_step": 9450000
+        },
+        {
+          "cpu_ns": 5272000,
+          "end_ns": 527696751188541,
+          "end_step": 9550000,
+          "start_ns": 527696745864333,
+          "start_step": 9500000
+        },
+        {
+          "cpu_ns": 4494000,
+          "end_ns": 527696756256833,
+          "end_step": 9600000,
+          "start_ns": 527696751649708,
+          "start_step": 9550000
+        },
+        {
+          "cpu_ns": 4322000,
+          "end_ns": 527696760979041,
+          "end_step": 9650000,
+          "start_ns": 527696756657416,
+          "start_step": 9600000
+        },
+        {
+          "cpu_ns": 4283000,
+          "end_ns": 527696765710041,
+          "end_step": 9700000,
+          "start_ns": 527696761427416,
+          "start_step": 9650000
+        },
+        {
+          "cpu_ns": 4296000,
+          "end_ns": 527696770460666,
+          "end_step": 9750000,
+          "start_ns": 527696766163750,
+          "start_step": 9700000
+        },
+        {
+          "cpu_ns": 4186000,
+          "end_ns": 527696775122625,
+          "end_step": 9800000,
+          "start_ns": 527696770936250,
+          "start_step": 9750000
+        },
+        {
+          "cpu_ns": 3856000,
+          "end_ns": 527696779366958,
+          "end_step": 9850000,
+          "start_ns": 527696775511208,
+          "start_step": 9800000
+        },
+        {
+          "cpu_ns": 3987000,
+          "end_ns": 527696783800375,
+          "end_step": 9900000,
+          "start_ns": 527696779796500,
+          "start_step": 9850000
+        },
+        {
+          "cpu_ns": 4135000,
+          "end_ns": 527696788393041,
+          "end_step": 9950000,
+          "start_ns": 527696784224791,
+          "start_step": 9900000
+        },
+        {
+          "cpu_ns": 5194000,
+          "end_ns": 527696794705125,
+          "end_step": 10000000,
+          "start_ns": 527696788977333,
+          "start_step": 9950000
+        }
+      ],
+      "exit_code": 0,
+      "fault": null,
+      "final_step": 10000000,
+      "generation": 1,
+      "initial_source": "cold_start",
+      "initial_step": 0,
+      "pacing_seconds": 0,
+      "stop_confirmed": true,
+      "worker_cpu_ns": 1054951000,
+      "worker_end_ns": 527696795498541,
+      "worker_start_ns": 527695706937375,
+      "writes": [
+        {
+          "bytes": 522,
+          "cpu_ns": 419000,
+          "end_ns": 527695707733416,
+          "filename": "started.json",
+          "kind": "started",
+          "start_ns": 527695707296708,
+          "step": 0
+        },
+        {
+          "bytes": 577,
+          "cpu_ns": 360000,
+          "end_ns": 527695712824041,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695712450083,
+          "step": 50000
+        },
+        {
+          "bytes": 577,
+          "cpu_ns": 393000,
+          "end_ns": 527695719304625,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695718898916,
+          "step": 100000
+        },
+        {
+          "bytes": 577,
+          "cpu_ns": 315000,
+          "end_ns": 527695724334791,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695724006958,
+          "step": 150000
+        },
+        {
+          "bytes": 577,
+          "cpu_ns": 596000,
+          "end_ns": 527695730601125,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695729953666,
+          "step": 200000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 376000,
+          "end_ns": 527695736294041,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695735903833,
+          "step": 250000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 459000,
+          "end_ns": 527695743056208,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695742576250,
+          "step": 300000
+        },
+        {
+          "bytes": 577,
+          "cpu_ns": 573000,
+          "end_ns": 527695747906041,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695747306958,
+          "step": 350000
+        },
+        {
+          "bytes": 577,
+          "cpu_ns": 394000,
+          "end_ns": 527695752288500,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695751878000,
+          "step": 400000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 513000,
+          "end_ns": 527695760321833,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695759792208,
+          "step": 450000
+        },
+        {
+          "bytes": 577,
+          "cpu_ns": 641000,
+          "end_ns": 527695766910666,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695766221125,
+          "step": 500000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 350000,
+          "end_ns": 527695771014750,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695770653875,
+          "step": 550000
+        },
+        {
+          "bytes": 577,
+          "cpu_ns": 469000,
+          "end_ns": 527695775358333,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695774871250,
+          "step": 600000
+        },
+        {
+          "bytes": 577,
+          "cpu_ns": 349000,
+          "end_ns": 527695782646375,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695782278916,
+          "step": 650000
+        },
+        {
+          "bytes": 577,
+          "cpu_ns": 390000,
+          "end_ns": 527695786804458,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695786401916,
+          "step": 700000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 539000,
+          "end_ns": 527695791832416,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695791048541,
+          "step": 750000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 471000,
+          "end_ns": 527695798362375,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695797874708,
+          "step": 800000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 300000,
+          "end_ns": 527695802382583,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695802066458,
+          "step": 850000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 319000,
+          "end_ns": 527695806584458,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695806251125,
+          "step": 900000
+        },
+        {
+          "bytes": 577,
+          "cpu_ns": 335000,
+          "end_ns": 527695810973458,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695810625583,
+          "step": 950000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 308000,
+          "end_ns": 527695815274291,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695814953125,
+          "step": 1000000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 414000,
+          "end_ns": 527695820080875,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695819653541,
+          "step": 1050000
+        },
+        {
+          "bytes": 577,
+          "cpu_ns": 321000,
+          "end_ns": 527695824448541,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695824113416,
+          "step": 1100000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 460000,
+          "end_ns": 527695829101500,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695828620750,
+          "step": 1150000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 392000,
+          "end_ns": 527695833542791,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695833138750,
+          "step": 1200000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 453000,
+          "end_ns": 527695838074458,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695837584000,
+          "step": 1250000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 333000,
+          "end_ns": 527695844053083,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695843708666,
+          "step": 1300000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 474000,
+          "end_ns": 527695848742333,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695848251666,
+          "step": 1350000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 548000,
+          "end_ns": 527695854819541,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695854261333,
+          "step": 1400000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 349000,
+          "end_ns": 527695859143416,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695858776708,
+          "step": 1450000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 267000,
+          "end_ns": 527695863318500,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695863041583,
+          "step": 1500000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 567000,
+          "end_ns": 527695869982541,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695869387416,
+          "step": 1550000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 340000,
+          "end_ns": 527695874340708,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695873989250,
+          "step": 1600000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 580000,
+          "end_ns": 527695879223208,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695878563250,
+          "step": 1650000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 428000,
+          "end_ns": 527695883992875,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695883550708,
+          "step": 1700000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 338000,
+          "end_ns": 527695888863041,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695888512833,
+          "step": 1750000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 600000,
+          "end_ns": 527695895282916,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695894655416,
+          "step": 1800000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 311000,
+          "end_ns": 527695902793125,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695902470166,
+          "step": 1850000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 312000,
+          "end_ns": 527695909639333,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695909285416,
+          "step": 1900000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 680000,
+          "end_ns": 527695915820250,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695915124291,
+          "step": 1950000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 395000,
+          "end_ns": 527695921447500,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695921037916,
+          "step": 2000000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 391000,
+          "end_ns": 527695928443333,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695928035250,
+          "step": 2050000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 365000,
+          "end_ns": 527695933159291,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695932781208,
+          "step": 2100000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 354000,
+          "end_ns": 527695938071166,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695937703416,
+          "step": 2150000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 378000,
+          "end_ns": 527695942678208,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695942284625,
+          "step": 2200000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 513000,
+          "end_ns": 527695948516208,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695947967041,
+          "step": 2250000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 340000,
+          "end_ns": 527695952948375,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695952593208,
+          "step": 2300000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 481000,
+          "end_ns": 527695958020833,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695957517916,
+          "step": 2350000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 409000,
+          "end_ns": 527695962789333,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695962364000,
+          "step": 2400000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 326000,
+          "end_ns": 527695967319708,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695966970333,
+          "step": 2450000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 356000,
+          "end_ns": 527695972929416,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695972557875,
+          "step": 2500000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 393000,
+          "end_ns": 527695977421166,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695977013625,
+          "step": 2550000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 303000,
+          "end_ns": 527695981751500,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695981438375,
+          "step": 2600000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 245000,
+          "end_ns": 527695986235875,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695985976958,
+          "step": 2650000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 247000,
+          "end_ns": 527695990626791,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695990366875,
+          "step": 2700000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 287000,
+          "end_ns": 527695995118041,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695994817416,
+          "step": 2750000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 267000,
+          "end_ns": 527695999539541,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527695999261250,
+          "step": 2800000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 483000,
+          "end_ns": 527696005339291,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696004841666,
+          "step": 2850000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 284000,
+          "end_ns": 527696010328000,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696010034208,
+          "step": 2900000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 257000,
+          "end_ns": 527696014597041,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696014328083,
+          "step": 2950000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 462000,
+          "end_ns": 527696020667041,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696020185875,
+          "step": 3000000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 315000,
+          "end_ns": 527696024965000,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696024629125,
+          "step": 3050000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 347000,
+          "end_ns": 527696029423875,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696029065208,
+          "step": 3100000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 484000,
+          "end_ns": 527696035650041,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696035146458,
+          "step": 3150000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 375000,
+          "end_ns": 527696042176500,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696041780333,
+          "step": 3200000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 282000,
+          "end_ns": 527696046530416,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696046236708,
+          "step": 3250000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 342000,
+          "end_ns": 527696051644833,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696051286708,
+          "step": 3300000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 297000,
+          "end_ns": 527696056281625,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696055971333,
+          "step": 3350000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 278000,
+          "end_ns": 527696060715166,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696060421583,
+          "step": 3400000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 427000,
+          "end_ns": 527696065718875,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696065274208,
+          "step": 3450000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 356000,
+          "end_ns": 527696071196708,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696070815041,
+          "step": 3500000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 499000,
+          "end_ns": 527696078935250,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696078262291,
+          "step": 3550000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 345000,
+          "end_ns": 527696085022208,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696084662000,
+          "step": 3600000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 308000,
+          "end_ns": 527696089313625,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696088986750,
+          "step": 3650000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 519000,
+          "end_ns": 527696094627833,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696094087416,
+          "step": 3700000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 484000,
+          "end_ns": 527696099547083,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696099043000,
+          "step": 3750000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 638000,
+          "end_ns": 527696105164458,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696104506958,
+          "step": 3800000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 314000,
+          "end_ns": 527696109529333,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696109202916,
+          "step": 3850000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 447000,
+          "end_ns": 527696116487666,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696116015833,
+          "step": 3900000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 370000,
+          "end_ns": 527696121080458,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696120697833,
+          "step": 3950000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 273000,
+          "end_ns": 527696126562875,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696126276541,
+          "step": 4000000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 437000,
+          "end_ns": 527696132741916,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696132264666,
+          "step": 4050000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 648000,
+          "end_ns": 527696137484833,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696136781625,
+          "step": 4100000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 366000,
+          "end_ns": 527696142389958,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696142012708,
+          "step": 4150000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 506000,
+          "end_ns": 527696149390833,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696148773458,
+          "step": 4200000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 308000,
+          "end_ns": 527696154489375,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696154166791,
+          "step": 4250000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 291000,
+          "end_ns": 527696158788500,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696158487375,
+          "step": 4300000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 296000,
+          "end_ns": 527696163507000,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696163193500,
+          "step": 4350000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 251000,
+          "end_ns": 527696168036375,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696167776166,
+          "step": 4400000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 465000,
+          "end_ns": 527696175057416,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696174573208,
+          "step": 4450000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 458000,
+          "end_ns": 527696182834708,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696182132208,
+          "step": 4500000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 424000,
+          "end_ns": 527696187597833,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696187156125,
+          "step": 4550000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 399000,
+          "end_ns": 527696195110250,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696192777375,
+          "step": 4600000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 592000,
+          "end_ns": 527696203080166,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696202231666,
+          "step": 4650000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 355000,
+          "end_ns": 527696209599958,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696209231916,
+          "step": 4700000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 488000,
+          "end_ns": 527696217753708,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696217147458,
+          "step": 4750000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 342000,
+          "end_ns": 527696222521125,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696222166666,
+          "step": 4800000
+        },
+        {
+          "bytes": 577,
+          "cpu_ns": 322000,
+          "end_ns": 527696226861666,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696226526416,
+          "step": 4850000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 533000,
+          "end_ns": 527696234315250,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696233767291,
+          "step": 4900000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 425000,
+          "end_ns": 527696238927791,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696238490166,
+          "step": 4950000
+        },
+        {
+          "bytes": 577,
+          "cpu_ns": 453000,
+          "end_ns": 527696243640916,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696243169875,
+          "step": 5000000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 351000,
+          "end_ns": 527696248017541,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696247646333,
+          "step": 5050000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 407000,
+          "end_ns": 527696252559916,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696252135916,
+          "step": 5100000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 365000,
+          "end_ns": 527696256902791,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696256523541,
+          "step": 5150000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 321000,
+          "end_ns": 527696263332666,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696262995125,
+          "step": 5200000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 301000,
+          "end_ns": 527696268321291,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696267998625,
+          "step": 5250000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 370000,
+          "end_ns": 527696274736708,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696274354291,
+          "step": 5300000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 428000,
+          "end_ns": 527696282611041,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696282167333,
+          "step": 5350000
+        },
+        {
+          "bytes": 577,
+          "cpu_ns": 409000,
+          "end_ns": 527696289932416,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696289507625,
+          "step": 5400000
+        },
+        {
+          "bytes": 577,
+          "cpu_ns": 318000,
+          "end_ns": 527696294382666,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696294052708,
+          "step": 5450000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 451000,
+          "end_ns": 527696299286500,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696298818250,
+          "step": 5500000
+        },
+        {
+          "bytes": 577,
+          "cpu_ns": 391000,
+          "end_ns": 527696303879458,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696303468708,
+          "step": 5550000
+        },
+        {
+          "bytes": 576,
+          "cpu_ns": 330000,
+          "end_ns": 527696308334166,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696307996166,
+          "step": 5600000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 333000,
+          "end_ns": 527696313026375,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696312681750,
+          "step": 5650000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 379000,
+          "end_ns": 527696317732000,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696317330750,
+          "step": 5700000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 385000,
+          "end_ns": 527696322788000,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696322371875,
+          "step": 5750000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 430000,
+          "end_ns": 527696327581875,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696327125791,
+          "step": 5800000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 415000,
+          "end_ns": 527696333011666,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696332579791,
+          "step": 5850000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 325000,
+          "end_ns": 527696337561833,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696337225750,
+          "step": 5900000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 326000,
+          "end_ns": 527696342963416,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696342624250,
+          "step": 5950000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 259000,
+          "end_ns": 527696347290583,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696347019875,
+          "step": 6000000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 495000,
+          "end_ns": 527696353190583,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696352679041,
+          "step": 6050000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 531000,
+          "end_ns": 527696361183083,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696360638416,
+          "step": 6100000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 276000,
+          "end_ns": 527696366412958,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696366126708,
+          "step": 6150000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 319000,
+          "end_ns": 527696371214875,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696370880375,
+          "step": 6200000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 299000,
+          "end_ns": 527696375494416,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696375180458,
+          "step": 6250000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 354000,
+          "end_ns": 527696381886375,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696379661250,
+          "step": 6300000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 362000,
+          "end_ns": 527696386729041,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696386352625,
+          "step": 6350000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 415000,
+          "end_ns": 527696394701958,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696394273500,
+          "step": 6400000
+        },
+        {
+          "bytes": 577,
+          "cpu_ns": 285000,
+          "end_ns": 527696399495666,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696399195916,
+          "step": 6450000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 272000,
+          "end_ns": 527696405636666,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696405351583,
+          "step": 6500000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 428000,
+          "end_ns": 527696410583833,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696410114250,
+          "step": 6550000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 286000,
+          "end_ns": 527696415275791,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696414974833,
+          "step": 6600000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 478000,
+          "end_ns": 527696422652666,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696422163916,
+          "step": 6650000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 267000,
+          "end_ns": 527696428010458,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696427732958,
+          "step": 6700000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 246000,
+          "end_ns": 527696432966583,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696432705750,
+          "step": 6750000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 286000,
+          "end_ns": 527696437980875,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696437685208,
+          "step": 6800000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 320000,
+          "end_ns": 527696443678333,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696443346708,
+          "step": 6850000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 405000,
+          "end_ns": 527696448845583,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696448423583,
+          "step": 6900000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 417000,
+          "end_ns": 527696456129041,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696455555250,
+          "step": 6950000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 395000,
+          "end_ns": 527696463039333,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696462628041,
+          "step": 7000000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 298000,
+          "end_ns": 527696467848541,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696467535291,
+          "step": 7050000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 348000,
+          "end_ns": 527696472702833,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696472340041,
+          "step": 7100000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 513000,
+          "end_ns": 527696479919666,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696479389750,
+          "step": 7150000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 370000,
+          "end_ns": 527696485754416,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696485371375,
+          "step": 7200000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 524000,
+          "end_ns": 527696492170791,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696491629250,
+          "step": 7250000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 524000,
+          "end_ns": 527696498811541,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696498276375,
+          "step": 7300000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 500000,
+          "end_ns": 527696505279750,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696504758875,
+          "step": 7350000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 316000,
+          "end_ns": 527696510506083,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696510178666,
+          "step": 7400000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 389000,
+          "end_ns": 527696515536250,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696515135916,
+          "step": 7450000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 279000,
+          "end_ns": 527696520369875,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696520078958,
+          "step": 7500000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 559000,
+          "end_ns": 527696527686750,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696527111750,
+          "step": 7550000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 339000,
+          "end_ns": 527696532491291,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696532137500,
+          "step": 7600000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 276000,
+          "end_ns": 527696537159250,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696536866625,
+          "step": 7650000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 241000,
+          "end_ns": 527696541747583,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696541493333,
+          "step": 7700000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 294000,
+          "end_ns": 527696546893000,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696546586333,
+          "step": 7750000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 505000,
+          "end_ns": 527696553652833,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696553134750,
+          "step": 7800000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 478000,
+          "end_ns": 527696561755458,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696561266041,
+          "step": 7850000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 303000,
+          "end_ns": 527696566561416,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696566240333,
+          "step": 7900000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 585000,
+          "end_ns": 527696576533958,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696573537250,
+          "step": 7950000
+        },
+        {
+          "bytes": 577,
+          "cpu_ns": 495000,
+          "end_ns": 527696583772041,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696583261166,
+          "step": 8000000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 313000,
+          "end_ns": 527696588541833,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696588217000,
+          "step": 8050000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 395000,
+          "end_ns": 527696593506791,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696593095458,
+          "step": 8100000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 454000,
+          "end_ns": 527696598388958,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696597907416,
+          "step": 8150000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 435000,
+          "end_ns": 527696606411416,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696605958250,
+          "step": 8200000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 468000,
+          "end_ns": 527696611252625,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696610772125,
+          "step": 8250000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 368000,
+          "end_ns": 527696616171041,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696615789666,
+          "step": 8300000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 383000,
+          "end_ns": 527696622065041,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696621667875,
+          "step": 8350000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 313000,
+          "end_ns": 527696626872625,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696626548041,
+          "step": 8400000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 363000,
+          "end_ns": 527696631685666,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696631310916,
+          "step": 8450000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 443000,
+          "end_ns": 527696637702500,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696636995291,
+          "step": 8500000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 315000,
+          "end_ns": 527696642413916,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696642085416,
+          "step": 8550000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 338000,
+          "end_ns": 527696647223125,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696646874083,
+          "step": 8600000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 283000,
+          "end_ns": 527696651938291,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696651643000,
+          "step": 8650000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 392000,
+          "end_ns": 527696656628875,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696656222166,
+          "step": 8700000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 456000,
+          "end_ns": 527696662153208,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696661680166,
+          "step": 8750000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 391000,
+          "end_ns": 527696666580250,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696666161750,
+          "step": 8800000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 282000,
+          "end_ns": 527696671012291,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696670712791,
+          "step": 8850000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 364000,
+          "end_ns": 527696678191458,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696677815708,
+          "step": 8900000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 334000,
+          "end_ns": 527696683016125,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696682669916,
+          "step": 8950000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 473000,
+          "end_ns": 527696687981208,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696687491333,
+          "step": 9000000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 536000,
+          "end_ns": 527696693225208,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696692622250,
+          "step": 9050000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 304000,
+          "end_ns": 527696699152750,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696698832375,
+          "step": 9100000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 429000,
+          "end_ns": 527696705356541,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696704911208,
+          "step": 9150000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 550000,
+          "end_ns": 527696710594541,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696709871125,
+          "step": 9200000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 545000,
+          "end_ns": 527696715731000,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696715159625,
+          "step": 9250000
+        },
+        {
+          "bytes": 577,
+          "cpu_ns": 514000,
+          "end_ns": 527696723781458,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696723246083,
+          "step": 9300000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 373000,
+          "end_ns": 527696729509791,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696729121791,
+          "step": 9350000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 318000,
+          "end_ns": 527696735996583,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696735667750,
+          "step": 9400000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 349000,
+          "end_ns": 527696740767666,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696740406750,
+          "step": 9450000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 483000,
+          "end_ns": 527696745790708,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696745291541,
+          "step": 9500000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 345000,
+          "end_ns": 527696751593625,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696751231666,
+          "step": 9550000
+        },
+        {
+          "bytes": 576,
+          "cpu_ns": 300000,
+          "end_ns": 527696756606791,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696756293291,
+          "step": 9600000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 350000,
+          "end_ns": 527696761375708,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696761013500,
+          "step": 9650000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 351000,
+          "end_ns": 527696766105000,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696765740208,
+          "step": 9700000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 353000,
+          "end_ns": 527696770866916,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696770502833,
+          "step": 9750000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 289000,
+          "end_ns": 527696775460541,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696775159458,
+          "step": 9800000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 324000,
+          "end_ns": 527696779743791,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696779408458,
+          "step": 9850000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 318000,
+          "end_ns": 527696784167916,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696783835875,
+          "step": 9900000
+        },
+        {
+          "bytes": 578,
+          "cpu_ns": 429000,
+          "end_ns": 527696788928708,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696788476666,
+          "step": 9950000
+        },
+        {
+          "bytes": 579,
+          "cpu_ns": 379000,
+          "end_ns": 527696795146333,
+          "filename": "progress.json",
+          "kind": "progress",
+          "start_ns": 527696794747583,
+          "step": 10000000
+        },
+        {
+          "bytes": 618,
+          "cpu_ns": 238000,
+          "end_ns": 527696795473916,
+          "filename": "result.json",
+          "kind": "result",
+          "start_ns": 527696795224583,
+          "step": 10000000
+        }
+      ]
+    }
+  ],
+  "metrics": {
+    "all_worker_write_bytes": 116806,
+    "checkpoint_verify_seconds": 0.0,
+    "checkpoint_write_bytes": 0,
+    "checkpoint_write_seconds": 0.0,
+    "compute_cpu_seconds": 0.953384,
+    "compute_wall_seconds": 0.97541825,
+    "discarded_first_attempt_steps": 0,
+    "end_to_end_seconds": 1.140281792,
+    "executed_steps": 10000000,
+    "notice_overrun_seconds": 0.0,
+    "notice_to_stop_confirmed_seconds": 0.557860458,
+    "redundant_steps_if_completed": 0,
+    "required_steps": 10000000,
+    "truncated_completion_cost_seconds": 1.140281792,
+    "verified_saved_step": 0,
+    "worker_cpu_seconds": 1.054951,
+    "worker_occupied_wall_seconds": 1.088561166
+  },
+  "notice_ns": 527696243890625,
+  "progress_before_notice": [
+    {
+      "available_ns": 527695713215416,
+      "observed_ns": 527695712391250,
+      "step": 50000
+    },
+    {
+      "available_ns": 527695720424625,
+      "observed_ns": 527695718857625,
+      "step": 100000
+    },
+    {
+      "available_ns": 527695724452333,
+      "observed_ns": 527695723964500,
+      "step": 150000
+    },
+    {
+      "available_ns": 527695733408041,
+      "observed_ns": 527695729884375,
+      "step": 200000
+    },
+    {
+      "available_ns": 527695738285750,
+      "observed_ns": 527695735845750,
+      "step": 250000
+    },
+    {
+      "available_ns": 527695743084500,
+      "observed_ns": 527695742511708,
+      "step": 300000
+    },
+    {
+      "available_ns": 527695747998791,
+      "observed_ns": 527695747259625,
+      "step": 350000
+    },
+    {
+      "available_ns": 527695752776250,
+      "observed_ns": 527695751834833,
+      "step": 400000
+    },
+    {
+      "available_ns": 527695762373791,
+      "observed_ns": 527695759718833,
+      "step": 450000
+    },
+    {
+      "available_ns": 527695767107875,
+      "observed_ns": 527695766148166,
+      "step": 500000
+    },
+    {
+      "available_ns": 527695771343916,
+      "observed_ns": 527695770609125,
+      "step": 550000
+    },
+    {
+      "available_ns": 527695775577041,
+      "observed_ns": 527695774818000,
+      "step": 600000
+    },
+    {
+      "available_ns": 527695784241625,
+      "observed_ns": 527695782229291,
+      "step": 650000
+    },
+    {
+      "available_ns": 527695786853500,
+      "observed_ns": 527695786347666,
+      "step": 700000
+    },
+    {
+      "available_ns": 527695796097375,
+      "observed_ns": 527695790978208,
+      "step": 750000
+    },
+    {
+      "available_ns": 527695798549666,
+      "observed_ns": 527695797816333,
+      "step": 800000
+    },
+    {
+      "available_ns": 527695802766750,
+      "observed_ns": 527695802034916,
+      "step": 850000
+    },
+    {
+      "available_ns": 527695807304041,
+      "observed_ns": 527695806227791,
+      "step": 900000
+    },
+    {
+      "available_ns": 527695811923958,
+      "observed_ns": 527695810582583,
+      "step": 950000
+    },
+    {
+      "available_ns": 527695816329625,
+      "observed_ns": 527695814917458,
+      "step": 1000000
+    },
+    {
+      "available_ns": 527695820584000,
+      "observed_ns": 527695819604958,
+      "step": 1050000
+    },
+    {
+      "available_ns": 527695824986291,
+      "observed_ns": 527695824082708,
+      "step": 1100000
+    },
+    {
+      "available_ns": 527695829641708,
+      "observed_ns": 527695828578333,
+      "step": 1150000
+    },
+    {
+      "available_ns": 527695834026541,
+      "observed_ns": 527695833104416,
+      "step": 1200000
+    },
+    {
+      "available_ns": 527695838415250,
+      "observed_ns": 527695837544250,
+      "step": 1250000
+    },
+    {
+      "available_ns": 527695845732250,
+      "observed_ns": 527695843652500,
+      "step": 1300000
+    },
+    {
+      "available_ns": 527695850804041,
+      "observed_ns": 527695848182458,
+      "step": 1350000
+    },
+    {
+      "available_ns": 527695855850333,
+      "observed_ns": 527695854185125,
+      "step": 1400000
+    },
+    {
+      "available_ns": 527695860670375,
+      "observed_ns": 527695858733958,
+      "step": 1450000
+    },
+    {
+      "available_ns": 527695865579541,
+      "observed_ns": 527695863013708,
+      "step": 1500000
+    },
+    {
+      "available_ns": 527695870111958,
+      "observed_ns": 527695869300166,
+      "step": 1550000
+    },
+    {
+      "available_ns": 527695874472000,
+      "observed_ns": 527695873949458,
+      "step": 1600000
+    },
+    {
+      "available_ns": 527695879360375,
+      "observed_ns": 527695878494833,
+      "step": 1650000
+    },
+    {
+      "available_ns": 527695885709416,
+      "observed_ns": 527695883487000,
+      "step": 1700000
+    },
+    {
+      "available_ns": 527695890108625,
+      "observed_ns": 527695888476875,
+      "step": 1750000
+    },
+    {
+      "available_ns": 527695896832541,
+      "observed_ns": 527695894583208,
+      "step": 1800000
+    },
+    {
+      "available_ns": 527695903919208,
+      "observed_ns": 527695902437333,
+      "step": 1850000
+    },
+    {
+      "available_ns": 527695911571208,
+      "observed_ns": 527695909250416,
+      "step": 1900000
+    },
+    {
+      "available_ns": 527695915888500,
+      "observed_ns": 527695915029750,
+      "step": 1950000
+    },
+    {
+      "available_ns": 527695922762500,
+      "observed_ns": 527695920994958,
+      "step": 2000000
+    },
+    {
+      "available_ns": 527695929824375,
+      "observed_ns": 527695927987083,
+      "step": 2050000
+    },
+    {
+      "available_ns": 527695934291166,
+      "observed_ns": 527695932745833,
+      "step": 2100000
+    },
+    {
+      "available_ns": 527695938717000,
+      "observed_ns": 527695937667125,
+      "step": 2150000
+    },
+    {
+      "available_ns": 527695943302958,
+      "observed_ns": 527695942244625,
+      "step": 2200000
+    },
+    {
+      "available_ns": 527695950509708,
+      "observed_ns": 527695947898916,
+      "step": 2250000
+    },
+    {
+      "available_ns": 527695955167250,
+      "observed_ns": 527695952550375,
+      "step": 2300000
+    },
+    {
+      "available_ns": 527695959562625,
+      "observed_ns": 527695957442666,
+      "step": 2350000
+    },
+    {
+      "available_ns": 527695964239291,
+      "observed_ns": 527695962311375,
+      "step": 2400000
+    },
+    {
+      "available_ns": 527695968906125,
+      "observed_ns": 527695966935041,
+      "step": 2450000
+    },
+    {
+      "available_ns": 527695973928333,
+      "observed_ns": 527695972518000,
+      "step": 2500000
+    },
+    {
+      "available_ns": 527695978939791,
+      "observed_ns": 527695976971375,
+      "step": 2550000
+    },
+    {
+      "available_ns": 527695983283791,
+      "observed_ns": 527695981410166,
+      "step": 2600000
+    },
+    {
+      "available_ns": 527695987518166,
+      "observed_ns": 527695985956916,
+      "step": 2650000
+    },
+    {
+      "available_ns": 527695991648250,
+      "observed_ns": 527695990345750,
+      "step": 2700000
+    },
+    {
+      "available_ns": 527695996466750,
+      "observed_ns": 527695994792541,
+      "step": 2750000
+    },
+    {
+      "available_ns": 527696000637833,
+      "observed_ns": 527695999232166,
+      "step": 2800000
+    },
+    {
+      "available_ns": 527696007289541,
+      "observed_ns": 527696004779208,
+      "step": 2850000
+    },
+    {
+      "available_ns": 527696012073208,
+      "observed_ns": 527696010001958,
+      "step": 2900000
+    },
+    {
+      "available_ns": 527696016408291,
+      "observed_ns": 527696014300625,
+      "step": 2950000
+    },
+    {
+      "available_ns": 527696020682833,
+      "observed_ns": 527696020128125,
+      "step": 3000000
+    },
+    {
+      "available_ns": 527696025088041,
+      "observed_ns": 527696024601875,
+      "step": 3050000
+    },
+    {
+      "available_ns": 527696029804041,
+      "observed_ns": 527696029032000,
+      "step": 3100000
+    },
+    {
+      "available_ns": 527696035979125,
+      "observed_ns": 527696035089000,
+      "step": 3150000
+    },
+    {
+      "available_ns": 527696042365625,
+      "observed_ns": 527696041749375,
+      "step": 3200000
+    },
+    {
+      "available_ns": 527696047191875,
+      "observed_ns": 527696046212833,
+      "step": 3250000
+    },
+    {
+      "available_ns": 527696053493458,
+      "observed_ns": 527696051232916,
+      "step": 3300000
+    },
+    {
+      "available_ns": 527696057845708,
+      "observed_ns": 527696055948125,
+      "step": 3350000
+    },
+    {
+      "available_ns": 527696062850083,
+      "observed_ns": 527696060394666,
+      "step": 3400000
+    },
+    {
+      "available_ns": 527696067263375,
+      "observed_ns": 527696065212708,
+      "step": 3450000
+    },
+    {
+      "available_ns": 527696071614291,
+      "observed_ns": 527696070781833,
+      "step": 3500000
+    },
+    {
+      "available_ns": 527696079410291,
+      "observed_ns": 527696078192833,
+      "step": 3550000
+    },
+    {
+      "available_ns": 527696086127333,
+      "observed_ns": 527696084628541,
+      "step": 3600000
+    },
+    {
+      "available_ns": 527696090352625,
+      "observed_ns": 527696088965416,
+      "step": 3650000
+    },
+    {
+      "available_ns": 527696095156958,
+      "observed_ns": 527696094023208,
+      "step": 3700000
+    },
+    {
+      "available_ns": 527696099826750,
+      "observed_ns": 527696098995250,
+      "step": 3750000
+    },
+    {
+      "available_ns": 527696106592541,
+      "observed_ns": 527696104437375,
+      "step": 3800000
+    },
+    {
+      "available_ns": 527696111035708,
+      "observed_ns": 527696109167166,
+      "step": 3850000
+    },
+    {
+      "available_ns": 527696117427208,
+      "observed_ns": 527696115957291,
+      "step": 3900000
+    },
+    {
+      "available_ns": 527696121838041,
+      "observed_ns": 527696120656333,
+      "step": 3950000
+    },
+    {
+      "available_ns": 527696128422333,
+      "observed_ns": 527696126249708,
+      "step": 4000000
+    },
+    {
+      "available_ns": 527696132890458,
+      "observed_ns": 527696132227125,
+      "step": 4050000
+    },
+    {
+      "available_ns": 527696139405291,
+      "observed_ns": 527696136708083,
+      "step": 4100000
+    },
+    {
+      "available_ns": 527696143878375,
+      "observed_ns": 527696141965958,
+      "step": 4150000
+    },
+    {
+      "available_ns": 527696151513833,
+      "observed_ns": 527696148727666,
+      "step": 4200000
+    },
+    {
+      "available_ns": 527696156135166,
+      "observed_ns": 527696154125375,
+      "step": 4250000
+    },
+    {
+      "available_ns": 527696160769750,
+      "observed_ns": 527696158455000,
+      "step": 4300000
+    },
+    {
+      "available_ns": 527696165309208,
+      "observed_ns": 527696163164083,
+      "step": 4350000
+    },
+    {
+      "available_ns": 527696169503083,
+      "observed_ns": 527696167754541,
+      "step": 4400000
+    },
+    {
+      "available_ns": 527696175960583,
+      "observed_ns": 527696174508375,
+      "step": 4450000
+    },
+    {
+      "available_ns": 527696184711333,
+      "observed_ns": 527696182072083,
+      "step": 4500000
+    },
+    {
+      "available_ns": 527696189028041,
+      "observed_ns": 527696187102166,
+      "step": 4550000
+    },
+    {
+      "available_ns": 527696195907958,
+      "observed_ns": 527696192736000,
+      "step": 4600000
+    },
+    {
+      "available_ns": 527696204684791,
+      "observed_ns": 527696202172833,
+      "step": 4650000
+    },
+    {
+      "available_ns": 527696211499291,
+      "observed_ns": 527696209187791,
+      "step": 4700000
+    },
+    {
+      "available_ns": 527696219185916,
+      "observed_ns": 527696217082916,
+      "step": 4750000
+    },
+    {
+      "available_ns": 527696223540958,
+      "observed_ns": 527696222130291,
+      "step": 4800000
+    },
+    {
+      "available_ns": 527696228029458,
+      "observed_ns": 527696226491166,
+      "step": 4850000
+    },
+    {
+      "available_ns": 527696234632916,
+      "observed_ns": 527696233703083,
+      "step": 4900000
+    },
+    {
+      "available_ns": 527696239036750,
+      "observed_ns": 527696238428750,
+      "step": 4950000
+    },
+    {
+      "available_ns": 527696243882500,
+      "observed_ns": 527696243117208,
+      "step": 5000000
+    }
+  ],
+  "scope": "real executor/worker, no authoritative resource ledger",
+  "status": "completed",
+  "stop_confirmed_ns": 527696801751083,
+  "verifications": [
+    {
+      "cpu_ns": 170000,
+      "end_ns": 527696800943916,
+      "kind": "result",
+      "start_ns": 527696800773666
+    }
+  ]
+}

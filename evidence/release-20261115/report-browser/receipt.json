@@ -1,0 +1,65 @@
+{
+  "base": "http://127.0.0.1:15254",
+  "started_at": "2026-11-14T20:55:57.624Z",
+  "browser": "157.0.8103.51",
+  "commit": "d39450197c3f3902fb3b20b62cd4729e7fddcdc8",
+  "scope": "Read existing pinned historical report and browser download. No new strategy run or current-build effect claim.",
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/v1/version"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/version"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/version"
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/session"
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/admin/overview"
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/admin/overview"
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/work-intents"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/version"
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/admin/overview"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/version"
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/admin/overview"
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/policy-validation"
+    },
+    {
+      "method": "GET",
+      "path": "/x/v1/policy-validation"
+    }
+  ],
+  "page_errors": [],
+  "status": "FAIL",
+  "failure": "locator.waitFor: Timeout 15000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('heading', { name: '策略评估报告', exact: true }).locator('..').locator('..').getByText(/历史报告/) to be visible\u001b[22m\n\n    at /Users/xz/Projects/campus-gpu-fabric-release-20261115/web/tests/joint-report.browser.mjs:43:33",
+  "finished_at": "2026-11-14T20:56:15.644Z"
+}
