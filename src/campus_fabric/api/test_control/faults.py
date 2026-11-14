@@ -11,6 +11,7 @@ import asyncio
 
 from fastapi import HTTPException
 from fastapi.responses import JSONResponse
+from starlette.concurrency import run_in_threadpool
 from starlette.routing import compile_path
 
 
@@ -51,7 +52,9 @@ async def intercept_fault(request, kernel, identity, targets):
     # invalid credentials must neither consume the rule nor mask authorization.
     if request.url.path not in {"/healthz", "/v1/version"}:
         identity.actor(request)
-    fault = kernel.take_fault(target)
+    # Both the read check and atomic consumption may wait on SQLite. Keep that
+    # wait off the event loop so unrelated requests and responses can progress.
+    fault = await run_in_threadpool(kernel.take_fault, target)
     if fault is None or fault["mode"] == "none":
         return None
     if fault["mode"] == "latency":

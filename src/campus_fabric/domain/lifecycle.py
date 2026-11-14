@@ -141,7 +141,17 @@ class LifecycleMixin:
         return refs, status, body, None
 
     def take_fault(self, target_operation):
-        """Atomically consume a transport fault, without a domain revision or clock tick."""
+        """Atomically consume a transport fault, without a domain revision or clock tick.
+
+        An inactive rule linearizes at this read snapshot: a configuration that
+        commits later applies to later checks. An active read is not a claim;
+        recheck under the writer lock so competing requests, replacement and
+        reset cannot consume a stale rule or the same remaining count twice.
+        """
+        with self.store.snapshot() as state:
+            fault = state.get("faults", {}).get(target_operation)
+            if not fault or fault["mode"] == "none" or not fault["remaining"]:
+                return None
         with self.store.transaction() as connection:
             s = self.store.load(connection)
             fault = s.get("faults", {}).get(target_operation)
