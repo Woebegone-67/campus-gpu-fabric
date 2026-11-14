@@ -140,4 +140,3 @@ def test_global_administrator_session_does_not_invent_an_owner():
         is_administrator=True,
     )
     assert session.owner_id is None
-
