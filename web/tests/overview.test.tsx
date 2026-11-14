@@ -66,7 +66,7 @@ test('reminders order by severity then real logical deadline, occurrence and sta
     lease('a-urgent','PreemptRequested',{pending_terminal:'Released',preemption:{deadline:99,requested_at:10}}),
   ];
   await render();assert.deepEqual(alertIds(),['work-urgent','work-old','work-same-a']);assert.match(panel().textContent,/还有 2 项提示/);
-  await interact(()=>alerts()[0].querySelector('button').click());
+  await interact(()=>alerts()[0].querySelector('.attention-dismiss').click());
   assert.deepEqual(alertIds(),['work-old','work-same-a','work-same-b']);
   assert.match(alerts()[0].textContent,/截止 20 逻辑秒/);
 });

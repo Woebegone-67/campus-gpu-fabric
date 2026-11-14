@@ -1,0 +1,1022 @@
+{
+  "started_at": "2026-11-14T19:28:47.126Z",
+  "browser": "157.0.8103.51",
+  "url": "http://127.0.0.1:15191",
+  "scope": "Real Chromium render/input behavior against synthetic intercepted API responses; no live backend writes.",
+  "checks": [
+    {
+      "name": "button-press-release-and-keyboard",
+      "status": "PASS",
+      "details": {
+        "before": {
+          "scale": 1,
+          "transform": "none",
+          "shadow": "none",
+          "pressed": null
+        },
+        "pressed": {
+          "scale": 0.96,
+          "transform": "none",
+          "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+          "pressed": "true"
+        },
+        "after": {
+          "scale": 1,
+          "transform": "none",
+          "shadow": "rgba(255, 255, 255, 0.12) 0px 1px 0px 0px inset",
+          "pressed": null
+        },
+        "keyboardPressed": {
+          "scale": 0.96,
+          "transform": "none",
+          "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+          "pressed": "true"
+        },
+        "fromInput": {
+          "scale": 0.96,
+          "transform": "none",
+          "shadow": "rgba(0, 0, 0, 0.6) 0px 2.99356px 8.98068px 0px inset, rgba(0, 0, 0, 0.4) 0px 0.997853px 1.99571px 0px inset, rgba(255, 255, 255, 0.03) 0px -0.997853px 0px 0px inset",
+          "pressed": "true"
+        },
+        "release_peak": 1.01638
+      }
+    },
+    {
+      "name": "navigation-slides-and-preserves-draft",
+      "status": "PASS",
+      "details": {
+        "nav_before": {
+          "x": 18,
+          "y": 127,
+          "width": 171,
+          "height": 44
+        },
+        "nav_after": {
+          "x": 18,
+          "y": 177,
+          "width": 171,
+          "height": 44
+        },
+        "nav_intermediate_samples": 21,
+        "switch_before": {
+          "x": 311,
+          "y": 80,
+          "width": 76,
+          "height": 32
+        },
+        "switch_after": {
+          "x": 244,
+          "y": 80,
+          "width": 64,
+          "height": 32
+        },
+        "draft_preserved": true
+      }
+    },
+    {
+      "name": "query-refresh-preserves-results",
+      "status": "PASS",
+      "details": {
+        "preserved_during_refresh": true,
+        "preserved_after_refresh": true,
+        "animation_targets": [
+          "button quiet",
+          "query-result-motion"
+        ]
+      }
+    },
+    {
+      "name": "copy-full-id-success-and-failure",
+      "status": "PASS",
+      "details": {
+        "full_id": "work-4c4b4f5e-b951-4b70-8aac-2dd706cd0f82",
+        "successful_copy": true,
+        "denied_clipboard_fallback": true
+      }
+    },
+    {
+      "name": "disclosures-button-affordance-keyboard",
+      "status": "PASS",
+      "details": {
+        "computed": {
+          "height": 40,
+          "border": "1px",
+          "bg": "rgba(43, 43, 43, 0.88)",
+          "cursor": "pointer",
+          "after": "\"\"",
+          "open": false
+        },
+        "native_enter_and_space": true
+      }
+    },
+    {
+      "name": "reduced-motion",
+      "status": "PASS",
+      "details": {
+        "pressed": {
+          "scale": 1,
+          "transform": "none",
+          "shadow": "rgba(0, 0, 0, 0.6) 0px 3px 9px 0px inset, rgba(0, 0, 0, 0.4) 0px 1px 2px 0px inset, rgba(255, 255, 255, 0.03) 0px -1px 0px 0px inset",
+          "pressed": "true"
+        },
+        "css": {
+          "transition": "0s",
+          "animation": "none"
+        }
+      }
+    },
+    {
+      "name": "responsive-1440",
+      "status": "PASS",
+      "details": {
+        "window": 1440,
+        "document": 1440,
+        "body": 1440,
+        "main": 1232,
+        "canvas": 0
+      }
+    },
+    {
+      "name": "responsive-390",
+      "status": "PASS",
+      "details": {
+        "window": 390,
+        "document": 390,
+        "body": 390,
+        "main": 390,
+        "canvas": 0
+      }
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "1440-button-pressed",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/post-06d7958/1440-button-pressed.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "1440-button-and-popover",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/post-06d7958/1440-button-and-popover.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "1440-query-pending-retains-result",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/post-06d7958/1440-query-pending-retains-result.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "1440-copy-failure-fallback",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/post-06d7958/1440-copy-failure-fallback.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "1440-disclosure-buttons",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/post-06d7958/1440-disclosure-buttons.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "1440-resources-disclosures",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/post-06d7958/1440-resources-disclosures.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "1440-overview",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/post-06d7958/1440-overview.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "390-resources-disclosures",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/post-06d7958/390-resources-disclosures.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "390-overview",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/post-06d7958/390-overview.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "data": "synthetic browser fixtures"
+    }
+  ],
+  "requests": [
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/work-4c4b4f5e-b951-4b70-8aac-2dd706cd0f82",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/work-4c4b4f5e-b951-4b70-8aac-2dd706cd0f82",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/capacity",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/capacity",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/capacity",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/capacity",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/capacity",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/capacity",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    }
+  ],
+  "denied": [],
+  "errors": [],
+  "unverified": [
+    "Physical trackpad and touch hardware",
+    "Safari/WebKit",
+    "Actual operating-system clipboard permission UI",
+    "Real backend business transitions and authorization"
+  ],
+  "finished_at": "2026-11-14T19:29:18.843Z",
+  "status": "PASS"
+}

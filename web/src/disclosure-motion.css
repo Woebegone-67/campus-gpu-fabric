@@ -1,0 +1,122 @@
+/* Native disclosures keep their keyboard, focus and open-state semantics.
+   This layer only supplies a button affordance and a short content reveal. */
+.dual-space :is(details, details.work-disclosure, details.history, details.raw) > summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 40px;
+  max-width: 100%;
+  padding: 9px 13px;
+  margin: 0;
+  border: 1px solid #484848;
+  border-radius: 8px;
+  background: rgb(43 43 43 / .88);
+  color: #dedede;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .06), 0 1px 3px rgb(0 0 0 / .14);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: left;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 180ms ease, border-color 180ms ease,
+    color 180ms ease, box-shadow 180ms ease;
+}
+
+.dual-space details > summary::marker { content: ''; }
+.dual-space details > summary::-webkit-details-marker { display: none; }
+
+.dual-space details > summary::after {
+  content: '';
+  display: block;
+  flex: 0 0 7px;
+  width: 7px;
+  height: 7px;
+  margin: 0 3px 0 8px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  opacity: .7;
+  transform: rotate(-45deg);
+  transition: transform 240ms cubic-bezier(.2, .8, .2, 1), opacity 180ms ease;
+}
+
+/* Larger workflow entries expose the whole row as a target. Raw records and
+   table-cell downloads remain compact, so they do not force wider tables. */
+.dual-space details.work-disclosure > summary {
+  display: flex;
+  width: 100%;
+}
+
+.dual-space :is(details.work-create, details.work-supporting-records) > summary {
+  min-height: 46px;
+  padding: 11px 14px;
+  color: #f0f0f0;
+  font-weight: 600;
+}
+
+.dual-space :is(details, details.work-disclosure, details.history, details.raw)[open] > summary {
+  margin-bottom: 14px;
+  padding: 9px 13px;
+  border-color: #626262;
+  background-color: rgb(51 51 51 / .94);
+  color: #f4f4f4;
+}
+
+.dual-space :is(details.work-create, details.work-supporting-records)[open] > summary {
+  padding: 11px 14px;
+}
+
+.dual-space details[open] > summary::after {
+  transform: rotate(45deg);
+  opacity: 1;
+}
+
+@media (hover: hover) {
+  .dual-space :is(details, details.work-disclosure, details.history, details.raw) > summary:hover {
+    background-color: rgb(61 61 61 / .96);
+    border-color: #747474;
+    color: #fff;
+  }
+}
+
+.dual-space :is(details, details.work-disclosure, details.history, details.raw) > summary:focus-visible {
+  outline: 2px solid #ededed;
+  outline-offset: 3px;
+  border-color: #969696;
+}
+
+.dual-space :is(details, details.work-disclosure, details.history, details.raw) > summary:active {
+  background-color: #252525;
+  box-shadow: inset 0 3px 8px rgb(0 0 0 / .6), inset 0 1px 1px rgb(0 0 0 / .4);
+}
+
+/* A bounded fade works for arbitrary native details contents without fixed
+   height caps or overflow clipping. Closing still hides content immediately.
+   No retained outgoing DOM, sizing wrapper, or persistent transform is added. */
+.dual-space details[open] > :not(summary) {
+  animation: disclosure-content-enter 220ms cubic-bezier(.2, .8, .2, 1);
+}
+
+@keyframes disclosure-content-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 760px) {
+  .dual-space :is(details, details.work-disclosure, details.history, details.raw) > summary {
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dual-space details > summary,
+  .dual-space details > summary::after {
+    transition: none;
+  }
+  .dual-space details[open] > :not(summary) {
+    animation: none;
+  }
+}

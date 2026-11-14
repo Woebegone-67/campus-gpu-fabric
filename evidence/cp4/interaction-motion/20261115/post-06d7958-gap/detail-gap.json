@@ -1,0 +1,33 @@
+{
+  "display": "grid",
+  "gap": "20px",
+  "panels": [
+    {
+      "class": "panel",
+      "top": 590.71875,
+      "bottom": 1188.28125
+    },
+    {
+      "class": "panel",
+      "top": 1208.28125,
+      "bottom": 1633.65625
+    },
+    {
+      "class": "panel",
+      "top": 1653.65625,
+      "bottom": 1823.25
+    },
+    {
+      "class": "panel",
+      "top": 1843.25,
+      "bottom": 1972.75
+    }
+  ],
+  "actual_panel_gaps": [
+    20,
+    20,
+    20
+  ],
+  "business_writes": 0,
+  "status": "PASS"
+}

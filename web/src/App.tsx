@@ -15,6 +15,7 @@ import {AccountContext,readAccountSession,type AccountSession} from './session';
 import {StarwaveSurface,StarwaveMotionControl} from './visual/starwave/StarwaveSurface';
 import {SpaceGesture} from './components/SpaceGesture';
 import {ErrorNotice} from './components/common';
+import {MovingSelection,reveal,usePressMotion} from './motion';
 
 const sections=[
   {id:'run',name:'我的工作',description:'查看工作、提交需求，以及管理资源归还。'},
@@ -33,6 +34,8 @@ function workbenchTarget(account:AccountSession|null,hash:string){
   return account?.owner_id&&account.capabilities.includes('use_compute')?'#run':account?.owner_id&&account.capabilities.includes('contribute_resources')?'#resources':account?.is_administrator?'#acceptance':'#run';
 }
 export default function App(){
+  const appRoot=useRef<HTMLDivElement>(null);
+  usePressMotion(appRoot);
   const [starwaveEnabled]=useState(()=>new URLSearchParams(location.search).get('visual')!=='classic');
   const [identity,setIdentity]=useState<Identity>({owner:'',token:''});
   const [identityOpen,setIdentityOpen]=useState(false),[mutations,setMutations]=useState(0),[identityGeneration,setIdentityGeneration]=useState(0);
@@ -59,11 +62,11 @@ export default function App(){
   const refresh=()=>{health.refresh();version.refresh();session.refresh();};
   const canUse=account?.capabilities.includes('use_compute');
   const canContribute=account?.capabilities.includes('contribute_resources');
-  return <div className={`app dual-space${starwaveEnabled?' cp4-starwave':''}`} data-space={space}>
+  return <div ref={appRoot} className={`app dual-space${starwaveEnabled?' cp4-starwave':''}`} data-space={space}>
     <aside className="sidebar"><a className="wordmark" href="#overview"><span>织算<span className="brand-dot">✦</span></span><small>CAMPUS FABRIC</small></a>
-      <nav aria-label="空间"><a href="#overview" aria-current={space==='overview'?'page':undefined}><span aria-hidden>◈</span>总览</a><a href={workbenchHash} aria-current={space==='workbench'?'page':undefined}><span aria-hidden>▦</span>工作台</a></nav>
+      <nav aria-label="空间"><MovingSelection value={space} selector="a[aria-current]"/><a href="#overview" aria-current={space==='overview'?'page':undefined}><span aria-hidden>◈</span>总览</a><a href={workbenchHash} aria-current={space==='workbench'?'page':undefined}><span aria-hidden>▦</span>工作台</a></nav>
       <div className="sidebar-separator"/>
-      {account&&<nav aria-label="工作台导航"><p className="nav-group-label">工作空间</p>{canUse&&<a href="#run" aria-current={route.section==='run'?'page':undefined}>我的工作</a>}{(canUse||canContribute)&&<a href="#resources" aria-current={route.section==='resources'?'page':undefined}>{canContribute?'我的设备':'可见资源'}</a>}{canUse&&<a href="#events" aria-current={route.section==='events'?'page':undefined}>活动记录</a>}{account.is_administrator&&<><p className="nav-group-label">管理</p><a href="#events?admin=experiments">实验与报告</a><a href="#acceptance" aria-current={route.section==='acceptance'?'page':undefined}>系统与验收</a></>}</nav>}
+      {account&&<nav aria-label="工作台导航"><MovingSelection value={`${route.section}:${account.actor_id}`} selector="a[aria-current]"/><p className="nav-group-label">工作空间</p>{canUse&&<a href="#run" aria-current={route.section==='run'?'page':undefined}>我的工作</a>}{(canUse||canContribute)&&<a href="#resources" aria-current={route.section==='resources'?'page':undefined}>{canContribute?'我的设备':'可见资源'}</a>}{canUse&&<a href="#events" aria-current={route.section==='events'?'page':undefined}>活动记录</a>}{account.is_administrator&&<><p className="nav-group-label">管理</p><a href="#events?admin=experiments">实验与报告</a><a href="#acceptance" aria-current={route.section==='acceptance'?'page':undefined}>系统与验收</a></>}</nav>}
       <footer><span className={`connection-dot ${isOnline?'online':''}`}/>{isOnline?'服务在线':'服务未连接'}<br/><span>临时共享 · 持续接续</span></footer>
     </aside>
     <StarwaveSurface enabled={starwaveEnabled&&space==='overview'}>
@@ -72,7 +75,7 @@ export default function App(){
         <div hidden={!identityOpen}><div className="popover-heading"><strong>连接本地账户</strong><button className="button quiet" onClick={()=>setIdentityOpen(false)}>关闭账户面板</button></div><IdentityPicker identity={identity} onApply={applyIdentity} busy={mutations>0}/></div>
         {settingsOpen&&<section className="display-settings"><label><input type="checkbox" checked={gestureEnabled} onChange={event=>setGestureEnabled(event.target.checked)}/>试用页头横向手势</label><p className="helper">仅在页头空白区域生效。默认关闭；鼠标与键盘可直接使用空间导航，触控板实机兼容性尚待验证。</p><button className="button quiet" onClick={()=>setSettingsOpen(false)}>关闭显示设置</button></section>}
       </div>
-      <SpaceGesture activeSpace={space} enabled={gestureEnabled} blocked={identityOpen||settingsOpen||mutations>0} scopeKey={`${identityGeneration}:${epoch}:${route.section}:${route.intent}:${route.decision}`} onNavigate={navigateSpace} onPreview={setPreview} className="space-gesture-header"><div className="space-switch" data-space-gesture-ignore><button className={space==='overview'?'selected':''} aria-pressed={space==='overview'} onClick={()=>navigateSpace('overview')}>总览</button><button className={space==='workbench'?'selected':''} aria-pressed={space==='workbench'} onClick={()=>navigateSpace('workbench')}>工作台</button></div><span className="gesture-hint">{gestureEnabled?'页头空白处可横向切换空间':'一个账户，连接计算与共享'}</span></SpaceGesture>
+      <SpaceGesture activeSpace={space} enabled={gestureEnabled} blocked={identityOpen||settingsOpen||mutations>0} scopeKey={`${identityGeneration}:${epoch}:${route.section}:${route.intent}:${route.decision}`} onNavigate={navigateSpace} onPreview={setPreview} className="space-gesture-header"><div className="space-switch" data-space-gesture-ignore><MovingSelection value={space} selector="button[aria-pressed='true']" className="space-switch-selection"/><button className={space==='overview'?'selected':''} aria-pressed={space==='overview'} onClick={()=>navigateSpace('overview')}>总览</button><button className={space==='workbench'?'selected':''} aria-pressed={space==='workbench'} onClick={()=>navigateSpace('workbench')}>工作台</button></div><span className="gesture-hint">{gestureEnabled?'页头空白处可横向切换空间':'一个账户，连接计算与共享'}</span></SpaceGesture>
       {health.error&&<div className="shell-notice" role="status">服务暂未连接。已填内容保留，可检查本地服务后<button className="link-button" onClick={refresh}>重新连接</button>。</div>}
       {isOnline&&object(health.data).control_plane_ready===false&&<div className="shell-notice">业务内核尚未就绪，暂不能处理工作。</div>}
       {account&&session.error&&<div className="shell-notice" role="status">账户连接暂未确认，保留当前内容并暂停提交。<button className="link-button" onClick={session.refresh}>重新检查账户</button></div>}
@@ -88,6 +91,7 @@ function Workspace({api,account,route:activeRoute,workRoute:route,preview,accoun
   useEffect(()=>{if(route.section==='run')setVisitedRun(true);},[route.section]);
   const workScroll=useRef<HTMLDivElement>(null),overviewScroll=useRef<HTMLDivElement>(null),overviewPosition=useRef(0),positions=useRef<Record<string,number>>({});
   const routeKey=`${route.section}:${route.intent}:${route.decision}`;
+  useLayoutEffect(()=>{const scroll=overview?overviewScroll.current:workScroll.current;return reveal(scroll?.querySelector<HTMLElement>(overview?'.overview-layout':'.workbench-content')??null);},[routeKey,overview]);
   useLayoutEffect(()=>{const element=overview?overviewScroll.current:workScroll.current;if(element)element.scrollTop=overview?overviewPosition.current:positions.current[routeKey]||0;},[routeKey,overview]);
   const first=useRef(true);
   useEffect(()=>{if(first.current){first.current=false;return;}const id=requestAnimationFrame(()=>{const active=document.querySelector(`[data-space-scroll="${overview?'overview':'workbench'}"]`);(active?.querySelector('h1') as HTMLElement|null)?.focus({preventScroll:true});});return()=>cancelAnimationFrame(id);},[routeKey,overview]);

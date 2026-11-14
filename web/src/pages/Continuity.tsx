@@ -1,3 +1,4 @@
+import {CopyWorkId} from '../components/CopyWorkId';
 import {useState} from 'react';
 import {ApiClient,detail,encodeId,list,object,text,versionOf,type ApiResult} from '../api';
 import {useLookupQuery} from '../hooks';
@@ -14,7 +15,6 @@ export function ContinuityPage({api,initialId,onSelect}:{api:ApiClient;initialId
   const legal=list(object(query.data).legal_actions),stages=list(work.stages);
   const [actionRevision,setActionRevision]=useState(0);
   const [lastAction,setLastAction]=useState<{id:string;api:ApiClient;result:ApiResult}|null>(null);
-  const [copyFeedback,setCopyFeedback]=useState<{id:string;message:string}|null>(null);
   const allocations=list(object(query.data).allocations),jobs=list(object(query.data).jobs);
   const holding=allocations.filter(a=>a.pending_terminal||['Allocated','Running','PreemptRequested'].includes(text(a.state)));
   const decisionIds=[...new Set(list(object(query.data).events).map(event=>text(event.decision_id,'')).filter(Boolean))];
@@ -39,7 +39,7 @@ export function ContinuityPage({api,initialId,onSelect}:{api:ApiClient;initialId
     </Panel>
     {lastAction?.id===id&&lastAction.api===api&&<Receipt result={lastAction.result}/>}
     <QueryFeedback query={query}>
-      <Panel title={`工作 ${id.length>22?`${id.slice(0,13)}…${id.slice(-6)}`:id}`} actions={<Status value={work.state}/>}>
+      <Panel title={`工作 ${id.length>22?`${id.slice(0,13)}…${id.slice(-6)}`:id}`} actions={<div className="work-copy-actions"><CopyWorkId id={id} scope={api}/><Status value={work.state}/></div>}>
         <p className="helper work-detail-subtitle">{modeLabel(work.execution_mode)}{object(spec.job).image?` · ${text(object(spec.job).image)}`:''}</p>
         <SettlementSummary api={api} work={work} jobs={jobs} allocations={allocations} legal={legal}/>
         <div className="work-detail-actions">
@@ -53,7 +53,7 @@ export function ContinuityPage({api,initialId,onSelect}:{api:ApiClient;initialId
         {!decisionIds.length&&<p className="helper">尚无可见的关联决策记录。</p>}
         </details>
         <details className="work-disclosure work-technical"><summary>工作信息与技术详情</summary>
-          <div className="work-full-id"><code>{id}</code><button type="button" className="button quiet" onClick={async()=>{try{await navigator.clipboard.writeText(id);setCopyFeedback({id,message:'已复制'});}catch{setCopyFeedback({id,message:'无法自动复制，可选中上方 ID 手动复制。'});}}}>复制工作 ID</button>{copyFeedback?.id===id&&<span role="status">{copyFeedback.message}</span>}</div>
+          <div className="work-full-id"><code>{id}</code></div>
           <Metadata data={query.data}/><dl className="facts"><div><dt>首次需求到达</dt><dd>{text(work.first_arrival_at)} 逻辑秒</dd></div><div><dt>结算选择</dt><dd>{({keep_lease:'保留租约，手动归还',release_on_success:'成功后自动归还',release_on_terminal:'结束后自动归还'} as Record<string,string>)[text(work.settlement_action)]||text(work.settlement_action)}</dd></div></dl>
           <p className="helper">恢复沿用工作、租约与任务 ID，新执行代次由服务端创建。等待资源时再次刷新，不会提前计算成功恢复。</p>
           <RawData data={query.data} label="完整工作记录"/>

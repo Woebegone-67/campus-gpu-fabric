@@ -1,6 +1,7 @@
 import {useState, type ReactNode} from 'react';
 import {ApiError, ApiClient, object, text, versionOf, type ApiResult, type JsonObject} from '../api';
 import type {QueryState} from '../hooks';
+import {MotionReveal} from '../motion';
 
 const labels: Record<string, string> = {
   Pending: '等待分配', Allocated: '已获资源', Running: '运行中', PreemptRequested: '收到收回通知',
@@ -26,7 +27,7 @@ export function QueryFeedback({query, empty, children}: {query: QueryState; empt
   if (query.loading && query.data === null) return <div className="empty" role="status">正在读取服务端状态…</div>;
   if (query.error && query.data === null) return <ErrorNotice error={query.error}/>;
   if (query.data === null) return null;
-  return <><p className="helper query-refreshing" role="status">{query.loading?'正在更新，当前显示上次读取的结果。':''}</p>{query.error&&<div className="feedback warning" role="status"><strong>本次更新未完成</strong><p>保留上次读取的结果{query.receivedAt?`（${new Date(query.receivedAt).toLocaleTimeString()}）`:''}。这不代表工作失败。</p><details><summary>连接详情</summary><ErrorNotice error={query.error}/></details></div>}{empty?<div className="empty">当前授权范围内没有记录。新记录会在服务端接受后显示。</div>:children}</>;
+  return <><p className="helper query-refreshing" role="status">{query.loading?'正在更新，当前显示上次读取的结果。':''}</p>{query.error&&<div className="feedback warning" role="status"><strong>本次更新未完成</strong><p>保留上次读取的结果{query.receivedAt?`（${new Date(query.receivedAt).toLocaleTimeString()}）`:''}。这不代表工作失败。</p><details><summary>连接详情</summary><ErrorNotice error={query.error}/></details></div>}<MotionReveal trigger={query.data}>{empty?<div className="empty">当前授权范围内没有记录。新记录会在服务端接受后显示。</div>:children}</MotionReveal></>;
 }
 export function LookupStatus({query}: {query: QueryState}) {
   return <p className="helper lookup-status" role="status" aria-live="polite">{query.loading ? '正在查询…' : query.receivedAt ? `已读取服务端状态 · 本机 ${new Date(query.receivedAt).toLocaleTimeString()}` : ''}</p>;

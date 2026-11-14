@@ -1,3 +1,4 @@
+import {CopyWorkId} from '../components/CopyWorkId';
 import {useRef, useState, type FormEvent} from 'react';
 import type {WorkIntentRegistration} from '../generated/contracts';
 import {ApiClient, ApiError, encodeId, idOf, items, list, object, text, type ApiResult} from '../api';
@@ -87,7 +88,7 @@ export function CreateWork({api, onCreated, onOpen}: {api: ApiClient; onCreated:
         if (window.confirm('新建另一项工作不会取消之前的请求。若结果不明，请先查询原工作。确定准备另一项工作？')) { registration.current = null; setIntentId(''); setError(null); setResult(null); setCommandError(''); }
       }}>准备另一项工作</button>}</div>
     </form>
-    {intentId && <p className="helper">本次工作 ID：<code>{intentId}</code>。重试保持同一 ID 和输入；实际登记结果以服务端记录为准。</p>}
+    {intentId && <p className="helper">本次工作 ID：<code>{intentId}</code> <CopyWorkId id={intentId} scope={api} compact/>。重试保持同一 ID 和输入；实际登记结果以服务端记录为准。</p>}
     {error && <ErrorNotice error={error}/>} {error?.uncertain&&<p className="helper">请先查询这项工作确认登记结果，已阻止重复提交。</p>}{result && <Receipt result={result}/>}
   </Panel>;
 }
@@ -116,7 +117,7 @@ export function RunPage({api, onOpen}: {api: ApiClient; onOpen: (id: string) => 
       <p className="helper work-page-scope">仅筛选当前已加载页{query.data?`：显示 ${rows.length} / ${loaded.length} 项`:''}。切换分页可查看其他工作。</p>
       <QueryFeedback query={query}>
         {rows.length ? <Table rows={rows} rowKey={idOf} columns={[
-          {label:'工作',render:r=><div className="work-list-identity"><button className="link-button" onClick={()=>onOpen(idOf(r))} title={idOf(r)}>工作 {shortId(idOf(r))}</button><small>{text(object(object(r.specification).job).image,'未提供镜像登记信息')}</small></div>},
+          {label:'工作',render:r=><div className="work-list-identity"><div className="work-id-with-copy"><button className="link-button" onClick={()=>onOpen(idOf(r))} title={idOf(r)}>工作 {shortId(idOf(r))}</button><CopyWorkId id={idOf(r)} scope={api} compact/></div><small>{text(object(object(r.specification).job).image,'未提供镜像登记信息')}</small></div>},
           {label:'状态',render:r=><Status value={r.state}/>},
           {label:'执行模式',render:r=>modeLabel(r.execution_mode)},
           {label:'操作',render:r=><button className="button quiet" aria-label={`查看工作 ${idOf(r)}`} onClick={()=>onOpen(idOf(r))}>查看详情</button>},

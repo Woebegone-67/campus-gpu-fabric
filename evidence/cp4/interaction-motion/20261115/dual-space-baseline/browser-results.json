@@ -1,0 +1,2504 @@
+{
+  "started_at": "2026-11-14T19:21:38.144Z",
+  "baseUrl": "http://127.0.0.1:15191",
+  "preview": false,
+  "checkFilter": null,
+  "browser": "157.0.8103.51",
+  "scope": "Real Chrome rendering and interaction with synthetic API fixtures only; no live Fabric backend or business writes.",
+  "checks": [
+    {
+      "name": "default overview loads scoped work and real session capabilities without mutations",
+      "status": "PASS",
+      "details": {
+        "scope": "Alice loaded objects; synthetic use_compute and contribute_resources projection",
+        "readRequests": 13
+      }
+    },
+    {
+      "name": "overview joins authorized lease records and prioritizes dismissible factual reminders",
+      "status": "PASS",
+      "details": {
+        "source": "/v1/allocations?limit=50",
+        "firstThree": [
+          "fixture-alice-stopping",
+          "fixture-alice-recall-notice",
+          "fixture-alice-attention"
+        ],
+        "recent": [
+          "fixture-alice-completed",
+          "fixture-alice-retained"
+        ],
+        "ordinaryWaitingExcluded": true
+      }
+    },
+    {
+      "name": "failed lease reads preserve work facts without inventing resource reminders",
+      "status": "PASS",
+      "details": {
+        "independentWorkReminderRetained": true,
+        "leaseDependentReminders": 0
+      }
+    },
+    {
+      "name": "overview opens the same work in workbench and browser history returns",
+      "status": "PASS"
+    },
+    {
+      "name": "same-session drafts, current-page filters and workbench scroll survive space switching",
+      "status": "PASS",
+      "details": {
+        "scrollBefore": 1778,
+        "scrollAfter": 1778,
+        "status": "waiting"
+      }
+    },
+    {
+      "name": "workbench subpage and overview scroll are independent and recover on return",
+      "status": "PASS",
+      "details": {
+        "overviewScrollBefore": 500,
+        "overviewScrollAfter": 500
+      }
+    },
+    {
+      "name": "old six workspace hashes and work deep link remain direct and read-only",
+      "status": "PASS"
+    },
+    {
+      "name": "identity switch and clear remove old objects, drafts, filters and late responses",
+      "status": "PASS",
+      "details": {
+        "identityScopedDrafts": true,
+        "staleAliceReadReleasedAfterBobApplied": true,
+        "persisted": {
+          "local": "{}",
+          "session": "{}",
+          "address": "http://127.0.0.1:15191/#run"
+        }
+      }
+    },
+    {
+      "name": "unconfirmed session fails closed without protected overview or workbench reads",
+      "status": "PASS"
+    },
+    {
+      "name": "compute-only session does not request contributor or administrator data",
+      "status": "PASS",
+      "details": {
+        "capabilities": [
+          "use_compute"
+        ],
+        "forbiddenReadCount": 0
+      }
+    },
+    {
+      "name": "new observed epoch clears previous drafts and discards a late old snapshot",
+      "status": "PASS",
+      "details": {
+        "initialEpoch": 0,
+        "newEpoch": 1,
+        "oldSnapshotReleasedAfterNewEpoch": true
+      }
+    },
+    {
+      "name": "empty current-owner overview does not invent work or global success",
+      "status": "PASS"
+    },
+    {
+      "name": "same-identity refresh failure retains previously loaded list with failure notice",
+      "status": "PASS"
+    },
+    {
+      "name": "art exists only in overview and reduced motion stops continuous drawing",
+      "status": "PASS",
+      "details": {
+        "method": "Chromium media emulation",
+        "before": {
+          "ripples": 0,
+          "stars": 14300,
+          "reducedMotion": true,
+          "paused": false,
+          "systemReduced": true,
+          "elapsedMs": 1947.3,
+          "width": 1232,
+          "height": 900,
+          "renderedFrames": 58,
+          "lastFrameMs": 6
+        },
+        "after": {
+          "ripples": 0,
+          "stars": 14300,
+          "reducedMotion": true,
+          "paused": false,
+          "systemReduced": true,
+          "elapsedMs": 1947.3,
+          "width": 1232,
+          "height": 900,
+          "renderedFrames": 58,
+          "lastFrameMs": 6
+        },
+        "reducedTransform": "none",
+        "workbenchCanvasCount": 0
+      }
+    },
+    {
+      "name": "keyboard switching leaves focus in a visible active surface",
+      "status": "PASS",
+      "details": {
+        "tag": "H1",
+        "text": "我的工作",
+        "hiddenAncestor": false,
+        "visible": true
+      }
+    },
+    {
+      "name": "optional header gesture is off by default and respects inertia and controls",
+      "status": "PASS",
+      "details": {
+        "input": "Chromium mouse.wheel, not hardware trackpad",
+        "overviewToWorkbench": "positive deltaX",
+        "emptyHitPoint": {
+          "x": 1435,
+          "y": 69
+        }
+      }
+    },
+    {
+      "name": "desktop and narrow layouts preserve visible switcher and reachable forms",
+      "status": "PASS",
+      "details": [
+        {
+          "width": 1440,
+          "height": 900,
+          "horizontalOverflow": 0
+        },
+        {
+          "width": 1280,
+          "height": 800,
+          "horizontalOverflow": 0
+        },
+        {
+          "width": 1024,
+          "height": 768,
+          "horizontalOverflow": 0
+        },
+        {
+          "width": 390,
+          "height": 844,
+          "horizontalOverflow": 0
+        },
+        {
+          "width": 320,
+          "height": 700,
+          "horizontalOverflow": 0
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "overview-1440x900",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/dual-space-baseline/overview-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "overview-linked-reminders-1440x900",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/dual-space-baseline/overview-linked-reminders-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "overview-lease-unavailable-1440x900",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/dual-space-baseline/overview-lease-unavailable-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-detail-1440x900",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/dual-space-baseline/work-detail-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "restored-workbench-draft-1440x900",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/dual-space-baseline/restored-workbench-draft-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "session-rejected-1440x900",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/dual-space-baseline/session-rejected-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "overview-empty-1440x900",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/dual-space-baseline/overview-empty-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-list-stale-1440x900",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/dual-space-baseline/work-list-stale-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "overview-reduced-motion-1440x900",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/dual-space-baseline/overview-reduced-motion-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "overview-1440x900",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/dual-space-baseline/overview-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-list-1440x900",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/dual-space-baseline/work-list-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-form-1440x900",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/dual-space-baseline/work-form-1440x900.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "overview-390x844",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/dual-space-baseline/overview-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-list-390x844",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/dual-space-baseline/work-list-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "data": "synthetic browser fixtures"
+    },
+    {
+      "name": "work-form-390x844",
+      "path": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-cp4-b/evidence/cp4/interaction-motion/20261115/dual-space-baseline/work-form-390x844.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "data": "synthetic browser fixtures"
+    }
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/capacity",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/capacity",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/capacity",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/capacity",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/capacity",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/events?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/events?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-completed",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-completed",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "bob",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "bob",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "bob",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "bob",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "bob",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents/fixture-alice-active",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "bob",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "bob",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "bob",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "bob",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "bob",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "bob",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/capacity",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/capacity",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/healthz",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/v1/version",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/session",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/contributions?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/x/v1/work-intents?limit=25",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/allocations?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "source": "synthetic-dual-space-fixture"
+    },
+    {
+      "path": "/v1/jobs?limit=50",
+      "method": "GET",
+      "owner": "alice",
+      "body": null,
+      "source": "synthetic-browser-fixture"
+    }
+  ],
+  "denied": [],
+  "unverified": [
+    "Native two-finger gestures and system history conflicts on physical Chrome/Safari trackpads.",
+    "Native OS reduced-motion setting; this harness uses Chromium media emulation.",
+    "VoiceOver, complete accessibility conformance, real API authorization, server business correctness, and file-download integrity."
+  ],
+  "browserClosed": true,
+  "finished_at": "2026-11-14T19:22:55.354Z",
+  "status": "PASS"
+}

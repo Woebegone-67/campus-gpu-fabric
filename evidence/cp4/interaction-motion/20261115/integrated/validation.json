@@ -1,0 +1,51 @@
+{
+  "upstream_commit": "06d795805af4ce9c30fc226e9e18e9579efd3c17",
+  "branch": "feat/b-cp4-starwave",
+  "cp0_exit_code": 0,
+  "python_tests_passed": 1231,
+  "ui_tests_passed": 108,
+  "client_tests_passed": 15,
+  "browser_motion_checks_passed": 8,
+  "browser_baseline_checks_passed": 17,
+  "browser_baseline_note": "Run before fast-forward; upstream has no production web/src changes. Motion checks and detail gaps rerun after integration.",
+  "browser_api_writes": 0,
+  "browser_scope": "Synthetic intercepted responses; real Chromium rendering and input. Not live business acceptance.",
+  "artifacts": [
+    {
+      "path": "evidence/cp4/interaction-motion/20261115/integrated/cp0.log",
+      "sha256": "63914da876aa0dec40ddf09787f3b7df0817954c6cc0aa1a8efd685aeb30c401"
+    },
+    {
+      "path": "evidence/cp4/interaction-motion/20261115/integrated/client.log",
+      "sha256": "97a21e0517a9cfbda64c884b750df80ff8de97310fc7fc86bb59bccc4aeda36a"
+    },
+    {
+      "path": "evidence/cp4/interaction-motion/20261115/post-06d7958/interaction-motion-browser.json",
+      "sha256": "f7bb42316fe68038d5a293d4dbc85168c08d94a580b363c468cec07328a4f4cb"
+    },
+    {
+      "path": "evidence/cp4/interaction-motion/20261115/dual-space-baseline/browser-results.json",
+      "sha256": "08137edf38b5f372e8b1979a524bd95c3177b286a6cfc2206964aed7e3b1c0d9"
+    },
+    {
+      "path": "evidence/cp4/interaction-motion/20261115/post-06d7958-gap/detail-gap.json",
+      "sha256": "1491c07ffbceb6908366b4dd12a1058bec41fef7688273b3465e1ee6bf9561ce"
+    },
+    {
+      "path": "evidence/cp4/interaction-motion/20261115/post-06d7958/1440-overview.png",
+      "sha256": "384a5319f287206bd576b3992fae45c4746941254c854e02c67448e67e42026d"
+    },
+    {
+      "path": "evidence/cp4/interaction-motion/20261115/post-06d7958/390-overview.png",
+      "sha256": "4db82ff5b5e8ec1e0aa2563f745160432f5a4705d60677114a5c6471f5b26dbe"
+    },
+    {
+      "path": "evidence/cp4/interaction-motion/20261115/post-06d7958/1440-disclosure-buttons.png",
+      "sha256": "2821776fce260791ed3c67ffe30e1d445f823b3b2eecd337afe7a1b265cba131"
+    },
+    {
+      "path": "evidence/cp4/interaction-motion/20261115/post-06d7958/390-resources-disclosures.png",
+      "sha256": "9741140574498159f881136d58b138430983e03d03e8102b7882b5070e1c2b09"
+    }
+  ]
+}
