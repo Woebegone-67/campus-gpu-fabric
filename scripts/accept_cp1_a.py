@@ -62,8 +62,9 @@ def object_id(receipt, kind):
 
 
 class Harness:
-    def __init__(self, directory):
+    def __init__(self, directory, *, app_target="campus_fabric.app:create_app"):
         self.directory = Path(directory)
+        self.app_target = app_target
         self.history = []
         self.checks = []
         self.lock = threading.Lock()
@@ -110,7 +111,7 @@ class Harness:
         with socket.socket() as sock:
             sock.bind(("127.0.0.1", 0))
             self.port = sock.getsockname()[1]
-        self.command = [sys.executable, "-m", "uvicorn", "campus_fabric.app:create_app", "--factory",
+        self.command = [sys.executable, "-m", "uvicorn", self.app_target, "--factory",
                         "--host", "127.0.0.1", "--port", str(self.port), "--log-level", "error"]
         self.log = (self.directory / "server.log").open("ab")
         self.process = subprocess.Popen(self.command, cwd=ROOT, env=self.env,
