@@ -14,6 +14,7 @@ from unittest.mock import patch
 from campus_fabric.contracts.models import VersionedArtifact
 from campus_fabric.policies.baselines import BaselinePolicy, _digest
 from campus_fabric.policies.candidate import _can_coexist
+from campus_fabric.workflows.acceptance_evidence import _gate_module
 from experiments import cp3_runner
 from experiments.cp3_inputs import MODEL
 
@@ -82,19 +83,21 @@ def inputs():
     initial = [work(0, 2), work(1), work(2)]
     cases = {
         "packing-witness": initial,
-        "lease-counterexample": [work(0, 2, ttl=15), work(1), work(2)],
+        "lease-counterexample": [work(0, 2, ttl=30), work(1), work(2)],
         "homogeneous-neutral": [work(i) for i in range(4)],
         "late-wide": initial + [work(3, 2, at=15)],
         "late-narrow": initial + [work(3, 1, at=15)],
     }
-    return {name: dict(schema="research-direction-input-v1", scenario_family=name,
+    scenarios = {name: dict(schema="research-direction-input-v1", scenario_family=name,
                        seed=None, partition="mechanism_probe", horizon=80, model=deepcopy(MODEL),
                        works=deepcopy(works), events=[], inventory=deepcopy(inventory),
                        cancellation_policy="count_until_horizon", service_unit=MODEL["service_unit"],
                        scope="Designed mechanism witness; no formal CP3 validation claim.",
-                       limitations=["Fixed ten-second model, two GPUs, synthetic micro-inputs.",
+                       limitations=["Uniform duration within each case, two GPUs, synthetic micro-inputs.",
                                     "Co-admission proxy has no general fairness guarantee."])
             for name, works in cases.items()}
+    scenarios["lease-counterexample"]["model"]["duration_seconds"] = 20
+    return scenarios
 
 
 def metrics(summary):
@@ -116,12 +119,13 @@ def main():
         raise SystemExit("Refusing to overwrite an existing diagnostic.")
     out.mkdir(parents=True)
     scenarios = inputs()
+    start_build = _gate_module(ROOT).current_build(ROOT)
     manifest = dict(schema="cp3-direction-probe-v1", created_at=datetime.now(timezone.utc).isoformat(),
                     source_commit=subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
                     script_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
                     protocol_sha256=hashlib.sha256(Path(__file__).with_name("CP3_DIRECTION_PROBE.md").read_bytes()).hexdigest(),
                     source_status=subprocess.check_output(["git", "status", "--porcelain", "--untracked-files=no"], cwd=ROOT, text=True),
-                    inputs=scenarios, execution_budget=11, age_guard_seconds=AGE_GUARD,
+                    build=start_build, inputs=scenarios, execution_budget=11, age_guard_seconds=AGE_GUARD,
                     scope="One-pass mechanism diagnosis, not validation or product policy promotion.")
     write(out / "manifest.json", manifest)
     seal = hashlib.sha256((out / "manifest.json").read_bytes()).hexdigest()
@@ -141,12 +145,12 @@ def main():
                 with patch.object(cp3_runner, "policy_for", factory):
                     result = cp3_runner.execute_scenario(inp, "P" if label == "coadmission" else label,
                                                         db_path=Path(scratch) / (run_name + ".db"))
+                raw = {k: v.model_dump(mode="json") if k == "snapshot" else v for k, v in result.items()}
+                write(out / "runs" / run_name / "raw.json", raw)
                 assert not result["failures"], result["failures"]
                 assert result["snapshot"].now == inp["horizon"]
                 summary = cp3_runner.summarize_run(inp, result, run_name, label,
                                                   hashlib.sha256(encoded(inp)).hexdigest())
-                raw = {k: v.model_dump(mode="json") if k == "snapshot" else v for k, v in result.items()}
-                write(out / "runs" / run_name / "raw.json", raw)
                 write(out / "runs" / run_name / "summary.json", summary)
                 outputs[name][label] = metrics(summary)
                 if label == "coadmission":
@@ -161,7 +165,10 @@ def main():
                                  ratio=after["area"] / before["area"],
                                  baseline_completed=before["completed"], probe_completed=after["completed"],
                                  baseline_failed=before["failed"], probe_failed=after["failed"])
-    report = dict(manifest_sha256=seal, run_count=sum(len(x) for x in outputs.values()),
+    finish_build = _gate_module(ROOT).current_build(ROOT)
+    assert finish_build == start_build, "Source changed during diagnostic."
+    report = dict(manifest_sha256=seal, build_at_start=start_build, build_at_finish=finish_build,
+                  run_count=sum(len(x) for x in outputs.values()),
                   comparisons=comparisons, metrics=outputs,
                   changed_future_common_prefix_equal=first_actions["late-wide"] == first_actions["late-narrow"],
                   promotion_allowed=False, formal_validation=False,

@@ -13,13 +13,15 @@ not an exact batch optimizer or a proven fairness policy. It receives only the
 current DecisionSnapshot. It cannot see future arrivals, true duration or input
 files. No product policy or public API is changed.
 
-Five inputs use one existing two-A10 node, a common 10-second work model and
-80-second horizon. All work, including failed or unfinished work, remains in F.
+Five inputs use one existing two-A10 node and an 80-second horizon. Work duration
+is uniform within each input: 10 seconds except the explicit 20-second lease
+counterexample. All work, including failed or unfinished work, remains in F.
 
 1. Packing witness: one two-GPU demand followed by two one-GPU demands, all at0.
    Predicted B2/P F=50 and admission-relaxation F=40 if actual B2 admits wide first.
-2. Lease counterexample: same inputs, but the wide request has a 15-second lease.
-   Test whether delay causes lease expiry/lower completion; do not remove failure.
+2. Lease counterexample: same three demands, but the wide request has a 30-second
+   lease and every work has a declared 20-second model duration. Test whether
+   delay causes lease expiry/lower completion; do not remove failure.
 3. Homogeneous neutral: four one-GPU demands at0. Expect unchanged F.
 4. Late-wide: packing witness plus one two-GPU arrival at15.
 5. Late-narrow: identical observed prefix, but one one-GPU arrival at15.
@@ -37,3 +39,9 @@ loss or new failure rejects promotion. Neutral or inverse cases are retained.
 Even a positive probe does not establish a general advantage or CP3 R<=0.85.
 After this single diagnostic, freeze the existing placement-only route; further
 research requires a new information/action contract and newly frozen validation.
+
+Input correction before the corrected run: the first attempt used TTL15, which
+the real allocation contract rejects (minimum30). Preserve that failed manifest
+and partial outputs. Replace that invalid case with legal TTL30/uniform-duration20,
+without changing the policy or other four inputs. This is an input-validity repair,
+not a result-based policy search. Retain both attempts separately.
