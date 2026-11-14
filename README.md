@@ -2,7 +2,7 @@
 
 校园共享计算服务：申请、收回、接续与可追问的决定。
 
-**当前：CP1，A 后端交付节点。** 正常分配—执行—结算链、事务账本、持久化、幂等与权限已实现；原有六工作区仍待 B 接入和双方交叉操作。CP2 的回收/恢复/故障与真实 CPU 执行尚未实现。先读 [CP1 交接](docs/handoff/CP1_A_TO_B.md)。联合 CP1 尚未通过，不自动进入 CP2。
+**当前：CP1，A + B 本地联调版。** 六工作区已接入持久后端，服务端工作流可完成登记—分配—模拟执行—结算。B0/B1/B2 策略已通过真实内核端口测试；默认演示仍使用 A 的 builtin 基线。CP2 的回收/恢复/故障与真实 CPU 执行尚未实现。先读 [B 第一版交接](docs/handoff/B_V1_DELIVERY.md) 和 [A 接线说明](docs/handoff/CP1_A_TO_B.md)。双人联合 CP1 尚未通过，不自动进入 CP2。
 
 协作仓库：https://github.com/Woebegone-67/campus-gpu-fabric
 
@@ -11,7 +11,7 @@
 | 负责人 | 主线 | 开发分支 | 先读 |
 |---|---|---|---|
 | A · Xiuzhu Du / `Woebegone-67` | 可信资源与执行 | `work/a-core` | [A开发任务书](docs/handoff/OWNER_A.md) |
-| B · `xuyangma` | 服务决策与操作体验 | `work/b-product` | [B开发任务书](docs/handoff/OWNER_B.md) |
+| B · `xuyangma` | 服务决策与操作体验 | `feat/route-b` | [B开发任务书](docs/handoff/OWNER_B.md) |
 
 ## 启动与验收
 
@@ -32,14 +32,14 @@ make checkpoint CP=CP0
 
 ```bash
 # 终端1，仓库根目录
-make api
+bash web/dev-local.sh api
 # 终端2，仓库根目录
-make web
+bash web/dev-local.sh web
 ```
 
-访问`http://127.0.0.1:5173`；API为`http://127.0.0.1:8080`。开发host仅绑定本机。Web代理不包含`/_test`，不得向浏览器下发测试密钥。页面目前仍为 CP0 导航骨架；真实后端接口和 B 的接入方法见 CP1 交接。
+访问`http://127.0.0.1:5174`；API为`http://127.0.0.1:8081`。首次启动在 `runtime/owner-b-v1/` 创建本地演示凭据。在页面右上角“当前身份”导入该目录的 `client-identities.json`，再选择 alice、bob、supplier 或 admin。凭据只保留在浏览器内存；刷新后需重新导入。开发host仅绑定本机，Web代理不包含`/_test`。
 
-每人使用自己的clone、端口与`runtime/<owner>`。A使用默认端口；B可运行`make api PORT=8081`和`make web PORT=8081 WEB_PORT=5174`，代理会一起切换。不要把实验reset指向另一人的实例。持久配置已接入，见 `.env.example`；环境变量需由启动 shell 显式设置，程序不会自动加载 `.env`。
+每人使用自己的clone、端口与`runtime/<owner>`。上面的 B 入口会组装查询与工作流；A 的原始 `make api` 仍在8080提供内核接口，不会自动推进 B 工作流。端口可通过 `PORT`、`WEB_PORT` 调整。不要把实验reset指向另一人的实例。环境变量需由启动 shell 显式设置，程序不会自动加载 `.env`。
 
 ## 从哪里开始读
 
@@ -96,7 +96,7 @@ CI会在push/PR运行CP0检查。代码审阅责任写在`.github/CODEOWNERS`；
 
 ## 来源与边界
 
-- 当前停在 CP1 A 后端交付。正常任务采用公开的固定 10 秒逻辑执行模型，不运行 image/command，不代表 CPU/GPU 实测或调度收益。
+- 当前停在 CP1 本地联调。正常任务采用公开的固定 10 秒逻辑执行模型，不运行 image/command，不代表 CPU/GPU 实测或调度收益。
 - 团队暂定语义集中在`configs/semantics.json`。正式答疑到达时局部调整，不改官方原件。
 - 内部契约与产品扩展不增加基础客户端必填字段。WorkIntent计时从意图到达开始，不从获配后创建job开始。
 - 仓库用于竞赛协作，尚未添加开源许可证。第三方库保留其许可；AI协助生成及测试 CP0/CP1 代码和文档，记录见[CP0交付记录](docs/CP0_DELIVERY.md)。
