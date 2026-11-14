@@ -1,4 +1,4 @@
-name: Contract and CP1 A backend gate
+name: CP2 integrated backend and UI regression
 on:
   push:
   pull_request:
@@ -24,14 +24,18 @@ jobs:
           cache-dependency-path: web/package-lock.json
       - run: uv python install 3.12
       - run: make setup
-      - run: make cp0
-      - run: uv run python scripts/accept_cp1_a.py
+      - run: make cp2-a
+      - run: npm --prefix web run test:ui
+      - run: uv run python scripts/accept_cp2_b.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: cp1-a-backend-evidence
+          name: cp2-integrated-evidence
           path: |
             evidence/cp0/*.json
             evidence/cp1/a_core_receipt.json
             evidence/cp1/a_core_http_history.json
+            evidence/cp1/joint_backend_receipt.json
+            evidence/cp1/joint_backend_history.json
+            evidence/cp2/
           if-no-files-found: ignore

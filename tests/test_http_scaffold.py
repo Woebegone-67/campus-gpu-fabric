@@ -1,4 +1,4 @@
-"""Startup/route coverage remains distinct from CP1 product acceptance."""
+"""Startup coverage remains distinct from joint product acceptance."""
 
 import json
 from pathlib import Path
@@ -22,10 +22,7 @@ def test_all_official_routes_remain_registered_and_scope_truthful(operation, tmp
         response = client.request(operation["method"], path, headers=headers)
     if path in {"/healthz", "/v1/version"}:
         assert response.status_code == 200
-        assert response.json()["checkpoint"] == "CP1"
-    elif operation["path"] in CP2:
-        assert response.status_code == 501
-        assert response.json()["error"] == "not_implemented"
+        assert response.json()["checkpoint"] == "CP2"
     else:
         assert response.status_code != 501
         assert response.status_code < 500
@@ -37,6 +34,6 @@ def test_health_does_not_claim_joint_checkpoint_or_real_execution(tmp_path):
         assert client.get("/healthz").json()["checkpoint_passed"] is False
         capabilities = client.get("/v1/version").json()["capabilities"]
         assert capabilities["resource_ledger"] is True
-        assert capabilities["checkpoint_recovery"] is False
+        assert capabilities["checkpoint_recovery"] is True
         assert capabilities["real_gpu_execution"] is False
         assert capabilities["real_cpu_execution"] is False

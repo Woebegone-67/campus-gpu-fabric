@@ -61,9 +61,9 @@ def main() -> int:
             checks.append({"id": "disabled-test-control-rejected", "status": "PASS"})
             response = client.post("/v1/allocations/missing/checkpoint",
                                    headers={"X-Owner": "smoke"}, json={"status": "ready"})
-            assert response.status_code == 501
-            assert response.json()["error"] == "not_implemented"
-            checks.append({"id": "honest-cp2-stub", "status": "PASS"})
+            assert response.status_code == 404
+            assert response.json()["error"] == "not_found"
+            checks.append({"id": "missing-checkpoint-object-rejected", "status": "PASS"})
     finally:
         proc.terminate()
         try:

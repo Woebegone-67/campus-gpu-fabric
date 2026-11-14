@@ -28,3 +28,12 @@ evidence/cp1/a_core_http_history.json
 evidence/cp1/unit_tests.txt
 evidence/cp1/source_checks.txt
 evidence/cp1/joint_gate.json
+evidence/cp1/joint_backend_receipt.json
+evidence/cp1/joint_backend_history.json
+evidence/cp2/logs/
+evidence/cp2/*receipt.json
+evidence/cp2/*tcp_receipt.json
+evidence/cp2/*tests.xml
+evidence/cp2/*history.json
+evidence/cp2/cpu_downtime_after_fix.json
+evidence/cp2/b/

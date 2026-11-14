@@ -1,9 +1,11 @@
 import {useState, type FormEvent} from 'react';
-import {ApiClient, ApiError, idOf, items, list, object, text, type ApiResult} from '../api';
+import {ApiClient, ApiError, idOf, items, list, object, text, type ApiResult, type JsonObject} from '../api';
 import {useQuery} from '../hooks';
+import {useService} from '../service';
 import {ErrorNotice, Field, Metadata, Panel, QueryFeedback, RawData, Receipt, Refresh, Status, Table} from '../components/common';
 
 export function ResourcesPage({api}: {api: ApiClient}) {
+  const service=useService();
   const [refresh, setRefresh]=useState(0);
   const capacity=useQuery(api,'/v1/capacity',refresh);
   const contributions=useQuery(api,'/x/v1/contributions?limit=50',refresh);
@@ -23,10 +25,8 @@ export function ResourcesPage({api}: {api: ApiClient}) {
     <Panel title="我的贡献" description="普通贡献者只管理自己获授权的供给。登记的模拟节点不代表已接入真实 GPU。" actions={<Refresh onClick={contributions.refresh} loading={contributions.loading}/>}>
       <Metadata data={contributions.data}/><QueryFeedback query={contributions} empty={!items(contributions.data).length}><div className="record-list">{items(contributions.data).map(row=><div className="record" key={idOf(row)}><div className="record-title"><code>{idOf(row)}</code><Status value={row.state}/></div><p>贡献者：{text(row.contributor_owner_id)}</p><RawData data={row}/></div>)}</div></QueryFeedback>
     </Panel>
-    <Panel title="收回自有资源" description="召回能力将在 CP2 接入，当前暂不可提交。贡献 ID 须由后端提供，节点 ID 不自动视为贡献 ID。">
-      <fieldset disabled className="form-grid"><Field label="贡献 ID"><input name="contribution" placeholder="填写后端提供的贡献 ID"/></Field><Field label="GPU ID（逗号分隔）"><input name="devices" placeholder="gpu-1, gpu-2"/></Field><Field label="通知期（秒）"><input name="notice" type="number" defaultValue="30"/></Field><Field label="占用时长（秒）"><input name="duration" type="number" defaultValue="300"/></Field></fieldset><button className="button primary" disabled>收回通知 · CP2 待接入</button>
-    </Panel>
-    <ContributionForm api={api} onDone={()=>setRefresh(n=>n+1)}/>
+    <RecallForm api={api} nodes={items(contributions.data)} onDone={()=>setRefresh(n=>n+1)}/>
+    {service.mode==='cpu_reference'?<Panel title="CPU 参考实例供给" description="此实例的库存由启动配置载入。"><p>在线登记供给需要准确的逻辑时刻；CPU 参考实例的时钟持续前进，因此这里不提供手工登记。请在逻辑模拟实例登记供给。</p><p className="helper">已有自有 GPU 的收回通知仍可在上方提交。</p></Panel> :service.mode==='logical_simulation'?<ContributionForm api={api} onDone={()=>setRefresh(n=>n+1)}/>:<Panel title="登记模拟供给"><p>正在确认服务执行模式，确认后再开放供给登记。</p></Panel>}
   </>;
 }
 function ContributionForm({api,onDone}:{api:ApiClient;onDone:()=>void}) {
@@ -41,5 +41,19 @@ function ContributionForm({api,onDone}:{api:ApiClient;onDone:()=>void}) {
     catch(error){setError(error instanceof ApiError?error:new ApiError('登记请求失败',0));}
     finally{setBusy(false);}
   }
-  return <Panel title="登记模拟供给" description="使用 NodeInventory 契约登记节点。当前版本保留完整配置输入，后端会核验归属及资源一致性。"><form onSubmit={submit}><Field label="节点定义（JSON）" help={`contributor_owner_id 应与当前身份 ${api.identity.owner} 一致。包含 node_id、state、capacity、available、devices、observed_at。`}><textarea name="node" rows={7} required placeholder="粘贴真实的模拟资源配置，不会自动生成库存。" disabled={busy}/></Field><button className="button" disabled={busy}>{busy?'正在登记…':'登记供给'}</button></form>{error&&<ErrorNotice error={error}/>} {result&&<Receipt result={result}/>}</Panel>;
+  return <Panel title="登记模拟供给" description="使用 NodeInventory 契约登记节点。当前版本保留完整配置输入，后端会核验归属及资源一致性。"><form onSubmit={submit}><Field label="节点定义（JSON）" help={`contributor_owner_id 应与当前身份 ${api.identity.owner} 一致。包含 node_id、state、capacity、available、devices；observed_at 使用当前逻辑时间。`}><textarea name="node" rows={7} required placeholder="粘贴真实的模拟资源配置，不会自动生成库存。" disabled={busy}/></Field><button className="button" disabled={busy||Boolean(error?.uncertain)}>{busy?'正在登记…':'登记供给'}</button></form>{error&&<ErrorNotice error={error}/>} {result&&<Receipt result={result}/>}</Panel>;
+}
+
+export function RecallForm({api,nodes,onDone}:{api:ApiClient;nodes:JsonObject[];onDone:()=>void}) {
+  const [busy,setBusy]=useState(false),[error,setError]=useState<ApiError|null>(null),[result,setResult]=useState<ApiResult|null>(null);
+  const [selected,setSelected]=useState<string[]>([]);
+  const devices=[...new Map(nodes.filter(node=>node.contributor_owner_id===api.identity.owner).flatMap(node=>list(node.devices).map(device=>[text(device.physical_gpu_id??device.device_id,''),{...device,node_id:node.node_id}] as const))).entries()].filter(([id])=>id);
+  async function submit(event:FormEvent<HTMLFormElement>){
+    event.preventDefault();setBusy(true);setError(null);setResult(null);
+    const form=new FormData(event.currentTarget);
+    try{setResult(await api.request('/x/v1/contributions/recall',{method:'POST',body:{gpu_ids:selected,notice_seconds:Number(form.get('notice')),duration_seconds:Number(form.get('duration'))}}));onDone();}
+    catch(error){setError(error instanceof ApiError?error:new ApiError('收回请求结果不明',0));}
+    finally{setBusy(false);}
+  }
+  return <Panel title="收回自有资源" description="选择自己的物理 GPU，提前通知正在使用它的工作；同一物理 GPU 的切片一并受影响。权限与占用状态由服务端核验。"><form onSubmit={submit}><fieldset disabled={busy||Boolean(error?.uncertain)}><legend>当前身份的物理 GPU</legend>{devices.length?<div className="device-choices">{devices.map(([id,device])=><label key={id}><input type="checkbox" checked={selected.includes(id)} onChange={e=>setSelected(values=>e.target.checked?[...values,id]:values.filter(value=>value!==id))}/><span><code>{id}</code> · {text(device.node_id)} · {text(object(device).model)}</span></label>)}</div>:<p className="empty">当前页没有属于此身份的 GPU。先登记供给，或刷新我的贡献。</p>}<div className="form-grid"><Field label="收回通知期（秒）"><input name="notice" type="number" min="1" max="300" defaultValue="30" required/></Field><Field label="收回占用时长（秒）"><input name="duration" type="number" min="1" max="3600" defaultValue="60" required/></Field></div></fieldset><button className="button primary" disabled={busy||!selected.length||Boolean(error?.uncertain)}>{busy?'正在通知…':'发送收回通知'}</button></form>{error&&<ErrorNotice error={error}/>} {error?.uncertain&&<p className="helper">结果尚不确定，请先检查关联事件和资源状态，避免重复提交收回通知。</p>}{result&&<Receipt result={result}/>}<p className="helper">收回后资源能否再次出租，以通知期限、占用期限及服务端账本为准。无需填写贡献 ID。</p></Panel>;
 }

@@ -14,6 +14,7 @@ from fastapi import HTTPException, Request
 from fastapi.responses import JSONResponse, Response
 from pydantic import ValidationError
 
+from campus_fabric.api.test_control.faults import fault_parameters
 from campus_fabric.contracts.models import (
     CommandEnvelope,
     EntityRef,
@@ -121,7 +122,7 @@ def receipt_response(kernel, receipt, *, internal=False, status=None, payload=No
 
 
 def allocation_view(item):
-    return {"id": item.allocation_id, "owner": item.owner_id, "state": item.state,
+    return {**item.model_dump(mode="json"), "id": item.allocation_id, "owner": item.owner_id, "state": item.state,
             "request": item.request.model_dump(mode="json"),
             "placement": item.placement.model_dump(mode="json") if item.placement else None,
             "created_at": timestamp(item.created_at),
@@ -129,7 +130,7 @@ def allocation_view(item):
 
 
 def job_view(item):
-    return {"id": item.job_id, "allocation_id": item.allocation_id, "owner": item.owner_id,
+    return {**item.model_dump(mode="json"), "id": item.job_id, "allocation_id": item.allocation_id, "owner": item.owner_id,
             "state": item.state, "created_at": timestamp(item.created_at),
             "attempt": item.attempt.model_dump(mode="json") if item.attempt else None}
 
@@ -201,6 +202,23 @@ def mount_cp1(app, kernel, identity):
         exact_fields(body, {"ttl_seconds"})
         return commit(request, {"kind": "allocation.renew", "allocation_id": allocation_id, **body})
 
+    @app.post("/v1/allocations/{allocation_id}/checkpoint")
+    async def checkpoint_allocation(allocation_id: str, request: Request):
+        identity.actor(request)
+        body = await object_body(request)
+        exact_fields(body, {"status", "artifact_uri"})
+        if "artifact_uri" in body and not isinstance(body["artifact_uri"], str):
+            raise HTTPException(400, "artifact_uri must be a string when supplied")
+        return commit(request, {"kind": "allocation.checkpoint",
+                                "allocation_id": allocation_id, **body})
+
+    @app.post("/v1/allocations/{allocation_id}/resume")
+    async def resume_allocation(allocation_id: str, request: Request):
+        identity.actor(request)
+        body = await object_body(request, optional=True)
+        exact_fields(body, set())
+        return commit(request, {"kind": "allocation.resume", "allocation_id": allocation_id})
+
     @app.post("/v1/jobs")
     async def create_job(request: Request):
         identity.actor(request)
@@ -216,6 +234,31 @@ def mount_cp1(app, kernel, identity):
         body = await object_body(request)
         exact_fields(body, {"advance_seconds"})
         return commit(request, {"kind": "clock.advance", "source": "test_control", **body}, test=True)
+
+    def recall_parameters(body, kind):
+        exact_fields(body, {"gpu_ids", "notice_seconds", "duration_seconds"})
+        return {"kind": kind, "device_ids": body.get("gpu_ids"),
+                "notice_seconds": body.get("notice_seconds"),
+                "duration_seconds": body.get("duration_seconds")}
+
+    @app.post("/_test/contributor-demand")
+    async def contributor_demand(request: Request):
+        identity.test_actor(request)
+        parameters = recall_parameters(await object_body(request), "test.contributor_demand")
+        return commit(request, parameters, test=True, status=201)
+
+    @app.post("/_test/node-state")
+    async def node_state(request: Request):
+        identity.test_actor(request)
+        body = await object_body(request)
+        exact_fields(body, {"node_id", "state"})
+        return commit(request, {"kind": "test.node_state", **body}, test=True)
+
+    @app.post("/_test/fault")
+    async def configure_fault(request: Request):
+        identity.test_actor(request)
+        parameters = fault_parameters(await object_body(request), app.state.fault_targets)
+        return commit(request, parameters, test=True, status=204)
 
     @app.post("/x/v1/admin/clock")
     async def admin_clock(request: Request):
@@ -240,6 +283,15 @@ def mount_cp1(app, kernel, identity):
             raise HTTPException(403, "Contribution owner must match the authenticated owner")
         envelope = command(request, actor, {"kind": "contribution.register",
                                             "node": node.model_dump(mode="json")})
+        return receipt_response(kernel, kernel.commit(envelope), internal=True, status=201)
+
+    @app.post("/x/v1/contributions/recall")
+    async def recall_contribution(request: Request):
+        actor = identity.actor(request)
+        if actor.role not in {"contributor", "administrator"}:
+            raise HTTPException(403, "Contributor authority is required")
+        parameters = recall_parameters(await object_body(request), "contribution.recall")
+        envelope = command(request, actor, parameters)
         return receipt_response(kernel, kernel.commit(envelope), internal=True, status=201)
 
     @app.post("/x/v1/work-intents")
@@ -278,22 +330,22 @@ def mount_cp1(app, kernel, identity):
                       else kernel.create_job_and_bind)
             receipt = method(intent_id, stage_id, version, actor=actor,
                              request_id=request_id(request))
-        elif action in {"release", "cancel"}:
+        elif action in {"release", "cancel", "resume"}:
             view = kernel.read_snapshot(ReadQuery(actor=actor,
                 global_scope=actor.role == "administrator",
                 entities=(EntityRef(kind="intent", entity_id=intent_id),)))
             intent = next((item for item in view.intents if item.intent_id == intent_id), None)
             if intent is None:
                 raise HTTPException(404, "Work intent not found")
-            ids = intent.allocation_ids if action == "release" else intent.job_ids
+            ids = intent.job_ids if action == "cancel" else intent.allocation_ids
             if not ids:
                 raise HTTPException(409, "The intent has no object for this action")
-            kind = "allocation.release" if action == "release" else "job.cancel"
-            key = "allocation_id" if action == "release" else "job_id"
+            kind = "job.cancel" if action == "cancel" else f"allocation.{action}"
+            key = "job_id" if action == "cancel" else "allocation_id"
             receipt = kernel.commit(command(request, actor, {"kind": kind, key: ids[-1]},
                                              expected=version.model_dump(mode="json")))
         else:
-            raise HTTPException(400, "Supported CP1 actions: allocate, create_job, release, cancel")
+            raise HTTPException(400, "Supported actions: allocate, create_job, release, cancel, resume")
         return receipt_response(kernel, receipt, internal=True)
 
     # Minimal A transport bridges. B may replace these using the same immutable ports.
@@ -379,7 +431,7 @@ def mount_cp1(app, kernel, identity):
                 "running_jobs": sum(item.state == "Running" for item in view.jobs),
                 "succeeded_jobs": sum(item.state == "Succeeded" for item in view.jobs),
                 "failed_jobs": sum(item.state == "Failed" for item in view.jobs),
-                "execution_mode": "logical_simulation"}
+                "execution_mode": kernel.decision_snapshot().execution_mode}
 
     @app.get("/x/v1/work-intents")
     def intents(request: Request):

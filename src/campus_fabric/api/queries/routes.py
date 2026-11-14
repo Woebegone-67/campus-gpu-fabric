@@ -1,7 +1,9 @@
-"""Read-only HTTP adapters. No route mutates the ledger or executes a test control."""
+"""Read adapters and isolated experiments; no operating-ledger mutation or test backdoor."""
 
 from __future__ import annotations
 
+import asyncio
+import json
 import re
 from collections.abc import Callable
 from typing import Any
@@ -9,8 +11,9 @@ from uuid import uuid4
 
 from fastapi import APIRouter, FastAPI, Request
 from fastapi.responses import JSONResponse, Response
+from pydantic import ValidationError
 
-from campus_fabric.contracts.models import EventCursor, VersionStamp
+from campus_fabric.contracts.models import EventCursor, EvidenceRun, VersionStamp
 from campus_fabric.projections.read_models import (
     ProjectionError,
     allocation_json,
@@ -20,6 +23,7 @@ from campus_fabric.projections.read_models import (
     resource_totals,
     timestamp,
 )
+from campus_fabric.workflows.experiment_runner import ExperimentBuildChangedError
 
 from .service import QueryFailure, QueryServices, invoke, unavailable
 
@@ -297,6 +301,75 @@ def create_query_router(services: QueryServices | None = None) -> APIRouter:
             raise QueryFailure(404, "not_found", "The requested run was not found.")
         return {**metadata(evidence), "item": run.model_dump(mode="json")}
 
+    def experiment_catalog(request: Request, actor: Any) -> dict:
+        runner = services.experiments(actor)
+        return {"items": invoke(runner.catalog), "execution_mode": "logical_simulation"}
+
+    def experiments(request: Request, actor: Any) -> dict:
+        services.experiments(actor)
+        evidence = services.evidence(actor)
+        # Run records advance independently of the operating ledger revision.
+        # Do not pretend that its version pins experiment pagination. The
+        # registered runner bounds retained runs, so return that complete list.
+        return {**metadata(evidence), "items": [
+            row.run.model_dump(mode="json") for row in evidence.runs
+        ]}
+
+    def experiment_artifact(request: Request, actor: Any) -> Response:
+        runner = services.experiments(actor)
+        try:
+            content, media_type = invoke(runner.artifact, actor,
+                request.path_params["run_id"], request.path_params["artifact_id"])
+        except KeyError:
+            raise QueryFailure(404, "not_found", "The requested experiment artifact was not found.")
+        except (ValueError, OSError):
+            raise QueryFailure(409, "invalid_evidence", "The registered artifact failed validation.")
+        if not isinstance(content, bytes) or media_type != "application/json":
+            raise QueryFailure(502, "provider_contract_error", "Invalid experiment artifact.")
+        return Response(content, media_type=media_type,
+                        headers={"Content-Disposition": "attachment",
+                                 "X-Content-Type-Options": "nosniff"})
+
+    @router.post("/x/v1/experiments")
+    async def submit_experiment(request: Request) -> Response:
+        identity = request_id(request)
+        headers = {"X-Request-Id": identity, "Cache-Control": "no-store"}
+        try:
+            actor = services.actor(request)
+            runner = services.experiments(actor)
+            try:
+                raw = await request.body()
+                if len(raw) > 8192:
+                    raise ValueError("oversize")
+                body = json.loads(raw)
+                if (not isinstance(body, dict) or set(body) - {"scenario_id", "policy", "seed"}
+                        or not isinstance(body.get("scenario_id"), str)
+                        or body.get("policy") not in {"B0", "B1", "B2", "P"}
+                        or type(body.get("seed", 0)) is not int):
+                    raise ValueError("invalid input")
+            except (ValueError, TypeError, UnicodeDecodeError):
+                raise QueryFailure(400, "invalid_request", "Expected registered scenario_id, policy and integer seed.")
+            try:
+                value = await asyncio.to_thread(invoke, lambda: runner.submit(
+                    actor=actor, scenario_id=body["scenario_id"],
+                    policy=body["policy"], seed=body.get("seed", 0)))
+            except KeyError:
+                raise QueryFailure(404, "not_found", "The registered scenario was not found.")
+            except ExperimentBuildChangedError:
+                raise QueryFailure(409, "stale_version",
+                                   "Source build changed since service startup; restart the service before submitting experiments.")
+            except ValueError:
+                raise QueryFailure(400, "invalid_request", "Experiment parameters or run capacity were rejected.")
+            try:
+                run = EvidenceRun.model_validate_json(value.model_dump_json())
+            except (ValidationError, AttributeError):
+                raise QueryFailure(502, "provider_contract_error", "Invalid experiment registration.")
+            return JSONResponse({"item": run.model_dump(mode="json"), "request_id": identity},
+                                status_code=202, headers=headers)
+        except QueryFailure as error:
+            return JSONResponse({"error": error.code, "detail": error.detail, "request_id": identity},
+                                status_code=error.status, headers=headers)
+
     def acceptance(request: Request, actor: Any) -> dict:
         if actor.role != "administrator":
             raise QueryFailure(403, "forbidden", "Administrator authority is required.")
@@ -340,7 +413,10 @@ def create_query_router(services: QueryServices | None = None) -> APIRouter:
     endpoint("/x/v1/decisions/{decision_id}", decision)
     endpoint("/x/v1/contributions", contributions)
     endpoint("/x/v1/admin/overview", overview)
+    endpoint("/x/v1/experiments/catalog", experiment_catalog)
+    endpoint("/x/v1/experiments", experiments)
     endpoint("/x/v1/experiments/{run_id}", experiment)
+    endpoint("/x/v1/experiments/{run_id}/artifacts/{artifact_id}", experiment_artifact)
     endpoint("/x/v1/acceptance", acceptance)
     return router
 
@@ -348,21 +424,24 @@ def create_query_router(services: QueryServices | None = None) -> APIRouter:
 def register_queries(
     app: FastAPI, services: QueryServices | None = None, *, replace_existing: bool = False
 ) -> None:
-    """Install B's GET routes while retaining all A mutation/test routes.
+    """Install B reads and isolated experiment submission, retaining A commands.
 
-    Duplicate routes fail unless the host explicitly replaces its GET bridges.
+    Duplicate routes fail unless the host explicitly replaces its B adapters.
     The A app remains unchanged until its assembly owner opts in.
     """
     router = create_query_router(services)
-    paths = {route.path for route in router.routes}
+    methods = {}
+    for route in router.routes:
+        methods.setdefault(route.path, set()).update(route.methods)
     conflicts = [route for route in app.router.routes
-                 if getattr(route, "path", None) in paths
-                 and "GET" in getattr(route, "methods", set())]
+                 if methods.get(getattr(route, "path", None), set())
+                 & getattr(route, "methods", set())]
     if conflicts and not replace_existing:
         raise ValueError("Query routes already registered; explicitly replace existing GET bridges.")
     if replace_existing:
         for route in conflicts:
-            remaining = route.methods - {"GET", "HEAD"}
+            replaced = methods[route.path] | ({"HEAD"} if "GET" in methods[route.path] else set())
+            remaining = route.methods - replaced
             if remaining:
                 route.methods = remaining
             else:

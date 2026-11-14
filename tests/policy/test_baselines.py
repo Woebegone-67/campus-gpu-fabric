@@ -201,3 +201,58 @@ def test_cpu_only_request_does_not_require_a_gpu():
     plan = make_policy("B0").plan(snapshot(demands=(demand(count=0),),
                                            inventory=(node(devices=()),)))
     assert selected(plan).placement.slices[0].resources.gpu_count == 0
+
+
+def test_p_preserves_current_cpu_opportunity_ignored_by_gpu_scarcity_proxy():
+    a = node("node-a", (device("gpu-a"),), labels=(KeyValue(key="only", value="a"),))
+    b = node("node-b", (device("gpu-b1"), device("gpu-b2")))
+    a = a.model_copy(update={"available": a.available.model_copy(update={"cpu_millicores": 2000})})
+    b = b.model_copy(update={"available": b.available.model_copy(update={"cpu_millicores": 2000})})
+    state = snapshot(inventory=(a, b), demands=(demand("flex", arrived=0.), demand(
+        "cpu-only", owner="other", arrived=1., count=0,
+        request=ResourceRequest(cpu_millicores=1500, memory_mib=1000, gpu=GPURequest(count=0)),
+        node_selector=(KeyValue(key="only", value="a"),))))
+    before = state.model_dump_json()
+    baseline = make_policy("B2").plan(state)
+    candidate = make_policy("P").plan(state)
+    assert selected(baseline).placement.slices[0].node_id == "node-a"
+    assert selected(candidate).placement.slices[0].node_id == "node-b"
+    assert state.model_dump_json() == before
+    assert candidate == make_policy("P").plan(state)
+    assert candidate.coverage == baseline.coverage
+    assert "recovery-cost component inactive" in candidate.rationale
+    assert any(s.name == "observed_opportunity_loss" and s.value > 0
+               for c in candidate.candidates for s in c.scores)
+
+
+def test_p_opportunity_disabled_is_exact_b2_placement_under_same_search_budget():
+    from campus_fabric.policies.candidate import CandidatePolicy
+    state = snapshot(demands=(demand("flex"), demand("specific", owner="other", model="A100")))
+    for budget in (1, 8, 512):
+        baseline = make_policy("B2", max_candidates=budget).plan(state)
+        disabled = CandidatePolicy(max_candidates=budget, opportunity_enabled=False).plan(state)
+        assert disabled.selected_candidate_id == baseline.selected_candidate_id
+        assert disabled.coverage == baseline.coverage
+        assert len(disabled.candidates) <= budget
+
+
+def test_imported_policy_fingerprints_do_not_claim_later_disk_contents():
+    # A fresh interpreter guarantees this includes each policy's first plan,
+    # not only a later plan after a lazy source-hash cache was populated.
+    import subprocess
+    import sys
+    script = '''
+from pathlib import Path
+from unittest.mock import patch
+from campus_fabric.policies import make_policy
+from campus_fabric.policies.candidate import CandidatePolicy
+from campus_fabric.contracts.models import DecisionSnapshot, VersionStamp
+snapshot = DecisionSnapshot(version=VersionStamp(epoch=0, revision=0), now=0., execution_mode="logical_simulation")
+policies = [make_policy(name) for name in ("B0", "B1", "B2", "P")]
+with patch.object(Path, "read_bytes", side_effect=AssertionError("Source changed after import")):
+    loaded = [policy.plan(snapshot) for policy in policies]
+with patch.object(Path, "read_bytes", return_value=b"different on-disk implementation"):
+    assert [policy.plan(snapshot) for policy in policies] == loaded
+'''
+    completed = subprocess.run([sys.executable, "-c", script], capture_output=True, text=True)
+    assert completed.returncode == 0, completed.stderr

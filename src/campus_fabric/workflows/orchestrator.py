@@ -180,10 +180,31 @@ class WorkflowOrchestrator:
             linked = [j for j in snapshot.jobs if j.job_id in intent.job_ids]
             if len(linked) != len(intent.job_ids):
                 raise WorkflowReadError("ReadPort omitted one or more linked jobs")
+            allocation = self._allocation(snapshot, intent)
+            current = {job.attempt for job in linked if job.attempt is not None}
+            stopping = any(attempt.ref in current and attempt.state in {"stopping", "quarantined"}
+                           for attempt in intent.attempts)
+            if stopping or (allocation is not None and allocation.pending_terminal is not None):
+                return result("waiting", "Waiting for authoritative CPU stop confirmation; "
+                              "resource claims are still held.", allocation=allocation)
+            if allocation is not None and allocation.state == "Preempted":
+                budget = intent.specification.allocation.max_restarts
+                if allocation.restart_count >= budget:
+                    return result("blocked", "Restart budget is exhausted; release or cancel "
+                                  "the existing work explicitly.", allocation=allocation)
+                return result("waiting", "Work is interrupted. An explicit resume action uses "
+                              "the same lease and job with a new attempt; no new job is created.",
+                              allocation=allocation)
+            if allocation is not None and allocation.state == "Pending":
+                return result("waiting", "The existing job is waiting for replacement capacity; "
+                              "do not create another allocation or job.", allocation=allocation)
+            if any(job.state == "Checkpointing" for job in linked):
+                return result("waiting", "A save window is active; report, artifact verification "
+                              "and applied continuation are separate facts.", allocation=allocation)
             return result(
                 "running" if any(j.state == "Running" for j in linked) else "waiting",
                 "A job is already bound; observe its lifecycle instead of submitting another job.",
-                allocation=self._allocation(snapshot, intent),
+                allocation=allocation,
             )
 
         allocation = self._allocation(snapshot, intent)
