@@ -45,16 +45,16 @@ def receipt_repo(tmp_path):
     return tmp_path
 
 
-def synthetic_receipt(root):
+def synthetic_receipt(root, checkpoint="CP1"):
     """Create a temporary parser fixture, not a claimed product acceptance run."""
     config = json.loads((root / "configs/checkpoints.json").read_text())
     gate = reader._gate_module(root)
     build = gate.current_build(root)
-    artifact = root / "evidence/cp1/synthetic-parser-fixture.txt"
+    artifact = root / f"evidence/{checkpoint.lower()}/synthetic-parser-fixture.txt"
     artifact.parent.mkdir(parents=True, exist_ok=True)
     artifact.write_text("Synthetic parser input only; no product behavior executed.\n")
     checks = []
-    for requirement in config["checkpoints"]["CP1"]["required_checks"]:
+    for requirement in config["checkpoints"][checkpoint]["required_checks"]:
         validator = root / requirement["validator_path"]
         checks.append({
             "id": requirement["id"], "target_id": requirement["target_id"], "status": "MET",
@@ -69,9 +69,9 @@ def synthetic_receipt(root):
             "evidence": [{"path": str(artifact.relative_to(root)),
                           "sha256": gate.sha256_file(artifact)}],
         })
-    receipt = {"schema_version": "1.0.0", "checkpoint": "CP1", "status": "MET",
+    receipt = {"schema_version": "1.0.0", "checkpoint": checkpoint, "status": "MET",
                "scope": "runtime_acceptance", "build": build, "checks": checks}
-    path = root / "evidence/cp1/receipt.json"
+    path = root / f"evidence/{checkpoint.lower()}/receipt.json"
     path.write_text(json.dumps(receipt))
     return receipt, artifact
 
@@ -218,3 +218,101 @@ def test_host_reads_registered_receipt_and_keeps_acceptance_admin_only(receipt_r
         assert second.status_code == 200
         assert all(check["status"] == "NOT_MET" for check in second.json()["items"]
                    if check["expected"].startswith("CP1-"))
+
+
+def synthetic_partial_cp2(root):
+    """A-shaped aggregate parser fixture; does not assert any real A execution."""
+    registry = json.loads((root / "configs/checkpoints.json").read_text())
+    for requirement in registry["checkpoints"]["CP2"]["required_checks"]:
+        validator = root / requirement["validator_path"]
+        validator.parent.mkdir(parents=True, exist_ok=True)
+        validator.write_text("# Synthetic partial-aggregate parser fixture only.\n")
+    receipt, _ = synthetic_receipt(root, "CP2")
+    receipt["status"] = "NOT_MET"
+    artifacts = []
+    gate = reader._gate_module(root)
+    for index, check in enumerate(receipt["checks"]):
+        if check["id"] == "CP2-SIX-WORKSPACES":
+            receipt["checks"][index] = {key: check[key] for key in ("id", "target_id", "build", "expected")}
+            receipt["checks"][index].update(status="NOT_RUN", unresolved_issues=["Human UI acceptance pending"])
+        else:
+            path = root / f"evidence/cp2/{check['id'].lower()}-parser-fixture.txt"
+            path.write_text(f"Synthetic parser input for {check['id']}; not an execution receipt.\n")
+            check["evidence"] = [{"path": path.relative_to(root).as_posix(), "sha256": gate.sha256_file(path)}]
+            artifacts.append(path)
+    (root / "evidence/cp2/receipt.json").write_text(json.dumps(receipt))
+    return receipt, artifacts
+
+
+def cp2_checks(root):
+    checks, matches = reader.checkpoint_checks(root)
+    return {c.expected.split(":", 1)[0]: c for c in checks if c.expected.startswith("CP2-")}, matches
+
+
+def test_verified_partial_cp2_projects_eight_passes_without_passing_missing_ui(receipt_repo):
+    synthetic_partial_cp2(receipt_repo)
+    checks, matches = cp2_checks(receipt_repo)
+    assert matches is True
+    assert sum(c.status == "MET" for c in checks.values()) == 8
+    assert checks["CP2-SIX-WORKSPACES"].status == "NOT_RUN"
+    assert checks["CP2-SIX-WORKSPACES"].actual is None
+    assert all("联合检查点" in c.actual for c in checks.values() if c.status == "MET")
+    assert reader._gate_module(receipt_repo).evaluate_checkpoint(receipt_repo, "CP2")["status"] == "NOT_MET"
+    assert PRIVATE_MARKER not in json.dumps([c.model_dump() for c in checks.values()])
+
+
+def test_partial_cp2_corrupt_artifact_fails_only_its_check_and_keeps_ui_unrun(receipt_repo):
+    _, artifacts = synthetic_partial_cp2(receipt_repo)
+    artifacts[0].write_text("Changed evidence invalidates this check.\n")
+    checks, matches = cp2_checks(receipt_repo)
+    assert matches is True
+    assert checks["CP2-ALL-OPERATIONS"].status == "NOT_MET"
+    assert "摘要不一致" in checks["CP2-ALL-OPERATIONS"].actual
+    assert sum(c.status == "MET" for c in checks.values()) == 7
+    assert checks["CP2-SIX-WORKSPACES"].status == "NOT_RUN"
+
+
+@pytest.mark.parametrize("change", ["scope", "duplicate", "missing", "old_build"])
+def test_partial_cp2_global_malformed_receipt_cannot_project_passes(receipt_repo, change):
+    receipt, _ = synthetic_partial_cp2(receipt_repo)
+    if change == "scope":
+        receipt["scope"] = "static_design_only"
+    elif change == "duplicate":
+        receipt["checks"].append(receipt["checks"][0])
+    elif change == "missing":
+        receipt["checks"].pop()
+    else:
+        receipt["build"]["git_commit"] = "old"
+    (receipt_repo / "evidence/cp2/receipt.json").write_text(json.dumps(receipt))
+    checks, _ = cp2_checks(receipt_repo)
+    assert all(c.status == "NOT_MET" for c in checks.values())
+
+
+def test_partial_cp2_artifact_changed_after_first_gate_cannot_keep_pass(receipt_repo, monkeypatch):
+    _, artifacts = synthetic_partial_cp2(receipt_repo)
+    gate = reader._gate_module(receipt_repo)
+    evaluate = gate.evaluate_checkpoint
+    calls = 0
+    def mutate_after_validation(*args, **kwargs):
+        nonlocal calls
+        result = evaluate(*args, **kwargs)
+        calls += 1
+        if calls == 1:
+            assert result["status"] == "NOT_MET"  # Partial result must also receive a second full gate.
+            artifacts[0].write_text("Changed after the first full validation.\n")
+        return result
+    monkeypatch.setattr(gate, "evaluate_checkpoint", mutate_after_validation)
+    monkeypatch.setattr(reader, "_gate_module", lambda root: gate)
+    checks, _ = cp2_checks(receipt_repo)
+    assert calls == 2
+    assert checks["CP2-ALL-OPERATIONS"].status == "NOT_MET"
+    assert sum(c.status == "MET" for c in checks.values()) == 7
+    assert checks["CP2-SIX-WORKSPACES"].status == "NOT_RUN"
+
+
+def test_contradictory_aggregate_not_met_with_all_met_rows_cannot_turn_green(receipt_repo):
+    receipt, _ = synthetic_receipt(receipt_repo)
+    receipt["status"] = "NOT_MET"
+    (receipt_repo / "evidence/cp1/receipt.json").write_text(json.dumps(receipt))
+    checks, _ = cp1_checks(receipt_repo)
+    assert all(c.status == "NOT_MET" for c in checks)
