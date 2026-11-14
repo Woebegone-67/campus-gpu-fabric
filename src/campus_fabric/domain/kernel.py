@@ -819,7 +819,24 @@ class Kernel(LifecycleMixin):
                 "failed",
                 "cancelled",
             }:
-                intent["state"] = "manual_action"
+                # The only lease ended before job creation. No operation may
+                # revive its TTL, and there is no job to cancel or retry. Record
+                # a complete outcome instead of an unresolvable manual-action
+                # state; a new attempt requires an explicit new-work identity.
+                previous = intent["state"]
+                cancelled = state == "Released"
+                intent["state"] = "cancelled" if cancelled else "failed"
+                intent["result"] = plain(m.WorkResult(
+                    kind="cancelled" if cancelled else "failure",
+                    recorded_at=s["now"],
+                    failure=None if cancelled else m.ErrorDetail(
+                        code="lease_unavailable",
+                        detail=f"Lease {state.lower()} before job creation; submit a new work identity to retry.",
+                    ),
+                ))
+                self._event(s, c, "intent." + intent["state"], intent["owner_id"],
+                            [self._ref("intent", intent["intent_id"])],
+                            before=previous, after=intent["state"])
 
     @staticmethod
     def allocation_http(a):

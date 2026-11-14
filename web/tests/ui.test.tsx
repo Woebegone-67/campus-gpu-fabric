@@ -45,6 +45,8 @@ test('imported admin remains selected after Apply, changed manual credentials lo
   let applied;
   function Harness(){const [identity,setIdentity]=useState({owner:'',token:''});applied=identity;return <><IdentityPicker identity={identity} busy={false} onApply={setIdentity}/>{identity.profile==='admin'&&identity.token&&<span data-testid="clock">模拟时钟入口</span>}</>;}
   await render(<Harness/>);await uploadProfiles();
+  assert.match(container.textContent,/已读取 本地身份文件，共 2 个身份/);
+  assert.equal(applied.token,'','import does not silently change the active identity');
   await interact(()=>{const select=container.querySelector('select');select.value='admin';select.dispatchEvent(new dom.window.Event('change',{bubbles:true}));});
   assert.ok(container.querySelector('[data-testid=clock]'));
   await submit(container.querySelector('form'));
@@ -217,15 +219,16 @@ test('resume action uses current work ID and version without creating another jo
 });
 
 test('artifact download uses authenticated registered URI endpoint, rejecting arbitrary file links',async()=>{
-  const urls=[];const originalCreate=URL.createObjectURL,originalRevoke=URL.revokeObjectURL,originalClick=dom.window.HTMLAnchorElement.prototype.click;
-  URL.createObjectURL=()=>{urls.push('blob-created');return 'blob:isolated-test';};URL.revokeObjectURL=()=>{};dom.window.HTMLAnchorElement.prototype.click=function(){urls.push(this.download);};
+  const urls=[],blobs=[];const originalCreate=URL.createObjectURL,originalRevoke=URL.revokeObjectURL,originalClick=dom.window.HTMLAnchorElement.prototype.click;
+  URL.createObjectURL=(blob)=>{blobs.push(blob);urls.push('blob-created');return 'blob:isolated-test';};URL.revokeObjectURL=()=>{};dom.window.HTMLAnchorElement.prototype.click=function(){urls.push(this.download);};
   try{
-    globalThis.fetch=async(path,options)=>{requests.push({path,options});return json({result:42});};
+    const raw='{"state":{"step":1000000,"value":16159431991146531633}}\n';
+    globalThis.fetch=async(path,options)=>{requests.push({path,options});return new Response(raw,{headers:{'Content-Type':'application/json'}});};
     await render(<><ArtifactDownload api={api()} uri="fabric-cpu://epoch-0/work/result.json"/><ArtifactDownload api={api()} uri="file:///private/arbitrary"/></>);
     assert.equal(container.querySelectorAll('button').length,1);
     await interact(()=>button('下载真实工件').click());
     assert.equal(requests[0].path,'/x/v1/artifacts?uri=fabric-cpu%3A%2F%2Fepoch-0%2Fwork%2Fresult.json');
-    assert.equal(requests[0].options.headers['X-Owner'],'bob');assert.equal(urls.length,2);
+    assert.equal(requests[0].options.headers['X-Owner'],'bob');assert.equal(urls.length,2);assert.equal(await blobs[0].text(),raw);
   }finally{URL.createObjectURL=originalCreate;URL.revokeObjectURL=originalRevoke;dom.window.HTMLAnchorElement.prototype.click=originalClick;}
 });
 
@@ -280,15 +283,17 @@ test('forbidden artifact response stays 404 and never produces a download',async
 });
 
 test('experiment input and output downloads use only registered fixed artifact IDs',async()=>{
-  const originalCreate=URL.createObjectURL,originalRevoke=URL.revokeObjectURL,originalClick=dom.window.HTMLAnchorElement.prototype.click;
-  URL.createObjectURL=()=> 'blob:experiment-test';URL.revokeObjectURL=()=>{};dom.window.HTMLAnchorElement.prototype.click=function(){};
+  const blobs=[];const originalCreate=URL.createObjectURL,originalRevoke=URL.revokeObjectURL,originalClick=dom.window.HTMLAnchorElement.prototype.click;
+  URL.createObjectURL=(blob)=>{blobs.push(blob);return 'blob:experiment-test';};URL.revokeObjectURL=()=>{};dom.window.HTMLAnchorElement.prototype.click=function(){};
   try{
-    globalThis.fetch=async(path,options)=>{requests.push({path,options});return json(path.endsWith('/artifacts/input')?{seed:0}:{item:{run_id:'run-evidence',status:'completed',inputs:[{name:'input',uri:'experiment://run-evidence/input'}],outputs:[{name:'summary',uri:'experiment://run-evidence/summary'},{name:'../../private',uri:'file:///private'}]}});};
+    const raw='{"seed":0,"checksum":16159431991146531633}\n';
+    globalThis.fetch=async(path,options)=>{requests.push({path,options});if(path.endsWith('/artifacts/input'))return new Response(raw,{headers:{'Content-Type':'application/json'}});return json({item:{run_id:'run-evidence',status:'completed',inputs:[{name:'input',uri:'experiment://run-evidence/input'}],outputs:[{name:'summary',uri:'experiment://run-evidence/summary'},{name:'../../private',uri:'file:///private'}]}});};
     await render(<Experiments api={api()}/>);await enter(field('Run ID'),'run-evidence');await submit(container.querySelector('form'));
     assert.ok(button('下载固定输入'));assert.ok(button('下载汇总'));assert.equal([...container.querySelectorAll('button')].some(b=>b.textContent?.includes('../../private')),false);
     await interact(()=>button('下载固定输入').click());
     assert.equal(requests.at(-1).path,'/x/v1/experiments/run-evidence/artifacts/input');
     assert.equal(requests.at(-1).options.headers.Authorization,'Bearer synthetic-test-token');
+    assert.equal(await blobs[0].text(),raw,'experiment artifact must retain exact HTTP JSON');
   }finally{URL.createObjectURL=originalCreate;URL.revokeObjectURL=originalRevoke;dom.window.HTMLAnchorElement.prototype.click=originalClick;}
 });
 

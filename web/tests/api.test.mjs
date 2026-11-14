@@ -131,3 +131,12 @@ test('registration stale rejection stops at three attempts; network/server/other
     assert.equal(calls,failure==='stale'?3:1,failure);
   }
 });
+
+// Artifact bytes must survive JavaScript's unsafe-integer boundary.
+test('raw artifact JSON preserves uint64 results independently of parsed presentation data',async()=>{
+  const raw='{"state":{"step":1000000,"value":16159431991146531633}}\n';
+  globalThis.fetch=async()=>new Response(raw,{headers:{'Content-Type':'application/json'}});
+  const result=await new ApiClient({owner:'alice',token:'test-only'}).request('/x/v1/artifacts?uri=registered');
+  assert.equal(result.raw,raw);
+  assert.notEqual(JSON.stringify(result.data),raw.trim(),'parsed numbers are not safe artifact content');
+});

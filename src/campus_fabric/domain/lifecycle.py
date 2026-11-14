@@ -238,7 +238,11 @@ class LifecycleMixin:
             self._attempt_state(s, job, "checkpointing", checkpoint=plain(cp))
         self._event(s, c, "checkpoint.reported", a["owner_id"],
                     [self._ref("allocation", a["allocation_id"])], after=status)
-        strict_failed = status != "ready" and a["parameters"]["preemption_mode"] == "checkpoint"
+        # A lease can be recalled after placement but before any job exists.
+        # There is no execution state to save in that interval. Failure to produce
+        # a nonexistent checkpoint must not destroy an otherwise resumable lease.
+        strict_failed = (job is not None and status != "ready"
+                         and a["parameters"]["preemption_mode"] == "checkpoint")
         self._interrupt(s, c, a, "Evicted" if strict_failed else "Preempted")
 
     def _dispatch(self, s, job, action, checkpoint=None):
@@ -507,7 +511,8 @@ class LifecycleMixin:
                 elif priority == 1:
                     a = s["allocations"][ident]
                     if a["state"] == "PreemptRequested" and not a.get("pending_terminal"):
-                        strict = a["parameters"]["preemption_mode"] == "checkpoint"
+                        strict = (self._live_job(s, a) is not None
+                                  and a["parameters"]["preemption_mode"] == "checkpoint")
                         self._interrupt(s, c, a, "Evicted" if strict else "Preempted")
                 elif priority == 4:
                     self._refresh_blocks(s)

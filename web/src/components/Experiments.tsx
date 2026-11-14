@@ -1,7 +1,7 @@
 import {useState,type FormEvent} from 'react';
 import {ApiClient,ApiError,detail,encodeId,items,list,object,text,type ApiResult} from '../api';
 import {useLookupQuery,useQuery} from '../hooks';
-import {downloadJson,ErrorNotice,Field,LookupStatus,Metadata,Panel,QueryFeedback,RawData,Receipt,Refresh,Status,Table} from './common';
+import {downloadJson,downloadJsonText,ErrorNotice,Field,LookupStatus,Metadata,Panel,QueryFeedback,RawData,Receipt,Refresh,Status,Table} from './common';
 
 const artifactNames:Record<string,string>={input:'固定输入',summary:'汇总',events:'事件',decisions:'决策',receipts:'提交回执','final-snapshot':'最终快照','run-metadata':'运行元数据'};
 export function Experiments({api}:{api:ApiClient}) {
@@ -42,6 +42,6 @@ export function Experiments({api}:{api:ApiClient}) {
 }
 function ExperimentDownload({api,runId,artifactId}:{api:ApiClient;runId:string;artifactId:string}) {
   const [busy,setBusy]=useState(false),[error,setError]=useState<ApiError|null>(null);
-  async function download(){setBusy(true);setError(null);try{const response=await api.request(`/x/v1/experiments/${encodeId(runId)}/artifacts/${encodeId(artifactId)}`);downloadJson(response.data,`${encodeId(runId)}-${artifactId}.json`);}catch(error){setError(error instanceof ApiError?error:new ApiError('实验工件读取失败',0));}finally{setBusy(false);}}
+  async function download(){setBusy(true);setError(null);try{const response=await api.request(`/x/v1/experiments/${encodeId(runId)}/artifacts/${encodeId(artifactId)}`);downloadJsonText(response.raw,`${encodeId(runId)}-${artifactId}.json`);}catch(error){setError(error instanceof ApiError?error:new ApiError('实验工件读取失败',0));}finally{setBusy(false);}}
   return <div className="action-unit"><button type="button" className="button" disabled={busy} onClick={download}>{busy?'正在读取…':`下载${artifactNames[artifactId]}`}</button>{error&&<ErrorNotice error={error}/>}</div>;
 }

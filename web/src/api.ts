@@ -1,6 +1,6 @@
 export type JsonObject = Record<string, unknown>;
 export type Identity = { owner: string; token: string; profile?: string };
-export type ApiResult = { data: unknown; status: number; requestId: string | null };
+export type ApiResult = { data: unknown; raw: string; status: number; requestId: string | null };
 
 export function object(value: unknown): JsonObject {
   return value !== null && typeof value === 'object' && !Array.isArray(value) ? value as JsonObject : {};
@@ -100,7 +100,7 @@ export class ApiClient {
       if (receipt.outcome === 'rejected') {
         throw new ApiError(text(object(receipt.error).detail, '服务端拒绝了这项操作。'), 409, requestId, data);
       }
-      return {data, status: response.status, requestId};
+      return {data, raw, status: response.status, requestId};
     } catch (error) {
       if (error instanceof ApiError) throw error;
       if (options.signal?.aborted) throw error;

@@ -67,6 +67,10 @@ export function Table({columns, rows, rowKey}: {columns: {label: string; render:
   return <div className="table-wrap"><table><thead><tr>{columns.map(col => <th key={col.label}>{col.label}</th>)}</tr></thead><tbody>{rows.map((row, index) => <tr key={rowKey(row,index)}>{columns.map(col => <td key={col.label}>{col.render(row)}</td>)}</tr>)}</tbody></table></div>;
 }
 export function downloadJson(data: unknown, name: string) {
-  const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'}));
+  downloadJsonText(JSON.stringify(data, null, 2), name);
+}
+export function downloadJsonText(raw: string, name: string) {
+  // Preserve server integers and artifact hashes; a JS number roundtrip can lose bits.
+  const url = URL.createObjectURL(new Blob([raw], {type: 'application/json'}));
   const anchor = document.createElement('a'); anchor.href = url; anchor.download = name; anchor.click(); URL.revokeObjectURL(url);
 }

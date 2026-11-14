@@ -22,6 +22,7 @@ export function IdentityPicker({identity, onApply, busy}:{identity:Identity;onAp
       }
       if(!Object.keys(parsed).length)throw new Error('未找到有效的本地身份记录。');
       setProfiles(parsed);
+      setNotice(`已读取 ${file.name || '本地身份文件'}，共 ${Object.keys(parsed).length} 个身份。请在下拉框选择；当前身份未改变。`);
     } catch(error){setError(error instanceof Error?error.message:'无法读取身份文件。');}
     finally{event.target.value='';}
   }

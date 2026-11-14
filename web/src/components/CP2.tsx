@@ -1,13 +1,13 @@
 import {useState} from 'react';
 import {ApiClient,ApiError,object,text,type JsonObject} from '../api';
-import {downloadJson,ErrorNotice,Status} from './common';
+import {downloadJsonText,ErrorNotice,Status} from './common';
 
 export function ArtifactDownload({api,uri,label='下载真实工件'}:{api:ApiClient;uri:unknown;label?:string}) {
   const [busy,setBusy]=useState(false),[error,setError]=useState<ApiError|null>(null);
   if(typeof uri!=='string'||!uri.startsWith('fabric-cpu://'))return null;
   async function download(){
     setBusy(true);setError(null);
-    try {const response=await api.request(`/x/v1/artifacts?uri=${encodeURIComponent(uri as string)}`);downloadJson(response.data,'cpu-reference-artifact.json');}
+    try {const response=await api.request(`/x/v1/artifacts?uri=${encodeURIComponent(uri as string)}`);downloadJsonText(response.raw,'cpu-reference-artifact.json');}
     catch(error){setError(error instanceof ApiError?error:new ApiError('工件读取失败',0));}
     finally{setBusy(false);}
   }

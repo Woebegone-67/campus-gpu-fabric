@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.util
 import json
 import subprocess
 import sys
@@ -69,6 +70,47 @@ def _artifact_errors(root: Path, checkpoint: str, entry, receipt_path: Path) -> 
     if sha256_file(path) != entry.get('sha256'):
         return [f'evidence digest mismatch: {raw}']
     return []
+
+
+def _cp2_joint_ui_errors(root: Path, check: dict, build: dict, receipt_path: Path) -> list[str]:
+    """A hash-valid agent QA receipt cannot establish the joint human UI gate.
+
+    The registered UI validator performs a bounded read-only evidence review;
+    it neither launches scenarios nor creates attestations. Rechecking the
+    underlying current-build records also invalidates a formerly passing summary
+    when its human handoff or screenshots have subsequently changed.
+    """
+    errors = []
+    summaries = []
+    for entry in check.get('evidence', []) if isinstance(check.get('evidence'), list) else []:
+        if _artifact_errors(root, 'CP2', entry, receipt_path):
+            continue
+        try:
+            value = load_json((root / entry['path']).resolve())
+        except (OSError, ValueError, TypeError):
+            continue
+        if isinstance(value, dict) and value.get('check') == 'CP2-SIX-WORKSPACES':
+            summaries.append(value)
+    if not summaries or any(
+        summary.get('status') != 'PASS'
+        or summary.get('scope') != 'JOINT_CP2_UI_EVIDENCE_REVIEW'
+        or summary.get('build') != build
+        for summary in summaries
+    ):
+        errors.append('requires a passing current-build JOINT_CP2_UI_EVIDENCE_REVIEW artifact; agent QA is insufficient')
+    try:
+        path = root / 'tests/acceptance/cp2/cp2_six_workspaces.py'
+        spec = importlib.util.spec_from_file_location('campus_cp2_joint_ui_gate', path)
+        if spec is None or spec.loader is None:
+            raise ValueError('registered UI reviewer unavailable')
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        reviewed_build = module.review(root, require_humans=True)
+        if reviewed_build != build:
+            raise ValueError('UI evidence review belongs to a different build')
+    except (OSError, ValueError, KeyError, TypeError, AttributeError) as exc:
+        errors.append(f'joint UI and A/B human evidence review failed: {exc}')
+    return errors
 
 
 def evaluate_checkpoint(root: Path, checkpoint: str, receipt_path: Path | None = None) -> dict:
@@ -183,6 +225,8 @@ def evaluate_checkpoint(root: Path, checkpoint: str, receipt_path: Path | None =
         else:
             for artifact in artifacts:
                 errors.extend(f'{check_id}: {err}' for err in _artifact_errors(root, checkpoint, artifact, receipt_path))
+        if checkpoint == 'CP2' and check_id == 'CP2-SIX-WORKSPACES' and check.get('status') == 'MET':
+            errors.extend(f'{check_id}: {err}' for err in _cp2_joint_ui_errors(root, check, build, receipt_path))
     if not errors:
         report['status'] = 'MET'
     return report
