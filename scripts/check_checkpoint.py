@@ -113,6 +113,70 @@ def _cp2_joint_ui_errors(root: Path, check: dict, build: dict, receipt_path: Pat
     return errors
 
 
+
+def _nested_evidence_errors(root: Path, checkpoint: str, entries: list, receipt_path: Path) -> list[str]:
+    """Recheck declared nested evidence refs, not just their enclosing summary.
+
+    Only explicitly named evidence fields are traversed. A validator must retain
+    references to its underlying inputs; unreferenced files are outside this
+    integrity check. This does not authenticate who produced an artifact.
+    """
+    errors, visited = [], set()
+
+    def inspect(entry):
+        problems = _artifact_errors(root, checkpoint, entry, receipt_path)
+        if problems:
+            errors.extend(problems)
+            return
+        path = (root / entry['path']).resolve()
+        if path in visited or path.suffix.lower() != '.json':
+            return
+        visited.add(path)
+        try:
+            value = load_json(path)
+        except (OSError, ValueError, UnicodeError) as exc:
+            errors.append(f'invalid JSON evidence artifact: {entry["path"]}: {exc}')
+            return
+
+        def walk(node):
+            if isinstance(node, list):
+                for item in node:
+                    walk(item)
+            elif isinstance(node, dict):
+                for key, item in node.items():
+                    if key == 'evidence':
+                        refs = item if isinstance(item, list) else [item]
+                        for ref in refs:
+                            inspect(ref)
+                    else:
+                        walk(item)
+        walk(value)
+
+    for entry in entries:
+        inspect(entry)
+    return errors
+
+
+def _cp3_human_review(root: Path, build: dict) -> dict:
+    """Re-read this round's two human attestations; automatic tests cannot sign."""
+    result = {'status': 'NOT_MET', 'errors': []}
+    try:
+        path = root / 'tests/acceptance/cp3/cp3_human_handoff.py'
+        spec = importlib.util.spec_from_file_location('campus_cp3_human_gate', path)
+        if spec is None or spec.loader is None:
+            raise ValueError('CP3 human evidence reviewer unavailable')
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        if module.review(root) != build:
+            raise ValueError('CP3 human evidence review belongs to another build')
+        result['status'] = 'PASS'
+    except FileNotFoundError as exc:
+        result.update(status='NOT_RUN', errors=[str(exc)])
+    except (OSError, ValueError, KeyError, TypeError, AttributeError) as exc:
+        result['errors'].append(str(exc))
+    return result
+
+
 def evaluate_checkpoint(root: Path, checkpoint: str, receipt_path: Path | None = None) -> dict:
     root = root.resolve()
     checkpoint = checkpoint.upper()
@@ -225,8 +289,16 @@ def evaluate_checkpoint(root: Path, checkpoint: str, receipt_path: Path | None =
         else:
             for artifact in artifacts:
                 errors.extend(f'{check_id}: {err}' for err in _artifact_errors(root, checkpoint, artifact, receipt_path))
+        if checkpoint == 'CP3' and isinstance(artifacts, list):
+            errors.extend(f'{check_id}: nested {err}' for err in
+                          _nested_evidence_errors(root, checkpoint, artifacts, receipt_path))
         if checkpoint == 'CP2' and check_id == 'CP2-SIX-WORKSPACES' and check.get('status') == 'MET':
             errors.extend(f'{check_id}: {err}' for err in _cp2_joint_ui_errors(root, check, build, receipt_path))
+    if checkpoint == 'CP3':
+        report['technical_status'] = 'MET' if not errors else 'NOT_MET'
+        human_review = _cp3_human_review(root, build)
+        report['human_acceptance'] = human_review['status']
+        errors.extend(f'CP3-HUMAN-HANDOFF: {error}' for error in human_review['errors'])
     if not errors:
         report['status'] = 'MET'
     return report

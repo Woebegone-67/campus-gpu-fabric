@@ -37,7 +37,7 @@ def main():
     evidence.mkdir(parents=True, exist_ok=True)
     before = current_build(ROOT)
     receipt = {
-        "schema_version": "1.0.0", "check": "CP3-SETTLEMENT",
+        "schema_version": "1.0.0", "check": "CP3-SETTLEMENT", "evidence_kind": "ui_runtime",
         "scope": "B_CP3_SETTLEMENT_AUTOMATED_DOM_AND_LOOPBACK_HTTP", "status": "NOT_MET",
         "created_at": datetime.now(timezone.utc).isoformat(), "build": before,
         "build_at_finish": None, "checks": [], "unresolved_issues": [], "commands": [],

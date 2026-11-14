@@ -1,4 +1,4 @@
-import {useState,type FormEvent} from 'react';
+import {useEffect,useRef,useState,type FormEvent} from 'react';
 import {ApiClient,ApiError,detail,encodeId,items,list,object,text,type ApiResult} from '../api';
 import {useLookupQuery,useQuery} from '../hooks';
 import {downloadJson,downloadJsonText,ErrorNotice,Field,LookupStatus,Metadata,Panel,QueryFeedback,RawData,Receipt,Refresh,Status,Table} from './common';
@@ -44,6 +44,24 @@ export function Experiments({api}:{api:ApiClient}) {
 }
 function ExperimentDownload({api,runId,artifactId}:{api:ApiClient;runId:string;artifactId:string}) {
   const [busy,setBusy]=useState(false),[error,setError]=useState<ApiError|null>(null);
-  async function download(){setBusy(true);setError(null);try{const response=await api.request(`/x/v1/experiments/${encodeId(runId)}/artifacts/${encodeId(artifactId)}`);downloadJsonText(response.raw,`${encodeId(runId)}-${artifactId}.json`);}catch(error){setError(error instanceof ApiError?error:new ApiError('实验工件读取失败',0));}finally{setBusy(false);}}
+  const pending=useRef<AbortController|null>(null);
+  const current=useRef({api,runId,artifactId});
+  current.current={api,runId,artifactId};
+  useEffect(()=>{
+    setBusy(false);setError(null);
+    return ()=>{pending.current?.abort();pending.current=null;};
+  },[api,runId,artifactId]);
+  async function download(){
+    pending.current?.abort();
+    const controller=new AbortController();
+    pending.current=controller;setBusy(true);setError(null);
+    const isCurrent=()=>pending.current===controller&&!controller.signal.aborted
+      &&current.current.api===api&&current.current.runId===runId&&current.current.artifactId===artifactId;
+    try{
+      const response=await api.request(`/x/v1/experiments/${encodeId(runId)}/artifacts/${encodeId(artifactId)}`,{signal:controller.signal});
+      if(isCurrent())downloadJsonText(response.raw,`${encodeId(runId)}-${artifactId}.json`);
+    }catch(error){if(isCurrent())setError(error instanceof ApiError?error:new ApiError('实验工件读取失败',0));}
+    finally{if(isCurrent()){pending.current=null;setBusy(false);}}
+  }
   return <div className="action-unit"><button type="button" className="button" disabled={busy} onClick={download}>{busy?'正在读取…':`下载${artifactNames[artifactId]}`}</button>{error&&<ErrorNotice error={error}/>}</div>;
 }

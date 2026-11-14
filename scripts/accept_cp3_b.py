@@ -8,6 +8,7 @@ Existing A receipts are usable only on the exact current build.
 
 from __future__ import annotations
 
+import argparse
 import json
 import shlex
 import sys
@@ -15,7 +16,12 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from accept_cp3_a import run_command
-from check_checkpoint import current_build, evaluate_checkpoint, sha256_file
+from check_checkpoint import (
+    _nested_evidence_errors,
+    current_build,
+    evaluate_checkpoint,
+    sha256_file,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "evidence/cp3"
@@ -54,10 +60,11 @@ def valid_observation(raw, cid, build, allowed_kinds):
             and isinstance(raw.get("unresolved_issues", []), list)
             # Legacy A validators omit this field; an explicit wrong kind is
             # never replaced by a supposedly allowed kind in the joint receipt.
-            and ("evidence_kind" not in raw or raw["evidence_kind"] in allowed_kinds))
+            and (raw.get("evidence_kind") in allowed_kinds
+                 or ("evidence_kind" not in raw and cid in {"CP3-CRASH-RECOVERY", "CP3-CPU-EQUIVALENCE"})))
 
 
-def main():
+def main(*, review_existing=False):
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "logs").mkdir(exist_ok=True)
     build = current_build(ROOT)
@@ -65,6 +72,17 @@ def main():
     if (len(required) != 8
             or {r["id"] for r in required} != set(B_CHECKS) | set(A_CHECKS)):
         raise ValueError("Expected all eight unique CP3 registered checks")
+    previous = {}
+    if review_existing:
+        try:
+            previous = json.loads((OUT / "b_delivery_receipt.json").read_text())
+        except (OSError, ValueError):
+            previous = {}
+        if not isinstance(previous, dict):
+            previous = {}
+    retained_runs = previous.get("retained_runs", previous.get("runs", []))
+    if not isinstance(retained_runs, list):
+        retained_runs = []
     checks, runs = [], []
     joint = {"schema_version": "1.0.0", "checkpoint": "CP3", "scope": "runtime_acceptance",
              "status": "NOT_MET", "build": build, "checks": checks}
@@ -76,7 +94,25 @@ def main():
         command = shlex.join([sys.executable, str(validator), "--output", str(raw_path)])
         log = OUT / "logs" / (cid.lower() + ".txt")
         code = None
-        if cid in B_CHECKS:
+        review_error = None
+        if cid in B_CHECKS and review_existing:
+            prior_runs = [r for r in retained_runs if isinstance(r, dict) and r.get("id") == cid]
+            prior_rows = [r for r in previous.get("checks", [])
+                          if isinstance(r, dict) and r.get("id") == cid] if isinstance(previous.get("checks"), list) else []
+            if (previous.get("build") != build or previous.get("build_at_finish") != build
+                    or len(prior_runs) != 1 or prior_runs[0].get("exit_code") != 0
+                    or len(prior_rows) != 1 or prior_rows[0].get("status") != "MET"):
+                review_error = "No successful exact-build execution provenance; run the B validators first."
+            else:
+                prior_evidence = prior_rows[0].get("evidence")
+                if (not isinstance(prior_evidence, list) or not prior_evidence
+                        or not any(isinstance(ref, dict) and ref.get("path") == raw_path.relative_to(ROOT).as_posix()
+                                   for ref in prior_evidence)
+                        or _nested_evidence_errors(ROOT, "CP3", prior_evidence, OUT / "receipt.json")):
+                    review_error = "Retained execution evidence changed or is incomplete; rerun the B validators."
+            if review_error:
+                code = 1
+        if cid in B_CHECKS and not review_existing:
             raw_path.unlink(missing_ok=True)
             print("RUN " + cid, flush=True)
             with log.open("w") as stream:
@@ -102,7 +138,8 @@ def main():
                "status": "MET" if passed else ("NOT_MET" if executed else "NOT_RUN"),
                "evidence_kind": requirement["allowed_evidence_kinds"][0],
                "input_version": "CP3 registered deterministic validators and sealed five-family protocol",
-               "executor": "Independent isolated validator process; no human sign-off inferred",
+               "executor": ("Review of retained exact-build validator receipts; no new execution" if review_existing
+                            else "Independent isolated validator process; no human sign-off inferred"),
                "command": command,
                "observed_at": datetime.now(timezone.utc).isoformat(),
                "actual": f"{len(observations)} recorded checks; validator status {raw.get('status', 'missing or stale')}",
@@ -110,6 +147,13 @@ def main():
                    "No passing exact-build evidence, or a registered condition remains unmet."],
                "evidence": ([artifact(raw_path)] if raw_path.is_file() else [])
                            + ([artifact(log)] if cid in B_CHECKS and log.is_file() else [])}
+        if review_error:
+            row["unresolved_issues"] = [review_error]
+        if passed:
+            nested_errors = _nested_evidence_errors(ROOT, "CP3", row["evidence"], OUT / "receipt.json")
+            if nested_errors:
+                row["status"] = "NOT_MET"
+                row["unresolved_issues"] = nested_errors
         if validator.is_file():
             row["validator"] = {"path": requirement["validator_path"], "sha256": sha256_file(validator)}
         checks.append(row)
@@ -124,6 +168,8 @@ def main():
     write(OUT / "receipt.json", joint)
     gate = evaluate_checkpoint(ROOT, "CP3")
     joint["status"] = gate["status"]
+    joint["technical_status"] = gate.get("technical_status", "NOT_MET")
+    joint["human_acceptance"] = gate.get("human_acceptance", "NOT_RUN")
     write(OUT / "receipt.json", joint)
     write(OUT / "joint_gate_review.json", gate)
     b_passed = stable and all(c["status"] == "MET" for c in checks if c["id"] in B_CHECKS)
@@ -131,7 +177,10 @@ def main():
         "schema_version": "1.0.0", "scope": "B_CP3_REGISTERED_VALIDATORS",
         "build": build, "build_at_finish": current_build(ROOT),
         "status": "PASS" if b_passed else "NOT_MET", "runs": runs,
+        "operation": "review_existing" if review_existing else "execute_validators",
+        "retained_runs": retained_runs if review_existing else runs,
         "checks": checks, "joint_cp3": gate["status"],
+        "human_acceptance": gate.get("human_acceptance", "NOT_RUN"),
         "boundary": "Observed policy outcomes and agent UI checks do not sign human acceptance.",
     })
     print(f"B CP3 {'PASS' if b_passed else 'NOT_MET'}; joint gate {gate['status']}", flush=True)
@@ -139,4 +188,7 @@ def main():
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--review-existing", action="store_true",
+                        help="Recheck retained exact-build receipts and CP3 human evidence without rerunning validators")
+    raise SystemExit(main(review_existing=parser.parse_args().review_existing))

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import copy
 import shutil
+import sys
 from pathlib import Path
 
 import pytest
@@ -20,6 +21,7 @@ from experiments.cp3_suite import (
     run_suite,
     write_json,
 )
+from experiments.cp3_validation import suite_evidence
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -170,6 +172,45 @@ def test_recall_and_fault_inputs_generate_real_reports_retries_and_stale_rejecti
     late = next(e for e in result["external_injections"] if e["input"]["kind"] == "late_callback")
     assert late["receipt"]["outcome"] == "rejected"
     assert late["receipt"]["error"]["code"] == "attempt_stale"
+
+
+def test_policy_receipt_binds_seals_inputs_and_raw_run_artifacts(stable_root, monkeypatch):
+    import experiments.cp3_suite as module
+    import experiments.cp3_validation as validation
+    from campus_fabric.workflows.acceptance_evidence import _gate_module
+    real_generator = module.scenario_input
+    def development_fixture(root, family, seed, *, development=False):
+        data = real_generator(root, family, seed, development=development)
+        data["works"] = data["works"][:2]
+        data["horizon"] = 15
+        return data
+    monkeypatch.setattr(module, "scenario_input", development_fixture)
+    suite = stable_root / "evidence/cp3/suite"
+    freeze_suite(stable_root, suite, "development")
+    index = run_suite(stable_root, suite, limit=1)
+    refs = suite_evidence(stable_root, suite)
+    paths = {ref["path"] for ref in refs}
+    assert {f"evidence/cp3/suite/{name}" for name in
+            ("manifest.json", "manifest.sha256", "suite-index.json")} <= paths
+    assert len([path for path in paths if "/inputs/" in path]) == 10
+    assert {f"evidence/cp3/suite/{ref['path']}" for ref in index["runs"][0]["artifacts"].values()} <= paths
+    assert len(refs) == 3 + 10 + len(ARTIFACT_IDS)
+    assert all(not Path(ref["path"]).is_absolute() for ref in refs)
+    # A summary still present on disk must not hide a deleted raw trace.
+    gate = _gate_module(stable_root)
+    receipt_path = stable_root / "evidence/cp3/raw.json"
+    monkeypatch.setattr(validation, "ROOT", stable_root)
+    monkeypatch.setattr(sys, "argv", ["cp3_policy_evidence", "--suite", str(suite), "--output", str(receipt_path)])
+    assert validation.main("CP3-POLICY-EVIDENCE") == 1  # Partial development data cannot pass.
+    receipt = gate.load_json(receipt_path)
+    assert receipt["status"] == "FAIL"
+    assert all(ref in receipt["evidence"] for ref in refs)
+    assert not gate._nested_evidence_errors(stable_root, "CP3", receipt["evidence"], receipt_path)
+    trace = suite / index["runs"][0]["artifacts"]["events"]["path"]
+    trace.unlink()
+    assert gate._nested_evidence_errors(stable_root, "CP3", receipt["evidence"], receipt_path)
+    with pytest.raises(FileNotFoundError):
+        suite_evidence(stable_root, suite)
 
 
 def test_each_seed_changes_material_input_not_only_metadata():

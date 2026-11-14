@@ -236,6 +236,63 @@ def test_p_opportunity_disabled_is_exact_b2_placement_under_same_search_budget()
         assert len(disabled.candidates) <= budget
 
 
+@pytest.mark.parametrize("held_source", [None, "occupancy", "occupied", "quarantined"])
+def test_p_joint_mig_opportunity_respects_parent_capacity_and_held_slices(held_source):
+    from campus_fabric.policies.candidate import _can_coexist
+
+    # The node has enough total GPU memory; the shared 40 GiB parent does not.
+    slice_memory = 30720 if held_source is None else 20480
+    devices = [device("parent-a"), device("parent-b")]
+    devices.extend(device(f"slice-{i}", profile="mig-test", physical_gpu_id="parent-a",
+                          memory=slice_memory) for i in range(2))
+    held = ()
+    if held_source is not None:
+        devices.append(device("held-slice", profile="mig-test", physical_gpu_id="parent-a",
+                              memory=10240, state=(held_source if held_source != "occupancy"
+                                                   else "available")))
+        if held_source == "occupancy":
+            held = (Occupancy(allocation_id="held", owner_id="third-owner", since=0.,
+                status="executing", placement=Placement(slices=(PlacementSlice(
+                    node_id="node-a", device_ids=("held-slice",),
+                    resources=ResourceAmounts(gpu_count=1, gpu_memory_mib=10240)),))),)
+    capacity = ResourceAmounts(cpu_millicores=16000, memory_mib=65536,
+                               gpu_count=2, gpu_memory_mib=81920)
+    state = snapshot(inventory=(node(devices=tuple(devices), capacity=capacity, available=capacity),),
+        demands=(demand("left", "owner-a", profile="mig-test"),
+                 demand("right", "owner-b", profile="mig-test")), occupancy=held)
+    plan = make_policy("P").plan(state)
+    def choice(work, slice_id):
+        return next(c for c in plan.candidates if c.demand_id == work
+                    and c.placement is not None
+                    and c.placement.slices[0].device_ids == (slice_id,))
+    left, right = choice("left", "slice-0"), choice("right", "slice-1")
+    assert left.feasibility == right.feasibility == "legal"
+    assert not _can_coexist(left, right, state)
+    if held_source is None:
+        scores = {s.name: s.value for s in left.scores}
+        assert scores["observed_opportunity_loss"] == 1.
+
+
+def test_p_joint_mig_opportunity_allows_two_slices_within_parent_capacity():
+    from campus_fabric.policies.candidate import _can_coexist
+
+    devices = [device("parent-a"), device("parent-b")]
+    devices.extend(device(f"slice-{i}", profile="mig-test", physical_gpu_id="parent-a",
+                          memory=20480) for i in range(2))
+    capacity = ResourceAmounts(cpu_millicores=16000, memory_mib=65536,
+                               gpu_count=2, gpu_memory_mib=81920)
+    state = snapshot(inventory=(node(devices=tuple(devices), capacity=capacity, available=capacity),),
+        demands=(demand("left", "owner-a", profile="mig-test"),
+                 demand("right", "owner-b", profile="mig-test")))
+    plan = make_policy("P").plan(state)
+    choices = [next(c for c in plan.candidates if c.demand_id == work
+                    and c.placement is not None
+                    and c.placement.slices[0].device_ids == (slice_id,))
+               for work, slice_id in (("left", "slice-0"), ("right", "slice-1"))]
+    assert all(c.feasibility == "legal" for c in choices)
+    assert _can_coexist(*choices, state)
+
+
 def test_imported_policy_fingerprints_do_not_claim_later_disk_contents():
     # A fresh interpreter guarantees this includes each policy's first plan,
     # not only a later plan after a lazy source-hash cache was populated.

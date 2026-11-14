@@ -232,6 +232,42 @@ test('artifact download uses authenticated registered URI endpoint, rejecting ar
   }finally{URL.createObjectURL=originalCreate;URL.revokeObjectURL=originalRevoke;dom.window.HTMLAnchorElement.prototype.click=originalClick;}
 });
 
+for(const change of ['identity','uri','navigation'])test(`pending CPU artifact download cannot survive ${change}`,async()=>{
+  let resolveDownload,signal;
+  const downloads=[];
+  const originalCreate=URL.createObjectURL,originalRevoke=URL.revokeObjectURL,originalClick=dom.window.HTMLAnchorElement.prototype.click;
+  URL.createObjectURL=blob=>{downloads.push(blob);return 'blob:private-artifact';};
+  URL.revokeObjectURL=()=>{};dom.window.HTMLAnchorElement.prototype.click=function(){};
+  try{
+    globalThis.fetch=async(_path,options)=>{signal=options.signal;return new Promise(resolve=>{resolveDownload=resolve;});};
+    const ownerApi=api();
+    await render(<ArtifactDownload api={ownerApi} uri="fabric-cpu://private/result.json"/>);
+    await interact(()=>button('下载真实工件').click());
+    if(change==='identity')await render(<ArtifactDownload api={new ApiClient({owner:'alice',token:'other-token'})} uri="fabric-cpu://private/result.json"/>);
+    else if(change==='uri')await render(<ArtifactDownload api={ownerApi} uri="fabric-cpu://other/result.json"/>);
+    else await render(<p>Another workspace</p>);
+    // Ignore cancellation in this transport to exercise the late-response guard.
+    await act(async()=>resolveDownload(json({private_result:18446744073709551615n.toString()})));
+    assert.equal(downloads.length,0,'old permissions or an obsolete resource must never create a download');
+    assert.equal(signal.aborted,true);
+    assert.doesNotMatch(container.textContent,/private_result|工件读取失败|HTTP/);
+  }finally{URL.createObjectURL=originalCreate;URL.revokeObjectURL=originalRevoke;dom.window.HTMLAnchorElement.prototype.click=originalClick;}
+});
+
+test('late CPU artifact failure cannot replace a newer URI result',async()=>{
+  let resolveOld;
+  const ownerApi=api();
+  globalThis.fetch=async path=>path.includes('old')?new Promise(resolve=>{resolveOld=resolve;}):json({current_result:'visible'});
+  await render(<ArtifactDownload api={ownerApi} uri="fabric-cpu://old/result.json" previewLabel="查看结果"/>);
+  await interact(()=>button('查看结果').click());
+  await render(<ArtifactDownload api={ownerApi} uri="fabric-cpu://new/result.json" previewLabel="查看结果"/>);
+  await interact(()=>button('查看结果').click());
+  await act(async()=>resolveOld(json({error:'not_found',detail:'old private failure'},404)));
+  assert.match(container.textContent,/current_result/);
+  assert.doesNotMatch(container.textContent,/old private failure|HTTP 404/);
+  assert.equal(button('查看结果').disabled,false);
+});
+
 test('unknown lifecycle write result cannot be replayed from the same button',async()=>{
   globalThis.fetch=async(path,options)=>{requests.push({path,options});throw new TypeError('lost response');};
   await render(<ActionButton api={api()} path="/x/v1/work-intents/work/actions" body={{action:'release'}}>释放</ActionButton>);
@@ -294,6 +330,31 @@ test('experiment input and output downloads use only registered fixed artifact I
     assert.equal(requests.at(-1).path,'/x/v1/experiments/run-evidence/artifacts/input');
     assert.equal(requests.at(-1).options.headers.Authorization,'Bearer synthetic-test-token');
     assert.equal(await blobs[0].text(),raw,'experiment artifact must retain exact HTTP JSON');
+  }finally{URL.createObjectURL=originalCreate;URL.revokeObjectURL=originalRevoke;dom.window.HTMLAnchorElement.prototype.click=originalClick;}
+});
+
+for(const change of ['identity','run','navigation'])test(`pending experiment artifact download cannot survive ${change}`,async()=>{
+  let resolveDownload,signal;
+  const downloads=[];
+  const originalCreate=URL.createObjectURL,originalRevoke=URL.revokeObjectURL,originalClick=dom.window.HTMLAnchorElement.prototype.click;
+  URL.createObjectURL=blob=>{downloads.push(blob);return 'blob:admin-artifact';};
+  URL.revokeObjectURL=()=>{};dom.window.HTMLAnchorElement.prototype.click=function(){};
+  try{
+    globalThis.fetch=async(path,options)=>{
+      if(path.includes('/artifacts/')){signal=options.signal;return new Promise(resolve=>{resolveDownload=resolve;});}
+      return json({item:{run_id:path.split('/').at(-1),status:'completed',outputs:[{name:'summary'}]}});
+    };
+    const ownerApi=api();
+    await render(<Experiments api={ownerApi}/>);
+    await enter(field('Run ID'),'old-run');await submit(container.querySelector('form'));
+    await interact(()=>button('下载汇总').click());
+    if(change==='identity')await render(<div key="alice"><Experiments api={new ApiClient({owner:'alice',token:'other-token'})}/></div>);
+    else if(change==='run'){await enter(field('Run ID'),'new-run');await submit(container.querySelector('form'));}
+    else await render(<p>Another workspace</p>);
+    await act(async()=>resolveDownload(json({admin_only:'old private evidence'})));
+    assert.equal(downloads.length,0,'a late admin artifact must not download after leaving its context');
+    assert.equal(signal.aborted,true);
+    assert.doesNotMatch(container.textContent,/admin_only|工件读取失败|HTTP/);
   }finally{URL.createObjectURL=originalCreate;URL.revokeObjectURL=originalRevoke;dom.window.HTMLAnchorElement.prototype.click=originalClick;}
 });
 

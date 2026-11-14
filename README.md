@@ -2,7 +2,7 @@
 
 校园共享计算服务：申请、收回、接续与可追问的决定。
 
-**当前：CP2 联合验收已通过，进入 CP3 的 A 侧可靠性验收。** CP2 冻结基线为 `aa63fb6`；两位操作者均已确认完成本轮人工验收。CP3 增加真实崩溃窗口、两次 CPU 中断接续与独立账本模型的检验，并修复未启动执行的恢复问题。A 侧实测结果以 `evidence/cp3/a_core_receipt.json` 为准；策略效果、完整重放和联合产品门槛仍须分别验收，不自动放行 CP3。先读 [CP3 交付](docs/CP3_A_DELIVERY.md) 与 [A→B 交接](docs/handoff/CP3_A_TO_B.md)。
+**当前：CP2 已冻结通过；CP3 双方代码已合并，正在严格联合验收，尚未放行 CP4。** CP2 冻结基线为 `aa63fb6`。当前集成分支为 `review/cp3-acceptance`；同构建实测结果读取 `evidence/cp3/joint_gate_review.json`，A 侧可靠性通过不能代替完整事件重放、策略效果及两位真人验收。操作入口见 [CP3 双人联合验收指南](docs/handoff/CP3_JOINT_ACCEPTANCE.md)，阶段分工见 [CP3 A 交付](docs/CP3_A_DELIVERY.md) 与 [CP3 B 交付](docs/CP3_B_DELIVERY.md)。
 
 CP1 审计补修包含身份应用、重复查询、授权决策解释、工作关联导航及验收回执读取，详见 [CP1 补修交接](docs/handoff/CP1_B_FIXES.md)。原人工验收实例保留，补修版使用独立工作树和端口。
 
@@ -13,7 +13,7 @@ CP1 审计补修包含身份应用、重复查询、授权决策解释、工作�
 | 负责人 | 主线 | 开发分支 | 先读 |
 |---|---|---|---|
 | A · Xiuzhu Du / `Woebegone-67` | 可信资源与执行 | `work/a-cp3` | [CP3接线](docs/handoff/CP3_A_TO_B.md) / [A任务书](docs/handoff/OWNER_A.md) |
-| B · `xuyangma` | 服务决策与操作体验 | `feat/b-cp2` | [B开发任务书](docs/handoff/OWNER_B.md) |
+| B · `xuyangma` | 服务决策与操作体验 | `feat/b-cp3` | [B开发任务书](docs/handoff/OWNER_B.md) |
 
 ## 启动与验收
 
@@ -152,4 +152,4 @@ make checkpoint CP=CP3
 
 专项入口与证据范围见 [CP3 交付](docs/CP3_A_DELIVERY.md)。测试创建独立临时目录和端口；不需要重置现有人工验收实例。
 
-B CP3 入口见 [B 交付与边界](docs/CP3_B_DELIVERY.md) 和 [冻结实验协议](experiments/CP3_POLICY_SUITE.md)。在已提交的稳定构建上依次冻结、运行、分析实验，再执行 `make cp3-b`；它合并同构建 A 回执，明确保留效果未达标与完整重放、场景覆盖缺口。报告可在“事件与实验”读取，结果和租约结算可在“任务连续性”首屏查看。CP2 管理员总览 409 的后续修复仍由 A 处理，旧验收实例不因本分支启动而重置。
+B CP3 入口见 [B 交付与边界](docs/CP3_B_DELIVERY.md) 和 [冻结实验协议](experiments/CP3_POLICY_SUITE.md)。在已提交的稳定构建上依次冻结、运行、分析实验，再执行 `make cp3-b`；它合并同构建 A 回执，明确保留效果未达标与完整重放、场景覆盖缺口。报告可在“事件与实验”读取，结果和租约结算可在“任务连续性”首屏查看。管理员总览 409 的 A 侧修复已合入，联合验收会重跑真实 HTTP 回归。新人工实例使用独立目录与端口，旧 CP2 实例保留。

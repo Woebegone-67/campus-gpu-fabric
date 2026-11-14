@@ -1,19 +1,31 @@
-import {useState} from 'react';
+import {useEffect,useRef,useState} from 'react';
 import {ApiClient,ApiError,object,text,type JsonObject} from '../api';
 import {downloadJsonText,ErrorNotice,Status} from './common';
 
 export function ArtifactDownload({api,uri,label='下载真实工件',previewLabel}:{api:ApiClient;uri:unknown;label?:string;previewLabel?:string}) {
   const [busy,setBusy]=useState(false),[error,setError]=useState<ApiError|null>(null);
   const [preview,setPreview]=useState<{api:ApiClient;uri:unknown;raw:string}|null>(null);
+  const pending=useRef<AbortController|null>(null);
+  const current=useRef({api,uri});
+  current.current={api,uri};
+  useEffect(()=>{
+    setBusy(false);setError(null);setPreview(null);
+    return ()=>{pending.current?.abort();pending.current=null;};
+  },[api,uri]);
   if(typeof uri!=='string'||!uri.startsWith('fabric-cpu://'))return null;
   async function read(download:boolean){
-    setBusy(true);setError(null);setPreview(null);
-    try {const response=await api.request(`/x/v1/artifacts?uri=${encodeURIComponent(uri as string)}`);
+    pending.current?.abort();
+    const controller=new AbortController();
+    pending.current=controller;setBusy(true);setError(null);setPreview(null);
+    const isCurrent=()=>pending.current===controller&&!controller.signal.aborted
+      &&current.current.api===api&&current.current.uri===uri;
+    try {const response=await api.request(`/x/v1/artifacts?uri=${encodeURIComponent(uri as string)}`,{signal:controller.signal});
+      if(!isCurrent())return;
       if(download){const name=`cpu-${(uri as string).slice('fabric-cpu://'.length).replace(/[^a-zA-Z0-9._-]+/g,'-')}`;downloadJsonText(response.raw,name.endsWith('.json')?name:`${name}.json`);}
       else setPreview({api,uri,raw:response.raw});
     }
-    catch(error){setError(error instanceof ApiError?error:new ApiError('工件读取失败',0));}
-    finally{setBusy(false);}
+    catch(error){if(isCurrent())setError(error instanceof ApiError?error:new ApiError('工件读取失败',0));}
+    finally{if(isCurrent()){pending.current=null;setBusy(false);}}
   }
   return <div className="action-unit artifact-access"><div className="actions">{previewLabel&&<button type="button" className="button" onClick={()=>read(false)} disabled={busy}>{previewLabel}</button>}<button type="button" className="button" onClick={()=>read(true)} disabled={busy}>{busy?'正在读取工件…':label}</button></div>{error&&<ErrorNotice error={error}/>} {preview&&preview.api===api&&preview.uri===uri&&<div className="raw" aria-label={previewLabel}><p className="helper">服务端原始 JSON，保留原始数字与内容。</p><pre tabIndex={0}>{preview.raw}</pre><button type="button" className="button quiet" onClick={()=>setPreview(null)}>收起工件</button></div>}</div>;
 }

@@ -42,6 +42,28 @@ def _can_coexist(left, right, snapshot):
             if aid == bid or (aa.physical_gpu_id == bb.physical_gpu_id
                              and (aa.profile is None or bb.profile is None)):
                 return False
+    selected_ids = set((*a.device_ids, *b.device_ids))
+    held_ids = {
+        device_id
+        for hold in snapshot.occupancy
+        for piece in hold.placement.slices if piece.node_id == node.node_id
+        for device_id in piece.device_ids
+    }
+    held_ids.update(d.device_id for d in node.devices
+                    if d.state in ("occupied", "quarantined"))
+    # Node-wide free memory cannot detect two slices overfilling one parent
+    # when another physical GPU is also free on that node.
+    for parent_id in {devices[i].physical_gpu_id for i in selected_ids
+                      if devices[i].profile is not None}:
+        parent = devices.get(parent_id)
+        if parent is not None:
+            slice_memory = sum(
+                d.memory_mib for d in node.devices
+                if d.physical_gpu_id == parent_id and d.profile is not None
+                and d.device_id in selected_ids | held_ids
+            )
+            if slice_memory > parent.memory_mib:
+                return False
     return True
 
 
