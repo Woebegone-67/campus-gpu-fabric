@@ -40,6 +40,22 @@ def live(tmp_path):
         "node_id": "security-node", "contributor_owner_id": "supplier", "state": "Ready",
         "capacity": capacity, "available": capacity, "observed_at": 0.0,
     }]))
+    # Keep the actual TCP host and receipt reader, but give this no-evidence
+    # fixture its own registry root. Developer acceptance files must not affect it.
+    evidence_root = tmp_path / "receipt-root"
+    (evidence_root / "configs").mkdir(parents=True)
+    (evidence_root / "configs/checkpoints.json").write_bytes(
+        (ROOT / "configs/checkpoints.json").read_bytes())
+    (tmp_path / "isolated_security_host.py").write_text(
+        "from pathlib import Path\n"
+        "from campus_fabric.workflows import devhost\n"
+        "from campus_fabric.workflows.acceptance_evidence import checkpoint_checks\n"
+        "\n"
+        "def create_app():\n"
+        "    evidence_root = Path(__file__).parent / 'receipt-root'\n"
+        "    devhost.checkpoint_checks = lambda _root: checkpoint_checks(evidence_root)\n"
+        "    return devhost.create_app()\n"
+    )
     test_key = secrets.token_urlsafe(24)
     env = {key: value for key, value in os.environ.items() if not key.startswith("FABRIC_")}
     env.update(FABRIC_AUTH_FILE=str(auth), FABRIC_INVENTORY_FILE=str(inventory),
@@ -50,8 +66,9 @@ def live(tmp_path):
         port = sock.getsockname()[1]
     with (tmp_path / "server.log").open("w") as log:
         process = subprocess.Popen([
-            sys.executable, "-m", "uvicorn", "campus_fabric.workflows.devhost:create_app",
-            "--factory", "--host", "127.0.0.1", "--port", str(port), "--log-level", "error",
+            sys.executable, "-m", "uvicorn", "isolated_security_host:create_app",
+            "--app-dir", str(tmp_path), "--factory", "--host", "127.0.0.1",
+            "--port", str(port), "--log-level", "error",
         ], cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT)
         try:
             with httpx.Client(base_url=f"http://127.0.0.1:{port}", trust_env=False, timeout=10) as client:
@@ -197,6 +214,7 @@ def test_joint_work_result_access_and_unregistered_evidence_are_honest(live):
     assert client.get(path + "/artifacts/unknown", headers=headers["alice"]).status_code == 503
     acceptance = client.get("/x/v1/acceptance", headers=headers["admin"]).json()
     assert acceptance["status"] == "NOT_RUN" and acceptance["build_matches"] is None
+    assert acceptance["items"] and all(item["status"] == "NOT_RUN" for item in acceptance["items"])
     assert client.get("/x/v1/experiments/unregistered-run", headers=headers["alice"]).status_code == 404
     assert client.post("/x/v1/admin/clock", headers=headers["admin"],
                        json={"advance_seconds": 10}).status_code == 200
