@@ -4,7 +4,7 @@
 
 **当前：进入双页UI设计交接；CP4完整验收仍未通过。** 059f477b候选的可靠性与图表来源检查已有证据，规模/延迟未达，真人干净部署、交叉操作及同构建实录尚缺。当前放置评分路线冻结，R=1.00保留为未达；新工作选择机制有局部收益，也存在严重Owner损害反例，未推广到产品。参见 [CP4后续诊断与评审](evidence/cp4-next/README.md)、[策略瓶颈](docs/research/CP3_BOTTLENECK_AND_DIRECTION.md) 和 [CP4准入记录](docs/handoff/CP4_ENTRY.md)。原CP3分支与证据仍保留，见 [CP3历史收尾](docs/handoff/CP3_CLOSEOUT.md)。阶段准入、设计交接与正式通过分别记录。
 
-**B接手UI：** 先读 [双页界面设计说明](docs/design/UI_DESIGN_SPEC.md) 与 [UI接管步骤](docs/handoff/UI_B_HANDOFF.md)，再按需读 [双指滑动与转场](docs/design/UI_GESTURE_AND_MOTION.md)、[实际数据与组件映射](docs/design/UI_DATA_AND_COMPONENT_MAP.md)。`work/ui-handoff-20261115` 的交接版本已推送；后续 `work/account-capabilities` 在此基础上实现普通账户同时使用与贡献，以及可信账户能力接口，见 [后端接线与兼容说明](docs/handoff/ACCOUNT_CAPABILITIES.md)。新双页、手势和账户接口的UI接线仍待B完成；现有验收实例未被改权或重启。
+**B双空间UI：** 已接入 `7c71b3e` 的可信账户能力接口，实现总览、工作台及同账户使用/贡献入口。总览保留黑色 Starwave 与中性毛玻璃，工作台采用不透明业务表面；旧业务链接保持可达。交付、截图与验证范围见 [B 双空间交付记录](docs/handoff/B_UI_V2_DELIVERY.md)。页头横向手势默认关闭，物理触控板与 Safari 尚待真人验证；本轮界面检查不代表完整 CP4 通过，原验收实例未被改权或重启。设计来源见 [双页界面设计说明](docs/design/UI_DESIGN_SPEC.md)、[UI接管步骤](docs/handoff/UI_B_HANDOFF.md) 和 [后端接线说明](docs/handoff/ACCOUNT_CAPABILITIES.md)。
 
 **架构候选：** `work/storage-architecture` 继承上述交接，改用实体事务存储和增量状态校验，保留历史、原子提交和独立重放。接口兼容、迁移与回退说明见 [架构交接](docs/handoff/STORAGE_ARCHITECTURE.md)，实际测试与性能结果保存在 `evidence/storage-architecture/`。该候选不能继承旧构建的正式通过结论；完整 CP4 和新 UI 真人验收仍须逐项核对。
 

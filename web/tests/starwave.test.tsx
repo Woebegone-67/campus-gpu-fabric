@@ -148,11 +148,15 @@ test('StrictMode replay, rerender and unmount/remount retain one active scene wi
 
 test('disabling the visual shell releases the scene and leaves business controls operable', async () => {
   await render(surface());
+  const retainedInput = container.querySelector('input');
+  retainedInput.value = 'draft before switching space';
   await render(surface(false));
   assertReleased();
-  assert.equal(container.querySelector('.sw-stage'), null);
-  assert.equal(container.querySelector('.sw-content'), null);
+  assert.ok(container.querySelector('.sw-stage-static'));
+  assert.ok(container.querySelector('.sw-content'));
   const input = container.querySelector('input');
+  assert.equal(input, retainedInput, 'stable visual wrapper preserves the business subtree');
+  assert.equal(input.value, 'draft before switching space');
   input.value = 'classic mode input'; input.focus();
   assert.equal(document.activeElement, input);
   assert.equal(input.value, 'classic mode input');

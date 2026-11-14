@@ -45,8 +45,8 @@ export function StarwaveSurface({children, enabled}: {children: ReactNode; enabl
     {systemReduced ? '背景静态 · 减少动态' : !ready ? '背景静态' : paused ? '恢复背景动效' : '暂停背景动效'}
   </button> : null;
   return <MotionContext.Provider value={motionControl}>
-    <main ref={host} className={enabled ? 'sw-stage' : undefined}>
-      {enabled ? <div className="sw-content"><div className="sw-scroll-content">{children}</div></div> : children}
+    <main ref={host} className={enabled ? 'sw-stage' : 'sw-stage sw-stage-static'}>
+      <div className="sw-content"><div className="sw-scroll-content">{children}</div></div>
     </main>
   </MotionContext.Provider>;
 }

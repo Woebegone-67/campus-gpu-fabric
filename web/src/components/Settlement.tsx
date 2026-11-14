@@ -26,11 +26,12 @@ export function SettlementSummary({api,work,jobs,allocations,legal}:{api:ApiClie
   else if(work.state==='waiting')guidance='工作正在等待资源。保留当前工作 ID，刷新查看分配结果，无需重新提交工作。';
   return <section className="work-outcome" aria-label="结果与结算">
     <h3>结果与结算</h3>
-    {work.result?<><p><Status value={result.kind}/> · 记录于 {text(result.recorded_at)} 逻辑秒</p>{result.kind==='failure'&&<div className="feedback error" role="alert"><strong>工作失败 · {text(failure.code,'原因未提供')}</strong><p>{text(failure.detail,'请查看服务端结果记录。')}</p></div>}<RawData data={result} label="查看结果记录"/></>:<p>{terminal?'工作状态已结束，尚未取得终态结果记录，请刷新核对。':'尚未产生终态结果。'}</p>}
+    {work.result?<><p className="work-result-state"><Status value={result.kind}/></p>{result.kind==='failure'&&<div className="feedback error" role="alert"><strong>工作失败 · {text(failure.code,'原因未提供')}</strong><p>{text(failure.detail,'请查看服务端结果记录。')}</p></div>}</>:<p>{terminal?'工作状态已结束，尚未取得终态结果记录，请刷新核对。':'尚未产生终态结果。'}</p>}
     <p className="next-action" role="status">{guidance}</p>
     {failedStage&&<div className="feedback warning"><strong>阶段失败：{text(failedStage.operation)}</strong><p>{text(stageError.code,'未提供错误码')} · {text(stageError.detail,'请展开阶段提交结果核对。')}</p><RawData data={failedStage.receipt} label="查看失败阶段回执"/></div>}
     <div className="result-artifacts">{uris.map((uri,index)=><ArtifactDownload api={api} key={uri} uri={uri} label={`下载真实结果 ${index+1}`} previewLabel={`查看真实结果 ${index+1}`}/>)}</div>
     {work.execution_mode==='logical_simulation'&&Boolean(work.result)&&<p className="helper">逻辑模拟不产生真实计算工件。</p>}
     {work.execution_mode==='cpu_reference'&&<p className="helper">真实 CPU 参考结果可直接在页面查看或下载原始 JSON；不代表真实 GPU 训练。{terminal&&!uris.length?'当前响应尚未提供已登记的结果工件。':''}</p>}
+    {Boolean(work.result)&&<RawData data={result} label="查看结果记录"/>}
   </section>;
 }
