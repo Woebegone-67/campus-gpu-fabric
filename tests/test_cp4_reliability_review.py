@@ -14,6 +14,7 @@ from _reliability_review import (  # noqa: E402
     CHECK_IDS,
     CP2_SCOPE,
     CPU_CASES,
+    PYTEST_CASE_COUNTS,
     SCOPES,
     SELECTIONS,
     validate_binding,
@@ -51,7 +52,7 @@ def fixture(name="preemption"):
         selection = ["tests/domain/test_cp2_adversarial.py::" + name for name in SELECTIONS[name]]
         child.update(check_id=identifier, checks=[], selected_tests=selection,
                      command=[sys.executable, "-m", "pytest", "-q", *selection],
-                     returncode=0, stdout=f"{len(selection)} passed in 0.5s")
+                     returncode=0, stdout=f"{PYTEST_CASE_COUNTS[name]} passed in 0.5s")
     elif name == "decision-coverage":
         relative = "cp3/cp3_decision_coverage.py"
         child.update(check="CP3-DECISION-COVERAGE", scope=copy.deepcopy(SCOPES[name]),
@@ -117,6 +118,20 @@ def test_same_length_different_pytest_selection_is_rejected(name):
     child["selected_tests"][-1] = "tests/domain/test_cp2_adversarial.py::unrelated_test"
     child["command"][-1] = child["selected_tests"][-1]
     with pytest.raises(AssertionError, match="selection"):
+        validate_binding(row, child, BUILD, relative, options)
+
+
+def test_clock_selection_includes_both_parameterized_cases():
+    row, child, relative, options = fixture("clock-boundaries")
+    assert len(child["selected_tests"]) == 6
+    child["stdout"] = "....... [100%]\n7 passed in 0.40s\n"
+    validate_binding(row, child, BUILD, relative, options)
+
+
+def test_clock_selection_rejects_missing_parameterized_case():
+    row, child, relative, options = fixture("clock-boundaries")
+    child["stdout"] = "...... [100%]\n6 passed in 0.40s\n"
+    with pytest.raises(AssertionError, match="Boundary tests did not all execute"):
         validate_binding(row, child, BUILD, relative, options)
 
 

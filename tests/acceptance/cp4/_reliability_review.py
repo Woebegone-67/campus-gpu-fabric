@@ -27,6 +27,9 @@ SELECTIONS = {
         "test_restart_from_disk_preserves_pending_resume_and_its_deadline",
     ],
 }
+# One clock selector expands recall_first=[True, False]. Function selections
+# remain exact above; executed pytest cases must cover both parameter branches.
+PYTEST_CASE_COUNTS = {"clock-boundaries": 7, "reset-isolation": 4}
 CPU_CASES = {
     "ordinary": {"seed": 17, "total_steps": 100_003, "batch_steps": 997},
     "uint64-edge": {"seed": 2**64 - 1, "total_steps": 65_537, "batch_steps": 509},
@@ -129,7 +132,7 @@ def validate_binding(row, child, build, relative, options, *, root=None):
         assert child.get("selected_tests") == expected_tests, "Boundary test selection changed"
         assert child.get("command", [])[1:] == ["-m", "pytest", "-q", *expected_tests]
         assert child.get("returncode") == 0
-        assert re.search(rf"\b{len(expected_tests)} passed\b", child.get("stdout", "")), "Boundary tests did not all execute"
+        assert re.search(rf"\b{PYTEST_CASE_COUNTS[name]} passed\b", child.get("stdout", "")), "Boundary tests did not all execute"
         assert not child.get("checks"), "Pytest-backed evidence cannot substitute unrelated checks"
     else:
         check_set(child.get("checks"), CHECK_IDS[name])
