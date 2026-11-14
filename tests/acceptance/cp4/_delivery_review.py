@@ -215,7 +215,7 @@ def partial_success(trace, requests):
             and all(d["intent"].get("allocation_ids") == [retained] for d in details),
             "Retain before/after work details proving the same single lease")
     staged_rejection = any(
-        any(s.get("operation") == "create_allocation_and_bind" and s.get("state") == "committed"
+        any(s.get("operation") == "allocate" and s.get("state") == "committed"
             for s in detail["intent"].get("stages", []))
         and any(s.get("operation") == "create_job_and_bind" and s.get("state") == "failed"
                 and isinstance(s.get("receipt"), dict) and s["receipt"].get("outcome") == "rejected"

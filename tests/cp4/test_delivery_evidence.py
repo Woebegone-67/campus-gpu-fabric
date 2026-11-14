@@ -145,7 +145,7 @@ def test_partial_task_list_cannot_satisfy_six_tasks(root):
 def test_asynchronous_partial_success_uses_persisted_receipts_and_same_lease():
     trace = {"retained_allocation_id": "lease-1", "duplicate_allocation_created": False}
     detail = {"intent": {"intent_id": "work-1", "allocation_ids": ["lease-1"], "stages": [
-        {"operation": "create_allocation_and_bind", "state": "committed"},
+        {"operation": "allocate", "state": "committed"},
         {"operation": "create_job_and_bind", "state": "failed",
          "receipt": {"outcome": "rejected", "error": {"code": "invalid_state"}}},
     ]}}
