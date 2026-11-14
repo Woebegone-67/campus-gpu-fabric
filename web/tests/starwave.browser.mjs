@@ -171,7 +171,7 @@ try {
       assert.deepEqual(errors,[]);assert.deepEqual(fixture.denied,[]);
     });
   } else {
-    await check('one bounded canvas outside pure black sidebar; frozen glass fill',async()=>{
+    await check('one bounded canvas outside pure black sidebar; denser CP4 glass over frozen preset',async()=>{
       await page.waitForFunction(()=>document.querySelector('main.sw-stage')?.__starwave?.ready);
       const detail=await page.evaluate(()=>{
         const stage=document.querySelector('main.sw-stage'),sidebar=document.querySelector('.sidebar'),canvas=stage.querySelector('canvas'),panel=document.querySelector('.panel'),input=document.querySelector('.field input');
@@ -188,7 +188,8 @@ try {
       assert.equal(detail.sidebarBackground,'rgb(0, 0, 0)');assert.equal(detail.stageBackground,'rgb(0, 0, 0)');
       assert.equal(detail.stageBackgroundImage,'none');assert.ok(detail.stageHeight<=detail.viewportHeight+1);
       assert.equal(detail.pointerEvents,'none');assert.equal(detail.ariaHidden,'true');assert.equal(Number(detail.fill),.2);
-      assert.equal(detail.panelOpacity,'1');assert.match(detail.panelFill,/0\.2\)/);assert.equal(detail.inputBlur,'none');
+      assert.equal(detail.panelOpacity,'1');assert.match(detail.panelFill,/0\.64\)/);assert.equal(detail.inputBlur,'none');
+      assert.match(detail.panelBlur,/blur\(24px\)/);
       assert.ok(detail.bodyWidth<=detail.viewportWidth);return {...detail,state:await state()};
     });
     await snap('run-1440x900');
