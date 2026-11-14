@@ -21,7 +21,7 @@ import time
 import traceback
 from collections import Counter, defaultdict
 from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -187,6 +187,7 @@ class LoadHarness(Harness):
         self.active_http_commands = 0
         self.peak_http_commands = 0
         self.completed_sequences = 0
+        self.effective_renewals = 0
         self.sequence_failures = []
 
     def measured(self, method, path, *, operation, category, actor, expected, body=None):
@@ -237,7 +238,7 @@ class LoadHarness(Harness):
                   "http_commands_in_flight_at_start": commands_at_start,
                   "elapsed_ms": elapsed, "status": status,
                   "ok": ok, "response_sha256": digest(data), "error": error,
-                  "response_identity": {key: data[key] for key in ("id", "owner", "state", "version")
+                  "response_identity": {key: data[key] for key in ("id", "owner", "state", "version", "expires_at")
                                         if isinstance(data, dict) and key in data}}
         with self.lock:
             self.samples.append(record)
@@ -274,15 +275,22 @@ class LoadHarness(Harness):
                 raise ValueError("Job ownership/binding mismatch")
             self.measured("DELETE", f"/v1/jobs/{jid}", operation="job.cancel", category="command",
                           actor=owner, expected=(200, 202, 204))
-            self.measured("POST", f"/v1/allocations/{aid}/renew", operation="allocation.renew",
-                          category="command", actor=owner, expected=(200,), body={"ttl_seconds": 300})
+            renewed = self.measured("POST", f"/v1/allocations/{aid}/renew", operation="allocation.renew",
+                          category="command", actor=owner, expected=(200,), body={"ttl_seconds": 600})
+            expected_expiry = datetime.fromisoformat(allocation["expires_at"]) + timedelta(seconds=300)
+            if (renewed["id"] != aid or renewed["owner"] != owner or
+                    datetime.fromisoformat(renewed["expires_at"]) != expected_expiry):
+                raise ValueError("Renewal did not extend the same lease deadline by 300 seconds")
+            with self.lock:
+                self.effective_renewals += 1
             self.measured("DELETE", f"/v1/allocations/{aid}", operation="allocation.release",
                           category="command", actor=owner, expected=(200, 202, 204))
             released = True
             view = self.measured("GET", f"/v1/allocations/{aid}", operation="allocation.get",
                 category="query", actor=owner, expected=(200,))
-            if view["owner"] != owner or view["state"] != "Released":
-                raise ValueError("Released allocation does not match owner/state")
+            if (view["owner"] != owner or view["state"] != "Released" or
+                    datetime.fromisoformat(view["expires_at"]) != expected_expiry):
+                raise ValueError("Released allocation does not match owner/state/renewed deadline")
             with self.lock:
                 self.completed_sequences += 1
         except Exception as exc:
@@ -443,11 +451,13 @@ def run_load(output, *, profile_name="smoke", max_wall_seconds=120, request_time
                       "commands": profile["jobs"] * 5, "queries": profile["jobs"] * 2},
         "actual": {"jobs_created": created_jobs, "successful_commands": successful_commands,
                    "command_attempts": len(commands), "completed_lifecycles": h.completed_sequences if h else 0,
+                   "effective_renewals": h.effective_renewals if h else 0,
                    "peak_client_lifecycles": h.peak_active_sequences if h else 0,
                    "peak_http_requests_in_flight": h.peak_http_requests if h else 0,
                    "peak_http_commands_in_flight": command_peak,
                    "final_snapshot": observed},
-        "workload": {"seed": 0, "owner_assignment": "job_index modulo owner_count",
+        "workload": {"version": "effective-renewal-v2", "initial_ttl_seconds": 300,
+            "renewed_ttl_seconds": 600, "expected_extension_seconds": 300, "seed": 0, "owner_assignment": "job_index modulo owner_count",
             "command_mix": {"allocation.create": .2, "job.create": .2, "job.cancel": .2,
                             "allocation.renew": .2, "allocation.release": .2},
             "scheduling_mode": "builtin", "http_host": "B devhost with A core and B query projections",

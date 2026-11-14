@@ -166,6 +166,8 @@ def test_real_http_smoke_counts_mutations_and_preserves_reference_gate(tmp_path)
     assert result["actual"]["jobs_created"] == 8
     assert result["actual"]["successful_commands"] == 40
     assert result["actual"]["completed_lifecycles"] == 8
+    assert result["actual"]["effective_renewals"] == 8
+    assert result["workload"]["version"] == "effective-renewal-v2"
     assert result["actual"]["final_snapshot"]["allocation_states"] == {"Released": 8}
     assert result["actual"]["final_snapshot"]["job_states"] == {"Cancelled": 8}
     assert result["cp4_reference_latency"] == "NOT_RUN"
@@ -214,3 +216,29 @@ def test_early_failure_stop_is_not_reported_as_elapsed_deadline(tmp_path, monkey
 def test_existing_output_is_never_overwritten(tmp_path):
     with pytest.raises(FileExistsError):
         run_load(tmp_path)
+
+
+@pytest.mark.parametrize("renew_expiry,final_expiry,error", [
+    ("2026-01-01T00:05:00Z", "2026-01-01T00:10:00Z", "Renewal did not extend"),
+    ("2026-01-01T00:10:00Z", "2026-01-01T00:05:00Z", "renewed deadline"),
+])
+def test_noop_or_unpersisted_renewal_cannot_count_as_completed(tmp_path, monkeypatch,
+                                                            renew_expiry, final_expiry, error):
+    harness = LoadHarness(tmp_path, {"nodes": 1, "gpus_per_node": 1, "owners": 1},
+                          io.StringIO(), request_timeout=1)
+
+    def measured(method, path, **kwargs):
+        if kwargs["operation"] == "allocation.create":
+            return {"id": "a1", "owner": "owner-000", "expires_at": "2026-01-01T00:05:00Z"}
+        if kwargs["operation"] == "allocation.renew":
+            assert kwargs["body"]["ttl_seconds"] == 600
+            return {"id": "a1", "owner": "owner-000", "expires_at": renew_expiry}
+        if kwargs["operation"] == "allocation.get":
+            return {"id": "a1", "owner": "owner-000", "state": "Released", "expires_at": final_expiry}
+        return {"id": "j1", "owner": "owner-000", "allocation_id": "a1"}
+
+    monkeypatch.setattr(harness, "measured", measured)
+    harness.sequence(0)
+    assert harness.completed_sequences == 0
+    assert harness.stop_load.is_set()
+    assert error in harness.sequence_failures[0]["error"]
