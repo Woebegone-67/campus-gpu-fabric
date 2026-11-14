@@ -1,6 +1,6 @@
 # B 开工单：服务决策与操作体验
 
-负责人 **xuyangma**；分支 `work/b-product`；私有目标仓库 `Woebegone-67/campus-gpu-fabric`。先读README、本任务书与`docs/PRODUCT.md`、`docs/SEMANTICS.md` 与共享contracts；契约变更交集成负责人，不直接编辑 `contracts/generated/`。
+负责人 **xuyangma**；分支 `work/b-product`；目标协作仓库 `Woebegone-67/campus-gpu-fabric`。先读README、本任务书与`docs/PRODUCT.md`、`docs/SEMANTICS.md` 与共享contracts；契约变更交集成负责人，不直接编辑 `contracts/generated/`。
 
 产品扩展路径按 `docs/EXTENSIONS.md` 接线；蓝图01–03按需查阅，内部类型以contracts为准。
 

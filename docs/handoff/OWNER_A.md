@@ -1,6 +1,6 @@
 # A 开工单：可信资源与执行
 
-负责人 **Xiuzhu Du / Woebegone-67**；分支 `work/a-core`；目标仓库私有 `Woebegone-67/campus-gpu-fabric`。远端建立和分支状态以实际Git记录为准，不以本文为创建证明。T0由两人开始实施时登记。
+负责人 **Xiuzhu Du / Woebegone-67**；分支 `work/a-core`；目标协作仓库 `Woebegone-67/campus-gpu-fabric`。远端建立和分支状态以实际Git记录为准，不以本文为创建证明。T0由两人开始实施时登记。
 
 先读 `docs/blueprint/00_START_HERE.md`，再读 `docs/SEMANTICS.md`、`docs/STATE_MODEL.md` 与 `src/campus_fabric/contracts/`。共享契约和 `contracts/generated/` 由集成负责人维护；修改需给精确diff和兼容说明，不直接并行改生成物。
 
