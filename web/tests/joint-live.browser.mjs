@@ -120,7 +120,7 @@ try {
   const first = await until('alice', id, d => d.item.state === 'running' && d.item.attempts[0]?.started_at != null);
   await refresh(alice, id); await snapshot(alice, 'running', first);
   await section(supplier, 'resources');
-  for (const gpu of ['sim-a10-gpu0', 'sim-a10-gpu1']) await supplier.getByRole('checkbox', {name: gpu, exact: true}).check();
+  for (const gpu of ['sim-a10-gpu0', 'sim-a10-gpu1']) await supplier.getByRole('checkbox', {name: new RegExp(`^${gpu} `)}).check();
   await supplier.locator('input[name=notice]').fill('3');
   await supplier.locator('input[name=duration]').fill('15');
   const recalled = supplier.waitForResponse(r => new URL(r.url()).pathname === '/x/v1/contributions/recall' && r.request().method() === 'POST');
@@ -196,6 +196,10 @@ try {
   result.status = 'PASS';
 } catch (error) {
   result.status = 'FAIL'; result.failure = error.stack; console.error(error.message); process.exitCode = 1;
+  let index = 0;
+  for (const context of browser.contexts()) for (const page of context.pages()) {
+    try {await snapshot(page, `failure-${++index}`);} catch { /* Preserve the original failure. */ }
+  }
 } finally {
   result.finished_at = new Date().toISOString(); await save(); await browser.close();
 }
