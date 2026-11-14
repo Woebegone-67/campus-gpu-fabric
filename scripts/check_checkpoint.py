@@ -11,6 +11,12 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+if not __debug__:
+    raise RuntimeError(
+        'Acceptance validation requires Python assertions; remove -O/-OO and '
+        'unset PYTHONOPTIMIZE before running validators or the acceptance host.'
+    )
+
 ROOT = Path(__file__).resolve().parents[1]
 IGNORED_PARTS = {'.git', '.venv', 'node_modules', '__pycache__', '.pytest_cache', '.mypy_cache', '.ruff_cache', 'dist', 'build', 'evidence', '.DS_Store'}
 BUILD_ROOTS = ('src', 'contracts', 'configs', 'semantics', 'scripts', 'tests', 'web', 'experiments', 'spec/official', 'docs', 'deploy')

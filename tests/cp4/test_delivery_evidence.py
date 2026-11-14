@@ -144,10 +144,13 @@ def test_partial_task_list_cannot_satisfy_six_tasks(root):
 
 def test_asynchronous_partial_success_uses_persisted_receipts_and_same_lease():
     trace = {"retained_allocation_id": "lease-1", "duplicate_allocation_created": False}
-    detail = {"intent": {"intent_id": "work-1", "allocation_ids": ["lease-1"], "stages": [
-        {"operation": "allocate", "state": "committed"},
+    detail = {"intent": {"intent_id": "work-1", "allocation_ids": ["lease-1"], "job_ids": [], "stages": [
+        {"operation": "allocate", "state": "committed", "receipt": {
+            "request_id": "allocate-1", "outcome": "committed", "error": None,
+            "objects": [{"kind": "allocation", "entity_id": "lease-1"},
+                        {"kind": "intent", "entity_id": "work-1"}]}},
         {"operation": "create_job_and_bind", "state": "failed",
-         "receipt": {"outcome": "rejected", "error": {"code": "invalid_state"}}},
+         "receipt": {"outcome": "rejected", "error": {"code": "invalid_state"}, "event_ids": []}},
     ]}}
     rows = [{"method": "GET", "path": "/x/v1/work-intents/work-1", "status_code": 200,
              "response": copy.deepcopy(detail)} for _ in range(2)]
@@ -160,6 +163,65 @@ def test_asynchronous_partial_success_uses_persisted_receipts_and_same_lease():
         row["response"]["intent"]["stages"][1]["receipt"] = {"outcome": "committed"}
     with pytest.raises(ValueError, match="actual later rejection"):
         delivery.partial_success(trace, rows)
+
+
+def partial_requests():
+    """Real API shapes: committed allocate, detail, rejected create, detail."""
+    receipt = {"request_id": "allocate-1", "outcome": "committed", "error": None,
+               "objects": [{"kind": "allocation", "entity_id": "lease-1"},
+                           {"kind": "intent", "entity_id": "work-1"}]}
+    detail = {"intent": {"intent_id": "work-1", "allocation_ids": ["lease-1"], "job_ids": [],
+                        "stages": [{"operation": "allocate", "state": "committed", "receipt": receipt}]}}
+    path = "/x/v1/work-intents/work-1"
+    return [
+        {"method": "POST", "path": path + "/actions", "status_code": 200,
+         "request_body": {"action": "allocate"}, "response": copy.deepcopy(receipt)},
+        {"method": "GET", "path": path, "status_code": 200, "response": copy.deepcopy(detail)},
+        {"method": "POST", "path": path + "/actions", "status_code": 409,
+         "request_body": {"action": "create_job"}, "response": {"error": "stale_version", "receipt": {
+             "outcome": "rejected", "error": {"code": "stale_version"}, "event_ids": []}}},
+        {"method": "GET", "path": path, "status_code": 200, "response": copy.deepcopy(detail)},
+    ]
+
+
+def test_direct_partial_success_requires_the_same_work_action_receipts_in_order():
+    delivery.partial_success({"retained_allocation_id": "lease-1", "duplicate_allocation_created": False},
+                             partial_requests())
+
+
+@pytest.mark.parametrize("attack", ["unrelated-post", "other-work", "wrong-action", "reversed-order",
+                                    "late-allocation", "no-rejected-receipt", "wrong-lease", "job-created"])
+def test_direct_partial_success_rejects_unrelated_or_reordered_evidence(attack):
+    rows = partial_requests()
+    if attack == "unrelated-post":
+        rows[2]["path"] = "/x/v1/contributions/recall"
+    elif attack == "other-work":
+        rows[2]["path"] = "/x/v1/work-intents/work-2/actions"
+    elif attack == "wrong-action":
+        rows[2]["request_body"]["action"] = "release"
+    elif attack == "reversed-order":
+        rows[1], rows[2] = rows[2], rows[1]
+    elif attack == "late-allocation":
+        rows[0], rows[2] = rows[2], rows[0]
+    elif attack == "no-rejected-receipt":
+        rows[2]["response"] = {"error": "forbidden"}
+    elif attack == "wrong-lease":
+        rows[0]["response"]["objects"][0]["entity_id"] = "lease-2"
+    else:
+        rows[3]["response"]["intent"]["job_ids"] = ["unexpected-job"]
+    with pytest.raises(ValueError, match="actual later rejection"):
+        delivery.partial_success({"retained_allocation_id": "lease-1", "duplicate_allocation_created": False}, rows)
+
+
+def test_asynchronous_partial_success_rejects_reversed_stages():
+    rows = partial_requests()
+    rows[3]["response"]["intent"]["stages"].insert(0, {
+        "operation": "create_job_and_bind", "state": "failed",
+        "receipt": {"outcome": "rejected", "error": {"code": "invalid_state"}, "event_ids": []}})
+    # Remove direct rejection so the retained GET cannot conceal reversed stages.
+    rows.pop(2)
+    with pytest.raises(ValueError, match="actual later rejection"):
+        delivery.partial_success({"retained_allocation_id": "lease-1", "duplicate_allocation_created": False}, rows)
 
 
 def test_empty_figure_inventory_cannot_vacuously_pass(root):

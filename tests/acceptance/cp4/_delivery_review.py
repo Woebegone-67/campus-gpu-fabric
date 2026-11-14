@@ -207,22 +207,67 @@ def partial_success(trace, requests):
     retained = trace.get("retained_allocation_id")
     require(retained and trace.get("duplicate_allocation_created") is False,
             "Partial success needs the retained allocation identity")
-    details = [r["response"] for r in requests if r.get("status_code") == 200
+    details = [(index, r["response"]) for index, r in enumerate(requests)
+               if r.get("method") == "GET" and r.get("status_code") == 200
                and r.get("path", "").startswith("/x/v1/work-intents/")
                and isinstance(r.get("response"), dict)
                and retained in r["response"].get("intent", {}).get("allocation_ids", [])]
-    require(len(details) >= 2 and len({d["intent"].get("intent_id") for d in details}) == 1
-            and all(d["intent"].get("allocation_ids") == [retained] for d in details),
+    require(len(details) >= 2 and len({d["intent"].get("intent_id") for _, d in details}) == 1
+            and all(d["intent"].get("allocation_ids") == [retained] for _, d in details),
             "Retain before/after work details proving the same single lease")
+    work = details[0][1]["intent"].get("intent_id")
+    path = f"/x/v1/work-intents/{work}"
+    require(work and all(requests[index].get("path") == path for index, _ in details),
+            "Work detail path and retained work identity differ")
+
+    def committed_allocation(receipt):
+        return (isinstance(receipt, dict) and receipt.get("outcome") == "committed"
+                and not receipt.get("error") and receipt.get("request_id")
+                and {("allocation", retained), ("intent", work)} <= {
+                    (obj.get("kind"), obj.get("entity_id")) for obj in receipt.get("objects", [])})
+
+    def rejected_job(receipt):
+        return (isinstance(receipt, dict) and receipt.get("outcome") == "rejected"
+                and isinstance(receipt.get("error"), dict) and receipt["error"].get("code")
+                and receipt.get("event_ids") == [])
+
+    def allocated_stages(detail):
+        return [(index, stage) for index, stage in enumerate(detail["intent"].get("stages", []))
+                if stage.get("operation") == "allocate" and stage.get("state") == "committed"
+                and committed_allocation(stage.get("receipt"))]
+
+    # A worker rejection may be returned later inside a successful detail GET.
+    # Its persisted ordered stage receipts must still prove this same work/lease.
     staged_rejection = any(
-        any(s.get("operation") == "allocate" and s.get("state") == "committed"
-            for s in detail["intent"].get("stages", []))
-        and any(s.get("operation") == "create_job_and_bind" and s.get("state") == "failed"
-                and isinstance(s.get("receipt"), dict) and s["receipt"].get("outcome") == "rejected"
-                and s["receipt"].get("error") for s in detail["intent"].get("stages", []))
-        for detail in details)
-    direct_rejection = (any(r.get("method") == "POST" and 200 <= r.get("status_code", 0) < 300 for r in requests)
-                        and any(r.get("method") == "POST" and r.get("status_code", 0) >= 400 for r in requests))
+        before_index < after_index
+        and before["intent"].get("job_ids") == after["intent"].get("job_ids") == []
+        and any(first["receipt"] == allocation["receipt"] for _, first in allocated_stages(before)
+                for allocation_index, allocation in allocated_stages(after)
+                for job_index, job in enumerate(after["intent"].get("stages", []))
+                if allocation_index < job_index and job.get("operation") == "create_job_and_bind"
+                and job.get("state") == "failed" and rejected_job(job.get("receipt")))
+        for before_index, before in details for after_index, after in details)
+    direct_rejection = False
+    for allocation_index, allocation in enumerate(requests):
+        if not (allocation.get("method") == "POST" and allocation.get("path") == path + "/actions"
+                and (allocation.get("request_body") or {}).get("action") == "allocate"
+                and 200 <= allocation.get("status_code", 0) < 300
+                and committed_allocation(allocation.get("response"))):
+            continue
+        for job_index, job in enumerate(requests):
+            response = job.get("response") or {}
+            receipt = response.get("receipt", response) if isinstance(response, dict) else None
+            if not (job_index > allocation_index and job.get("method") == "POST"
+                    and job.get("path") == path + "/actions"
+                    and (job.get("request_body") or {}).get("action") == "create_job"
+                    and job.get("status_code", 0) >= 200 and rejected_job(receipt)):
+                continue
+            direct_rejection |= any(
+                allocation_index < before_index < job_index < after_index
+                and before["intent"].get("job_ids") == after["intent"].get("job_ids") == []
+                and any(stage["receipt"] == allocation["response"] for _, stage in allocated_stages(before))
+                and any(stage["receipt"] == allocation["response"] for _, stage in allocated_stages(after))
+                for before_index, before in details for after_index, after in details)
     require(staged_rejection or direct_rejection,
             "Partial success needs the actual later rejection, including persisted asynchronous stage receipts")
 
