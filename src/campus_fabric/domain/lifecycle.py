@@ -17,6 +17,7 @@ from campus_fabric.domain.state_views import (
     projected_map_changes,
     values_where,
 )
+from campus_fabric.policies.reclaim import RETURN_WEIGHTS, ReclaimInputs, plan_reclaim
 
 TERMINAL_JOBS = {"Succeeded", "Failed", "Cancelled"}
 TERMINAL_ALLOCATIONS = {"Released", "Expired", "Evicted"}
@@ -129,6 +130,12 @@ class LifecycleMixin:
             entry = s["outbox"].get(dispatch_id) if s["epoch"] == epoch else None
             if entry:
                 entry.update(status="delivered", acknowledged_at=s["now"])
+                command = entry["command"]
+                allocation = s["allocations"].get(command["attempt"]["allocation_id"])
+                plan = allocation.get("reclaim_plan") if allocation else None
+                if (plan and command["action"] in {"checkpoint", "stop"}
+                        and plan["attempt_id"] == command["attempt"]["attempt_id"]):
+                    plan.setdefault(command["action"] + "_dispatched_at", s["now"])
                 self._save_state(connection, s)
 
     def reconcile_retired(self, event):
@@ -281,14 +288,77 @@ class LifecycleMixin:
                     job.pop("remaining_seconds", None)
                     job.pop("model_continuation", None)
             if job and not job.get("pending_finish") and not a.get("stop_requested"):
-                job["state"] = "Checkpointing"
-                self._attempt_state(s, job, "checkpointing")
-                if job["execution_mode"] == "cpu_reference":
-                    self._dispatch(s, job, "checkpoint")
+                if job["execution_mode"] == "cpu_reference" and c.operation == "contribution.recall":
+                    self._plan_reclaim(s, c, a, job, p.return_policy,
+                                       [notice["notice_id"] for notice in affected])
+                else:
+                    job["state"] = "Checkpointing"
+                    self._attempt_state(s, job, "checkpointing")
+                    if job["execution_mode"] == "cpu_reference":
+                        self._dispatch(s, job, "checkpoint")
             self._event(s, c, "allocation.preempt_requested", a["owner_id"],
                         [self._ref("allocation", a["allocation_id"])],
                         before=before, after=a["state"])
         return notices
+
+    def _plan_reclaim(self, s, c, allocation, job, return_policy, notice_ids):
+        observation = job.get("observed_progress") or {}
+        previous = allocation.get("reclaim_plan")
+        inputs = ReclaimInputs(
+            now=s["now"], checkpoint_due=allocation["preemption"]["checkpoint_due"],
+            owner_deadline=allocation["preemption"]["deadline"],
+            progress_steps=observation.get("step"), total_steps=observation.get("total_steps"),
+            rate_lower=observation.get("rate_lower"), rate_upper=observation.get("rate_upper"),
+            checkpoint_cost_upper=observation.get("checkpoint_cost_upper", 0.5),
+            stop_cost_upper=getattr(self, "reclaim_stop_cost_upper", 2.0),
+            restart_cost_upper=observation.get("restart_cost_upper", 0.5),
+            owner_wait_weight=RETURN_WEIGHTS[return_policy],
+            observed_at=observation.get("observed_at"), trusted=bool(observation),
+            allow_cold_restart=allocation["parameters"]["preemption_mode"] != "checkpoint",
+        )
+        plan = plan_reclaim(inputs)
+        plan.update(return_policy=return_policy, planned_at=s["now"], phase="planned",
+                    attempt_id=job["attempt"]["attempt_id"],
+                    notice_ids=notice_ids,
+                    estimate_basis={"progress": "hmac_verified_worker_observation" if observation else "unavailable",
+                        "rate": "recent_observation_envelope" if observation.get("rate_lower") else "unavailable",
+                        "checkpoint_cost": ("inflated_observation_interval_estimate" if observation
+                                            else "declared_cold_start_estimate"),
+                        "stop_cost": "configured_escalation_plus_poll_reserve",
+                        "restart_cost": "declared_reference_profile_estimate",
+                        "hard_realtime_guarantee": False},
+                    evidence_digest=observation.get("evidence_digest"))
+        if previous:
+            allocation.setdefault("reclaim_history", []).append(previous)
+            plan["stop_at"] = min(plan["stop_at"], previous["stop_at"])
+            plan["dispatch_at"] = min(plan["dispatch_at"], previous["dispatch_at"])
+            if previous.get("checkpoint_requested_at") is not None:
+                plan.update(phase="saving", checkpoint_requested_at=previous["checkpoint_requested_at"])
+                if previous.get("checkpoint_dispatched_at") is not None:
+                    plan["checkpoint_dispatched_at"] = previous["checkpoint_dispatched_at"]
+            plan["notice_ids"] = sorted(set(notice_ids + previous.get("notice_ids", [])))
+        allocation["reclaim_plan"] = plan
+        self._event(s, c, "recall.planned", allocation["owner_id"],
+                    [self._ref("allocation", allocation["allocation_id"])], after=plan["action"])
+        if plan["action"] == "stop" or plan["stop_at"] <= s["now"]:
+            self._reclaim_stop(s, c, allocation)
+        elif plan["dispatch_at"] <= s["now"]:
+            self._reclaim_checkpoint(s, allocation, job)
+
+    def _reclaim_checkpoint(self, s, allocation, job):
+        plan = allocation["reclaim_plan"]
+        if plan.get("checkpoint_requested_at") is not None:
+            return
+        plan.update(phase="saving", checkpoint_requested_at=s["now"])
+        job["state"] = "Checkpointing"
+        self._attempt_state(s, job, "checkpointing")
+        self._dispatch(s, job, "checkpoint")
+
+    def _reclaim_stop(self, s, c, allocation):
+        strict = (self._live_job(s, allocation) is not None
+                  and allocation["parameters"]["preemption_mode"] == "checkpoint"
+                  and (allocation.get("checkpoint") or {}).get("verification_status") != "verified")
+        self._interrupt(s, c, allocation, "Evicted" if strict else "Preempted")
 
     @staticmethod
     def _device_overlap(first, second):
@@ -321,6 +391,10 @@ class LifecycleMixin:
         cp = fact or m.CheckpointFact(checkpoint_id=self._id(s, "checkpoint"),
                                      report_status=status, reported_at=s["now"], artifact_uri=uri)
         a["checkpoint"] = plain(cp)
+        if a.get("reclaim_plan"):
+            a["reclaim_plan"].update(checkpoint_reported_at=s["now"],
+                checkpoint_status=cp.report_status, checkpoint_verified_at=cp.verified_at,
+                checkpoint_uri=cp.artifact_uri)
         job = self._live_job(s, a)
         if job:
             job["checkpoint"] = plain(cp)
@@ -355,6 +429,11 @@ class LifecycleMixin:
         )
         s["outbox"][command.dispatch_id] = {"command": plain(command), "status": "pending",
                                           "acknowledged_at": None}
+        allocation = s["allocations"].get(job["allocation_id"])
+        plan = allocation.get("reclaim_plan") if allocation else None
+        if plan and action in {"checkpoint", "stop"}:
+            plan.setdefault(action + "_requested_at", s["now"])
+            plan["phase"] = "saving" if action == "checkpoint" else "stopping"
         return command.dispatch_id
 
     @staticmethod
@@ -383,6 +462,8 @@ class LifecycleMixin:
         self._complete_interruption(s, c, a, target)
 
     def _complete_interruption(self, s, c, a, target):
+        if a.get("reclaim_plan"):
+            a["reclaim_plan"].update(phase="complete", stop_confirmed_at=s["now"])
         a.pop("stop_requested", None)
         a.pop("interruption_target", None)
         if target == "Evicted":
@@ -432,6 +513,9 @@ class LifecycleMixin:
             job["retry_count"] = job.get("retry_count", 0) + 1
         job.update(attempt=plain(attempt), state="Running", retry_at=None,
                    physical_live=job["execution_mode"] == "cpu_reference", finished_at=None)
+        job.pop("observed_progress", None)
+        if a.get("reclaim_plan"):
+            a.setdefault("reclaim_history", []).append(a.pop("reclaim_plan"))
         a["state"] = "Running"
         if job["intent_id"]:
             intent = s["intents"][job["intent_id"]]
@@ -529,6 +613,10 @@ class LifecycleMixin:
             job["physical_live"] = False
             if event.result_uri:
                 job["result_uri"] = event.result_uri
+            if a.get("reclaim_plan"):
+                a["reclaim_plan"].update(phase="complete", stop_confirmed_at=s["now"])
+                if event.kind == "completed":
+                    a["reclaim_plan"]["completed_at"] = s["now"]
             if job.get("pending_finish"):
                 pending = job.pop("pending_finish")
                 self._finish_job(s, c, job, pending["state"], pending["reason"],
@@ -537,6 +625,8 @@ class LifecycleMixin:
                 self._complete_interruption(s, c, a, a["interruption_target"])
             elif event.kind == "completed":
                 self._finish_job(s, c, job, "Succeeded")
+                if a.get("reclaim_plan") and a.get("placement") is not None:
+                    self._complete_interruption(s, c, a, "Preempted")
             elif event.kind == "failed":
                 self._execution_failed(s, c, job, event.error.detail)
             else:
@@ -559,6 +649,12 @@ class LifecycleMixin:
                 self._attempt_state(s, job, "running", checkpoint=dict(cp))
         elif event.kind == "unknown":
             self._attempt_state(s, job, "quarantined")
+        elif event.kind == "progress" and event.progress is not None and physical:
+            if event.progress.observed_at > event.observed_at:
+                raise Rejected("invalid_command", "Progress cannot observe future work")
+            previous = job.get("observed_progress")
+            if previous is None or event.progress.observed_at > previous["observed_at"]:
+                job["observed_progress"] = plain(event.progress)
         elif event.kind not in {"progress", "alive"}:
             raise Rejected("invalid_command", "Unsupported execution observation")
         s["callbacks"][event.callback_id] = plain(event)
@@ -576,6 +672,14 @@ class LifecycleMixin:
                         and not a.get("stop_requested") and not a.get("pending_terminal")
                         and a["preemption"]["checkpoint_due"] <= target):
                     due.append((a["preemption"]["checkpoint_due"], 1, a["allocation_id"]))
+                plan = a.get("reclaim_plan")
+                if (plan and a["state"] == "PreemptRequested" and not a.get("stop_requested")
+                        and not a.get("pending_terminal") and plan["phase"] != "complete"):
+                    if plan["stop_at"] <= target:
+                        due.append((plan["stop_at"], 7, a["allocation_id"]))
+                    elif (plan.get("checkpoint_requested_at") is None
+                          and plan["dispatch_at"] <= target):
+                        due.append((plan["dispatch_at"], 6, a["allocation_id"]))
             for job in values_where(s["jobs"], state=LIVE_JOBS):
                 if job["state"] in TERMINAL_JOBS or job.get("pending_finish"):
                     continue
@@ -609,6 +713,18 @@ class LifecycleMixin:
                 elif priority == 4:
                     self._refresh_blocks(s)
                     self._event(s, c, "recall.ended")
+                elif priority in {6, 7}:
+                    a = s["allocations"][ident]
+                    if a["state"] != "PreemptRequested" or a.get("stop_requested") or a.get("pending_terminal"):
+                        continue
+                    if priority == 7:
+                        self._reclaim_stop(s, c, a)
+                    else:
+                        job = self._live_job(s, a)
+                        if job:
+                            self._reclaim_checkpoint(s, a, job)
+                        else:
+                            self._interrupt(s, c, a, "Preempted")
                 else:
                     job = s["jobs"][ident]
                     if job["state"] in TERMINAL_JOBS or job.get("pending_finish"):

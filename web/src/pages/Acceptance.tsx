@@ -4,6 +4,7 @@ import {useQuery} from '../hooks';
 import {downloadJson,ErrorNotice,Field,Panel,QueryFeedback,RawData,Receipt,Refresh,Status,Table} from '../components/common';
 import {Experiments} from '../components/Experiments';
 import {PolicyValidation} from '../components/PolicyValidation';
+import {ReclaimValidation} from '../components/ReclaimValidation';
 
 export function AcceptancePage({api,showAdminClock=false}:{api:ApiClient;showAdminClock?:boolean}) {
   const version=useQuery(api,'/v1/version'),overview=useQuery(api,'/x/v1/admin/overview');
@@ -24,6 +25,7 @@ export function AcceptancePage({api,showAdminClock=false}:{api:ApiClient;showAdm
       {showAdminClock&&object(version.data).execution_mode==='logical_simulation'&&<Tool title="模拟时钟"><SimulationClock api={api} onDone={refresh}/></Tool>}
       <Tool title="运行实验"><Experiments api={api}/></Tool>
       <Tool title="策略评估报告"><PolicyValidation api={api}/></Tool>
+      <Tool title="收回策略对照"><ReclaimValidation api={api}/></Tool>
       <Tool title="验证记录"><AcceptanceRecords api={api}/></Tool>
       <Tool title="服务信息"><QueryFeedback query={version}><dl className="facts"><div><dt>API 版本</dt><dd>{text(object(version.data).api_version)}</dd></div><div><dt>实现版本</dt><dd>{text(object(version.data).implementation_version)}</dd></div></dl><RawData data={version.data} label="技术详情"/></QueryFeedback></Tool>
     </Panel>

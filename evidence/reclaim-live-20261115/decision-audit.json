@@ -1,0 +1,107 @@
+{
+  "version": {
+    "epoch": 0,
+    "revision": 15473
+  },
+  "now": 917.0456295000031,
+  "items": [
+    {
+      "allocation_id": "e0-a12",
+      "action": "save_at",
+      "attempt_id": "e0-attempt14",
+      "candidates": [
+        {
+          "action": "stop",
+          "deadline_feasible": true,
+          "dispatch_at": 771.9719100000013,
+          "estimated_wait": 2,
+          "feasible": false,
+          "overhead": 0.5,
+          "remaining_compute": 73.55498906666668,
+          "score": null
+        },
+        {
+          "action": "save_now",
+          "deadline_feasible": true,
+          "dispatch_at": 771.9719100000013,
+          "estimated_wait": 2.753993416,
+          "feasible": true,
+          "overhead": 1.2539934160000001,
+          "remaining_compute": 69.80368462426668,
+          "score": 71.74617639426668
+        },
+        {
+          "action": "save_at",
+          "deadline_feasible": true,
+          "dispatch_at": 779.1179165840014,
+          "estimated_wait": 9.90000000000002,
+          "feasible": true,
+          "overhead": 1.2539934160000001,
+          "remaining_compute": 62.65767804026666,
+          "score": 66.38667145626667
+        },
+        {
+          "action": "finish_first",
+          "deadline_feasible": false,
+          "dispatch_at": 779.1179165840014,
+          "estimated_wait": 71.80368462426668,
+          "feasible": false,
+          "overhead": 0,
+          "remaining_compute": 0,
+          "score": null
+        }
+      ],
+      "checkpoint_dispatched_at": 779.1772160420011,
+      "checkpoint_reported_at": 779.2591264590011,
+      "checkpoint_requested_at": 779.1179165840014,
+      "checkpoint_status": "ready",
+      "checkpoint_uri": "fabric-cpu://b6328c7db20d3809edff54ad/8459e893cf835057deaff30e6af69bbb7f34188376dcf2701fd43ab935fe7f1d",
+      "checkpoint_verified_at": 779.2591264590011,
+      "completion_feasible": true,
+      "deadline_feasible": true,
+      "dispatch_at": 779.1179165840014,
+      "estimate_basis": {
+        "checkpoint_cost": "inflated_observation_interval_estimate",
+        "hard_realtime_guarantee": false,
+        "progress": "hmac_verified_worker_observation",
+        "rate": "recent_observation_envelope",
+        "restart_cost": "declared_reference_profile_estimate",
+        "stop_cost": "configured_escalation_plus_poll_reserve"
+      },
+      "estimated_wait": 9.90000000000002,
+      "evidence_digest": "15265462c44b356c55ff87a526b1a5049530f0ee8bb84f0d3e5c4187212591c4",
+      "feasible": true,
+      "inputs": {
+        "allow_cold_restart": false,
+        "checkpoint_cost_upper": 0.753993416,
+        "checkpoint_due": 779.9719100000013,
+        "now": 771.9719100000013,
+        "observed_at": 771.8918682910013,
+        "owner_deadline": 783.9719100000013,
+        "owner_wait_weight": 0.25,
+        "progress_steps": 51000,
+        "rate_lower": 13595.270867264333,
+        "rate_upper": 23303.447573244375,
+        "restart_cost_upper": 0.5,
+        "stop_cost_upper": 2,
+        "total_steps": 1000000,
+        "trusted": true
+      },
+      "notice_ids": [
+        "e0-notice16"
+      ],
+      "overhead": 1.2539934160000001,
+      "phase": "complete",
+      "planned_at": 771.9719100000013,
+      "reason": "delay_valuable",
+      "remaining_compute": 62.65767804026666,
+      "return_policy": "preserve_work",
+      "score": 66.38667145626667,
+      "stop_at": 779.9719100000013,
+      "stop_confirmed_at": 779.397738750001,
+      "stop_dispatched_at": 779.3310699590011,
+      "stop_requested_at": 779.2591264590011,
+      "version": "reclaim-v1"
+    }
+  ]
+}

@@ -237,10 +237,12 @@ def mount_cp1(app, kernel, identity):
         return await run_in_threadpool(commit, request, {"kind": "clock.advance", "source": "test_control", **body}, test=True)
 
     def recall_parameters(body, kind):
-        exact_fields(body, {"gpu_ids", "notice_seconds", "duration_seconds"})
+        exact_fields(body, {"gpu_ids", "notice_seconds", "duration_seconds"}
+                     | ({"return_policy"} if kind == "contribution.recall" else set()))
         return {"kind": kind, "device_ids": body.get("gpu_ids"),
                 "notice_seconds": body.get("notice_seconds"),
-                "duration_seconds": body.get("duration_seconds")}
+                "duration_seconds": body.get("duration_seconds"),
+                "return_policy": body.get("return_policy", "return_first")}
 
     @app.post("/_test/contributor-demand")
     async def contributor_demand(request: Request):

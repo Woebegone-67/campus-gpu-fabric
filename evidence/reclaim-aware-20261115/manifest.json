@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "artifacts": {
+    "report": {
+      "path": "report.json",
+      "sha256": "33588804008f10dca250d63304c87d8f26b5461d5e04ddf77df424274f9eb14b"
+    },
+    "protocol": {
+      "path": "protocol.json",
+      "sha256": "fe9f06f26cf2caf178442c4aef798f9fc65f073e5d253dba0e511d19e9d28c24"
+    }
+  }
+}

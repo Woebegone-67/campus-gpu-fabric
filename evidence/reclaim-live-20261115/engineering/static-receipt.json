@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0.0",
+  "checkpoint": "CP0",
+  "scope": "static_design_only",
+  "status": "MET",
+  "observed_at": "2026-11-15T02:06:08.275004+00:00",
+  "build": {
+    "git_commit": "b3ff62eaac29bf76dd08608a9d880d9cd9e384be",
+    "source_sha256": "d4929632a68000636c89e51b3f5d5d2e07ea39e14c82e3fb2867c9994660596e",
+    "source_file_count": 432
+  },
+  "command": "python scripts/check_cp0.py",
+  "claims": {
+    "api_conformance": "NOT_RUN",
+    "product_acceptance": "NOT_RUN",
+    "real_cpu_recovery": "NOT_RUN",
+    "external_validation": "NOT_RUN"
+  },
+  "checks": [
+    {
+      "id": "CP0-OFFICIAL-INTEGRITY",
+      "status": "MET",
+      "actual": {
+        "files_verified": [
+          "api/openapi.yaml",
+          "challenge.md",
+          "participant_supplement.pdf"
+        ],
+        "operation_count": 21,
+        "provenance_limit": "Checks preservation against the local snapshot manifest; not an organizer signature or external verification."
+      }
+    },
+    {
+      "id": "CP0-API-MAPPING",
+      "status": "MET",
+      "actual": {
+        "operation_count": 21,
+        "declared_implemented": [
+          "GET /v1/version",
+          "GET /healthz",
+          "GET /v1/capacity",
+          "POST /v1/allocations",
+          "GET /v1/allocations",
+          "GET /v1/allocations/{allocation_id}",
+          "DELETE /v1/allocations/{allocation_id}",
+          "POST /v1/allocations/{allocation_id}/renew",
+          "POST /v1/allocations/{allocation_id}/checkpoint",
+          "POST /v1/allocations/{allocation_id}/resume",
+          "POST /v1/jobs",
+          "GET /v1/jobs",
+          "GET /v1/jobs/{job_id}",
+          "DELETE /v1/jobs/{job_id}",
+          "GET /v1/metrics",
+          "GET /v1/events",
+          "POST /_test/reset",
+          "POST /_test/clock",
+          "POST /_test/contributor-demand",
+          "POST /_test/node-state",
+          "POST /_test/fault"
+        ],
+        "declared_stubs": [],
+        "runtime_verification": "NOT_RUN by this static check"
+      }
+    },
+    {
+      "id": "CP0-SEMANTICS",
+      "status": "MET",
+      "actual": {
+        "rule_count": 22,
+        "status": "TEAM_PROVISIONAL_CP0",
+        "implementation_validation": "NOT_RUN; configuration review only"
+      }
+    },
+    {
+      "id": "CP0-CONTRACT-FIXTURES",
+      "status": "MET",
+      "actual": {
+        "schema_valid_positive_examples": 6,
+        "schema_rejected_negative_examples": 1,
+        "negative_examples_catalogued": 7,
+        "semantic_negative_validation": "Executed by the Pydantic contract tests in the separate pytest step, not inferred here."
+      }
+    },
+    {
+      "id": "CP0-DOCUMENTATION",
+      "status": "MET",
+      "actual": {
+        "required_paths_present": [
+          "docs/blueprint/00_START_HERE.md",
+          "docs/blueprint/01_终态产品与独立复审.md",
+          "docs/blueprint/02_双人24小时正向开发作战书.md",
+          "docs/blueprint/03_交汇契约与验收规格.md",
+          "docs/handoff/OWNER_A.md",
+          "docs/handoff/OWNER_B.md",
+          "docs/handoff/CHECKPOINTS.md",
+          "docs/handoff/HANDOFF_TEMPLATE.md",
+          "docs/SEMANTICS.md",
+          "docs/STATE_MODEL.md",
+          "docs/PRODUCT.md",
+          "docs/ACCEPTANCE.md"
+        ]
+      }
+    },
+    {
+      "id": "CP0-EVIDENCE-POLICY",
+      "status": "MET",
+      "actual": {
+        "checkpoint_count": 6,
+        "required_check_count": 37,
+        "product_status": "NOT_RUN unless a separate current-build runtime evidence receipt is validated"
+      }
+    }
+  ]
+}

@@ -49,11 +49,13 @@ test('owned devices precede the shared pool and recall deduplicates physical car
   assert.match(container.textContent,/1 张 GPU/);
   assert.doesNotMatch(container.textContent,/other-node|other-card/);
   const checkboxes=container.querySelectorAll('input[type=checkbox]');assert.equal(checkboxes.length,1);
+  const preference=container.querySelector('select[name=return_policy]');assert.equal(preference.value,'return_first');
+  await interact(()=>{preference.value='preserve_work';preference.dispatchEvent(new dom.window.Event('change',{bubbles:true}));});
   await interact(()=>checkboxes[0].click());
-  await interact(()=>button('发送收回通知').click());
+  await interact(()=>button('收回设备').click());
   const writes=requests.filter(request=>request.options.method==='POST');assert.equal(writes.length,1);
   assert.equal(writes[0].path,'/x/v1/contributions/recall');
-  assert.deepEqual(JSON.parse(writes[0].options.body),{gpu_ids:['own-card'],notice_seconds:30,duration_seconds:60});
+  assert.deepEqual(JSON.parse(writes[0].options.body),{gpu_ids:['own-card'],notice_seconds:30,duration_seconds:60,return_policy:'preserve_work'});
 });
 
 test('revoking contribution capability aborts pending reads and removes the old forms immediately',async()=>{
@@ -72,7 +74,7 @@ test('unknown recall response blocks both button retry and a repeated form submi
   await interact(()=>container.querySelector('input[type=checkbox]').click());
   const form=container.querySelector('form');
   await interact(()=>form.dispatchEvent(new dom.window.Event('submit',{bubbles:true,cancelable:true})));
-  assert.equal(button('发送收回通知').disabled,true);
+  assert.equal(button('收回设备').disabled,true);
   await interact(()=>form.dispatchEvent(new dom.window.Event('submit',{bubbles:true,cancelable:true})));
   assert.equal(requests.length,1);assert.match(container.textContent,/请刷新设备状态确认收回结果/);
 });

@@ -1,0 +1,16 @@
+{
+  "checks": {
+    "manifest": true,
+    "current_planner": true,
+    "protocol_record": true,
+    "all_rows_present": true,
+    "all_aggregates": true,
+    "strict_economic_stop_forbidden": true,
+    "negative_results_preserved": true,
+    "historical_planner_reconstructed_hash": true
+  },
+  "report_sha256": "ddce499f116594b26995cc7bcd4e32e5c33181a3340525c02e7056d76439f2a3",
+  "protocol_sha256": "0a90830105fd0a94ab923a9585c0d0acf4fd06cd0d999e8302a69d401b104565",
+  "rows": 140,
+  "strict_control_rows": 32
+}

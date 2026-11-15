@@ -745,6 +745,19 @@ class CommittedEvent(ContractModel):
         return self
 
 
+class ExecutionProgress(ContractModel):
+    step: Annotated[int, Field(ge=0)]
+    total_steps: Annotated[int, Field(gt=0)]
+    observed_at: LogicalTime
+    rate_lower: Annotated[float, Field(gt=0)] | None = None
+    rate_upper: Annotated[float, Field(gt=0)] | None = None
+    checkpoint_cost_upper: Annotated[float, Field(gt=0)]
+    stop_cost_upper: Annotated[float, Field(gt=0)]
+    restart_cost_upper: Annotated[float, Field(ge=0)]
+    sample_count: Annotated[int, Field(ge=0)]
+    evidence_digest: Text
+
+
 class ExecutorEvent(ContractModel):
     callback_id: Identifier
     version: VersionStamp
@@ -765,6 +778,7 @@ class ExecutorEvent(ContractModel):
     checkpoint: CheckpointFact | None = None
     result_uri: Text | None = None
     error: ErrorDetail | None = None
+    progress: ExecutionProgress | None = None
 
     @model_validator(mode="after")
     def executor_evidence(self) -> ExecutorEvent:
@@ -898,6 +912,7 @@ class RecallParameters(ContractModel):
     device_ids: tuple[Identifier, ...]
     notice_seconds: Annotated[int, Field(ge=1, le=300)]
     duration_seconds: Annotated[int, Field(ge=1, le=3600)]
+    return_policy: Literal["return_first", "preserve_work"] = "return_first"
 
     @model_validator(mode="after")
     def unique_recalled_devices(self) -> RecallParameters:

@@ -1,0 +1,18 @@
+{
+  "checks": {
+    "semantic_revision_scores_unchanged": true,
+    "semantic_revision_comparisons_unchanged": true,
+    "manifest": true,
+    "current_planner": true,
+    "protocol_record": true,
+    "all_rows_present": true,
+    "all_aggregates": true,
+    "strict_economic_stop_forbidden": true,
+    "negative_results_preserved": true,
+    "previous_source_hash_matches": true
+  },
+  "report_sha256": "33588804008f10dca250d63304c87d8f26b5461d5e04ddf77df424274f9eb14b",
+  "protocol_sha256": "fe9f06f26cf2caf178442c4aef798f9fc65f073e5d253dba0e511d19e9d28c24",
+  "rows": 140,
+  "strict_control_rows": 32
+}

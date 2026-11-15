@@ -288,13 +288,29 @@ def test_checkpoint_and_stop_are_durable_ordered_commands(tmp_path, processes):
         time.sleep(0.01)
     else:
         pytest.fail("Ordered stop was not observed")
-    assert [event.kind for event in events] == [
+    assert [event.kind for event in events if event.kind != "progress"] == [
         "checkpoint_reported",
         "checkpoint_reported",
         "stopped",
     ]
-    assert events[0].checkpoint.artifact_uri != events[1].checkpoint.artifact_uri
+    checkpoints = [event.checkpoint for event in events if event.kind == "checkpoint_reported"]
+    assert checkpoints[0].artifact_uri != checkpoints[1].artifact_uri
     assert "token" not in json.dumps(executor.inspect())
+
+
+def test_unsigned_progress_is_not_promoted_to_trusted_observation(tmp_path, processes):
+    executor = make_executor(tmp_path, processes, total_steps=1000000)
+    send(executor, command())
+    wait_for(executor, "started")
+    record = executor.inspect()["attempts"][0]
+    handle = executor._handles[record["key"]]
+    os.killpg(handle.pid, signal.SIGSTOP)
+    path = executor.root / "attempts" / record["key"] / "progress.json"
+    path.write_text(json.dumps({"state": {"step": 999999}, "observed_monotonic_ns": time.monotonic_ns()}))
+    events = executor.poll(logical_time=2, version=VERSION)
+    assert any(event.kind == "unknown" for event in events)
+    assert not any(event.kind == "progress" and event.observed_at == 2 for event in events)
+    assert not executor.inspect()["attempts"][0]["stop_confirmed"]
 
 
 def test_interrupted_control_delivery_replays_from_journal(tmp_path, processes, monkeypatch):

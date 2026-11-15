@@ -1,0 +1,76 @@
+TAP version 13
+# Subtest: CPU saving countdown follows checkpoint_due; simulation does not advance with wall time
+ok 1 - CPU saving countdown follows checkpoint_due; simulation does not advance with wall time
+  ---
+  duration_ms: 7.111542
+  type: 'test'
+  ...
+# Subtest: global reminder links the affected work and deadline zero never claims returned
+ok 2 - global reminder links the affected work and deadline zero never claims returned
+  ---
+  duration_ms: 9.753708
+  type: 'test'
+  ...
+# Subtest: stale reads stop countdown and never upgrade a remembered phase
+ok 3 - stale reads stop countdown and never upgrade a remembered phase
+  ---
+  duration_ms: 2.214666
+  type: 'test'
+  ...
+# Subtest: current detail avoids duplicate global reminder and other work still alerts
+ok 4 - current detail avoids duplicate global reminder and other work still alerts
+  ---
+  duration_ms: 2.627833
+  type: 'test'
+  ...
+# Subtest: owner phases use server facts and only matching device notice
+ok 5 - owner phases use server facts and only matching device notice
+  ---
+  duration_ms: 2.1695
+  type: 'test'
+  ...
+# Subtest: shared provider reads authenticated recall projection once for banner and detail
+ok 6 - shared provider reads authenticated recall projection once for banner and detail
+  ---
+  duration_ms: 15.482167
+  type: 'test'
+  ...
+# Subtest: adaptive plans distinguish continuing calculation from actual checkpoint saving
+ok 7 - adaptive plans distinguish continuing calculation from actual checkpoint saving
+  ---
+  duration_ms: 3.249709
+  type: 'test'
+  ...
+# Subtest: elapsed planned dispatch is a status check, never a fabricated stop or saved result
+ok 8 - elapsed planned dispatch is a status check, never a fabricated stop or saved result
+  ---
+  duration_ms: 1.607791
+  type: 'test'
+  ...
+# Subtest: owner sees waiting plan until the server confirms checkpoint saving or device returned
+ok 9 - owner sees waiting plan until the server confirms checkpoint saving or device returned
+  ---
+  duration_ms: 3.585334
+  type: 'test'
+  ...
+# Subtest: saving and stopping show current progress without a superseded planned decision
+ok 10 - saving and stopping show current progress without a superseded planned decision
+  ---
+  duration_ms: 2.825334
+  type: 'test'
+  ...
+# Subtest: completed reclaim audit loads only when opened inside visible technical details
+ok 11 - completed reclaim audit loads only when opened inside visible technical details
+  ---
+  duration_ms: 4.183208
+  type: 'test'
+  ...
+1..11
+# tests 11
+# suites 0
+# pass 11
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 452.206167

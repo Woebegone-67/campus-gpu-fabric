@@ -120,7 +120,9 @@ def create_app(data_dir=None, inventory=(), test_key=None, auth_tokens=None,
             })
         if hasattr(request.state, "request_id"):
             response.headers["X-Request-Id"] = request.state.request_id
-        if request.url.path == "/x/v1/session" or request.url.path.startswith("/x/v1/auth/"):
+        if (request.url.path in {"/x/v1/session", "/x/v1/recalls"}
+                or request.url.path.startswith("/x/v1/auth/")
+                or request.url.path.endswith("/reclaim-decisions")):
             response.headers["Cache-Control"] = "no-store"
             response.headers["Vary"] = "Authorization, X-Owner, Cookie"
         return response
@@ -189,6 +191,19 @@ def create_app(data_dir=None, inventory=(), test_key=None, auth_tokens=None,
     def account_session(request: Request):
         actor = identity.actor(request)
         return account_view(actor, getattr(request.state, "auth_username", None))
+
+    @app.get("/x/v1/recalls")
+    def recall_status(request: Request, response: Response):
+        response.headers["Cache-Control"] = "no-store"
+        return kernel.recall_status(identity.actor(request))
+
+    @app.get("/x/v1/work-intents/{intent_id}/reclaim-decisions")
+    def reclaim_decisions(intent_id: str, request: Request, response: Response):
+        result = kernel.reclaim_decisions(identity.actor(request), intent_id)
+        if result is None:
+            raise HTTPException(404, "Work not found")
+        response.headers["Cache-Control"] = "no-store"
+        return result
 
     @app.get("/x/v1/artifacts")
     def artifact(request: Request, uri: str):

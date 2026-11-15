@@ -94,6 +94,7 @@ export type DeviceIds = string[];
 export type DurationSeconds = number;
 export type Kind8 = "test.contributor_demand" | "contribution.recall";
 export type NoticeSeconds = number;
+export type ReturnPolicy = "return_first" | "preserve_work";
 export type Kind9 = "test.node_state";
 export type NodeId = string;
 export type State = "Ready" | "Draining" | "NotReady";
@@ -221,6 +222,16 @@ export type Kind15 =
 export type Mode1 = "logical_simulation" | "cpu_reference";
 export type ObservedAt1 = number;
 export type PhysicalElapsedSeconds = number | null;
+export type CheckpointCostUpper = number;
+export type EvidenceDigest = string;
+export type ObservedAt2 = number;
+export type RateLower = number | null;
+export type RateUpper = number | null;
+export type RestartCostUpper = number;
+export type SampleCount = number;
+export type Step = number;
+export type StopCostUpper = number;
+export type TotalSteps = number;
 export type ResultUri = string | null;
 export type Kind16 = "executor.report";
 export type Kind17 = "workflow.register_intent";
@@ -275,7 +286,7 @@ export type DemandId1 = string;
 export type IntentId4 = string | null;
 export type AvailableAt = number;
 export type Name2 = string;
-export type ObservedAt2 = number;
+export type ObservedAt3 = number;
 export type Source1 = "request" | "observed_event" | "declared_profile" | "public_metadata" | "history";
 export type SourceId = string;
 export type Value2 = string | number | boolean | null;
@@ -532,6 +543,7 @@ export interface RecallParameters {
   duration_seconds: DurationSeconds;
   kind: Kind8;
   notice_seconds: NoticeSeconds;
+  return_policy?: ReturnPolicy;
 }
 export interface NodeStateParameters {
   kind: Kind9;
@@ -665,6 +677,7 @@ export interface ExecutorEvent {
   mode: Mode1;
   observed_at: ObservedAt1;
   physical_elapsed_seconds?: PhysicalElapsedSeconds;
+  progress?: ExecutionProgress | null;
   result_uri?: ResultUri;
   version: VersionStamp;
 }
@@ -684,6 +697,18 @@ export interface ErrorDetail {
   current_version?: VersionStamp | null;
   detail: Detail1;
   retryable?: Retryable;
+}
+export interface ExecutionProgress {
+  checkpoint_cost_upper: CheckpointCostUpper;
+  evidence_digest: EvidenceDigest;
+  observed_at: ObservedAt2;
+  rate_lower?: RateLower;
+  rate_upper?: RateUpper;
+  restart_cost_upper: RestartCostUpper;
+  sample_count: SampleCount;
+  step: Step;
+  stop_cost_upper: StopCostUpper;
+  total_steps: TotalSteps;
 }
 export interface WorkflowIntentParameters {
   kind: Kind17;
@@ -798,7 +823,7 @@ export interface DemandSnapshot {
 export interface ObservedDatum {
   available_at: AvailableAt;
   name: Name2;
-  observed_at: ObservedAt2;
+  observed_at: ObservedAt3;
   source: Source1;
   source_id: SourceId;
   value: Value2;

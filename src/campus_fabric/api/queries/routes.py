@@ -423,6 +423,27 @@ def create_query_router(services: QueryServices | None = None) -> APIRouter:
                         headers={"Content-Disposition": "attachment",
                                  "X-Content-Type-Options": "nosniff"})
 
+    def reclaim_validation(request: Request, actor: Any) -> dict | Response:
+        if actor.role != "administrator":
+            raise QueryFailure(403, "forbidden", "Administrator authority is required.")
+        from campus_fabric.workflows import reclaim_validation as report
+
+        artifact_id = request.path_params.get("artifact_id")
+        try:
+            if artifact_id is None:
+                return report.snapshot()
+            content = report.artifact(artifact_id)
+        except KeyError:
+            if artifact_id is not None and artifact_id not in report.FILES:
+                raise QueryFailure(404, "not_found", "The reclaim report artifact was not found.")
+            raise QueryFailure(409, "invalid_evidence", "The reclaim report is incomplete.")
+        except (ValueError, OSError, TypeError):
+            raise QueryFailure(409, "invalid_evidence", "The reclaim report failed validation.")
+        return Response(content, media_type="application/json", headers={
+            "Content-Disposition": f'attachment; filename="reclaim-{artifact_id}.json"',
+            "X-Content-Type-Options": "nosniff",
+        })
+
     def artifact(request: Request, actor: Any) -> Response:
         intent_id, artifact_id = request.path_params["intent_id"], request.path_params["artifact_id"]
         snapshot = services.read(actor, global_scope=actor.role == "administrator")
@@ -458,6 +479,8 @@ def create_query_router(services: QueryServices | None = None) -> APIRouter:
     endpoint("/x/v1/acceptance", acceptance)
     endpoint("/x/v1/policy-validation", policy_validation)
     endpoint("/x/v1/policy-validation/artifacts/{artifact_id}", policy_validation_artifact)
+    endpoint("/x/v1/reclaim-validation", reclaim_validation)
+    endpoint("/x/v1/reclaim-validation/artifacts/{artifact_id}", reclaim_validation)
     return router
 
 

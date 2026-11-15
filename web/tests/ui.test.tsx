@@ -197,7 +197,7 @@ test('contributor recalls owned physical GPUs without contribution ID or test ro
   const boxes=container.querySelectorAll('input[type=checkbox]');assert.equal(boxes.length,1);assert.doesNotMatch(container.textContent,/gpu-private/);
   await interact(()=>boxes[0].click());await submit(container.querySelector('form'));
   assert.equal(requests[0].path,'/x/v1/contributions/recall');
-  assert.deepEqual(JSON.parse(requests[0].options.body),{gpu_ids:['gpu-own'],notice_seconds:30,duration_seconds:60});
+  assert.deepEqual(JSON.parse(requests[0].options.body),{gpu_ids:['gpu-own'],notice_seconds:30,duration_seconds:60,return_policy:'return_first'});
   assert.equal(requests[0].options.headers['X-Test-Key'],undefined);
 });
 
@@ -402,7 +402,7 @@ test('CPU resources hide manual inventory registration while keeping owned GPU r
   assert.equal(container.querySelector('textarea[name=node]'),null);
   const box=container.querySelector('input[type=checkbox]');assert.ok(box);
   await interact(()=>box.click());
-  assert.equal(button('发送收回通知').disabled,false);
+  assert.equal(button('收回设备').disabled,false);
   assert.equal(requests.filter(r=>r.options.method!=='GET').length,0);
 });
 
@@ -544,4 +544,20 @@ test('CP3 settlement completed CPU work exposes an inline result before any exec
   await interact(()=>button('查看结果 1').click());
   assert.equal(outcome.querySelector('.artifact-access pre').textContent,'{"state":{"value":16159431991146531633}}\n');
   assert.match(outcome.textContent,/资源已归还/);
+});
+
+
+test('passive successful refresh cannot replay an unknown lifecycle command',async()=>{
+  const originalTimer=window.setTimeout;let poll;
+  window.setTimeout=(callback,delay,...args)=>delay===2000?(poll=callback,-1):originalTimer(callback,delay,...args);
+  const record={...work('work-poll'),legal_actions:[{operation:'job.cancel',entity:{kind:'job',entity_id:'job-1'}}]};
+  let writes=0;
+  globalThis.fetch=async(_path,options)=>{if(options.method==='POST'){writes++;throw new TypeError('synthetic lost response');}return json(record);};
+  try{
+    await render(<ContinuityPage api={api()} initialId="work-poll"/>);
+    await interact(()=>button('取消工作').click());assert.equal(writes,1);assert(button('取消工作').disabled);
+    await interact(()=>poll());assert(button('取消工作').disabled,'passive snapshots must not reset an unknown command result');
+    await interact(()=>button('取消工作').click());assert.equal(writes,1);
+    await interact(()=>button('刷新').click());assert.equal(button('取消工作').disabled,false,'explicit successful recheck may unlock the legal action');
+  }finally{window.setTimeout=originalTimer;}
 });

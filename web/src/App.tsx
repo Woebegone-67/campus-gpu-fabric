@@ -16,6 +16,7 @@ import {useBrowserSession} from './useBrowserSession';
 import {StarwaveSurface,StarwaveMotionControl} from './visual/starwave/StarwaveSurface';
 import {SpaceGesture} from './components/SpaceGesture';
 import {MovingSelection,reveal,usePressMotion} from './motion';
+import {RecallProvider,RecallBanner} from './components/Recalls';
 
 const sections=[
   {id:'run',name:'我的工作'},
@@ -95,7 +96,7 @@ export default function App(){
       {isOnline&&object(health.data).control_plane_ready===false&&<div className="shell-notice">服务尚未就绪。</div>}
       {account&&session.error&&<div className="shell-notice" role="status">账户暂时无法验证，已暂停提交。<button className="link-button" onClick={()=>void session.refresh()}>重新检查账户</button></div>}
       {account&&
-      <ServiceContext.Provider value={service}><AccountContext.Provider value={account}><QueryEpochContext.Provider value={acceptEpoch}><Workspace key={`${identityGeneration}:${epoch}`} api={api} account={account} route={route} workRoute={space==='overview'?parseHash(workbenchHash):route} preview={preview} accountReady={accountReady}/></QueryEpochContext.Provider></AccountContext.Provider></ServiceContext.Provider>}
+      <ServiceContext.Provider value={service}><AccountContext.Provider value={account}><QueryEpochContext.Provider value={acceptEpoch}><RecallProvider key={`${identityGeneration}:${epoch}`} api={api}><RecallBanner currentIntent={route.section==='continuity'?route.intent:''}/><Workspace key={`${identityGeneration}:${epoch}`} api={api} account={account} route={route} workRoute={space==='overview'?parseHash(workbenchHash):route} preview={preview} accountReady={accountReady}/></RecallProvider></QueryEpochContext.Provider></AccountContext.Provider></ServiceContext.Provider>}
     </StarwaveSurface>
   </div>;
 }

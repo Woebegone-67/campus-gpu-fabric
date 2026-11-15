@@ -230,3 +230,12 @@
  .dual-space .shell-popovers{top:62px;left:auto;right:8px;max-width:calc(100% - 16px);max-height:calc(100dvh - 150px)}
  .dual-space .account-gate{margin-top:32px;padding:8px}.dual-space .account-gate h1{font-size:22px}
 }
+
+/* Live recall status stays outside decorative layers. */
+.dual-space .shell-recall{flex-shrink:0;background:#342a1b;color:#f0d5a0;padding:11px 32px;border-bottom:1px solid #66502d;font-size:13px}
+.dual-space .shell-recall-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap}.dual-space .shell-recall-row+div{margin-top:8px}.dual-space .shell-recall a{color:inherit;margin-left:auto;white-space:nowrap}
+.dual-space .work-recall{padding:16px;margin:16px 0;border:1px solid #8b6a37;border-radius:8px;background:#30291c;color:#f0d5a0}.dual-space .work-recall p{margin:8px 0 0;font-size:12px;color:inherit}
+.dual-space .recall-state{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px}.dual-space .recall-countdown strong{font-variant-numeric:tabular-nums;font-size:18px}.dual-space .owned-recalls{margin:12px 0;padding:12px;border-radius:6px;background:#30291c;color:#f0d5a0}.dual-space .owned-recalls .recall-state+div{margin-top:10px}
+.dual-space .device-state-summary{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;margin:10px 0}
+.dual-space .owned-recalls>div+div{margin-top:12px}.dual-space .owned-recalls .recall-decision{margin:8px 0 0;font-size:12px;color:inherit}
+@media(max-width:700px){.dual-space .shell-recall{padding:10px 16px}.dual-space .shell-recall-row{gap:8px}.dual-space .shell-recall a{margin-left:0}}

@@ -30,6 +30,7 @@ def host_boot_id():
 class CpuDriver:
     def __init__(self, kernel, executor: CpuReferenceExecutor, *, lock_path: Path):
         self.kernel, self.executor = kernel, executor
+        self.kernel.reclaim_stop_cost_upper = executor.config.stop_timeout_seconds + 1.0
         self.lock_path = lock_path
         self.guard = threading.RLock()
         self._file = None

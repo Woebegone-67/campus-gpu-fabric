@@ -4,7 +4,7 @@ import {ApiClient, ApiError, encodeId, versionOf} from './api';
 export type QueryState = {data: unknown; error: ApiError | null; loading: boolean; receivedAt: number | null; refresh: () => void};
 export const QueryActivityContext = createContext(true);
 export const QueryEpochContext = createContext<(epoch:number)=>boolean>(()=>true);
-export function useQuery(api: ApiClient, path: string | null, refreshToken = 0): QueryState {
+export function useQuery(api: ApiClient, path: string | null, refreshToken = 0, pollIntervalMs = 0): QueryState {
   const active = useContext(QueryActivityContext);
   const acceptEpoch = useContext(QueryEpochContext);
   const [reload, setReload] = useState(0);
@@ -15,30 +15,52 @@ export function useQuery(api: ApiClient, path: string | null, refreshToken = 0):
     const current = ++generation.current;
     if (!active) return;
     if (!path) { setState({key, data: null, error: null, loading: false, receivedAt: null}); return; }
-    const controller = new AbortController();
-    // Same-query refresh retains an explicitly dated snapshot; identities and paths never share it.
-    setState(previous => previous.key === key ? {...previous, error: null, loading: true} : {key, data: null, error: null, loading: true, receivedAt: null});
-    api.request(path, {signal: controller.signal}).then(({data}) => {
-      if (generation.current !== current || controller.signal.aborted) return;
-      const version=versionOf(data);
-      if(version&&!acceptEpoch(version.epoch)) {setState({key,data:null,error:new ApiError('实例代次已更新，请重新读取当前记录。',409,null,{error:'epoch_changed'}),loading:false,receivedAt:null});return;}
-      setState({key, data, error: null, loading: false, receivedAt: Date.now()});
-    }).catch(error => {
-      if (generation.current !== current || controller.signal.aborted) return;
-      const failure = error instanceof ApiError ? error : new ApiError('读取失败。', 0);
-      const revoked = failure.status >= 400 && failure.status < 500;
-      setState(previous => !revoked && previous.key === key ? {...previous, error: failure, loading: false} : {key, data: null, error: failure, loading: false, receivedAt: null});
-    });
-    return () => { controller.abort(); };
-  }, [api, path, reload, refreshToken, key, active, acceptEpoch]);
+    const polling = Number.isFinite(pollIntervalMs) && pollIntervalMs > 0;
+    let controller: AbortController | null = null, timer: number | undefined;
+    let running = false, disposed = false, requestIndex = 0;
+    const visible = () => !polling || document.visibilityState !== 'hidden';
+    const clearTimer = () => { if(timer !== undefined) window.clearTimeout(timer); timer = undefined; };
+    function cancelRequest() { ++requestIndex; controller?.abort(); controller = null; running = false; }
+    function read(passive: boolean) {
+      if(disposed || running || !visible()) return;
+      clearTimer(); running = true;
+      const index = ++requestIndex, request = new AbortController(); controller = request;
+      const isCurrent = () => !disposed && generation.current === current && index === requestIndex && !request.signal.aborted;
+      // Passive updates retain the rendered snapshot and never disable a form while reading.
+      if(!passive) setState(previous => previous.key === key ? {...previous, error: null, loading: true} : {key, data: null, error: null, loading: true, receivedAt: null});
+      api.request(path!, {signal: request.signal}).then(({data}) => {
+        if(!isCurrent()) return;
+        const version = versionOf(data);
+        if(version && !acceptEpoch(version.epoch)) {setState({key,data:null,error:new ApiError('实例代次已更新，请重新读取当前记录。',409,null,{error:'epoch_changed'}),loading:false,receivedAt:null});return;}
+        setState({key, data, error: null, loading: false, receivedAt: Date.now()});
+      }).catch(error => {
+        if(!isCurrent()) return;
+        const failure = error instanceof ApiError ? error : new ApiError('读取失败。', 0);
+        const revoked = failure.status >= 400 && failure.status < 500;
+        setState(previous => !revoked && previous.key === key ? {...previous, error: failure, loading: false} : {key, data: null, error: failure, loading: false, receivedAt: null});
+      }).finally(() => {
+        if(!isCurrent()) return;
+        running = false; controller = null;
+        if(polling && visible()) timer = window.setTimeout(() => read(true), pollIntervalMs);
+      });
+    }
+    const visibilityChanged = () => {
+      clearTimer();
+      if(!visible()) cancelRequest();
+      else read(true);
+    };
+    if(polling) document.addEventListener('visibilitychange', visibilityChanged);
+    read(false);
+    return () => { disposed = true; clearTimer(); cancelRequest(); if(polling) document.removeEventListener('visibilitychange', visibilityChanged); };
+  }, [api, path, reload, refreshToken, key, active, acceptEpoch, pollIntervalMs]);
   const refresh = useCallback(() => setReload(value => value + 1), []);
   return {...(state.key === key ? state : {data: null, error: null, loading: Boolean(path), receivedAt: null}), refresh};
 }
 
-export function useLookupQuery(api: ApiClient, basePath: string, initialId = '', onSelect?: (id: string) => void) {
+export function useLookupQuery(api: ApiClient, basePath: string, initialId = '', onSelect?: (id: string) => void, pollIntervalMs = 0) {
   const [input, setInput] = useState(initialId);
   const [id, setId] = useState(initialId);
-  const query = useQuery(api, id ? `${basePath}/${encodeId(id)}` : null);
+  const query = useQuery(api, id ? `${basePath}/${encodeId(id)}` : null, 0, pollIntervalMs);
   function submit(event: FormEvent) {
     event.preventDefault();
     const next = input.trim();

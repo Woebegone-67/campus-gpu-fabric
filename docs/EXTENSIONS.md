@@ -81,3 +81,15 @@
 部署通过 `FABRIC_ACCOUNTS_FILE` 读取用户名到密码摘要及授权主体的映射，初始演示账户由启动脚本创建。密码以加盐 scrypt 摘要保存，会话凭据只保存摘要；账号授权或密码摘要变化会使旧会话失效。浏览器写请求须带 `X-Fabric-Request: browser`、当前 `X-Fabric-Actor` 并通过同源校验；反向代理须保留原 Host。旧标签页的账户不一致返回 `409 account_changed`。Cookie 按实例命名，防止同机不同端口实例串用登录。
 
 现有 Bearer 接口继续兼容自动化调用；启用浏览器账户后不能退回到仅凭 X-Owner 的开发身份。历史内部 owner `supplier` 仍保留原资源归属，对外登录名为 `chen`，角色为普通用户 `member`，不是单独的 Supplier 角色。冻结官方 OpenAPI 未修改。
+
+
+## 2026-11-15 收回决策扩展
+
+`POST /x/v1/contributions/recall` 增加可选 `return_policy`：默认 `return_first`（尽快归还），或 `preserve_work`（尽量保留计算）。仅真实 CPU 产品收回路径使用自适应决策；冻结 `/_test/contributor-demand` 不接受新字段，保留既有行为。普通账户只能收回自己的设备。
+
+- `GET /x/v1/recalls`：同一快照中的本人借用提醒与自有设备收回进度。分别给出保存截止、收回截止和计划停止时刻；设备拥有者不能读取借用者私有工作内容。
+- `GET /x/v1/work-intents/{intent_id}/reclaim-decisions`：工作主人或管理员读取完整决策与历史，含因果观测、候选成本、计划时间、实际请求/下发/保存/停止确认时间。其他用户返回 404。
+- `GET /x/v1/reclaim-validation`：管理员读取独立模型对照。`planner_matches_current` 标识是否匹配当前策略源码。
+- `GET /x/v1/reclaim-validation/artifacts/{report|protocol}`：管理员下载经清单摘要检查的原始 JSON；文件损坏返回 409，未登记 ID 返回 404。
+
+所有新增读取均为 `no-store`。详情与对照中的预测、模型观察和真实执行观察分别标记；预测不能充当已经完成的动作。具体机制见 `research/RECLAIM_AWARE_DESIGN.md`。

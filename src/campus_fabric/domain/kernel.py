@@ -1085,6 +1085,28 @@ class Kernel(LifecycleMixin):
         with self.store.snapshot() as state:
             return {key: state[key] for key in ("epoch", "revision", "now")}
 
+    def recall_status(self, actor):
+        """Recall notifications use one snapshot and retain ownership at the read boundary."""
+        from campus_fabric.domain.recall_views import recall_status
+        with self.store.snapshot() as state:
+            return recall_status(state, actor, self._device_overlap)
+
+    def reclaim_decisions(self, actor, intent_id):
+        """Private work audit survives recall completion and later generations."""
+        with self.store.snapshot() as state:
+            intent = state["intents"].get(intent_id)
+            if intent is None or (actor.role != "administrator" and intent["owner_id"] != actor.owner_id):
+                return None
+            items = []
+            for allocation in values_where(state["allocations"], intent_id=intent_id):
+                plans = list(allocation.get("reclaim_history", []))
+                if allocation.get("reclaim_plan"):
+                    plans.append(allocation["reclaim_plan"])
+                items.extend({"allocation_id": allocation["allocation_id"], **plan} for plan in plans)
+            items.sort(key=lambda item: (item["planned_at"], item["allocation_id"]))
+            return {"version": {"epoch": state["epoch"], "revision": state["revision"]},
+                    "now": state["now"], "items": items}
+
     def inventory_state(self, actor):
         """Capacity-only provider with the same public inventory scope as export_state."""
         with self.store.snapshot() as state:

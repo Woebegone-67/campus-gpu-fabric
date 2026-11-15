@@ -1,0 +1,386 @@
+{
+  "schema_version": 1,
+  "frozen_at": "2026-11-15T01:49:40.092591+00:00",
+  "model": "deterministic-parametric-execution-v1",
+  "preferences": {
+    "return_first": 1.0,
+    "preserve_work": 0.25
+  },
+  "policies": [
+    "cold_restart",
+    "immediate_save",
+    "latest_save",
+    "finish_or_save",
+    "adaptive"
+  ],
+  "owner_use_seconds": 10.0,
+  "between_recalls_compute_seconds": 2.0,
+  "failure_completion_horizon_seconds": 300.0,
+  "primary_score": "remaining_compute_after_return + checkpoint_and_restart_overhead + owner_wait_weight * owner_wait",
+  "cases": [
+    {
+      "case": "long-cheap",
+      "label": "长工作、保存便宜",
+      "observed": {
+        "now": 0.0,
+        "checkpoint_due": 5.0,
+        "owner_deadline": 5.0,
+        "progress_steps": 3000,
+        "total_steps": 12000,
+        "rate_lower": 100.0,
+        "rate_upper": 100.0,
+        "checkpoint_cost_upper": 0.05,
+        "stop_cost_upper": 0.1,
+        "restart_cost_upper": 0.2,
+        "observed_at": 0.0,
+        "trusted": true
+      },
+      "actual": {
+        "rate": 100.0,
+        "checkpoint_seconds": 0.05,
+        "stop_seconds": 0.1,
+        "restart_seconds": 0.2,
+        "checkpoint_fails": false
+      },
+      "recall_count": 1
+    },
+    {
+      "case": "near-finish",
+      "label": "接近完成、保存较贵",
+      "observed": {
+        "now": 0.0,
+        "checkpoint_due": 5.0,
+        "owner_deadline": 5.0,
+        "progress_steps": 11970,
+        "total_steps": 12000,
+        "rate_lower": 100.0,
+        "rate_upper": 100.0,
+        "checkpoint_cost_upper": 0.5,
+        "stop_cost_upper": 0.1,
+        "restart_cost_upper": 0.2,
+        "observed_at": 0.0,
+        "trusted": true
+      },
+      "actual": {
+        "rate": 100.0,
+        "checkpoint_seconds": 0.5,
+        "stop_seconds": 0.1,
+        "restart_seconds": 0.2,
+        "checkpoint_fails": false
+      },
+      "recall_count": 1
+    },
+    {
+      "case": "finish-fits-wait-costly",
+      "label": "能够完成、但贡献者等待代价高",
+      "observed": {
+        "now": 0.0,
+        "checkpoint_due": 5.0,
+        "owner_deadline": 5.0,
+        "progress_steps": 11700,
+        "total_steps": 12000,
+        "rate_lower": 100.0,
+        "rate_upper": 100.0,
+        "checkpoint_cost_upper": 0.05,
+        "stop_cost_upper": 0.1,
+        "restart_cost_upper": 0.2,
+        "observed_at": 0.0,
+        "trusted": true
+      },
+      "actual": {
+        "rate": 100.0,
+        "checkpoint_seconds": 0.05,
+        "stop_seconds": 0.1,
+        "restart_seconds": 0.2,
+        "checkpoint_fails": false
+      },
+      "recall_count": 1
+    },
+    {
+      "case": "zero-progress",
+      "label": "尚无可保存进度",
+      "observed": {
+        "now": 0.0,
+        "checkpoint_due": 5.0,
+        "owner_deadline": 5.0,
+        "progress_steps": 0,
+        "total_steps": 2000,
+        "rate_lower": 100.0,
+        "rate_upper": 100.0,
+        "checkpoint_cost_upper": 0.5,
+        "stop_cost_upper": 0.1,
+        "restart_cost_upper": 0.2,
+        "observed_at": 0.0,
+        "trusted": true
+      },
+      "actual": {
+        "rate": 100.0,
+        "checkpoint_seconds": 0.5,
+        "stop_seconds": 0.1,
+        "restart_seconds": 0.2,
+        "checkpoint_fails": false
+      },
+      "recall_count": 1
+    },
+    {
+      "case": "little-progress-costly-save",
+      "label": "少量进度、保存代价超过返工",
+      "observed": {
+        "now": 0.0,
+        "checkpoint_due": 3.0,
+        "owner_deadline": 3.0,
+        "progress_steps": 50,
+        "total_steps": 2000,
+        "rate_lower": 100.0,
+        "rate_upper": 100.0,
+        "checkpoint_cost_upper": 2.0,
+        "stop_cost_upper": 0.1,
+        "restart_cost_upper": 0.2,
+        "observed_at": 0.0,
+        "trusted": true
+      },
+      "actual": {
+        "rate": 100.0,
+        "checkpoint_seconds": 2.0,
+        "stop_seconds": 0.1,
+        "restart_seconds": 0.2,
+        "checkpoint_fails": false
+      },
+      "recall_count": 1
+    },
+    {
+      "case": "large-state",
+      "label": "长工作、昂贵保存",
+      "observed": {
+        "now": 0.0,
+        "checkpoint_due": 5.0,
+        "owner_deadline": 5.0,
+        "progress_steps": 3000,
+        "total_steps": 12000,
+        "rate_lower": 100.0,
+        "rate_upper": 100.0,
+        "checkpoint_cost_upper": 2.0,
+        "stop_cost_upper": 0.1,
+        "restart_cost_upper": 0.2,
+        "observed_at": 0.0,
+        "trusted": true
+      },
+      "actual": {
+        "rate": 100.0,
+        "checkpoint_seconds": 2.0,
+        "stop_seconds": 0.1,
+        "restart_seconds": 0.2,
+        "checkpoint_fails": false
+      },
+      "recall_count": 1
+    },
+    {
+      "case": "too-short-window",
+      "label": "窗口不足以保存",
+      "observed": {
+        "now": 0.0,
+        "checkpoint_due": 0.25,
+        "owner_deadline": 0.25,
+        "progress_steps": 3000,
+        "total_steps": 12000,
+        "rate_lower": 100.0,
+        "rate_upper": 100.0,
+        "checkpoint_cost_upper": 0.5,
+        "stop_cost_upper": 0.1,
+        "restart_cost_upper": 0.2,
+        "observed_at": 0.0,
+        "trusted": true
+      },
+      "actual": {
+        "rate": 100.0,
+        "checkpoint_seconds": 0.5,
+        "stop_seconds": 0.1,
+        "restart_seconds": 0.2,
+        "checkpoint_fails": false
+      },
+      "recall_count": 1
+    },
+    {
+      "case": "save-cutoff-earlier",
+      "label": "保存期限早于收回截止",
+      "observed": {
+        "now": 0.0,
+        "checkpoint_due": 1.0,
+        "owner_deadline": 5.0,
+        "progress_steps": 3000,
+        "total_steps": 12000,
+        "rate_lower": 100.0,
+        "rate_upper": 100.0,
+        "checkpoint_cost_upper": 0.1,
+        "stop_cost_upper": 0.2,
+        "restart_cost_upper": 0.2,
+        "observed_at": 0.0,
+        "trusted": true
+      },
+      "actual": {
+        "rate": 100.0,
+        "checkpoint_seconds": 0.1,
+        "stop_seconds": 0.2,
+        "restart_seconds": 0.2,
+        "checkpoint_fails": false
+      },
+      "recall_count": 1
+    },
+    {
+      "case": "stale-observation",
+      "label": "观测过期",
+      "observed": {
+        "now": 0.0,
+        "checkpoint_due": 5.0,
+        "owner_deadline": 5.0,
+        "progress_steps": 3000,
+        "total_steps": 12000,
+        "rate_lower": 100.0,
+        "rate_upper": 100.0,
+        "checkpoint_cost_upper": 0.05,
+        "stop_cost_upper": 0.1,
+        "restart_cost_upper": 0.2,
+        "observed_at": -5.0,
+        "trusted": true
+      },
+      "actual": {
+        "rate": 100.0,
+        "checkpoint_seconds": 0.05,
+        "stop_seconds": 0.1,
+        "restart_seconds": 0.2,
+        "checkpoint_fails": false
+      },
+      "recall_count": 1
+    },
+    {
+      "case": "save-failure",
+      "label": "声明的保存写入故障",
+      "observed": {
+        "now": 0.0,
+        "checkpoint_due": 5.0,
+        "owner_deadline": 5.0,
+        "progress_steps": 3000,
+        "total_steps": 12000,
+        "rate_lower": 100.0,
+        "rate_upper": 100.0,
+        "checkpoint_cost_upper": 0.05,
+        "stop_cost_upper": 0.1,
+        "restart_cost_upper": 0.2,
+        "observed_at": 0.0,
+        "trusted": true
+      },
+      "actual": {
+        "rate": 100.0,
+        "checkpoint_seconds": 0.05,
+        "stop_seconds": 0.1,
+        "restart_seconds": 0.2,
+        "checkpoint_fails": true
+      },
+      "recall_count": 1
+    },
+    {
+      "case": "compute-slowdown",
+      "label": "收回后吞吐降至估计四分之一",
+      "observed": {
+        "now": 0.0,
+        "checkpoint_due": 5.0,
+        "owner_deadline": 5.0,
+        "progress_steps": 11700,
+        "total_steps": 12000,
+        "rate_lower": 100.0,
+        "rate_upper": 100.0,
+        "checkpoint_cost_upper": 0.05,
+        "stop_cost_upper": 0.1,
+        "restart_cost_upper": 0.2,
+        "observed_at": 0.0,
+        "trusted": true
+      },
+      "actual": {
+        "rate": 25.0,
+        "checkpoint_seconds": 0.05,
+        "stop_seconds": 0.1,
+        "restart_seconds": 0.2,
+        "checkpoint_fails": false
+      },
+      "recall_count": 1
+    },
+    {
+      "case": "save-underestimate",
+      "label": "实际保存比估计慢十倍",
+      "observed": {
+        "now": 0.0,
+        "checkpoint_due": 5.0,
+        "owner_deadline": 5.0,
+        "progress_steps": 3000,
+        "total_steps": 12000,
+        "rate_lower": 100.0,
+        "rate_upper": 100.0,
+        "checkpoint_cost_upper": 0.1,
+        "stop_cost_upper": 0.1,
+        "restart_cost_upper": 0.2,
+        "observed_at": 0.0,
+        "trusted": true
+      },
+      "actual": {
+        "rate": 100.0,
+        "checkpoint_seconds": 1.0,
+        "stop_seconds": 0.1,
+        "restart_seconds": 0.2,
+        "checkpoint_fails": false
+      },
+      "recall_count": 1
+    },
+    {
+      "case": "stop-underestimate",
+      "label": "实际停止超过上界",
+      "observed": {
+        "now": 0.0,
+        "checkpoint_due": 1.0,
+        "owner_deadline": 1.0,
+        "progress_steps": 3000,
+        "total_steps": 12000,
+        "rate_lower": 100.0,
+        "rate_upper": 100.0,
+        "checkpoint_cost_upper": 0.05,
+        "stop_cost_upper": 0.1,
+        "restart_cost_upper": 0.2,
+        "observed_at": 0.0,
+        "trusted": true
+      },
+      "actual": {
+        "rate": 100.0,
+        "checkpoint_seconds": 0.05,
+        "stop_seconds": 0.8,
+        "restart_seconds": 0.2,
+        "checkpoint_fails": false
+      },
+      "recall_count": 1
+    },
+    {
+      "case": "repeated-recall",
+      "label": "接续两秒后再次收回",
+      "observed": {
+        "now": 0.0,
+        "checkpoint_due": 5.0,
+        "owner_deadline": 5.0,
+        "progress_steps": 3000,
+        "total_steps": 12000,
+        "rate_lower": 100.0,
+        "rate_upper": 100.0,
+        "checkpoint_cost_upper": 0.05,
+        "stop_cost_upper": 0.1,
+        "restart_cost_upper": 0.2,
+        "observed_at": 0.0,
+        "trusted": true
+      },
+      "actual": {
+        "rate": 100.0,
+        "checkpoint_seconds": 0.05,
+        "stop_seconds": 0.1,
+        "restart_seconds": 0.2,
+        "checkpoint_fails": false
+      },
+      "recall_count": 2
+    }
+  ]
+}

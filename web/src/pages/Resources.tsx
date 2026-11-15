@@ -2,17 +2,18 @@ import {useRef,useState,type FormEvent} from 'react';
 import {ApiClient,ApiError,idOf,items,list,object,text,type ApiResult,type JsonObject} from '../api';
 import {useQuery} from '../hooks';
 import {useService} from '../service';
+import {OwnedRecalls,useRecalls} from '../components/Recalls';
 import {ErrorNotice,Field,Panel,QueryFeedback,RawData,Receipt,Refresh,Status,Table} from '../components/common';
 
 export function ResourcesPage({api,canContribute=true}:{api:ApiClient;canContribute?:boolean}) {
-  const service=useService();
+  const service=useService(),recalls=useRecalls();
   const [refresh,setRefresh]=useState(0),[cursors,setCursors]=useState<string[]>(['']);
   const cursor=cursors[cursors.length-1];
-  const capacity=useQuery(api,'/v1/capacity',refresh);
-  const contributions=useQuery(api,canContribute?`/x/v1/contributions?limit=50${cursor?`&after=${encodeURIComponent(cursor)}`:''}`:null,refresh);
+  const capacity=useQuery(api,'/v1/capacity',refresh,2000);
+  const contributions=useQuery(api,canContribute?`/x/v1/contributions?limit=50${cursor?`&after=${encodeURIComponent(cursor)}`:''}`:null,refresh,2000);
   const ownedNodes=items(contributions.data).filter(node=>node.contributor_owner_id===api.identity.owner);
   const nodes=list(object(capacity.data).nodes),totals=object(object(capacity.data).totals);
-  const reload=()=>{setCursors(['']);setRefresh(n=>n+1);};
+  const reload=()=>{setCursors(['']);setRefresh(n=>n+1);recalls?.query.refresh();};
   const nextCursor=object(contributions.data).next_cursor;
   const pool=<Panel title="资源池" actions={<Refresh onClick={reload} loading={capacity.loading}/>}>
     <QueryFeedback query={capacity}>
@@ -37,6 +38,8 @@ export function ResourcesPage({api,canContribute=true}:{api:ApiClient;canContrib
             return <div className="record" key={idOf(row)}>
               <div className="record-title"><strong>{text(row.node_id??row.id)}</strong><Status value={row.state}/></div>
               <p>{cards.length} 张 GPU{cards.length?` · ${[...new Set(cards.map(device=>text(device.model)))].join(' / ')}`:''}</p>
+              <div className="device-state-summary">{cards.map(device=><span key={text(device.physical_gpu_id??device.device_id)}>{text(device.model)} · <Status value={device.state}/></span>)}</div>
+              <OwnedRecalls deviceIds={cards.map(device=>text(device.physical_gpu_id??device.device_id))}/>
               <details className="work-disclosure"><summary>设备详情</summary>
                 <div className="device-list">{list(row.devices).map(device=><div key={text(device.device_id)}><code>{text(device.device_id)}</code><span>{text(device.model)} · {text(device.memory_mib)} MiB{device.profile?` · ${text(device.profile)}`:''}</span><Status value={device.state}/></div>)}</div>
                 <dl className="facts"><div><dt>CPU · millicores</dt><dd>{text(object(row.capacity).cpu_millicores)}</dd></div><div><dt>内存 · MiB</dt><dd>{text(object(row.capacity).memory_mib)}</dd></div></dl>
@@ -77,12 +80,12 @@ export function RecallForm({api,nodes,onDone}:{api:ApiClient;nodes:JsonObject[];
   const currentSelection=selected.filter(id=>devices.some(([deviceId])=>deviceId===id));
   async function submit(event:FormEvent<HTMLFormElement>){
     event.preventDefault();if(inFlight.current||error?.uncertain||!currentSelection.length)return;
-    if(!window.confirm(`收回这 ${currentSelection.length} 张 GPU？正在使用它们的工作将被中断。`))return;
+    if(!window.confirm(`收回这 ${currentSelection.length} 张 GPU？尚未完成的工作将保存或停止。`))return;
     const form=new FormData(event.currentTarget);inFlight.current=true;setBusy(true);setError(null);setResult(null);
-    try{setResult(await api.request('/x/v1/contributions/recall',{method:'POST',body:{gpu_ids:currentSelection,notice_seconds:Number(form.get('notice')),duration_seconds:Number(form.get('duration'))}}));setSelected([]);onDone();}
+    try{setResult(await api.request('/x/v1/contributions/recall',{method:'POST',body:{gpu_ids:currentSelection,notice_seconds:Number(form.get('notice')),duration_seconds:Number(form.get('duration')),return_policy:String(form.get('return_policy'))}}));setSelected([]);onDone();}
     catch(error){setError(error instanceof ApiError?error:new ApiError('收回结果待确认',0));}
     finally{inFlight.current=false;setBusy(false);}
   }
   if(!devices.length)return null;
-  return <div className="recall-form"><form onSubmit={submit}><fieldset disabled={busy||Boolean(error?.uncertain)}><legend>选择设备</legend><div className="device-choices">{devices.map(([id,device])=><label key={id}><input type="checkbox" checked={currentSelection.includes(id)} onChange={e=>setSelected(values=>e.target.checked?[...values,id]:values.filter(value=>value!==id))}/><span>{text(object(device).model)} · <code>{id}</code></span></label>)}</div><div className="form-grid"><Field label="提前通知（秒）"><input name="notice" type="number" min="1" max="300" defaultValue="30" required/></Field><Field label="自用时长（秒）"><input name="duration" type="number" min="1" max="3600" defaultValue="60" required/></Field></div></fieldset><button className="button primary" disabled={busy||!currentSelection.length||Boolean(error?.uncertain)}>{busy?'正在通知…':'发送收回通知'}</button></form>{error&&<ErrorNotice error={error}/>} {error?.uncertain&&<p role="status">请刷新设备状态确认收回结果。</p>}{result&&<Receipt result={result}/>}</div>;
+  return <div className="recall-form"><p className="helper">保存期结束后自动停止，无需对方确认。</p><form onSubmit={submit}><fieldset disabled={busy||Boolean(error?.uncertain)}><legend>选择设备</legend><div className="device-choices">{devices.map(([id,device])=><label key={id}><input type="checkbox" checked={currentSelection.includes(id)} onChange={e=>setSelected(values=>e.target.checked?[...values,id]:values.filter(value=>value!==id))}/><span>{text(object(device).model)} · <code>{id}</code></span></label>)}</div><div className="form-grid"><Field label="提前通知（秒）"><input name="notice" type="number" min="1" max="300" defaultValue="30" required/></Field><Field label="自用时长（秒）"><input name="duration" type="number" min="1" max="3600" defaultValue="60" required/></Field><Field label="收回方式"><select name="return_policy" defaultValue="return_first"><option value="return_first">尽快归还</option><option value="preserve_work">尽量保留计算</option></select></Field></div></fieldset><button className="button primary" disabled={busy||!currentSelection.length||Boolean(error?.uncertain)}>{busy?'正在收回…':'收回设备'}</button></form>{error&&<ErrorNotice error={error}/>} {error?.uncertain&&<p role="status">请刷新设备状态确认收回结果。</p>}{result&&<Receipt result={result}/>}</div>;
 }

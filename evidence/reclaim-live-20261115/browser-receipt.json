@@ -1,0 +1,112 @@
+{
+  "observed_at": "2026-11-15T01:56:51.174Z",
+  "mode": "paced real CPU integration; not performance evidence",
+  "checks": [
+    "Adaptive delayed checkpoint saved actual CPU progress and returned resource",
+    "Live countdown and owner status automatically updated; save cutoff differs from recall deadline",
+    "Frozen CPU worker forcibly stopped without borrower action; no fake checkpoint success",
+    "Live countdown and owner status automatically updated; save cutoff differs from recall deadline",
+    "No application errors in two independent account contexts",
+    "Same work resumed actual checkpoint and completed; allocation released",
+    "Decision audit survives stop; another member cannot read it",
+    "Admin report current digest and browser download original bytes verified"
+  ],
+  "rows": [
+    {
+      "case": "normal",
+      "intent": "reclaim-live-normal-1794707771360",
+      "initial": {
+        "allocation_id": "e0-a12",
+        "intent_id": "reclaim-live-normal-1794707771360",
+        "display_name": "收回策略验证",
+        "state": "saving",
+        "checkpoint_due": 779.9719100000013,
+        "deadline": 783.9719100000013,
+        "checkpoint_status": null,
+        "checkpoint_verified": false,
+        "decision": {
+          "action": "save_at",
+          "dispatch_at": 779.1179165840014,
+          "stop_at": 779.9719100000013,
+          "phase": "planned",
+          "reason": "delay_valuable",
+          "return_policy": "preserve_work"
+        }
+      },
+      "returned": {
+        "notice_id": "e0-notice16",
+        "device_ids": [
+          "sim-a10-gpu0",
+          "sim-a10-gpu1"
+        ],
+        "issued_at": 771.9719100000013,
+        "deadline": 783.9719100000013,
+        "unavailable_until": 786.9719100000013,
+        "state": "ready",
+        "held_count": 0,
+        "decision": {
+          "action": "save_at",
+          "dispatch_at": 779.1179165840014,
+          "stop_at": 779.9719100000013,
+          "phase": "complete",
+          "reason": "delay_valuable",
+          "return_policy": "preserve_work"
+        }
+      },
+      "confirmed_now": 779.5297144170011,
+      "work_state": "waiting",
+      "before": "设备正在收回\n开始保存前 6 秒\n\n稍后保存 · 多算一段后再保存\n\n到时自动停止，无需手动归还。",
+      "after": "设备正在收回\n开始保存前 5 秒\n\n稍后保存 · 多算一段后再保存\n\n到时自动停止，无需手动归还。"
+    },
+    {
+      "case": "frozen",
+      "intent": "reclaim-live-frozen-1794707792332",
+      "initial": {
+        "allocation_id": "e0-a19",
+        "intent_id": "reclaim-live-frozen-1794707792332",
+        "display_name": "停止超时验证",
+        "state": "saving",
+        "checkpoint_due": 798.7597135000015,
+        "deadline": 802.7597135000015,
+        "checkpoint_status": null,
+        "checkpoint_verified": false,
+        "decision": {
+          "action": "save_at",
+          "dispatch_at": 798.0053260000014,
+          "stop_at": 798.7597135000015,
+          "phase": "planned",
+          "reason": "delay_valuable",
+          "return_policy": "preserve_work"
+        }
+      },
+      "returned": {
+        "notice_id": "e0-notice23",
+        "device_ids": [
+          "sim-a10-gpu0",
+          "sim-a10-gpu1"
+        ],
+        "issued_at": 790.7597135000015,
+        "deadline": 802.7597135000015,
+        "unavailable_until": 805.7597135000015,
+        "state": "ready",
+        "held_count": 0,
+        "decision": {
+          "action": "save_at",
+          "dispatch_at": 798.0053260000014,
+          "stop_at": 798.7597135000015,
+          "phase": "complete",
+          "reason": "delay_valuable",
+          "return_policy": "preserve_work"
+        }
+      },
+      "confirmed_now": 800.0290650840013,
+      "work_state": "failed",
+      "before": "设备正在收回\n开始保存前 7 秒\n\n稍后保存 · 多算一段后再保存\n\n到时自动停止，无需手动归还。",
+      "after": "设备正在收回\n开始保存前 6 秒\n\n稍后保存 · 多算一段后再保存\n\n到时自动停止，无需手动归还。"
+    }
+  ],
+  "errors": [],
+  "final_report_sha256": "33588804008f10dca250d63304c87d8f26b5461d5e04ddf77df424274f9eb14b",
+  "final_protocol_sha256": "fe9f06f26cf2caf178442c4aef798f9fc65f073e5d253dba0e511d19e9d28c24",
+  "final_download_check_at": "2026-11-15T02:01:22.104Z"
+}

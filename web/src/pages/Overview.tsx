@@ -5,6 +5,7 @@ import {useAccount} from '../session';
 import {QueryFeedback,Refresh,Status} from '../components/common';
 import {workHref} from '../navigation';
 import {workName} from '../workName';
+import {useRecalls} from '../components/Recalls';
 export {shortWorkId} from '../workName';
 
 const terminal=new Set(['completed','failed','cancelled']);
@@ -35,13 +36,13 @@ function workAttention(work:JsonObject,allocations:JsonObject[],legal:JsonObject
 }
 function ReadStamp({time}:{time:number|null}){return <small>{time?`上次读取 ${new Date(time).toLocaleTimeString()}`:'尚未读取'}</small>;}
 export function OverviewPage({api}:{api:ApiClient}) {
-  const account=useAccount();
+  const account=useAccount(),recalls=useRecalls();
   const canUse=account?.capabilities.includes('use_compute')&&Boolean(account.owner_id);
   const canContribute=account?.capabilities.includes('contribute_resources')&&Boolean(account.owner_id);
-  const admin=useQuery(api,account?.is_administrator?'/x/v1/admin/overview':null);
-  const works=useQuery(api,canUse?'/x/v1/work-intents?limit=25':null);
-  const allocations=useQuery(api,canUse?'/v1/allocations?limit=50':null);
-  const contributions=useQuery(api,canContribute?'/x/v1/contributions?limit=50':null);
+  const admin=useQuery(api,account?.is_administrator?'/x/v1/admin/overview':null,0,2000);
+  const works=useQuery(api,canUse?'/x/v1/work-intents?limit=25':null,0,2000);
+  const allocations=useQuery(api,canUse?'/v1/allocations?limit=50':null,0,2000);
+  const contributions=useQuery(api,canContribute?'/x/v1/contributions?limit=50':null,0,2000);
   const rows=items(works.data).filter(row=>row.owner_id===account?.owner_id),nodes=items(contributions.data).filter(node=>node.contributor_owner_id===account?.owner_id);
   const workVersion=versionOf(works.data),allocationVersion=versionOf(allocations.data);
   const sameEpoch=Boolean(workVersion&&allocationVersion&&workVersion.epoch===allocationVersion.epoch);
@@ -52,7 +53,8 @@ export function OverviewPage({api}:{api:ApiClient}) {
   const scopeKey=`${api.identity.owner}\0${api.identity.token}\0${workVersion?.epoch??''}`;
   const [dismissed,setDismissed]=useState<{scope:string;keys:string[]}>({scope:'',keys:[]});
   const dismissedKeys=dismissed.scope===scopeKey?dismissed.keys:[];
-  const allAttention=rows.map(row=>workAttention(row,allocationIds(row).flatMap(id=>leaseById.has(id)?[leaseById.get(id)!]:[]),list(object(allocations.data).legal_actions))).filter((entry):entry is Attention=>entry!==null).sort(compareAttention);
+  const globalRecallIds=new Set(recalls?.borrowed.filter(row=>row.state!=='interrupted').map(row=>row.intent_id)??[]);
+  const allAttention=rows.filter(row=>!globalRecallIds.has(idOf(row))).map(row=>workAttention(row,allocationIds(row).flatMap(id=>leaseById.has(id)?[leaseById.get(id)!]:[]),list(object(allocations.data).legal_actions))).filter((entry):entry is Attention=>entry!==null).sort(compareAttention);
   const attention=allAttention.filter(entry=>!dismissedKeys.includes(entry.signature));
   const hiddenCount=allAttention.length-attention.length;
   const [showAll,setShowAll]=useState(false);

@@ -40,8 +40,8 @@ test('recall requires specific confirmation and ignores selection removed by a f
   const client=api();await render(<RecallForm api={client} nodes={[node]} onDone={()=>{}}/>);
   await act(async()=>container.querySelector('input[type=checkbox]').click());
   let confirmation='';dom.window.confirm=message=>{confirmation=message;return false;};
-  await click('发送收回通知');
-  assert.match(confirmation,/1 张 GPU.*工作将被中断/);assert.equal(calls.length,0);
+  await click('收回设备');
+  assert.match(confirmation,/1 张 GPU.*工作将保存或停止/);assert.equal(calls.length,0);
   await render(<RecallForm api={client} nodes={[]} onDone={()=>{}}/>);
   assert.equal(container.querySelector('button'),null);assert.equal(calls.length,0);
 });

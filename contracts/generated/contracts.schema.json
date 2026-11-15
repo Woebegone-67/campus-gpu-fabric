@@ -2013,6 +2013,91 @@
       "title": "EvidenceWindow",
       "type": "object"
     },
+    "ExecutionProgress": {
+      "additionalProperties": false,
+      "properties": {
+        "checkpoint_cost_upper": {
+          "exclusiveMinimum": 0,
+          "title": "Checkpoint Cost Upper",
+          "type": "number"
+        },
+        "evidence_digest": {
+          "maxLength": 4096,
+          "minLength": 1,
+          "title": "Evidence Digest",
+          "type": "string"
+        },
+        "observed_at": {
+          "maximum": 9007199254740991,
+          "minimum": 0,
+          "title": "Observed At",
+          "type": "number"
+        },
+        "rate_lower": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rate Lower"
+        },
+        "rate_upper": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rate Upper"
+        },
+        "restart_cost_upper": {
+          "minimum": 0,
+          "title": "Restart Cost Upper",
+          "type": "number"
+        },
+        "sample_count": {
+          "minimum": 0,
+          "title": "Sample Count",
+          "type": "integer"
+        },
+        "step": {
+          "minimum": 0,
+          "title": "Step",
+          "type": "integer"
+        },
+        "stop_cost_upper": {
+          "exclusiveMinimum": 0,
+          "title": "Stop Cost Upper",
+          "type": "number"
+        },
+        "total_steps": {
+          "exclusiveMinimum": 0,
+          "title": "Total Steps",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "step",
+        "total_steps",
+        "observed_at",
+        "checkpoint_cost_upper",
+        "stop_cost_upper",
+        "restart_cost_upper",
+        "sample_count",
+        "evidence_digest"
+      ],
+      "title": "ExecutionProgress",
+      "type": "object"
+    },
     "ExecutorEvent": {
       "additionalProperties": false,
       "properties": {
@@ -2089,6 +2174,17 @@
           ],
           "default": null,
           "title": "Physical Elapsed Seconds"
+        },
+        "progress": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ExecutionProgress"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
         },
         "result_uri": {
           "anyOf": [
@@ -3194,6 +3290,15 @@
           "minimum": 1,
           "title": "Notice Seconds",
           "type": "integer"
+        },
+        "return_policy": {
+          "default": "return_first",
+          "enum": [
+            "return_first",
+            "preserve_work"
+          ],
+          "title": "Return Policy",
+          "type": "string"
         }
       },
       "required": [

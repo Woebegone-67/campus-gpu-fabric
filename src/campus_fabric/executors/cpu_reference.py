@@ -448,6 +448,41 @@ class CpuReferenceExecutor:
                     resumed_attempt_id=record["attempt"]["attempt_id"],
                 )
             self._event(state, record, "started", "started", logical_time, checkpoint=checkpoint)
+        progress_path = directory / "progress.json"
+        if (progress_path.exists() and record["status"] == "running"
+                and logical_time - record.get("progress_reported_at", -1.0) >= 0.25):
+            progress = read_signed(progress_path, self.key)
+            self._check_identity(progress, record)
+            step, observed_ns = progress["state"]["step"], progress["observed_monotonic_ns"]
+            if (type(step) is not int or not 0 <= step <= record["config"]["total_steps"]
+                    or type(observed_ns) is not int or observed_ns > time.monotonic_ns()):
+                raise ExecutorRejected("Invalid signed progress observation")
+            samples = record.setdefault("progress_samples", [])
+            if not samples or observed_ns > samples[-1][1]:
+                if samples and step < samples[-1][0]:
+                    raise ExecutorRejected("Progress moved backwards within an attempt")
+                samples.append([step, observed_ns])
+                del samples[:-8]
+            intervals = [(right[0] - left[0], (right[1] - left[1]) / 1e9)
+                         for left, right in zip(samples, samples[1:])
+                         if right[0] > left[0] and right[1] > left[1]]
+            rates = [steps / duration for steps, duration in intervals]
+            age = max(0.0, (time.monotonic_ns() - observed_ns) / 1e9)
+            # Inflated observed envelopes are estimates, not a real-time guarantee.
+            # Stop reserve includes TERM-to-KILL escalation and driver polling.
+            observation = m.ExecutionProgress(
+                step=step, total_steps=record["config"]["total_steps"],
+                observed_at=max(0.0, logical_time - age),
+                rate_lower=min(rates) * 0.75 if len(rates) >= 2 else None,
+                rate_upper=max(rates) * 1.25 if len(rates) >= 2 else None,
+                checkpoint_cost_upper=max(0.15, max((dt for _, dt in intervals), default=0.2) * 2 + 0.1),
+                stop_cost_upper=record["config"]["stop_timeout_seconds"] + 1.0,
+                restart_cost_upper=0.5, sample_count=len(samples),
+                evidence_digest=hashlib.sha256(canonical(progress)).hexdigest(),
+            )
+            marker = "progress:" + str(observed_ns)
+            self._event(state, record, marker, "progress", logical_time, progress=observation)
+            record["progress_reported_at"] = logical_time
         for request in record["checkpoint_requests"]:
             path = directory / request["filename"]
             marker = "checkpoint:" + request["dispatch_id"]
