@@ -2,7 +2,9 @@
 
 校园临时共享算力：以贡献者收回期限为约束，按实际进度选择完成、保存或停止，让使用者沿同一项工作继续。
 
-当前收尾分支：`release/final-20261115`。已合入新 UI，并完成最终一轮页面删减、工作流调整和实际浏览器验证。旧 B 交接任务已经结束，历史文档保留在 `docs/handoff/`，不再作为当前操作入口。
+当前开发分支：`research/b-reclaim-breakthrough`，基于 `0217e45`。新增神经可用窗口预测、任务条件 GPU 排名及实际 worker 接线；[本版运行入口](docs/release/NEURAL_PRODUCT_PREVIEW.md)包含一条命令的完整演示。原 UI 和自适应收回机制保留，既有验收文档仍对应其标注版本。
+
+按本轮明确要求，账号登录已改为**已有账号输入任意非空密码即可进入**，空密码和未知账号仍拒绝。这取消了密码身份校验，知道账号名即可进入该账号；资源权限仍来自服务器账户配置。
 
 ## 直接开始
 
@@ -16,21 +18,21 @@
 - [此前真实 CPU 损失核算](docs/research/FINAL_LOSS_ACCOUNTING.md)：原四条件三策略实验保留。
 - 可打印：[阅读手册 PDF](docs/release/artifacts/织算_上台前阅读手册.pdf)、[路演与问答 PDF](docs/release/artifacts/织算_五分钟路演与问答.pdf)。
 
-已有本机试用：CPU 实例 <http://127.0.0.1:15253>，逻辑模拟 <http://127.0.0.1:15252>。这两个地址只适用于已经启动本仓库的当前电脑。页面使用账户、密码登录，刷新后保持会话。当前本机初始密码保存在 `runtime/release-preview-morning-20261115/cpu/login-accounts.txt`，仅供本机查看，不纳入 Git。
+本版独立试用入口：CPU 实例 <http://127.0.0.1:15283>，逻辑模拟 <http://127.0.0.1:15282>。这两个地址只适用于已按本版运行入口启动的当前电脑。页面使用已有账号及任意非空密码登录，刷新后保持会话。
 
 ## 从干净目录启动
 
 需要 Git、uv、Python 3.12、Node 22.12+（22.x）、npm 和 make。无需真实 GPU；CPU 进程控制要求 macOS/Linux。端口被占用时选择另一组端口，不停止其他实例。
 
 ```bash
-git clone --branch release/final-20261115 https://github.com/Woebegone-67/campus-gpu-fabric.git
+git clone https://github.com/Woebegone-67/campus-gpu-fabric.git
 cd campus-gpu-fabric
 uv python install 3.12
 make setup
 uv run python scripts/cp2_joint_session.py start   --runtime runtime/my-demo   --logical-api-port 18262 --logical-web-port 15262   --cpu-api-port 18263 --cpu-web-port 15263
 ```
 
-打开 CPU 页面 <http://127.0.0.1:15263>，使用 `runtime/my-demo/cpu/login-accounts.txt` 中的账户和初始密码登录。Alice（`alice`）、Bob（`bob`）、Chen（`chen`）都是普通用户，均可使用算力和共享自己的设备；本次演示设备由 Chen 持有。管理员账户是 `admin`。登录会话有效期为七天，刷新页面无需重新登录；“退出登录”会使当前会话失效。逻辑实例使用其 `logical/login-accounts.txt` 中的密码，与 CPU 实例分别登录。
+打开 CPU 页面 <http://127.0.0.1:15263>，输入已有账号和任意非空密码登录。Alice（`alice`）、Bob（`bob`）、Chen（`chen`）都是普通用户，均可使用算力和共享自己的设备；本次演示设备由 Chen 持有。管理员账户是 `admin`。登录会话有效期为七天，刷新页面无需重新登录；“退出登录”会使当前会话失效。逻辑实例与 CPU 实例分别登录。启动前应切到本版提交；远端未推送时，克隆默认分支不会得到这些变更。
 
 演示不同用户时，使用独立的浏览器配置文件或不同浏览器。同一浏览器配置文件中的普通窗口共用登录状态，不能用它们模拟两个同时在线的账户。
 

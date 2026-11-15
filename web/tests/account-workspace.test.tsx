@@ -102,7 +102,7 @@ beforeEach(() => {
     if(request.path==='/x/v1/auth/login') {
       const body=JSON.parse(options.body);request.owner=body.username;
       const override=await intercept?.(request);if(override){if(override.ok)cookieOwner=body.username;return override;}
-      if(body.password!==`synthetic-${body.username}`||!sessions.has(body.username))return json({error:'unauthorized'},401);
+      if(!body.password||!sessions.has(body.username))return json({error:'unauthorized'},401);
       cookieOwner=body.username;return json(sessions.get(cookieOwner));
     }
     if(request.path==='/x/v1/auth/logout'){cookieOwner='';return json({ok:true});}
@@ -333,15 +333,24 @@ test('remount restores the cookie session without another login and uses the pub
   assert.equal(requests.filter(r=>r.path==='/x/v1/auth/login').length,loginCount);
 });
 
-test('wrong passwords show a short error and preserve username without exposing a workspace',async()=>{
+test('unknown accounts show a short error and preserve username without exposing a workspace',async()=>{
   await mount();
-  await enter(container.querySelector('input[name=username]'),'alice');
+  await enter(container.querySelector('input[name=username]'),'unknown-account');
   await enter(container.querySelector('input[name=password]'),'wrong');
   await interact(()=>button('登录',container.querySelector('.identity-manual')).click());
-  assert.match(container.textContent,/账户或密码不正确/);
+  assert.match(container.textContent,/账户不存在或登录内容为空/);
   assert.equal(container.querySelector('.space-body'),null);
-  assert.equal(container.querySelector('input[name=username]').value,'alice');
+  assert.equal(container.querySelector('input[name=username]').value,'unknown-account');
   assert.equal(container.querySelector('input[name=password]').value,'');
+});
+
+test('existing accounts accept arbitrary nonempty login contents',async()=>{
+  await mount();
+  await enter(container.querySelector('input[name=username]'),'alice');
+  await enter(container.querySelector('input[name=password]'),'any-value');
+  await interact(()=>button('登录',container.querySelector('.identity-manual')).click());
+  assert.ok(container.querySelector('.space-body'));
+  assert.equal(cookieOwner,'alice');
 });
 
 test('a focus refresh switches to the current cookie identity and drops previous drafts',async()=>{

@@ -40,10 +40,15 @@ beforeEach(()=>{
 afterEach(async()=>{await act(async()=>root.unmount());globalThis.fetch=originalFetch;});
 after(()=>dom.window.close());
 
-test('login accepts a username and password without development credential controls',async()=>{
+test('account-direct login accepts a nonempty value and explains password is not verified',async()=>{
   let applied;
   await render(<IdentityPicker busy={false} onLogin={async(username,password)=>{applied={username,password};}}/>);
   assert.equal(container.querySelector('input[type=file]'),null);
+  assert.match(container.textContent,/不校验密码/);
+  assert.equal(field('密码').required,true);
+  await enter(field('账户'),' alice ');
+  await submit(container.querySelector('form'));
+  assert.equal(applied,undefined);
   await enter(field('账户'),' alice ');await enter(field('密码'),'test-password');
   await submit(container.querySelector('form'));
   assert.deepEqual(applied,{username:'alice',password:'test-password'});

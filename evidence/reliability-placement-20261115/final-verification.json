@@ -1,0 +1,81 @@
+{
+  "baseline": "0217e45de5bac7c8217c0144d51ff6414331d2f5",
+  "date": "2026-11-15",
+  "scope": "targeted verification, not full CP0 acceptance",
+  "algorithm_tests": {
+    "status": "PASS",
+    "passed": 177,
+    "seconds": 7.51,
+    "groups": [
+      "availability_worker",
+      "availability_inputs",
+      "availability_model",
+      "learned",
+      "learned_kernel",
+      "reliability",
+      "reliability_kernel",
+      "renewal",
+      "neural_availability_study",
+      "reliability_comparison",
+      "renewal_comparison"
+    ]
+  },
+  "host_orchestrator_regression": {
+    "status": "PASS",
+    "passed": 24,
+    "seconds": 5.56
+  },
+  "frozen_studies": [
+    {
+      "directory": "evidence/reliability-placement-20261115-run01",
+      "frozen_files": 5,
+      "result_files": 2,
+      "status": "PASS"
+    },
+    {
+      "directory": "evidence/reliability-renewal-20261115-run01",
+      "frozen_files": 8,
+      "result_files": 2,
+      "status": "PASS"
+    },
+    {
+      "directory": "evidence/neural-availability-20261115-run01",
+      "frozen_files": 8,
+      "result_files": 3,
+      "status": "PASS"
+    }
+  ],
+  "actual_worker_demo": {
+    "status": "PASS",
+    "path": "evidence/neural-worker-demo-20261115-run01/receipt.json",
+    "actual_commits": 4,
+    "changed_placements": 2,
+    "recall_deadline_seconds": 1,
+    "original_ttl_seconds": 900
+  },
+  "full_cp0": "FAILED; baseline-reproduced failures and prior incomplete regression preserved in INDEX.md",
+  "not_verified": [
+    "real contributor data training",
+    "automatic live history collection",
+    "real GPU performance",
+    "general inventory and aged-window neural allocation"
+  ],
+  "login_checks": {
+    "status": "PASS",
+    "backend_tests": 20,
+    "backend_seconds": 2.17,
+    "ui_targeted_tests": 60,
+    "semantics": "existing configured account plus any nonempty password; password ownership is not verified",
+    "source": "tests/blackbox/test_browser_sessions.py",
+    "live_proxy": "evidence/reliability-placement-20261115/live-login-results.json"
+  },
+  "web_final": {
+    "status": "PASS",
+    "ui_tests": 157,
+    "typescript": "PASS",
+    "production_build": "PASS",
+    "evidence": "evidence/reliability-placement-20261115/web-final-results.json"
+  },
+  "ruff_changed_python": "PASS",
+  "research_optimization": "STOPPED per user request; no model tuning after frozen study"
+}

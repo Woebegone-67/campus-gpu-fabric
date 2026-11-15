@@ -1,0 +1,51 @@
+[
+  {
+    "name": "web-ui",
+    "command": [
+      "/Users/xuyang/.npm/_npx/52027bd8fc0022aa/node_modules/node/bin/node",
+      "node_modules/tsx/dist/cli.mjs",
+      "--tsconfig",
+      "tsconfig.json",
+      "--test",
+      "tests/account-workspace.test.tsx",
+      "tests/copy-work-id.test.tsx",
+      "tests/final-secondary-pages.test.tsx",
+      "tests/overview.test.tsx",
+      "tests/policy-validation.test.tsx",
+      "tests/polling.test.tsx",
+      "tests/recalls.test.tsx",
+      "tests/reclaim-validation.test.tsx",
+      "tests/resource-access.test.tsx",
+      "tests/space-gesture.test.tsx",
+      "tests/starwave.test.tsx",
+      "tests/ui.test.tsx",
+      "tests/work-experience.test.tsx",
+      "tests/work-names.test.tsx"
+    ],
+    "returncode": 0,
+    "seconds": 4.94,
+    "tail": " programmatic resubmission\nok 149 - unknown registration results keep the original ID and input and block a programmatic resubmission\n  ---\n  duration_ms: 23.412458\n  type: 'test'\n  ...\n# Subtest: finished work promotes only its legal release while keeping the same versioned command\nok 150 - finished work promotes only its legal release while keeping the same versioned command\n  ---\n  duration_ms: 57.308958\n  type: 'test'\n  ...\n# Subtest: concise checkpoint summary does not equate a ready report or verified artifact with continuation\nok 151 - concise checkpoint summary does not equate a ready report or verified artifact with continuation\n  ---\n  duration_ms: 14.224042\n  type: 'test'\n  ...\n# Subtest: creation requires its first field, trims the name and counts Unicode characters\nok 152 - creation requires its first field, trims the name and counts Unicode characters\n  ---\n  duration_ms: 131.2775\n  type: 'test'\n  ...\n# Subtest: a registration retry retains the same name, ID and complete input\nok 153 - a registration retry retains the same name, ID and complete input\n  ---\n  duration_ms: 49.889042\n  type: 'test'\n  ...\n# Subtest: list names may repeat, remain safe text, filter locally and open by the original ID\nok 154 - list names may repeat, remain safe text, filter locally and open by the original ID\n  ---\n  duration_ms: 92.063875\n  type: 'test'\n  ...\n# Subtest: the same persisted name appears in details, associated events and decision context\nok 155 - the same persisted name appears in details, associated events and decision context\n  ---\n  duration_ms: 64.429291\n  type: 'test'\n  ...\n# Subtest: overview names cover attention, current work and completed results with a legacy fallback\nok 156 - overview names cover attention, current work and completed results with a legacy fallback\n  ---\n  duration_ms: 14.506125\n  type: 'test'\n  ...\n# Subtest: decision context cannot retain an old account name after unauthorized lookup\nok 157 - decision context cannot retain an old account name after unauthorized lookup\n  ---\n  duration_ms: 18.569041\n  type: 'test'\n  ...\n1..157\n# tests 157\n# suites 0\n# pass 157\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 4245.318958\n"
+  },
+  {
+    "name": "web-build",
+    "command": [
+      "/Users/xuyang/.npm/_npx/52027bd8fc0022aa/node_modules/node/bin/node",
+      "node_modules/typescript/bin/tsc",
+      "--noEmit"
+    ],
+    "returncode": 0,
+    "seconds": 0.58,
+    "tail": ""
+  },
+  {
+    "name": "web-bundle",
+    "command": [
+      "/Users/xuyang/.npm/_npx/52027bd8fc0022aa/node_modules/node/bin/node",
+      "node_modules/vite/bin/vite.js",
+      "build"
+    ],
+    "returncode": 0,
+    "seconds": 0.5,
+    "tail": "vite v8.3.8 building client environment for production...\ntransforming...\n✓ 54 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.37 kB │ gzip:   0.29 kB\ndist/assets/index-DbKQ9Mzm.css   56.99 kB │ gzip:  11.33 kB\ndist/assets/index-DJ9NiSMx.js   346.38 kB │ gzip: 105.55 kB\n\n✓ built in 159ms\n"
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "url": "http://127.0.0.1:15282",
+    "mode": "logical_simulation",
+    "arbitrary_nonempty_login": 200,
+    "existing_session": 200,
+    "empty_rejected": 400,
+    "unknown_rejected": 401,
+    "cross_origin_rejected": 403,
+    "role": "ordinary account retained",
+    "status": "PASS"
+  },
+  {
+    "url": "http://127.0.0.1:15283",
+    "mode": "cpu_reference",
+    "arbitrary_nonempty_login": 200,
+    "existing_session": 200,
+    "empty_rejected": 400,
+    "unknown_rejected": 401,
+    "cross_origin_rejected": 403,
+    "role": "ordinary account retained",
+    "status": "PASS"
+  }
+]

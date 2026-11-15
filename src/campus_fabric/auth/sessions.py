@@ -1,9 +1,13 @@
-"""Password accounts and revocable browser sessions, separate from the resource ledger."""
+"""Configured-account access and revocable sessions, separate from the resource ledger.
+
+Account-direct login intentionally accepts any nonempty password-field value. It
+does not verify password ownership. Stored hashes remain configuration-compatible
+and participate in session revocation when the account configuration changes.
+"""
 
 from __future__ import annotations
 
 import hashlib
-import hmac
 import json
 import os
 import secrets
@@ -40,12 +44,6 @@ def _validate_hash(encoded: str) -> tuple[bytes, bytes]:
     if len(salt) != 16 or len(expected) != 32:
         raise ValueError("Invalid password hash")
     return salt, expected
-
-
-def _verify_password(password: str, encoded: str) -> bool:
-    salt, expected = _validate_hash(encoded)
-    derived = hashlib.scrypt(password.encode(), salt=salt, n=16384, r=8, p=1, dklen=32)
-    return hmac.compare_digest(derived, expected)
 
 
 def require_browser_request(request: Request) -> None:
@@ -88,7 +86,6 @@ class BrowserSessions:
             fingerprint = hashlib.sha256(json.dumps(
                 [encoded, actor.model_dump(mode="json")], sort_keys=True).encode()).hexdigest()
             self.accounts[username] = (encoded, actor, fingerprint)
-        self._dummy_hash = hash_password(secrets.token_urlsafe(32))
         self.path = directory / "browser-sessions.sqlite3"
         descriptor = os.open(self.path, os.O_CREAT | os.O_RDWR, 0o600)
         os.close(descriptor)
@@ -130,9 +127,8 @@ class BrowserSessions:
         if limited:
             raise HTTPException(429, "尝试次数较多，请稍后再试。")
         entry = self.accounts.get(username)
-        valid = _verify_password(password, entry[0] if entry else self._dummy_hash)
-        if not valid or entry is None:
-            raise HTTPException(401, "账户或密码不正确。")
+        if entry is None or not isinstance(password, str) or not 1 <= len(password) <= 256:
+            raise HTTPException(401, "账户不存在或登录内容为空。")
         token = secrets.token_urlsafe(32)
         with self._connection() as db:
             previous = request.cookies.get(self.cookie_name)

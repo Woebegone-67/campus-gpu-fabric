@@ -76,21 +76,38 @@ def test_login_refresh_restart_and_private_persistence(tmp_path, accounts):
     assert (tmp_path / "browser-sessions.sqlite3").stat().st_mode & 0o777 == 0o600
 
 
-def test_bad_credentials_do_not_fall_back_to_client_role_or_owner(tmp_path, accounts):
+def test_unknown_account_does_not_fall_back_to_client_role_or_owner(tmp_path, accounts):
     with TestClient(create_app(data_dir=tmp_path, auth_accounts=accounts)) as client:
         assert client.get("/x/v1/session", headers={"X-Owner": "alice"}).status_code == 401
-        known = login(client, password="wrong")
         unknown = login(client, username="not-an-account", password="wrong")
-        assert known.status_code == unknown.status_code == 401
-        assert known.json()["detail"] == unknown.json()["detail"]
-        assert "set-cookie" not in known.headers
-        assert login(client).status_code == 200
+        assert unknown.status_code == 401
+        assert "set-cookie" not in unknown.headers
+        assert login(client, password="anything").status_code == 200
         trusted = client.get("/x/v1/session", headers={"X-Role": "administrator"}).json()
         assert not trusted["is_administrator"]
         assert client.get("/x/v1/session", headers={"X-Owner": "bob"}).status_code == 403
         assert client.get("/x/v1/session", headers={"Authorization": "Bearer wrong"}).status_code == 401
         assert client.get("/x/v1/session", headers={"Authorization": ""}).status_code == 401
         assert client.get("/x/v1/session", headers={"Authorization": "", "X-Owner": "bob"}).status_code == 401
+
+
+@pytest.mark.parametrize("password", ["1", "arbitrary-value", "任意内容", " "])
+def test_account_direct_login_accepts_any_nonempty_value(tmp_path, accounts, password):
+    with TestClient(create_app(data_dir=tmp_path, auth_accounts=accounts)) as client:
+        response = login(client, password=password)
+        assert response.status_code == 200
+        assert response.json()["username"] == "alice"
+        assert response.json()["owner_id"] == "alice"
+        assert not response.json()["is_administrator"]
+        assert client.get("/x/v1/session").json() == response.json()
+
+
+def test_account_direct_login_rejects_empty_value_without_creating_session(tmp_path, accounts):
+    with TestClient(create_app(data_dir=tmp_path, auth_accounts=accounts)) as client:
+        response = login(client, password="")
+        assert response.status_code == 400
+        assert "set-cookie" not in response.headers
+        assert client.get("/x/v1/session").status_code == 401
 
 
 @pytest.mark.parametrize("headers", [{}, {"X-Fabric-Request": "browser", "Origin": "https://evil.test"},
@@ -205,5 +222,5 @@ def test_accounts_file_and_login_throttle(tmp_path, accounts, monkeypatch):
     monkeypatch.setenv("FABRIC_ACCOUNTS_FILE", str(path))
     with TestClient(create_app(data_dir=tmp_path / "data")) as client:
         for _ in range(20):
-            assert login(client, password="wrong").status_code == 401
-        assert login(client, password="wrong").status_code == 429
+            assert login(client, username="not-an-account", password="anything").status_code == 401
+        assert login(client, password="anything").status_code == 429

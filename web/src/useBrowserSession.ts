@@ -42,7 +42,7 @@ export function useBrowserSession(){
       setState({account,loading:false,error:''});
     }catch(error){
       if(current!==generation.current)return;
-      const message=error instanceof ApiError&&error.status===401?'账户或密码不正确。':error instanceof ApiError&&error.status===429?'尝试次数过多，请稍后再试。':'登录未完成，请重试。';
+      const message=error instanceof ApiError&&error.status===401?'账户不存在或登录内容为空。':error instanceof ApiError&&error.status===429?'尝试次数过多，请稍后再试。':'登录未完成，请重试。';
       setState({account:null,loading:false,error:message});
     }finally{changing.current=false;}
   },[api]);
