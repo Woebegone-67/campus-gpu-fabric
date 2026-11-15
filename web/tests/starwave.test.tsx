@@ -100,8 +100,8 @@ function assertReleased() {
   assert.equal(mediaListeners.size, 0, 'engine and wrapper media listeners are removed');
 }
 async function render(children) {await act(async () => root.render(children));}
-function surface(enabled = true, label = 'Business content') {
-  return <StrictMode><StarwaveSurface enabled={enabled}>
+function surface(enabled = true, label = 'Business content', visible = true) {
+  return <StrictMode><StarwaveSurface enabled={enabled} visible={visible}>
     <StarwaveMotionControl/><label>{label}<input defaultValue="preserved input"/></label>
   </StarwaveSurface></StrictMode>;
 }
@@ -162,6 +162,50 @@ test('disabling the visual shell releases the scene and leaves business controls
   assert.equal(input.value, 'classic mode input');
   await render(surface(true));
   assert.equal(container.querySelectorAll('canvas').length, 1);
+  assert.equal(frames.size, 1);
+});
+
+test('space fades retain the scene and drafts, stop hidden drawing, and cancel stale pause timers', async context => {
+  context.mock.timers.enable({apis: ['setTimeout']});
+  await render(surface());
+  const canvas = container.querySelector('canvas');
+  canvas.style.transitionDuration = '800ms';
+  canvas.style.transitionDelay = '0s';
+  const input = container.querySelector('input'); input.value = 'unsent draft';
+  await render(surface(true, 'Business content', false));
+  assert.equal(container.querySelector('canvas'), canvas);
+  assert.equal(frames.size, 1, 'scene continues moving during its fade');
+  const transitionEnd = Object.assign(new Event('transitionend'), {propertyName: 'opacity'});
+  canvas.dispatchEvent(transitionEnd);
+  assert.equal(frames.size, 0, 'drawing stops when opacity finishes fading');
+  const stoppedDraws = drawCount; tick(9000);
+  assert.equal(drawCount, stoppedDraws, 'hidden scene does not keep painting');
+  await render(surface());
+  assert.equal(frames.size, 1, 'returning to overview resumes the same scene');
+  await render(surface(true, 'Business content', false));
+  await render(surface());
+  context.mock.timers.tick(900);
+  assert.equal(frames.size, 1, 'a cancelled fade cannot pause the visible overview');
+  await render(surface(true, 'Business content', false));
+  context.mock.timers.tick(900);
+  assert.equal(frames.size, 0, 'fallback also pauses when transitionend is unavailable');
+  await render(surface());
+  assert.equal(container.querySelectorAll('canvas').length, 1);
+  assert.equal(container.querySelector('canvas'), canvas);
+  assert.equal(container.querySelector('input'), input);
+  assert.equal(input.value, 'unsent draft');
+  await act(async () => container.querySelector('button').click());
+  await render(surface(true, 'Business content', false));
+  await render(surface());
+  assert.equal(frames.size, 0, 'space changes preserve the user pause preference');
+});
+
+test('opening directly in the workbench schedules no hidden animation', async () => {
+  await render(surface(true, 'Business content', false));
+  assert.equal(container.querySelectorAll('canvas').length, 1);
+  assert.equal(frames.size, 0);
+  assert.equal(container.querySelector('button'), null);
+  await render(surface());
   assert.equal(frames.size, 1);
 });
 

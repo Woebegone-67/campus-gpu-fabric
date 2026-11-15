@@ -43,7 +43,7 @@
 .dual-space .shell-notice .link-button{margin-left:8px;color:inherit;text-decoration:underline}
 .dual-space .space-body{flex:1;min-height:0;display:flex;flex-direction:column;min-width:0;will-change:transform}
 .dual-space .space-scroll{overflow:auto;min-height:0;flex:1;padding:0 36px 24px;scrollbar-color:#505050 #101010;scrollbar-gutter:stable;overscroll-behavior-y:contain}
-.dual-space .space-scroll[data-space-scroll="workbench"]{background:#101010}
+.dual-space .space-scroll[data-space-scroll="workbench"]{background:transparent}
 .dual-space .overview-layout,.dual-space .workbench-content{max-width:1328px;margin:0 auto;min-width:0}
 .dual-space .overview-layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,1fr);gap:20px}
 .dual-space .overview-hero{grid-column:1/-1;padding:44px 0 30px;position:relative;text-shadow:0 2px 16px #000,0 1px 3px #000}
@@ -146,11 +146,13 @@
 .dual-space .query-refreshing{min-height:18px;line-height:18px;margin:0 0 8px;padding:0;font-size:11px}
 
 /* Final shell: one navigation bar and quiet, opaque task surfaces. */
-.app.dual-space{grid-template-columns:192px minmax(0,1fr);background:#101010}
-.dual-space .sidebar{background:#111;border-color:#292929}
+.app.dual-space{grid-template-columns:192px minmax(0,1fr);background:#000}
+.dual-space .sidebar{background:#000;border-color:#292929}
 .dual-space .sidebar footer{line-height:1.5}
-.dual-space .fabric-starwave-canvas{opacity:.22}
-.dual-space .topbar.space-gesture-header{min-height:64px;padding:10px 32px;gap:16px;flex-wrap:nowrap;background:#111;border-color:#292929}
+.dual-space .fabric-starwave-canvas{opacity:1;transition:opacity 800ms cubic-bezier(.4,0,.2,1)}
+.dual-space .sw-stage[data-starwave-visible="false"]>.fabric-starwave-canvas{opacity:0}
+@media(prefers-reduced-motion:reduce){.dual-space .fabric-starwave-canvas{transition:none}}
+.dual-space .topbar.space-gesture-header{min-height:64px;padding:10px 32px;gap:16px;flex-wrap:nowrap;background:#000;border-color:#292929}
 .dual-space .account-trigger{font-size:12px;max-width:45%;overflow:hidden;text-overflow:ellipsis;background:transparent;border-color:transparent;border-radius:7px}
 .dual-space .account-avatar{flex-shrink:0}
 .dual-space .shell-popovers{top:70px;right:24px;left:auto;width:360px;max-width:calc(100% - 32px);max-height:calc(100dvh - 110px);border:1px solid #414141;border-radius:10px;background:#1c1c1c;box-shadow:0 16px 40px #0008}
