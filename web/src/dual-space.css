@@ -238,4 +238,14 @@
 .dual-space .recall-state{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px}.dual-space .recall-countdown strong{font-variant-numeric:tabular-nums;font-size:18px}.dual-space .owned-recalls{margin:12px 0;padding:12px;border-radius:6px;background:#30291c;color:#f0d5a0}.dual-space .owned-recalls .recall-state+div{margin-top:10px}
 .dual-space .device-state-summary{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;margin:10px 0}
 .dual-space .owned-recalls>div+div{margin-top:12px}.dual-space .owned-recalls .recall-decision{margin:8px 0 0;font-size:12px;color:inherit}
+.dual-space .reclaim-audit>.button{margin:0 0 12px}
+.dual-space .reclaim-decision-record{padding:20px;background:#202020;border-color:#464646;border-radius:10px}
+.dual-space .reclaim-decision-record h3{margin:0;font-size:17px;font-weight:600;line-height:1.5;color:#f3f3f3}
+.dual-space .reclaim-decision-record .record-title>span{font-size:12px;color:#aaa}
+.dual-space .reclaim-decision-record .reclaim-reason{margin:14px 0 20px;color:#ddd;font-size:14px;line-height:1.8}
+.dual-space .reclaim-decision-record .facts{gap:16px;margin-bottom:20px}
+.dual-space .reclaim-confirmation{border-top:1px solid #454545;padding-top:14px;font-size:13px}
+.dual-space .reclaim-confirmation p{margin:6px 0;color:#ddd;font-size:13px}
+.dual-space .reclaim-decision-record>.helper{margin:12px 0 0;font-size:12px;line-height:1.7}
+@media(max-width:760px){.dual-space .reclaim-decision-record{padding:16px}.dual-space .reclaim-decision-record h3{font-size:16px}}
 @media(max-width:700px){.dual-space .shell-recall{padding:10px 16px}.dual-space .shell-recall-row{gap:8px}.dual-space .shell-recall a{margin-left:0}}

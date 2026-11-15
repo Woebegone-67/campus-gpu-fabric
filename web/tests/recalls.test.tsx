@@ -97,3 +97,36 @@ test('completed reclaim audit loads only when opened inside visible technical de
  assert.deepEqual(calls,['/x/v1/work-intents/work-one/reclaim-decisions']);assert.deepEqual(JSON.parse(container.querySelector('pre').textContent),{items:[plan]});
  await render(<ReclaimAudit api={api} intentId="work-one" visible={false}/>);assert.equal(container.querySelector('pre'),null);
 });
+
+test('reclaim explanation renders recorded choice, reason, estimates and actual completion separately',async()=>{
+ const plan={allocation_id:'lease',attempt_id:'attempt',action:'finish_first',reason:'finish_fits',phase:'complete',return_policy:'return_first',planned_at:109.05059825,
+  inputs:{now:109.05059825,owner_deadline:112.05059825,progress_steps:1000000,total_steps:1000000,checkpoint_cost_upper:.75840425,stop_cost_upper:2},completed_at:109.149306417,stop_confirmed_at:109.149306417};
+ globalThis.fetch=async()=>new Response(JSON.stringify({items:[plan]}));
+ await render(<ReclaimAudit api={new ApiClient({owner:'alice',token:'test-only'})} intentId="work-one" visible/>);
+ const disclosure=container.querySelector('details');await act(async()=>{disclosure.open=true;disclosure.dispatchEvent(new dom.window.Event('toggle'));});
+ const card=container.querySelector('[aria-label="收回选择与理由"]');
+ assert.match(card.textContent,/本次选择：优先完成/);assert.match(card.textContent,/选择理由：根据当时的进度与速度估计/);
+ assert.match(card.textContent,/决策时可用通知窗口3 秒/);assert.match(card.textContent,/决策时观测进度100%/);
+ assert.match(card.textContent,/保存耗时保守估计0.76 秒/);assert.match(card.textContent,/贡献者偏好尽快归还/);
+ assert.match(card.textContent,/任务完成已确认 · 逻辑时间 109.15 秒/);
+ assert.deepEqual(JSON.parse(container.querySelector('pre').textContent),{items:[plan]});
+ assert.equal(container.querySelector('details details').open,false);
+});
+
+test('short window explanation never invents failed saving or completed work; unknown fields remain unknown',async()=>{
+ const plans=[
+  {allocation_id:'lease',action:'stop',reason:'insufficient_window',phase:'complete',inputs:{now:0,owner_deadline:3,checkpoint_cost_upper:2.13,stop_cost_upper:2},stop_confirmed_at:.23},
+  {allocation_id:'legacy',action:'new_action',reason:'new_reason',inputs:{}},
+  {allocation_id:'waiting',action:'save_now',reason:'cold_observation',phase:'planned',inputs:{now:0,owner_deadline:0,progress_steps:0,total_steps:100}},
+ ];
+ globalThis.fetch=async()=>new Response(JSON.stringify({items:plans}));
+ await render(<ReclaimAudit api={new ApiClient({owner:'alice',token:'test-only'})} intentId="work-one" visible/>);
+ const disclosure=container.querySelector('details');await act(async()=>{disclosure.open=true;disclosure.dispatchEvent(new dom.window.Event('toggle'));});
+ const cards=container.querySelectorAll('[aria-label="收回选择与理由"]');
+ assert.match(cards[0].textContent,/本次选择：直接停止/);assert.match(cards[0].textContent,/不表示已经尝试保存并失败/);
+ assert.match(cards[0].textContent,/执行停止／结束已确认/);assert.doesNotMatch(cards[0].textContent,/任务完成已确认/);
+ assert.match(cards[1].textContent,/未知动作（new_action）/);assert.match(cards[1].textContent,/原因代码：new_reason/);
+ assert.match(cards[1].textContent,/保存耗时保守估计未记录/);assert.match(cards[1].textContent,/尚未记录任务完成或停止确认/);
+ assert.match(cards[2].textContent,/缺少足够新鲜、可信/);assert.match(cards[2].textContent,/通知窗口0 秒/);assert.match(cards[2].textContent,/观测进度0%/);
+ assert.doesNotMatch(cards[2].textContent,/任务完成已确认|执行停止／结束已确认/);
+});

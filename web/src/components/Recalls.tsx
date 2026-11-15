@@ -2,7 +2,7 @@ import {createContext,useContext,useEffect,useMemo,useState,type ReactNode} from
 import {ApiClient,encodeId,list,object,text,type JsonObject} from '../api';
 import {useQuery,type QueryState} from '../hooks';
 import {workHref} from '../navigation';
-import {QueryFeedback,Refresh} from './common';
+import {QueryFeedback,RawData,Refresh} from './common';
 
 const finite=(value:unknown):number|null=>typeof value==='number'&&Number.isFinite(value)?value:null;
 export type RecallState={query:QueryState;borrowed:JsonObject[];owned:JsonObject[];now:number|null;mode:unknown;elapsed:number;fresh:boolean};
@@ -82,5 +82,42 @@ export function OwnedRecalls({deviceIds}:{deviceIds:string[]}){
 export function ReclaimAudit({api,intentId,visible}:{api:ApiClient;intentId:string;visible:boolean}){
   const [open,setOpen]=useState(false);
   const query=useQuery(api,open&&visible?`/x/v1/work-intents/${encodeId(intentId)}/reclaim-decisions`:null,0,2000);
-  return <details className="raw" onToggle={event=>setOpen(event.currentTarget.open)}><summary>收回决策记录</summary>{open&&visible&&<><Refresh loading={query.loading} onClick={query.refresh}/><QueryFeedback query={query}>{list(object(query.data).items).length?<pre>{JSON.stringify(query.data,null,2)}</pre>:<p className="empty">暂无收回决策</p>}</QueryFeedback></>}</details>;
+  const items=list(object(query.data).items);
+  return <details className="raw reclaim-audit" onToggle={event=>setOpen(event.currentTarget.open)}><summary>收回决策记录</summary>{open&&visible&&<><Refresh loading={query.loading} onClick={query.refresh}/><QueryFeedback query={query}>{items.length?<><div className="record-list">{items.map((row,index)=><ReclaimDecisionRecord key={`${row.allocation_id}-${row.attempt_id}-${row.planned_at}-${index}`} row={row}/>)}</div><RawData data={query.data} label="查看原始决策记录"/></>:<p className="empty">暂无收回决策</p>}</QueryFeedback></>}</details>;
+}
+
+const auditReasons:Record<string,string>={
+  finish_fits:'根据当时的进度与速度估计，预计任务可在收回期限内完成，并留出保存与停止的余量，因此选择优先完成。若未按预计完成，仍会按计划触发保存与停止。',
+  delay_valuable:'按当时估计，先继续计算一段再保存的综合代价较低，同时仍为保存和停止预留时间。',
+  save_minimizes_cost:'按当时估计，立即保存的综合代价较低；比较已考虑剩余计算、保存与重启开销，以及贡献者等待成本。',
+  cold_observation:'缺少足够新鲜、可信的进度或速度观测，无法可靠比较继续运行的收益，因此先尝试保存。',
+  insufficient_window:'按当时的保存开销估计、停止预留和报告余量，可用窗口不足，因此直接停止。这不表示已经尝试保存并失败。',
+  save_not_worth_cost:'当前工作允许从头重算；按当时估计，停止后重算的综合代价更低，因此不新建保存点。',
+};
+const auditPhases:Record<string,string>={planned:'已制定计划',saving:'保存阶段',stopping:'停止阶段',complete:'流程已结束'};
+const auditPolicies:Record<string,string>={return_first:'尽快归还',preserve_work:'尽量保留计算'};
+const auditNumber=(value:number)=>value.toLocaleString('zh-CN',{maximumFractionDigits:2});
+const auditSeconds=(value:unknown)=>{const number=finite(value);return number===null?'未记录':`${auditNumber(number)} 秒`;};
+function ReclaimDecisionRecord({row}:{row:JsonObject}){
+  const inputs=object(row.inputs),action=text(row.action,''),reason=text(row.reason,''),phase=text(row.phase,'');
+  const now=finite(inputs.now),deadline=finite(inputs.owner_deadline);
+  const progress=finite(inputs.progress_steps),total=finite(inputs.total_steps);
+  const completed=finite(row.completed_at),stopped=finite(row.stop_confirmed_at);
+  const progressLabel=progress!==null&&total!==null&&total>0&&progress>=0&&progress<=total
+    ?`${auditNumber(progress/total*100)}%（${progress.toLocaleString('zh-CN')} / ${total.toLocaleString('zh-CN')} 步）`:'未记录有效进度';
+  return <article className="record reclaim-decision-record" aria-label="收回选择与理由">
+    <div className="record-title"><h3>本次选择：{decisionNames[action]??(action?`未知动作（${action}）`:'未记录动作')}</h3><span>{auditPhases[phase]??(phase?`记录阶段：${phase}`:'阶段未记录')}</span></div>
+    <p className="reclaim-reason"><strong>选择理由：</strong>{auditReasons[reason]??(reason?`服务端返回了暂未解释的原因代码：${reason}。可查看原始记录。`:'服务端未记录选择理由。')}</p>
+    <dl className="facts">
+      <div><dt>决策时可用通知窗口</dt><dd>{now!==null&&deadline!==null?auditSeconds(Math.max(0,deadline-now)):'未记录'}</dd></div>
+      <div><dt>决策时观测进度</dt><dd>{progressLabel}</dd></div>
+      <div><dt>保存耗时保守估计</dt><dd>{auditSeconds(inputs.checkpoint_cost_upper)}</dd></div>
+      <div><dt>停止预留时间</dt><dd>{auditSeconds(inputs.stop_cost_upper)}</dd></div>
+      <div><dt>贡献者偏好</dt><dd>{auditPolicies[text(row.return_policy,'')]??text(row.return_policy,'未记录')}</dd></div>
+      <div><dt>决策时间（逻辑时钟）</dt><dd>{auditSeconds(row.planned_at)}</dd></div>
+    </dl>
+    <div className="reclaim-confirmation"><strong>执行确认</strong>{completed!==null&&<p>任务完成已确认 · 逻辑时间 {auditSeconds(completed)}</p>}{stopped!==null&&<p>执行停止／结束已确认 · 逻辑时间 {auditSeconds(stopped)}</p>}{completed===null&&stopped===null&&<p>本条决策尚未记录任务完成或停止确认。</p>}</div>
+    <p className="helper">以上依据来自决策当时的记录，耗时为估计；选择保存不代表已保存成功，选择完成不代表任务已经完成。</p>
+    <p className="helper">租约 {text(row.allocation_id)} · 执行 {text(row.attempt_id)}</p>
+  </article>;
 }
