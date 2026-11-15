@@ -8,7 +8,7 @@ const dom = new JSDOM('<!doctype html><html><body></body></html>', {
   url: 'http://localhost/?visual=classic#overview', pretendToBeVisual: true,
 });
 for (const name of ['window', 'document', 'navigator', 'location', 'Element', 'HTMLElement',
-  'HTMLInputElement', 'HTMLTextAreaElement', 'Event', 'MouseEvent', 'HashChangeEvent', 'FormData']) {
+  'Node', 'HTMLInputElement', 'HTMLTextAreaElement', 'Event', 'MouseEvent', 'HashChangeEvent', 'FormData']) {
   Object.defineProperty(globalThis, name, {value: dom.window[name], configurable: true, writable: true});
 }
 globalThis.requestAnimationFrame = dom.window.requestAnimationFrame.bind(dom.window);
@@ -35,12 +35,12 @@ const json = (data, status = 200) => new Response(JSON.stringify(data), {
   status, headers: {'Content-Type': 'application/json'},
 });
 const deferred = () => {let resolve; const promise = new Promise(done => {resolve = done;}); return {promise, resolve};};
-let root, container, requests, sessions, intercept;
+let root, container, requests, sessions, intercept, cookieOwner;
 
 function defaults(path, owner) {
   if (path === '/healthz') return json({control_plane_ready: true});
   if (path === '/v1/version') return json({checkpoint: 'CP4', execution_mode: 'logical_simulation', capabilities: {checkpoint_recovery: true}});
-  if (path === '/x/v1/session') return json(sessions.get(owner) || account(owner));
+  if (path === '/x/v1/session') return owner ? json(sessions.get(owner) || account(owner)) : json({error:'unauthorized'},401);
   if (path.startsWith('/x/v1/work-intents?')) return json({...snapshot, items: [work(owner)]});
   if (path.startsWith('/v1/allocations?')) return json({...snapshot, items: [{allocation_id: `${owner}-lease`, state: 'Running'}], legal_actions: []});
   if (path.startsWith('/v1/jobs?')) return json({...snapshot, items: []});
@@ -74,25 +74,18 @@ async function enter(element, value) {
     element.dispatchEvent(new dom.window.Event('input', {bubbles: true}));
   });
 }
-async function profiles() {
-  const input = container.querySelector('input[type=file]');
-  const contents = JSON.stringify({
-    // The local name "admin" deliberately disagrees with server authority.
-    admin: {'X-Owner': 'alice', Authorization: 'Bearer synthetic-alice'},
-    bob: {'X-Owner': 'bob', Authorization: 'Bearer synthetic-bob'},
-    contributor: {'X-Owner': 'contributor', Authorization: 'Bearer synthetic-contributor'},
-  });
-  Object.defineProperty(input, 'files', {value: [{name: 'synthetic-identities.json', size: contents.length,
-    text: async () => contents}], configurable: true});
-  await interact(() => input.dispatchEvent(new dom.window.Event('change', {bubbles: true})));
+async function connect(profile = 'admin') {
+  const username=profile==='admin'?'alice':profile;
+  await enter(container.querySelector('input[name=username]'),username);
+  await enter(container.querySelector('input[name=password]'),`synthetic-${username}`);
+  await interact(()=>button('登录',container.querySelector('.identity-manual')).click());
 }
-async function choose(profile = 'admin') {
-  const select = container.querySelector('.identity-panel select');
-  assert.ok(select, 'local identities imported');
-  await interact(() => {select.value = profile; select.dispatchEvent(new dom.window.Event('change', {bubbles: true}));});
+async function choose(profile) {
+  await interact(()=>container.querySelector('.account-trigger').click());
+  await interact(()=>button('切换账户').click());
+  await connect(profile);
 }
-async function connect(profile = 'admin') {await profiles(); await choose(profile);}
-function writes() {return requests.filter(request => request.method !== 'GET');}
+function writes() {return requests.filter(request => request.method !== 'GET'&&!request.path.startsWith('/x/v1/auth/'));}
 function workbench() {return container.querySelector('[data-space-scroll="workbench"]');}
 async function space(name) {await interact(() => button(name, container.querySelector('.space-switch')).click());}
 
@@ -100,12 +93,19 @@ beforeEach(() => {
   document.body.innerHTML = '<div id="account-workspace-tests"></div>';
   container = document.getElementById('account-workspace-tests'); root = createRoot(container);
   requests = []; sessions = new Map([['alice', account('alice')], ['bob', account('bob')],
-    ['contributor', account('contributor', ['contribute_resources'])]]); intercept = null;
+    ['contributor', account('contributor', ['contribute_resources'])]]); intercept = null; cookieOwner = '';
   globalThis.fetch = async (path, options = {}) => {
     const headers = new Headers(options.headers);
-    const request = {path: String(path), owner: headers.get('X-Owner') || '',
+    const request = {path: String(path), owner: headers.get('X-Owner') || cookieOwner,
       method: options.method || 'GET', signal: options.signal};
     requests.push(request);
+    if(request.path==='/x/v1/auth/login') {
+      const body=JSON.parse(options.body);request.owner=body.username;
+      const override=await intercept?.(request);if(override){if(override.ok)cookieOwner=body.username;return override;}
+      if(body.password!==`synthetic-${body.username}`||!sessions.has(body.username))return json({error:'unauthorized'},401);
+      cookieOwner=body.username;return json(sessions.get(cookieOwner));
+    }
+    if(request.path==='/x/v1/auth/logout'){cookieOwner='';return json({ok:true});}
     if (request.method !== 'GET') throw new Error('This navigation suite prohibits business writes.');
     return await intercept?.(request) || defaults(request.path, request.owner);
   };
@@ -116,11 +116,11 @@ afterEach(async () => {
 });
 after(() => dom.window.close());
 
-test('a local admin label grants no workspace before a trusted session and no administrator capability afterward', async () => {
+test('an existing session grants no workspace before server verification and no administrator capability afterward', async () => {
   const pending = deferred();
   intercept = request => request.path === '/x/v1/session' ? pending.promise : undefined;
-  await mount(); await connect();
-  assert.match(container.textContent, /正在连接/);
+  cookieOwner='alice'; await mount();
+  assert.match(container.textContent, /正在验证账户/);
   assert.equal(container.querySelector('.space-body'), null);
   assert.deepEqual(requests.filter(request => request.path.startsWith('/x/v1/')).map(request => request.path), ['/x/v1/session']);
   await act(async () => pending.resolve(json(account('alice'))));
@@ -148,7 +148,7 @@ test('changing identity clears prior data immediately, aborts hidden reads, and 
   const old = deferred(), newSession = deferred(); let oldRequest;
   intercept = request => {
     if (request.owner === 'alice' && request.path.startsWith('/x/v1/work-intents?')) {oldRequest = request; return old.promise;}
-    if (request.owner === 'bob' && request.path === '/x/v1/session') return newSession.promise;
+    if (request.owner === 'bob' && request.path === '/x/v1/auth/login') return newSession.promise;
   };
   await mount('#run?new=1'); await connect();
   const draft = workbench().querySelector('input[name=cpu]'); await enter(draft, '2048');
@@ -177,7 +177,7 @@ test('temporary session failure retains drafts but disables submission, includin
   assert.equal(workbench(), originalWorkspace); assert.equal(workbench().querySelector('input[name=cpu]'), draft);
   assert.equal(draft.value, '2048'); assert.equal(filter.value, 'private-image');
   assert.equal(draft.matches(':disabled'), true);
-  assert.match(container.textContent, /账户连接暂未确认.*暂停提交/s);
+  assert.match(container.textContent, /账户暂时无法验证.*暂停提交/s);
   const renew = button('续租 300 秒', workbench());
   await interact(() => renew.dispatchEvent(new dom.window.MouseEvent('click', {bubbles: true, cancelable: true})));
   assert.equal(writes().length, 0, 'ApiClient rejects the write even when native disabled activation is bypassed');
@@ -198,7 +198,7 @@ test('session authorization rejection clears the prior workspace instead of pres
   await interact(() => button('重新连接').click());
   assert.equal(container.querySelector('.space-body'), null);
   assert.doesNotMatch(container.textContent, /alice-private-image|alice-private-work/);
-  assert.match(container.textContent, /HTTP 403/);
+  assert.match(container.textContent, /登录织算/);
 });
 
 for (const entry of ['space button', 'sidebar link']) {
@@ -298,13 +298,12 @@ test('the account write guard blocks direct mutations and composite actions befo
 });
 
 
-test('one primary connection flow and account menu keep preferences out of the header',async()=>{
+test('password login and account menu keep preferences out of the header, and logout clears the session',async()=>{
   await mount();
   assert.equal(container.querySelector('.identity-manual').closest('[hidden]'),null);
-  assert.equal(container.querySelector('.identity-import').open,false);
-  await enter(container.querySelector('input[name=account]'),'alice');
-  await enter(container.querySelector('input[name=credential]'),'synthetic-alice');
-  await interact(()=>button('连接账户',container.querySelector('.identity-manual')).click());
+  assert.equal(container.querySelector('input[type=file]'),null);
+  assert.equal(container.querySelector('input[name=password]').autocomplete,'current-password');
+  await connect();
   assert.ok(container.querySelector('.space-body'));
   const menu=container.querySelector('#account-panel');assert.equal(menu.hidden,true);
   assert.equal(container.querySelector('.topbar').querySelector('.sw-motion-control'),null);
@@ -316,12 +315,41 @@ test('one primary connection flow and account menu keep preferences out of the h
   await interact(()=>document.dispatchEvent(new dom.window.KeyboardEvent('keydown',{key:'Escape',bubbles:true})));
   assert.equal(menu.hidden,true);assert.equal(document.activeElement,container.querySelector('.account-trigger'));
   await interact(()=>container.querySelector('.account-trigger').click());
-  await interact(()=>button('切换账户',menu).click());
-  assert.equal(container.querySelector('.identity-manual').closest('[hidden]'),null);
-  await interact(()=>container.querySelector('.account-trigger').click());
-  await interact(()=>container.querySelector('.account-trigger').click());
-  await interact(()=>button('断开连接',menu).click());
+  await interact(()=>button('退出登录',menu).click());
   assert.equal(container.querySelector('.space-body'),null);
-  assert.equal(container.querySelector('input[name=credential]').value,'');
+  assert.equal(cookieOwner,'');
+  assert.equal(container.querySelector('input[name=password]').value,'');
   assert.equal(dom.window.localStorage.length,0);assert.equal(dom.window.sessionStorage.length,0);
+});
+
+test('remount restores the cookie session without another login and uses the public username',async()=>{
+  sessions.set('alice',{...account('legacy-owner',['use_compute','contribute_resources']),username:'chen'});
+  await mount();await connect();
+  const loginCount=requests.filter(r=>r.path==='/x/v1/auth/login').length;
+  await act(async()=>root.unmount());root=createRoot(container);await mount();
+  assert.ok(container.querySelector('.space-body'));
+  assert.match(container.querySelector('.account-trigger').textContent,/chen/);
+  assert.doesNotMatch(container.querySelector('.account-trigger').textContent,/legacy-owner/);
+  assert.equal(requests.filter(r=>r.path==='/x/v1/auth/login').length,loginCount);
+});
+
+test('wrong passwords show a short error and preserve username without exposing a workspace',async()=>{
+  await mount();
+  await enter(container.querySelector('input[name=username]'),'alice');
+  await enter(container.querySelector('input[name=password]'),'wrong');
+  await interact(()=>button('登录',container.querySelector('.identity-manual')).click());
+  assert.match(container.textContent,/账户或密码不正确/);
+  assert.equal(container.querySelector('.space-body'),null);
+  assert.equal(container.querySelector('input[name=username]').value,'alice');
+  assert.equal(container.querySelector('input[name=password]').value,'');
+});
+
+test('a focus refresh switches to the current cookie identity and drops previous drafts',async()=>{
+  await mount('#run?new=1');await connect();
+  await enter(workbench().querySelector('input[name=cpu]'),'2048');
+  cookieOwner='bob';
+  await interact(()=>window.dispatchEvent(new dom.window.Event('focus')));
+  assert.match(workbench().textContent,/bob-private-work/);
+  assert.doesNotMatch(workbench().textContent,/alice-private-work/);
+  assert.equal(workbench().querySelector('input[name=cpu]').value,'1000');
 });

@@ -39,6 +39,21 @@
         }
       ],
       "title": "Owner Id"
+    },
+    "username": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^\\S+$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Username"
     }
   },
   "required": [

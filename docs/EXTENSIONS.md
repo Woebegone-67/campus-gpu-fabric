@@ -73,3 +73,11 @@
 公共 checkpoint ready 是报告；真实工件核验与新进程实际接续分别记录。CPU 的取消、释放、超时或回收需等待真实停止确认，`pending_terminal` 表示待结清结果；不能仅依据写请求202就把资源显示成可复用。CPU artifact URI 只接受适配器的已登记对象，不代理任意本地路径或外部 URL。
 
 列表、事件、metrics 和工件遵守 owner 隔离。页面刷新根据服务器版本重取数据；版本冲突与未知提交结果分别处理。联合验收读取器尚未消费顶层 CP2 汇总，不能手工把界面标签改成“通过”。
+
+## 浏览器账户登录
+
+`POST /x/v1/auth/login` 接受 `{username, password}`，返回账户会话信息并设置七天有效的 HttpOnly、SameSite=Lax Cookie；HTTPS 下启用 Secure。`GET /x/v1/session` 恢复会话，`POST /x/v1/auth/logout` 撤销服务器会话并清除 Cookie。上述响应禁止缓存。账户信息新增可选 `username` 用于显示；资源授权仍使用服务器保存的 actor/owner。
+
+部署通过 `FABRIC_ACCOUNTS_FILE` 读取用户名到密码摘要及授权主体的映射，初始演示账户由启动脚本创建。密码以加盐 scrypt 摘要保存，会话凭据只保存摘要；账号授权或密码摘要变化会使旧会话失效。浏览器写请求须带 `X-Fabric-Request: browser`、当前 `X-Fabric-Actor` 并通过同源校验；反向代理须保留原 Host。旧标签页的账户不一致返回 `409 account_changed`。Cookie 按实例命名，防止同机不同端口实例串用登录。
+
+现有 Bearer 接口继续兼容自动化调用；启用浏览器账户后不能退回到仅凭 X-Owner 的开发身份。历史内部 owner `supplier` 仍保留原资源归属，对外登录名为 `chen`，角色为普通用户 `member`，不是单独的 Supplier 角色。冻结官方 OpenAPI 未修改。

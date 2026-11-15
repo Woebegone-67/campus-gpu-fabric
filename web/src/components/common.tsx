@@ -21,7 +21,7 @@ export function Status({value}: {value: unknown}) {
 export function ErrorNotice({error}: {error: ApiError}) {
   const code=text(object(error.data).error,text(object(object(error.data).error).code,''));
   const messages:Record<string,string>={restart_budget_exhausted:'可恢复次数已用完。',lease_expired:'租约已到期。',lease_unavailable:'当前资源暂不可用。',stale_version:'状态已更新，请刷新后再操作。',epoch_changed:'实例已更新，请重新打开这项工作。'};
-  const message=messages[code]??({401:'请重新连接账户。',403:'当前账户不能执行此操作。',404:'找不到这条记录。',501:'此操作暂不可用。',503:'服务暂时不可用，请稍后重试。'} as Record<number,string>)[error.status]??error.message;
+  const message=messages[code]??({401:'请重新登录。',403:'当前账户不能执行此操作。',404:'找不到这条记录。',501:'此操作暂不可用。',503:'服务暂时不可用，请稍后重试。'} as Record<number,string>)[error.status]??error.message;
   return <div className={`feedback ${error.status===503?'warning':'error'}`} role="alert"><strong>{error.uncertain?'暂未确认结果':'操作未完成'}</strong><p>{message}</p><details className="raw"><summary>错误详情</summary><p>{error.message}</p><small>{error.status?`HTTP ${error.status}`:'连接中断'}{error.requestId?` · ${error.requestId}`:''}</small></details></div>;
 }
 export function QueryFeedback({query, empty, children}: {query: QueryState; empty?: boolean; children: ReactNode}) {

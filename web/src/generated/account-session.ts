@@ -9,6 +9,7 @@ export type ActorId = string;
 export type Capabilities = ("use_compute" | "contribute_resources")[];
 export type IsAdministrator = boolean;
 export type OwnerId = string | null;
+export type Username = string | null;
 
 /**
  * Public account capabilities derived from the authenticated server identity.
@@ -18,4 +19,5 @@ export interface AccountSession {
   capabilities: Capabilities;
   is_administrator: IsAdministrator;
   owner_id: OwnerId;
+  username?: Username;
 }

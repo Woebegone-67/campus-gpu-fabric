@@ -1,5 +1,5 @@
 export type JsonObject = Record<string, unknown>;
-export type Identity = { owner: string; token: string; profile?: string };
+export type Identity = { owner: string; token: string; profile?: string; actorId?: string };
 export type ApiResult = { data: unknown; raw: string; status: number; requestId: string | null };
 
 export function object(value: unknown): JsonObject {
@@ -35,7 +35,7 @@ export class ApiError extends Error {
   get uncertain() { return this.status === 0 || this.status >= 500; }
 }
 export class ApiClient {
-  constructor(public identity: Identity, private onMutating: (amount: number) => void = () => {}, private canMutate: () => boolean = () => true) {}
+  constructor(public identity: Identity, private onMutating: (amount: number) => void = () => {}, private canMutate: () => boolean = () => true, private onSessionInvalid: () => void = () => {}) {}
   async registerWork(registration: unknown): Promise<ApiResult> {
     // Registration owns a stable intent ID and immutable input. Only an explicit
     // pre-commit version rejection permits replaying this same registration.
@@ -81,7 +81,9 @@ export class ApiClient {
     const mutation = method !== 'GET';
     if (mutation && !this.canMutate()) throw new ApiError('账户能力正在重新确认，已填内容保留；确认后再提交。',409,null,{error:'account_unconfirmed'});
     const headers: Record<string, string> = {Accept: 'application/json'};
-    if (this.identity.owner) headers['X-Owner'] = this.identity.owner;
+    if (this.identity.owner && !this.identity.actorId) headers['X-Owner'] = this.identity.owner;
+    if (mutation) headers['X-Fabric-Request'] = 'browser';
+    if (this.identity.actorId && path !== '/x/v1/session' && !path.startsWith('/x/v1/auth/')) headers['X-Fabric-Actor'] = this.identity.actorId;
     if (this.identity.token) headers.Authorization = `Bearer ${this.identity.token}`;
     if (options.body !== undefined) headers['Content-Type'] = 'application/json';
     if (options.idempotencyKey) headers['Idempotency-Key'] = options.idempotencyKey;
@@ -93,7 +95,7 @@ export class ApiClient {
     const timeout = window.setTimeout(() => { timedOut = true; controller.abort(); }, 20000);
     if (mutation) this.onMutating(1);
     try {
-      const response = await fetch(path, {method, headers, body: options.body !== undefined ? JSON.stringify(options.body) : undefined, signal: controller.signal, cache: 'no-store'});
+      const response = await fetch(path, {method, headers, body: options.body !== undefined ? JSON.stringify(options.body) : undefined, signal: controller.signal, cache: 'no-store', credentials: 'same-origin'});
       const raw = await response.text();
       let data: unknown = null;
       try { data = raw ? JSON.parse(raw) : null; } catch {
@@ -101,7 +103,10 @@ export class ApiClient {
       }
       const record = object(data);
       const requestId = response.headers.get('X-Request-ID') || (typeof record.request_id === 'string' ? record.request_id : null);
-      if (!response.ok) throw new ApiError(text(record.detail, text(record.error, `请求失败：HTTP ${response.status}`)), response.status, requestId, data);
+      if (!response.ok) {
+        if (response.status === 401 || record.error === 'account_changed') this.onSessionInvalid();
+        throw new ApiError(text(record.detail, text(record.error, `请求失败：HTTP ${response.status}`)), response.status, requestId, data);
+      }
       const receipt = object(record.receipt ?? record.commit_receipt ?? record);
       if (receipt.outcome === 'rejected') {
         throw new ApiError(text(object(receipt.error).detail, '服务端拒绝了这项操作。'), 409, requestId, data);

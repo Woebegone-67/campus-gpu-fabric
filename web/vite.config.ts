@@ -9,9 +9,9 @@ export default defineConfig(({ mode }) => {
     port: 5173,
     strictPort: true,
     proxy: {
-      '/healthz': apiTarget,
-      '/v1': apiTarget,
-      '/x/v1': apiTarget,
+      '/healthz': {target: apiTarget, changeOrigin: false},
+      '/v1': {target: apiTarget, changeOrigin: false},
+      '/x/v1': {target: apiTarget, changeOrigin: false},
     },
   },
   };

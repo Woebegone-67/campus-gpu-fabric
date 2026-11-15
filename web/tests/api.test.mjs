@@ -152,3 +152,27 @@ test('raw artifact JSON preserves uint64 results independently of parsed present
   assert.equal(result.raw,raw);
   assert.notEqual(JSON.stringify(result.data),raw.trim(),'parsed numbers are not safe artifact content');
 });
+
+test('browser sessions use same-origin cookies and bind business requests to the verified actor',async()=>{
+  const calls=[];
+  globalThis.fetch=async(path,options)=>{calls.push({path,options});return json({ok:true});};
+  const client=new ApiClient({owner:'legacy-owner',token:'',actorId:'actor-chen'});
+  await client.request('/x/v1/contributions/recall',{method:'POST',body:{}});
+  await client.request('/x/v1/session');
+  assert.equal(calls[0].options.credentials,'same-origin');
+  assert.equal(calls[0].options.headers['X-Fabric-Request'],'browser');
+  assert.equal(calls[0].options.headers['X-Fabric-Actor'],'actor-chen');
+  assert.equal(calls[0].options.headers['X-Owner'],undefined);
+  assert.equal(calls[0].options.headers.Authorization,undefined);
+  assert.equal(calls[1].options.headers['X-Fabric-Actor'],undefined);
+});
+
+test('expired or switched sessions invalidate visible account state without replaying the request',async()=>{
+  for(const [status,error] of [[401,'unauthorized'],[409,'account_changed']]){
+    let invalidated=0,calls=0;
+    globalThis.fetch=async()=>{calls++;return json({error},status);};
+    const client=new ApiClient({owner:'alice',token:'',actorId:'alice'},()=>{},()=>true,()=>invalidated++);
+    await assert.rejects(client.request('/x/v1/contributions/recall',{method:'POST',body:{}}),failure=>failure.status===status);
+    assert.equal(invalidated,1);assert.equal(calls,1);
+  }
+});

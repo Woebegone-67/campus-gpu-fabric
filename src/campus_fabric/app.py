@@ -9,24 +9,31 @@ import os
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
-from pydantic import ValidationError
+from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from campus_fabric import __version__
 from campus_fabric.api.mutations.http import assign_request_id, mount_cp1
 from campus_fabric.api.test_control.faults import fault_targets, intercept_fault
 from campus_fabric.auth.http import HTTPIdentity
+from campus_fabric.auth.sessions import SESSION_SECONDS, BrowserSessions
 from campus_fabric.contracts.models import AccountSession, NodeInventory
 from campus_fabric.domain.kernel import Kernel
 
 ROOT = Path(__file__).resolve().parents[2]
 
 
+class BrowserLogin(BaseModel):
+    model_config = ConfigDict(strict=True, extra="forbid")
+    username: str = Field(min_length=1, max_length=128)
+    password: str = Field(min_length=1, max_length=256)
+
+
 def create_app(data_dir=None, inventory=(), test_key=None, auth_tokens=None,
                simulation_duration_seconds=10.0, scheduling_mode=None,
-               execution_mode=None, cpu_config=None) -> FastAPI:
+               execution_mode=None, cpu_config=None, auth_accounts=None) -> FastAPI:
     mode = execution_mode or os.environ.get("FABRIC_MODE", "logical_simulation")
     if data_dir is None:
         instance = os.environ.get("FABRIC_INSTANCE", "local")
@@ -49,7 +56,10 @@ def create_app(data_dir=None, inventory=(), test_key=None, auth_tokens=None,
     test_key = test_key if test_key is not None else os.environ.get("FABRIC_TEST_KEY")
     if auth_tokens is None and os.environ.get("FABRIC_AUTH_FILE"):
         auth_tokens = json.loads(Path(os.environ["FABRIC_AUTH_FILE"]).expanduser().read_text())
-    identity = HTTPIdentity(auth_tokens, test_key=test_key)
+    if auth_accounts is None and os.environ.get("FABRIC_ACCOUNTS_FILE"):
+        auth_accounts = json.loads(Path(os.environ["FABRIC_ACCOUNTS_FILE"]).expanduser().read_text())
+    sessions = BrowserSessions(auth_accounts, data_dir) if auth_accounts is not None else None
+    identity = HTTPIdentity(auth_tokens, test_key=test_key, browser_sessions=sessions)
     scheduling_mode = scheduling_mode or os.environ.get("FABRIC_SCHEDULING_MODE", "builtin")
     kernel = Kernel(data_dir / "fabric.sqlite3", inventory=inventory,
                     simulation_duration_seconds=simulation_duration_seconds,
@@ -110,16 +120,17 @@ def create_app(data_dir=None, inventory=(), test_key=None, auth_tokens=None,
             })
         if hasattr(request.state, "request_id"):
             response.headers["X-Request-Id"] = request.state.request_id
-        if request.url.path == "/x/v1/session":
+        if request.url.path == "/x/v1/session" or request.url.path.startswith("/x/v1/auth/"):
             response.headers["Cache-Control"] = "no-store"
-            response.headers["Vary"] = "Authorization, X-Owner"
+            response.headers["Vary"] = "Authorization, X-Owner, Cookie"
         return response
 
     @app.exception_handler(HTTPException)
     async def http_error(request, exc):
         return JSONResponse(status_code=exc.status_code, content={
-            "error": {400: "invalid_request", 401: "unauthorized", 403: "forbidden",
-                      404: "not_found", 409: "conflict"}.get(exc.status_code, "request_failed"),
+            "error": getattr(exc, "error_code", {400: "invalid_request", 401: "unauthorized",
+                      403: "forbidden", 404: "not_found", 409: "conflict", 429: "rate_limited"}
+                      .get(exc.status_code, "request_failed")),
             "detail": exc.detail, "request_id": getattr(request.state, "request_id", None),
         })
 
@@ -148,14 +159,36 @@ def create_app(data_dir=None, inventory=(), test_key=None, auth_tokens=None,
                     "real_gpu_execution": False, "real_cpu_execution": mode == "cpu_reference",
                 }}
 
-    @app.get("/x/v1/session", response_model=AccountSession)
-    def account_session(request: Request):
-        actor = identity.actor(request)
+    def account_view(actor, username=None):
         return AccountSession(
             actor_id=actor.actor_id, owner_id=actor.owner_id,
-            capabilities=actor.capabilities,
-            is_administrator=actor.role == "administrator",
+            capabilities=actor.capabilities, is_administrator=actor.role == "administrator",
+            **({"username": username} if username is not None else {}),
         )
+
+    @app.post("/x/v1/auth/login", response_model=AccountSession)
+    def login(body: BrowserLogin, request: Request, response: Response):
+        if sessions is None:
+            raise HTTPException(503, "账户登录尚未配置。")
+        actor, token = sessions.login(request, body.username, body.password)
+        response.set_cookie(sessions.cookie_name, token, max_age=SESSION_SECONDS,
+                            httponly=True, secure=request.url.scheme == "https",
+                            samesite="lax", path="/")
+        return account_view(actor, body.username)
+
+    @app.post("/x/v1/auth/logout")
+    def logout(request: Request, response: Response):
+        if sessions is None:
+            raise HTTPException(503, "账户登录尚未配置。")
+        sessions.logout(request)
+        response.delete_cookie(sessions.cookie_name, httponly=True,
+                               secure=request.url.scheme == "https", samesite="lax", path="/")
+        return {"logged_out": True}
+
+    @app.get("/x/v1/session", response_model=AccountSession, response_model_exclude_unset=True)
+    def account_session(request: Request):
+        actor = identity.actor(request)
+        return account_view(actor, getattr(request.state, "auth_username", None))
 
     @app.get("/x/v1/artifacts")
     def artifact(request: Request, uri: str):

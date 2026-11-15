@@ -10,7 +10,7 @@ export function useQuery(api: ApiClient, path: string | null, refreshToken = 0):
   const [reload, setReload] = useState(0);
   const [state, setState] = useState<{key: string; data: unknown; error: ApiError | null; loading: boolean; receivedAt: number | null}>({key: '', data: null, error: null, loading: false, receivedAt: null});
   const generation = useRef(0);
-  const key = `${api.identity.owner}\0${api.identity.token}\0${path}`;
+  const key = `${api.identity.owner}\0${api.identity.token}\0${api.identity.actorId||''}\0${path}`;
   useEffect(() => {
     const current = ++generation.current;
     if (!active) return;

@@ -106,6 +106,7 @@ class AccountSession(ContractModel):
     owner_id: Identifier | None
     capabilities: tuple[Capability, ...]
     is_administrator: bool
+    username: Identifier | None = None
 
 
 class KeyValue(ContractModel):

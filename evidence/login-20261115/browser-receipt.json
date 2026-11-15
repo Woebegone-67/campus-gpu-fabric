@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-15T01:35:40.666Z",
+  "base_ui_commit": "aa5cf6b",
+  "result": "PASS",
+  "checks": [
+    "Wrong password rejected; no identity-file field",
+    "Username/password login through browser proxy",
+    "Full page reload restores account",
+    "New tab restores the same account",
+    "Persistent cookie is HttpOnly",
+    "CPU login does not authenticate logical instance",
+    "Logout revokes server session and other tab",
+    "Chen displays as ordinary user with shared devices and both capabilities",
+    "Admin boundary and stale-account guard enforced",
+    "Same ordinary user can submit work",
+    "No browser application errors"
+  ]
+}

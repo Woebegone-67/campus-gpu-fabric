@@ -11,7 +11,7 @@ for(const name of ['window','document','navigator','HTMLElement','HTMLInputEleme
 }
 globalThis.IS_REACT_ACT_ENVIRONMENT=true;
 const React=await import('react');
-const {act,useState}=React;
+const {act}=React;
 const {createRoot}=await import('react-dom/client');
 const {ApiClient}=await import('../src/api.ts');
 const {IdentityPicker}=await import('../src/components/IdentityPicker.tsx');
@@ -32,7 +32,6 @@ function button(label){const found=[...container.querySelectorAll('button')].fin
 function field(label){const found=[...container.querySelectorAll('label')].find(e=>e.querySelector('span')?.textContent===label);assert.ok(found,`field ${label} exists`);return found.querySelector('input,select');}
 async function enter(input,value){await interact(()=>{Object.getOwnPropertyDescriptor(dom.window.HTMLInputElement.prototype,'value').set.call(input,value);input.dispatchEvent(new dom.window.Event('input',{bubbles:true}));});}
 async function submit(form){await interact(()=>form.dispatchEvent(new dom.window.Event('submit',{bubbles:true,cancelable:true})));}
-async function uploadProfiles(){const input=container.querySelector('input[type=file]');const data=JSON.stringify({admin:{Authorization:'Bearer synthetic-admin'},bob:{Authorization:'Bearer synthetic-bob','X-Owner':'bob'}});Object.defineProperty(input,'files',{value:[{size:data.length,text:async()=>data}],configurable:true});await interact(()=>input.dispatchEvent(new dom.window.Event('change',{bubbles:true})));}
 beforeEach(()=>{
   document.body.innerHTML='<div id="test-root"></div>';
   container=document.getElementById('test-root');root=createRoot(container);requests=[];window.confirm=()=>true;
@@ -41,21 +40,15 @@ beforeEach(()=>{
 afterEach(async()=>{await act(async()=>root.unmount());globalThis.fetch=originalFetch;});
 after(()=>dom.window.close());
 
-test('imported admin remains selected after Apply, changed manual credentials lose its hint',async()=>{
+test('login accepts a username and password without development credential controls',async()=>{
   let applied;
-  function Harness(){const [identity,setIdentity]=useState({owner:'',token:''});applied=identity;return <><IdentityPicker identity={identity} busy={false} onApply={setIdentity}/>{identity.profile==='admin'&&identity.token&&<span data-testid="clock">模拟时钟入口</span>}</>;}
-  await render(<Harness/>);await uploadProfiles();
-  assert.match(container.textContent,/已读取 2 个账户/);
-  assert.equal(applied.token,'','import does not silently change the active identity');
-  await interact(()=>{const select=container.querySelector('select');select.value='admin';select.dispatchEvent(new dom.window.Event('change',{bubbles:true}));});
-  assert.ok(container.querySelector('[data-testid=clock]'));
+  await render(<IdentityPicker busy={false} onLogin={async(username,password)=>{applied={username,password};}}/>);
+  assert.equal(container.querySelector('input[type=file]'),null);
+  await enter(field('账户'),' alice ');await enter(field('密码'),'test-password');
   await submit(container.querySelector('form'));
-  assert.equal(applied.profile,'admin');assert.ok(container.querySelector('[data-testid=clock]'));
-  assert.equal(container.querySelector('select').value,'admin');
-  await enter(field('访问凭证'),'different-synthetic-token');
-  await submit(container.querySelector('form'));
-  assert.equal(applied.profile,undefined);assert.equal(container.querySelector('[data-testid=clock]'),null);
-  assert.equal(requests.length,0,'identity file and tokens are not uploaded');
+  assert.deepEqual(applied,{username:'alice',password:'test-password'});
+  assert.equal(field('密码').value,'');
+  assert.equal(field('密码').autocomplete,'current-password');
 });
 
 test('same work ID submit re-reads once, updates state, and Refresh is not a form submit',async()=>{
@@ -130,8 +123,6 @@ test('hash navigation opens a decision and changing its parameter loads the othe
   };
   try{
     await render(<App/>);
-    await uploadProfiles();
-    await interact(()=>{const select=container.querySelector('.identity-panel select');select.value='bob';select.dispatchEvent(new dom.window.Event('change',{bubbles:true}));});
     assert.equal(field('决策 ID').value,'decision-one');
     assert.equal(requests.filter(r=>r.path==='/x/v1/decisions/decision-one').length,1);
     await interact(()=>{dom.window.history.replaceState(null,'','#decisions?decision=decision-two');dom.window.dispatchEvent(new dom.window.HashChangeEvent('hashchange'));});

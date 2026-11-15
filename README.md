@@ -13,7 +13,7 @@
 - [损失核算与强基线](docs/research/FINAL_LOSS_ACCOUNTING.md)：先算清保住多少计算，再比较贡献者等待；未开发无额外收益的复杂策略。
 - 可打印：[阅读手册 PDF](docs/release/artifacts/织算_上台前阅读手册.pdf)、[路演与问答 PDF](docs/release/artifacts/织算_五分钟路演与问答.pdf)。
 
-已有本机试用：CPU 实例 <http://127.0.0.1:15253>，逻辑模拟 <http://127.0.0.1:15252>。这两个地址只适用于已经启动本仓库的当前电脑。CPU 身份文件在 `runtime/release-preview/cpu/client-identities.json`，不纳入 Git。页面可直接连接账户，身份文件导入保留为快捷方式。
+已有本机试用：CPU 实例 <http://127.0.0.1:15253>，逻辑模拟 <http://127.0.0.1:15252>。这两个地址只适用于已经启动本仓库的当前电脑。页面使用账户、密码登录，刷新后保持会话。当前本机初始密码保存在 `runtime/release-preview-morning-20261115/cpu/login-accounts.txt`，仅供本机查看，不纳入 Git。
 
 ## 从干净目录启动
 
@@ -27,7 +27,9 @@ make setup
 uv run python scripts/cp2_joint_session.py start   --runtime runtime/my-demo   --logical-api-port 18262 --logical-web-port 15262   --cpu-api-port 18263 --cpu-web-port 15263
 ```
 
-打开 CPU 页面 <http://127.0.0.1:15263>，展开“从身份文件连接”，选择 `runtime/my-demo/cpu/client-identities.json`，再选 Alice。Supplier 有演示设备，且同样可以提交工作；Admin 有全局管理权限。逻辑实例使用其 `logical/` 目录内的身份文件，不能混用凭证。
+打开 CPU 页面 <http://127.0.0.1:15263>，使用 `runtime/my-demo/cpu/login-accounts.txt` 中的账户和初始密码登录。Alice（`alice`）、Bob（`bob`）、Chen（`chen`）都是普通用户，均可使用算力和共享自己的设备；本次演示设备由 Chen 持有。管理员账户是 `admin`。登录会话有效期为七天，刷新页面无需重新登录；“退出登录”会使当前会话失效。逻辑实例使用其 `logical/login-accounts.txt` 中的密码，与 CPU 实例分别登录。
+
+演示不同用户时，使用独立的浏览器配置文件或不同浏览器。同一浏览器配置文件中的普通窗口共用登录状态，不能用它们模拟两个同时在线的账户。
 
 CPU 模式执行固定参考程序并生成可核验结果；GPU 库存是模拟的。逻辑模式使用可推进的模拟时钟。两种模式的工作、资源、身份独立，均不执行任意用户镜像或 CUDA 训练。
 
@@ -48,7 +50,7 @@ npm --prefix web run test:client
 
 真实浏览器证据位于 `evidence/release-20261115/`。正式旧 CP3 报告仍是历史数据；本轮只验证其页面和原字节下载，没有重跑 125 组实验。新的损失核算仅包含四条件、三策略的最小对照。原 P/B2=1.00、规模和延迟未达结果保留，不用新的指标覆盖旧负例。
 
-评分以 [challenge.md](spec/official/challenge.md) 的 55/45 为准，路演为五分钟。作品按本轮已验证范围冻结；完整 CP4、独立真人部署、Safari 和物理触控板没有因本机测试而补记通过。未来工作优先改变有代表性的负载与约束，不继续投入没有收益的评分微调。
+评分以 [challenge.md](spec/official/challenge.md) 的 55/45 为准，路演为五分钟。原比赛候选标签保留不变；当前分支继续纳入账户登录与用户称呼修订。历史验收记录仍对应其中标注的版本；完整 CP4、独立真人部署、Safari 和物理触控板没有因本机测试而补记通过。未来工作优先改变有代表性的负载与约束，不继续投入没有收益的评分微调。
 
 ## 工程地图
 

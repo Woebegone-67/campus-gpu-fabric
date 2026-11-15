@@ -187,6 +187,10 @@ def start(runtime, ports, policy_archive=None):
             )
         auth.chmod(0o600)
         clients.chmod(0o600)
+        subprocess.run(
+            [sys.executable, str(ROOT / "scripts/init_cp1_demo.py"), str(directory),
+             "--ensure-accounts"], check=True, stdout=subprocess.DEVNULL,
+        )
         inventory = directory / "inventory.json"
         if not inventory.exists():
             shutil.copyfile(ROOT / "configs/cp1_inventory.json", inventory)
@@ -263,6 +267,7 @@ def serve(runtime, name, token, node):
     os.environ.update(
         FABRIC_DATA_DIR=str(runtime / mode / "data"),
         FABRIC_AUTH_FILE=str(runtime / mode / "auth.json"),
+        FABRIC_ACCOUNTS_FILE=str(runtime / mode / "accounts.json"),
         FABRIC_INVENTORY_FILE=str(runtime / mode / "inventory.json"),
         FABRIC_MODE="cpu_reference" if mode == "cpu" else "logical_simulation",
         FABRIC_SCHEDULING_MODE="external",
@@ -342,6 +347,9 @@ def status(runtime, session=None):
         "services": services,
         "identities": {
             mode: str(runtime / mode / "client-identities.json") for mode in ("logical", "cpu")
+        },
+        "login_accounts": {
+            mode: str(runtime / mode / "login-accounts.txt") for mode in ("logical", "cpu")
         },
         "human_acceptance": "NOT_ATTESTED",
         "checkpoint_passed": False,

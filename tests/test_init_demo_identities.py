@@ -45,6 +45,48 @@ def test_fresh_credentials_bind_dual_capability_members_and_separate_admin(tmp_p
             assert actor.owner_id == headers["X-Owner"] == name
     for path in (auth_path, client_path):
         assert stat.S_IMODE(path.stat().st_mode) == 0o600
+    accounts = json.loads((tmp_path / "accounts.json").read_text())
+    assert set(accounts) == {"alice", "bob", "chen", "admin"}
+    assert accounts["chen"]["actor"] == tokens[
+        clients["supplier"]["Authorization"].removeprefix("Bearer ")
+    ]
+    assert accounts["chen"]["actor"]["role"] == "member"
+    private_passwords = (tmp_path / "login-accounts.txt").read_text()
+    assert "supplier" not in private_passwords
+    for line in private_passwords.splitlines():
+        if line.startswith("密码："):
+            password = line.removeprefix("密码：")
+            assert password not in result.stdout + result.stderr + json.dumps(accounts)
+    for name in ("accounts.json", "login-accounts.txt"):
+        assert stat.S_IMODE((tmp_path / name).stat().st_mode) == 0o600
+
+
+def test_adding_password_accounts_preserves_existing_owners_and_passwords(tmp_path):
+    assert initialize(tmp_path).returncode == 0
+    original = {p.name: p.read_bytes() for p in tmp_path.iterdir()}
+    result = subprocess.run(
+        [sys.executable, str(ROOT / "scripts/init_cp1_demo.py"), str(tmp_path),
+         "--ensure-accounts"], capture_output=True, text=True, check=False,
+    )
+    assert result.returncode == 0, result.stderr
+    assert {p.name: p.read_bytes() for p in tmp_path.iterdir()} == original
+
+
+def test_existing_demo_can_gain_login_without_replacing_bearer_credentials(tmp_path):
+    assert initialize(tmp_path).returncode == 0
+    original = {name: (tmp_path / name).read_bytes()
+                for name in ("auth.json", "client-identities.json")}
+    (tmp_path / "accounts.json").unlink()
+    (tmp_path / "login-accounts.txt").unlink()
+    result = subprocess.run(
+        [sys.executable, str(ROOT / "scripts/init_cp1_demo.py"), str(tmp_path),
+         "--ensure-accounts"], capture_output=True, text=True, check=False,
+    )
+    assert result.returncode == 0, result.stderr
+    assert {name: (tmp_path / name).read_bytes() for name in original} == original
+    accounts = json.loads((tmp_path / "accounts.json").read_text())
+    assert accounts["chen"]["actor"]["owner_id"] == "supplier"
+    assert accounts["chen"]["actor"]["role"] == "member"
 
 
 @pytest.mark.parametrize("existing", ["auth.json", "client-identities.json", "both"])
