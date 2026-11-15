@@ -1,0 +1,59 @@
+{
+  "base": "0217e45de5bac7c8217c0144d51ff6414331d2f5",
+  "environment": "Same worktree .venv Python; clean initial FABRIC_/VITE_ environment; PYTHONPATH=archive/src:archive. No network/browser or real services.",
+  "results": [
+    {
+      "label": "clean-current",
+      "returncode": 0,
+      "command": [
+        "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-reclaim/.venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/domain/test_work_display_name.py::test_invalid_name_does_not_register_work",
+        "-x",
+        "-q",
+        "--tb=short",
+        "-p",
+        "no:cacheprovider"
+      ],
+      "cwd": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-reclaim",
+      "log": "triage-clean-current.log"
+    },
+    {
+      "label": "pair-current",
+      "returncode": 1,
+      "command": [
+        "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-reclaim/.venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/blackbox/test_cp2_joint_session_owned.py::test_historical_report_configuration_survives_environment_cleanup",
+        "tests/domain/test_work_display_name.py::test_invalid_name_does_not_register_work",
+        "-x",
+        "-q",
+        "--tb=short",
+        "-p",
+        "no:cacheprovider"
+      ],
+      "cwd": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-reclaim",
+      "log": "triage-pair-current.log"
+    },
+    {
+      "label": "pair-base-0217e45",
+      "returncode": 1,
+      "command": [
+        "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-reclaim/.venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/blackbox/test_cp2_joint_session_owned.py::test_historical_report_configuration_survives_environment_cleanup",
+        "tests/domain/test_work_display_name.py::test_invalid_name_does_not_register_work",
+        "-x",
+        "-q",
+        "--tb=short",
+        "-p",
+        "no:cacheprovider"
+      ],
+      "cwd": "/var/folders/hn/_v9f078s4psfdx6hwfkwb24r0000gp/T/fabric-base-triage-_uhabpqt",
+      "log": "triage-pair-base-0217e45.log"
+    }
+  ]
+}

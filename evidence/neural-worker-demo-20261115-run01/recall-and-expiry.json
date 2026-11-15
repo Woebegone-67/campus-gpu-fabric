@@ -1,0 +1,4066 @@
+{
+  "recall": {
+    "request_id": "worker-demo-real-one-second-recall",
+    "outcome": "committed",
+    "version": {
+      "epoch": 0,
+      "revision": 59
+    },
+    "logical_time": 3628800.0,
+    "objects": [
+      {
+        "kind": "gpu",
+        "entity_id": "provider-01"
+      }
+    ],
+    "event_ids": [
+      "e0-ev71"
+    ],
+    "error": null,
+    "idempotency_replayed": false,
+    "original_request_id": null
+  },
+  "clock": [
+    {
+      "request_id": "replay-clock-3.6288e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 60
+      },
+      "logical_time": 3628801.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev72",
+        "e0-ev73"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    }
+  ],
+  "notice": {
+    "notice_id": "e0-notice17",
+    "contributor_owner_id": "provider-01",
+    "device_ids": [
+      "provider-01"
+    ],
+    "issued_at": 3628800.0,
+    "deadline": 3628801.0,
+    "unavailable_until": 3628821.0
+  },
+  "allocation_at_deadline": {
+    "allocation_id": "e0-a1",
+    "owner_id": "alice",
+    "state": "Preempted",
+    "request": {
+      "cpu_millicores": 1000,
+      "memory_mib": 1024,
+      "gpu": {
+        "count": 1,
+        "model": "any",
+        "memory_mib": 1024,
+        "profile": null
+      },
+      "ephemeral_storage_mib": 0
+    },
+    "created_at": 3628800.0,
+    "placement": null,
+    "expires_at": 3629700.0,
+    "preemption": {
+      "requested_at": 3628800.0,
+      "deadline": 3628801.0,
+      "checkpoint_due": 3628801.0,
+      "reason": "contributor_recall"
+    },
+    "checkpoint": null,
+    "restart_count": 0,
+    "pending_terminal": null
+  },
+  "expiry_clock": [
+    {
+      "request_id": "replay-clock-3.6288e+06-3.6297e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 61
+      },
+      "logical_time": 3629700.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev74",
+        "e0-ev75",
+        "e0-ev76",
+        "e0-ev77",
+        "e0-ev78",
+        "e0-ev79",
+        "e0-ev80",
+        "e0-ev81",
+        "e0-ev82",
+        "e0-ev83",
+        "e0-ev84",
+        "e0-ev85",
+        "e0-ev86",
+        "e0-ev87"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    }
+  ],
+  "final_read": {
+    "version": {
+      "epoch": 0,
+      "revision": 61
+    },
+    "now": 3629700.0,
+    "viewer": {
+      "actor_id": "local-neural-replay",
+      "role": "researcher",
+      "owner_id": "alice"
+    },
+    "global_scope": false,
+    "allocations": [
+      {
+        "allocation_id": "e0-a1",
+        "owner_id": "alice",
+        "state": "Expired",
+        "request": {
+          "cpu_millicores": 1000,
+          "memory_mib": 1024,
+          "gpu": {
+            "count": 1,
+            "model": "any",
+            "memory_mib": 1024,
+            "profile": null
+          },
+          "ephemeral_storage_mib": 0
+        },
+        "created_at": 3628800.0,
+        "placement": null,
+        "expires_at": 3629700.0,
+        "preemption": {
+          "requested_at": 3628800.0,
+          "deadline": 3628801.0,
+          "checkpoint_due": 3628801.0,
+          "reason": "contributor_recall"
+        },
+        "checkpoint": null,
+        "restart_count": 0,
+        "pending_terminal": null
+      },
+      {
+        "allocation_id": "e0-a2",
+        "owner_id": "alice",
+        "state": "Expired",
+        "request": {
+          "cpu_millicores": 1000,
+          "memory_mib": 1024,
+          "gpu": {
+            "count": 1,
+            "model": "any",
+            "memory_mib": 1024,
+            "profile": null
+          },
+          "ephemeral_storage_mib": 0
+        },
+        "created_at": 3628800.0,
+        "placement": null,
+        "expires_at": 3629700.0,
+        "preemption": null,
+        "checkpoint": null,
+        "restart_count": 0,
+        "pending_terminal": null
+      },
+      {
+        "allocation_id": "e0-a3",
+        "owner_id": "alice",
+        "state": "Expired",
+        "request": {
+          "cpu_millicores": 1000,
+          "memory_mib": 1024,
+          "gpu": {
+            "count": 1,
+            "model": "any",
+            "memory_mib": 1024,
+            "profile": null
+          },
+          "ephemeral_storage_mib": 0
+        },
+        "created_at": 3628800.0,
+        "placement": null,
+        "expires_at": 3629700.0,
+        "preemption": null,
+        "checkpoint": null,
+        "restart_count": 0,
+        "pending_terminal": null
+      },
+      {
+        "allocation_id": "e0-a4",
+        "owner_id": "alice",
+        "state": "Expired",
+        "request": {
+          "cpu_millicores": 1000,
+          "memory_mib": 1024,
+          "gpu": {
+            "count": 1,
+            "model": "any",
+            "memory_mib": 1024,
+            "profile": null
+          },
+          "ephemeral_storage_mib": 0
+        },
+        "created_at": 3628800.0,
+        "placement": null,
+        "expires_at": 3629700.0,
+        "preemption": null,
+        "checkpoint": null,
+        "restart_count": 0,
+        "pending_terminal": null
+      }
+    ],
+    "jobs": [
+      {
+        "job_id": "e0-j11",
+        "allocation_id": "e0-a3",
+        "owner_id": "alice",
+        "state": "Failed",
+        "created_at": 3628800.0,
+        "attempt": {
+          "intent_id": "task-2",
+          "attempt_id": "e0-attempt12",
+          "generation": 1,
+          "allocation_id": "e0-a3",
+          "job_id": "e0-j11"
+        },
+        "execution_mode": "logical_simulation",
+        "retry_count": 0,
+        "checkpoint": null,
+        "result_uri": null,
+        "failure": "Lease expired",
+        "finished_at": 3629700.0
+      },
+      {
+        "job_id": "e0-j14",
+        "allocation_id": "e0-a4",
+        "owner_id": "alice",
+        "state": "Failed",
+        "created_at": 3628800.0,
+        "attempt": {
+          "intent_id": "task-3",
+          "attempt_id": "e0-attempt15",
+          "generation": 1,
+          "allocation_id": "e0-a4",
+          "job_id": "e0-j14"
+        },
+        "execution_mode": "logical_simulation",
+        "retry_count": 0,
+        "checkpoint": null,
+        "result_uri": null,
+        "failure": "Lease expired",
+        "finished_at": 3629700.0
+      },
+      {
+        "job_id": "e0-j5",
+        "allocation_id": "e0-a1",
+        "owner_id": "alice",
+        "state": "Failed",
+        "created_at": 3628800.0,
+        "attempt": {
+          "intent_id": "task-0",
+          "attempt_id": "e0-attempt6",
+          "generation": 1,
+          "allocation_id": "e0-a1",
+          "job_id": "e0-j5"
+        },
+        "execution_mode": "logical_simulation",
+        "retry_count": 0,
+        "checkpoint": null,
+        "result_uri": null,
+        "failure": "Lease expired",
+        "finished_at": 3629700.0
+      },
+      {
+        "job_id": "e0-j8",
+        "allocation_id": "e0-a2",
+        "owner_id": "alice",
+        "state": "Failed",
+        "created_at": 3628800.0,
+        "attempt": {
+          "intent_id": "task-1",
+          "attempt_id": "e0-attempt9",
+          "generation": 1,
+          "allocation_id": "e0-a2",
+          "job_id": "e0-j8"
+        },
+        "execution_mode": "logical_simulation",
+        "retry_count": 0,
+        "checkpoint": null,
+        "result_uri": null,
+        "failure": "Lease expired",
+        "finished_at": 3629700.0
+      }
+    ],
+    "intents": [
+      {
+        "intent_id": "task-0",
+        "owner_id": "alice",
+        "display_name": null,
+        "first_arrival_at": 3628800.0,
+        "execution_mode": "logical_simulation",
+        "settlement_action": "keep_lease",
+        "specification": {
+          "allocation": {
+            "kind": "allocation.create",
+            "owner_id": "alice",
+            "request": {
+              "cpu_millicores": 1000,
+              "memory_mib": 1024,
+              "gpu": {
+                "count": 1,
+                "model": "any",
+                "memory_mib": 1024,
+                "profile": null
+              },
+              "ephemeral_storage_mib": 0
+            },
+            "queue": "default",
+            "priority": 0,
+            "ttl_seconds": 900,
+            "preemptible": true,
+            "preemption_mode": "restartable",
+            "checkpoint_timeout_seconds": 15,
+            "max_restarts": 2,
+            "node_selector": []
+          },
+          "job": {
+            "image": "local-contract-replay",
+            "command": [
+              "no-real-execution"
+            ],
+            "env": [],
+            "timeout_seconds": 900,
+            "max_retries": null
+          }
+        },
+        "state": "failed",
+        "allocation_ids": [
+          "e0-a1"
+        ],
+        "job_ids": [
+          "e0-j5"
+        ],
+        "attempts": [
+          {
+            "ref": {
+              "intent_id": "task-0",
+              "attempt_id": "e0-attempt6",
+              "generation": 1,
+              "allocation_id": "e0-a1",
+              "job_id": "e0-j5"
+            },
+            "state": "failed",
+            "created_at": 3628800.0,
+            "started_at": 3628800.0,
+            "finished_at": 3629700.0,
+            "checkpoint": null
+          }
+        ],
+        "stages": [
+          {
+            "stage_id": "allocate",
+            "operation": "allocate",
+            "state": "committed",
+            "receipt": {
+              "request_id": "workflow-8930a667e7248609ef2342d73b2d127fb41ef6f2",
+              "outcome": "committed",
+              "version": {
+                "epoch": 0,
+                "revision": 44
+              },
+              "logical_time": 3628800.0,
+              "objects": [
+                {
+                  "kind": "allocation",
+                  "entity_id": "e0-a1"
+                },
+                {
+                  "kind": "intent",
+                  "entity_id": "task-0"
+                }
+              ],
+              "event_ids": [
+                "e0-ev44",
+                "e0-ev45"
+              ],
+              "error": null,
+              "idempotency_replayed": false,
+              "original_request_id": null
+            }
+          },
+          {
+            "stage_id": "job-v1",
+            "operation": "create_job_and_bind",
+            "state": "committed",
+            "receipt": {
+              "request_id": "workflow-4275d53926ab55eb56ab9b5bbda5c713122afc90",
+              "outcome": "committed",
+              "version": {
+                "epoch": 0,
+                "revision": 55
+              },
+              "logical_time": 3628800.0,
+              "objects": [
+                {
+                  "kind": "job",
+                  "entity_id": "e0-j5"
+                },
+                {
+                  "kind": "intent",
+                  "entity_id": "task-0"
+                }
+              ],
+              "event_ids": [
+                "e0-ev63",
+                "e0-ev64"
+              ],
+              "error": null,
+              "idempotency_replayed": false,
+              "original_request_id": null
+            }
+          }
+        ],
+        "result": {
+          "kind": "failure",
+          "recorded_at": 3629700.0,
+          "artifact_uris": [],
+          "failure": {
+            "code": "execution_unconfirmed",
+            "detail": "Lease expired",
+            "retryable": false,
+            "current_version": null
+          }
+        }
+      },
+      {
+        "intent_id": "task-1",
+        "owner_id": "alice",
+        "display_name": null,
+        "first_arrival_at": 3628800.0,
+        "execution_mode": "logical_simulation",
+        "settlement_action": "keep_lease",
+        "specification": {
+          "allocation": {
+            "kind": "allocation.create",
+            "owner_id": "alice",
+            "request": {
+              "cpu_millicores": 1000,
+              "memory_mib": 1024,
+              "gpu": {
+                "count": 1,
+                "model": "any",
+                "memory_mib": 1024,
+                "profile": null
+              },
+              "ephemeral_storage_mib": 0
+            },
+            "queue": "default",
+            "priority": 0,
+            "ttl_seconds": 900,
+            "preemptible": true,
+            "preemption_mode": "restartable",
+            "checkpoint_timeout_seconds": 15,
+            "max_restarts": 2,
+            "node_selector": []
+          },
+          "job": {
+            "image": "local-contract-replay",
+            "command": [
+              "no-real-execution"
+            ],
+            "env": [],
+            "timeout_seconds": 900,
+            "max_retries": null
+          }
+        },
+        "state": "failed",
+        "allocation_ids": [
+          "e0-a2"
+        ],
+        "job_ids": [
+          "e0-j8"
+        ],
+        "attempts": [
+          {
+            "ref": {
+              "intent_id": "task-1",
+              "attempt_id": "e0-attempt9",
+              "generation": 1,
+              "allocation_id": "e0-a2",
+              "job_id": "e0-j8"
+            },
+            "state": "failed",
+            "created_at": 3628800.0,
+            "started_at": 3628800.0,
+            "finished_at": 3629700.0,
+            "checkpoint": null
+          }
+        ],
+        "stages": [
+          {
+            "stage_id": "allocate",
+            "operation": "allocate",
+            "state": "committed",
+            "receipt": {
+              "request_id": "workflow-f74f26afce24347883aa1514fd46ce2d44a86c9c",
+              "outcome": "committed",
+              "version": {
+                "epoch": 0,
+                "revision": 46
+              },
+              "logical_time": 3628800.0,
+              "objects": [
+                {
+                  "kind": "allocation",
+                  "entity_id": "e0-a2"
+                },
+                {
+                  "kind": "intent",
+                  "entity_id": "task-1"
+                }
+              ],
+              "event_ids": [
+                "e0-ev47",
+                "e0-ev48"
+              ],
+              "error": null,
+              "idempotency_replayed": false,
+              "original_request_id": null
+            }
+          },
+          {
+            "stage_id": "job-v1",
+            "operation": "create_job_and_bind",
+            "state": "committed",
+            "receipt": {
+              "request_id": "workflow-a6f44eeb66472d195709fbd86d7ff23642cafb33",
+              "outcome": "committed",
+              "version": {
+                "epoch": 0,
+                "revision": 56
+              },
+              "logical_time": 3628800.0,
+              "objects": [
+                {
+                  "kind": "job",
+                  "entity_id": "e0-j8"
+                },
+                {
+                  "kind": "intent",
+                  "entity_id": "task-1"
+                }
+              ],
+              "event_ids": [
+                "e0-ev65",
+                "e0-ev66"
+              ],
+              "error": null,
+              "idempotency_replayed": false,
+              "original_request_id": null
+            }
+          }
+        ],
+        "result": {
+          "kind": "failure",
+          "recorded_at": 3629700.0,
+          "artifact_uris": [],
+          "failure": {
+            "code": "execution_unconfirmed",
+            "detail": "Lease expired",
+            "retryable": false,
+            "current_version": null
+          }
+        }
+      },
+      {
+        "intent_id": "task-2",
+        "owner_id": "alice",
+        "display_name": null,
+        "first_arrival_at": 3628800.0,
+        "execution_mode": "logical_simulation",
+        "settlement_action": "keep_lease",
+        "specification": {
+          "allocation": {
+            "kind": "allocation.create",
+            "owner_id": "alice",
+            "request": {
+              "cpu_millicores": 1000,
+              "memory_mib": 1024,
+              "gpu": {
+                "count": 1,
+                "model": "any",
+                "memory_mib": 1024,
+                "profile": null
+              },
+              "ephemeral_storage_mib": 0
+            },
+            "queue": "default",
+            "priority": 0,
+            "ttl_seconds": 900,
+            "preemptible": true,
+            "preemption_mode": "restartable",
+            "checkpoint_timeout_seconds": 15,
+            "max_restarts": 2,
+            "node_selector": []
+          },
+          "job": {
+            "image": "local-contract-replay",
+            "command": [
+              "no-real-execution"
+            ],
+            "env": [],
+            "timeout_seconds": 900,
+            "max_retries": null
+          }
+        },
+        "state": "failed",
+        "allocation_ids": [
+          "e0-a3"
+        ],
+        "job_ids": [
+          "e0-j11"
+        ],
+        "attempts": [
+          {
+            "ref": {
+              "intent_id": "task-2",
+              "attempt_id": "e0-attempt12",
+              "generation": 1,
+              "allocation_id": "e0-a3",
+              "job_id": "e0-j11"
+            },
+            "state": "failed",
+            "created_at": 3628800.0,
+            "started_at": 3628800.0,
+            "finished_at": 3629700.0,
+            "checkpoint": null
+          }
+        ],
+        "stages": [
+          {
+            "stage_id": "allocate",
+            "operation": "allocate",
+            "state": "committed",
+            "receipt": {
+              "request_id": "workflow-83719d2862248fc88ee80d47d9eceb89c4d9bc0e",
+              "outcome": "committed",
+              "version": {
+                "epoch": 0,
+                "revision": 48
+              },
+              "logical_time": 3628800.0,
+              "objects": [
+                {
+                  "kind": "allocation",
+                  "entity_id": "e0-a3"
+                },
+                {
+                  "kind": "intent",
+                  "entity_id": "task-2"
+                }
+              ],
+              "event_ids": [
+                "e0-ev50",
+                "e0-ev51"
+              ],
+              "error": null,
+              "idempotency_replayed": false,
+              "original_request_id": null
+            }
+          },
+          {
+            "stage_id": "job-v1",
+            "operation": "create_job_and_bind",
+            "state": "committed",
+            "receipt": {
+              "request_id": "workflow-c1dcfaaa003c6bf2ccae6069f20f0c269ccf8f70",
+              "outcome": "committed",
+              "version": {
+                "epoch": 0,
+                "revision": 57
+              },
+              "logical_time": 3628800.0,
+              "objects": [
+                {
+                  "kind": "job",
+                  "entity_id": "e0-j11"
+                },
+                {
+                  "kind": "intent",
+                  "entity_id": "task-2"
+                }
+              ],
+              "event_ids": [
+                "e0-ev67",
+                "e0-ev68"
+              ],
+              "error": null,
+              "idempotency_replayed": false,
+              "original_request_id": null
+            }
+          }
+        ],
+        "result": {
+          "kind": "failure",
+          "recorded_at": 3629700.0,
+          "artifact_uris": [],
+          "failure": {
+            "code": "execution_unconfirmed",
+            "detail": "Lease expired",
+            "retryable": false,
+            "current_version": null
+          }
+        }
+      },
+      {
+        "intent_id": "task-3",
+        "owner_id": "alice",
+        "display_name": null,
+        "first_arrival_at": 3628800.0,
+        "execution_mode": "logical_simulation",
+        "settlement_action": "keep_lease",
+        "specification": {
+          "allocation": {
+            "kind": "allocation.create",
+            "owner_id": "alice",
+            "request": {
+              "cpu_millicores": 1000,
+              "memory_mib": 1024,
+              "gpu": {
+                "count": 1,
+                "model": "any",
+                "memory_mib": 1024,
+                "profile": null
+              },
+              "ephemeral_storage_mib": 0
+            },
+            "queue": "default",
+            "priority": 0,
+            "ttl_seconds": 900,
+            "preemptible": true,
+            "preemption_mode": "restartable",
+            "checkpoint_timeout_seconds": 15,
+            "max_restarts": 2,
+            "node_selector": []
+          },
+          "job": {
+            "image": "local-contract-replay",
+            "command": [
+              "no-real-execution"
+            ],
+            "env": [],
+            "timeout_seconds": 900,
+            "max_retries": null
+          }
+        },
+        "state": "failed",
+        "allocation_ids": [
+          "e0-a4"
+        ],
+        "job_ids": [
+          "e0-j14"
+        ],
+        "attempts": [
+          {
+            "ref": {
+              "intent_id": "task-3",
+              "attempt_id": "e0-attempt15",
+              "generation": 1,
+              "allocation_id": "e0-a4",
+              "job_id": "e0-j14"
+            },
+            "state": "failed",
+            "created_at": 3628800.0,
+            "started_at": 3628800.0,
+            "finished_at": 3629700.0,
+            "checkpoint": null
+          }
+        ],
+        "stages": [
+          {
+            "stage_id": "allocate",
+            "operation": "allocate",
+            "state": "committed",
+            "receipt": {
+              "request_id": "workflow-2cf295edccd38efb67660efcb2016a47b522310d",
+              "outcome": "committed",
+              "version": {
+                "epoch": 0,
+                "revision": 50
+              },
+              "logical_time": 3628800.0,
+              "objects": [
+                {
+                  "kind": "allocation",
+                  "entity_id": "e0-a4"
+                },
+                {
+                  "kind": "intent",
+                  "entity_id": "task-3"
+                }
+              ],
+              "event_ids": [
+                "e0-ev53",
+                "e0-ev54"
+              ],
+              "error": null,
+              "idempotency_replayed": false,
+              "original_request_id": null
+            }
+          },
+          {
+            "stage_id": "job-v1",
+            "operation": "create_job_and_bind",
+            "state": "committed",
+            "receipt": {
+              "request_id": "workflow-1bfeb9adae70556bdffa8fff1a52c130efc6e637",
+              "outcome": "committed",
+              "version": {
+                "epoch": 0,
+                "revision": 58
+              },
+              "logical_time": 3628800.0,
+              "objects": [
+                {
+                  "kind": "job",
+                  "entity_id": "e0-j14"
+                },
+                {
+                  "kind": "intent",
+                  "entity_id": "task-3"
+                }
+              ],
+              "event_ids": [
+                "e0-ev69",
+                "e0-ev70"
+              ],
+              "error": null,
+              "idempotency_replayed": false,
+              "original_request_id": null
+            }
+          }
+        ],
+        "result": {
+          "kind": "failure",
+          "recorded_at": 3629700.0,
+          "artifact_uris": [],
+          "failure": {
+            "code": "execution_unconfirmed",
+            "detail": "Lease expired",
+            "retryable": false,
+            "current_version": null
+          }
+        }
+      }
+    ],
+    "events": [
+      {
+        "event_id": "e0-ev43",
+        "sequence": 43,
+        "version": {
+          "epoch": 0,
+          "revision": 43
+        },
+        "logical_time": 3628800.0,
+        "event_type": "intent.registered",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "intent",
+            "entity_id": "task-0"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "register-task-0"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-0"
+            },
+            "before": null,
+            "after": "pending"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev44",
+        "sequence": 44,
+        "version": {
+          "epoch": 0,
+          "revision": 44
+        },
+        "logical_time": 3628800.0,
+        "event_type": "allocation.requested",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a1"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-8930a667e7248609ef2342d73b2d127fb41ef6f2"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a1"
+            },
+            "before": null,
+            "after": "Pending"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev45",
+        "sequence": 45,
+        "version": {
+          "epoch": 0,
+          "revision": 44
+        },
+        "logical_time": 3628800.0,
+        "event_type": "intent.stage_bound",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a1"
+          },
+          {
+            "kind": "intent",
+            "entity_id": "task-0"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-8930a667e7248609ef2342d73b2d127fb41ef6f2"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a1"
+            },
+            "before": null,
+            "after": "waiting"
+          },
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-0"
+            },
+            "before": null,
+            "after": "waiting"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev46",
+        "sequence": 46,
+        "version": {
+          "epoch": 0,
+          "revision": 45
+        },
+        "logical_time": 3628800.0,
+        "event_type": "intent.registered",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "intent",
+            "entity_id": "task-1"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "register-task-1"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-1"
+            },
+            "before": null,
+            "after": "pending"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev47",
+        "sequence": 47,
+        "version": {
+          "epoch": 0,
+          "revision": 46
+        },
+        "logical_time": 3628800.0,
+        "event_type": "allocation.requested",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a2"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-f74f26afce24347883aa1514fd46ce2d44a86c9c"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a2"
+            },
+            "before": null,
+            "after": "Pending"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev48",
+        "sequence": 48,
+        "version": {
+          "epoch": 0,
+          "revision": 46
+        },
+        "logical_time": 3628800.0,
+        "event_type": "intent.stage_bound",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a2"
+          },
+          {
+            "kind": "intent",
+            "entity_id": "task-1"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-f74f26afce24347883aa1514fd46ce2d44a86c9c"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a2"
+            },
+            "before": null,
+            "after": "waiting"
+          },
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-1"
+            },
+            "before": null,
+            "after": "waiting"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev49",
+        "sequence": 49,
+        "version": {
+          "epoch": 0,
+          "revision": 47
+        },
+        "logical_time": 3628800.0,
+        "event_type": "intent.registered",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "intent",
+            "entity_id": "task-2"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "register-task-2"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-2"
+            },
+            "before": null,
+            "after": "pending"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev50",
+        "sequence": 50,
+        "version": {
+          "epoch": 0,
+          "revision": 48
+        },
+        "logical_time": 3628800.0,
+        "event_type": "allocation.requested",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a3"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-83719d2862248fc88ee80d47d9eceb89c4d9bc0e"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a3"
+            },
+            "before": null,
+            "after": "Pending"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev51",
+        "sequence": 51,
+        "version": {
+          "epoch": 0,
+          "revision": 48
+        },
+        "logical_time": 3628800.0,
+        "event_type": "intent.stage_bound",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a3"
+          },
+          {
+            "kind": "intent",
+            "entity_id": "task-2"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-83719d2862248fc88ee80d47d9eceb89c4d9bc0e"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a3"
+            },
+            "before": null,
+            "after": "waiting"
+          },
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-2"
+            },
+            "before": null,
+            "after": "waiting"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev52",
+        "sequence": 52,
+        "version": {
+          "epoch": 0,
+          "revision": 49
+        },
+        "logical_time": 3628800.0,
+        "event_type": "intent.registered",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "intent",
+            "entity_id": "task-3"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "register-task-3"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-3"
+            },
+            "before": null,
+            "after": "pending"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev53",
+        "sequence": 53,
+        "version": {
+          "epoch": 0,
+          "revision": 50
+        },
+        "logical_time": 3628800.0,
+        "event_type": "allocation.requested",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a4"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-2cf295edccd38efb67660efcb2016a47b522310d"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a4"
+            },
+            "before": null,
+            "after": "Pending"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev54",
+        "sequence": 54,
+        "version": {
+          "epoch": 0,
+          "revision": 50
+        },
+        "logical_time": 3628800.0,
+        "event_type": "intent.stage_bound",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a4"
+          },
+          {
+            "kind": "intent",
+            "entity_id": "task-3"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-2cf295edccd38efb67660efcb2016a47b522310d"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a4"
+            },
+            "before": null,
+            "after": "waiting"
+          },
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-3"
+            },
+            "before": null,
+            "after": "waiting"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev55",
+        "sequence": 55,
+        "version": {
+          "epoch": 0,
+          "revision": 51
+        },
+        "logical_time": 3628800.0,
+        "event_type": "allocation.granted",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a1"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "apply-decision-7bde014f57c44e266655c5e9bd732951"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a1"
+            },
+            "before": "Pending",
+            "after": "Allocated"
+          }
+        ],
+        "resource_deltas": [
+          {
+            "node_id": "node-provider-01",
+            "allocation_id": "e0-a1",
+            "cpu_millicores": 1000,
+            "memory_mib": 1024,
+            "ephemeral_storage_mib": 0,
+            "device_ids_added": [
+              "provider-01"
+            ],
+            "device_ids_removed": []
+          }
+        ],
+        "decision_id": "decision-7bde014f57c44e266655c5e9bd732951",
+        "decision_snapshot_version": {
+          "epoch": 0,
+          "revision": 50
+        }
+      },
+      {
+        "event_id": "e0-ev56",
+        "sequence": 56,
+        "version": {
+          "epoch": 0,
+          "revision": 51
+        },
+        "logical_time": 3628800.0,
+        "event_type": "decision.committed",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "decision",
+            "entity_id": "decision-7bde014f57c44e266655c5e9bd732951"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "apply-decision-7bde014f57c44e266655c5e9bd732951"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": "decision-7bde014f57c44e266655c5e9bd732951",
+        "decision_snapshot_version": {
+          "epoch": 0,
+          "revision": 50
+        }
+      },
+      {
+        "event_id": "e0-ev57",
+        "sequence": 57,
+        "version": {
+          "epoch": 0,
+          "revision": 52
+        },
+        "logical_time": 3628800.0,
+        "event_type": "allocation.granted",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a2"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "apply-decision-564430d280f64f7f55571c4b572b59ed"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a2"
+            },
+            "before": "Pending",
+            "after": "Allocated"
+          }
+        ],
+        "resource_deltas": [
+          {
+            "node_id": "node-provider-00",
+            "allocation_id": "e0-a2",
+            "cpu_millicores": 1000,
+            "memory_mib": 1024,
+            "ephemeral_storage_mib": 0,
+            "device_ids_added": [
+              "provider-00"
+            ],
+            "device_ids_removed": []
+          }
+        ],
+        "decision_id": "decision-564430d280f64f7f55571c4b572b59ed",
+        "decision_snapshot_version": {
+          "epoch": 0,
+          "revision": 51
+        }
+      },
+      {
+        "event_id": "e0-ev58",
+        "sequence": 58,
+        "version": {
+          "epoch": 0,
+          "revision": 52
+        },
+        "logical_time": 3628800.0,
+        "event_type": "decision.committed",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "decision",
+            "entity_id": "decision-564430d280f64f7f55571c4b572b59ed"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "apply-decision-564430d280f64f7f55571c4b572b59ed"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": "decision-564430d280f64f7f55571c4b572b59ed",
+        "decision_snapshot_version": {
+          "epoch": 0,
+          "revision": 51
+        }
+      },
+      {
+        "event_id": "e0-ev59",
+        "sequence": 59,
+        "version": {
+          "epoch": 0,
+          "revision": 53
+        },
+        "logical_time": 3628800.0,
+        "event_type": "allocation.granted",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a3"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "apply-decision-15cd7e36b2c332f77b0896fb7467c93c"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a3"
+            },
+            "before": "Pending",
+            "after": "Allocated"
+          }
+        ],
+        "resource_deltas": [
+          {
+            "node_id": "node-provider-02",
+            "allocation_id": "e0-a3",
+            "cpu_millicores": 1000,
+            "memory_mib": 1024,
+            "ephemeral_storage_mib": 0,
+            "device_ids_added": [
+              "provider-02"
+            ],
+            "device_ids_removed": []
+          }
+        ],
+        "decision_id": "decision-15cd7e36b2c332f77b0896fb7467c93c",
+        "decision_snapshot_version": {
+          "epoch": 0,
+          "revision": 52
+        }
+      },
+      {
+        "event_id": "e0-ev60",
+        "sequence": 60,
+        "version": {
+          "epoch": 0,
+          "revision": 53
+        },
+        "logical_time": 3628800.0,
+        "event_type": "decision.committed",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "decision",
+            "entity_id": "decision-15cd7e36b2c332f77b0896fb7467c93c"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "apply-decision-15cd7e36b2c332f77b0896fb7467c93c"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": "decision-15cd7e36b2c332f77b0896fb7467c93c",
+        "decision_snapshot_version": {
+          "epoch": 0,
+          "revision": 52
+        }
+      },
+      {
+        "event_id": "e0-ev61",
+        "sequence": 61,
+        "version": {
+          "epoch": 0,
+          "revision": 54
+        },
+        "logical_time": 3628800.0,
+        "event_type": "allocation.granted",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a4"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "apply-decision-b2b11f25fd30dc3600ac907829c11a52"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a4"
+            },
+            "before": "Pending",
+            "after": "Allocated"
+          }
+        ],
+        "resource_deltas": [
+          {
+            "node_id": "node-provider-03",
+            "allocation_id": "e0-a4",
+            "cpu_millicores": 1000,
+            "memory_mib": 1024,
+            "ephemeral_storage_mib": 0,
+            "device_ids_added": [
+              "provider-03"
+            ],
+            "device_ids_removed": []
+          }
+        ],
+        "decision_id": "decision-b2b11f25fd30dc3600ac907829c11a52",
+        "decision_snapshot_version": {
+          "epoch": 0,
+          "revision": 53
+        }
+      },
+      {
+        "event_id": "e0-ev62",
+        "sequence": 62,
+        "version": {
+          "epoch": 0,
+          "revision": 54
+        },
+        "logical_time": 3628800.0,
+        "event_type": "decision.committed",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "decision",
+            "entity_id": "decision-b2b11f25fd30dc3600ac907829c11a52"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "apply-decision-b2b11f25fd30dc3600ac907829c11a52"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": "decision-b2b11f25fd30dc3600ac907829c11a52",
+        "decision_snapshot_version": {
+          "epoch": 0,
+          "revision": 53
+        }
+      },
+      {
+        "event_id": "e0-ev63",
+        "sequence": 63,
+        "version": {
+          "epoch": 0,
+          "revision": 55
+        },
+        "logical_time": 3628800.0,
+        "event_type": "job.started",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "job",
+            "entity_id": "e0-j5"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-4275d53926ab55eb56ab9b5bbda5c713122afc90"
+        },
+        "attempt": {
+          "intent_id": "task-0",
+          "attempt_id": "e0-attempt6",
+          "generation": 1,
+          "allocation_id": "e0-a1",
+          "job_id": "e0-j5"
+        },
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "job",
+              "entity_id": "e0-j5"
+            },
+            "before": null,
+            "after": "Running"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev64",
+        "sequence": 64,
+        "version": {
+          "epoch": 0,
+          "revision": 55
+        },
+        "logical_time": 3628800.0,
+        "event_type": "intent.stage_bound",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "job",
+            "entity_id": "e0-j5"
+          },
+          {
+            "kind": "intent",
+            "entity_id": "task-0"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-4275d53926ab55eb56ab9b5bbda5c713122afc90"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "job",
+              "entity_id": "e0-j5"
+            },
+            "before": null,
+            "after": "running"
+          },
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-0"
+            },
+            "before": null,
+            "after": "running"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev65",
+        "sequence": 65,
+        "version": {
+          "epoch": 0,
+          "revision": 56
+        },
+        "logical_time": 3628800.0,
+        "event_type": "job.started",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "job",
+            "entity_id": "e0-j8"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-a6f44eeb66472d195709fbd86d7ff23642cafb33"
+        },
+        "attempt": {
+          "intent_id": "task-1",
+          "attempt_id": "e0-attempt9",
+          "generation": 1,
+          "allocation_id": "e0-a2",
+          "job_id": "e0-j8"
+        },
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "job",
+              "entity_id": "e0-j8"
+            },
+            "before": null,
+            "after": "Running"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev66",
+        "sequence": 66,
+        "version": {
+          "epoch": 0,
+          "revision": 56
+        },
+        "logical_time": 3628800.0,
+        "event_type": "intent.stage_bound",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "job",
+            "entity_id": "e0-j8"
+          },
+          {
+            "kind": "intent",
+            "entity_id": "task-1"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-a6f44eeb66472d195709fbd86d7ff23642cafb33"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "job",
+              "entity_id": "e0-j8"
+            },
+            "before": null,
+            "after": "running"
+          },
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-1"
+            },
+            "before": null,
+            "after": "running"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev67",
+        "sequence": 67,
+        "version": {
+          "epoch": 0,
+          "revision": 57
+        },
+        "logical_time": 3628800.0,
+        "event_type": "job.started",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "job",
+            "entity_id": "e0-j11"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-c1dcfaaa003c6bf2ccae6069f20f0c269ccf8f70"
+        },
+        "attempt": {
+          "intent_id": "task-2",
+          "attempt_id": "e0-attempt12",
+          "generation": 1,
+          "allocation_id": "e0-a3",
+          "job_id": "e0-j11"
+        },
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "job",
+              "entity_id": "e0-j11"
+            },
+            "before": null,
+            "after": "Running"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev68",
+        "sequence": 68,
+        "version": {
+          "epoch": 0,
+          "revision": 57
+        },
+        "logical_time": 3628800.0,
+        "event_type": "intent.stage_bound",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "job",
+            "entity_id": "e0-j11"
+          },
+          {
+            "kind": "intent",
+            "entity_id": "task-2"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-c1dcfaaa003c6bf2ccae6069f20f0c269ccf8f70"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "job",
+              "entity_id": "e0-j11"
+            },
+            "before": null,
+            "after": "running"
+          },
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-2"
+            },
+            "before": null,
+            "after": "running"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev69",
+        "sequence": 69,
+        "version": {
+          "epoch": 0,
+          "revision": 58
+        },
+        "logical_time": 3628800.0,
+        "event_type": "job.started",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "job",
+            "entity_id": "e0-j14"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-1bfeb9adae70556bdffa8fff1a52c130efc6e637"
+        },
+        "attempt": {
+          "intent_id": "task-3",
+          "attempt_id": "e0-attempt15",
+          "generation": 1,
+          "allocation_id": "e0-a4",
+          "job_id": "e0-j14"
+        },
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "job",
+              "entity_id": "e0-j14"
+            },
+            "before": null,
+            "after": "Running"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev70",
+        "sequence": 70,
+        "version": {
+          "epoch": 0,
+          "revision": 58
+        },
+        "logical_time": 3628800.0,
+        "event_type": "intent.stage_bound",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "job",
+            "entity_id": "e0-j14"
+          },
+          {
+            "kind": "intent",
+            "entity_id": "task-3"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-1bfeb9adae70556bdffa8fff1a52c130efc6e637"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "job",
+              "entity_id": "e0-j14"
+            },
+            "before": null,
+            "after": "running"
+          },
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-3"
+            },
+            "before": null,
+            "after": "running"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev71",
+        "sequence": 71,
+        "version": {
+          "epoch": 0,
+          "revision": 59
+        },
+        "logical_time": 3628800.0,
+        "event_type": "allocation.preempt_requested",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a1"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "worker-demo-real-one-second-recall"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a1"
+            },
+            "before": "Running",
+            "after": "PreemptRequested"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev72",
+        "sequence": 72,
+        "version": {
+          "epoch": 0,
+          "revision": 60
+        },
+        "logical_time": 3628801.0,
+        "event_type": "allocation.preempted",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a1"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-3.6288e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a1"
+            },
+            "before": null,
+            "after": "Preempted"
+          }
+        ],
+        "resource_deltas": [
+          {
+            "node_id": "node-provider-01",
+            "allocation_id": "e0-a1",
+            "cpu_millicores": -1000,
+            "memory_mib": -1024,
+            "ephemeral_storage_mib": 0,
+            "device_ids_added": [],
+            "device_ids_removed": [
+              "provider-01"
+            ]
+          }
+        ],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev75",
+        "sequence": 75,
+        "version": {
+          "epoch": 0,
+          "revision": 61
+        },
+        "logical_time": 3629700.0,
+        "event_type": "job.failed",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "job",
+            "entity_id": "e0-j5"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-3.6288e+06-3.6297e+06"
+        },
+        "attempt": {
+          "intent_id": "task-0",
+          "attempt_id": "e0-attempt6",
+          "generation": 1,
+          "allocation_id": "e0-a1",
+          "job_id": "e0-j5"
+        },
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "job",
+              "entity_id": "e0-j5"
+            },
+            "before": "Preempted",
+            "after": "Failed"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev76",
+        "sequence": 76,
+        "version": {
+          "epoch": 0,
+          "revision": 61
+        },
+        "logical_time": 3629700.0,
+        "event_type": "intent.failed",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "intent",
+            "entity_id": "task-0"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-3.6288e+06-3.6297e+06"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-0"
+            },
+            "before": null,
+            "after": "failed"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev77",
+        "sequence": 77,
+        "version": {
+          "epoch": 0,
+          "revision": 61
+        },
+        "logical_time": 3629700.0,
+        "event_type": "allocation.expired",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a1"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-3.6288e+06-3.6297e+06"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a1"
+            },
+            "before": "Preempted",
+            "after": "Expired"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev78",
+        "sequence": 78,
+        "version": {
+          "epoch": 0,
+          "revision": 61
+        },
+        "logical_time": 3629700.0,
+        "event_type": "job.failed",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "job",
+            "entity_id": "e0-j8"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-3.6288e+06-3.6297e+06"
+        },
+        "attempt": {
+          "intent_id": "task-1",
+          "attempt_id": "e0-attempt9",
+          "generation": 1,
+          "allocation_id": "e0-a2",
+          "job_id": "e0-j8"
+        },
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "job",
+              "entity_id": "e0-j8"
+            },
+            "before": "Running",
+            "after": "Failed"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev79",
+        "sequence": 79,
+        "version": {
+          "epoch": 0,
+          "revision": 61
+        },
+        "logical_time": 3629700.0,
+        "event_type": "intent.failed",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "intent",
+            "entity_id": "task-1"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-3.6288e+06-3.6297e+06"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-1"
+            },
+            "before": null,
+            "after": "failed"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev80",
+        "sequence": 80,
+        "version": {
+          "epoch": 0,
+          "revision": 61
+        },
+        "logical_time": 3629700.0,
+        "event_type": "allocation.expired",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a2"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-3.6288e+06-3.6297e+06"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a2"
+            },
+            "before": "Running",
+            "after": "Expired"
+          }
+        ],
+        "resource_deltas": [
+          {
+            "node_id": "node-provider-00",
+            "allocation_id": "e0-a2",
+            "cpu_millicores": -1000,
+            "memory_mib": -1024,
+            "ephemeral_storage_mib": 0,
+            "device_ids_added": [],
+            "device_ids_removed": [
+              "provider-00"
+            ]
+          }
+        ],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev81",
+        "sequence": 81,
+        "version": {
+          "epoch": 0,
+          "revision": 61
+        },
+        "logical_time": 3629700.0,
+        "event_type": "job.failed",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "job",
+            "entity_id": "e0-j11"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-3.6288e+06-3.6297e+06"
+        },
+        "attempt": {
+          "intent_id": "task-2",
+          "attempt_id": "e0-attempt12",
+          "generation": 1,
+          "allocation_id": "e0-a3",
+          "job_id": "e0-j11"
+        },
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "job",
+              "entity_id": "e0-j11"
+            },
+            "before": "Running",
+            "after": "Failed"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev82",
+        "sequence": 82,
+        "version": {
+          "epoch": 0,
+          "revision": 61
+        },
+        "logical_time": 3629700.0,
+        "event_type": "intent.failed",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "intent",
+            "entity_id": "task-2"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-3.6288e+06-3.6297e+06"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-2"
+            },
+            "before": null,
+            "after": "failed"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev83",
+        "sequence": 83,
+        "version": {
+          "epoch": 0,
+          "revision": 61
+        },
+        "logical_time": 3629700.0,
+        "event_type": "allocation.expired",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a3"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-3.6288e+06-3.6297e+06"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a3"
+            },
+            "before": "Running",
+            "after": "Expired"
+          }
+        ],
+        "resource_deltas": [
+          {
+            "node_id": "node-provider-02",
+            "allocation_id": "e0-a3",
+            "cpu_millicores": -1000,
+            "memory_mib": -1024,
+            "ephemeral_storage_mib": 0,
+            "device_ids_added": [],
+            "device_ids_removed": [
+              "provider-02"
+            ]
+          }
+        ],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev84",
+        "sequence": 84,
+        "version": {
+          "epoch": 0,
+          "revision": 61
+        },
+        "logical_time": 3629700.0,
+        "event_type": "job.failed",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "job",
+            "entity_id": "e0-j14"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-3.6288e+06-3.6297e+06"
+        },
+        "attempt": {
+          "intent_id": "task-3",
+          "attempt_id": "e0-attempt15",
+          "generation": 1,
+          "allocation_id": "e0-a4",
+          "job_id": "e0-j14"
+        },
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "job",
+              "entity_id": "e0-j14"
+            },
+            "before": "Running",
+            "after": "Failed"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev85",
+        "sequence": 85,
+        "version": {
+          "epoch": 0,
+          "revision": 61
+        },
+        "logical_time": 3629700.0,
+        "event_type": "intent.failed",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "intent",
+            "entity_id": "task-3"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-3.6288e+06-3.6297e+06"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-3"
+            },
+            "before": null,
+            "after": "failed"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev86",
+        "sequence": 86,
+        "version": {
+          "epoch": 0,
+          "revision": 61
+        },
+        "logical_time": 3629700.0,
+        "event_type": "allocation.expired",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a4"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-3.6288e+06-3.6297e+06"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a4"
+            },
+            "before": "Running",
+            "after": "Expired"
+          }
+        ],
+        "resource_deltas": [
+          {
+            "node_id": "node-provider-03",
+            "allocation_id": "e0-a4",
+            "cpu_millicores": -1000,
+            "memory_mib": -1024,
+            "ephemeral_storage_mib": 0,
+            "device_ids_added": [],
+            "device_ids_removed": [
+              "provider-03"
+            ]
+          }
+        ],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      }
+    ],
+    "decisions": [
+      {
+        "decision_id": "decision-15cd7e36b2c332f77b0896fb7467c93c",
+        "snapshot_version": {
+          "epoch": 0,
+          "revision": 52
+        },
+        "decision_at": 3628800.0,
+        "policy": {
+          "name": "P-learned-availability",
+          "version": "0.1.0",
+          "sha256": "de8c7d43d44cb6e372d85cf20524a47388206624ac70fcb6ac0ffb3809f6f301",
+          "uri": null
+        },
+        "model": {
+          "name": "neural-availability-window",
+          "version": "availability-mlp-v1",
+          "sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+          "uri": null
+        },
+        "candidates": [
+          {
+            "candidate_id": "candidate-18821e5702d6fb4ef28a03e5",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a3",
+            "intent_id": "task-2",
+            "allocation_id": "e0-a3",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-00",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-00"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "infeasible",
+            "violations": [
+              {
+                "constraint": "gpu_count",
+                "detail": "Recorded candidate violates gpu_count; private details omitted.",
+                "entity": null
+              },
+              {
+                "constraint": "gpu_memory",
+                "detail": "Recorded candidate violates gpu_memory; private details omitted.",
+                "entity": null
+              },
+              {
+                "constraint": "gpu_count",
+                "detail": "Recorded candidate violates gpu_count; private details omitted.",
+                "entity": null
+              }
+            ],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-df95c37c4a202a92f1ea37c7",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a3",
+            "intent_id": "task-2",
+            "allocation_id": "e0-a3",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-01",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-01"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "infeasible",
+            "violations": [
+              {
+                "constraint": "gpu_count",
+                "detail": "Recorded candidate violates gpu_count; private details omitted.",
+                "entity": null
+              },
+              {
+                "constraint": "gpu_memory",
+                "detail": "Recorded candidate violates gpu_memory; private details omitted.",
+                "entity": null
+              },
+              {
+                "constraint": "gpu_count",
+                "detail": "Recorded candidate violates gpu_count; private details omitted.",
+                "entity": null
+              }
+            ],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-2bce5c0345c4e8bbc29b6d2b",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a3",
+            "intent_id": "task-2",
+            "allocation_id": "e0-a3",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-02",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-02"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-8abddd26f71dd698238aec02",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a3",
+            "intent_id": "task-2",
+            "allocation_id": "e0-a3",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-03",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-03"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-4106957ee80363ce6ba91765",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a4",
+            "intent_id": "task-3",
+            "allocation_id": "e0-a4",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-00",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-00"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "infeasible",
+            "violations": [
+              {
+                "constraint": "gpu_count",
+                "detail": "Recorded candidate violates gpu_count; private details omitted.",
+                "entity": null
+              },
+              {
+                "constraint": "gpu_memory",
+                "detail": "Recorded candidate violates gpu_memory; private details omitted.",
+                "entity": null
+              },
+              {
+                "constraint": "gpu_count",
+                "detail": "Recorded candidate violates gpu_count; private details omitted.",
+                "entity": null
+              }
+            ],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-d609155936575d248055f105",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a4",
+            "intent_id": "task-3",
+            "allocation_id": "e0-a4",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-01",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-01"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "infeasible",
+            "violations": [
+              {
+                "constraint": "gpu_count",
+                "detail": "Recorded candidate violates gpu_count; private details omitted.",
+                "entity": null
+              },
+              {
+                "constraint": "gpu_memory",
+                "detail": "Recorded candidate violates gpu_memory; private details omitted.",
+                "entity": null
+              },
+              {
+                "constraint": "gpu_count",
+                "detail": "Recorded candidate violates gpu_count; private details omitted.",
+                "entity": null
+              }
+            ],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-999636fe2ebfee6d9d48df7c",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a4",
+            "intent_id": "task-3",
+            "allocation_id": "e0-a4",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-02",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-02"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-d465dfb479f5f1e08f1279df",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a4",
+            "intent_id": "task-3",
+            "allocation_id": "e0-a4",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-03",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-03"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          }
+        ],
+        "coverage": {
+          "scope": "partial",
+          "domain_description": "Recorded candidates for your own authorized demands only.",
+          "examined_count": 8,
+          "domain_size": null,
+          "truncation_reason": "Owner-scoped explanation: other demands, global comparison inputs, scores and private free text are not disclosed. This view cannot establish complete search coverage or global ranking."
+        },
+        "selected_candidate_id": "candidate-2bce5c0345c4e8bbc29b6d2b",
+        "rationale": "The recorded selection belongs to your demand; inspect authorized committed events for its actual outcome.",
+        "tie_break_rule": "Global tie-break comparison details are outside this owner-scoped view.",
+        "asserts_pool_infeasible": false
+      },
+      {
+        "decision_id": "decision-564430d280f64f7f55571c4b572b59ed",
+        "snapshot_version": {
+          "epoch": 0,
+          "revision": 51
+        },
+        "decision_at": 3628800.0,
+        "policy": {
+          "name": "P-learned-availability",
+          "version": "0.1.0",
+          "sha256": "de8c7d43d44cb6e372d85cf20524a47388206624ac70fcb6ac0ffb3809f6f301",
+          "uri": null
+        },
+        "model": {
+          "name": "neural-availability-window",
+          "version": "availability-mlp-v1",
+          "sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+          "uri": null
+        },
+        "candidates": [
+          {
+            "candidate_id": "candidate-84bd53aba40009e8d3feca74",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a2",
+            "intent_id": "task-1",
+            "allocation_id": "e0-a2",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-00",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-00"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-320334517b78ad20d2f0f75d",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a2",
+            "intent_id": "task-1",
+            "allocation_id": "e0-a2",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-01",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-01"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "infeasible",
+            "violations": [
+              {
+                "constraint": "gpu_count",
+                "detail": "Recorded candidate violates gpu_count; private details omitted.",
+                "entity": null
+              },
+              {
+                "constraint": "gpu_memory",
+                "detail": "Recorded candidate violates gpu_memory; private details omitted.",
+                "entity": null
+              },
+              {
+                "constraint": "gpu_count",
+                "detail": "Recorded candidate violates gpu_count; private details omitted.",
+                "entity": null
+              }
+            ],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-a5d3d96bd548b36df3386b82",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a2",
+            "intent_id": "task-1",
+            "allocation_id": "e0-a2",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-02",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-02"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-117ccc742c8988da0cf34b64",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a2",
+            "intent_id": "task-1",
+            "allocation_id": "e0-a2",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-03",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-03"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-18821e5702d6fb4ef28a03e5",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a3",
+            "intent_id": "task-2",
+            "allocation_id": "e0-a3",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-00",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-00"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-df95c37c4a202a92f1ea37c7",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a3",
+            "intent_id": "task-2",
+            "allocation_id": "e0-a3",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-01",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-01"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "infeasible",
+            "violations": [
+              {
+                "constraint": "gpu_count",
+                "detail": "Recorded candidate violates gpu_count; private details omitted.",
+                "entity": null
+              },
+              {
+                "constraint": "gpu_memory",
+                "detail": "Recorded candidate violates gpu_memory; private details omitted.",
+                "entity": null
+              },
+              {
+                "constraint": "gpu_count",
+                "detail": "Recorded candidate violates gpu_count; private details omitted.",
+                "entity": null
+              }
+            ],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-2bce5c0345c4e8bbc29b6d2b",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a3",
+            "intent_id": "task-2",
+            "allocation_id": "e0-a3",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-02",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-02"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-8abddd26f71dd698238aec02",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a3",
+            "intent_id": "task-2",
+            "allocation_id": "e0-a3",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-03",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-03"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-4106957ee80363ce6ba91765",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a4",
+            "intent_id": "task-3",
+            "allocation_id": "e0-a4",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-00",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-00"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-d609155936575d248055f105",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a4",
+            "intent_id": "task-3",
+            "allocation_id": "e0-a4",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-01",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-01"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "infeasible",
+            "violations": [
+              {
+                "constraint": "gpu_count",
+                "detail": "Recorded candidate violates gpu_count; private details omitted.",
+                "entity": null
+              },
+              {
+                "constraint": "gpu_memory",
+                "detail": "Recorded candidate violates gpu_memory; private details omitted.",
+                "entity": null
+              },
+              {
+                "constraint": "gpu_count",
+                "detail": "Recorded candidate violates gpu_count; private details omitted.",
+                "entity": null
+              }
+            ],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-999636fe2ebfee6d9d48df7c",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a4",
+            "intent_id": "task-3",
+            "allocation_id": "e0-a4",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-02",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-02"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-d465dfb479f5f1e08f1279df",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a4",
+            "intent_id": "task-3",
+            "allocation_id": "e0-a4",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-03",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-03"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          }
+        ],
+        "coverage": {
+          "scope": "partial",
+          "domain_description": "Recorded candidates for your own authorized demands only.",
+          "examined_count": 12,
+          "domain_size": null,
+          "truncation_reason": "Owner-scoped explanation: other demands, global comparison inputs, scores and private free text are not disclosed. This view cannot establish complete search coverage or global ranking."
+        },
+        "selected_candidate_id": "candidate-84bd53aba40009e8d3feca74",
+        "rationale": "The recorded selection belongs to your demand; inspect authorized committed events for its actual outcome.",
+        "tie_break_rule": "Global tie-break comparison details are outside this owner-scoped view.",
+        "asserts_pool_infeasible": false
+      },
+      {
+        "decision_id": "decision-7bde014f57c44e266655c5e9bd732951",
+        "snapshot_version": {
+          "epoch": 0,
+          "revision": 50
+        },
+        "decision_at": 3628800.0,
+        "policy": {
+          "name": "P-learned-availability",
+          "version": "0.1.0",
+          "sha256": "de8c7d43d44cb6e372d85cf20524a47388206624ac70fcb6ac0ffb3809f6f301",
+          "uri": null
+        },
+        "model": {
+          "name": "neural-availability-window",
+          "version": "availability-mlp-v1",
+          "sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+          "uri": null
+        },
+        "candidates": [
+          {
+            "candidate_id": "candidate-b3cd506d8c42b1b58b169930",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a1",
+            "intent_id": "task-0",
+            "allocation_id": "e0-a1",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-00",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-00"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-9989ff241ffadd4a59f28333",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a1",
+            "intent_id": "task-0",
+            "allocation_id": "e0-a1",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-01",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-01"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-ef5df8a69c36256b79b233bf",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a1",
+            "intent_id": "task-0",
+            "allocation_id": "e0-a1",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-02",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-02"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-274e0b939272a7e8696c2fcd",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a1",
+            "intent_id": "task-0",
+            "allocation_id": "e0-a1",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-03",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-03"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-84bd53aba40009e8d3feca74",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a2",
+            "intent_id": "task-1",
+            "allocation_id": "e0-a2",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-00",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-00"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-320334517b78ad20d2f0f75d",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a2",
+            "intent_id": "task-1",
+            "allocation_id": "e0-a2",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-01",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-01"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-a5d3d96bd548b36df3386b82",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a2",
+            "intent_id": "task-1",
+            "allocation_id": "e0-a2",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-02",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-02"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-117ccc742c8988da0cf34b64",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a2",
+            "intent_id": "task-1",
+            "allocation_id": "e0-a2",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-03",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-03"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-18821e5702d6fb4ef28a03e5",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a3",
+            "intent_id": "task-2",
+            "allocation_id": "e0-a3",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-00",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-00"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-df95c37c4a202a92f1ea37c7",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a3",
+            "intent_id": "task-2",
+            "allocation_id": "e0-a3",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-01",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-01"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-2bce5c0345c4e8bbc29b6d2b",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a3",
+            "intent_id": "task-2",
+            "allocation_id": "e0-a3",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-02",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-02"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-8abddd26f71dd698238aec02",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a3",
+            "intent_id": "task-2",
+            "allocation_id": "e0-a3",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-03",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-03"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-4106957ee80363ce6ba91765",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a4",
+            "intent_id": "task-3",
+            "allocation_id": "e0-a4",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-00",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-00"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-d609155936575d248055f105",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a4",
+            "intent_id": "task-3",
+            "allocation_id": "e0-a4",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-01",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-01"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-999636fe2ebfee6d9d48df7c",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a4",
+            "intent_id": "task-3",
+            "allocation_id": "e0-a4",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-02",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-02"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-d465dfb479f5f1e08f1279df",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a4",
+            "intent_id": "task-3",
+            "allocation_id": "e0-a4",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-03",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-03"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          }
+        ],
+        "coverage": {
+          "scope": "partial",
+          "domain_description": "Recorded candidates for your own authorized demands only.",
+          "examined_count": 16,
+          "domain_size": null,
+          "truncation_reason": "Owner-scoped explanation: other demands, global comparison inputs, scores and private free text are not disclosed. This view cannot establish complete search coverage or global ranking."
+        },
+        "selected_candidate_id": "candidate-9989ff241ffadd4a59f28333",
+        "rationale": "The recorded selection belongs to your demand; inspect authorized committed events for its actual outcome.",
+        "tie_break_rule": "Global tie-break comparison details are outside this owner-scoped view.",
+        "asserts_pool_infeasible": false
+      },
+      {
+        "decision_id": "decision-b2b11f25fd30dc3600ac907829c11a52",
+        "snapshot_version": {
+          "epoch": 0,
+          "revision": 53
+        },
+        "decision_at": 3628800.0,
+        "policy": {
+          "name": "P-learned-availability",
+          "version": "0.1.0",
+          "sha256": "de8c7d43d44cb6e372d85cf20524a47388206624ac70fcb6ac0ffb3809f6f301",
+          "uri": null
+        },
+        "model": {
+          "name": "neural-availability-window",
+          "version": "availability-mlp-v1",
+          "sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+          "uri": null
+        },
+        "candidates": [
+          {
+            "candidate_id": "candidate-4106957ee80363ce6ba91765",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a4",
+            "intent_id": "task-3",
+            "allocation_id": "e0-a4",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-00",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-00"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "infeasible",
+            "violations": [
+              {
+                "constraint": "gpu_count",
+                "detail": "Recorded candidate violates gpu_count; private details omitted.",
+                "entity": null
+              },
+              {
+                "constraint": "gpu_memory",
+                "detail": "Recorded candidate violates gpu_memory; private details omitted.",
+                "entity": null
+              },
+              {
+                "constraint": "gpu_count",
+                "detail": "Recorded candidate violates gpu_count; private details omitted.",
+                "entity": null
+              }
+            ],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-d609155936575d248055f105",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a4",
+            "intent_id": "task-3",
+            "allocation_id": "e0-a4",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-01",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-01"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "infeasible",
+            "violations": [
+              {
+                "constraint": "gpu_count",
+                "detail": "Recorded candidate violates gpu_count; private details omitted.",
+                "entity": null
+              },
+              {
+                "constraint": "gpu_memory",
+                "detail": "Recorded candidate violates gpu_memory; private details omitted.",
+                "entity": null
+              },
+              {
+                "constraint": "gpu_count",
+                "detail": "Recorded candidate violates gpu_count; private details omitted.",
+                "entity": null
+              }
+            ],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-999636fe2ebfee6d9d48df7c",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a4",
+            "intent_id": "task-3",
+            "allocation_id": "e0-a4",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-02",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-02"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "infeasible",
+            "violations": [
+              {
+                "constraint": "gpu_count",
+                "detail": "Recorded candidate violates gpu_count; private details omitted.",
+                "entity": null
+              },
+              {
+                "constraint": "gpu_memory",
+                "detail": "Recorded candidate violates gpu_memory; private details omitted.",
+                "entity": null
+              },
+              {
+                "constraint": "gpu_count",
+                "detail": "Recorded candidate violates gpu_count; private details omitted.",
+                "entity": null
+              }
+            ],
+            "preconditions": [],
+            "scores": []
+          },
+          {
+            "candidate_id": "candidate-d465dfb479f5f1e08f1279df",
+            "action": "allocate",
+            "owner_id": "alice",
+            "demand_id": "e0-a4",
+            "intent_id": "task-3",
+            "allocation_id": "e0-a4",
+            "attempt": null,
+            "placement": {
+              "slices": [
+                {
+                  "node_id": "node-provider-03",
+                  "resources": {
+                    "cpu_millicores": 1000,
+                    "memory_mib": 1024,
+                    "ephemeral_storage_mib": 0,
+                    "gpu_count": 1,
+                    "gpu_memory_mib": 40960
+                  },
+                  "device_ids": [
+                    "provider-03"
+                  ]
+                }
+              ]
+            },
+            "feasibility": "legal",
+            "violations": [],
+            "preconditions": [],
+            "scores": []
+          }
+        ],
+        "coverage": {
+          "scope": "partial",
+          "domain_description": "Recorded candidates for your own authorized demands only.",
+          "examined_count": 4,
+          "domain_size": null,
+          "truncation_reason": "Owner-scoped explanation: other demands, global comparison inputs, scores and private free text are not disclosed. This view cannot establish complete search coverage or global ranking."
+        },
+        "selected_candidate_id": "candidate-d465dfb479f5f1e08f1279df",
+        "rationale": "The recorded selection belongs to your demand; inspect authorized committed events for its actual outcome.",
+        "tie_break_rule": "Global tie-break comparison details are outside this owner-scoped view.",
+        "asserts_pool_infeasible": false
+      }
+    ],
+    "legal_actions": [],
+    "next_cursor": {
+      "epoch": 0,
+      "after_sequence": 87
+    }
+  }
+}

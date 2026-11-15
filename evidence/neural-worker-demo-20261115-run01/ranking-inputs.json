@@ -1,0 +1,98 @@
+{
+  "tasks": [
+    {
+      "task_id": "task-0",
+      "estimated_compute_seconds": 320.0,
+      "checkpoint_seconds": 0.5,
+      "restart_seconds": 0.5,
+      "stop_seconds": 0.1,
+      "remaining_recoveries": 2
+    },
+    {
+      "task_id": "task-1",
+      "estimated_compute_seconds": 160.0,
+      "checkpoint_seconds": 10.0,
+      "restart_seconds": 0.5,
+      "stop_seconds": 0.1,
+      "remaining_recoveries": 2
+    },
+    {
+      "task_id": "task-2",
+      "estimated_compute_seconds": 24.0,
+      "checkpoint_seconds": 3.0,
+      "restart_seconds": 0.5,
+      "stop_seconds": 0.1,
+      "remaining_recoveries": 2
+    },
+    {
+      "task_id": "task-3",
+      "estimated_compute_seconds": 72.0,
+      "checkpoint_seconds": 18.0,
+      "restart_seconds": 0.5,
+      "stop_seconds": 0.1,
+      "remaining_recoveries": 2
+    }
+  ],
+  "devices": [
+    {
+      "device_id": "provider-00",
+      "features": {
+        "hour_sin": 0.0,
+        "hour_cos": 1.0,
+        "weekday_sin": 0.0,
+        "weekday_cos": 1.0,
+        "history_log_window_mean": 0.6390279341901625,
+        "history_log_window_std": 0.08311641949091932,
+        "recent_log_window_mean": 0.6390279341901625,
+        "history_short_fraction": 0.25
+      },
+      "notice_seconds": 12.0,
+      "owner_use_seconds": 10.0
+    },
+    {
+      "device_id": "provider-01",
+      "features": {
+        "hour_sin": 0.0,
+        "hour_cos": 1.0,
+        "weekday_sin": 0.0,
+        "weekday_cos": 1.0,
+        "history_log_window_mean": 0.689123612494027,
+        "history_log_window_std": 0.04362424635272642,
+        "recent_log_window_mean": 0.689123612494027,
+        "history_short_fraction": 0.0
+      },
+      "notice_seconds": 12.0,
+      "owner_use_seconds": 10.0
+    },
+    {
+      "device_id": "provider-02",
+      "features": {
+        "hour_sin": 0.0,
+        "hour_cos": 1.0,
+        "weekday_sin": 0.0,
+        "weekday_cos": 1.0,
+        "history_log_window_mean": 0.6390279341901625,
+        "history_log_window_std": 0.08311641949091932,
+        "recent_log_window_mean": 0.6390279341901625,
+        "history_short_fraction": 0.25
+      },
+      "notice_seconds": 12.0,
+      "owner_use_seconds": 10.0
+    },
+    {
+      "device_id": "provider-03",
+      "features": {
+        "hour_sin": 0.0,
+        "hour_cos": 1.0,
+        "weekday_sin": 0.0,
+        "weekday_cos": 1.0,
+        "history_log_window_mean": 0.7402681093457414,
+        "history_log_window_std": 0.14907382408866218,
+        "recent_log_window_mean": 0.7402681093457414,
+        "history_short_fraction": 0.25
+      },
+      "notice_seconds": 12.0,
+      "owner_use_seconds": 10.0
+    }
+  ]
+}

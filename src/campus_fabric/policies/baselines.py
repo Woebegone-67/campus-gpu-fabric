@@ -14,6 +14,7 @@ from __future__ import annotations
 import hashlib
 import itertools
 import json
+import os
 from collections import defaultdict
 from pathlib import Path
 from typing import Literal
@@ -386,6 +387,15 @@ class BaselinePolicy:
 
 def make_policy(name: PolicyName, *, max_candidates: int = 512):
     if name == "P":
+        artifact_path = os.environ.get("FABRIC_AVAILABILITY_MODEL_PATH")
+        artifact_sha = os.environ.get("FABRIC_AVAILABILITY_MODEL_SHA256")
+        if bool(artifact_path) != bool(artifact_sha):
+            raise ValueError("Learned availability requires both FABRIC_AVAILABILITY_MODEL_PATH "
+                             "and FABRIC_AVAILABILITY_MODEL_SHA256")
+        if artifact_path and artifact_sha:
+            from .learned import LearnedAvailabilityPolicy
+            return LearnedAvailabilityPolicy(artifact_path, expected_sha256=artifact_sha,
+                                             max_candidates=max_candidates)
         from .candidate import CandidatePolicy
         return CandidatePolicy(max_candidates=max_candidates)
     return BaselinePolicy(name, max_candidates=max_candidates)

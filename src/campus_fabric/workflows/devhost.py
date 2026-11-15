@@ -21,6 +21,7 @@ from campus_fabric.contracts import models as m
 from campus_fabric.policies import make_policy
 from campus_fabric.projections.read_models import EvidenceRead
 from campus_fabric.workflows.acceptance_evidence import checkpoint_checks
+from campus_fabric.workflows.availability_inputs import AvailabilityInputProducer
 from campus_fabric.workflows.experiment_runner import ExperimentService
 from campus_fabric.workflows.orchestrator import WorkflowOrchestrator, WorkflowReadError
 from campus_fabric.workflows.policy_validation import SealedPolicyValidation
@@ -29,6 +30,23 @@ ROOT = Path(__file__).resolve().parents[3]
 LOG = logging.getLogger(__name__)
 OBSERVER = m.AuthenticatedActor(actor_id="b-workflow-observer", role="administrator")
 POLICY_ACTOR = m.AuthenticatedActor(actor_id="b-policy-worker", role="system")
+
+
+def availability_input_producer(*, policy_name: str | None):
+    """Explicit server-side research input binding; no client-provided scores."""
+    names = ("FABRIC_AVAILABILITY_INPUTS_PATH", "FABRIC_AVAILABILITY_INPUTS_SHA256",
+             "FABRIC_AVAILABILITY_NAMESPACE")
+    values = tuple(os.environ.get(name) for name in names)
+    if not any(values):
+        return None
+    if not all(values):
+        raise ValueError("Availability inputs require path, SHA256 and namespace together")
+    model_sha = os.environ.get("FABRIC_AVAILABILITY_MODEL_SHA256")
+    if (policy_name != "P" or not model_sha
+            or not os.environ.get("FABRIC_AVAILABILITY_MODEL_PATH")):
+        raise ValueError("Availability inputs require external P scheduling and a pinned model")
+    return AvailabilityInputProducer(values[0], expected_sha256=values[1],
+                                     model_sha256=model_sha, namespace=values[2])
 
 
 def policy_validation_reader():
@@ -54,10 +72,12 @@ class WorkflowWorker:
     re-reads all bindings; repeated stages cannot create a second object.
     """
 
-    def __init__(self, kernel, *, policy_name: str | None = None):
+    def __init__(self, kernel, *, policy_name: str | None = None, input_producer=None):
         self.kernel = kernel
         self.workflow = WorkflowOrchestrator(kernel, kernel)
         self.policy = make_policy(policy_name) if policy_name else None
+        self.input_producer = input_producer
+        self.availability_input_status: tuple[str, ...] = ()
         self.blocked: dict[tuple[int, str], str] = {}
         self.transport_retries: dict[tuple[int, str], tuple[int, float]] = {}
 
@@ -110,6 +130,14 @@ class WorkflowWorker:
                 decision = self.kernel.decision_snapshot()
                 if not decision.demands:
                     break
+                if self.input_producer is not None:
+                    # Separate reads may race. The producer requires an exact
+                    # version match, never refreshing one read's timestamps to
+                    # make it look current. A still validates the eventual plan.
+                    observed = self.kernel.read_snapshot(m.ReadQuery(actor=OBSERVER,
+                                                                    global_scope=True))
+                    decision = self.input_producer.enrich(decision, observed)
+                    self.availability_input_status = tuple(self.input_producer.last_diagnostics)
                 plan = self.policy.plan(decision)
                 if plan.selected_candidate_id is None:
                     break
@@ -148,7 +176,8 @@ def create_app(*, worker_enabled=True, **core_options):
     register_queries(app, services, replace_existing=True)
     mode = core_options.get("scheduling_mode") or os.environ.get("FABRIC_SCHEDULING_MODE", "builtin")
     policy_name = os.environ.get("FABRIC_B_POLICY", "B0") if mode == "external" else None
-    worker = WorkflowWorker(kernel, policy_name=policy_name)
+    worker = WorkflowWorker(kernel, policy_name=policy_name,
+                            input_producer=availability_input_producer(policy_name=policy_name))
     app.state.workflow_worker = worker
 
     @app.middleware("http")

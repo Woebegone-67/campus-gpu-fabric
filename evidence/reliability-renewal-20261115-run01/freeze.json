@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "outcomes_started": false,
+  "frozen_at_utc": "2026-11-15T02:44:56.903083+00:00",
+  "sha256": {
+    "inputs.json": "935f6b42cd69bb2152d6f69a3dc4e93b60b7c0afd9eda9c6c1edc566973c2b9a",
+    "source-inputs.json": "882776cd660a3337eaf934ec11dcffd25f42efc6afb322b540f57f49a60660f4",
+    "one-recall-runner.py": "1500118a661ca8eb6f95d5738d119de853e3fe4ef6d73de3d6a2c48ccf57d3a0",
+    "protocol.json": "bcad9e43590820788d070dbb84cd6a748aca2a9ec83589d2c61d4e2ae3adb6d9",
+    "protocol.md": "009d73a28a789cad1a8638666d40fe6a9d4fe61bd2f23269d04c4f5c559ff2fd",
+    "runner.py": "2341b48a377266853c0014aa7d987920e2b677a87b9bbe06ef83a81dfec271ef",
+    "one-recall-planner.py": "05c5e2bf04c9cc84cfdf4301f32708044665b560866c67d6ce48815806cc839a",
+    "renewal-planner.py": "19018185d4ad4d05ae05ff290490933d2a41100c032b80d4f5eb7868a4d121d7"
+  }
+}

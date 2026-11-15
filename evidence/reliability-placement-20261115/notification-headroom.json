@@ -1,0 +1,70 @@
+{
+  "sealed_runs_reproduced_exactly": true,
+  "protocol_sha256": "fe9f06f26cf2caf178442c4aef798f9fc65f073e5d253dba0e511d19e9d28c24",
+  "sealed_report_sha256": "33588804008f10dca250d63304c87d8f26b5461d5e04ddf77df424274f9eb14b",
+  "diagnostic_source_sha256": "51d30ea738c8f9f68f42d4ac5b4935e5e28eca9d622aaedc5f6dc13c0dd75637",
+  "results": [
+    {
+      "preference": "return_first",
+      "baseline_cost": 67.11428571428571,
+      "adaptive_cost": 66.79285714285714,
+      "adaptive_reduction_percent": 0.4789272030651311,
+      "candidate_set_hindsight_oracle_cost": 66.78571428571429,
+      "candidate_set_headroom_percent": 0.48957002979990516,
+      "adaptive_distance_to_oracle_percent": 0.01069404341780959,
+      "baseline_mean_completion_seconds": 79.07857142857142,
+      "adaptive_mean_completion_seconds": 79.11428571428571,
+      "adaptive_deadline_misses": 0,
+      "oracle_cost_by_case": {
+        "long-cheap": 90.4,
+        "near-finish": 0.4,
+        "finish-fits-wait-costly": 3.1,
+        "zero-progress": 20.3,
+        "little-progress-costly-save": 20.3,
+        "large-state": 94.3,
+        "too-short-window": 120.3,
+        "save-cutoff-earlier": 90.6,
+        "stale-observation": 90.4,
+        "save-failure": 120.3,
+        "compute-slowdown": 12.4,
+        "save-underestimate": 92.3,
+        "stop-underestimate": 91.1,
+        "repeated-recall": 88.8
+      }
+    },
+    {
+      "preference": "preserve_work",
+      "baseline_cost": 66.24107142857143,
+      "adaptive_cost": 67.11160714285714,
+      "adaptive_reduction_percent": -1.3141932875050453,
+      "candidate_set_hindsight_oracle_cost": 64.6125,
+      "candidate_set_headroom_percent": 2.458552365547925,
+      "adaptive_distance_to_oracle_percent": 3.723807623228895,
+      "baseline_mean_completion_seconds": 79.07857142857142,
+      "adaptive_mean_completion_seconds": 79.62142857142857,
+      "adaptive_deadline_misses": 1,
+      "oracle_cost_by_case": {
+        "long-cheap": 86.725,
+        "near-finish": 0.1,
+        "finish-fits-wait-costly": 0.775,
+        "zero-progress": 17.625,
+        "little-progress-costly-save": 20.224999999999998,
+        "large-state": 90.625,
+        "too-short-window": 120.22500000000001,
+        "save-cutoff-earlier": 89.775,
+        "stale-observation": 86.725,
+        "save-failure": 120.22500000000001,
+        "compute-slowdown": 8.725,
+        "save-underestimate": 91.47500000000001,
+        "stop-underestimate": 89.9,
+        "repeated-recall": 81.45
+      }
+    }
+  ],
+  "limitations": [
+    "Oracle chooses among five existing arms after observing outcomes; not a deployable policy.",
+    "Candidate-set headroom is not an upper bound over all possible mechanisms.",
+    "Fourteen fixed conditions are not random draws of campus workloads.",
+    "Weighted cost improvement does not mean completion time or throughput improvement."
+  ]
+}

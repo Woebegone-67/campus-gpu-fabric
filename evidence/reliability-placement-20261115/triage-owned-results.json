@@ -1,0 +1,110 @@
+{
+  "base": "0217e45de5bac7c8217c0144d51ff6414331d2f5",
+  "environment": "Same Python 3.12.16 .venv, Node 22, clean initial FABRIC_/VITE_; current versus git archive baseline with same web node_modules symlink. Owned throwaway localhost services only, cleanup by test finally. No product changes.",
+  "results": [
+    {
+      "label": "current-cpu",
+      "returncode": 1,
+      "seconds": 21.47,
+      "command": [
+        "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-reclaim/.venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/blackbox/test_cp2_joint_cpu_owned.py::test_external_p_cpu_recall_restart_resume_auto_settlement_and_persistence",
+        "-q",
+        "--tb=short",
+        "-p",
+        "no:cacheprovider",
+        "--basetemp",
+        "/var/folders/hn/_v9f078s4psfdx6hwfkwb24r0000gp/T/fabric-owned-pytest-u3s9eacf/pytest"
+      ],
+      "cwd": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-reclaim",
+      "log": "triage-owned-current-cpu.log",
+      "worker_process_logs": [
+        {
+          "path_suffix": "pytest/test_external_p_cpu_recall_res0/database/cpu-executor/attempts/ec9515b7ccb06c54d8c2059c1d5ea8cc7ffaa1f2/process.log",
+          "bytes": 0,
+          "output": ""
+        }
+      ]
+    },
+    {
+      "label": "current-session",
+      "returncode": 1,
+      "seconds": 23.44,
+      "command": [
+        "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-reclaim/.venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/blackbox/test_cp2_joint_session_owned.py::test_two_mode_session_lifecycle_export_and_repeated_start_preserve_data",
+        "-q",
+        "--tb=short",
+        "-p",
+        "no:cacheprovider",
+        "--basetemp",
+        "/var/folders/hn/_v9f078s4psfdx6hwfkwb24r0000gp/T/fabric-owned-pytest-ytojfl3p/pytest"
+      ],
+      "cwd": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-reclaim",
+      "log": "triage-owned-current-session.log",
+      "worker_process_logs": [
+        {
+          "path_suffix": "pytest/test_two_mode_session_lifecycl0/runtime/cpu/data/cpu-executor/attempts/ef20c3786a829af810f57c40d5afd4baa5a948a2/process.log",
+          "bytes": 0,
+          "output": ""
+        }
+      ]
+    },
+    {
+      "label": "base-0217e45-cpu",
+      "returncode": 1,
+      "seconds": 21.01,
+      "command": [
+        "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-reclaim/.venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/blackbox/test_cp2_joint_cpu_owned.py::test_external_p_cpu_recall_restart_resume_auto_settlement_and_persistence",
+        "-q",
+        "--tb=short",
+        "-p",
+        "no:cacheprovider",
+        "--basetemp",
+        "/var/folders/hn/_v9f078s4psfdx6hwfkwb24r0000gp/T/fabric-owned-pytest-81m38w4k/pytest"
+      ],
+      "cwd": "/var/folders/hn/_v9f078s4psfdx6hwfkwb24r0000gp/T/fabric-owned-base-p__1n2s2",
+      "log": "triage-owned-base-0217e45-cpu.log",
+      "worker_process_logs": [
+        {
+          "path_suffix": "pytest/test_external_p_cpu_recall_res0/database/cpu-executor/attempts/ec9515b7ccb06c54d8c2059c1d5ea8cc7ffaa1f2/process.log",
+          "bytes": 0,
+          "output": ""
+        }
+      ]
+    },
+    {
+      "label": "base-0217e45-session",
+      "returncode": 1,
+      "seconds": 20.05,
+      "command": [
+        "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-reclaim/.venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/blackbox/test_cp2_joint_session_owned.py::test_two_mode_session_lifecycle_export_and_repeated_start_preserve_data",
+        "-q",
+        "--tb=short",
+        "-p",
+        "no:cacheprovider",
+        "--basetemp",
+        "/var/folders/hn/_v9f078s4psfdx6hwfkwb24r0000gp/T/fabric-owned-pytest-r_vd4h0t/pytest"
+      ],
+      "cwd": "/var/folders/hn/_v9f078s4psfdx6hwfkwb24r0000gp/T/fabric-owned-base-p__1n2s2",
+      "log": "triage-owned-base-0217e45-session.log",
+      "worker_process_logs": [
+        {
+          "path_suffix": "pytest/test_two_mode_session_lifecycl0/runtime/cpu/data/cpu-executor/attempts/ef20c3786a829af810f57c40d5afd4baa5a948a2/process.log",
+          "bytes": 0,
+          "output": ""
+        }
+      ]
+    }
+  ]
+}

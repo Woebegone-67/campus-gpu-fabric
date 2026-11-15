@@ -1,0 +1,15 @@
+{
+  "base": "0217e45de5bac7c8217c0144d51ff6414331d2f5",
+  "command": [
+    "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-reclaim/.venv/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "--tb=short",
+    "tests/contracts/test_account_capabilities.py::test_session_projection_is_separate_from_actor_storage"
+  ],
+  "returncode": 1,
+  "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n____________ test_session_projection_is_separate_from_actor_storage ____________\ntests/contracts/test_account_capabilities.py:126: in test_session_projection_is_separate_from_actor_storage\n    assert json.loads(session.model_dump_json()) == {\nE   AssertionError: assert {'actor_id': ...': False, ...} == {'actor_id': ...rator': False}\nE     \nE     Omitting 4 identical items, use -vv to show\nE     Left contains 1 more item:\nE     {'username': None}\nE     Use -v to get more diff\n=========================== short test summary info ============================\nFAILED tests/contracts/test_account_capabilities.py::test_session_projection_is_separate_from_actor_storage\n1 failed in 0.35s\n",
+  "stderr": "",
+  "changed_contract_files": ""
+}

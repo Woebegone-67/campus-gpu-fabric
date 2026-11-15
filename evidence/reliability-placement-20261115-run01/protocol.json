@@ -1,0 +1,110 @@
+{
+  "version": "reliability-paired-v1",
+  "source_commit": "0217e45de5bac7c8217c0144d51ff6414331d2f5",
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "regimes": [
+    "baseline_controls",
+    "predictable_mixed",
+    "homogeneous_devices",
+    "homogeneous_tasks",
+    "uninformative_history",
+    "reversed_history",
+    "runtime_estimate_error",
+    "short_notice",
+    "mixed_checkpoint"
+  ],
+  "policies": [
+    "id_order",
+    "risk_fcfs",
+    "duration_sort",
+    "loss_sort",
+    "edge_greedy",
+    "batch"
+  ],
+  "generator": {
+    "version": "reliability-paired-v1",
+    "tasks": 4,
+    "devices": 4,
+    "declared_compute_seconds": [
+      16.0,
+      38.0,
+      72.0,
+      110.0
+    ],
+    "checkpoint_seconds": [
+      0.1,
+      1.0,
+      4.0,
+      8.0
+    ],
+    "device_window_means": [
+      10.0,
+      30.0,
+      60.0,
+      140.0
+    ],
+    "history_count": 16,
+    "uniform_factor": [
+      0.75,
+      1.25
+    ],
+    "normal_notice_seconds": 12.0,
+    "short_notice_seconds": 2.0,
+    "restart_seconds": 0.5,
+    "stop_seconds": 0.1,
+    "report_margin_seconds": 0.1,
+    "owner_use_seconds": 10.0,
+    "failure_completion_horizon_seconds": 400.0,
+    "runtime_error_factor": [
+      0.5,
+      2.0
+    ],
+    "bootstrap_resamples": 2000
+  },
+  "protocol_markdown": "experiments/research/RELIABILITY_PROTOCOL.md",
+  "protocol_markdown_sha256": "2ccff840b67d05bad71d5deb05b465957237a51a7985ad163a4c8651e802947f",
+  "bootstrap": {
+    "paired_unit": "seed, with equal regime weights in overall comparison",
+    "resamples": 2000,
+    "seed": 20261115,
+    "claim": "conditional synthetic variability only"
+  },
+  "baselines": {
+    "id_order": "task index to device index; B2 placement analogue, not a B2 kernel replay",
+    "risk_fcfs": "task arrival order to devices sorted descending mean past window",
+    "duration_sort": "descending declared duration to descending mean past window",
+    "loss_sort": "descending maximum observed-data cost-matrix row to descending mean past window",
+    "edge_greedy": "arrival order, choose cheapest remaining edge in same observed cost matrix",
+    "batch": "exact injective minimum observed cost, deterministic lexical tie"
+  },
+  "failure_control": {
+    "allow_cold_restart": false,
+    "report_separately": true,
+    "retain_all_admitted_jobs": true,
+    "noncompletion_reporting_horizon_seconds": 400
+  },
+  "actual_deadline": "Only becomes public to common responder when notification arrives; selector sees declared device profile only",
+  "no_outcome_exclusions": true,
+  "no_real_gpu": true
+}

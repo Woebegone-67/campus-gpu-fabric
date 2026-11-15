@@ -1,0 +1,5850 @@
+{
+  "version": {
+    "epoch": 0,
+    "revision": 52
+  },
+  "now": 3628800.0,
+  "execution_mode": "logical_simulation",
+  "demands": [
+    {
+      "demand_id": "e0-a2",
+      "owner_id": "alice",
+      "arrived_at": 3628800.0,
+      "request": {
+        "cpu_millicores": 1000,
+        "memory_mib": 1024,
+        "gpu": {
+          "count": 1,
+          "model": "any",
+          "memory_mib": 1024,
+          "profile": null
+        },
+        "ephemeral_storage_mib": 0
+      },
+      "priority": 0,
+      "intent_id": "task-1",
+      "allocation_id": "e0-a2",
+      "node_selector": [],
+      "known_data": [
+        {
+          "name": "estimated_compute_seconds",
+          "value": 160.0,
+          "source": "declared_profile",
+          "observed_at": 3628800.0,
+          "available_at": 3628800.0,
+          "source_id": "e0-a2"
+        },
+        {
+          "name": "checkpoint_seconds",
+          "value": 10.0,
+          "source": "declared_profile",
+          "observed_at": 3628800.0,
+          "available_at": 3628800.0,
+          "source_id": "e0-a2"
+        },
+        {
+          "name": "restart_seconds",
+          "value": 0.5,
+          "source": "declared_profile",
+          "observed_at": 3628800.0,
+          "available_at": 3628800.0,
+          "source_id": "e0-a2"
+        },
+        {
+          "name": "stop_seconds",
+          "value": 0.1,
+          "source": "declared_profile",
+          "observed_at": 3628800.0,
+          "available_at": 3628800.0,
+          "source_id": "e0-a2"
+        },
+        {
+          "name": "remaining_recoveries",
+          "value": 2,
+          "source": "public_metadata",
+          "observed_at": 3628800.0,
+          "available_at": 3628800.0,
+          "source_id": "e0-a2"
+        },
+        {
+          "name": "execution_window_seconds",
+          "value": 900,
+          "source": "public_metadata",
+          "observed_at": 3628800.0,
+          "available_at": 3628800.0,
+          "source_id": "e0-a2"
+        }
+      ]
+    },
+    {
+      "demand_id": "e0-a3",
+      "owner_id": "alice",
+      "arrived_at": 3628800.0,
+      "request": {
+        "cpu_millicores": 1000,
+        "memory_mib": 1024,
+        "gpu": {
+          "count": 1,
+          "model": "any",
+          "memory_mib": 1024,
+          "profile": null
+        },
+        "ephemeral_storage_mib": 0
+      },
+      "priority": 0,
+      "intent_id": "task-2",
+      "allocation_id": "e0-a3",
+      "node_selector": [],
+      "known_data": [
+        {
+          "name": "estimated_compute_seconds",
+          "value": 24.0,
+          "source": "declared_profile",
+          "observed_at": 3628800.0,
+          "available_at": 3628800.0,
+          "source_id": "e0-a3"
+        },
+        {
+          "name": "checkpoint_seconds",
+          "value": 3.0,
+          "source": "declared_profile",
+          "observed_at": 3628800.0,
+          "available_at": 3628800.0,
+          "source_id": "e0-a3"
+        },
+        {
+          "name": "restart_seconds",
+          "value": 0.5,
+          "source": "declared_profile",
+          "observed_at": 3628800.0,
+          "available_at": 3628800.0,
+          "source_id": "e0-a3"
+        },
+        {
+          "name": "stop_seconds",
+          "value": 0.1,
+          "source": "declared_profile",
+          "observed_at": 3628800.0,
+          "available_at": 3628800.0,
+          "source_id": "e0-a3"
+        },
+        {
+          "name": "remaining_recoveries",
+          "value": 2,
+          "source": "public_metadata",
+          "observed_at": 3628800.0,
+          "available_at": 3628800.0,
+          "source_id": "e0-a3"
+        },
+        {
+          "name": "execution_window_seconds",
+          "value": 900,
+          "source": "public_metadata",
+          "observed_at": 3628800.0,
+          "available_at": 3628800.0,
+          "source_id": "e0-a3"
+        }
+      ]
+    },
+    {
+      "demand_id": "e0-a4",
+      "owner_id": "alice",
+      "arrived_at": 3628800.0,
+      "request": {
+        "cpu_millicores": 1000,
+        "memory_mib": 1024,
+        "gpu": {
+          "count": 1,
+          "model": "any",
+          "memory_mib": 1024,
+          "profile": null
+        },
+        "ephemeral_storage_mib": 0
+      },
+      "priority": 0,
+      "intent_id": "task-3",
+      "allocation_id": "e0-a4",
+      "node_selector": [],
+      "known_data": [
+        {
+          "name": "estimated_compute_seconds",
+          "value": 72.0,
+          "source": "declared_profile",
+          "observed_at": 3628800.0,
+          "available_at": 3628800.0,
+          "source_id": "e0-a4"
+        },
+        {
+          "name": "checkpoint_seconds",
+          "value": 18.0,
+          "source": "declared_profile",
+          "observed_at": 3628800.0,
+          "available_at": 3628800.0,
+          "source_id": "e0-a4"
+        },
+        {
+          "name": "restart_seconds",
+          "value": 0.5,
+          "source": "declared_profile",
+          "observed_at": 3628800.0,
+          "available_at": 3628800.0,
+          "source_id": "e0-a4"
+        },
+        {
+          "name": "stop_seconds",
+          "value": 0.1,
+          "source": "declared_profile",
+          "observed_at": 3628800.0,
+          "available_at": 3628800.0,
+          "source_id": "e0-a4"
+        },
+        {
+          "name": "remaining_recoveries",
+          "value": 2,
+          "source": "public_metadata",
+          "observed_at": 3628800.0,
+          "available_at": 3628800.0,
+          "source_id": "e0-a4"
+        },
+        {
+          "name": "execution_window_seconds",
+          "value": 900,
+          "source": "public_metadata",
+          "observed_at": 3628800.0,
+          "available_at": 3628800.0,
+          "source_id": "e0-a4"
+        }
+      ]
+    }
+  ],
+  "inventory": [
+    {
+      "node_id": "node-provider-00",
+      "contributor_owner_id": "provider-00",
+      "state": "Ready",
+      "capacity": {
+        "cpu_millicores": 8000,
+        "memory_mib": 32768,
+        "ephemeral_storage_mib": 0,
+        "gpu_count": 1,
+        "gpu_memory_mib": 40960
+      },
+      "available": {
+        "cpu_millicores": 8000,
+        "memory_mib": 32768,
+        "ephemeral_storage_mib": 0,
+        "gpu_count": 1,
+        "gpu_memory_mib": 40960
+      },
+      "observed_at": 3628800.0,
+      "devices": [
+        {
+          "device_id": "provider-00",
+          "physical_gpu_id": "provider-00",
+          "model": "A100",
+          "memory_mib": 40960,
+          "profile": null,
+          "state": "available"
+        }
+      ],
+      "labels": []
+    },
+    {
+      "node_id": "node-provider-01",
+      "contributor_owner_id": "provider-01",
+      "state": "Ready",
+      "capacity": {
+        "cpu_millicores": 8000,
+        "memory_mib": 32768,
+        "ephemeral_storage_mib": 0,
+        "gpu_count": 1,
+        "gpu_memory_mib": 40960
+      },
+      "available": {
+        "cpu_millicores": 8000,
+        "memory_mib": 32768,
+        "ephemeral_storage_mib": 0,
+        "gpu_count": 1,
+        "gpu_memory_mib": 40960
+      },
+      "observed_at": 3628800.0,
+      "devices": [
+        {
+          "device_id": "provider-01",
+          "physical_gpu_id": "provider-01",
+          "model": "A100",
+          "memory_mib": 40960,
+          "profile": null,
+          "state": "available"
+        }
+      ],
+      "labels": []
+    },
+    {
+      "node_id": "node-provider-02",
+      "contributor_owner_id": "provider-02",
+      "state": "Ready",
+      "capacity": {
+        "cpu_millicores": 8000,
+        "memory_mib": 32768,
+        "ephemeral_storage_mib": 0,
+        "gpu_count": 1,
+        "gpu_memory_mib": 40960
+      },
+      "available": {
+        "cpu_millicores": 8000,
+        "memory_mib": 32768,
+        "ephemeral_storage_mib": 0,
+        "gpu_count": 1,
+        "gpu_memory_mib": 40960
+      },
+      "observed_at": 3628800.0,
+      "devices": [
+        {
+          "device_id": "provider-02",
+          "physical_gpu_id": "provider-02",
+          "model": "A100",
+          "memory_mib": 40960,
+          "profile": null,
+          "state": "available"
+        }
+      ],
+      "labels": []
+    },
+    {
+      "node_id": "node-provider-03",
+      "contributor_owner_id": "provider-03",
+      "state": "Ready",
+      "capacity": {
+        "cpu_millicores": 8000,
+        "memory_mib": 32768,
+        "ephemeral_storage_mib": 0,
+        "gpu_count": 1,
+        "gpu_memory_mib": 40960
+      },
+      "available": {
+        "cpu_millicores": 7000,
+        "memory_mib": 31744,
+        "ephemeral_storage_mib": 0,
+        "gpu_count": 0,
+        "gpu_memory_mib": 0
+      },
+      "observed_at": 3628800.0,
+      "devices": [
+        {
+          "device_id": "provider-03",
+          "physical_gpu_id": "provider-03",
+          "model": "A100",
+          "memory_mib": 40960,
+          "profile": null,
+          "state": "occupied"
+        }
+      ],
+      "labels": []
+    }
+  ],
+  "occupancy": [
+    {
+      "allocation_id": "e0-a1",
+      "owner_id": "alice",
+      "placement": {
+        "slices": [
+          {
+            "node_id": "node-provider-03",
+            "resources": {
+              "cpu_millicores": 1000,
+              "memory_mib": 1024,
+              "ephemeral_storage_mib": 0,
+              "gpu_count": 1,
+              "gpu_memory_mib": 40960
+            },
+            "device_ids": [
+              "provider-03"
+            ]
+          }
+        ]
+      },
+      "since": 3628800.0,
+      "status": "executing"
+    }
+  ],
+  "leases": [
+    {
+      "allocation_id": "e0-a1",
+      "owner_id": "alice",
+      "starts_at": 3628800.0,
+      "expires_at": 3629700.0,
+      "placement": {
+        "slices": [
+          {
+            "node_id": "node-provider-03",
+            "resources": {
+              "cpu_millicores": 1000,
+              "memory_mib": 1024,
+              "ephemeral_storage_mib": 0,
+              "gpu_count": 1,
+              "gpu_memory_mib": 40960
+            },
+            "device_ids": [
+              "provider-03"
+            ]
+          }
+        ]
+      },
+      "attempt": null
+    }
+  ],
+  "notices": [],
+  "history": [
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 64.0,
+      "available_at": 64.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 43232.0,
+      "available_at": 43232.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 64864.0,
+      "available_at": 64864.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 86528.0,
+      "available_at": 86528.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 108512.0,
+      "available_at": 108512.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 129632.0,
+      "available_at": 129632.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 151232.0,
+      "available_at": 151232.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 172832.0,
+      "available_at": 172832.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 194656.0,
+      "available_at": 194656.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 237632.0,
+      "available_at": 237632.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 259232.0,
+      "available_at": 259232.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 280864.0,
+      "available_at": 280864.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 302464.0,
+      "available_at": 302464.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 324016.0,
+      "available_at": 324016.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 345616.0,
+      "available_at": 345616.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 367264.0,
+      "available_at": 367264.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 388928.0,
+      "available_at": 388928.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 410416.0,
+      "available_at": 410416.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 432064.0,
+      "available_at": 432064.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 453856.0,
+      "available_at": 453856.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 475328.0,
+      "available_at": 475328.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 496864.0,
+      "available_at": 496864.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 518464.0,
+      "available_at": 518464.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 540256.0,
+      "available_at": 540256.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 583216.0,
+      "available_at": 583216.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 604864.0,
+      "available_at": 604864.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 626656.0,
+      "available_at": 626656.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 648064.0,
+      "available_at": 648064.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 669632.0,
+      "available_at": 669632.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 691328.0,
+      "available_at": 691328.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 712928.0,
+      "available_at": 712928.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 734656.0,
+      "available_at": 734656.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 756032.0,
+      "available_at": 756032.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 777632.0,
+      "available_at": 777632.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 799328.0,
+      "available_at": 799328.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 820864.0,
+      "available_at": 820864.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 842432.0,
+      "available_at": 842432.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 864064.0,
+      "available_at": 864064.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 885728.0,
+      "available_at": 885728.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 907328.0,
+      "available_at": 907328.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 928832.0,
+      "available_at": 928832.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 950432.0,
+      "available_at": 950432.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 972064.0,
+      "available_at": 972064.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 993664.0,
+      "available_at": 993664.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1015232.0,
+      "available_at": 1015232.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1036832.0,
+      "available_at": 1036832.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1058656.0,
+      "available_at": 1058656.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1080064.0,
+      "available_at": 1080064.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1101632.0,
+      "available_at": 1101632.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1123328.0,
+      "available_at": 1123328.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1144864.0,
+      "available_at": 1144864.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1166656.0,
+      "available_at": 1166656.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1188128.0,
+      "available_at": 1188128.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1209664.0,
+      "available_at": 1209664.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1231328.0,
+      "available_at": 1231328.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1252928.0,
+      "available_at": 1252928.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1274432.0,
+      "available_at": 1274432.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1296064.0,
+      "available_at": 1296064.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1317856.0,
+      "available_at": 1317856.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1339328.0,
+      "available_at": 1339328.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1360832.0,
+      "available_at": 1360832.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 1382416.0,
+      "available_at": 1382416.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1404256.0,
+      "available_at": 1404256.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1425728.0,
+      "available_at": 1425728.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 1447216.0,
+      "available_at": 1447216.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1468832.0,
+      "available_at": 1468832.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1490528.0,
+      "available_at": 1490528.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1512064.0,
+      "available_at": 1512064.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 8.0,
+      "source": "history",
+      "observed_at": 1533608.0,
+      "available_at": 1533608.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1555232.0,
+      "available_at": 1555232.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1576928.0,
+      "available_at": 1576928.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1598464.0,
+      "available_at": 1598464.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 1620016.0,
+      "available_at": 1620016.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1641632.0,
+      "available_at": 1641632.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1663264.0,
+      "available_at": 1663264.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1685056.0,
+      "available_at": 1685056.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1706464.0,
+      "available_at": 1706464.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1728064.0,
+      "available_at": 1728064.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1749856.0,
+      "available_at": 1749856.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1771264.0,
+      "available_at": 1771264.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1792864.0,
+      "available_at": 1792864.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1814528.0,
+      "available_at": 1814528.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1836256.0,
+      "available_at": 1836256.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1857728.0,
+      "available_at": 1857728.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1879232.0,
+      "available_at": 1879232.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1900864.0,
+      "available_at": 1900864.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1922656.0,
+      "available_at": 1922656.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1944128.0,
+      "available_at": 1944128.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1965632.0,
+      "available_at": 1965632.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1987232.0,
+      "available_at": 1987232.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2008928.0,
+      "available_at": 2008928.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2030528.0,
+      "available_at": 2030528.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2052032.0,
+      "available_at": 2052032.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2073632.0,
+      "available_at": 2073632.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2095328.0,
+      "available_at": 2095328.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2116928.0,
+      "available_at": 2116928.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 2138416.0,
+      "available_at": 2138416.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2160032.0,
+      "available_at": 2160032.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2181728.0,
+      "available_at": 2181728.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2203232.0,
+      "available_at": 2203232.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 2224816.0,
+      "available_at": 2224816.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2246432.0,
+      "available_at": 2246432.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2289664.0,
+      "available_at": 2289664.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2311232.0,
+      "available_at": 2311232.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2332832.0,
+      "available_at": 2332832.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2354528.0,
+      "available_at": 2354528.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2376064.0,
+      "available_at": 2376064.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2397664.0,
+      "available_at": 2397664.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2419232.0,
+      "available_at": 2419232.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 2441056.0,
+      "available_at": 2441056.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2462464.0,
+      "available_at": 2462464.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2484064.0,
+      "available_at": 2484064.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2505664.0,
+      "available_at": 2505664.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 2527456.0,
+      "available_at": 2527456.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2548928.0,
+      "available_at": 2548928.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2570464.0,
+      "available_at": 2570464.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2592032.0,
+      "available_at": 2592032.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2613664.0,
+      "available_at": 2613664.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2635328.0,
+      "available_at": 2635328.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2656832.0,
+      "available_at": 2656832.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2678432.0,
+      "available_at": 2678432.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2700128.0,
+      "available_at": 2700128.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2721728.0,
+      "available_at": 2721728.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2743232.0,
+      "available_at": 2743232.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2764832.0,
+      "available_at": 2764832.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2786464.0,
+      "available_at": 2786464.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2808064.0,
+      "available_at": 2808064.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 2829616.0,
+      "available_at": 2829616.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2851328.0,
+      "available_at": 2851328.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2872928.0,
+      "available_at": 2872928.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2894528.0,
+      "available_at": 2894528.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2916064.0,
+      "available_at": 2916064.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2937664.0,
+      "available_at": 2937664.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2959264.0,
+      "available_at": 2959264.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2980928.0,
+      "available_at": 2980928.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3002464.0,
+      "available_at": 3002464.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3024128.0,
+      "available_at": 3024128.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 900.0,
+      "source": "history",
+      "observed_at": 3046500.0,
+      "available_at": 3046500.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 3067456.0,
+      "available_at": 3067456.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3088864.0,
+      "available_at": 3088864.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 3110432.0,
+      "available_at": 3110432.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3132064.0,
+      "available_at": 3132064.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3153728.0,
+      "available_at": 3153728.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3175264.0,
+      "available_at": 3175264.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 8.0,
+      "source": "history",
+      "observed_at": 3196808.0,
+      "available_at": 3196808.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3218464.0,
+      "available_at": 3218464.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3240128.0,
+      "available_at": 3240128.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 3261632.0,
+      "available_at": 3261632.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 3283216.0,
+      "available_at": 3283216.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3304928.0,
+      "available_at": 3304928.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3326464.0,
+      "available_at": 3326464.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3348064.0,
+      "available_at": 3348064.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3369664.0,
+      "available_at": 3369664.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3391328.0,
+      "available_at": 3391328.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3412864.0,
+      "available_at": 3412864.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 3434432.0,
+      "available_at": 3434432.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 3456032.0,
+      "available_at": 3456032.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3477728.0,
+      "available_at": 3477728.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3499328.0,
+      "available_at": 3499328.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 3520832.0,
+      "available_at": 3520832.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3542464.0,
+      "available_at": 3542464.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3564128.0,
+      "available_at": 3564128.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3585728.0,
+      "available_at": 3585728.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 3607232.0,
+      "available_at": 3607232.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 64.0,
+      "available_at": 64.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 21728.0,
+      "available_at": 21728.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 43328.0,
+      "available_at": 43328.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 64864.0,
+      "available_at": 64864.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 86464.0,
+      "available_at": 86464.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 108128.0,
+      "available_at": 108128.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 129664.0,
+      "available_at": 129664.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 172832.0,
+      "available_at": 172832.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 194528.0,
+      "available_at": 194528.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 216128.0,
+      "available_at": 216128.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 237632.0,
+      "available_at": 237632.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 259264.0,
+      "available_at": 259264.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 280864.0,
+      "available_at": 280864.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 302528.0,
+      "available_at": 302528.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 324032.0,
+      "available_at": 324032.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 345664.0,
+      "available_at": 345664.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 367264.0,
+      "available_at": 367264.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 388864.0,
+      "available_at": 388864.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 410432.0,
+      "available_at": 410432.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 432032.0,
+      "available_at": 432032.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 453728.0,
+      "available_at": 453728.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 475328.0,
+      "available_at": 475328.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 496832.0,
+      "available_at": 496832.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 518432.0,
+      "available_at": 518432.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 540128.0,
+      "available_at": 540128.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 604864.0,
+      "available_at": 604864.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 626528.0,
+      "available_at": 626528.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 648128.0,
+      "available_at": 648128.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 669664.0,
+      "available_at": 669664.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 691264.0,
+      "available_at": 691264.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 712928.0,
+      "available_at": 712928.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 734656.0,
+      "available_at": 734656.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 756064.0,
+      "available_at": 756064.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 777632.0,
+      "available_at": 777632.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 799456.0,
+      "available_at": 799456.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 820864.0,
+      "available_at": 820864.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 842528.0,
+      "available_at": 842528.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 864032.0,
+      "available_at": 864032.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 885728.0,
+      "available_at": 885728.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 907328.0,
+      "available_at": 907328.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 928832.0,
+      "available_at": 928832.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 950432.0,
+      "available_at": 950432.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 972064.0,
+      "available_at": 972064.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 993728.0,
+      "available_at": 993728.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1015264.0,
+      "available_at": 1015264.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 1036816.0,
+      "available_at": 1036816.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1058528.0,
+      "available_at": 1058528.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 1080512.0,
+      "available_at": 1080512.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 1101616.0,
+      "available_at": 1101616.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1123264.0,
+      "available_at": 1123264.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1144928.0,
+      "available_at": 1144928.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1166528.0,
+      "available_at": 1166528.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 1188016.0,
+      "available_at": 1188016.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1209632.0,
+      "available_at": 1209632.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1231456.0,
+      "available_at": 1231456.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1253056.0,
+      "available_at": 1253056.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1274464.0,
+      "available_at": 1274464.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1296032.0,
+      "available_at": 1296032.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1317856.0,
+      "available_at": 1317856.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1339456.0,
+      "available_at": 1339456.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1360928.0,
+      "available_at": 1360928.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1382464.0,
+      "available_at": 1382464.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1404128.0,
+      "available_at": 1404128.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1425728.0,
+      "available_at": 1425728.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1447232.0,
+      "available_at": 1447232.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1468832.0,
+      "available_at": 1468832.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1490464.0,
+      "available_at": 1490464.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1512128.0,
+      "available_at": 1512128.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 1533616.0,
+      "available_at": 1533616.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 1555216.0,
+      "available_at": 1555216.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1576864.0,
+      "available_at": 1576864.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1598432.0,
+      "available_at": 1598432.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1620128.0,
+      "available_at": 1620128.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1641664.0,
+      "available_at": 1641664.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1663456.0,
+      "available_at": 1663456.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1684928.0,
+      "available_at": 1684928.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1706464.0,
+      "available_at": 1706464.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1728064.0,
+      "available_at": 1728064.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1749856.0,
+      "available_at": 1749856.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1771328.0,
+      "available_at": 1771328.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1792864.0,
+      "available_at": 1792864.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1814432.0,
+      "available_at": 1814432.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1836128.0,
+      "available_at": 1836128.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1857728.0,
+      "available_at": 1857728.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1879328.0,
+      "available_at": 1879328.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1900832.0,
+      "available_at": 1900832.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1922656.0,
+      "available_at": 1922656.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1965664.0,
+      "available_at": 1965664.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1987232.0,
+      "available_at": 1987232.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2008864.0,
+      "available_at": 2008864.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2030528.0,
+      "available_at": 2030528.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2052064.0,
+      "available_at": 2052064.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2073664.0,
+      "available_at": 2073664.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2095328.0,
+      "available_at": 2095328.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2116928.0,
+      "available_at": 2116928.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 2138416.0,
+      "available_at": 2138416.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2160032.0,
+      "available_at": 2160032.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2181664.0,
+      "available_at": 2181664.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2203264.0,
+      "available_at": 2203264.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2224832.0,
+      "available_at": 2224832.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2268128.0,
+      "available_at": 2268128.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2289728.0,
+      "available_at": 2289728.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2311264.0,
+      "available_at": 2311264.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2332864.0,
+      "available_at": 2332864.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 2354656.0,
+      "available_at": 2354656.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 2376256.0,
+      "available_at": 2376256.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2397664.0,
+      "available_at": 2397664.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2419264.0,
+      "available_at": 2419264.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 2441056.0,
+      "available_at": 2441056.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 2462656.0,
+      "available_at": 2462656.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2484032.0,
+      "available_at": 2484032.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2505664.0,
+      "available_at": 2505664.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2527328.0,
+      "available_at": 2527328.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2548928.0,
+      "available_at": 2548928.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2570464.0,
+      "available_at": 2570464.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2592032.0,
+      "available_at": 2592032.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2613664.0,
+      "available_at": 2613664.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2635328.0,
+      "available_at": 2635328.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2656832.0,
+      "available_at": 2656832.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 2678416.0,
+      "available_at": 2678416.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2700064.0,
+      "available_at": 2700064.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2721728.0,
+      "available_at": 2721728.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2743232.0,
+      "available_at": 2743232.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2764864.0,
+      "available_at": 2764864.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2786464.0,
+      "available_at": 2786464.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2808032.0,
+      "available_at": 2808032.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2829632.0,
+      "available_at": 2829632.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2851328.0,
+      "available_at": 2851328.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2872928.0,
+      "available_at": 2872928.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 2916016.0,
+      "available_at": 2916016.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2937632.0,
+      "available_at": 2937632.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2959328.0,
+      "available_at": 2959328.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 2981056.0,
+      "available_at": 2981056.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3002464.0,
+      "available_at": 3002464.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3024064.0,
+      "available_at": 3024064.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 3046112.0,
+      "available_at": 3046112.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3088864.0,
+      "available_at": 3088864.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3110528.0,
+      "available_at": 3110528.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 3132256.0,
+      "available_at": 3132256.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3153728.0,
+      "available_at": 3153728.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3175264.0,
+      "available_at": 3175264.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 3196832.0,
+      "available_at": 3196832.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3218464.0,
+      "available_at": 3218464.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3240128.0,
+      "available_at": 3240128.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 3261616.0,
+      "available_at": 3261616.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3283264.0,
+      "available_at": 3283264.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3304928.0,
+      "available_at": 3304928.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3326528.0,
+      "available_at": 3326528.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 3348032.0,
+      "available_at": 3348032.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 3369616.0,
+      "available_at": 3369616.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3391264.0,
+      "available_at": 3391264.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 3413056.0,
+      "available_at": 3413056.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 3434416.0,
+      "available_at": 3434416.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3456064.0,
+      "available_at": 3456064.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3477728.0,
+      "available_at": 3477728.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 3499456.0,
+      "available_at": 3499456.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 3520832.0,
+      "available_at": 3520832.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3542528.0,
+      "available_at": 3542528.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3564128.0,
+      "available_at": 3564128.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3585728.0,
+      "available_at": 3585728.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3607264.0,
+      "available_at": 3607264.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 128.0,
+      "available_at": 128.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 22112.0,
+      "available_at": 22112.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 43328.0,
+      "available_at": 43328.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 64864.0,
+      "available_at": 64864.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 86464.0,
+      "available_at": 86464.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 108256.0,
+      "available_at": 108256.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 129856.0,
+      "available_at": 129856.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 151264.0,
+      "available_at": 151264.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 172864.0,
+      "available_at": 172864.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 194656.0,
+      "available_at": 194656.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 216128.0,
+      "available_at": 216128.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 237632.0,
+      "available_at": 237632.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 259264.0,
+      "available_at": 259264.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 280928.0,
+      "available_at": 280928.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 324064.0,
+      "available_at": 324064.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 345664.0,
+      "available_at": 345664.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 367328.0,
+      "available_at": 367328.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 388928.0,
+      "available_at": 388928.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 410432.0,
+      "available_at": 410432.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 432016.0,
+      "available_at": 432016.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 453728.0,
+      "available_at": 453728.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 475328.0,
+      "available_at": 475328.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 496864.0,
+      "available_at": 496864.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 518464.0,
+      "available_at": 518464.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 540512.0,
+      "available_at": 540512.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 583264.0,
+      "available_at": 583264.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 604928.0,
+      "available_at": 604928.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 626656.0,
+      "available_at": 626656.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 648256.0,
+      "available_at": 648256.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 669664.0,
+      "available_at": 669664.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 691264.0,
+      "available_at": 691264.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 713056.0,
+      "available_at": 713056.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 734912.0,
+      "available_at": 734912.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 756128.0,
+      "available_at": 756128.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 777728.0,
+      "available_at": 777728.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 799328.0,
+      "available_at": 799328.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 842464.0,
+      "available_at": 842464.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 864128.0,
+      "available_at": 864128.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 907456.0,
+      "available_at": 907456.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 928832.0,
+      "available_at": 928832.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 950464.0,
+      "available_at": 950464.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 972064.0,
+      "available_at": 972064.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 993664.0,
+      "available_at": 993664.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1015232.0,
+      "available_at": 1015232.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1036864.0,
+      "available_at": 1036864.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1058528.0,
+      "available_at": 1058528.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1080064.0,
+      "available_at": 1080064.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1101632.0,
+      "available_at": 1101632.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1123264.0,
+      "available_at": 1123264.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1145056.0,
+      "available_at": 1145056.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1166528.0,
+      "available_at": 1166528.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1188128.0,
+      "available_at": 1188128.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1209664.0,
+      "available_at": 1209664.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 1231712.0,
+      "available_at": 1231712.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1252928.0,
+      "available_at": 1252928.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1274464.0,
+      "available_at": 1274464.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1296032.0,
+      "available_at": 1296032.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1317728.0,
+      "available_at": 1317728.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1339264.0,
+      "available_at": 1339264.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1360864.0,
+      "available_at": 1360864.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1382464.0,
+      "available_at": 1382464.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1404256.0,
+      "available_at": 1404256.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1425728.0,
+      "available_at": 1425728.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1447264.0,
+      "available_at": 1447264.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1468832.0,
+      "available_at": 1468832.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1490464.0,
+      "available_at": 1490464.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1512128.0,
+      "available_at": 1512128.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1533664.0,
+      "available_at": 1533664.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 8.0,
+      "source": "history",
+      "observed_at": 1555208.0,
+      "available_at": 1555208.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1576864.0,
+      "available_at": 1576864.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 1620016.0,
+      "available_at": 1620016.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1641632.0,
+      "available_at": 1641632.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 1663712.0,
+      "available_at": 1663712.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1685056.0,
+      "available_at": 1685056.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1706464.0,
+      "available_at": 1706464.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1728032.0,
+      "available_at": 1728032.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1749856.0,
+      "available_at": 1749856.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1814464.0,
+      "available_at": 1814464.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1857728.0,
+      "available_at": 1857728.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1879264.0,
+      "available_at": 1879264.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1900864.0,
+      "available_at": 1900864.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1922528.0,
+      "available_at": 1922528.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1944256.0,
+      "available_at": 1944256.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1965664.0,
+      "available_at": 1965664.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 1987216.0,
+      "available_at": 1987216.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2008864.0,
+      "available_at": 2008864.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 2030656.0,
+      "available_at": 2030656.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2052064.0,
+      "available_at": 2052064.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2073632.0,
+      "available_at": 2073632.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 2095456.0,
+      "available_at": 2095456.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2116864.0,
+      "available_at": 2116864.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2138464.0,
+      "available_at": 2138464.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2160064.0,
+      "available_at": 2160064.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2181728.0,
+      "available_at": 2181728.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2203328.0,
+      "available_at": 2203328.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2224864.0,
+      "available_at": 2224864.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2246464.0,
+      "available_at": 2246464.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2268128.0,
+      "available_at": 2268128.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2289728.0,
+      "available_at": 2289728.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2311264.0,
+      "available_at": 2311264.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2332928.0,
+      "available_at": 2332928.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 2354656.0,
+      "available_at": 2354656.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2397664.0,
+      "available_at": 2397664.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2419264.0,
+      "available_at": 2419264.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 2441312.0,
+      "available_at": 2441312.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2462464.0,
+      "available_at": 2462464.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2484064.0,
+      "available_at": 2484064.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2505728.0,
+      "available_at": 2505728.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 2527456.0,
+      "available_at": 2527456.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 2549312.0,
+      "available_at": 2549312.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2570528.0,
+      "available_at": 2570528.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 2592256.0,
+      "available_at": 2592256.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2613664.0,
+      "available_at": 2613664.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2656832.0,
+      "available_at": 2656832.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2678432.0,
+      "available_at": 2678432.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2700064.0,
+      "available_at": 2700064.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2721728.0,
+      "available_at": 2721728.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 2743216.0,
+      "available_at": 2743216.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2764832.0,
+      "available_at": 2764832.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2786528.0,
+      "available_at": 2786528.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2808128.0,
+      "available_at": 2808128.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2829632.0,
+      "available_at": 2829632.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2851232.0,
+      "available_at": 2851232.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 2873056.0,
+      "available_at": 2873056.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2894464.0,
+      "available_at": 2894464.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2916064.0,
+      "available_at": 2916064.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2937728.0,
+      "available_at": 2937728.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2959328.0,
+      "available_at": 2959328.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 2981056.0,
+      "available_at": 2981056.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3002464.0,
+      "available_at": 3002464.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3024064.0,
+      "available_at": 3024064.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 3046112.0,
+      "available_at": 3046112.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 3067456.0,
+      "available_at": 3067456.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3088928.0,
+      "available_at": 3088928.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 3110432.0,
+      "available_at": 3110432.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 3132256.0,
+      "available_at": 3132256.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 3154112.0,
+      "available_at": 3154112.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3175264.0,
+      "available_at": 3175264.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3196928.0,
+      "available_at": 3196928.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 3218656.0,
+      "available_at": 3218656.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3240064.0,
+      "available_at": 3240064.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3261664.0,
+      "available_at": 3261664.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 3283232.0,
+      "available_at": 3283232.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3304864.0,
+      "available_at": 3304864.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 3326656.0,
+      "available_at": 3326656.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 3348016.0,
+      "available_at": 3348016.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 3369616.0,
+      "available_at": 3369616.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3391264.0,
+      "available_at": 3391264.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 3413056.0,
+      "available_at": 3413056.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3434464.0,
+      "available_at": 3434464.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3456064.0,
+      "available_at": 3456064.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3477728.0,
+      "available_at": 3477728.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3499328.0,
+      "available_at": 3499328.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3520864.0,
+      "available_at": 3520864.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3542464.0,
+      "available_at": 3542464.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3564128.0,
+      "available_at": 3564128.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3585728.0,
+      "available_at": 3585728.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 3607232.0,
+      "available_at": 3607232.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 256.0,
+      "available_at": 256.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 21856.0,
+      "available_at": 21856.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 43328.0,
+      "available_at": 43328.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 64832.0,
+      "available_at": 64832.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 86528.0,
+      "available_at": 86528.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 108128.0,
+      "available_at": 108128.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 129728.0,
+      "available_at": 129728.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 151328.0,
+      "available_at": 151328.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 172864.0,
+      "available_at": 172864.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 194528.0,
+      "available_at": 194528.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 216256.0,
+      "available_at": 216256.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 237664.0,
+      "available_at": 237664.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 259232.0,
+      "available_at": 259232.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 280928.0,
+      "available_at": 280928.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 324032.0,
+      "available_at": 324032.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 345632.0,
+      "available_at": 345632.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 367328.0,
+      "available_at": 367328.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 388928.0,
+      "available_at": 388928.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 410432.0,
+      "available_at": 410432.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 432064.0,
+      "available_at": 432064.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 453856.0,
+      "available_at": 453856.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 475712.0,
+      "available_at": 475712.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 496928.0,
+      "available_at": 496928.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 518528.0,
+      "available_at": 518528.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 540256.0,
+      "available_at": 540256.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 561856.0,
+      "available_at": 561856.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 583328.0,
+      "available_at": 583328.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 604928.0,
+      "available_at": 604928.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 626656.0,
+      "available_at": 626656.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 648256.0,
+      "available_at": 648256.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 669728.0,
+      "available_at": 669728.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 691264.0,
+      "available_at": 691264.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 713056.0,
+      "available_at": 713056.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 734656.0,
+      "available_at": 734656.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 756064.0,
+      "available_at": 756064.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 777664.0,
+      "available_at": 777664.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 799328.0,
+      "available_at": 799328.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 821056.0,
+      "available_at": 821056.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 842432.0,
+      "available_at": 842432.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 864064.0,
+      "available_at": 864064.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 885728.0,
+      "available_at": 885728.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 907328.0,
+      "available_at": 907328.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 928832.0,
+      "available_at": 928832.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 16.0,
+      "source": "history",
+      "observed_at": 950416.0,
+      "available_at": 950416.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 972256.0,
+      "available_at": 972256.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 993664.0,
+      "available_at": 993664.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1015264.0,
+      "available_at": 1015264.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1036864.0,
+      "available_at": 1036864.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1080064.0,
+      "available_at": 1080064.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1101632.0,
+      "available_at": 1101632.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1123328.0,
+      "available_at": 1123328.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1144928.0,
+      "available_at": 1144928.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1166656.0,
+      "available_at": 1166656.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1188032.0,
+      "available_at": 1188032.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 1231712.0,
+      "available_at": 1231712.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1252928.0,
+      "available_at": 1252928.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1274464.0,
+      "available_at": 1274464.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1296128.0,
+      "available_at": 1296128.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 1318112.0,
+      "available_at": 1318112.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1339328.0,
+      "available_at": 1339328.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1360832.0,
+      "available_at": 1360832.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1382464.0,
+      "available_at": 1382464.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1404256.0,
+      "available_at": 1404256.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1425728.0,
+      "available_at": 1425728.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1447232.0,
+      "available_at": 1447232.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1468864.0,
+      "available_at": 1468864.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1490656.0,
+      "available_at": 1490656.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1512064.0,
+      "available_at": 1512064.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1533728.0,
+      "available_at": 1533728.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1555264.0,
+      "available_at": 1555264.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1598528.0,
+      "available_at": 1598528.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1620032.0,
+      "available_at": 1620032.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 1706432.0,
+      "available_at": 1706432.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1749728.0,
+      "available_at": 1749728.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 1771712.0,
+      "available_at": 1771712.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1792864.0,
+      "available_at": 1792864.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 1814656.0,
+      "available_at": 1814656.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1879264.0,
+      "available_at": 1879264.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1900928.0,
+      "available_at": 1900928.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1922528.0,
+      "available_at": 1922528.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 1965728.0,
+      "available_at": 1965728.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 1987264.0,
+      "available_at": 1987264.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2008928.0,
+      "available_at": 2008928.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2030528.0,
+      "available_at": 2030528.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2052064.0,
+      "available_at": 2052064.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2073664.0,
+      "available_at": 2073664.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2095328.0,
+      "available_at": 2095328.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2116864.0,
+      "available_at": 2116864.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2138464.0,
+      "available_at": 2138464.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2160064.0,
+      "available_at": 2160064.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2181728.0,
+      "available_at": 2181728.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2203328.0,
+      "available_at": 2203328.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2224864.0,
+      "available_at": 2224864.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2246464.0,
+      "available_at": 2246464.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 2268256.0,
+      "available_at": 2268256.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 2289856.0,
+      "available_at": 2289856.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2311264.0,
+      "available_at": 2311264.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2332928.0,
+      "available_at": 2332928.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 2376512.0,
+      "available_at": 2376512.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2397664.0,
+      "available_at": 2397664.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2419328.0,
+      "available_at": 2419328.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 2441312.0,
+      "available_at": 2441312.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2462528.0,
+      "available_at": 2462528.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2484064.0,
+      "available_at": 2484064.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2505664.0,
+      "available_at": 2505664.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2548928.0,
+      "available_at": 2548928.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2570464.0,
+      "available_at": 2570464.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2592064.0,
+      "available_at": 2592064.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 2613856.0,
+      "available_at": 2613856.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2635328.0,
+      "available_at": 2635328.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2656928.0,
+      "available_at": 2656928.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2678464.0,
+      "available_at": 2678464.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2700128.0,
+      "available_at": 2700128.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2721728.0,
+      "available_at": 2721728.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2743264.0,
+      "available_at": 2743264.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2764928.0,
+      "available_at": 2764928.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2786528.0,
+      "available_at": 2786528.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2808128.0,
+      "available_at": 2808128.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2829632.0,
+      "available_at": 2829632.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 2851232.0,
+      "available_at": 2851232.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2872928.0,
+      "available_at": 2872928.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 2894528.0,
+      "available_at": 2894528.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2916064.0,
+      "available_at": 2916064.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 2937664.0,
+      "available_at": 2937664.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 2959456.0,
+      "available_at": 2959456.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 2981056.0,
+      "available_at": 2981056.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3002464.0,
+      "available_at": 3002464.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 3024256.0,
+      "available_at": 3024256.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 3046112.0,
+      "available_at": 3046112.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 3067712.0,
+      "available_at": 3067712.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 3088832.0,
+      "available_at": 3088832.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 3110656.0,
+      "available_at": 3110656.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3132128.0,
+      "available_at": 3132128.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 3175232.0,
+      "available_at": 3175232.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3196864.0,
+      "available_at": 3196864.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3218528.0,
+      "available_at": 3218528.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 3240256.0,
+      "available_at": 3240256.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 3261632.0,
+      "available_at": 3261632.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3283264.0,
+      "available_at": 3283264.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3304928.0,
+      "available_at": 3304928.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3326528.0,
+      "available_at": 3326528.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3348064.0,
+      "available_at": 3348064.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 3369632.0,
+      "available_at": 3369632.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 3391712.0,
+      "available_at": 3391712.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3412928.0,
+      "available_at": 3412928.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3434464.0,
+      "available_at": 3434464.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 64.0,
+      "source": "history",
+      "observed_at": 3456064.0,
+      "available_at": 3456064.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 3477856.0,
+      "available_at": 3477856.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 3499456.0,
+      "available_at": 3499456.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3520928.0,
+      "available_at": 3520928.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 32.0,
+      "source": "history",
+      "observed_at": 3542432.0,
+      "available_at": 3542432.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 512.0,
+      "source": "history",
+      "observed_at": 3564512.0,
+      "available_at": 3564512.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 256.0,
+      "source": "history",
+      "observed_at": 3585856.0,
+      "available_at": 3585856.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_seconds",
+      "value": 128.0,
+      "source": "history",
+      "observed_at": 3607328.0,
+      "available_at": 3607328.0,
+      "source_id": "provider-03"
+    }
+  ],
+  "metadata": [
+    {
+      "name": "hour_sin",
+      "value": 0.0,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "hour_cos",
+      "value": 1.0,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "weekday_sin",
+      "value": 0.0,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "weekday_cos",
+      "value": 1.0,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "history_log_window_mean",
+      "value": 0.6295138991119389,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "history_log_window_std",
+      "value": 0.12072631645967516,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "recent_log_window_mean",
+      "value": 0.6390279341901625,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "history_short_fraction",
+      "value": 0.25,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "notice_seconds",
+      "value": 12.0,
+      "source": "public_metadata",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "owner_use_seconds",
+      "value": 10.0,
+      "source": "public_metadata",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "availability_window_age_seconds",
+      "value": 0.0,
+      "source": "observed_event",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-00"
+    },
+    {
+      "name": "hour_sin",
+      "value": 0.0,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "hour_cos",
+      "value": 1.0,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "weekday_sin",
+      "value": 0.0,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "weekday_cos",
+      "value": 1.0,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "history_log_window_mean",
+      "value": 0.6426975322897174,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "history_log_window_std",
+      "value": 0.12808665735354735,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "recent_log_window_mean",
+      "value": 0.689123612494027,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "history_short_fraction",
+      "value": 0.25,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "notice_seconds",
+      "value": 12.0,
+      "source": "public_metadata",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "owner_use_seconds",
+      "value": 10.0,
+      "source": "public_metadata",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "availability_window_age_seconds",
+      "value": 0.0,
+      "source": "observed_event",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-01"
+    },
+    {
+      "name": "hour_sin",
+      "value": 0.0,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "hour_cos",
+      "value": 1.0,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "weekday_sin",
+      "value": 0.0,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "weekday_cos",
+      "value": 1.0,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "history_log_window_mean",
+      "value": 0.6739527604717298,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "history_log_window_std",
+      "value": 0.12517124263422383,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "recent_log_window_mean",
+      "value": 0.6390279341901625,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "history_short_fraction",
+      "value": 0.15625,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "notice_seconds",
+      "value": 12.0,
+      "source": "public_metadata",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "owner_use_seconds",
+      "value": 10.0,
+      "source": "public_metadata",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "availability_window_age_seconds",
+      "value": 0.0,
+      "source": "observed_event",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-02"
+    },
+    {
+      "name": "hour_sin",
+      "value": 0.0,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "hour_cos",
+      "value": 1.0,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "weekday_sin",
+      "value": 0.0,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "weekday_cos",
+      "value": 1.0,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "history_log_window_mean",
+      "value": 0.7085044262862549,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "history_log_window_std",
+      "value": 0.12841298491683506,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "recent_log_window_mean",
+      "value": 0.7402681093457414,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "history_short_fraction",
+      "value": 0.15625,
+      "source": "history",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "notice_seconds",
+      "value": 12.0,
+      "source": "public_metadata",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "owner_use_seconds",
+      "value": 10.0,
+      "source": "public_metadata",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-03"
+    },
+    {
+      "name": "availability_window_age_seconds",
+      "value": 0.0,
+      "source": "observed_event",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "source_id": "provider-03"
+    }
+  ]
+}

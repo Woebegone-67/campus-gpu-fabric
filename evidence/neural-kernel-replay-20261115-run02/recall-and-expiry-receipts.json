@@ -1,0 +1,210 @@
+{
+  "recall": {
+    "request_id": "local-owner-one-second-recall",
+    "outcome": "committed",
+    "version": {
+      "epoch": 0,
+      "revision": 59
+    },
+    "logical_time": 3628800.0,
+    "objects": [
+      {
+        "kind": "gpu",
+        "entity_id": "provider-03"
+      }
+    ],
+    "event_ids": [
+      "e0-ev71"
+    ],
+    "error": null,
+    "idempotency_replayed": false,
+    "original_request_id": null
+  },
+  "clock_to_deadline": [
+    {
+      "request_id": "replay-clock-3.6288e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 60
+      },
+      "logical_time": 3628801.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev72",
+        "e0-ev73"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    }
+  ],
+  "notice": {
+    "notice_id": "e0-notice17",
+    "contributor_owner_id": "provider-03",
+    "device_ids": [
+      "provider-03"
+    ],
+    "issued_at": 3628800.0,
+    "deadline": 3628801.0,
+    "unavailable_until": 3628821.0
+  },
+  "allocation_at_deadline": {
+    "allocation_id": "e0-a1",
+    "owner_id": "alice",
+    "state": "Preempted",
+    "request": {
+      "cpu_millicores": 1000,
+      "memory_mib": 1024,
+      "gpu": {
+        "count": 1,
+        "model": "any",
+        "memory_mib": 1024,
+        "profile": null
+      },
+      "ephemeral_storage_mib": 0
+    },
+    "created_at": 3628800.0,
+    "placement": null,
+    "expires_at": 3629700.0,
+    "preemption": {
+      "requested_at": 3628800.0,
+      "deadline": 3628801.0,
+      "checkpoint_due": 3628801.0,
+      "reason": "contributor_recall"
+    },
+    "checkpoint": null,
+    "restart_count": 0,
+    "pending_terminal": null
+  },
+  "clock_to_expiry": [
+    {
+      "request_id": "replay-clock-3.6288e+06-3.6297e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 61
+      },
+      "logical_time": 3629700.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev74",
+        "e0-ev75",
+        "e0-ev76",
+        "e0-ev77",
+        "e0-ev78",
+        "e0-ev79",
+        "e0-ev80",
+        "e0-ev81",
+        "e0-ev82",
+        "e0-ev83",
+        "e0-ev84",
+        "e0-ev85",
+        "e0-ev86",
+        "e0-ev87"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    }
+  ],
+  "allocations_at_expiry": [
+    {
+      "allocation_id": "e0-a1",
+      "owner_id": "alice",
+      "state": "Expired",
+      "request": {
+        "cpu_millicores": 1000,
+        "memory_mib": 1024,
+        "gpu": {
+          "count": 1,
+          "model": "any",
+          "memory_mib": 1024,
+          "profile": null
+        },
+        "ephemeral_storage_mib": 0
+      },
+      "created_at": 3628800.0,
+      "placement": null,
+      "expires_at": 3629700.0,
+      "preemption": {
+        "requested_at": 3628800.0,
+        "deadline": 3628801.0,
+        "checkpoint_due": 3628801.0,
+        "reason": "contributor_recall"
+      },
+      "checkpoint": null,
+      "restart_count": 0,
+      "pending_terminal": null
+    },
+    {
+      "allocation_id": "e0-a2",
+      "owner_id": "alice",
+      "state": "Expired",
+      "request": {
+        "cpu_millicores": 1000,
+        "memory_mib": 1024,
+        "gpu": {
+          "count": 1,
+          "model": "any",
+          "memory_mib": 1024,
+          "profile": null
+        },
+        "ephemeral_storage_mib": 0
+      },
+      "created_at": 3628800.0,
+      "placement": null,
+      "expires_at": 3629700.0,
+      "preemption": null,
+      "checkpoint": null,
+      "restart_count": 0,
+      "pending_terminal": null
+    },
+    {
+      "allocation_id": "e0-a3",
+      "owner_id": "alice",
+      "state": "Expired",
+      "request": {
+        "cpu_millicores": 1000,
+        "memory_mib": 1024,
+        "gpu": {
+          "count": 1,
+          "model": "any",
+          "memory_mib": 1024,
+          "profile": null
+        },
+        "ephemeral_storage_mib": 0
+      },
+      "created_at": 3628800.0,
+      "placement": null,
+      "expires_at": 3629700.0,
+      "preemption": null,
+      "checkpoint": null,
+      "restart_count": 0,
+      "pending_terminal": null
+    },
+    {
+      "allocation_id": "e0-a4",
+      "owner_id": "alice",
+      "state": "Expired",
+      "request": {
+        "cpu_millicores": 1000,
+        "memory_mib": 1024,
+        "gpu": {
+          "count": 1,
+          "model": "any",
+          "memory_mib": 1024,
+          "profile": null
+        },
+        "ephemeral_storage_mib": 0
+      },
+      "created_at": 3628800.0,
+      "placement": null,
+      "expires_at": 3629700.0,
+      "preemption": null,
+      "checkpoint": null,
+      "restart_count": 0,
+      "pending_terminal": null
+    }
+  ]
+}

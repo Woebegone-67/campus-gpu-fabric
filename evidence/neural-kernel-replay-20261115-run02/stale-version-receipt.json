@@ -1,0 +1,22 @@
+{
+  "request_id": "replay-apply-decision-6905a9504c2d917a444f0d84d4decc69-stale",
+  "outcome": "rejected",
+  "version": {
+    "epoch": 0,
+    "revision": 51
+  },
+  "logical_time": 3628801.0,
+  "objects": [],
+  "event_ids": [],
+  "error": {
+    "code": "stale_version",
+    "detail": "Refresh the snapshot and construct a new command",
+    "retryable": false,
+    "current_version": {
+      "epoch": 0,
+      "revision": 51
+    }
+  },
+  "idempotency_replayed": false,
+  "original_request_id": null
+}

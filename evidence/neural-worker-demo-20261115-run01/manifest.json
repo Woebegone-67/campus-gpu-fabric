@@ -1,0 +1,16 @@
+{
+  "RECEIPT.md": "f66427412a5340e61c63591feb9a40e9991a998d081239520c7a50090355de83",
+  "recall-and-expiry.json": "358d789e8304d0f7c61d60577a587b9bc65f158da70944c255bf809ebe4fe91c",
+  "reviewed-inputs.json": "3833fb1e529fec65886d41569def44cecb32686d33e8c5c04a8f534016dd9e12",
+  "default-worker-commits.json": "731cd013d926129750ff441be5a06d74660ef50853440ba3a412c6c84cc48c13",
+  "setup-receipts.json": "38bb60054f572f31f409ab64921cb4fd409f48fe582a2055e203b0dab47ce640",
+  "learned-running-state.json": "833dab794d7a6c68489e9b4aa656bde554eef44fff73282189f6f293ad91ec8b",
+  "learned-worker-commits.json": "6b17e4905e498f9233d86518740317dc3556b934e77c4d865e2e4434d3e2229c",
+  "ranking-inputs.json": "1c4d582c0eac67c85735025ea5348a431888af53d3110b04b17f9e5bc1aad7bf",
+  "original-observed.json": "bde3f272fb97bf113324b4562a79bd80fc17e08def42009a07f8708192c4e6a1",
+  "default-worker.sqlite": "16e8bfabe8b432531acaf74541668220183246ffe8b645d5d6c71cafb38820fa",
+  "task-gpu-rankings.json": "ec05f5b12612d76cc25f130ba3ec17e1efa1c5b8025e095eff3234041a281272",
+  "enriched-snapshot.json": "405f32bd0ea8ac3e5b967df3851731dcf7b761c5f93b4be25d1a6c79696e937f",
+  "receipt.json": "2baa9cb69897e6c7c4c3722d04dd8e5321a6c9a5cfaf16c6ae4083cbee5e8cb4",
+  "learned-worker.sqlite": "772c569836181fdb1ce9a65e473cac0297f215859cc9186bd95461d862ca1a0d"
+}

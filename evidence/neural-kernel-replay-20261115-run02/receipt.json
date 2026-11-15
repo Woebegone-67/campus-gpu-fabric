@@ -1,0 +1,314 @@
+{
+  "status": "PASS",
+  "scope": "independent local SQLite contract replay; no performance or live deployment claim",
+  "case": {
+    "group": "predictable",
+    "index": 0,
+    "observed_at": 3628800.0
+  },
+  "study_directory": "/Users/xuyang/Documents/GitHub/campus-gpu-fabric-reclaim/evidence/neural-availability-20261115-run01",
+  "inputs_sha256": "db118d7060d5a8dc91d28733ff8f18da6238b065b4e0ee4da4214088f7c6e266",
+  "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+  "trained_through": 3002656.0,
+  "source_sha256": {
+    "experiments/research/neural_kernel_replay.py": "a41e25e5cf7d47fc7da6799e53964acd98d72b023ba82ad7319c4c6d6f51f697",
+    "src/campus_fabric/__init__.py": "704b473a62185038a24486173bbe64c7170bf5d29794c7e20e16219a78178dd1",
+    "src/campus_fabric/api/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/api/extensions/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/api/extensions/mutations/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/api/extensions/queries/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/api/mutations/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/api/mutations/http.py": "0bf3421c2b9d559adfe9fc297f4c21e13b44a8ae845faa870f0f990503cfcffd",
+    "src/campus_fabric/api/queries/__init__.py": "a0c94a933539ee9a8be5457cce39fdb14f9a3dd062c78f76ade830cf2139e320",
+    "src/campus_fabric/api/queries/integration.py": "a99f717331397e466b547d984eea55450f56b28e49ca96128cefd0075395df9d",
+    "src/campus_fabric/api/queries/routes.py": "2e9d4507369627a5e2fdfb346a94c0d2bc6ec5284451c5021d2575520f0f908c",
+    "src/campus_fabric/api/queries/service.py": "c16ee063f599f0148282a95d2a948e0e9a38e6ea578eced43a65e777f349bbd2",
+    "src/campus_fabric/api/test_control/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/api/test_control/faults.py": "95a9ffce15576d9f4fafcad4e860bc8debe86f9177acc9f2c3f937d1737286c6",
+    "src/campus_fabric/app.py": "0bf1cabb1e52d872d9286d02b10d1724fb9556707524dc519262dcf49c8817ec",
+    "src/campus_fabric/auth/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/auth/http.py": "28c7eb3ba7f7d3b66ae3c35f205e8123a9682adf75b6429db346513bf15ba572",
+    "src/campus_fabric/auth/sessions.py": "5e5320e3b70a3fb46f995f78e78804402d6a2b928ee265af0ee1a27246876ede",
+    "src/campus_fabric/clock/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/contracts/__init__.py": "244fdb414fdc42da22cba3685b0049247c7c02a4138fdc52092f879b487de17e",
+    "src/campus_fabric/contracts/models.py": "c399247cf913a564b8c4bf5cb7d54b7c43b99793646d11c91ba9745f78fd02c8",
+    "src/campus_fabric/contracts/ports.py": "594e12d80c957f3acf696799039fdac87d4232b70de7efc224edc9589f79c47d",
+    "src/campus_fabric/domain/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/domain/decision_views.py": "f369f3dd48c511204f90917ea6abb8ecada96f2ff1e1c1bed5e5d055314feecd",
+    "src/campus_fabric/domain/errors.py": "bc06ef63964b1a12c9aa006b3b00efc128abd6b25c73af605d8043802c6fe2f3",
+    "src/campus_fabric/domain/kernel.py": "3645897ed7760e6acc512f48e713b52fc0446785445c96c4ad3c5f07389928ef",
+    "src/campus_fabric/domain/lifecycle.py": "88bc8c397c53ab9fdea06c4681ec5525e9c00dde4e2d656e733b6804633c33bf",
+    "src/campus_fabric/domain/placement.py": "0b5bd966462162c474b17d132c132a09def26638049860911086d6e6cee892ed",
+    "src/campus_fabric/domain/recall_views.py": "3dab9920558515d50b53d5dad2c88bae63223c3fcb7634c733793e06e222b3ce",
+    "src/campus_fabric/domain/state_views.py": "13dce9d9e33653894a0483f6868d8f1602f30dbbc12f0a97bfa1c8a26d8122eb",
+    "src/campus_fabric/executors/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/executors/cpu_files.py": "d1c2d6cac65d3aacd0368a77e7c2946f118f0f1748e4ad8022f18f67652bdd30",
+    "src/campus_fabric/executors/cpu_reference.py": "7225de31304ae6aca92d9873fed90512024e3e4542d70390fa24181de5c5032c",
+    "src/campus_fabric/executors/cpu_worker.py": "461884dd392c40572402b6e041ea0b86d16fc694186899dc5861347bc803fedd",
+    "src/campus_fabric/executors/driver.py": "0ace6c5a51381d5361c5c722525eb0d1e248370298e99377067e49033ecc23f5",
+    "src/campus_fabric/policies/__init__.py": "b9297b723c6443aca601a232cc4cd6fda6b809d2d270c6019d53d1a6d3ad0b95",
+    "src/campus_fabric/policies/availability_model.py": "7e803ab9745050d01b87261041c8a042d15a53f8b1a33704095f428cdd67b4c6",
+    "src/campus_fabric/policies/baselines.py": "65f254616927cb3ff3ab92cb6b046e29211b7bb552efa55ce5e21341c7ab2631",
+    "src/campus_fabric/policies/candidate.py": "6b97c3c8d9a6c186334bb1f4fb92df76d2e56458f45903bbc08ecc46ad4d4f52",
+    "src/campus_fabric/policies/learned.py": "f2215c2e0a9b92fc4a79a2129acc48df6198258c79212129055b4fca47d59a85",
+    "src/campus_fabric/policies/reclaim.py": "3c3f357ad494a0394be46e1062e5078855a64ffdcc36c35c7d5596ba7d995d3b",
+    "src/campus_fabric/policies/reliability.py": "05c5e2bf04c9cc84cfdf4301f32708044665b560866c67d6ce48815806cc839a",
+    "src/campus_fabric/policies/renewal.py": "19018185d4ad4d05ae05ff290490933d2a41100c032b80d4f5eb7868a4d121d7",
+    "src/campus_fabric/projections/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/projections/read_models.py": "2d30ec6670eac5d4db1b1269515e871e090c3da67bd8eeb17e0c5f5b804bf288",
+    "src/campus_fabric/storage/__init__.py": "cdd769f169824334d067c692f28dfaaae97a32bab3a73b9d05073e034460f7dc",
+    "src/campus_fabric/storage/journal.py": "03d69f082bf59aed29884a05f692319ecf349d0b08eb37168723cb583e21458b",
+    "src/campus_fabric/storage/merkle.py": "211fc662dd83dabc45d7586861e3164333ced1df8287e3f37a6fe7848f22af39",
+    "src/campus_fabric/storage/sqlite.py": "2cc2232c86dab5a8c58caf44e379cc85ed462a16905a200b1626dd770aeb44b3",
+    "src/campus_fabric/storage/state.py": "f11e6614cdaea2e113f484f32b9583728da834898a65d1040cfad9a63ab472f7",
+    "src/campus_fabric/workflows/__init__.py": "5b0835ce371e11627f11d52c19e5d3aaa95ab9bd80c62b6aeae2d8f5db2614d0",
+    "src/campus_fabric/workflows/acceptance_evidence.py": "c4e8e70f818816b5c0a3875ab009a6864dd0016dad10c0b41c6b069215a918ae",
+    "src/campus_fabric/workflows/devhost.py": "77c0ccf48d17b5b3d0c3f830536720cb2cc3c360a9cbf42847de302ef1c1cd69",
+    "src/campus_fabric/workflows/experiment_runner.py": "045cdac49b0f4d4ce4f368d531bf93213d6472b7d182bf60d39a04299f59d86d",
+    "src/campus_fabric/workflows/orchestrator.py": "2203c247f517423de35aec8dd09eededf7af49dad050a2b69a8df09b6f49601e",
+    "src/campus_fabric/workflows/policy_validation.py": "b8a7028f9d4c2dfadd2b4c4de9344700cf3563418d097dc95984983f78137a3c",
+    "src/campus_fabric/workflows/reclaim_validation.py": "0ed73eee96080ffcd9865ab87469541ba08b87360a489d1b336a7f8870473483"
+  },
+  "history_diagnostics": [
+    {
+      "device_id": "provider-00",
+      "completed_history_count": 164,
+      "recent_count": 4,
+      "minimum_recent_count": 4,
+      "features": {
+        "hour_sin": 0.0,
+        "hour_cos": 1.0,
+        "weekday_sin": 0.0,
+        "weekday_cos": 1.0,
+        "history_log_window_mean": 0.6295138991119389,
+        "history_log_window_std": 0.12072631645967516,
+        "recent_log_window_mean": 0.6390279341901625,
+        "history_short_fraction": 0.25
+      }
+    },
+    {
+      "device_id": "provider-01",
+      "completed_history_count": 161,
+      "recent_count": 4,
+      "minimum_recent_count": 4,
+      "features": {
+        "hour_sin": 0.0,
+        "hour_cos": 1.0,
+        "weekday_sin": 0.0,
+        "weekday_cos": 1.0,
+        "history_log_window_mean": 0.6426975322897174,
+        "history_log_window_std": 0.12808665735354735,
+        "recent_log_window_mean": 0.689123612494027,
+        "history_short_fraction": 0.25
+      }
+    },
+    {
+      "device_id": "provider-02",
+      "completed_history_count": 158,
+      "recent_count": 4,
+      "minimum_recent_count": 4,
+      "features": {
+        "hour_sin": 0.0,
+        "hour_cos": 1.0,
+        "weekday_sin": 0.0,
+        "weekday_cos": 1.0,
+        "history_log_window_mean": 0.6739527604717298,
+        "history_log_window_std": 0.12517124263422383,
+        "recent_log_window_mean": 0.6390279341901625,
+        "history_short_fraction": 0.15625
+      }
+    },
+    {
+      "device_id": "provider-03",
+      "completed_history_count": 154,
+      "recent_count": 4,
+      "minimum_recent_count": 4,
+      "features": {
+        "hour_sin": 0.0,
+        "hour_cos": 1.0,
+        "weekday_sin": 0.0,
+        "weekday_cos": 1.0,
+        "history_log_window_mean": 0.7085044262862549,
+        "history_log_window_std": 0.12841298491683506,
+        "recent_log_window_mean": 0.7402681093457414,
+        "history_short_fraction": 0.15625
+      }
+    }
+  ],
+  "task_gpu_rankings": [
+    {
+      "task_id": "task-0",
+      "device_id": "provider-03",
+      "rank": 1,
+      "predicted_restricted_seconds": 529.3295135498047,
+      "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+      "scope": "task-conditioned; newly opened window; not a contributor promise"
+    },
+    {
+      "task_id": "task-0",
+      "device_id": "provider-02",
+      "rank": 2,
+      "predicted_restricted_seconds": 545.1028747558594,
+      "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+      "scope": "task-conditioned; newly opened window; not a contributor promise"
+    },
+    {
+      "task_id": "task-0",
+      "device_id": "provider-01",
+      "rank": 3,
+      "predicted_restricted_seconds": 568.3549346923828,
+      "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+      "scope": "task-conditioned; newly opened window; not a contributor promise"
+    },
+    {
+      "task_id": "task-0",
+      "device_id": "provider-00",
+      "rank": 4,
+      "predicted_restricted_seconds": 583.5410766601562,
+      "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+      "scope": "task-conditioned; newly opened window; not a contributor promise"
+    },
+    {
+      "task_id": "task-1",
+      "device_id": "provider-03",
+      "rank": 1,
+      "predicted_restricted_seconds": 185.74749755859375,
+      "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+      "scope": "task-conditioned; newly opened window; not a contributor promise"
+    },
+    {
+      "task_id": "task-1",
+      "device_id": "provider-02",
+      "rank": 2,
+      "predicted_restricted_seconds": 196.3482666015625,
+      "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+      "scope": "task-conditioned; newly opened window; not a contributor promise"
+    },
+    {
+      "task_id": "task-1",
+      "device_id": "provider-01",
+      "rank": 3,
+      "predicted_restricted_seconds": 199.2793426513672,
+      "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+      "scope": "task-conditioned; newly opened window; not a contributor promise"
+    },
+    {
+      "task_id": "task-1",
+      "device_id": "provider-00",
+      "rank": 4,
+      "predicted_restricted_seconds": 201.9204559326172,
+      "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+      "scope": "task-conditioned; newly opened window; not a contributor promise"
+    },
+    {
+      "task_id": "task-2",
+      "device_id": "provider-00",
+      "rank": 1,
+      "predicted_restricted_seconds": 24.0,
+      "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+      "scope": "task-conditioned; newly opened window; not a contributor promise"
+    },
+    {
+      "task_id": "task-2",
+      "device_id": "provider-01",
+      "rank": 1,
+      "predicted_restricted_seconds": 24.0,
+      "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+      "scope": "task-conditioned; newly opened window; not a contributor promise"
+    },
+    {
+      "task_id": "task-2",
+      "device_id": "provider-02",
+      "rank": 1,
+      "predicted_restricted_seconds": 24.0,
+      "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+      "scope": "task-conditioned; newly opened window; not a contributor promise"
+    },
+    {
+      "task_id": "task-2",
+      "device_id": "provider-03",
+      "rank": 1,
+      "predicted_restricted_seconds": 24.0,
+      "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+      "scope": "task-conditioned; newly opened window; not a contributor promise"
+    },
+    {
+      "task_id": "task-3",
+      "device_id": "provider-03",
+      "rank": 1,
+      "predicted_restricted_seconds": 163.1310272216797,
+      "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+      "scope": "task-conditioned; newly opened window; not a contributor promise"
+    },
+    {
+      "task_id": "task-3",
+      "device_id": "provider-01",
+      "rank": 2,
+      "predicted_restricted_seconds": 177.5050048828125,
+      "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+      "scope": "task-conditioned; newly opened window; not a contributor promise"
+    },
+    {
+      "task_id": "task-3",
+      "device_id": "provider-02",
+      "rank": 3,
+      "predicted_restricted_seconds": 178.5596923828125,
+      "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+      "scope": "task-conditioned; newly opened window; not a contributor promise"
+    },
+    {
+      "task_id": "task-3",
+      "device_id": "provider-00",
+      "rank": 4,
+      "predicted_restricted_seconds": 195.35523986816406,
+      "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+      "scope": "task-conditioned; newly opened window; not a contributor promise"
+    }
+  ],
+  "committed_assignments": [
+    {
+      "task_id": "task-0",
+      "allocation_id": "e0-a1",
+      "selected_device": "provider-03",
+      "neural_active": true,
+      "b2_device": "provider-00",
+      "lease_expires_at": 3629700.0
+    },
+    {
+      "task_id": "task-1",
+      "allocation_id": "e0-a2",
+      "selected_device": "provider-02",
+      "neural_active": true,
+      "b2_device": "provider-00",
+      "lease_expires_at": 3629700.0
+    },
+    {
+      "task_id": "task-2",
+      "allocation_id": "e0-a3",
+      "selected_device": "provider-00",
+      "neural_active": true,
+      "b2_device": "provider-00",
+      "lease_expires_at": 3629700.0
+    },
+    {
+      "task_id": "task-3",
+      "allocation_id": "e0-a4",
+      "selected_device": "provider-01",
+      "neural_active": true,
+      "b2_device": "provider-01",
+      "lease_expires_at": 3629700.0
+    }
+  ],
+  "actual_return_deadline": 3628801.0,
+  "declared_notice_seconds": 12.0,
+  "actual_notice_seconds": 1.0,
+  "stale_plan_rejected": true,
+  "unchanged_lease_ttl_seconds": 900,
+  "all_allocations_expired_at_original_deadline": true,
+  "limitations": [
+    "Research metadata adapter, not a production A observation producer.",
+    "Kernel runs fixed 900-second logical jobs solely to exercise authority, not study runtimes.",
+    "B2 candidate ordering and preserved ties may differ from helper study matching.",
+    "Forecast rankings alone do not grant resource authority."
+  ]
+}

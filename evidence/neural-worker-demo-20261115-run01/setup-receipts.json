@@ -1,0 +1,3231 @@
+{
+  "clock": [
+    {
+      "request_id": "replay-clock-0-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 1
+      },
+      "logical_time": 86400.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev1"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-86400-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 2
+      },
+      "logical_time": 172800.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev2"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-172800-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 3
+      },
+      "logical_time": 259200.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev3"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-259200-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 4
+      },
+      "logical_time": 345600.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev4"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-345600-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 5
+      },
+      "logical_time": 432000.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev5"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-432000-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 6
+      },
+      "logical_time": 518400.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev6"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-518400-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 7
+      },
+      "logical_time": 604800.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev7"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-604800-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 8
+      },
+      "logical_time": 691200.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev8"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-691200-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 9
+      },
+      "logical_time": 777600.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev9"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-777600-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 10
+      },
+      "logical_time": 864000.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev10"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-864000-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 11
+      },
+      "logical_time": 950400.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev11"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-950400-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 12
+      },
+      "logical_time": 1036800.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev12"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-1.0368e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 13
+      },
+      "logical_time": 1123200.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev13"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-1.1232e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 14
+      },
+      "logical_time": 1209600.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev14"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-1.2096e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 15
+      },
+      "logical_time": 1296000.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev15"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-1.296e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 16
+      },
+      "logical_time": 1382400.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev16"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-1.3824e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 17
+      },
+      "logical_time": 1468800.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev17"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-1.4688e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 18
+      },
+      "logical_time": 1555200.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev18"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-1.5552e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 19
+      },
+      "logical_time": 1641600.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev19"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-1.6416e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 20
+      },
+      "logical_time": 1728000.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev20"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-1.728e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 21
+      },
+      "logical_time": 1814400.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev21"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-1.8144e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 22
+      },
+      "logical_time": 1900800.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev22"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-1.9008e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 23
+      },
+      "logical_time": 1987200.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev23"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-1.9872e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 24
+      },
+      "logical_time": 2073600.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev24"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-2.0736e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 25
+      },
+      "logical_time": 2160000.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev25"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-2.16e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 26
+      },
+      "logical_time": 2246400.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev26"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-2.2464e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 27
+      },
+      "logical_time": 2332800.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev27"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-2.3328e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 28
+      },
+      "logical_time": 2419200.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev28"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-2.4192e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 29
+      },
+      "logical_time": 2505600.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev29"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-2.5056e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 30
+      },
+      "logical_time": 2592000.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev30"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-2.592e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 31
+      },
+      "logical_time": 2678400.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev31"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-2.6784e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 32
+      },
+      "logical_time": 2764800.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev32"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-2.7648e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 33
+      },
+      "logical_time": 2851200.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev33"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-2.8512e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 34
+      },
+      "logical_time": 2937600.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev34"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-2.9376e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 35
+      },
+      "logical_time": 3024000.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev35"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-3.024e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 36
+      },
+      "logical_time": 3110400.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev36"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-3.1104e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 37
+      },
+      "logical_time": 3196800.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev37"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-3.1968e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 38
+      },
+      "logical_time": 3283200.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev38"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-3.2832e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 39
+      },
+      "logical_time": 3369600.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev39"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-3.3696e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 40
+      },
+      "logical_time": 3456000.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev40"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-3.456e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 41
+      },
+      "logical_time": 3542400.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev41"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    },
+    {
+      "request_id": "replay-clock-3.5424e+06-3.6288e+06",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 42
+      },
+      "logical_time": 3628800.0,
+      "objects": [],
+      "event_ids": [
+        "e0-ev42"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    }
+  ],
+  "registrations": [
+    {
+      "registration": {
+        "intent_id": "task-0",
+        "owner_id": "alice",
+        "display_name": null,
+        "execution_mode": "logical_simulation",
+        "settlement_action": "keep_lease",
+        "specification": {
+          "allocation": {
+            "kind": "allocation.create",
+            "owner_id": "alice",
+            "request": {
+              "cpu_millicores": 1000,
+              "memory_mib": 1024,
+              "gpu": {
+                "count": 1,
+                "model": "any",
+                "memory_mib": 1024,
+                "profile": null
+              },
+              "ephemeral_storage_mib": 0
+            },
+            "queue": "default",
+            "priority": 0,
+            "ttl_seconds": 900,
+            "preemptible": true,
+            "preemption_mode": "restartable",
+            "checkpoint_timeout_seconds": 15,
+            "max_restarts": 2,
+            "node_selector": []
+          },
+          "job": {
+            "image": "local-contract-replay",
+            "command": [
+              "no-real-execution"
+            ],
+            "env": [],
+            "timeout_seconds": 900,
+            "max_retries": null
+          }
+        }
+      },
+      "result": {
+        "intent_id": "task-0",
+        "state": "waiting",
+        "reason": "Resource lease is queued; job creation waits for allocation.",
+        "intent": {
+          "intent_id": "task-0",
+          "owner_id": "alice",
+          "display_name": null,
+          "first_arrival_at": 3628800.0,
+          "execution_mode": "logical_simulation",
+          "settlement_action": "keep_lease",
+          "specification": {
+            "allocation": {
+              "kind": "allocation.create",
+              "owner_id": "alice",
+              "request": {
+                "cpu_millicores": 1000,
+                "memory_mib": 1024,
+                "gpu": {
+                  "count": 1,
+                  "model": "any",
+                  "memory_mib": 1024,
+                  "profile": null
+                },
+                "ephemeral_storage_mib": 0
+              },
+              "queue": "default",
+              "priority": 0,
+              "ttl_seconds": 900,
+              "preemptible": true,
+              "preemption_mode": "restartable",
+              "checkpoint_timeout_seconds": 15,
+              "max_restarts": 2,
+              "node_selector": []
+            },
+            "job": {
+              "image": "local-contract-replay",
+              "command": [
+                "no-real-execution"
+              ],
+              "env": [],
+              "timeout_seconds": 900,
+              "max_retries": null
+            }
+          },
+          "state": "waiting",
+          "allocation_ids": [
+            "e0-a1"
+          ],
+          "job_ids": [],
+          "attempts": [],
+          "stages": [
+            {
+              "stage_id": "allocate",
+              "operation": "allocate",
+              "state": "committed",
+              "receipt": {
+                "request_id": "workflow-8930a667e7248609ef2342d73b2d127fb41ef6f2",
+                "outcome": "committed",
+                "version": {
+                  "epoch": 0,
+                  "revision": 44
+                },
+                "logical_time": 3628800.0,
+                "objects": [
+                  {
+                    "kind": "allocation",
+                    "entity_id": "e0-a1"
+                  },
+                  {
+                    "kind": "intent",
+                    "entity_id": "task-0"
+                  }
+                ],
+                "event_ids": [
+                  "e0-ev44",
+                  "e0-ev45"
+                ],
+                "error": null,
+                "idempotency_replayed": false,
+                "original_request_id": null
+              }
+            }
+          ],
+          "result": null
+        },
+        "receipts": [
+          {
+            "request_id": "register-task-0",
+            "outcome": "committed",
+            "version": {
+              "epoch": 0,
+              "revision": 43
+            },
+            "logical_time": 3628800.0,
+            "objects": [
+              {
+                "kind": "intent",
+                "entity_id": "task-0"
+              }
+            ],
+            "event_ids": [
+              "e0-ev43"
+            ],
+            "error": null,
+            "idempotency_replayed": false,
+            "original_request_id": null
+          },
+          {
+            "request_id": "workflow-8930a667e7248609ef2342d73b2d127fb41ef6f2",
+            "outcome": "committed",
+            "version": {
+              "epoch": 0,
+              "revision": 44
+            },
+            "logical_time": 3628800.0,
+            "objects": [
+              {
+                "kind": "allocation",
+                "entity_id": "e0-a1"
+              },
+              {
+                "kind": "intent",
+                "entity_id": "task-0"
+              }
+            ],
+            "event_ids": [
+              "e0-ev44",
+              "e0-ev45"
+            ],
+            "error": null,
+            "idempotency_replayed": false,
+            "original_request_id": null
+          }
+        ],
+        "next_stage_id": "create-job",
+        "allocation_id": "e0-a1"
+      }
+    },
+    {
+      "registration": {
+        "intent_id": "task-1",
+        "owner_id": "alice",
+        "display_name": null,
+        "execution_mode": "logical_simulation",
+        "settlement_action": "keep_lease",
+        "specification": {
+          "allocation": {
+            "kind": "allocation.create",
+            "owner_id": "alice",
+            "request": {
+              "cpu_millicores": 1000,
+              "memory_mib": 1024,
+              "gpu": {
+                "count": 1,
+                "model": "any",
+                "memory_mib": 1024,
+                "profile": null
+              },
+              "ephemeral_storage_mib": 0
+            },
+            "queue": "default",
+            "priority": 0,
+            "ttl_seconds": 900,
+            "preemptible": true,
+            "preemption_mode": "restartable",
+            "checkpoint_timeout_seconds": 15,
+            "max_restarts": 2,
+            "node_selector": []
+          },
+          "job": {
+            "image": "local-contract-replay",
+            "command": [
+              "no-real-execution"
+            ],
+            "env": [],
+            "timeout_seconds": 900,
+            "max_retries": null
+          }
+        }
+      },
+      "result": {
+        "intent_id": "task-1",
+        "state": "waiting",
+        "reason": "Resource lease is queued; job creation waits for allocation.",
+        "intent": {
+          "intent_id": "task-1",
+          "owner_id": "alice",
+          "display_name": null,
+          "first_arrival_at": 3628800.0,
+          "execution_mode": "logical_simulation",
+          "settlement_action": "keep_lease",
+          "specification": {
+            "allocation": {
+              "kind": "allocation.create",
+              "owner_id": "alice",
+              "request": {
+                "cpu_millicores": 1000,
+                "memory_mib": 1024,
+                "gpu": {
+                  "count": 1,
+                  "model": "any",
+                  "memory_mib": 1024,
+                  "profile": null
+                },
+                "ephemeral_storage_mib": 0
+              },
+              "queue": "default",
+              "priority": 0,
+              "ttl_seconds": 900,
+              "preemptible": true,
+              "preemption_mode": "restartable",
+              "checkpoint_timeout_seconds": 15,
+              "max_restarts": 2,
+              "node_selector": []
+            },
+            "job": {
+              "image": "local-contract-replay",
+              "command": [
+                "no-real-execution"
+              ],
+              "env": [],
+              "timeout_seconds": 900,
+              "max_retries": null
+            }
+          },
+          "state": "waiting",
+          "allocation_ids": [
+            "e0-a2"
+          ],
+          "job_ids": [],
+          "attempts": [],
+          "stages": [
+            {
+              "stage_id": "allocate",
+              "operation": "allocate",
+              "state": "committed",
+              "receipt": {
+                "request_id": "workflow-f74f26afce24347883aa1514fd46ce2d44a86c9c",
+                "outcome": "committed",
+                "version": {
+                  "epoch": 0,
+                  "revision": 46
+                },
+                "logical_time": 3628800.0,
+                "objects": [
+                  {
+                    "kind": "allocation",
+                    "entity_id": "e0-a2"
+                  },
+                  {
+                    "kind": "intent",
+                    "entity_id": "task-1"
+                  }
+                ],
+                "event_ids": [
+                  "e0-ev47",
+                  "e0-ev48"
+                ],
+                "error": null,
+                "idempotency_replayed": false,
+                "original_request_id": null
+              }
+            }
+          ],
+          "result": null
+        },
+        "receipts": [
+          {
+            "request_id": "register-task-1",
+            "outcome": "committed",
+            "version": {
+              "epoch": 0,
+              "revision": 45
+            },
+            "logical_time": 3628800.0,
+            "objects": [
+              {
+                "kind": "intent",
+                "entity_id": "task-1"
+              }
+            ],
+            "event_ids": [
+              "e0-ev46"
+            ],
+            "error": null,
+            "idempotency_replayed": false,
+            "original_request_id": null
+          },
+          {
+            "request_id": "workflow-f74f26afce24347883aa1514fd46ce2d44a86c9c",
+            "outcome": "committed",
+            "version": {
+              "epoch": 0,
+              "revision": 46
+            },
+            "logical_time": 3628800.0,
+            "objects": [
+              {
+                "kind": "allocation",
+                "entity_id": "e0-a2"
+              },
+              {
+                "kind": "intent",
+                "entity_id": "task-1"
+              }
+            ],
+            "event_ids": [
+              "e0-ev47",
+              "e0-ev48"
+            ],
+            "error": null,
+            "idempotency_replayed": false,
+            "original_request_id": null
+          }
+        ],
+        "next_stage_id": "create-job",
+        "allocation_id": "e0-a2"
+      }
+    },
+    {
+      "registration": {
+        "intent_id": "task-2",
+        "owner_id": "alice",
+        "display_name": null,
+        "execution_mode": "logical_simulation",
+        "settlement_action": "keep_lease",
+        "specification": {
+          "allocation": {
+            "kind": "allocation.create",
+            "owner_id": "alice",
+            "request": {
+              "cpu_millicores": 1000,
+              "memory_mib": 1024,
+              "gpu": {
+                "count": 1,
+                "model": "any",
+                "memory_mib": 1024,
+                "profile": null
+              },
+              "ephemeral_storage_mib": 0
+            },
+            "queue": "default",
+            "priority": 0,
+            "ttl_seconds": 900,
+            "preemptible": true,
+            "preemption_mode": "restartable",
+            "checkpoint_timeout_seconds": 15,
+            "max_restarts": 2,
+            "node_selector": []
+          },
+          "job": {
+            "image": "local-contract-replay",
+            "command": [
+              "no-real-execution"
+            ],
+            "env": [],
+            "timeout_seconds": 900,
+            "max_retries": null
+          }
+        }
+      },
+      "result": {
+        "intent_id": "task-2",
+        "state": "waiting",
+        "reason": "Resource lease is queued; job creation waits for allocation.",
+        "intent": {
+          "intent_id": "task-2",
+          "owner_id": "alice",
+          "display_name": null,
+          "first_arrival_at": 3628800.0,
+          "execution_mode": "logical_simulation",
+          "settlement_action": "keep_lease",
+          "specification": {
+            "allocation": {
+              "kind": "allocation.create",
+              "owner_id": "alice",
+              "request": {
+                "cpu_millicores": 1000,
+                "memory_mib": 1024,
+                "gpu": {
+                  "count": 1,
+                  "model": "any",
+                  "memory_mib": 1024,
+                  "profile": null
+                },
+                "ephemeral_storage_mib": 0
+              },
+              "queue": "default",
+              "priority": 0,
+              "ttl_seconds": 900,
+              "preemptible": true,
+              "preemption_mode": "restartable",
+              "checkpoint_timeout_seconds": 15,
+              "max_restarts": 2,
+              "node_selector": []
+            },
+            "job": {
+              "image": "local-contract-replay",
+              "command": [
+                "no-real-execution"
+              ],
+              "env": [],
+              "timeout_seconds": 900,
+              "max_retries": null
+            }
+          },
+          "state": "waiting",
+          "allocation_ids": [
+            "e0-a3"
+          ],
+          "job_ids": [],
+          "attempts": [],
+          "stages": [
+            {
+              "stage_id": "allocate",
+              "operation": "allocate",
+              "state": "committed",
+              "receipt": {
+                "request_id": "workflow-83719d2862248fc88ee80d47d9eceb89c4d9bc0e",
+                "outcome": "committed",
+                "version": {
+                  "epoch": 0,
+                  "revision": 48
+                },
+                "logical_time": 3628800.0,
+                "objects": [
+                  {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  {
+                    "kind": "intent",
+                    "entity_id": "task-2"
+                  }
+                ],
+                "event_ids": [
+                  "e0-ev50",
+                  "e0-ev51"
+                ],
+                "error": null,
+                "idempotency_replayed": false,
+                "original_request_id": null
+              }
+            }
+          ],
+          "result": null
+        },
+        "receipts": [
+          {
+            "request_id": "register-task-2",
+            "outcome": "committed",
+            "version": {
+              "epoch": 0,
+              "revision": 47
+            },
+            "logical_time": 3628800.0,
+            "objects": [
+              {
+                "kind": "intent",
+                "entity_id": "task-2"
+              }
+            ],
+            "event_ids": [
+              "e0-ev49"
+            ],
+            "error": null,
+            "idempotency_replayed": false,
+            "original_request_id": null
+          },
+          {
+            "request_id": "workflow-83719d2862248fc88ee80d47d9eceb89c4d9bc0e",
+            "outcome": "committed",
+            "version": {
+              "epoch": 0,
+              "revision": 48
+            },
+            "logical_time": 3628800.0,
+            "objects": [
+              {
+                "kind": "allocation",
+                "entity_id": "e0-a3"
+              },
+              {
+                "kind": "intent",
+                "entity_id": "task-2"
+              }
+            ],
+            "event_ids": [
+              "e0-ev50",
+              "e0-ev51"
+            ],
+            "error": null,
+            "idempotency_replayed": false,
+            "original_request_id": null
+          }
+        ],
+        "next_stage_id": "create-job",
+        "allocation_id": "e0-a3"
+      }
+    },
+    {
+      "registration": {
+        "intent_id": "task-3",
+        "owner_id": "alice",
+        "display_name": null,
+        "execution_mode": "logical_simulation",
+        "settlement_action": "keep_lease",
+        "specification": {
+          "allocation": {
+            "kind": "allocation.create",
+            "owner_id": "alice",
+            "request": {
+              "cpu_millicores": 1000,
+              "memory_mib": 1024,
+              "gpu": {
+                "count": 1,
+                "model": "any",
+                "memory_mib": 1024,
+                "profile": null
+              },
+              "ephemeral_storage_mib": 0
+            },
+            "queue": "default",
+            "priority": 0,
+            "ttl_seconds": 900,
+            "preemptible": true,
+            "preemption_mode": "restartable",
+            "checkpoint_timeout_seconds": 15,
+            "max_restarts": 2,
+            "node_selector": []
+          },
+          "job": {
+            "image": "local-contract-replay",
+            "command": [
+              "no-real-execution"
+            ],
+            "env": [],
+            "timeout_seconds": 900,
+            "max_retries": null
+          }
+        }
+      },
+      "result": {
+        "intent_id": "task-3",
+        "state": "waiting",
+        "reason": "Resource lease is queued; job creation waits for allocation.",
+        "intent": {
+          "intent_id": "task-3",
+          "owner_id": "alice",
+          "display_name": null,
+          "first_arrival_at": 3628800.0,
+          "execution_mode": "logical_simulation",
+          "settlement_action": "keep_lease",
+          "specification": {
+            "allocation": {
+              "kind": "allocation.create",
+              "owner_id": "alice",
+              "request": {
+                "cpu_millicores": 1000,
+                "memory_mib": 1024,
+                "gpu": {
+                  "count": 1,
+                  "model": "any",
+                  "memory_mib": 1024,
+                  "profile": null
+                },
+                "ephemeral_storage_mib": 0
+              },
+              "queue": "default",
+              "priority": 0,
+              "ttl_seconds": 900,
+              "preemptible": true,
+              "preemption_mode": "restartable",
+              "checkpoint_timeout_seconds": 15,
+              "max_restarts": 2,
+              "node_selector": []
+            },
+            "job": {
+              "image": "local-contract-replay",
+              "command": [
+                "no-real-execution"
+              ],
+              "env": [],
+              "timeout_seconds": 900,
+              "max_retries": null
+            }
+          },
+          "state": "waiting",
+          "allocation_ids": [
+            "e0-a4"
+          ],
+          "job_ids": [],
+          "attempts": [],
+          "stages": [
+            {
+              "stage_id": "allocate",
+              "operation": "allocate",
+              "state": "committed",
+              "receipt": {
+                "request_id": "workflow-2cf295edccd38efb67660efcb2016a47b522310d",
+                "outcome": "committed",
+                "version": {
+                  "epoch": 0,
+                  "revision": 50
+                },
+                "logical_time": 3628800.0,
+                "objects": [
+                  {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  {
+                    "kind": "intent",
+                    "entity_id": "task-3"
+                  }
+                ],
+                "event_ids": [
+                  "e0-ev53",
+                  "e0-ev54"
+                ],
+                "error": null,
+                "idempotency_replayed": false,
+                "original_request_id": null
+              }
+            }
+          ],
+          "result": null
+        },
+        "receipts": [
+          {
+            "request_id": "register-task-3",
+            "outcome": "committed",
+            "version": {
+              "epoch": 0,
+              "revision": 49
+            },
+            "logical_time": 3628800.0,
+            "objects": [
+              {
+                "kind": "intent",
+                "entity_id": "task-3"
+              }
+            ],
+            "event_ids": [
+              "e0-ev52"
+            ],
+            "error": null,
+            "idempotency_replayed": false,
+            "original_request_id": null
+          },
+          {
+            "request_id": "workflow-2cf295edccd38efb67660efcb2016a47b522310d",
+            "outcome": "committed",
+            "version": {
+              "epoch": 0,
+              "revision": 50
+            },
+            "logical_time": 3628800.0,
+            "objects": [
+              {
+                "kind": "allocation",
+                "entity_id": "e0-a4"
+              },
+              {
+                "kind": "intent",
+                "entity_id": "task-3"
+              }
+            ],
+            "event_ids": [
+              "e0-ev53",
+              "e0-ev54"
+            ],
+            "error": null,
+            "idempotency_replayed": false,
+            "original_request_id": null
+          }
+        ],
+        "next_stage_id": "create-job",
+        "allocation_id": "e0-a4"
+      }
+    }
+  ],
+  "authoritative_read": {
+    "version": {
+      "epoch": 0,
+      "revision": 50
+    },
+    "now": 3628800.0,
+    "viewer": {
+      "actor_id": "b-workflow-observer",
+      "role": "administrator",
+      "owner_id": null
+    },
+    "global_scope": true,
+    "allocations": [
+      {
+        "allocation_id": "e0-a1",
+        "owner_id": "alice",
+        "state": "Pending",
+        "request": {
+          "cpu_millicores": 1000,
+          "memory_mib": 1024,
+          "gpu": {
+            "count": 1,
+            "model": "any",
+            "memory_mib": 1024,
+            "profile": null
+          },
+          "ephemeral_storage_mib": 0
+        },
+        "created_at": 3628800.0,
+        "placement": null,
+        "expires_at": null,
+        "preemption": null,
+        "checkpoint": null,
+        "restart_count": 0,
+        "pending_terminal": null
+      },
+      {
+        "allocation_id": "e0-a2",
+        "owner_id": "alice",
+        "state": "Pending",
+        "request": {
+          "cpu_millicores": 1000,
+          "memory_mib": 1024,
+          "gpu": {
+            "count": 1,
+            "model": "any",
+            "memory_mib": 1024,
+            "profile": null
+          },
+          "ephemeral_storage_mib": 0
+        },
+        "created_at": 3628800.0,
+        "placement": null,
+        "expires_at": null,
+        "preemption": null,
+        "checkpoint": null,
+        "restart_count": 0,
+        "pending_terminal": null
+      },
+      {
+        "allocation_id": "e0-a3",
+        "owner_id": "alice",
+        "state": "Pending",
+        "request": {
+          "cpu_millicores": 1000,
+          "memory_mib": 1024,
+          "gpu": {
+            "count": 1,
+            "model": "any",
+            "memory_mib": 1024,
+            "profile": null
+          },
+          "ephemeral_storage_mib": 0
+        },
+        "created_at": 3628800.0,
+        "placement": null,
+        "expires_at": null,
+        "preemption": null,
+        "checkpoint": null,
+        "restart_count": 0,
+        "pending_terminal": null
+      },
+      {
+        "allocation_id": "e0-a4",
+        "owner_id": "alice",
+        "state": "Pending",
+        "request": {
+          "cpu_millicores": 1000,
+          "memory_mib": 1024,
+          "gpu": {
+            "count": 1,
+            "model": "any",
+            "memory_mib": 1024,
+            "profile": null
+          },
+          "ephemeral_storage_mib": 0
+        },
+        "created_at": 3628800.0,
+        "placement": null,
+        "expires_at": null,
+        "preemption": null,
+        "checkpoint": null,
+        "restart_count": 0,
+        "pending_terminal": null
+      }
+    ],
+    "jobs": [],
+    "intents": [
+      {
+        "intent_id": "task-0",
+        "owner_id": "alice",
+        "display_name": null,
+        "first_arrival_at": 3628800.0,
+        "execution_mode": "logical_simulation",
+        "settlement_action": "keep_lease",
+        "specification": {
+          "allocation": {
+            "kind": "allocation.create",
+            "owner_id": "alice",
+            "request": {
+              "cpu_millicores": 1000,
+              "memory_mib": 1024,
+              "gpu": {
+                "count": 1,
+                "model": "any",
+                "memory_mib": 1024,
+                "profile": null
+              },
+              "ephemeral_storage_mib": 0
+            },
+            "queue": "default",
+            "priority": 0,
+            "ttl_seconds": 900,
+            "preemptible": true,
+            "preemption_mode": "restartable",
+            "checkpoint_timeout_seconds": 15,
+            "max_restarts": 2,
+            "node_selector": []
+          },
+          "job": {
+            "image": "local-contract-replay",
+            "command": [
+              "no-real-execution"
+            ],
+            "env": [],
+            "timeout_seconds": 900,
+            "max_retries": null
+          }
+        },
+        "state": "waiting",
+        "allocation_ids": [
+          "e0-a1"
+        ],
+        "job_ids": [],
+        "attempts": [],
+        "stages": [
+          {
+            "stage_id": "allocate",
+            "operation": "allocate",
+            "state": "committed",
+            "receipt": {
+              "request_id": "workflow-8930a667e7248609ef2342d73b2d127fb41ef6f2",
+              "outcome": "committed",
+              "version": {
+                "epoch": 0,
+                "revision": 44
+              },
+              "logical_time": 3628800.0,
+              "objects": [
+                {
+                  "kind": "allocation",
+                  "entity_id": "e0-a1"
+                },
+                {
+                  "kind": "intent",
+                  "entity_id": "task-0"
+                }
+              ],
+              "event_ids": [
+                "e0-ev44",
+                "e0-ev45"
+              ],
+              "error": null,
+              "idempotency_replayed": false,
+              "original_request_id": null
+            }
+          }
+        ],
+        "result": null
+      },
+      {
+        "intent_id": "task-1",
+        "owner_id": "alice",
+        "display_name": null,
+        "first_arrival_at": 3628800.0,
+        "execution_mode": "logical_simulation",
+        "settlement_action": "keep_lease",
+        "specification": {
+          "allocation": {
+            "kind": "allocation.create",
+            "owner_id": "alice",
+            "request": {
+              "cpu_millicores": 1000,
+              "memory_mib": 1024,
+              "gpu": {
+                "count": 1,
+                "model": "any",
+                "memory_mib": 1024,
+                "profile": null
+              },
+              "ephemeral_storage_mib": 0
+            },
+            "queue": "default",
+            "priority": 0,
+            "ttl_seconds": 900,
+            "preemptible": true,
+            "preemption_mode": "restartable",
+            "checkpoint_timeout_seconds": 15,
+            "max_restarts": 2,
+            "node_selector": []
+          },
+          "job": {
+            "image": "local-contract-replay",
+            "command": [
+              "no-real-execution"
+            ],
+            "env": [],
+            "timeout_seconds": 900,
+            "max_retries": null
+          }
+        },
+        "state": "waiting",
+        "allocation_ids": [
+          "e0-a2"
+        ],
+        "job_ids": [],
+        "attempts": [],
+        "stages": [
+          {
+            "stage_id": "allocate",
+            "operation": "allocate",
+            "state": "committed",
+            "receipt": {
+              "request_id": "workflow-f74f26afce24347883aa1514fd46ce2d44a86c9c",
+              "outcome": "committed",
+              "version": {
+                "epoch": 0,
+                "revision": 46
+              },
+              "logical_time": 3628800.0,
+              "objects": [
+                {
+                  "kind": "allocation",
+                  "entity_id": "e0-a2"
+                },
+                {
+                  "kind": "intent",
+                  "entity_id": "task-1"
+                }
+              ],
+              "event_ids": [
+                "e0-ev47",
+                "e0-ev48"
+              ],
+              "error": null,
+              "idempotency_replayed": false,
+              "original_request_id": null
+            }
+          }
+        ],
+        "result": null
+      },
+      {
+        "intent_id": "task-2",
+        "owner_id": "alice",
+        "display_name": null,
+        "first_arrival_at": 3628800.0,
+        "execution_mode": "logical_simulation",
+        "settlement_action": "keep_lease",
+        "specification": {
+          "allocation": {
+            "kind": "allocation.create",
+            "owner_id": "alice",
+            "request": {
+              "cpu_millicores": 1000,
+              "memory_mib": 1024,
+              "gpu": {
+                "count": 1,
+                "model": "any",
+                "memory_mib": 1024,
+                "profile": null
+              },
+              "ephemeral_storage_mib": 0
+            },
+            "queue": "default",
+            "priority": 0,
+            "ttl_seconds": 900,
+            "preemptible": true,
+            "preemption_mode": "restartable",
+            "checkpoint_timeout_seconds": 15,
+            "max_restarts": 2,
+            "node_selector": []
+          },
+          "job": {
+            "image": "local-contract-replay",
+            "command": [
+              "no-real-execution"
+            ],
+            "env": [],
+            "timeout_seconds": 900,
+            "max_retries": null
+          }
+        },
+        "state": "waiting",
+        "allocation_ids": [
+          "e0-a3"
+        ],
+        "job_ids": [],
+        "attempts": [],
+        "stages": [
+          {
+            "stage_id": "allocate",
+            "operation": "allocate",
+            "state": "committed",
+            "receipt": {
+              "request_id": "workflow-83719d2862248fc88ee80d47d9eceb89c4d9bc0e",
+              "outcome": "committed",
+              "version": {
+                "epoch": 0,
+                "revision": 48
+              },
+              "logical_time": 3628800.0,
+              "objects": [
+                {
+                  "kind": "allocation",
+                  "entity_id": "e0-a3"
+                },
+                {
+                  "kind": "intent",
+                  "entity_id": "task-2"
+                }
+              ],
+              "event_ids": [
+                "e0-ev50",
+                "e0-ev51"
+              ],
+              "error": null,
+              "idempotency_replayed": false,
+              "original_request_id": null
+            }
+          }
+        ],
+        "result": null
+      },
+      {
+        "intent_id": "task-3",
+        "owner_id": "alice",
+        "display_name": null,
+        "first_arrival_at": 3628800.0,
+        "execution_mode": "logical_simulation",
+        "settlement_action": "keep_lease",
+        "specification": {
+          "allocation": {
+            "kind": "allocation.create",
+            "owner_id": "alice",
+            "request": {
+              "cpu_millicores": 1000,
+              "memory_mib": 1024,
+              "gpu": {
+                "count": 1,
+                "model": "any",
+                "memory_mib": 1024,
+                "profile": null
+              },
+              "ephemeral_storage_mib": 0
+            },
+            "queue": "default",
+            "priority": 0,
+            "ttl_seconds": 900,
+            "preemptible": true,
+            "preemption_mode": "restartable",
+            "checkpoint_timeout_seconds": 15,
+            "max_restarts": 2,
+            "node_selector": []
+          },
+          "job": {
+            "image": "local-contract-replay",
+            "command": [
+              "no-real-execution"
+            ],
+            "env": [],
+            "timeout_seconds": 900,
+            "max_retries": null
+          }
+        },
+        "state": "waiting",
+        "allocation_ids": [
+          "e0-a4"
+        ],
+        "job_ids": [],
+        "attempts": [],
+        "stages": [
+          {
+            "stage_id": "allocate",
+            "operation": "allocate",
+            "state": "committed",
+            "receipt": {
+              "request_id": "workflow-2cf295edccd38efb67660efcb2016a47b522310d",
+              "outcome": "committed",
+              "version": {
+                "epoch": 0,
+                "revision": 50
+              },
+              "logical_time": 3628800.0,
+              "objects": [
+                {
+                  "kind": "allocation",
+                  "entity_id": "e0-a4"
+                },
+                {
+                  "kind": "intent",
+                  "entity_id": "task-3"
+                }
+              ],
+              "event_ids": [
+                "e0-ev53",
+                "e0-ev54"
+              ],
+              "error": null,
+              "idempotency_replayed": false,
+              "original_request_id": null
+            }
+          }
+        ],
+        "result": null
+      }
+    ],
+    "events": [
+      {
+        "event_id": "e0-ev1",
+        "sequence": 1,
+        "version": {
+          "epoch": 0,
+          "revision": 1
+        },
+        "logical_time": 86400.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-0-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev2",
+        "sequence": 2,
+        "version": {
+          "epoch": 0,
+          "revision": 2
+        },
+        "logical_time": 172800.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-86400-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev3",
+        "sequence": 3,
+        "version": {
+          "epoch": 0,
+          "revision": 3
+        },
+        "logical_time": 259200.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-172800-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev4",
+        "sequence": 4,
+        "version": {
+          "epoch": 0,
+          "revision": 4
+        },
+        "logical_time": 345600.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-259200-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev5",
+        "sequence": 5,
+        "version": {
+          "epoch": 0,
+          "revision": 5
+        },
+        "logical_time": 432000.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-345600-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev6",
+        "sequence": 6,
+        "version": {
+          "epoch": 0,
+          "revision": 6
+        },
+        "logical_time": 518400.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-432000-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev7",
+        "sequence": 7,
+        "version": {
+          "epoch": 0,
+          "revision": 7
+        },
+        "logical_time": 604800.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-518400-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev8",
+        "sequence": 8,
+        "version": {
+          "epoch": 0,
+          "revision": 8
+        },
+        "logical_time": 691200.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-604800-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev9",
+        "sequence": 9,
+        "version": {
+          "epoch": 0,
+          "revision": 9
+        },
+        "logical_time": 777600.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-691200-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev10",
+        "sequence": 10,
+        "version": {
+          "epoch": 0,
+          "revision": 10
+        },
+        "logical_time": 864000.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-777600-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev11",
+        "sequence": 11,
+        "version": {
+          "epoch": 0,
+          "revision": 11
+        },
+        "logical_time": 950400.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-864000-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev12",
+        "sequence": 12,
+        "version": {
+          "epoch": 0,
+          "revision": 12
+        },
+        "logical_time": 1036800.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-950400-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev13",
+        "sequence": 13,
+        "version": {
+          "epoch": 0,
+          "revision": 13
+        },
+        "logical_time": 1123200.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-1.0368e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev14",
+        "sequence": 14,
+        "version": {
+          "epoch": 0,
+          "revision": 14
+        },
+        "logical_time": 1209600.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-1.1232e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev15",
+        "sequence": 15,
+        "version": {
+          "epoch": 0,
+          "revision": 15
+        },
+        "logical_time": 1296000.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-1.2096e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev16",
+        "sequence": 16,
+        "version": {
+          "epoch": 0,
+          "revision": 16
+        },
+        "logical_time": 1382400.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-1.296e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev17",
+        "sequence": 17,
+        "version": {
+          "epoch": 0,
+          "revision": 17
+        },
+        "logical_time": 1468800.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-1.3824e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev18",
+        "sequence": 18,
+        "version": {
+          "epoch": 0,
+          "revision": 18
+        },
+        "logical_time": 1555200.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-1.4688e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev19",
+        "sequence": 19,
+        "version": {
+          "epoch": 0,
+          "revision": 19
+        },
+        "logical_time": 1641600.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-1.5552e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev20",
+        "sequence": 20,
+        "version": {
+          "epoch": 0,
+          "revision": 20
+        },
+        "logical_time": 1728000.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-1.6416e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev21",
+        "sequence": 21,
+        "version": {
+          "epoch": 0,
+          "revision": 21
+        },
+        "logical_time": 1814400.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-1.728e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev22",
+        "sequence": 22,
+        "version": {
+          "epoch": 0,
+          "revision": 22
+        },
+        "logical_time": 1900800.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-1.8144e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev23",
+        "sequence": 23,
+        "version": {
+          "epoch": 0,
+          "revision": 23
+        },
+        "logical_time": 1987200.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-1.9008e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev24",
+        "sequence": 24,
+        "version": {
+          "epoch": 0,
+          "revision": 24
+        },
+        "logical_time": 2073600.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-1.9872e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev25",
+        "sequence": 25,
+        "version": {
+          "epoch": 0,
+          "revision": 25
+        },
+        "logical_time": 2160000.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-2.0736e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev26",
+        "sequence": 26,
+        "version": {
+          "epoch": 0,
+          "revision": 26
+        },
+        "logical_time": 2246400.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-2.16e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev27",
+        "sequence": 27,
+        "version": {
+          "epoch": 0,
+          "revision": 27
+        },
+        "logical_time": 2332800.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-2.2464e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev28",
+        "sequence": 28,
+        "version": {
+          "epoch": 0,
+          "revision": 28
+        },
+        "logical_time": 2419200.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-2.3328e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev29",
+        "sequence": 29,
+        "version": {
+          "epoch": 0,
+          "revision": 29
+        },
+        "logical_time": 2505600.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-2.4192e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev30",
+        "sequence": 30,
+        "version": {
+          "epoch": 0,
+          "revision": 30
+        },
+        "logical_time": 2592000.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-2.5056e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev31",
+        "sequence": 31,
+        "version": {
+          "epoch": 0,
+          "revision": 31
+        },
+        "logical_time": 2678400.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-2.592e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev32",
+        "sequence": 32,
+        "version": {
+          "epoch": 0,
+          "revision": 32
+        },
+        "logical_time": 2764800.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-2.6784e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev33",
+        "sequence": 33,
+        "version": {
+          "epoch": 0,
+          "revision": 33
+        },
+        "logical_time": 2851200.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-2.7648e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev34",
+        "sequence": 34,
+        "version": {
+          "epoch": 0,
+          "revision": 34
+        },
+        "logical_time": 2937600.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-2.8512e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev35",
+        "sequence": 35,
+        "version": {
+          "epoch": 0,
+          "revision": 35
+        },
+        "logical_time": 3024000.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-2.9376e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev36",
+        "sequence": 36,
+        "version": {
+          "epoch": 0,
+          "revision": 36
+        },
+        "logical_time": 3110400.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-3.024e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev37",
+        "sequence": 37,
+        "version": {
+          "epoch": 0,
+          "revision": 37
+        },
+        "logical_time": 3196800.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-3.1104e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev38",
+        "sequence": 38,
+        "version": {
+          "epoch": 0,
+          "revision": 38
+        },
+        "logical_time": 3283200.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-3.1968e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev39",
+        "sequence": 39,
+        "version": {
+          "epoch": 0,
+          "revision": 39
+        },
+        "logical_time": 3369600.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-3.2832e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev40",
+        "sequence": 40,
+        "version": {
+          "epoch": 0,
+          "revision": 40
+        },
+        "logical_time": 3456000.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-3.3696e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev41",
+        "sequence": 41,
+        "version": {
+          "epoch": 0,
+          "revision": 41
+        },
+        "logical_time": 3542400.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-3.456e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev42",
+        "sequence": 42,
+        "version": {
+          "epoch": 0,
+          "revision": 42
+        },
+        "logical_time": 3628800.0,
+        "event_type": "clock.advanced",
+        "owner_id": null,
+        "entities": [],
+        "cause": {
+          "kind": "request",
+          "request_id": "replay-clock-3.5424e+06-3.6288e+06"
+        },
+        "attempt": null,
+        "state_changes": [],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev43",
+        "sequence": 43,
+        "version": {
+          "epoch": 0,
+          "revision": 43
+        },
+        "logical_time": 3628800.0,
+        "event_type": "intent.registered",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "intent",
+            "entity_id": "task-0"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "register-task-0"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-0"
+            },
+            "before": null,
+            "after": "pending"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev44",
+        "sequence": 44,
+        "version": {
+          "epoch": 0,
+          "revision": 44
+        },
+        "logical_time": 3628800.0,
+        "event_type": "allocation.requested",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a1"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-8930a667e7248609ef2342d73b2d127fb41ef6f2"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a1"
+            },
+            "before": null,
+            "after": "Pending"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev45",
+        "sequence": 45,
+        "version": {
+          "epoch": 0,
+          "revision": 44
+        },
+        "logical_time": 3628800.0,
+        "event_type": "intent.stage_bound",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a1"
+          },
+          {
+            "kind": "intent",
+            "entity_id": "task-0"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-8930a667e7248609ef2342d73b2d127fb41ef6f2"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a1"
+            },
+            "before": null,
+            "after": "waiting"
+          },
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-0"
+            },
+            "before": null,
+            "after": "waiting"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev46",
+        "sequence": 46,
+        "version": {
+          "epoch": 0,
+          "revision": 45
+        },
+        "logical_time": 3628800.0,
+        "event_type": "intent.registered",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "intent",
+            "entity_id": "task-1"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "register-task-1"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-1"
+            },
+            "before": null,
+            "after": "pending"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev47",
+        "sequence": 47,
+        "version": {
+          "epoch": 0,
+          "revision": 46
+        },
+        "logical_time": 3628800.0,
+        "event_type": "allocation.requested",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a2"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-f74f26afce24347883aa1514fd46ce2d44a86c9c"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a2"
+            },
+            "before": null,
+            "after": "Pending"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev48",
+        "sequence": 48,
+        "version": {
+          "epoch": 0,
+          "revision": 46
+        },
+        "logical_time": 3628800.0,
+        "event_type": "intent.stage_bound",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a2"
+          },
+          {
+            "kind": "intent",
+            "entity_id": "task-1"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-f74f26afce24347883aa1514fd46ce2d44a86c9c"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a2"
+            },
+            "before": null,
+            "after": "waiting"
+          },
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-1"
+            },
+            "before": null,
+            "after": "waiting"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev49",
+        "sequence": 49,
+        "version": {
+          "epoch": 0,
+          "revision": 47
+        },
+        "logical_time": 3628800.0,
+        "event_type": "intent.registered",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "intent",
+            "entity_id": "task-2"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "register-task-2"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-2"
+            },
+            "before": null,
+            "after": "pending"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev50",
+        "sequence": 50,
+        "version": {
+          "epoch": 0,
+          "revision": 48
+        },
+        "logical_time": 3628800.0,
+        "event_type": "allocation.requested",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a3"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-83719d2862248fc88ee80d47d9eceb89c4d9bc0e"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a3"
+            },
+            "before": null,
+            "after": "Pending"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev51",
+        "sequence": 51,
+        "version": {
+          "epoch": 0,
+          "revision": 48
+        },
+        "logical_time": 3628800.0,
+        "event_type": "intent.stage_bound",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a3"
+          },
+          {
+            "kind": "intent",
+            "entity_id": "task-2"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-83719d2862248fc88ee80d47d9eceb89c4d9bc0e"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a3"
+            },
+            "before": null,
+            "after": "waiting"
+          },
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-2"
+            },
+            "before": null,
+            "after": "waiting"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev52",
+        "sequence": 52,
+        "version": {
+          "epoch": 0,
+          "revision": 49
+        },
+        "logical_time": 3628800.0,
+        "event_type": "intent.registered",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "intent",
+            "entity_id": "task-3"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "register-task-3"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-3"
+            },
+            "before": null,
+            "after": "pending"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev53",
+        "sequence": 53,
+        "version": {
+          "epoch": 0,
+          "revision": 50
+        },
+        "logical_time": 3628800.0,
+        "event_type": "allocation.requested",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a4"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-2cf295edccd38efb67660efcb2016a47b522310d"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a4"
+            },
+            "before": null,
+            "after": "Pending"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      },
+      {
+        "event_id": "e0-ev54",
+        "sequence": 54,
+        "version": {
+          "epoch": 0,
+          "revision": 50
+        },
+        "logical_time": 3628800.0,
+        "event_type": "intent.stage_bound",
+        "owner_id": "alice",
+        "entities": [
+          {
+            "kind": "allocation",
+            "entity_id": "e0-a4"
+          },
+          {
+            "kind": "intent",
+            "entity_id": "task-3"
+          }
+        ],
+        "cause": {
+          "kind": "request",
+          "request_id": "workflow-2cf295edccd38efb67660efcb2016a47b522310d"
+        },
+        "attempt": null,
+        "state_changes": [
+          {
+            "entity": {
+              "kind": "allocation",
+              "entity_id": "e0-a4"
+            },
+            "before": null,
+            "after": "waiting"
+          },
+          {
+            "entity": {
+              "kind": "intent",
+              "entity_id": "task-3"
+            },
+            "before": null,
+            "after": "waiting"
+          }
+        ],
+        "resource_deltas": [],
+        "decision_id": null,
+        "decision_snapshot_version": null
+      }
+    ],
+    "decisions": [],
+    "legal_actions": [
+      {
+        "operation": "allocation.release",
+        "entity": {
+          "kind": "allocation",
+          "entity_id": "e0-a1"
+        },
+        "explanation": "Return this lease explicitly"
+      },
+      {
+        "operation": "allocation.release",
+        "entity": {
+          "kind": "allocation",
+          "entity_id": "e0-a2"
+        },
+        "explanation": "Return this lease explicitly"
+      },
+      {
+        "operation": "allocation.release",
+        "entity": {
+          "kind": "allocation",
+          "entity_id": "e0-a3"
+        },
+        "explanation": "Return this lease explicitly"
+      },
+      {
+        "operation": "allocation.release",
+        "entity": {
+          "kind": "allocation",
+          "entity_id": "e0-a4"
+        },
+        "explanation": "Return this lease explicitly"
+      }
+    ],
+    "next_cursor": {
+      "epoch": 0,
+      "after_sequence": 54
+    }
+  }
+}

@@ -1,0 +1,3868 @@
+[
+  {
+    "command": {
+      "request_id": "apply-decision-41bdc42c6d2b6414ef2d6e1672dcc3da",
+      "actor": {
+        "actor_id": "b-policy-worker",
+        "role": "system",
+        "owner_id": null
+      },
+      "operation": "decision.commit",
+      "parameters": {
+        "kind": "decision.commit",
+        "plan": {
+          "decision_id": "decision-41bdc42c6d2b6414ef2d6e1672dcc3da",
+          "snapshot_version": {
+            "epoch": 0,
+            "revision": 50
+          },
+          "decision_at": 3628800.0,
+          "policy": {
+            "name": "P",
+            "version": "0.2.0",
+            "sha256": "fd11f04ca275e71350b27e62f11c97d46d7d4f3c5b4c1d046a1458b75b4d3423",
+            "uri": null
+          },
+          "model": {
+            "name": "single-node-current-snapshot",
+            "version": "1.0.0",
+            "sha256": "65f254616927cb3ff3ab92cb6b046e29211b7bb552efa55ce5e21341c7ab2631",
+            "uri": null
+          },
+          "candidates": [
+            {
+              "candidate_id": "candidate-b3cd506d8c42b1b58b169930",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a1",
+              "intent_id": "task-0",
+              "allocation_id": "e0-a1",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-00",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-00"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a1"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a1"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.0,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-9989ff241ffadd4a59f28333",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a1",
+              "intent_id": "task-0",
+              "allocation_id": "e0-a1",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-01",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-01"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a1"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a1"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.0,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-ef5df8a69c36256b79b233bf",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a1",
+              "intent_id": "task-0",
+              "allocation_id": "e0-a1",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-02",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-02"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a1"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a1"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.0,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-274e0b939272a7e8696c2fcd",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a1",
+              "intent_id": "task-0",
+              "allocation_id": "e0-a1",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-03",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-03"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a1"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a1"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.0,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-84bd53aba40009e8d3feca74",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a2",
+              "intent_id": "task-1",
+              "allocation_id": "e0-a2",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-00",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-00"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a2"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a2"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.0,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-320334517b78ad20d2f0f75d",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a2",
+              "intent_id": "task-1",
+              "allocation_id": "e0-a2",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-01",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-01"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a2"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a2"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.0,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-a5d3d96bd548b36df3386b82",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a2",
+              "intent_id": "task-1",
+              "allocation_id": "e0-a2",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-02",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-02"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a2"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a2"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.0,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-117ccc742c8988da0cf34b64",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a2",
+              "intent_id": "task-1",
+              "allocation_id": "e0-a2",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-03",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-03"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a2"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a2"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.0,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-18821e5702d6fb4ef28a03e5",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a3",
+              "intent_id": "task-2",
+              "allocation_id": "e0-a3",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-00",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-00"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.0,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-df95c37c4a202a92f1ea37c7",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a3",
+              "intent_id": "task-2",
+              "allocation_id": "e0-a3",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-01",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-01"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.0,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-2bce5c0345c4e8bbc29b6d2b",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a3",
+              "intent_id": "task-2",
+              "allocation_id": "e0-a3",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-02",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-02"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.0,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-8abddd26f71dd698238aec02",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a3",
+              "intent_id": "task-2",
+              "allocation_id": "e0-a3",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-03",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-03"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.0,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-4106957ee80363ce6ba91765",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a4",
+              "intent_id": "task-3",
+              "allocation_id": "e0-a4",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-00",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-00"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.0,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-d609155936575d248055f105",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a4",
+              "intent_id": "task-3",
+              "allocation_id": "e0-a4",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-01",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-01"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.0,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-999636fe2ebfee6d9d48df7c",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a4",
+              "intent_id": "task-3",
+              "allocation_id": "e0-a4",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-02",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-02"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.0,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-d465dfb479f5f1e08f1279df",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a4",
+              "intent_id": "task-3",
+              "allocation_id": "e0-a4",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-03",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-03"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.0,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            }
+          ],
+          "coverage": {
+            "scope": "partial",
+            "domain_description": "Recorded known-demand × node × device-count combinations, bounded by max_candidates.",
+            "examined_count": 16,
+            "domain_size": null,
+            "truncation_reason": "Single-node placements only; no cross-node or recovery-budget exhaustiveness."
+          },
+          "selected_candidate_id": "candidate-b3cd506d8c42b1b58b169930",
+          "rationale": "P uses B1 admission and bounded observed opportunity loss before B2 tie keys. Opportunity component enabled=True; recovery-cost component inactive. Kernel revalidates all placements and recovery eligibility.",
+          "tie_break_rule": "B1 owner-share/priority/arrival admission; observed opportunity loss; B2 compatibility pressure and best-fit keys; node/device IDs.",
+          "asserts_pool_infeasible": false
+        }
+      },
+      "idempotency_key": null,
+      "expected_version": {
+        "epoch": 0,
+        "revision": 50
+      }
+    },
+    "receipt": {
+      "request_id": "apply-decision-41bdc42c6d2b6414ef2d6e1672dcc3da",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 51
+      },
+      "logical_time": 3628800.0,
+      "objects": [
+        {
+          "kind": "decision",
+          "entity_id": "decision-41bdc42c6d2b6414ef2d6e1672dcc3da"
+        }
+      ],
+      "event_ids": [
+        "e0-ev55",
+        "e0-ev56"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    }
+  },
+  {
+    "command": {
+      "request_id": "apply-decision-4d577fb2a049308d7ce62054b58c44bc",
+      "actor": {
+        "actor_id": "b-policy-worker",
+        "role": "system",
+        "owner_id": null
+      },
+      "operation": "decision.commit",
+      "parameters": {
+        "kind": "decision.commit",
+        "plan": {
+          "decision_id": "decision-4d577fb2a049308d7ce62054b58c44bc",
+          "snapshot_version": {
+            "epoch": 0,
+            "revision": 51
+          },
+          "decision_at": 3628800.0,
+          "policy": {
+            "name": "P",
+            "version": "0.2.0",
+            "sha256": "fd11f04ca275e71350b27e62f11c97d46d7d4f3c5b4c1d046a1458b75b4d3423",
+            "uri": null
+          },
+          "model": {
+            "name": "single-node-current-snapshot",
+            "version": "1.0.0",
+            "sha256": "65f254616927cb3ff3ab92cb6b046e29211b7bb552efa55ce5e21341c7ab2631",
+            "uri": null
+          },
+          "candidates": [
+            {
+              "candidate_id": "candidate-84bd53aba40009e8d3feca74",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a2",
+              "intent_id": "task-1",
+              "allocation_id": "e0-a2",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-00",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-00"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "infeasible",
+              "violations": [
+                {
+                  "constraint": "gpu_count",
+                  "detail": "Node's available GPU count is below the request.",
+                  "entity": {
+                    "kind": "node",
+                    "entity_id": "node-provider-00"
+                  }
+                },
+                {
+                  "constraint": "gpu_memory",
+                  "detail": "Selected device capacity exceeds available GPU memory accounting.",
+                  "entity": {
+                    "kind": "node",
+                    "entity_id": "node-provider-00"
+                  }
+                },
+                {
+                  "constraint": "gpu_count",
+                  "detail": "Device provider-00 is not free for a new placement.",
+                  "entity": {
+                    "kind": "gpu",
+                    "entity_id": "provider-00"
+                  }
+                }
+              ],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a2"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a2"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.25,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 6000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 30720.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.0,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-320334517b78ad20d2f0f75d",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a2",
+              "intent_id": "task-1",
+              "allocation_id": "e0-a2",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-01",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-01"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a2"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a2"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.25,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-a5d3d96bd548b36df3386b82",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a2",
+              "intent_id": "task-1",
+              "allocation_id": "e0-a2",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-02",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-02"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a2"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a2"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.25,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-117ccc742c8988da0cf34b64",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a2",
+              "intent_id": "task-1",
+              "allocation_id": "e0-a2",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-03",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-03"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a2"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a2"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.25,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-18821e5702d6fb4ef28a03e5",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a3",
+              "intent_id": "task-2",
+              "allocation_id": "e0-a3",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-00",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-00"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "infeasible",
+              "violations": [
+                {
+                  "constraint": "gpu_count",
+                  "detail": "Node's available GPU count is below the request.",
+                  "entity": {
+                    "kind": "node",
+                    "entity_id": "node-provider-00"
+                  }
+                },
+                {
+                  "constraint": "gpu_memory",
+                  "detail": "Selected device capacity exceeds available GPU memory accounting.",
+                  "entity": {
+                    "kind": "node",
+                    "entity_id": "node-provider-00"
+                  }
+                },
+                {
+                  "constraint": "gpu_count",
+                  "detail": "Device provider-00 is not free for a new placement.",
+                  "entity": {
+                    "kind": "gpu",
+                    "entity_id": "provider-00"
+                  }
+                }
+              ],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.25,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 6000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 30720.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.0,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-df95c37c4a202a92f1ea37c7",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a3",
+              "intent_id": "task-2",
+              "allocation_id": "e0-a3",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-01",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-01"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.25,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-2bce5c0345c4e8bbc29b6d2b",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a3",
+              "intent_id": "task-2",
+              "allocation_id": "e0-a3",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-02",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-02"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.25,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-8abddd26f71dd698238aec02",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a3",
+              "intent_id": "task-2",
+              "allocation_id": "e0-a3",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-03",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-03"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.25,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-4106957ee80363ce6ba91765",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a4",
+              "intent_id": "task-3",
+              "allocation_id": "e0-a4",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-00",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-00"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "infeasible",
+              "violations": [
+                {
+                  "constraint": "gpu_count",
+                  "detail": "Node's available GPU count is below the request.",
+                  "entity": {
+                    "kind": "node",
+                    "entity_id": "node-provider-00"
+                  }
+                },
+                {
+                  "constraint": "gpu_memory",
+                  "detail": "Selected device capacity exceeds available GPU memory accounting.",
+                  "entity": {
+                    "kind": "node",
+                    "entity_id": "node-provider-00"
+                  }
+                },
+                {
+                  "constraint": "gpu_count",
+                  "detail": "Device provider-00 is not free for a new placement.",
+                  "entity": {
+                    "kind": "gpu",
+                    "entity_id": "provider-00"
+                  }
+                }
+              ],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.25,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 6000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 30720.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.0,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-d609155936575d248055f105",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a4",
+              "intent_id": "task-3",
+              "allocation_id": "e0-a4",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-01",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-01"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.25,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-999636fe2ebfee6d9d48df7c",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a4",
+              "intent_id": "task-3",
+              "allocation_id": "e0-a4",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-02",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-02"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.25,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-d465dfb479f5f1e08f1279df",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a4",
+              "intent_id": "task-3",
+              "allocation_id": "e0-a4",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-03",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-03"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.25,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            }
+          ],
+          "coverage": {
+            "scope": "partial",
+            "domain_description": "Recorded known-demand × node × device-count combinations, bounded by max_candidates.",
+            "examined_count": 12,
+            "domain_size": null,
+            "truncation_reason": "Single-node placements only; no cross-node or recovery-budget exhaustiveness."
+          },
+          "selected_candidate_id": "candidate-320334517b78ad20d2f0f75d",
+          "rationale": "P uses B1 admission and bounded observed opportunity loss before B2 tie keys. Opportunity component enabled=True; recovery-cost component inactive. Kernel revalidates all placements and recovery eligibility.",
+          "tie_break_rule": "B1 owner-share/priority/arrival admission; observed opportunity loss; B2 compatibility pressure and best-fit keys; node/device IDs.",
+          "asserts_pool_infeasible": false
+        }
+      },
+      "idempotency_key": null,
+      "expected_version": {
+        "epoch": 0,
+        "revision": 51
+      }
+    },
+    "receipt": {
+      "request_id": "apply-decision-4d577fb2a049308d7ce62054b58c44bc",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 52
+      },
+      "logical_time": 3628800.0,
+      "objects": [
+        {
+          "kind": "decision",
+          "entity_id": "decision-4d577fb2a049308d7ce62054b58c44bc"
+        }
+      ],
+      "event_ids": [
+        "e0-ev57",
+        "e0-ev58"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    }
+  },
+  {
+    "command": {
+      "request_id": "apply-decision-da7656d8028028c9d9ddf63335cbf46a",
+      "actor": {
+        "actor_id": "b-policy-worker",
+        "role": "system",
+        "owner_id": null
+      },
+      "operation": "decision.commit",
+      "parameters": {
+        "kind": "decision.commit",
+        "plan": {
+          "decision_id": "decision-da7656d8028028c9d9ddf63335cbf46a",
+          "snapshot_version": {
+            "epoch": 0,
+            "revision": 52
+          },
+          "decision_at": 3628800.0,
+          "policy": {
+            "name": "P",
+            "version": "0.2.0",
+            "sha256": "fd11f04ca275e71350b27e62f11c97d46d7d4f3c5b4c1d046a1458b75b4d3423",
+            "uri": null
+          },
+          "model": {
+            "name": "single-node-current-snapshot",
+            "version": "1.0.0",
+            "sha256": "65f254616927cb3ff3ab92cb6b046e29211b7bb552efa55ce5e21341c7ab2631",
+            "uri": null
+          },
+          "candidates": [
+            {
+              "candidate_id": "candidate-18821e5702d6fb4ef28a03e5",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a3",
+              "intent_id": "task-2",
+              "allocation_id": "e0-a3",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-00",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-00"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "infeasible",
+              "violations": [
+                {
+                  "constraint": "gpu_count",
+                  "detail": "Node's available GPU count is below the request.",
+                  "entity": {
+                    "kind": "node",
+                    "entity_id": "node-provider-00"
+                  }
+                },
+                {
+                  "constraint": "gpu_memory",
+                  "detail": "Selected device capacity exceeds available GPU memory accounting.",
+                  "entity": {
+                    "kind": "node",
+                    "entity_id": "node-provider-00"
+                  }
+                },
+                {
+                  "constraint": "gpu_count",
+                  "detail": "Device provider-00 is not free for a new placement.",
+                  "entity": {
+                    "kind": "gpu",
+                    "entity_id": "provider-00"
+                  }
+                }
+              ],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.5,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 6000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 30720.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.0,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-df95c37c4a202a92f1ea37c7",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a3",
+              "intent_id": "task-2",
+              "allocation_id": "e0-a3",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-01",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-01"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "infeasible",
+              "violations": [
+                {
+                  "constraint": "gpu_count",
+                  "detail": "Node's available GPU count is below the request.",
+                  "entity": {
+                    "kind": "node",
+                    "entity_id": "node-provider-01"
+                  }
+                },
+                {
+                  "constraint": "gpu_memory",
+                  "detail": "Selected device capacity exceeds available GPU memory accounting.",
+                  "entity": {
+                    "kind": "node",
+                    "entity_id": "node-provider-01"
+                  }
+                },
+                {
+                  "constraint": "gpu_count",
+                  "detail": "Device provider-01 is not free for a new placement.",
+                  "entity": {
+                    "kind": "gpu",
+                    "entity_id": "provider-01"
+                  }
+                }
+              ],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.5,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 6000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 30720.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.0,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-2bce5c0345c4e8bbc29b6d2b",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a3",
+              "intent_id": "task-2",
+              "allocation_id": "e0-a3",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-02",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-02"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.5,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-8abddd26f71dd698238aec02",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a3",
+              "intent_id": "task-2",
+              "allocation_id": "e0-a3",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-03",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-03"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a3"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.5,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-4106957ee80363ce6ba91765",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a4",
+              "intent_id": "task-3",
+              "allocation_id": "e0-a4",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-00",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-00"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "infeasible",
+              "violations": [
+                {
+                  "constraint": "gpu_count",
+                  "detail": "Node's available GPU count is below the request.",
+                  "entity": {
+                    "kind": "node",
+                    "entity_id": "node-provider-00"
+                  }
+                },
+                {
+                  "constraint": "gpu_memory",
+                  "detail": "Selected device capacity exceeds available GPU memory accounting.",
+                  "entity": {
+                    "kind": "node",
+                    "entity_id": "node-provider-00"
+                  }
+                },
+                {
+                  "constraint": "gpu_count",
+                  "detail": "Device provider-00 is not free for a new placement.",
+                  "entity": {
+                    "kind": "gpu",
+                    "entity_id": "provider-00"
+                  }
+                }
+              ],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.5,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 6000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 30720.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.0,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-d609155936575d248055f105",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a4",
+              "intent_id": "task-3",
+              "allocation_id": "e0-a4",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-01",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-01"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "infeasible",
+              "violations": [
+                {
+                  "constraint": "gpu_count",
+                  "detail": "Node's available GPU count is below the request.",
+                  "entity": {
+                    "kind": "node",
+                    "entity_id": "node-provider-01"
+                  }
+                },
+                {
+                  "constraint": "gpu_memory",
+                  "detail": "Selected device capacity exceeds available GPU memory accounting.",
+                  "entity": {
+                    "kind": "node",
+                    "entity_id": "node-provider-01"
+                  }
+                },
+                {
+                  "constraint": "gpu_count",
+                  "detail": "Device provider-01 is not free for a new placement.",
+                  "entity": {
+                    "kind": "gpu",
+                    "entity_id": "provider-01"
+                  }
+                }
+              ],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.5,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 6000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 30720.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.0,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-999636fe2ebfee6d9d48df7c",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a4",
+              "intent_id": "task-3",
+              "allocation_id": "e0-a4",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-02",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-02"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.5,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-d465dfb479f5f1e08f1279df",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a4",
+              "intent_id": "task-3",
+              "allocation_id": "e0-a4",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-03",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-03"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.5,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.25,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            }
+          ],
+          "coverage": {
+            "scope": "partial",
+            "domain_description": "Recorded known-demand × node × device-count combinations, bounded by max_candidates.",
+            "examined_count": 8,
+            "domain_size": null,
+            "truncation_reason": "Single-node placements only; no cross-node or recovery-budget exhaustiveness."
+          },
+          "selected_candidate_id": "candidate-2bce5c0345c4e8bbc29b6d2b",
+          "rationale": "P uses B1 admission and bounded observed opportunity loss before B2 tie keys. Opportunity component enabled=True; recovery-cost component inactive. Kernel revalidates all placements and recovery eligibility.",
+          "tie_break_rule": "B1 owner-share/priority/arrival admission; observed opportunity loss; B2 compatibility pressure and best-fit keys; node/device IDs.",
+          "asserts_pool_infeasible": false
+        }
+      },
+      "idempotency_key": null,
+      "expected_version": {
+        "epoch": 0,
+        "revision": 52
+      }
+    },
+    "receipt": {
+      "request_id": "apply-decision-da7656d8028028c9d9ddf63335cbf46a",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 53
+      },
+      "logical_time": 3628800.0,
+      "objects": [
+        {
+          "kind": "decision",
+          "entity_id": "decision-da7656d8028028c9d9ddf63335cbf46a"
+        }
+      ],
+      "event_ids": [
+        "e0-ev59",
+        "e0-ev60"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    }
+  },
+  {
+    "command": {
+      "request_id": "apply-decision-8f6243442a8adbd6b6da66470e5b28b3",
+      "actor": {
+        "actor_id": "b-policy-worker",
+        "role": "system",
+        "owner_id": null
+      },
+      "operation": "decision.commit",
+      "parameters": {
+        "kind": "decision.commit",
+        "plan": {
+          "decision_id": "decision-8f6243442a8adbd6b6da66470e5b28b3",
+          "snapshot_version": {
+            "epoch": 0,
+            "revision": 53
+          },
+          "decision_at": 3628800.0,
+          "policy": {
+            "name": "P",
+            "version": "0.2.0",
+            "sha256": "fd11f04ca275e71350b27e62f11c97d46d7d4f3c5b4c1d046a1458b75b4d3423",
+            "uri": null
+          },
+          "model": {
+            "name": "single-node-current-snapshot",
+            "version": "1.0.0",
+            "sha256": "65f254616927cb3ff3ab92cb6b046e29211b7bb552efa55ce5e21341c7ab2631",
+            "uri": null
+          },
+          "candidates": [
+            {
+              "candidate_id": "candidate-4106957ee80363ce6ba91765",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a4",
+              "intent_id": "task-3",
+              "allocation_id": "e0-a4",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-00",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-00"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "infeasible",
+              "violations": [
+                {
+                  "constraint": "gpu_count",
+                  "detail": "Node's available GPU count is below the request.",
+                  "entity": {
+                    "kind": "node",
+                    "entity_id": "node-provider-00"
+                  }
+                },
+                {
+                  "constraint": "gpu_memory",
+                  "detail": "Selected device capacity exceeds available GPU memory accounting.",
+                  "entity": {
+                    "kind": "node",
+                    "entity_id": "node-provider-00"
+                  }
+                },
+                {
+                  "constraint": "gpu_count",
+                  "detail": "Device provider-00 is not free for a new placement.",
+                  "entity": {
+                    "kind": "gpu",
+                    "entity_id": "provider-00"
+                  }
+                }
+              ],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.75,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 6000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 30720.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.0,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-d609155936575d248055f105",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a4",
+              "intent_id": "task-3",
+              "allocation_id": "e0-a4",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-01",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-01"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "infeasible",
+              "violations": [
+                {
+                  "constraint": "gpu_count",
+                  "detail": "Node's available GPU count is below the request.",
+                  "entity": {
+                    "kind": "node",
+                    "entity_id": "node-provider-01"
+                  }
+                },
+                {
+                  "constraint": "gpu_memory",
+                  "detail": "Selected device capacity exceeds available GPU memory accounting.",
+                  "entity": {
+                    "kind": "node",
+                    "entity_id": "node-provider-01"
+                  }
+                },
+                {
+                  "constraint": "gpu_count",
+                  "detail": "Device provider-01 is not free for a new placement.",
+                  "entity": {
+                    "kind": "gpu",
+                    "entity_id": "provider-01"
+                  }
+                }
+              ],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.75,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 6000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 30720.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.0,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-999636fe2ebfee6d9d48df7c",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a4",
+              "intent_id": "task-3",
+              "allocation_id": "e0-a4",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-02",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-02"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "infeasible",
+              "violations": [
+                {
+                  "constraint": "gpu_count",
+                  "detail": "Node's available GPU count is below the request.",
+                  "entity": {
+                    "kind": "node",
+                    "entity_id": "node-provider-02"
+                  }
+                },
+                {
+                  "constraint": "gpu_memory",
+                  "detail": "Selected device capacity exceeds available GPU memory accounting.",
+                  "entity": {
+                    "kind": "node",
+                    "entity_id": "node-provider-02"
+                  }
+                },
+                {
+                  "constraint": "gpu_count",
+                  "detail": "Device provider-02 is not free for a new placement.",
+                  "entity": {
+                    "kind": "gpu",
+                    "entity_id": "provider-02"
+                  }
+                }
+              ],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.75,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 6000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 30720.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.0,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            },
+            {
+              "candidate_id": "candidate-d465dfb479f5f1e08f1279df",
+              "action": "allocate",
+              "owner_id": "alice",
+              "demand_id": "e0-a4",
+              "intent_id": "task-3",
+              "allocation_id": "e0-a4",
+              "attempt": null,
+              "placement": {
+                "slices": [
+                  {
+                    "node_id": "node-provider-03",
+                    "resources": {
+                      "cpu_millicores": 1000,
+                      "memory_mib": 1024,
+                      "ephemeral_storage_mib": 0,
+                      "gpu_count": 1,
+                      "gpu_memory_mib": 40960
+                    },
+                    "device_ids": [
+                      "provider-03"
+                    ]
+                  }
+                ]
+              },
+              "feasibility": "legal",
+              "violations": [],
+              "preconditions": [
+                {
+                  "kind": "owner",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "alice"
+                },
+                {
+                  "kind": "allocation_state",
+                  "entity": {
+                    "kind": "allocation",
+                    "entity_id": "e0-a4"
+                  },
+                  "expected_value": "Pending"
+                }
+              ],
+              "scores": [
+                {
+                  "name": "owner_current_share",
+                  "value": 0.75,
+                  "explanation": "Current occupied dominant share; lower sorts first in B1/B2."
+                },
+                {
+                  "name": "remaining_gpu_count",
+                  "value": 0.0,
+                  "explanation": "Lower residual device count sorts first in best-fit."
+                },
+                {
+                  "name": "excess_gpu_memory_mib",
+                  "value": 39936.0,
+                  "explanation": "Per-device memory above requested minimum; lower sorts first."
+                },
+                {
+                  "name": "remaining_cpu_millicores",
+                  "value": 7000.0,
+                  "explanation": "CPU remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "remaining_memory_mib",
+                  "value": 31744.0,
+                  "explanation": "Memory remainder after placement; stable best-fit tie component."
+                },
+                {
+                  "name": "compatibility_pressure",
+                  "value": 0.0,
+                  "explanation": "Known queued owners' compatible device opportunities consumed; lower first."
+                },
+                {
+                  "name": "observed_opportunity_loss",
+                  "value": 0.0,
+                  "explanation": "Fraction of recorded legal placement alternatives consumed, owner/shape balanced; no future prediction."
+                }
+              ]
+            }
+          ],
+          "coverage": {
+            "scope": "partial",
+            "domain_description": "Recorded known-demand × node × device-count combinations, bounded by max_candidates.",
+            "examined_count": 4,
+            "domain_size": null,
+            "truncation_reason": "Single-node placements only; no cross-node or recovery-budget exhaustiveness."
+          },
+          "selected_candidate_id": "candidate-d465dfb479f5f1e08f1279df",
+          "rationale": "P uses B1 admission and bounded observed opportunity loss before B2 tie keys. Opportunity component enabled=True; recovery-cost component inactive. Kernel revalidates all placements and recovery eligibility.",
+          "tie_break_rule": "B1 owner-share/priority/arrival admission; observed opportunity loss; B2 compatibility pressure and best-fit keys; node/device IDs.",
+          "asserts_pool_infeasible": false
+        }
+      },
+      "idempotency_key": null,
+      "expected_version": {
+        "epoch": 0,
+        "revision": 53
+      }
+    },
+    "receipt": {
+      "request_id": "apply-decision-8f6243442a8adbd6b6da66470e5b28b3",
+      "outcome": "committed",
+      "version": {
+        "epoch": 0,
+        "revision": 54
+      },
+      "logical_time": 3628800.0,
+      "objects": [
+        {
+          "kind": "decision",
+          "entity_id": "decision-8f6243442a8adbd6b6da66470e5b28b3"
+        }
+      ],
+      "event_ids": [
+        "e0-ev61",
+        "e0-ev62"
+      ],
+      "error": null,
+      "idempotency_replayed": false,
+      "original_request_id": null
+    }
+  }
+]

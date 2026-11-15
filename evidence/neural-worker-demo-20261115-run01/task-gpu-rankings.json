@@ -1,0 +1,130 @@
+[
+  {
+    "task_id": "task-0",
+    "device_id": "provider-01",
+    "rank": 1,
+    "predicted_restricted_seconds": 517.1106872558594,
+    "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+    "scope": "task-conditioned; newly opened window; not a contributor promise"
+  },
+  {
+    "task_id": "task-0",
+    "device_id": "provider-03",
+    "rank": 2,
+    "predicted_restricted_seconds": 544.5156555175781,
+    "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+    "scope": "task-conditioned; newly opened window; not a contributor promise"
+  },
+  {
+    "task_id": "task-0",
+    "device_id": "provider-00",
+    "rank": 3,
+    "predicted_restricted_seconds": 583.5410766601562,
+    "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+    "scope": "task-conditioned; newly opened window; not a contributor promise"
+  },
+  {
+    "task_id": "task-0",
+    "device_id": "provider-02",
+    "rank": 3,
+    "predicted_restricted_seconds": 583.5410766601562,
+    "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+    "scope": "task-conditioned; newly opened window; not a contributor promise"
+  },
+  {
+    "task_id": "task-1",
+    "device_id": "provider-03",
+    "rank": 1,
+    "predicted_restricted_seconds": 186.6082763671875,
+    "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+    "scope": "task-conditioned; newly opened window; not a contributor promise"
+  },
+  {
+    "task_id": "task-1",
+    "device_id": "provider-01",
+    "rank": 2,
+    "predicted_restricted_seconds": 193.3219451904297,
+    "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+    "scope": "task-conditioned; newly opened window; not a contributor promise"
+  },
+  {
+    "task_id": "task-1",
+    "device_id": "provider-00",
+    "rank": 3,
+    "predicted_restricted_seconds": 201.9204559326172,
+    "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+    "scope": "task-conditioned; newly opened window; not a contributor promise"
+  },
+  {
+    "task_id": "task-1",
+    "device_id": "provider-02",
+    "rank": 3,
+    "predicted_restricted_seconds": 201.9204559326172,
+    "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+    "scope": "task-conditioned; newly opened window; not a contributor promise"
+  },
+  {
+    "task_id": "task-2",
+    "device_id": "provider-00",
+    "rank": 1,
+    "predicted_restricted_seconds": 24.0,
+    "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+    "scope": "task-conditioned; newly opened window; not a contributor promise"
+  },
+  {
+    "task_id": "task-2",
+    "device_id": "provider-01",
+    "rank": 1,
+    "predicted_restricted_seconds": 24.0,
+    "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+    "scope": "task-conditioned; newly opened window; not a contributor promise"
+  },
+  {
+    "task_id": "task-2",
+    "device_id": "provider-02",
+    "rank": 1,
+    "predicted_restricted_seconds": 24.0,
+    "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+    "scope": "task-conditioned; newly opened window; not a contributor promise"
+  },
+  {
+    "task_id": "task-2",
+    "device_id": "provider-03",
+    "rank": 1,
+    "predicted_restricted_seconds": 24.0,
+    "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+    "scope": "task-conditioned; newly opened window; not a contributor promise"
+  },
+  {
+    "task_id": "task-3",
+    "device_id": "provider-01",
+    "rank": 1,
+    "predicted_restricted_seconds": 162.5929412841797,
+    "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+    "scope": "task-conditioned; newly opened window; not a contributor promise"
+  },
+  {
+    "task_id": "task-3",
+    "device_id": "provider-03",
+    "rank": 2,
+    "predicted_restricted_seconds": 179.0870361328125,
+    "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+    "scope": "task-conditioned; newly opened window; not a contributor promise"
+  },
+  {
+    "task_id": "task-3",
+    "device_id": "provider-00",
+    "rank": 3,
+    "predicted_restricted_seconds": 195.35523986816406,
+    "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+    "scope": "task-conditioned; newly opened window; not a contributor promise"
+  },
+  {
+    "task_id": "task-3",
+    "device_id": "provider-02",
+    "rank": 3,
+    "predicted_restricted_seconds": 195.35523986816406,
+    "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+    "scope": "task-conditioned; newly opened window; not a contributor promise"
+  }
+]

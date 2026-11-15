@@ -1,0 +1,8 @@
+{
+  "status": "FAILED_BEFORE_ANY_POLICY_COMMIT",
+  "error_type": "pydantic.ValidationError",
+  "error": "Independent replay adapter passed lists into strict tuple fields demands/history/metadata; rejected before planning or commit.",
+  "script_sha256": "ac56969444339e4fd1174a2a3f83d4bd16edeccb54862c3dc003d7a485cc9710",
+  "resolution": "Corrected only the new replay adapter to emit tuple fields. Original failed SQLite and setup receipts retained. Same preselected predictable/index0 case rerun in separate run02 directory.",
+  "scope": "Independent local contract replay implementation error; sealed formal neural experiment, trained model, policy code and selected case were unchanged."
+}

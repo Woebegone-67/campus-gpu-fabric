@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "namespace": "local-neural-worker-fixed-case-0",
+  "epoch": 0,
+  "execution_mode": "logical_simulation",
+  "calendar_origin": "logical_day0_monday",
+  "utc_offset_hours": 0.0,
+  "model_sha256": "c7830f8062fb5f700aa73fa2d333bdbdc6ec70413bbe653ed92c366ac12afbeb",
+  "devices": {
+    "provider-00": {
+      "contributor_owner_id": "provider-00",
+      "completed_windows": [
+        {
+          "started_at": 3542400.0,
+          "ended_at": 3542464.0,
+          "available_at": 3542464.0,
+          "duration_seconds": 64.0
+        },
+        {
+          "started_at": 3564000.0,
+          "ended_at": 3564128.0,
+          "available_at": 3564128.0,
+          "duration_seconds": 128.0
+        },
+        {
+          "started_at": 3585600.0,
+          "ended_at": 3585728.0,
+          "available_at": 3585728.0,
+          "duration_seconds": 128.0
+        },
+        {
+          "started_at": 3607200.0,
+          "ended_at": 3607232.0,
+          "available_at": 3607232.0,
+          "duration_seconds": 32.0
+        }
+      ],
+      "current_window_started_at": 3628800.0,
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "notice_seconds": 12.0,
+      "owner_use_seconds": 10.0
+    },
+    "provider-01": {
+      "contributor_owner_id": "provider-01",
+      "completed_windows": [
+        {
+          "started_at": 3542400.0,
+          "ended_at": 3542528.0,
+          "available_at": 3542528.0,
+          "duration_seconds": 128.0
+        },
+        {
+          "started_at": 3564000.0,
+          "ended_at": 3564128.0,
+          "available_at": 3564128.0,
+          "duration_seconds": 128.0
+        },
+        {
+          "started_at": 3585600.0,
+          "ended_at": 3585728.0,
+          "available_at": 3585728.0,
+          "duration_seconds": 128.0
+        },
+        {
+          "started_at": 3607200.0,
+          "ended_at": 3607264.0,
+          "available_at": 3607264.0,
+          "duration_seconds": 64.0
+        }
+      ],
+      "current_window_started_at": 3628800.0,
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "notice_seconds": 12.0,
+      "owner_use_seconds": 10.0
+    },
+    "provider-02": {
+      "contributor_owner_id": "provider-02",
+      "completed_windows": [
+        {
+          "started_at": 3542400.0,
+          "ended_at": 3542464.0,
+          "available_at": 3542464.0,
+          "duration_seconds": 64.0
+        },
+        {
+          "started_at": 3564000.0,
+          "ended_at": 3564128.0,
+          "available_at": 3564128.0,
+          "duration_seconds": 128.0
+        },
+        {
+          "started_at": 3585600.0,
+          "ended_at": 3585728.0,
+          "available_at": 3585728.0,
+          "duration_seconds": 128.0
+        },
+        {
+          "started_at": 3607200.0,
+          "ended_at": 3607232.0,
+          "available_at": 3607232.0,
+          "duration_seconds": 32.0
+        }
+      ],
+      "current_window_started_at": 3628800.0,
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "notice_seconds": 12.0,
+      "owner_use_seconds": 10.0
+    },
+    "provider-03": {
+      "contributor_owner_id": "provider-03",
+      "completed_windows": [
+        {
+          "started_at": 3542400.0,
+          "ended_at": 3542432.0,
+          "available_at": 3542432.0,
+          "duration_seconds": 32.0
+        },
+        {
+          "started_at": 3564000.0,
+          "ended_at": 3564512.0,
+          "available_at": 3564512.0,
+          "duration_seconds": 512.0
+        },
+        {
+          "started_at": 3585600.0,
+          "ended_at": 3585856.0,
+          "available_at": 3585856.0,
+          "duration_seconds": 256.0
+        },
+        {
+          "started_at": 3607200.0,
+          "ended_at": 3607328.0,
+          "available_at": 3607328.0,
+          "duration_seconds": 128.0
+        }
+      ],
+      "current_window_started_at": 3628800.0,
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "notice_seconds": 12.0,
+      "owner_use_seconds": 10.0
+    }
+  },
+  "tasks": {
+    "task-0": {
+      "owner_id": "alice",
+      "specification_sha256": "5b3a7e5031e91f48f0029e64886abc2177336d62c1011d58d5afa3a855066502",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "estimated_compute_seconds": 320.0,
+      "checkpoint_seconds": 0.5,
+      "restart_seconds": 0.5,
+      "stop_seconds": 0.1
+    },
+    "task-1": {
+      "owner_id": "alice",
+      "specification_sha256": "5b3a7e5031e91f48f0029e64886abc2177336d62c1011d58d5afa3a855066502",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "estimated_compute_seconds": 160.0,
+      "checkpoint_seconds": 10.0,
+      "restart_seconds": 0.5,
+      "stop_seconds": 0.1
+    },
+    "task-2": {
+      "owner_id": "alice",
+      "specification_sha256": "5b3a7e5031e91f48f0029e64886abc2177336d62c1011d58d5afa3a855066502",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "estimated_compute_seconds": 24.0,
+      "checkpoint_seconds": 3.0,
+      "restart_seconds": 0.5,
+      "stop_seconds": 0.1
+    },
+    "task-3": {
+      "owner_id": "alice",
+      "specification_sha256": "5b3a7e5031e91f48f0029e64886abc2177336d62c1011d58d5afa3a855066502",
+      "observed_at": 3628800.0,
+      "available_at": 3628800.0,
+      "estimated_compute_seconds": 72.0,
+      "checkpoint_seconds": 18.0,
+      "restart_seconds": 0.5,
+      "stop_seconds": 0.1
+    }
+  }
+}

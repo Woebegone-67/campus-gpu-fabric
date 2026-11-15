@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "outcomes_started": false,
+  "frozen_at_utc": "2026-11-15T02:22:36.396737+00:00",
+  "sha256": {
+    "inputs.json": "882776cd660a3337eaf934ec11dcffd25f42efc6afb322b540f57f49a60660f4",
+    "protocol.json": "d1e37f86de5d356ec9a1c4830d4ae7078fc9f4c905687ed54465a3bcb13ae731",
+    "protocol.md": "2ccff840b67d05bad71d5deb05b465957237a51a7985ad163a4c8651e802947f",
+    "runner.py": "1500118a661ca8eb6f95d5738d119de853e3fe4ef6d73de3d6a2c48ccf57d3a0",
+    "planner.py": "05c5e2bf04c9cc84cfdf4301f32708044665b560866c67d6ce48815806cc839a"
+  }
+}

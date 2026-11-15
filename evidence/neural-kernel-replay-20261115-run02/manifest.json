@@ -1,0 +1,16 @@
+{
+  "RECEIPT.md": "71bfdaaa9cf545b82add11aaad446dc80e1977277b51568477a7520c6c25d9fe",
+  "snapshot-3.json": "f999163b2c9c512aff6e61276554b9290842bea791940a92c2e10056bd6082c0",
+  "allocation.sqlite": "29d3a500cb066bbe32f8959319792fffb5eb84415323a45575d7fa9ad5c18586",
+  "snapshot-2.json": "703ee62830979774722df2c007bac53a381501604e350f24fa402016a34fc4e8",
+  "setup-receipts.json": "3bf9028e227e935bf630e6d6d297af1f7110c5d103e86f63a1487926e5f1c416",
+  "stale-version-receipt.json": "fc6c396375aa634bdc80e8cd1e304756a978ebb3a3a3ca3e02499bb7ef00f709",
+  "stale-version.sqlite": "cff017fe3536eff41b58f6eff9fa989829ad47c5392878bd75b749e9222ac52f",
+  "recall-and-expiry-receipts.json": "88e67b00da66cc3b18c264336e87a1dc402f649e46d74e8b62bcd8afb68a7696",
+  "plans-and-commit-receipts.json": "c74e7ae2789f1e21ef84d20672028d7c1291e2f94ce700c7c3facde6fbb9d794",
+  "snapshot-1.json": "539cb38cb3a67382449e1b03e3cc7b1e02a7a63dfa78f670c248acaf848c121e",
+  "snapshot-0.json": "e5303e392b32489c1250be3e4c870df43cce3b6db714978c3fd855ae19a03190",
+  "observed.json": "bde3f272fb97bf113324b4562a79bd80fc17e08def42009a07f8708192c4e6a1",
+  "task-gpu-rankings.json": "65511b99656e24073ede858adfb205f20e13509c4ff8dab3e65a0f312cca3a9a",
+  "receipt.json": "a4a2f712f391c0d7be988937bc16dcaa019e6360d2c5d38bb42cd781a7be4151"
+}

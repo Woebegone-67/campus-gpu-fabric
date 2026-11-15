@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_NOT_RUN",
+  "frozen_at_utc": "2026-11-15T02:56:50.106128+00:00",
+  "config": {
+    "version": "neural-availability-longitudinal-v1",
+    "seed": 20261115,
+    "warmup_days": 7,
+    "train_days": 28,
+    "validation_days": 7,
+    "test_days": 4,
+    "slots_hours": [
+      0,
+      6,
+      12,
+      18
+    ],
+    "seen_providers": 8,
+    "unseen_providers": 4,
+    "history_limit": 32,
+    "minimum_history": 4,
+    "calendar_windows": 64,
+    "observation_cap_probability": 0.2,
+    "observation_caps_seconds": [
+      64.0,
+      128.0,
+      256.0
+    ],
+    "empirical_iterations": 20,
+    "empirical_pseudocount": 0.5,
+    "horizon_seconds": 900.0,
+    "lease_ttl_seconds": 900.0,
+    "max_recoveries": 2,
+    "owner_use_seconds": 10.0,
+    "notice_seconds": 12.0,
+    "restart_seconds": 0.5,
+    "stop_seconds": 0.1,
+    "declared_compute_seconds": [
+      24.0,
+      72.0,
+      160.0,
+      320.0
+    ],
+    "checkpoint_seconds": [
+      0.5,
+      3.0,
+      10.0,
+      18.0
+    ],
+    "utc_offset_hours": 0.0,
+    "provider_offsets": [
+      -0.65,
+      -0.4,
+      -0.15,
+      0.1,
+      0.3,
+      0.5,
+      0.7,
+      0.9,
+      -0.5,
+      -0.05,
+      0.4,
+      0.8
+    ],
+    "category_center": 3.7,
+    "daily_amplitude": 1.1,
+    "daily_phase": -0.7,
+    "weekday_amplitude": 0.55,
+    "category_noise_scale": 0.8
+  },
+  "groups": [
+    "predictable",
+    "abrupt_shift",
+    "uninformative",
+    "unseen_provider"
+  ],
+  "policies": [
+    "pooled_batch",
+    "provider_batch",
+    "timebucket_batch",
+    "neural_greedy",
+    "neural_batch"
+  ],
+  "training": {
+    "hidden_units": 16,
+    "epochs": 60,
+    "batch_size": 32,
+    "learning_rate": 0.03,
+    "seed": 20261115
+  },
+  "sha256": {
+    "inputs.json": "db118d7060d5a8dc91d28733ff8f18da6238b065b4e0ee4da4214088f7c6e266",
+    "protocol.md": "6d5f82e4690b3193d6582ce37b586fdac9bd8c65e1b80dc751b9aa2329a472c0",
+    "runner.py": "e8b44c3b8519e34fde82c7849d6e1344e807cfa1fb1bbb128623f2e21c8d788f",
+    "model.py": "7e803ab9745050d01b87261041c8a042d15a53f8b1a33704095f428cdd67b4c6",
+    "adapter.py": "f2215c2e0a9b92fc4a79a2129acc48df6198258c79212129055b4fca47d59a85",
+    "renewal.py": "19018185d4ad4d05ae05ff290490933d2a41100c032b80d4f5eb7868a4d121d7",
+    "matching.py": "05c5e2bf04c9cc84cfdf4301f32708044665b560866c67d6ce48815806cc839a",
+    "executor.py": "2341b48a377266853c0014aa7d987920e2b677a87b9bbe06ef83a81dfec271ef"
+  }
+}

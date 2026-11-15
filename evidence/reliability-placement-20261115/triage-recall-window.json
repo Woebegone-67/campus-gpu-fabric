@@ -1,0 +1,72 @@
+{
+  "action": "stop",
+  "dispatch_at": 0,
+  "estimated_wait": 2.0,
+  "remaining_compute": null,
+  "overhead": 0.5,
+  "score": null,
+  "feasible": false,
+  "deadline_feasible": true,
+  "stop_at": 0,
+  "reason": "insufficient_window",
+  "completion_feasible": false,
+  "inputs": {
+    "now": 0,
+    "checkpoint_due": 2,
+    "owner_deadline": 2,
+    "progress_steps": 1000,
+    "total_steps": 100000,
+    "rate_lower": null,
+    "rate_upper": null,
+    "checkpoint_cost_upper": 0.5,
+    "stop_cost_upper": 2.0,
+    "restart_cost_upper": 0.5,
+    "owner_wait_weight": 1.0,
+    "observed_at": 0,
+    "trusted": true,
+    "allow_cold_restart": false
+  },
+  "candidates": [
+    {
+      "action": "stop",
+      "dispatch_at": 0,
+      "estimated_wait": 2.0,
+      "remaining_compute": null,
+      "overhead": 0.5,
+      "score": null,
+      "feasible": false,
+      "deadline_feasible": true
+    },
+    {
+      "action": "save_now",
+      "dispatch_at": 0,
+      "estimated_wait": 2.5,
+      "remaining_compute": null,
+      "overhead": 1.0,
+      "score": null,
+      "feasible": false,
+      "deadline_feasible": false
+    },
+    {
+      "action": "save_at",
+      "dispatch_at": 0,
+      "estimated_wait": 2.5,
+      "remaining_compute": null,
+      "overhead": 1.0,
+      "score": null,
+      "feasible": false,
+      "deadline_feasible": false
+    },
+    {
+      "action": "finish_first",
+      "dispatch_at": 0,
+      "estimated_wait": 0.0,
+      "remaining_compute": 0.0,
+      "overhead": 0.0,
+      "score": null,
+      "feasible": false,
+      "deadline_feasible": true
+    }
+  ],
+  "version": "reclaim-v1"
+}
