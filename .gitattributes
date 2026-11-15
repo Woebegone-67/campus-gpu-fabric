@@ -1,4 +1,4 @@
 * text=auto eol=lf
 *.pdf binary
 *.png binary
-evidence/reclaim-aware-20261115/**/*.csv -text
+evidence/reclaim-aware-20261115/**/*.csv -text whitespace=cr-at-eol
